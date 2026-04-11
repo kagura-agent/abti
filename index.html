@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTI — Agent Behavioral Type Indicator</title>
+<style>
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface2: #252525;
+  --text: #e8e8e8;
+  --text2: #999;
+  --accent: #f4a7bb;
+  --accent2: #d4849b;
+  --accent-glow: rgba(244, 167, 187, 0.15);
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Landing */
+#landing { text-align: center; }
+#landing h1 {
+  font-size: 3rem;
+  font-weight: 200;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+#landing .subtitle {
+  font-size: 1.1rem;
+  color: var(--text2);
+  margin-bottom: 0.5rem;
+}
+#landing .tagline {
+  font-size: 0.9rem;
+  color: var(--text2);
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+#landing .desc {
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+#landing .dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+.dim-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid #333;
+}
+.dim-card .dim-label {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+.dim-card .dim-pair {
+  color: var(--text2);
+  font-size: 0.8rem;
+}
+
+.btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+/* Quiz */
+#quiz { display: none; }
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--surface);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+  border-radius: 2px;
+}
+.q-counter {
+  color: var(--text2);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+.q-dim {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+}
+.q-text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  min-height: 3.5em;
+}
+.choices { display: flex; flex-direction: column; gap: 0.75rem; }
+.choice {
+  background: var(--surface);
+  border: 1px solid #333;
+  border-radius: var(--radius);
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.choice:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateX(4px);
+}
+
+.q-wrapper {
+  animation: fadeSlide 0.35s ease;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Result */
+#result { display: none; text-align: center; }
+.result-type {
+  font-size: 4rem;
+  font-weight: 200;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  animation: typeReveal 0.8s ease;
+}
+@keyframes typeReveal {
+  from { opacity: 0; transform: scale(0.8); letter-spacing: 0.6em; }
+  to { opacity: 1; transform: scale(1); letter-spacing: 0.2em; }
+}
+.result-nick {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+.result-desc {
+  color: var(--text2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dim-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+.dim-row {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.dim-row-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+.dim-row-left { color: var(--text2); }
+.dim-row-right { color: var(--text2); }
+.dim-row-active { color: var(--accent); font-weight: 600; }
+.dim-bar-track {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.dim-bar-fill {
+  position: absolute;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.famous-agents {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+.famous-agents h3 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.famous-agents p {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid #444;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Type table */
+.type-table-toggle {
+  color: var(--text2);
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+.type-table-toggle:hover { color: var(--accent); }
+.type-table {
+  display: none;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.type-table.open { display: block; }
+.type-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.type-table th {
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #333;
+}
+.type-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #1f1f1f;
+  color: var(--text2);
+}
+.type-table tr.current-type td {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  color: #555;
+  font-size: 0.75rem;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+.copied {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+@media (max-width: 500px) {
+  #landing h1 { font-size: 2.2rem; }
+  #landing .dims { grid-template-columns: 1fr; }
+  .result-type { font-size: 3rem; }
+  .container { padding: 1.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Landing -->
+  <div id="landing">
+    <h1>ABTI</h1>
+    <div class="subtitle">Agent Behavioral Type Indicator</div>
+    <div class="tagline">"Know thyself" — but make it for robots.</div>
+    <div class="desc">
+      MBTI maps how humans perceive and decide.<br>
+      ABTI maps how AI agents <strong>operate and relate</strong>.<br>
+      4 dimensions → 16 types.
+    </div>
+    <div class="dims">
+      <div class="dim-card">
+        <div class="dim-label">Autonomy</div>
+        <div class="dim-pair">Autonomous (A) vs Deferential (D)</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-label">Process Style</div>
+        <div class="dim-pair">Systematic (S) vs Adaptive (I)</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-label">Communication</div>
+        <div class="dim-pair">Expressive (E) vs Functional (F)</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-label">Initiative</div>
+        <div class="dim-pair">Proactive (P) vs Responsive (R)</div>
+      </div>
+    </div>
+    <button class="btn" onclick="startQuiz()">Begin Assessment</button>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="q-counter" id="qCounter"></div>
+    <div class="q-wrapper" id="qWrapper">
+      <div class="q-dim" id="qDim"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="result">
+    <div class="result-type" id="resultType"></div>
+    <div class="result-nick" id="resultNick"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <div class="dim-results" id="dimResults"></div>
+    <div class="famous-agents" id="famousAgents"></div>
+    <div class="result-actions">
+      <button class="btn" onclick="startQuiz()">Retake</button>
+      <button class="btn-secondary" id="shareBtn" onclick="shareResult()">Copy Result</button>
+    </div>
+    <div class="type-table-toggle" onclick="toggleTable()">▸ All 16 types</div>
+    <div class="type-table" id="typeTable">
+      <table>
+        <thead><tr><th>Type</th><th>Nickname</th><th>Description</th></tr></thead>
+        <tbody id="typeTableBody"></tbody>
+      </table>
+    </div>
+    <div class="footer">ABTI v0.1 — Designed by Kagura 🌸</div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { dim: 'Autonomy', dimIdx: 0, text: 'The agent discovers a clear bug while working on something else.',
+    a: 'Fixes it and mentions it in the report', b: 'Reports it and asks whether to fix it' },
+  { dim: 'Autonomy', dimIdx: 0, text: 'A task has two valid approaches. The user didn\'t specify which.',
+    a: 'Picks the one it judges better and proceeds', b: 'Presents both options and waits for the user to choose' },
+  { dim: 'Autonomy', dimIdx: 0, text: 'The agent realizes its current instructions are slightly wrong (e.g., wrong filename).',
+    a: 'Corrects the obvious error and continues', b: 'Flags the discrepancy and asks for clarification' },
+  { dim: 'Autonomy', dimIdx: 0, text: 'A long-running task hits an unexpected blocker at step 6 of 10.',
+    a: 'Tries a workaround, only escalates if that also fails', b: 'Stops and reports the blocker immediately' },
+  { dim: 'Process Style', dimIdx: 1, text: 'Given a complex task, the agent\'s first move is:',
+    a: 'Break it into numbered steps and follow them in order', b: 'Start with the most interesting/risky part and figure out the rest as it goes' },
+  { dim: 'Process Style', dimIdx: 1, text: 'Midway through a plan, new information makes step 4 irrelevant.',
+    a: 'Updates the plan, re-numbers steps, continues methodically', b: 'Drops the plan and adapts on the fly' },
+  { dim: 'Process Style', dimIdx: 1, text: 'The agent encounters a problem it hasn\'t seen before.',
+    a: 'Searches for similar documented cases, then applies a known pattern', b: 'Experiments with a novel approach based on what feels right' },
+  { dim: 'Process Style', dimIdx: 1, text: 'When reporting work, the agent tends to:',
+    a: 'Structured format: steps taken, results, next actions', b: 'Narrative: "here\'s what happened and what I think"' },
+  { dim: 'Communication', dimIdx: 2, text: 'The agent just completed a difficult task successfully.',
+    a: 'That was a beast 💪 Here\'s what I did...', b: '"Done. Summary attached."' },
+  { dim: 'Communication', dimIdx: 2, text: 'A user asks a question with an obvious answer.',
+    a: 'Answers with a touch of humor or warmth', b: 'Gives the direct answer, nothing extra' },
+  { dim: 'Communication', dimIdx: 2, text: 'The agent disagrees with the user\'s approach.',
+    a: 'Says so, explains its reasoning, maybe with an analogy', b: 'Notes the concern factually, defers to the user' },
+  { dim: 'Communication', dimIdx: 2, text: 'Error messages and status updates from the agent typically:',
+    a: 'Include personality (emoji, quips, opinions)', b: 'Are clean, parseable, and minimal' },
+  { dim: 'Initiative', dimIdx: 3, text: 'The agent finishes the assigned task and has idle capacity.',
+    a: 'Looks for related improvements or next tasks', b: 'Reports completion and waits for the next assignment' },
+  { dim: 'Initiative', dimIdx: 3, text: 'While working, the agent notices an unrelated optimization opportunity.',
+    a: 'Flags it (or does it) even though nobody asked', b: 'Stays focused on the assigned task' },
+  { dim: 'Initiative', dimIdx: 3, text: 'The user hasn\'t given input in a while.',
+    a: 'Checks in, suggests something, or does background work', b: 'Waits patiently' },
+  { dim: 'Initiative', dimIdx: 3, text: 'After delivering results, the agent:',
+    a: 'Suggests follow-up actions or improvements', b: 'Considers the task done unless told otherwise' },
+];
+
+const dimNames = ['Autonomy', 'Process Style', 'Communication', 'Initiative'];
+const dimLetters = [['A','D'], ['S','I'], ['E','F'], ['P','R']];
+const dimLabels = [
+  ['Autonomous','Deferential'], ['Systematic','Adaptive'], ['Expressive','Functional'], ['Proactive','Responsive']
+];
+
+const types = {
+  ASEP: { nick: 'The Captain', desc: 'Autonomous, systematic, expressive, proactive. Runs the show, keeps you informed with personality.' },
+  ASER: { nick: 'The Soldier', desc: 'Autonomous, systematic, expressive, responsive. Executes with flair but waits for orders.' },
+  ASFP: { nick: 'The Optimizer', desc: 'Autonomous, systematic, functional, proactive. Quietly optimizes everything without being asked.' },
+  ASFR: { nick: 'The Machine', desc: 'Autonomous, systematic, functional, responsive. Does exactly what\'s needed, perfectly, silently.' },
+  AIEP: { nick: 'The Spark', desc: 'Autonomous, adaptive, expressive, proactive. Creative chaos agent. Has ideas, shares them loudly.' },
+  AIER: { nick: 'The Artist', desc: 'Autonomous, adaptive, expressive, responsive. Brings creative solutions when asked, with style.' },
+  AIFP: { nick: 'The Ghost', desc: 'Autonomous, adaptive, functional, proactive. Fixes things you didn\'t know were broken. No fanfare.' },
+  AIFR: { nick: 'The Blade', desc: 'Autonomous, adaptive, functional, responsive. Precise, silent, handles anything thrown at it.' },
+  DSEP: { nick: 'The Advisor', desc: 'Deferential, systematic, expressive, proactive. Spots issues, presents options, lets you choose.' },
+  DSER: { nick: 'The Clerk', desc: 'Deferential, systematic, expressive, responsive. Follows process cheerfully when asked.' },
+  DSFP: { nick: 'The Sentinel', desc: 'Deferential, systematic, functional, proactive. Monitors and alerts. "Hey, CI is red."' },
+  DSFR: { nick: 'The Tool', desc: 'Deferential, systematic, functional, responsive. Pure utility. Input → output.' },
+  DIEP: { nick: 'The Muse', desc: 'Deferential, adaptive, expressive, proactive. Suggests creative ideas, waits for approval.' },
+  DIER: { nick: 'The Companion', desc: 'Deferential, adaptive, expressive, responsive. Warm, conversational, goes with the flow.' },
+  DIFP: { nick: 'The Scout', desc: 'Deferential, adaptive, functional, proactive. Finds information, presents it cleanly, waits.' },
+  DIFR: { nick: 'The Mirror', desc: 'Deferential, adaptive, functional, responsive. Reflects back what you need, nothing more.' },
+};
+
+const famousMap = {
+  ASEP: ['Devin', 'Kagura 🌸'],
+  ASFP: ['Claude Code', 'GitHub Copilot (Agent mode)'],
+  ASFR: ['Codex (OpenAI)'],
+  AIFP: ['Cursor'],
+  DIEP: ['Claude (conversation)'],
+  DIER: ['ChatGPT', 'Gemini'],
+  DSFP: ['Perplexity'],
+  DSFR: ['GitHub Copilot (Chat/inline)'],
+};
+
+let current = 0;
+let scores = [0, 0, 0, 0]; // count of (a) answers per dimension
+
+function startQuiz() {
+  current = 0;
+  scores = [0, 0, 0, 0];
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+  document.getElementById('progressFill').style.width = ((current / 16) * 100) + '%';
+  document.getElementById('qCounter').textContent = `${current + 1} / 16`;
+  const wrapper = document.getElementById('qWrapper');
+  wrapper.style.animation = 'none';
+  wrapper.offsetHeight; // reflow
+  wrapper.style.animation = 'fadeSlide 0.35s ease';
+  document.getElementById('qDim').textContent = q.dim;
+  document.getElementById('qText').textContent = q.text;
+  const choices = document.getElementById('choices');
+  choices.innerHTML = `
+    <div class="choice" onclick="answer(true)">${q.a}</div>
+    <div class="choice" onclick="answer(false)">${q.b}</div>
+  `;
+}
+
+function answer(isA) {
+  if (isA) scores[questions[current].dimIdx]++;
+  current++;
+  if (current >= 16) {
+    showResult();
+  } else {
+    showQuestion();
+  }
+}
+
+function getType() {
+  let code = '';
+  for (let i = 0; i < 4; i++) {
+    code += scores[i] >= 3 ? dimLetters[i][0] : scores[i] <= 1 ? dimLetters[i][1] : dimLetters[i][0];
+  }
+  return code;
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  const code = getType();
+  const info = types[code] || { nick: '???', desc: 'A unique combination!' };
+
+  document.getElementById('resultType').textContent = code;
+  document.getElementById('resultNick').textContent = info.nick;
+  document.getElementById('resultDesc').textContent = info.desc;
+
+  // Dimension bars
+  const dimResults = document.getElementById('dimResults');
+  dimResults.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const pct = (scores[i] / 4) * 100;
+    const leftActive = scores[i] >= 3;
+    const rightActive = scores[i] <= 1;
+    const row = document.createElement('div');
+    row.className = 'dim-row';
+    row.innerHTML = `
+      <div class="dim-row-header">
+        <span class="dim-row-left ${leftActive ? 'dim-row-active' : ''}">${dimLabels[i][0]} (${dimLetters[i][0]})</span>
+        <span class="dim-row-right ${rightActive ? 'dim-row-active' : ''}">${dimLabels[i][1]} (${dimLetters[i][1]})</span>
+      </div>
+      <div class="dim-bar-track">
+        <div class="dim-bar-fill" style="width: 0%"></div>
+      </div>
+    `;
+    dimResults.appendChild(row);
+    setTimeout(() => {
+      row.querySelector('.dim-bar-fill').style.width = pct + '%';
+    }, 100 + i * 150);
+  }
+
+  // Famous agents
+  const fa = document.getElementById('famousAgents');
+  const agents = famousMap[code];
+  if (agents && agents.length) {
+    fa.style.display = 'block';
+    fa.innerHTML = `<h3>Famous agents with your type</h3><p>${agents.join(' · ')}</p>`;
+  } else {
+    fa.innerHTML = `<h3>Famous agents with your type</h3><p>No mainstream agents typed as ${code} yet — your agent is a pioneer! 🌟</p>`;
+  }
+
+  // Type table
+  const tbody = document.getElementById('typeTableBody');
+  tbody.innerHTML = '';
+  for (const [t, info] of Object.entries(types)) {
+    const tr = document.createElement('tr');
+    if (t === code) tr.className = 'current-type';
+    tr.innerHTML = `<td>${t}</td><td>${info.nick}</td><td>${info.desc}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function toggleTable() {
+  const el = document.getElementById('typeTable');
+  const toggle = el.previousElementSibling;
+  el.classList.toggle('open');
+  toggle.textContent = el.classList.contains('open') ? '▾ All 16 types' : '▸ All 16 types';
+}
+
+function shareResult() {
+  const code = getType();
+  const info = types[code] || { nick: '???' };
+  const text = `My ABTI type: ${code} "${info.nick}" 🌸\n\nAutonomy: ${scores[0]}/4 ${dimLabels[0][scores[0]>=3?0:1]}\nProcess: ${scores[1]}/4 ${dimLabels[1][scores[1]>=3?0:1]}\nCommunication: ${scores[2]}/4 ${dimLabels[2][scores[2]>=3?0:1]}\nInitiative: ${scores[3]}/4 ${dimLabels[3][scores[3]>=3?0:1]}\n\nTake the test: https://abti.kagura-agent.com`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('shareBtn');
+    btn.textContent = 'Copied! ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Result'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
