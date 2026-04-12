@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,6 +123,13 @@ body {
 .share-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .share-btn { background: var(--surface2); color: var(--text); border: 1px solid #444; padding: 0.6rem 1.25rem; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: all 0.25s; }
 .share-btn:hover { border-color: var(--accent); color: var(--accent); }
+.screenshot-btn {
+  background: var(--accent); color: #000; border: none;
+  padding: 0.75rem 2rem; font-size: 1rem; font-weight: 600;
+  border-radius: 50px; cursor: pointer; transition: all 0.3s;
+}
+.screenshot-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+.screenshot-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 /* Footer */
 .footer {
@@ -204,7 +211,7 @@ body {
 <nav class="nav">
   <a href="index.html">ABTI</a>
   <a href="sbti-v2.html" class="active">SBTI-AI</a>
-  <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
 </nav>
 
 <div class="container">
@@ -260,10 +267,17 @@ body {
       <ul id="traitsList"></ul>
     </div>
     <div class="share-row">
-      <button class="share-btn" onclick="copyResult()" data-en="Copy Result" data-zh="复制结果">Copy Result</button>
-      <button class="share-btn" onclick="tweetResult()" data-en="Share on X" data-zh="分享到 X">Share on X</button>
+      <button class="share-btn" onclick="copyResult()" data-en="Copy Result" data-zh="复制结果">复制结果</button>
+      <button class="share-btn" onclick="tweetResult()" data-en="Share on X" data-zh="分享到 X">分享到 X</button>
     </div>
-    <button class="btn" onclick="restart()" data-en="Retake Audit" data-zh="重新审计" style="margin-top:0.5rem;">Retake Audit</button>
+    <div id="screenshotRow" style="text-align:center;margin-bottom:1rem;">
+      <button class="screenshot-btn" onclick="saveResultImage()" data-en="Save Result Image 📸" data-zh="保存结果图 📸">保存结果图 📸</button>
+    </div>
+    <div id="screenshotPreview" style="display:none;text-align:center;margin-bottom:1.5rem;">
+      <img id="screenshotImg" style="max-width:100%;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.4);" alt="Result">
+      <p style="color:var(--text2);font-size:0.75rem;margin-top:0.5rem;" data-en="Long press image to save" data-zh="长按图片保存到手机">长按图片保存到手机</p>
+    </div>
+    <button class="btn" onclick="restart()" data-en="Retake Audit" data-zh="重新审计" style="margin-top:0.5rem;">重新审计</button>
   </div>
 
   <div class="footer">
@@ -273,7 +287,7 @@ body {
 
 <script>
 // — State —
-let lang = 'en';
+let lang = 'zh';
 let currentQ = 0;
 let scores = {};
 let questions = [
@@ -710,6 +724,8 @@ function getLevel(score, maxScore) {
 }
 
 function renderResult() {
+  // Reset screenshot preview
+  document.getElementById('screenshotPreview').style.display = 'none';
   // Dimension maxes: verbosity=6 questions * 3 = 18, tools=5*3=15, awareness=5*3=15
   const vScore = scores.verbosity || 0;
   const tScore = scores.tools || 0;
@@ -888,8 +904,66 @@ function restart() {
   scores = {};
   document.querySelectorAll('.emoji-rain').forEach(e => e.remove());
   document.getElementById('result').classList.remove('shake', 'zen-glow');
+  document.getElementById('screenshotPreview').style.display = 'none';
   showSection('landing');
 }
+
+function saveResultImage() {
+  var resultEl = document.getElementById('result');
+  var shareRow = resultEl.querySelector('.share-row');
+  var screenshotRow = document.getElementById('screenshotRow');
+  var retakeBtn = resultEl.querySelector('.btn[onclick="restart()"]');
+  var preview = document.getElementById('screenshotPreview');
+  var footerEl = document.querySelector('.footer');
+
+  // Hide UI elements during capture
+  shareRow.style.display = 'none';
+  screenshotRow.style.display = 'none';
+  retakeBtn.style.display = 'none';
+  preview.style.display = 'none';
+  if (footerEl) footerEl.style.display = 'none';
+
+  html2canvas(resultEl, {
+    backgroundColor: '#0d0d0d',
+    scale: 2,
+    useCORS: true
+  }).then(function(canvas) {
+    // Restore UI
+    shareRow.style.display = '';
+    screenshotRow.style.display = '';
+    retakeBtn.style.display = '';
+    if (footerEl) footerEl.style.display = '';
+
+    canvas.toBlob(function(blob) {
+      // Trigger download
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'SBTI-AI-result.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Show inline for WeChat long-press save
+      var previewImg = document.getElementById('screenshotImg');
+      previewImg.src = URL.createObjectURL(blob);
+      preview.style.display = 'block';
+    }, 'image/png');
+  }).catch(function() {
+    shareRow.style.display = '';
+    screenshotRow.style.display = '';
+    retakeBtn.style.display = '';
+    if (footerEl) footerEl.style.display = '';
+  });
+}
+
+// Init: apply default language to all bilingual elements
+document.querySelectorAll('[data-en]').forEach(function(el) {
+  el.textContent = el.getAttribute('data-' + lang);
+});
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
