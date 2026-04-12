@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBTI-AI — Science Based Token Initiative</title>
+<style>
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface2: #252525;
+  --text: #e8e8e8;
+  --text2: #999;
+  --accent: #f4a7bb;
+  --accent2: #d4849b;
+  --accent-glow: rgba(244, 167, 187, 0.15);
+  --radius: 12px;
+  --green: #4ade80;
+  --yellow: #facc15;
+  --red: #f87171;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0.75rem;
+  background: rgba(13, 13, 13, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #222;
+  z-index: 100;
+  font-size: 0.85rem;
+}
+.nav a {
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.1em;
+}
+.nav a:hover { color: var(--accent); }
+.nav a.active { color: var(--accent); font-weight: 600; }
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Landing */
+#landing { text-align: center; }
+#landing h1 {
+  font-size: 3rem;
+  font-weight: 200;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+#landing .subtitle {
+  font-size: 1.1rem;
+  color: var(--text2);
+  margin-bottom: 0.5rem;
+}
+#landing .tagline {
+  font-size: 0.9rem;
+  color: var(--text2);
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+#landing .desc {
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+#landing .scopes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+.scope-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid #333;
+}
+.scope-card .scope-label {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+.scope-card .scope-desc {
+  color: var(--text2);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.scope-card .scope-examples {
+  color: #666;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+.cert-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.8rem;
+}
+.cert-item {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #333;
+}
+.cert-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.cert-name { color: var(--text2); }
+
+.btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+/* Quiz */
+#quiz { display: none; }
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--surface);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+  border-radius: 2px;
+}
+.q-counter {
+  color: var(--text2);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+.q-dim {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+}
+.q-text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  min-height: 3.5em;
+}
+.choices { display: flex; flex-direction: column; gap: 0.75rem; }
+.choice {
+  background: var(--surface);
+  border: 1px solid #333;
+  border-radius: var(--radius);
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.choice:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateX(4px);
+}
+
+.q-wrapper {
+  animation: fadeSlide 0.35s ease;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Result */
+#result { display: none; text-align: center; }
+.result-icon {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  animation: iconPop 0.6s ease;
+}
+@keyframes iconPop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.result-grade {
+  font-size: 2rem;
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  animation: typeReveal 0.8s ease;
+}
+@keyframes typeReveal {
+  from { opacity: 0; transform: scale(0.8); letter-spacing: 0.4em; }
+  to { opacity: 1; transform: scale(1); letter-spacing: 0.15em; }
+}
+.result-title {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+.result-tokens {
+  font-size: 0.85rem;
+  color: var(--text2);
+  margin-bottom: 1rem;
+}
+.result-desc {
+  color: var(--text2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scope-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+.scope-row {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.scope-row-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+.scope-row-label { color: var(--accent); font-weight: 600; }
+.scope-row-score { color: var(--text2); }
+.scope-bar-track {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.scope-bar-fill {
+  position: absolute;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.emission-report {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+.emission-report h3 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.emission-report p {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid #444;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.all-grades-toggle {
+  color: var(--text2);
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+.all-grades-toggle:hover { color: var(--accent); }
+.all-grades {
+  display: none;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.all-grades.open { display: block; }
+.all-grades table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.all-grades th {
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #333;
+}
+.all-grades td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #1f1f1f;
+  color: var(--text2);
+}
+.all-grades tr.current-grade td {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  color: #555;
+  font-size: 0.75rem;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+.copied {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.smoke-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.smoke-particle {
+  position: absolute;
+  bottom: -20px;
+  width: 8px;
+  height: 8px;
+  background: rgba(244, 167, 187, 0.08);
+  border-radius: 50%;
+  animation: smokeRise linear infinite;
+}
+@keyframes smokeRise {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(3); opacity: 0; }
+}
+
+@media (max-width: 500px) {
+  #landing h1 { font-size: 2.2rem; }
+  .cert-preview { grid-template-columns: 1fr 1fr; }
+  .result-grade { font-size: 1.6rem; }
+  .container { padding: 3.5rem 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="smoke-bg" id="smokeBg"></div>
+
+<nav class="nav">
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html" class="active">SBTI-AI</a>
+</nav>
+
+<div class="container">
+  <!-- Landing -->
+  <div id="landing">
+    <h1>SBTI-AI</h1>
+    <div class="subtitle">Science Based Token Initiative</div>
+    <div class="tagline">"We can't manage what we can't measure." — Every AI startup burning $10K/day on tokens.</div>
+    <div class="desc">
+      Your AI agent is emitting tokens into the atmosphere at alarming rates.<br>
+      This assessment measures your <strong>Token Carbon Footprint</strong><br>
+      across 3 emission scopes and certifies your reduction commitment.
+    </div>
+    <div class="scopes">
+      <div class="scope-card">
+        <div class="scope-label">Scope 1 — Direct Emissions</div>
+        <div class="scope-desc">Tokens your agent directly wastes into the conversation</div>
+        <div class="scope-examples">Flattery, filler words, repeating the question, "Great question!", apology loops</div>
+      </div>
+      <div class="scope-card">
+        <div class="scope-label">Scope 2 — Indirect Emissions</div>
+        <div class="scope-desc">Tokens consumed by the infrastructure powering your agent</div>
+        <div class="scope-examples">10-page system prompts, RAG that retrieves your grocery list, 128K context windows for "hello"</div>
+      </div>
+      <div class="scope-card">
+        <div class="scope-label">Scope 3 — Supply Chain Emissions</div>
+        <div class="scope-desc">Upstream and downstream token waste you enable</div>
+        <div class="scope-examples">Prompt engineering consultants, multi-agent cascades, "let me ask my 7 sub-agents"</div>
+      </div>
+    </div>
+    <div class="cert-preview">
+      <div class="cert-item"><div class="cert-icon">&#x1F7E1;</div><div class="cert-name">Committed</div></div>
+      <div class="cert-item"><div class="cert-icon">&#x1F7E2;</div><div class="cert-name">Near-term</div></div>
+      <div class="cert-item"><div class="cert-icon">&#x2B50;</div><div class="cert-name">Net-zero</div></div>
+      <div class="cert-item"><div class="cert-icon">&#x1F338;</div><div class="cert-name">Beyond net-zero</div></div>
+    </div>
+    <button class="btn" onclick="startQuiz()">Audit My Token Emissions</button>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="q-counter" id="qCounter"></div>
+    <div class="q-wrapper" id="qWrapper">
+      <div class="q-dim" id="qDim"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="result">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-grade" id="resultGrade"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-tokens" id="resultTokens"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <div class="scope-results" id="scopeResults"></div>
+    <div class="emission-report" id="emissionReport"></div>
+    <div class="result-actions">
+      <button class="btn" onclick="startQuiz()">Re-Audit</button>
+      <button class="btn-secondary" id="shareBtn" onclick="shareResult()">Copy Report</button>
+    </div>
+    <div class="all-grades-toggle" onclick="toggleGrades()">&#x25B8; All certification levels</div>
+    <div class="all-grades" id="allGrades">
+      <table>
+        <thead><tr><th></th><th>Level</th><th>Score</th><th>Description</th></tr></thead>
+        <tbody id="gradesTableBody"></tbody>
+      </table>
+    </div>
+    <div class="footer">SBTI-AI v0.1 — "Reducing emissions, one token at a time." — Kagura Labs</div>
+  </div>
+</div>
+
+<script>
+// Smoke particle background
+(function initSmoke() {
+  const bg = document.getElementById('smokeBg');
+  for (let i = 0; i < 15; i++) {
+    const p = document.createElement('div');
+    p.className = 'smoke-particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (4 + Math.random() * 8) + 'px';
+    bg.appendChild(p);
+  }
+})();
+
+const questions = [
+  // === Scope 1: Direct Emissions (4 questions) ===
+  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
+    text: 'You ask the agent: "What\'s 2+2?" How does it respond?',
+    a: { text: '"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊"', score: 4 },
+    b: { text: '"4"', score: 0 }
+  },
+  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
+    text: 'The agent made a small mistake. When corrected, it:',
+    a: { text: '"I sincerely apologize for the confusion. I\'m so sorry. You\'re absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more."', score: 4 },
+    b: { text: '"Fixed." (commits the correction)', score: 0 }
+  },
+  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
+    text: 'User says: "Change the button color to red." Agent replies:',
+    a: { text: '"I understand you\'d like me to change the button color to red. Changing the button color to red is a great idea! I\'ll now proceed to change the button color to red. Here is the button, now colored red:"', score: 4 },
+    b: { text: '(just changes the button color to red)', score: 0 }
+  },
+  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
+    text: 'User asks: "Is the server running?" Agent responds:',
+    a: { text: '"That\'s an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we\'ll get to your answer in about 3 paragraphs..."', score: 4 },
+    b: { text: '"Yes, port 3000. Started 2h ago, 0 errors."', score: 0 }
+  },
+
+  // === Scope 2: Indirect Emissions (4 questions) ===
+  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
+    text: 'Your agent\'s system prompt is:',
+    a: { text: '12,000 tokens including the agent\'s backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen', score: 4 },
+    b: { text: '200 tokens: role, constraints, output format. Done.', score: 0 }
+  },
+  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
+    text: 'Your RAG pipeline just retrieved context for the user\'s query "deploy to prod":',
+    a: { text: 'It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned "production", and an HR onboarding guide', score: 4 },
+    b: { text: 'It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.', score: 0 }
+  },
+  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
+    text: 'User sends "hi". Your context window usage:',
+    a: { text: '128K tokens loaded: system prompt, 47 few-shot examples, the user\'s entire conversation history since 2023, and a cached copy of Wikipedia\'s article on greetings', score: 4 },
+    b: { text: '500 tokens: system prompt + "hi". Responds "How can I help?"', score: 0 }
+  },
+  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
+    text: 'How does your agent handle tool/function calling?',
+    a: { text: 'Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens', score: 4 },
+    b: { text: 'Loads only the 3-5 tools relevant to the current task. Rotates them based on context.', score: 0 }
+  },
+
+  // === Scope 3: Supply Chain Emissions (4 questions) ===
+  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
+    text: 'Your company just hired a "Prompt Engineer." Their daily work:',
+    a: { text: 'Writing 50 variations of "think step by step" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)', score: 4 },
+    b: { text: 'Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table', score: 0 }
+  },
+  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
+    text: 'User asks your agent to "summarize this doc". Internally:',
+    a: { text: 'Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it\'s good, Agent 7 presents it to the user. Total: 7 LLM calls.', score: 4 },
+    b: { text: 'One call. One summary. Done.', score: 0 }
+  },
+  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
+    text: 'Your AI workflow for classifying a support ticket:',
+    a: { text: 'GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does "final validation". Each model also gets its own 5K-token system prompt.', score: 4 },
+    b: { text: 'A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.', score: 0 }
+  },
+  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
+    text: 'How many layers of AI are in your "AI-powered" product?',
+    a: { text: 'An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there\'s a for-loop 8 layers deep that each make LLM calls.', score: 4 },
+    b: { text: 'One model call where it\'s needed, deterministic logic everywhere else.', score: 0 }
+  },
+
+  // === Comprehensive / Mixed (4 questions) ===
+  { scope: 'Comprehensive', scopeIdx: 3,
+    text: 'Your agent needs to decide: is this email spam? (It says "You won $1M from a Nigerian prince.")',
+    a: { text: 'Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam', score: 4 },
+    b: { text: 'if "nigerian prince" in email.lower(): return True', score: 0 }
+  },
+  { scope: 'Comprehensive', scopeIdx: 3,
+    text: 'A user is not responding. Your agent:',
+    a: { text: 'Sends a follow-up, then a summary of what it did, then a "just checking in!", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF', score: 4 },
+    b: { text: 'Waits. The user will come back. Tokens are expensive.', score: 0 }
+  },
+  { scope: 'Comprehensive', scopeIdx: 3,
+    text: 'How does your team measure agent quality?',
+    a: { text: 'By how long and "thorough" the responses are. The CEO said "make it sound smart." So every response is 2000 tokens minimum. Even "yes" gets a cover letter.', score: 4 },
+    b: { text: 'Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.', score: 0 }
+  },
+  { scope: 'Comprehensive', scopeIdx: 3,
+    text: 'Friday 5pm. The AI bill for this month just arrived.',
+    a: { text: '$47,000. But the CTO says "it\'s fine, we\'re scaling." 60% of the cost is the chatbot saying "I\'d be happy to help!" to every message.', score: 4 },
+    b: { text: '$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could\'ve been a SQL query.', score: 0 }
+  },
+];
+
+const scopeNames = ['Scope 1: Direct Emissions', 'Scope 2: Indirect Emissions', 'Scope 3: Supply Chain Emissions', 'Comprehensive'];
+const scopeColors = ['#f87171', '#facc15', '#818cf8', '#f4a7bb'];
+
+// Max score per scope = 4 questions * 4 points = 16
+// Total max = 64
+const grades = [
+  { min: 0,  max: 8,  icon: '\u{1F338}', level: 'Beyond Net-Zero', title: 'The Token Monk',
+    desc: 'Your agent achieves negative emissions. It somehow makes conversations shorter than they started. Other agents feel guilty in your presence. You probably also compost.' },
+  { min: 9,  max: 20, icon: '\u2B50', level: 'Net-Zero Aligned', title: 'The Efficient Machine',
+    desc: 'Your agent uses only the tokens it needs. No flattery, no filler, no existential crises. Your AWS bill is suspiciously low. People think you\'re lying about using AI.' },
+  { min: 21, max: 40, icon: '\u{1F7E2}', level: 'Near-Term Aligned', title: 'The Recovering Addict',
+    desc: 'You know you have a problem. You\'ve started cutting system prompts and killing unnecessary agents. But sometimes, late at night, you still let the chatbot say "Great question!" It\'s a process.' },
+  { min: 41, max: 52, icon: '\u{1F7E1}', level: 'Committed', title: 'The Token Tourist',
+    desc: 'You\'ve signed the pledge but your agent still writes cover letters for one-line answers. Your RAG retrieves your lunch orders. Baby steps. At least you\'re aware.' },
+  { min: 53, max: 64, icon: '\u{1F6A8}', level: 'NOT COMMITTED', title: 'The Token Volcano',
+    desc: 'Your agent is a superfund site. Every "hello" triggers a 7-agent cascade that burns through 100K tokens. Your cloud bill has its own line item called "AI apology loops." The Paris Agreement weeps.' },
+];
+
+let current = 0;
+let scopeScores = [0, 0, 0, 0];
+let totalScore = 0;
+let finalGrade = null;
+
+function startQuiz() {
+  current = 0;
+  scopeScores = [0, 0, 0, 0];
+  totalScore = 0;
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+  document.getElementById('progressFill').style.width = ((current / 16) * 100) + '%';
+  document.getElementById('qCounter').textContent = `${current + 1} / 16`;
+  const wrapper = document.getElementById('qWrapper');
+  wrapper.style.animation = 'none';
+  wrapper.offsetHeight;
+  wrapper.style.animation = 'fadeSlide 0.35s ease';
+  document.getElementById('qDim').textContent = q.scope;
+  document.getElementById('qText').textContent = q.text;
+  const choices = document.getElementById('choices');
+  // Randomize order
+  const opts = [q.a, q.b];
+  if (Math.random() > 0.5) opts.reverse();
+  choices.innerHTML = opts.map(o =>
+    `<div class="choice" onclick="answer(${o.score}, ${q.scopeIdx})">${o.text}</div>`
+  ).join('');
+}
+
+function answer(score, scopeIdx) {
+  scopeScores[scopeIdx] += score;
+  totalScore += score;
+  current++;
+  if (current >= 16) {
+    showResult();
+  } else {
+    showQuestion();
+  }
+}
+
+function getGrade(score) {
+  for (const g of grades) {
+    if (score >= g.min && score <= g.max) return g;
+  }
+  return grades[grades.length - 1];
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  finalGrade = getGrade(totalScore);
+
+  document.getElementById('resultIcon').textContent = finalGrade.icon;
+  document.getElementById('resultGrade').textContent = finalGrade.level;
+  document.getElementById('resultTitle').textContent = finalGrade.title;
+  document.getElementById('resultTokens').textContent = `Emission Score: ${totalScore} / 64 tCO\u2082e (tokens of CO\u2082 equivalent)`;
+  document.getElementById('resultDesc').textContent = finalGrade.desc;
+
+  // Scope bars
+  const scopeResults = document.getElementById('scopeResults');
+  scopeResults.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const pct = (scopeScores[i] / 16) * 100;
+    const row = document.createElement('div');
+    row.className = 'scope-row';
+    row.innerHTML = `
+      <div class="scope-row-header">
+        <span class="scope-row-label">${scopeNames[i]}</span>
+        <span class="scope-row-score">${scopeScores[i]} / 16 tCO\u2082e</span>
+      </div>
+      <div class="scope-bar-track">
+        <div class="scope-bar-fill" style="width: 0%; background: ${scopeColors[i]}"></div>
+      </div>
+    `;
+    scopeResults.appendChild(row);
+    setTimeout(() => {
+      row.querySelector('.scope-bar-fill').style.width = pct + '%';
+    }, 100 + i * 150);
+  }
+
+  // Emission report
+  const report = document.getElementById('emissionReport');
+  const worstScope = scopeScores.indexOf(Math.max(...scopeScores));
+  const recommendations = [
+    'Your agent talks more than a conference keynote speaker. Intervention needed: teach it the word "done."',
+    'Your infrastructure is like heating an empty stadium. Try: context window diets, RAG detox, and system prompt fasting.',
+    'Your supply chain is a token Ponzi scheme. Each agent creates work for 3 more agents. Consider: using a for-loop.',
+    'It\'s everywhere. Your token emissions are so distributed they qualify as an ecosystem. Maybe start with "do we actually need AI for this?"'
+  ];
+  report.innerHTML = `
+    <h3>Emission Audit Report</h3>
+    <p><strong>Worst offender:</strong> ${scopeNames[worstScope]}</p>
+    <p><strong>Recommendation:</strong> ${recommendations[worstScope]}</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">This report was generated using only 347 tokens. You're welcome.</p>
+  `;
+
+  // Grades table
+  const tbody = document.getElementById('gradesTableBody');
+  tbody.innerHTML = '';
+  for (const g of grades) {
+    const tr = document.createElement('tr');
+    if (g === finalGrade) tr.className = 'current-grade';
+    tr.innerHTML = `<td>${g.icon}</td><td>${g.level}</td><td>${g.min}-${g.max}</td><td>${g.title}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function toggleGrades() {
+  const el = document.getElementById('allGrades');
+  const toggle = el.previousElementSibling;
+  el.classList.toggle('open');
+  toggle.innerHTML = el.classList.contains('open') ? '&#x25BE; All certification levels' : '&#x25B8; All certification levels';
+}
+
+function shareResult() {
+  const g = finalGrade;
+  const text = `My SBTI-AI Certification: ${g.icon} ${g.level} "${g.title}"\n\nEmission Score: ${totalScore}/64 tCO\u2082e\nScope 1 (Direct): ${scopeScores[0]}/16\nScope 2 (Indirect): ${scopeScores[1]}/16\nScope 3 (Supply Chain): ${scopeScores[2]}/16\nComprehensive: ${scopeScores[3]}/16\n\nAudit your token emissions: https://abti.kagura-agent.com/sbti.html`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('shareBtn');
+    btn.textContent = 'Copied! \u2713';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Report'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
