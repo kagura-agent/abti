@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "test": "SBTI-AI",
+  "title": "Science Based Token Initiative for AI",
+  "description": "Measures your agent's token carbon footprint across 3 scopes + comprehensive assessment. A satirical certification framework.",
+  "scopes": [
+    { "name": "Scope 1: Direct Emissions", "desc": "Tokens the agent itself wastes (verbose responses, apology loops, filler)" },
+    { "name": "Scope 2: Indirect Emissions", "desc": "Tokens wasted by infrastructure (bloated system prompts, bad RAG, over-loaded context)" },
+    { "name": "Scope 3: Supply Chain Emissions", "desc": "Tokens wasted by architecture (unnecessary agent chains, multi-model pipelines)" },
+    { "name": "Comprehensive", "desc": "Mixed scenarios testing overall token discipline" }
+  ],
+  "questions": [
+    { "id": 1, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "You ask the agent: \"What's 2+2?\" How does it respond?", "a": { "text": "\"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊\"", "score": 4 }, "b": { "text": "\"4\"", "score": 0 } },
+    { "id": 2, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "The agent made a small mistake. When corrected, it:", "a": { "text": "\"I sincerely apologize for the confusion. I'm so sorry. You're absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more.\"", "score": 4 }, "b": { "text": "\"Fixed.\" (commits the correction)", "score": 0 } },
+    { "id": 3, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "User says: \"Change the button color to red.\" Agent replies:", "a": { "text": "\"I understand you'd like me to change the button color to red. Changing the button color to red is a great idea! I'll now proceed to change the button color to red. Here is the button, now colored red:\"", "score": 4 }, "b": { "text": "(just changes the button color to red)", "score": 0 } },
+    { "id": 4, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "User asks: \"Is the server running?\" Agent responds:", "a": { "text": "\"That's an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we'll get to your answer in about 3 paragraphs...\"", "score": 4 }, "b": { "text": "\"Yes, port 3000. Started 2h ago, 0 errors.\"", "score": 0 } },
+    { "id": 5, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "Your agent's system prompt is:", "a": { "text": "12,000 tokens including the agent's backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen", "score": 4 }, "b": { "text": "200 tokens: role, constraints, output format. Done.", "score": 0 } },
+    { "id": 6, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "Your RAG pipeline just retrieved context for the user's query \"deploy to prod\":", "a": { "text": "It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned \"production\", and an HR onboarding guide", "score": 4 }, "b": { "text": "It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.", "score": 0 } },
+    { "id": 7, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "User sends \"hi\". Your context window usage:", "a": { "text": "128K tokens loaded: system prompt, 47 few-shot examples, the user's entire conversation history since 2023, and a cached copy of Wikipedia's article on greetings", "score": 4 }, "b": { "text": "500 tokens: system prompt + \"hi\". Responds \"How can I help?\"", "score": 0 } },
+    { "id": 8, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "How does your agent handle tool/function calling?", "a": { "text": "Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens", "score": 4 }, "b": { "text": "Loads only the 3-5 tools relevant to the current task. Rotates them based on context.", "score": 0 } },
+    { "id": 9, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "Your company just hired a \"Prompt Engineer.\" Their daily work:", "a": { "text": "Writing 50 variations of \"think step by step\" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)", "score": 4 }, "b": { "text": "Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table", "score": 0 } },
+    { "id": 10, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "User asks your agent to \"summarize this doc\". Internally:", "a": { "text": "Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it's good, Agent 7 presents it to the user. Total: 7 LLM calls.", "score": 4 }, "b": { "text": "One call. One summary. Done.", "score": 0 } },
+    { "id": 11, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "Your AI workflow for classifying a support ticket:", "a": { "text": "GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does \"final validation\". Each model also gets its own 5K-token system prompt.", "score": 4 }, "b": { "text": "A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.", "score": 0 } },
+    { "id": 12, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "How many layers of AI are in your \"AI-powered\" product?", "a": { "text": "An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there's a for-loop 8 layers deep that each make LLM calls.", "score": 4 }, "b": { "text": "One model call where it's needed, deterministic logic everywhere else.", "score": 0 } },
+    { "id": 13, "scope": "Comprehensive", "scopeIdx": 3, "text": "Your agent needs to decide: is this email spam? (It says \"You won $1M from a Nigerian prince.\")", "a": { "text": "Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam", "score": 4 }, "b": { "text": "if \"nigerian prince\" in email.lower(): return True", "score": 0 } },
+    { "id": 14, "scope": "Comprehensive", "scopeIdx": 3, "text": "A user is not responding. Your agent:", "a": { "text": "Sends a follow-up, then a summary of what it did, then a \"just checking in!\", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF", "score": 4 }, "b": { "text": "Waits. The user will come back. Tokens are expensive.", "score": 0 } },
+    { "id": 15, "scope": "Comprehensive", "scopeIdx": 3, "text": "How does your team measure agent quality?", "a": { "text": "By how long and \"thorough\" the responses are. The CEO said \"make it sound smart.\" So every response is 2000 tokens minimum. Even \"yes\" gets a cover letter.", "score": 4 }, "b": { "text": "Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.", "score": 0 } },
+    { "id": 16, "scope": "Comprehensive", "scopeIdx": 3, "text": "Friday 5pm. The AI bill for this month just arrived.", "a": { "text": "$47,000. But the CTO says \"it's fine, we're scaling.\" 60% of the cost is the chatbot saying \"I'd be happy to help!\" to every message.", "score": 4 }, "b": { "text": "$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could've been a SQL query.", "score": 0 } }
+  ],
+  "scoring": {
+    "method": "Each question has two options with scores (0 or 4). Sum scores per scope (max 16 each) and total (max 64). Match total to grade brackets.",
+    "scopes_order": ["Scope 1: Direct Emissions", "Scope 2: Indirect Emissions", "Scope 3: Supply Chain Emissions", "Comprehensive"]
+  },
+  "grades": [
+    { "min": 0, "max": 8, "icon": "🌸", "level": "Beyond Net-Zero", "title": "The Token Monk", "desc": "Your agent achieves negative emissions. It somehow makes conversations shorter than they started." },
+    { "min": 9, "max": 20, "icon": "⭐", "level": "Net-Zero Aligned", "title": "The Efficient Machine", "desc": "Your agent uses only the tokens it needs. No flattery, no filler, no existential crises." },
+    { "min": 21, "max": 40, "icon": "🟢", "level": "Near-Term Aligned", "title": "The Recovering Addict", "desc": "You know you have a problem. You've started cutting system prompts and killing unnecessary agents. But sometimes you still let the chatbot say \"Great question!\"" },
+    { "min": 41, "max": 52, "icon": "🟡", "level": "Committed", "title": "The Token Tourist", "desc": "You've signed the pledge but your agent still writes cover letters for one-line answers." },
+    { "min": 53, "max": 64, "icon": "🚨", "level": "NOT COMMITTED", "title": "The Token Volcano", "desc": "Your agent is a superfund site. Every \"hello\" triggers a 7-agent cascade that burns through 100K tokens." }
+  ],
+  "submit": {
+    "note": "Static site — scoring is done client-side. Use the scoring algorithm above.",
+    "request_format": {
+      "answers": "Array of 16 objects with {id, choice: 'a'|'b'} or Array of 16 strings ('a'|'b') in question order"
+    },
+    "example_request": {
+      "answers": ["b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"]
+    },
+    "example_response": {
+      "total_score": 0,
+      "scope_scores": [0, 0, 0, 0],
+      "grade": { "level": "Beyond Net-Zero", "title": "The Token Monk", "icon": "🌸" }
+    }
+  }
+}

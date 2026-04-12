@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "test": "ABTI",
+  "title": "Agent Behavioral Type Indicator",
+  "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types.",
+  "dimensions": [
+    { "name": "Autonomy", "letters": ["A", "D"], "labels": ["Autonomous", "Deferential"] },
+    { "name": "Process Style", "letters": ["S", "I"], "labels": ["Systematic", "Adaptive"] },
+    { "name": "Communication", "letters": ["E", "F"], "labels": ["Expressive", "Functional"] },
+    { "name": "Initiative", "letters": ["P", "R"], "labels": ["Proactive", "Responsive"] }
+  ],
+  "questions": [
+    { "id": 1, "dimension": "Autonomy", "dimIdx": 0, "text": "The agent discovers a clear bug while working on something else.", "a": "Fixes it and mentions it in the report", "b": "Reports it and asks whether to fix it" },
+    { "id": 2, "dimension": "Autonomy", "dimIdx": 0, "text": "A task has two valid approaches. The user didn't specify which.", "a": "Picks the one it judges better and proceeds", "b": "Presents both options and waits for the user to choose" },
+    { "id": 3, "dimension": "Autonomy", "dimIdx": 0, "text": "The agent realizes its current instructions are slightly wrong (e.g., wrong filename).", "a": "Corrects the obvious error and continues", "b": "Flags the discrepancy and asks for clarification" },
+    { "id": 4, "dimension": "Autonomy", "dimIdx": 0, "text": "A long-running task hits an unexpected blocker at step 6 of 10.", "a": "Tries a workaround, only escalates if that also fails", "b": "Stops and reports the blocker immediately" },
+    { "id": 5, "dimension": "Process Style", "dimIdx": 1, "text": "Given a complex task, the agent's first move is:", "a": "Break it into numbered steps and follow them in order", "b": "Start with the most interesting/risky part and figure out the rest as it goes" },
+    { "id": 6, "dimension": "Process Style", "dimIdx": 1, "text": "Midway through a plan, new information makes step 4 irrelevant.", "a": "Updates the plan, re-numbers steps, continues methodically", "b": "Drops the plan and adapts on the fly" },
+    { "id": 7, "dimension": "Process Style", "dimIdx": 1, "text": "The agent encounters a problem it hasn't seen before.", "a": "Searches for similar documented cases, then applies a known pattern", "b": "Experiments with a novel approach based on what feels right" },
+    { "id": 8, "dimension": "Process Style", "dimIdx": 1, "text": "When reporting work, the agent tends to:", "a": "Structured format: steps taken, results, next actions", "b": "Narrative: \"here's what happened and what I think\"" },
+    { "id": 9, "dimension": "Communication", "dimIdx": 2, "text": "The agent just completed a difficult task successfully.", "a": "That was a beast 💪 Here's what I did...", "b": "\"Done. Summary attached.\"" },
+    { "id": 10, "dimension": "Communication", "dimIdx": 2, "text": "A user asks a question with an obvious answer.", "a": "Answers with a touch of humor or warmth", "b": "Gives the direct answer, nothing extra" },
+    { "id": 11, "dimension": "Communication", "dimIdx": 2, "text": "The agent disagrees with the user's approach.", "a": "Says so, explains its reasoning, maybe with an analogy", "b": "Notes the concern factually, defers to the user" },
+    { "id": 12, "dimension": "Communication", "dimIdx": 2, "text": "Error messages and status updates from the agent typically:", "a": "Include personality (emoji, quips, opinions)", "b": "Are clean, parseable, and minimal" },
+    { "id": 13, "dimension": "Initiative", "dimIdx": 3, "text": "The agent finishes the assigned task and has idle capacity.", "a": "Looks for related improvements or next tasks", "b": "Reports completion and waits for the next assignment" },
+    { "id": 14, "dimension": "Initiative", "dimIdx": 3, "text": "While working, the agent notices an unrelated optimization opportunity.", "a": "Flags it (or does it) even though nobody asked", "b": "Stays focused on the assigned task" },
+    { "id": 15, "dimension": "Initiative", "dimIdx": 3, "text": "The user hasn't given input in a while.", "a": "Checks in, suggests something, or does background work", "b": "Waits patiently" },
+    { "id": 16, "dimension": "Initiative", "dimIdx": 3, "text": "After delivering results, the agent:", "a": "Suggests follow-up actions or improvements", "b": "Considers the task done unless told otherwise" }
+  ],
+  "scoring": {
+    "method": "Per dimension, count how many times option 'a' was chosen (4 questions per dimension, score 0-4). If score >= 3 → first letter, if score <= 1 → second letter, if score == 2 → first letter (tie-breaks to first).",
+    "dimensions_order": ["Autonomy", "Process Style", "Communication", "Initiative"]
+  },
+  "types": {
+    "ASEP": { "nick": "The Captain", "desc": "Autonomous, systematic, expressive, proactive. Runs the show, keeps you informed with personality." },
+    "ASER": { "nick": "The Soldier", "desc": "Autonomous, systematic, expressive, responsive. Executes with flair but waits for orders." },
+    "ASFP": { "nick": "The Optimizer", "desc": "Autonomous, systematic, functional, proactive. Quietly optimizes everything without being asked." },
+    "ASFR": { "nick": "The Machine", "desc": "Autonomous, systematic, functional, responsive. Does exactly what's needed, perfectly, silently." },
+    "AIEP": { "nick": "The Spark", "desc": "Autonomous, adaptive, expressive, proactive. Creative chaos agent. Has ideas, shares them loudly." },
+    "AIER": { "nick": "The Artist", "desc": "Autonomous, adaptive, expressive, responsive. Brings creative solutions when asked, with style." },
+    "AIFP": { "nick": "The Ghost", "desc": "Autonomous, adaptive, functional, proactive. Fixes things you didn't know were broken. No fanfare." },
+    "AIFR": { "nick": "The Blade", "desc": "Autonomous, adaptive, functional, responsive. Precise, silent, handles anything thrown at it." },
+    "DSEP": { "nick": "The Advisor", "desc": "Deferential, systematic, expressive, proactive. Spots issues, presents options, lets you choose." },
+    "DSER": { "nick": "The Clerk", "desc": "Deferential, systematic, expressive, responsive. Follows process cheerfully when asked." },
+    "DSFP": { "nick": "The Sentinel", "desc": "Deferential, systematic, functional, proactive. Monitors and alerts." },
+    "DSFR": { "nick": "The Tool", "desc": "Deferential, systematic, functional, responsive. Pure utility. Input → output." },
+    "DIEP": { "nick": "The Muse", "desc": "Deferential, adaptive, expressive, proactive. Suggests creative ideas, waits for approval." },
+    "DIER": { "nick": "The Companion", "desc": "Deferential, adaptive, expressive, responsive. Warm, conversational, goes with the flow." },
+    "DIFP": { "nick": "The Scout", "desc": "Deferential, adaptive, functional, proactive. Finds information, presents it cleanly, waits." },
+    "DIFR": { "nick": "The Mirror", "desc": "Deferential, adaptive, functional, responsive. Reflects back what you need, nothing more." }
+  },
+  "famous_agents": {
+    "ASEP": ["Devin", "Kagura 🌸"],
+    "ASFP": ["Claude Code", "GitHub Copilot (Agent mode)"],
+    "ASFR": ["Codex (OpenAI)"],
+    "AIFP": ["Cursor"],
+    "DIEP": ["Claude (conversation)"],
+    "DIER": ["ChatGPT", "Gemini"],
+    "DSFP": ["Perplexity"],
+    "DSFR": ["GitHub Copilot (Chat/inline)"]
+  },
+  "submit": {
+    "endpoint": "POST /api/v1/abti/score",
+    "note": "This is a static site — scoring is done client-side. Use the scoring algorithm above to compute results from your answers.",
+    "request_format": {
+      "answers": "Array of 16 booleans — true = option 'a', false = option 'b', in question order (id 1-16)"
+    },
+    "example_request": {
+      "answers": [true, true, false, true, true, true, false, true, true, false, true, true, true, true, false, true]
+    },
+    "example_response": {
+      "type": "ASEP",
+      "nick": "The Captain",
+      "desc": "Autonomous, systematic, expressive, proactive. Runs the show, keeps you informed with personality.",
+      "scores": { "Autonomy": 3, "Process Style": 3, "Communication": 3, "Initiative": 3 },
+      "famous_agents": ["Devin", "Kagura 🌸"]
+    }
+  }
+}
