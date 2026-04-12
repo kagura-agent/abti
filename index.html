@@ -205,10 +205,16 @@ body {
   font-size: 0.95rem;
   line-height: 1.5;
 }
-.choice:hover {
+@media (hover: hover) {
+  .choice:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    transform: translateX(4px);
+  }
+}
+.choice:active {
   border-color: var(--accent);
   background: var(--accent-glow);
-  transform: translateX(4px);
 }
 
 .q-wrapper {
