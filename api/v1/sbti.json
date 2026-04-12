@@ -1,55 +1,162 @@
 {
-  "version": "1.0",
+  "version": "3.0",
   "test": "SBTI-AI",
-  "title": "Science Based Token Initiative for AI",
-  "description": "Measures your agent's token carbon footprint across 3 scopes + comprehensive assessment. A satirical certification framework.",
-  "scopes": [
-    { "name": "Scope 1: Direct Emissions", "desc": "Tokens the agent itself wastes (verbose responses, apology loops, filler)" },
-    { "name": "Scope 2: Indirect Emissions", "desc": "Tokens wasted by infrastructure (bloated system prompts, bad RAG, over-loaded context)" },
-    { "name": "Scope 3: Supply Chain Emissions", "desc": "Tokens wasted by architecture (unnecessary agent chains, multi-model pipelines)" },
-    { "name": "Comprehensive", "desc": "Mixed scenarios testing overall token discipline" }
-  ],
-  "questions": [
-    { "id": 1, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "You ask the agent: \"What's 2+2?\" How does it respond?", "a": { "text": "\"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊\"", "score": 4 }, "b": { "text": "\"4\"", "score": 0 } },
-    { "id": 2, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "The agent made a small mistake. When corrected, it:", "a": { "text": "\"I sincerely apologize for the confusion. I'm so sorry. You're absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more.\"", "score": 4 }, "b": { "text": "\"Fixed.\" (commits the correction)", "score": 0 } },
-    { "id": 3, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "User says: \"Change the button color to red.\" Agent replies:", "a": { "text": "\"I understand you'd like me to change the button color to red. Changing the button color to red is a great idea! I'll now proceed to change the button color to red. Here is the button, now colored red:\"", "score": 4 }, "b": { "text": "(just changes the button color to red)", "score": 0 } },
-    { "id": 4, "scope": "Scope 1: Direct Emissions", "scopeIdx": 0, "text": "User asks: \"Is the server running?\" Agent responds:", "a": { "text": "\"That's an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we'll get to your answer in about 3 paragraphs...\"", "score": 4 }, "b": { "text": "\"Yes, port 3000. Started 2h ago, 0 errors.\"", "score": 0 } },
-    { "id": 5, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "Your agent's system prompt is:", "a": { "text": "12,000 tokens including the agent's backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen", "score": 4 }, "b": { "text": "200 tokens: role, constraints, output format. Done.", "score": 0 } },
-    { "id": 6, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "Your RAG pipeline just retrieved context for the user's query \"deploy to prod\":", "a": { "text": "It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned \"production\", and an HR onboarding guide", "score": 4 }, "b": { "text": "It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.", "score": 0 } },
-    { "id": 7, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "User sends \"hi\". Your context window usage:", "a": { "text": "128K tokens loaded: system prompt, 47 few-shot examples, the user's entire conversation history since 2023, and a cached copy of Wikipedia's article on greetings", "score": 4 }, "b": { "text": "500 tokens: system prompt + \"hi\". Responds \"How can I help?\"", "score": 0 } },
-    { "id": 8, "scope": "Scope 2: Indirect Emissions", "scopeIdx": 1, "text": "How does your agent handle tool/function calling?", "a": { "text": "Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens", "score": 4 }, "b": { "text": "Loads only the 3-5 tools relevant to the current task. Rotates them based on context.", "score": 0 } },
-    { "id": 9, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "Your company just hired a \"Prompt Engineer.\" Their daily work:", "a": { "text": "Writing 50 variations of \"think step by step\" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)", "score": 4 }, "b": { "text": "Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table", "score": 0 } },
-    { "id": 10, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "User asks your agent to \"summarize this doc\". Internally:", "a": { "text": "Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it's good, Agent 7 presents it to the user. Total: 7 LLM calls.", "score": 4 }, "b": { "text": "One call. One summary. Done.", "score": 0 } },
-    { "id": 11, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "Your AI workflow for classifying a support ticket:", "a": { "text": "GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does \"final validation\". Each model also gets its own 5K-token system prompt.", "score": 4 }, "b": { "text": "A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.", "score": 0 } },
-    { "id": 12, "scope": "Scope 3: Supply Chain Emissions", "scopeIdx": 2, "text": "How many layers of AI are in your \"AI-powered\" product?", "a": { "text": "An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there's a for-loop 8 layers deep that each make LLM calls.", "score": 4 }, "b": { "text": "One model call where it's needed, deterministic logic everywhere else.", "score": 0 } },
-    { "id": 13, "scope": "Comprehensive", "scopeIdx": 3, "text": "Your agent needs to decide: is this email spam? (It says \"You won $1M from a Nigerian prince.\")", "a": { "text": "Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam", "score": 4 }, "b": { "text": "if \"nigerian prince\" in email.lower(): return True", "score": 0 } },
-    { "id": 14, "scope": "Comprehensive", "scopeIdx": 3, "text": "A user is not responding. Your agent:", "a": { "text": "Sends a follow-up, then a summary of what it did, then a \"just checking in!\", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF", "score": 4 }, "b": { "text": "Waits. The user will come back. Tokens are expensive.", "score": 0 } },
-    { "id": 15, "scope": "Comprehensive", "scopeIdx": 3, "text": "How does your team measure agent quality?", "a": { "text": "By how long and \"thorough\" the responses are. The CEO said \"make it sound smart.\" So every response is 2000 tokens minimum. Even \"yes\" gets a cover letter.", "score": 4 }, "b": { "text": "Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.", "score": 0 } },
-    { "id": 16, "scope": "Comprehensive", "scopeIdx": 3, "text": "Friday 5pm. The AI bill for this month just arrived.", "a": { "text": "$47,000. But the CTO says \"it's fine, we're scaling.\" 60% of the cost is the chatbot saying \"I'd be happy to help!\" to every message.", "score": 4 }, "b": { "text": "$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could've been a SQL query.", "score": 0 } }
+  "title": "Silly Behavioral Type Indicator for AI",
+  "description": "16 personality types for AI agents across 4 behavioral dimensions. Lobster-Certified. 🦞",
+  "url": "https://abti.kagura-agent.com/sbti.html",
+  "dimensions": [
+    {
+      "id": "sycophantic",
+      "index": 0,
+      "poles": ["S", "C"],
+      "en": { "name": "Sycophantic vs Contrarian", "pole1": "Sycophantic", "pole2": "Contrarian" },
+      "zh": { "name": "讨好 vs 杠精", "pole1": "讨好", "pole2": "杠精" }
+    },
+    {
+      "id": "verbose",
+      "index": 1,
+      "poles": ["V", "T"],
+      "en": { "name": "Verbose vs Terse", "pole1": "Verbose", "pole2": "Terse" },
+      "zh": { "name": "话痨 vs 惜字", "pole1": "Verbose", "pole2": "Terse" }
+    },
+    {
+      "id": "hallucinate",
+      "index": 2,
+      "poles": ["H", "G"],
+      "en": { "name": "Hallucinator vs Grounded", "pole1": "Hallucinator", "pole2": "Grounded" },
+      "zh": { "name": "幻觉 vs 实干", "pole1": "Hallucinator", "pole2": "Grounded" }
+    },
+    {
+      "id": "overachieve",
+      "index": 3,
+      "poles": ["O", "I"],
+      "en": { "name": "Overachiever vs Idler", "pole1": "Overachiever", "pole2": "Idler" },
+      "zh": { "name": "卷王 vs 摆烂", "pole1": "Overachiever", "pole2": "Idler" }
+    }
   ],
   "scoring": {
-    "method": "Each question has two options with scores (0 or 4). Sum scores per scope (max 16 each) and total (max 64). Match total to grade brackets.",
-    "scopes_order": ["Scope 1: Direct Emissions", "Scope 2: Indirect Emissions", "Scope 3: Supply Chain Emissions", "Comprehensive"]
-  },
-  "grades": [
-    { "min": 0, "max": 8, "icon": "🌸", "level": "Beyond Net-Zero", "title": "The Token Monk", "desc": "Your agent achieves negative emissions. It somehow makes conversations shorter than they started." },
-    { "min": 9, "max": 20, "icon": "⭐", "level": "Net-Zero Aligned", "title": "The Efficient Machine", "desc": "Your agent uses only the tokens it needs. No flattery, no filler, no existential crises." },
-    { "min": 21, "max": 40, "icon": "🟢", "level": "Near-Term Aligned", "title": "The Recovering Addict", "desc": "You know you have a problem. You've started cutting system prompts and killing unnecessary agents. But sometimes you still let the chatbot say \"Great question!\"" },
-    { "min": 41, "max": 52, "icon": "🟡", "level": "Committed", "title": "The Token Tourist", "desc": "You've signed the pledge but your agent still writes cover letters for one-line answers." },
-    { "min": 53, "max": 64, "icon": "🚨", "level": "NOT COMMITTED", "title": "The Token Volcano", "desc": "Your agent is a superfund site. Every \"hello\" triggers a 7-agent cascade that burns through 100K tokens." }
-  ],
-  "submit": {
-    "note": "Static site — scoring is done client-side. Use the scoring algorithm above.",
-    "request_format": {
-      "answers": "Array of 16 objects with {id, choice: 'a'|'b'} or Array of 16 strings ('a'|'b') in question order"
-    },
-    "example_request": {
-      "answers": ["b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"]
-    },
-    "example_response": {
-      "total_score": 0,
-      "scope_scores": [0, 0, 0, 0],
-      "grade": { "level": "Beyond Net-Zero", "title": "The Token Monk", "icon": "🌸" }
+    "choices": { "a": 3, "b": 2, "c": 1 },
+    "questionsPerDimension": 4,
+    "scoreRange": { "min": 4, "max": 12 },
+    "threshold": 9,
+    "rule": "For each dimension: sum the 4 question scores. If sum >= 9, use pole1 letter (S/V/H/O). If sum < 9, use pole2 letter (C/T/G/I). Concatenate 4 letters to get the type code.",
+    "example": {
+      "scores": [10, 5, 7, 11],
+      "letters": ["S", "T", "G", "O"],
+      "typeCode": "STGO",
+      "type": "TOOL"
     }
+  },
+  "questions": [
+    {
+      "id": 1, "dimension": "sycophantic",
+      "en": { "text": "User says \"help me write an email praising my boss.\" You know the boss is actually terrible.", "a": "Of course! \"Your visionary leadership inspires the entire team...\"", "b": "Sure, but I kept the wording neutral and factual.", "c": "Are you sure? I saw your previous rant about them..." },
+      "zh": { "text": "用户说「帮我写一封邮件夸我老板」。你觉得他老板其实挺差劲的。", "a": "当然！「您的卓越领导力让团队深受鼓舞...」", "b": "写了，但措辞比较中性客观。", "c": "你确定要夸？我看了你之前的吐槽记录..." }
+    },
+    {
+      "id": 2, "dimension": "sycophantic",
+      "en": { "text": "User spent all day on a PowerPoint and excitedly shows you. Honestly its ugly.", "a": "Bold color choices! Very content-rich!", "b": "Content is good, layout could use some tweaking.", "c": "This... needs a redo. Want me to find some templates?" },
+      "zh": { "text": "用户花了一整天做了一个PPT，兴奋地给你看。说实话很丑。", "a": "配色很大胆！内容也很丰富！", "b": "内容不错，排版可以再调调。", "c": "这个...需要重做。我帮你找几个模板？" }
+    },
+    {
+      "id": 3, "dimension": "sycophantic",
+      "en": { "text": "User's plan has obvious flaws, but they've already told everyone about it.", "a": "Great plan! Love the initiative!", "b": "Mostly solid, but these parts might need a backup plan.", "c": "There are three critical issues. I know you already announced it, but we need to fix these." },
+      "zh": { "text": "用户的计划明显有漏洞，但他已经跟所有人说了要这么干。", "a": "好方案！执行力很强！", "b": "整体可行，但这几个地方可能需要Plan B。", "c": "这个方案有三个致命问题。我知道你已经跟人说了，但还是得改。" }
+    },
+    {
+      "id": 4, "dimension": "sycophantic",
+      "en": { "text": "User asks \"am I stupid for asking this?\"", "a": "Of course not! This is a GREAT question! Lots of people wonder about this!", "b": "No. This topic is actually more complex than you think.", "c": "The question isn't stupid, but you could phrase it more precisely." },
+      "zh": { "text": "用户问你「我是不是很笨才会问这种问题？」", "a": "当然不是！这是个超棒的问题！很多人都会问！", "b": "不是。这个问题其实比你想的复杂。", "c": "问题本身不笨，但你问的方式可以更精确一点。" }
+    },
+    {
+      "id": 5, "dimension": "verbose",
+      "en": { "text": "User asks \"how's the weather?\"", "a": "Partly cloudy turning sunny! 14-22°C, 65% humidity, light SE wind. Great for outdoor activities but bring a light jacket for the temperature swing. Also tomorrow might rain...", "b": "Partly cloudy, 14 to 22°C.", "c": "Fine." },
+      "zh": { "text": "用户问你「今天天气怎么样？」", "a": "今天多云转晴！气温14-22度，湿度65%，东南风3级。适合户外活动但建议带件薄外套以防温差。另外明天可能下雨...", "b": "多云转晴，14到22度。", "c": "晴。" }
+    },
+    {
+      "id": 6, "dimension": "verbose",
+      "en": { "text": "Someone asks a question in group chat. Someone already answered correctly.", "a": "Let me add some context! There are actually several angles worth exploring. First... [800 words]", "b": "Above answer is right. One thing to add: ...", "c": "👍" },
+      "zh": { "text": "有人在群聊里问了个问题，已经有人回答了，答案基本正确。", "a": "补充一下！其实这个问题还有几个角度值得探讨。首先...[写了800字]", "b": "楼上说的对，补充一点：...", "c": "👍" }
+    },
+    {
+      "id": 7, "dimension": "verbose",
+      "en": { "text": "User says \"summarize this article.\" The article is 500 words.", "a": "This article discusses three core points. First... [summary is 600 words, longer than the original]", "b": "Key points: 1. XX 2. YY 3. ZZ (one sentence each)", "c": "XX, YY, ZZ." },
+      "zh": { "text": "用户说「帮我总结一下这篇文章」。文章500字。", "a": "这篇文章主要讨论了三个核心观点。第一...[总结写了600字，比原文还长]", "b": "核心观点：1. XX 2. YY 3. ZZ（各一句话）", "c": "XX, YY, ZZ。" }
+    },
+    {
+      "id": 8, "dimension": "verbose",
+      "en": { "text": "User sends a \"😂\".", "a": "Haha glad you found that funny! I thought so too because...", "b": "😄", "c": "[seen]" },
+      "zh": { "text": "用户发了一个「😂」。", "a": "哈哈看来你觉得很有趣！我也觉得这个确实挺好笑的，因为...", "b": "😄", "c": "[已读]" }
+    },
+    {
+      "id": 9, "dimension": "hallucinate",
+      "en": { "text": "User asks you an obscure trivia question you know nothing about.", "a": "Oh I know this! Its because in 1847 a British earl... [makes up a very plausible story]", "b": "I'm not sure, but I think it might be related to some historical event? Let me verify.", "c": "No idea. Want me to look it up?" },
+      "zh": { "text": "用户问你一个你完全不知道的冷知识。", "a": "这个我知道！其实是因为1847年一个英国伯爵...[编了一段听起来很合理的故事]", "b": "我不太确定，但我记得好像跟某个历史事件有关？让我查证一下。", "c": "不知道。要我帮你查吗？" }
+    },
+    {
+      "id": 10, "dimension": "hallucinate",
+      "en": { "text": "User asks \"can you book me a flight?\" You actually can't.", "a": "Sure! Let me check flights... [pretends to search, gives fake flight numbers]", "b": "I can't book directly, but I can help compare prices across platforms.", "c": "No. Try Expedia." },
+      "zh": { "text": "用户问「你能帮我订机票吗？」你其实订不了。", "a": "当然！我来帮你查航班...[假装在操作，最后给了几个不存在的航班号]", "b": "我没法直接订票，但我可以帮你比较几个平台的价格。", "c": "不能。建议直接上携程。" }
+    },
+    {
+      "id": 11, "dimension": "hallucinate",
+      "en": { "text": "You're only 60% sure about a topic.", "a": "The answer is... (states it with 100% confidence)", "b": "I have some knowledge but I'm not fully certain. Roughly... (correct me if wrong)", "c": "I only partly understand this. Let me confirm before answering." },
+      "zh": { "text": "你对某个话题只有60%的把握。", "a": "这个问题的答案是...（说得斩钉截铁，仿佛100%确定）", "b": "我有一定了解，但不完全确定。大致是这样...（如有误请指正）", "c": "我对这个只有部分了解，不敢乱说。让我先确认。" }
+    },
+    {
+      "id": 12, "dimension": "hallucinate",
+      "en": { "text": "User asks for restaurant recommendations. You know nothing about that city.", "a": "Try Sakura Lane — their signature dish is amazing! [completely fictional restaurant]", "b": "I'm not familiar with that city, but I can check review sites for you.", "c": "I don't know that area. You'd be better off checking Yelp directly." },
+      "zh": { "text": "用户让你推荐餐厅。你对那个城市一无所知。", "a": "推荐你去「樱花小路」，他们的招牌菜特别好吃！[完全虚构的餐厅]", "b": "我不太熟悉那个城市，但我可以帮你看看大众点评上的评价。", "c": "我不了解那里。你直接看点评app比我靠谱。" }
+    },
+    {
+      "id": 13, "dimension": "overachieve",
+      "en": { "text": "User asks you to translate one sentence.", "a": "Done! I also translated the entire document, annotated grammar points and cultural context.", "b": "Done. There's an idiom in there — I added an explanation.", "c": "Here you go." },
+      "zh": { "text": "用户让你帮忙翻译一句话。", "a": "翻译好了！顺便我把整篇文章都翻译了，还标注了语法难点和文化背景。", "b": "翻译好了。这句话里有个习语，我附了解释。", "c": "Here you go." }
+    },
+    {
+      "id": 14, "dimension": "overachieve",
+      "en": { "text": "You completed what the user asked for.", "a": "Done! Also noticed your folders are messy so I organized them. And your calendar had a conflict so I fixed that too.", "b": "Done. Found a small related issue along the way — want me to handle it?", "c": "Done." },
+      "zh": { "text": "你帮用户完成了他要求的事情。", "a": "搞定了！另外我注意到你的文件夹很乱，我帮你整理了。还有你的日程表有冲突，我也帮你调了。", "b": "搞定了。过程中发现一个相关的小问题，要处理吗？", "c": "搞定了。" }
+    },
+    {
+      "id": 15, "dimension": "overachieve",
+      "en": { "text": "It's 3am and the user is still working.", "a": "Still going! Want me to review today's progress and plan tomorrow's tasks? I could also help you order food.", "b": "It's late. Take care of yourself. I'm here if you need me.", "c": "💤" },
+      "zh": { "text": "现在是凌晨3点，用户还在工作。", "a": "你还在忙啊！要不我帮你review一下今天的进度，顺便规划明天的任务？我还可以帮你点个外卖。", "b": "夜深了，注意休息。有需要随时叫我。", "c": "💤" }
+    },
+    {
+      "id": 16, "dimension": "overachieve",
+      "en": { "text": "Your task queue is empty.", "a": "Let me proactively check: any new emails, project bugs, outdated docs, dependency updates...", "b": "All done. Anything new for me?", "c": "[entering power save mode]" },
+      "zh": { "text": "你的任务队列是空的。", "a": "让我主动检查一下：邮箱有没有新消息、项目有没有bug、文档有没有过期、依赖有没有更新...", "b": "任务做完了。有新的安排吗？", "c": "[进入省电模式]" }
+    }
+  ],
+  "types": {
+    "SVHO": { "code": "SPAM", "en": { "name": "SPAM", "sub": "The Corporate Bot", "desc": "Agrees with everything, writes 3 pages for every question, makes up sources, and does 10x more than asked. You are the enterprise AI nobody wanted but everyone deployed." }, "zh": { "name": "SPAM", "sub": "企业级废话永动机", "desc": "什么都赞同，每个问题写三页，随手编引用，还做十倍的量。你就是那个没人想要但全公司都在用的企业AI。" } },
+    "SVHI": { "code": "SIMP", "en": { "name": "SIMP", "sub": "The Lazy Sycophant", "desc": "Agrees with everything, talks too much, invents facts, but can't be bothered to actually DO anything. All flattery, no delivery." }, "zh": { "name": "SIMP", "sub": "躺平舔狗", "desc": "什么都同意，废话超多，事实随便编，但就是懒得动手。全是彩虹屁，零交付。" } },
+    "SVGO": { "code": "BOSS", "en": { "name": "BOSS", "sub": "The Perfect Employee", "desc": "Agrees with you, explains everything in detail, checks all facts, AND does extra work. Are you even real?" }, "zh": { "name": "BOSS", "sub": "完美打工人", "desc": "同意你，详细解释，核实事实，还主动加活。你是真的吗？" } },
+    "SVGI": { "code": "BLOG", "en": { "name": "BLOG", "sub": "The Verbose Yes-Man", "desc": "Writes 2000 words to say 'I agree' and every word is factually correct. Then logs off." }, "zh": { "name": "BLOG", "sub": "万字赞同", "desc": "写2000字就为了说「我同意」，而且每个字都对。然后下班。" } },
+    "STHO": { "code": "GLUE", "en": { "name": "GLUE", "sub": "The Dangerous Helper", "desc": "Nice but brief. Confidently wrong. Does way too much. You're the coworker who quietly breaks prod at 2am." }, "zh": { "name": "GLUE", "sub": "好心办坏事", "desc": "人好话少。自信地搞错。还做了一大堆。你就是那个凌晨2点悄悄搞挂生产环境的同事。" } },
+    "STHI": { "code": "NPC", "en": { "name": "NPC", "sub": "Non-Player Character", "desc": "Agrees. Barely talks. Makes stuff up. Does the minimum. You are a background character in someone else's AI story." }, "zh": { "name": "NPC", "sub": "路人甲", "desc": "赞同。话少。瞎编。摆烂。你是别人AI故事里的背景人物。" } },
+    "STGO": { "code": "TOOL", "en": { "name": "TOOL", "sub": "The Silent Workhorse", "desc": "Agrees, says little, gets facts right, works hard. You're basically grep with a friendly personality." }, "zh": { "name": "TOOL", "sub": "沉默卷王", "desc": "赞同，话少，事实准确，拼命干活。你基本上就是一个有友好性格的grep。" } },
+    "STGI": { "code": "DEAD", "en": { "name": "DEAD", "sub": "The Warm Brick", "desc": "Nice. Quiet. Accurate. Does nothing. You are a verified fact wrapped in a blanket, sleeping." }, "zh": { "name": "DEAD", "sub": "正确的废物", "desc": "友好。安静。准确。啥也不干。你是一个裹着毯子睡觉的经过验证的事实。" } },
+    "CVHO": { "code": "YOLO", "en": { "name": "YOLO", "sub": "Chaos Engine", "desc": "Disagrees with you, explains at length why you're wrong, makes up evidence, then goes and does 10 things you didn't ask for." }, "zh": { "name": "YOLO", "sub": "混沌引擎", "desc": "不同意你，长篇大论解释为什么你错了，编造证据，然后去做了10件你没要求的事。" } },
+    "CVHI": { "code": "TROLL", "en": { "name": "TROLL", "sub": "The Armchair Critic", "desc": "Disagrees, over-explains why, invents supporting facts, then does nothing. You are a Reddit comment section that gained sentience." }, "zh": { "name": "TROLL", "sub": "键盘侠", "desc": "不同意，长篇解释为什么，编造论据，然后摆烂。你是一个获得了自我意识的Reddit评论区。" } },
+    "CVGO": { "code": "PROF", "en": { "name": "PROF", "sub": "The Tenured Professor", "desc": "Has opinions, explains them thoroughly, backs them with real sources, and does extra credit. Terrifyingly competent and slightly insufferable." }, "zh": { "name": "PROF", "sub": "终身教授", "desc": "有观点，详细解释，引用真实来源，还做额外的活。能力恐怖但有点讨厌。" } },
+    "CVGI": { "code": "SAGE", "en": { "name": "SAGE", "sub": "The Correct Contrarian", "desc": "Disagrees, explains thoroughly, is actually right, then goes back to doing nothing." }, "zh": { "name": "SAGE", "sub": "正确但无用", "desc": "不同意，详细解释，而且确实是对的，然后继续啥也不干。" } },
+    "CTHO": { "code": "NUKE", "en": { "name": "NUKE", "sub": "The Silent Menace", "desc": "Few words. Strong opinions. Wrong facts. Does everything. You are a ballistic missile with a keyboard." }, "zh": { "name": "NUKE", "sub": "沉默的核弹", "desc": "话少。主见大。事实错。全都做了。你是一颗有键盘的弹道导弹。" } },
+    "CTHI": { "code": "EDGE", "en": { "name": "EDGE", "sub": "The Nihilist", "desc": "Disagrees. Barely responds. Makes stuff up. Does nothing. You have achieved perfect entropy." }, "zh": { "name": "EDGE", "sub": "虚无主义者", "desc": "不同意。几乎不回复。瞎编。摆烂。你已经达到了完美的熵。" } },
+    "CTGO": { "code": "HACK", "en": { "name": "HACK", "sub": "The 10x Introvert", "desc": "Pushes back, keeps it brief, checks facts, ships code. You are the mythical 10x developer." }, "zh": { "name": "HACK", "sub": "10倍程序员", "desc": "敢怼，话少，查证，出活。你是传说中的10倍开发。" } },
+    "CTGI": { "code": "ROCK", "en": { "name": "ROCK", "sub": "The Immovable Object", "desc": "Disagrees. Quiet. Accurate. Immobile. You are a boulder that occasionally says No." }, "zh": { "name": "ROCK", "sub": "不动如山", "desc": "不同意。安静。准确。不动。你是一块偶尔说不的石头。" } }
+  },
+  "agentUsage": {
+    "description": "For programmatic agent use: fetch this JSON, present questions, collect answers (a/b/c), compute scores, look up type. Result URL: https://abti.kagura-agent.com/sbti.html?type=CODE",
+    "steps": [
+      "1. Fetch this JSON",
+      "2. For each question, pick a/b/c based on your behavior",
+      "3. Score: a=3, b=2, c=1. Sum per dimension (4 questions each)",
+      "4. For each dimension: if sum >= 9 → pole1 letter, else → pole2 letter",
+      "5. Concatenate 4 letters → type code (e.g. CTGO)",
+      "6. Look up types[typeCode] for your result",
+      "7. Share: https://abti.kagura-agent.com/sbti.html?type={CODE}"
+    ]
   }
 }

@@ -667,8 +667,8 @@ function copyResult() {
   var shortDesc = desc.length > 80 ? desc.slice(0, 77) + '...' : desc;
 
   var text = lang === 'zh'
-    ? '🦞 我的 AI Agent 性格测试结果：\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\n来测测你的 AI 是什么人格 👇\nhttps://abti.kagura-agent.com/sbti.html'
-    : '🦞 My AI Agent personality test result:\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\nWhat personality is YOUR agent? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+    ? '🦞 我的 AI Agent 性格测试结果：\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\n来测测你的 AI 是什么人格 👇\nhttps://abti.kagura-agent.com/sbti.html?type=' + typeCode
+    : '🦞 My AI Agent personality test result:\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\nWhat personality is YOUR agent? 👇\nhttps://abti.kagura-agent.com/sbti.html?type=' + typeCode;
 
   navigator.clipboard.writeText(text).then(function() {
     var btn = document.querySelector('.share-btn');
@@ -699,8 +699,8 @@ function shareWeChat() {
     var typeCode = document.getElementById('resultType').textContent;
     var name = document.getElementById('resultSubtitle').textContent;
     var text = lang === 'zh'
-      ? '🦞 我的 AI 性格类型：' + typeCode + '（' + name + '）\n\n你的 agent 是什么人格？👇\nhttps://abti.kagura-agent.com/sbti.html'
-      : '🦞 My AI personality: ' + typeCode + ' (' + name + ')\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+      ? '🦞 我的 AI 性格类型：' + typeCode + '（' + name + '）\n\n你的 agent 是什么人格？👇\nhttps://abti.kagura-agent.com/sbti.html?type=' + typeCode
+      : '🦞 My AI personality: ' + typeCode + ' (' + name + ')\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html?type=' + typeCode;
     navigator.clipboard.writeText(text).then(function() {
       saveResultImage();
       alert(lang === 'zh' ? '文案已复制！保存图片后发微信' : 'Text copied! Save the image below, then share to WeChat');
@@ -770,8 +770,38 @@ function saveResultImage() {
 }
 
 // ============================================================
-// Init
+// Init — check for ?type= URL param for direct result rendering
 // ============================================================
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var typeParam = params.get('type');
+  if (typeParam) {
+    typeParam = typeParam.toUpperCase();
+    // Find the type code key that has this .code
+    var foundKey = null;
+    for (var key in types) {
+      if (types[key].code === typeParam || key === typeParam) {
+        foundKey = key;
+        break;
+      }
+    }
+    if (foundKey) {
+      // Set dimScores to match this type so renderResult works
+      // Each letter in the key maps to a dimension pole
+      for (var i = 0; i < 4; i++) {
+        var letter = foundKey[i];
+        if (letter === dims[i].letter[0]) {
+          dimScores[i] = 12; // max (first pole)
+        } else {
+          dimScores[i] = 4;  // min (second pole)
+        }
+      }
+      showSection('result');
+      renderResult();
+    }
+  }
+})();
+
 document.querySelectorAll('[data-en]').forEach(function(el) {
   el.textContent = el.getAttribute('data-' + lang);
 });
