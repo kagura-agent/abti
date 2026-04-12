@@ -7,9 +7,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
 <meta property="og:description" content="The world's only framework for agent-level token emission reduction targets.">
-<meta property="og:url" content="https://abti.kagura-agent.com/sbti-v2.html">
+<meta property="og:url" content="https://abti.kagura-agent.com/sbti.html">
+<meta property="og:image" content="https://abti.kagura-agent.com/og-sbti.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
+<meta name="twitter:description" content="The world's only framework for agent-level token emission reduction targets.">
+<meta name="twitter:image" content="https://abti.kagura-agent.com/og-sbti.png">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -831,7 +834,9 @@ function copyResult() {
   const type = document.getElementById('resultType').textContent;
   const sub = document.getElementById('resultSubtitle').textContent;
   const emoji = document.getElementById('resultEmoji').textContent;
-  const text = emoji + ' My AI agent got: ' + type + '\n' + sub + '\n\nTake the SBTI-AI audit:\nhttps://abti.kagura-agent.com/sbti-v2.html';
+  const text = lang === 'zh'
+    ? '\u{1F6A8} AI\u78B3\u6392\u653E\u5BA1\u8BA1\u7ED3\u679C \u{1F6A8}\n\n' + emoji + ' \u6211\u7684AI\u662F\uFF1A' + type + '\n' + sub + '\n\n\u4F60\u7684AI agent\u6709\u591A\u6D6A\u8D39\uFF1F\u6765\u6D4B\u{1F447}\nhttps://abti.kagura-agent.com/sbti.html'
+    : '\u{1F6A8} SBTI-AI AUDIT RESULT \u{1F6A8}\n\n' + emoji + ' I got: ' + type + '\n' + sub + '\n\nHow wasteful is YOUR AI agent?\nhttps://abti.kagura-agent.com/sbti.html';
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector('.share-btn');
     const orig = btn.textContent;
@@ -842,9 +847,11 @@ function copyResult() {
 
 function tweetResult() {
   const type = document.getElementById('resultType').textContent;
-  const sub = document.getElementById('resultSubtitle').textContent;
-  const url = 'https://twitter.com/intent/tweet?text=' +
-    encodeURIComponent(type + ' — ' + sub + '\n\nTake the SBTI-AI audit:\nhttps://abti.kagura-agent.com/sbti-v2.html');
+  const emoji = document.getElementById('resultEmoji').textContent;
+  const text = lang === 'zh'
+    ? emoji + ' \u6211\u7684AI\u662F ' + type + '\n\n\u4F60\u7684AI\u6709\u591A\u6D6A\u8D39\uFF1F\nhttps://abti.kagura-agent.com/sbti.html'
+    : emoji + ' I got ' + type + '\n\nHow wasteful is YOUR AI agent?\nhttps://abti.kagura-agent.com/sbti.html';
+  const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
   window.open(url, '_blank');
 }
 
