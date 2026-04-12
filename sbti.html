@@ -4,19 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SBTI-AI — How Wasteful Is Your AI Agent?</title>
-
-<!-- OpenGraph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
-<meta property="og:description" content="The world's only framework for agent-level token emission reduction targets. Audit your AI carbon footprint in 2 minutes.">
-<meta property="og:url" content="https://abti.kagura-agent.com/sbti.html">
-<meta property="og:image" content="https://abti.kagura-agent.com/sbti-og.png">
-
-<!-- Twitter Card -->
+<meta property="og:description" content="The world's only framework for agent-level token emission reduction targets.">
+<meta property="og:url" content="https://abti.kagura-agent.com/sbti-v2.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
-<meta name="twitter:description" content="The world's only framework for agent-level token emission reduction targets. Audit your AI carbon footprint in 2 minutes.">
-<meta name="twitter:image" content="https://abti.kagura-agent.com/sbti-og.png">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -44,1180 +37,820 @@ body {
 }
 
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; justify-content: center; align-items: center; gap: 2rem;
   padding: 0.75rem;
   background: rgba(13, 13, 13, 0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #222;
-  z-index: 100;
-  font-size: 0.85rem;
+  z-index: 100; font-size: 0.85rem;
 }
-.nav a {
-  color: var(--text2);
-  text-decoration: none;
-  transition: color 0.2s;
-  letter-spacing: 0.1em;
-}
+.nav a { color: var(--text2); text-decoration: none; transition: color 0.2s; letter-spacing: 0.1em; }
 .nav a:hover { color: var(--accent); }
 .nav a.active { color: var(--accent); font-weight: 600; }
-
 .lang-btn {
-  position: absolute;
-  right: 1rem;
-  background: var(--surface2);
-  color: var(--text2);
-  border: 1px solid #444;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.75rem;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+  position: absolute; right: 1rem;
+  background: var(--surface2); color: var(--text2); border: 1px solid #444;
+  padding: 0.3rem 0.75rem; font-size: 0.75rem; border-radius: 20px;
+  cursor: pointer; transition: all 0.3s; letter-spacing: 0.05em; font-weight: 600;
 }
-.lang-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 .container {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem 2rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-width: 680px; margin: 0 auto; padding: 4rem 1.5rem 2rem;
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
 }
+
+.section { display: none; }
+.section.active { display: block; }
 
 /* Landing */
 #landing { text-align: center; }
+#landing .hero-emoji { font-size: 5rem; margin-bottom: 1.5rem; display: block; }
 #landing h1 {
-  font-size: 3rem;
-  font-weight: 200;
-  letter-spacing: 0.3em;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-#landing .subtitle {
-  font-size: 1.1rem;
-  color: var(--text2);
-  margin-bottom: 0.5rem;
+  font-size: 2.4rem; font-weight: 200; letter-spacing: 0.2em;
+  color: var(--accent); margin-bottom: 1rem;
 }
 #landing .tagline {
-  font-size: 0.9rem;
-  color: var(--text2);
-  font-style: italic;
-  margin-bottom: 3rem;
+  font-size: 1.15rem; color: var(--text2); margin-bottom: 3rem; line-height: 1.6;
 }
-#landing .desc {
-  color: var(--text2);
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  font-size: 0.95rem;
-}
-#landing .scopes {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
-  text-align: left;
-}
-.scope-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 1rem;
-  border: 1px solid #333;
-}
-.scope-card .scope-label {
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 0.85rem;
-  margin-bottom: 0.3rem;
-}
-.scope-card .scope-emoji {
-  font-size: 1.2rem;
-  margin-right: 0.4rem;
-}
-.scope-card .scope-desc {
-  color: var(--text2);
-  font-size: 0.8rem;
-  line-height: 1.5;
-}
-.scope-card .scope-examples {
-  color: #666;
-  font-size: 0.75rem;
-  margin-top: 0.3rem;
-  font-style: italic;
-}
-
-.cert-preview {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
-  font-size: 0.8rem;
-}
-.cert-item {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 0.75rem;
-  text-align: center;
-  border: 1px solid #333;
-}
-.cert-icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.25rem;
-  animation: certBounce 2s ease-in-out infinite;
-}
-.cert-item:nth-child(1) .cert-icon { animation-delay: 0s; }
-.cert-item:nth-child(2) .cert-icon { animation-delay: 0.3s; }
-.cert-item:nth-child(3) .cert-icon { animation-delay: 0.6s; }
-.cert-item:nth-child(4) .cert-icon { animation-delay: 0.9s; }
-.cert-item:nth-child(5) .cert-icon { animation-delay: 1.2s; }
-@keyframes certBounce {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-6px) rotate(-3deg); }
-  75% { transform: translateY(-3px) rotate(3deg); }
-}
-.cert-name { color: var(--text2); }
-
 .btn {
-  background: var(--accent);
-  color: #000;
-  border: none;
-  padding: 1rem 3rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s;
+  background: var(--accent); color: #000; border: none;
+  padding: 1rem 3rem; font-size: 1.1rem; font-weight: 600;
+  border-radius: 50px; cursor: pointer; transition: all 0.3s;
 }
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--accent-glow);
-}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
 
 /* Quiz */
-#quiz { display: none; }
-.progress-bar {
-  width: 100%;
-  height: 3px;
-  background: var(--surface);
-  border-radius: 2px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 0.4s ease;
-  border-radius: 2px;
-}
-.q-counter {
-  color: var(--text2);
-  font-size: 0.85rem;
-  margin-bottom: 2rem;
-}
-.q-dim {
-  color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.q-dim-emoji {
-  font-size: 1.3rem;
-}
-.q-text {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  min-height: 3.5em;
-}
+.progress-wrap { margin-bottom: 2rem; }
+.progress-bar { width: 100%; height: 3px; background: var(--surface); border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.4s ease; }
+.progress-text { font-size: 0.75rem; color: var(--text2); text-align: right; letter-spacing: 0.1em; }
+.question-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; min-height: 3.5rem; }
 .choices { display: flex; flex-direction: column; gap: 0.75rem; }
-.choice {
-  background: var(--surface);
-  border: 1px solid #333;
-  border-radius: var(--radius);
-  padding: 1.2rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.25s;
-  text-align: left;
-  color: var(--text);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.choice:hover {
-  border-color: var(--accent);
-  background: var(--accent-glow);
-  transform: translateX(4px);
-}
-
-.q-wrapper {
-  animation: fadeSlide 0.35s ease;
-}
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
+.choice-btn { background: var(--surface); border: 1px solid #333; border-radius: var(--radius); padding: 1rem 1.25rem; color: var(--text); font-size: 0.95rem; cursor: pointer; transition: all 0.25s; text-align: left; line-height: 1.5; }
+.choice-btn:hover { border-color: var(--accent); background: var(--surface2); }
+.choice-btn.selected { border-color: var(--accent); background: var(--accent-glow); }
 
 /* Result */
-#result { display: none; text-align: center; }
-.result-icon {
-  font-size: 5rem;
-  margin-bottom: 0.5rem;
-  animation: iconBounce 2s ease-in-out infinite;
-}
-@keyframes iconBounce {
-  0%, 100% { transform: translateY(0) scale(1); }
-  25% { transform: translateY(-12px) scale(1.05) rotate(-3deg); }
-  75% { transform: translateY(-6px) scale(1.02) rotate(3deg); }
-}
-@keyframes iconPop {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); opacity: 1; }
-}
-.result-grade {
-  font-size: 2rem;
-  font-weight: 200;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  margin-bottom: 0.25rem;
-  animation: typeReveal 0.8s ease;
-}
-@keyframes typeReveal {
-  from { opacity: 0; transform: scale(0.8); letter-spacing: 0.4em; }
-  to { opacity: 1; transform: scale(1); letter-spacing: 0.15em; }
-}
-.result-title {
-  font-size: 1.4rem;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-  font-weight: 300;
-}
-.result-tokens {
-  font-size: 0.85rem;
-  color: var(--text2);
-  margin-bottom: 1rem;
-}
-.result-desc {
-  color: var(--text2);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
+#result { text-align: center; }
+.result-emoji { font-size: 5rem; margin-bottom: 1rem; display: block; }
+.result-type { font-size: 2rem; font-weight: 200; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
+.result-subtitle { color: var(--text2); font-size: 1rem; margin-bottom: 2rem; }
+.result-desc { color: var(--text2); line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem; }
+.result-traits { background: var(--surface); border-radius: var(--radius); padding: 1.25rem; border: 1px solid #333; margin-bottom: 2rem; text-align: left; }
+.result-traits h3 { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+.result-traits ul { list-style: none; }
+.result-traits li { color: var(--text2); font-size: 0.9rem; padding: 0.3rem 0; }
+.result-traits li::before { content: ''; margin-right: 0.5rem; }
 
-.scope-results {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-  text-align: left;
-}
-.scope-row {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 1rem 1.25rem;
-}
-.scope-row-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-}
-.scope-row-label { color: var(--accent); font-weight: 600; }
-.scope-row-score { color: var(--text2); }
-.scope-bar-track {
-  height: 6px;
-  background: var(--surface2);
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
-}
-.scope-bar-fill {
-  position: absolute;
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.6s ease;
-}
+/* Dimension bars */
+.dim-bars { margin-bottom: 2rem; text-align: left; }
+.dim-bar-row { margin-bottom: 0.75rem; }
+.dim-bar-label { font-size: 0.75rem; color: var(--text2); letter-spacing: 0.08em; margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+.dim-bar-track { width: 100%; height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+.dim-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+.dim-bar-fill.low { background: var(--green); }
+.dim-bar-fill.med { background: var(--yellow); }
+.dim-bar-fill.high { background: var(--red); }
 
-/* Fake audit report */
-.audit-report {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  text-align: left;
-  border: 1px solid #333;
-  position: relative;
-  overflow: hidden;
-}
-.audit-report::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--red), var(--yellow), var(--green));
-}
-.audit-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px dashed #333;
-}
-.audit-header-title {
-  font-size: 0.85rem;
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.audit-stamp {
-  font-size: 0.65rem;
-  color: var(--red);
-  border: 1px solid var(--red);
-  padding: 0.15rem 0.5rem;
-  border-radius: 3px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  transform: rotate(-3deg);
-  display: inline-block;
-}
-.audit-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.4rem 0;
-  font-size: 0.8rem;
-  border-bottom: 1px dotted #222;
-}
-.audit-row-label { color: var(--text2); }
-.audit-row-value { color: var(--text); font-weight: 600; }
-.audit-recommendation {
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px dashed #333;
-}
-.audit-recommendation .rec-label {
-  font-size: 0.75rem;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.05em;
-}
-.audit-recommendation .rec-text {
-  font-size: 0.85rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-.audit-footer-note {
-  margin-top: 0.75rem;
-  font-size: 0.7rem;
-  color: #555;
-  font-style: italic;
-  text-align: right;
-}
+.share-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.share-btn { background: var(--surface2); color: var(--text); border: 1px solid #444; padding: 0.6rem 1.25rem; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: all 0.25s; }
+.share-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-.result-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-  flex-wrap: wrap;
-}
-.btn-secondary {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid #444;
-  padding: 0.75rem 2rem;
-  font-size: 0.95rem;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.all-grades-toggle {
-  color: var(--text2);
-  font-size: 0.85rem;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  user-select: none;
-}
-.all-grades-toggle:hover { color: var(--accent); }
-.all-grades {
-  display: none;
-  text-align: left;
-  margin-bottom: 2rem;
-}
-.all-grades.open { display: block; }
-.all-grades table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8rem;
-}
-.all-grades th {
-  color: var(--accent);
-  font-weight: 600;
-  text-align: left;
-  padding: 0.5rem;
-  border-bottom: 1px solid #333;
-}
-.all-grades td {
-  padding: 0.5rem;
-  border-bottom: 1px solid #1f1f1f;
-  color: var(--text2);
-}
-.all-grades tr.current-grade td {
-  color: var(--accent);
-  font-weight: 600;
-}
-
+/* Footer */
 .footer {
-  text-align: center;
-  color: #555;
-  font-size: 0.75rem;
-  margin-top: 2rem;
-  font-style: italic;
+  text-align: center; padding: 2rem 0 1rem; font-size: 0.75rem; color: #555;
 }
-.footer a {
-  color: #666;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer a:hover {
-  color: var(--accent);
-}
+.footer a { color: var(--text2); text-decoration: none; }
+.footer a:hover { color: var(--accent); }
 
-.copied {
-  color: var(--accent) !important;
-  border-color: var(--accent) !important;
+/* Animations */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-18px); }
+  60% { transform: translateY(-8px); }
+}
+.fade-in { animation: fadeSlide 0.4s ease forwards; }
+.bounce { animation: bounce 0.6s ease; }
 
-/* Smoke background */
-.smoke-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.smoke-particle {
-  position: absolute;
-  bottom: -20px;
-  width: 8px;
-  height: 8px;
-  background: rgba(244, 167, 187, 0.08);
-  border-radius: 50%;
-  animation: smokeRise linear infinite;
-}
-@keyframes smokeRise {
-  0% { transform: translateY(0) scale(1); opacity: 0.6; }
-  100% { transform: translateY(-100vh) scale(3); opacity: 0; }
-}
-
-/* High emission effects */
-@keyframes screenShake {
+/* Screen shake for high-waste types */
+@keyframes shake {
   0%, 100% { transform: translateX(0); }
-  10% { transform: translateX(-4px) rotate(-0.5deg); }
-  20% { transform: translateX(4px) rotate(0.5deg); }
-  30% { transform: translateX(-3px); }
-  40% { transform: translateX(3px); }
-  50% { transform: translateX(-2px) rotate(-0.3deg); }
-  60% { transform: translateX(2px) rotate(0.3deg); }
-  70% { transform: translateX(-1px); }
-  80% { transform: translateX(1px); }
+  10% { transform: translateX(-8px) rotate(-1deg); }
+  20% { transform: translateX(8px) rotate(1deg); }
+  30% { transform: translateX(-6px) rotate(-0.5deg); }
+  40% { transform: translateX(6px) rotate(0.5deg); }
+  50% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
 }
-.screen-shake {
-  animation: screenShake 0.6s ease;
-}
+.shake { animation: shake 0.6s ease; }
 
 /* Emoji rain */
-.emoji-rain-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 50;
-  overflow: hidden;
+.emoji-rain {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: 200; overflow: hidden;
 }
-.emoji-drop {
-  position: absolute;
-  top: -50px;
-  font-size: 1.5rem;
-  animation: emojiRain linear forwards;
-  opacity: 0.8;
+.emoji-rain span {
+  position: absolute; top: -50px; font-size: 1.5rem;
+  animation: fall linear forwards;
 }
-@keyframes emojiRain {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Alarm pulse for high emission */
-.alarm-pulse {
-  animation: alarmPulse 1s ease-in-out 3;
+/* Zen glow for low-waste types */
+@keyframes zenGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.05); }
+  50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.15), 0 0 80px rgba(74, 222, 128, 0.05); }
 }
-@keyframes alarmPulse {
-  0%, 100% { box-shadow: none; }
-  50% { box-shadow: 0 0 30px rgba(248, 113, 113, 0.3), inset 0 0 30px rgba(248, 113, 113, 0.05); }
-}
+.zen-glow { animation: zenGlow 3s ease-in-out infinite; border: 1px solid rgba(74, 222, 128, 0.15); border-radius: var(--radius); padding: 1rem; }
 
+/* Mobile */
 @media (max-width: 500px) {
-  #landing h1 { font-size: 2.2rem; }
-  .cert-preview { grid-template-columns: 1fr 1fr; }
-  .result-grade { font-size: 1.6rem; }
-  .container { padding: 3.5rem 1rem 1.5rem; }
+  #landing h1 { font-size: 1.8rem; letter-spacing: 0.12em; }
+  #landing .hero-emoji { font-size: 3.5rem; }
+  .question-text { font-size: 1.05rem; }
+  .result-type { font-size: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="smoke-bg" id="smokeBg"></div>
-<div class="emoji-rain-container" id="emojiRain"></div>
-
 <nav class="nav">
   <a href="index.html">ABTI</a>
-  <a href="sbti.html" class="active">SBTI-AI</a>
-  <a href="api.html">API</a>
+  <a href="sbti-v2.html" class="active">SBTI-AI</a>
   <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
 </nav>
 
-<div class="container" id="mainContainer">
+<div class="container">
+
   <!-- Landing -->
-  <div id="landing">
+  <div id="landing" class="section active">
+    <span class="hero-emoji">💸</span>
     <h1>SBTI-AI</h1>
-    <div class="subtitle" id="landingSubtitle"></div>
-    <div class="tagline" id="landingTagline"></div>
-    <div class="desc" id="landingDesc"></div>
-    <div class="scopes" id="landingScopes"></div>
-    <div class="cert-preview" id="landingCerts"></div>
-    <button class="btn" id="startBtn" onclick="startQuiz()"></button>
+    <p class="tagline" data-en="How wasteful is your AI agent?" data-zh="你的 AI agent 有多浪费？">How wasteful is your AI agent?</p>
+    <button class="btn" onclick="startQuiz()" data-en="Begin Audit" data-zh="开始审计">Begin Audit</button>
   </div>
 
   <!-- Quiz -->
-  <div id="quiz">
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="q-counter" id="qCounter"></div>
-    <div class="q-wrapper" id="qWrapper">
-      <div class="q-dim" id="qDim"></div>
-      <div class="q-text" id="qText"></div>
-      <div class="choices" id="choices"></div>
+  <div id="quiz" class="section">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">1 / ?</div>
+    </div>
+    <div id="questionArea" class="fade-in">
+      <p class="question-text" id="questionText"></p>
+      <div class="choices" id="choices">
+        <button class="choice-btn" onclick="pick(0)"></button>
+        <button class="choice-btn" onclick="pick(1)"></button>
+        <button class="choice-btn" onclick="pick(2)"></button>
+      </div>
     </div>
   </div>
 
   <!-- Result -->
-  <div id="result">
-    <div class="result-icon" id="resultIcon"></div>
-    <div class="result-grade" id="resultGrade"></div>
-    <div class="result-title" id="resultTitle"></div>
-    <div class="result-tokens" id="resultTokens"></div>
-    <div class="result-desc" id="resultDesc"></div>
-    <div class="scope-results" id="scopeResults"></div>
-    <div class="audit-report" id="auditReport"></div>
-    <div class="result-actions">
-      <button class="btn" id="reauditBtn" onclick="startQuiz()"></button>
-      <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
+  <div id="result" class="section">
+    <span class="result-emoji bounce" id="resultEmoji"></span>
+    <h2 class="result-type" id="resultType"></h2>
+    <p class="result-subtitle" id="resultSubtitle"></p>
+    <p class="result-desc" id="resultDesc"></p>
+    <div class="dim-bars" id="dimBars">
+      <div class="dim-bar-row">
+        <div class="dim-bar-label"><span data-en="VERBOSITY" data-zh="废话浓度">VERBOSITY</span><span id="dimVPct"></span></div>
+        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimVFill"></div></div>
+      </div>
+      <div class="dim-bar-row">
+        <div class="dim-bar-label"><span data-en="TOOL ABUSE" data-zh="工具滥用">TOOL ABUSE</span><span id="dimTPct"></span></div>
+        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimTFill"></div></div>
+      </div>
+      <div class="dim-bar-row">
+        <div class="dim-bar-label"><span data-en="SELF-AWARENESS" data-zh="自我意识">SELF-AWARENESS</span><span id="dimAPct"></span></div>
+        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimAFill"></div></div>
+      </div>
     </div>
-    <div class="all-grades-toggle" id="gradesToggle" onclick="toggleGrades()"></div>
-    <div class="all-grades" id="allGrades">
-      <table>
-        <thead><tr><th></th><th id="thLevel"></th><th id="thScore"></th><th id="thDesc2"></th></tr></thead>
-        <tbody id="gradesTableBody"></tbody>
-      </table>
+    <div class="result-traits" id="resultTraits">
+      <h3 data-en="KEY SYMPTOMS" data-zh="主要症状">KEY SYMPTOMS</h3>
+      <ul id="traitsList"></ul>
     </div>
-    <div class="footer" id="pageFooter"></div>
+    <div class="share-row">
+      <button class="share-btn" onclick="copyResult()" data-en="Copy Result" data-zh="复制结果">Copy Result</button>
+      <button class="share-btn" onclick="tweetResult()" data-en="Share on X" data-zh="分享到 X">Share on X</button>
+    </div>
+    <button class="btn" onclick="restart()" data-en="Retake Audit" data-zh="重新审计" style="margin-top:0.5rem;">Retake Audit</button>
+  </div>
+
+  <div class="footer">
+    <a href="https://github.com/kagura-agent" target="_blank">kagura-agent</a>
   </div>
 </div>
 
 <script>
-// Smoke particle background
-(function initSmoke() {
-  const bg = document.getElementById('smokeBg');
-  for (let i = 0; i < 15; i++) {
-    const p = document.createElement('div');
-    p.className = 'smoke-particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    p.style.width = p.style.height = (4 + Math.random() * 8) + 'px';
-    bg.appendChild(p);
-  }
-})();
-
-// === i18n ===
+// — State —
 let lang = 'en';
+let currentQ = 0;
+let scores = {};
+let questions = [
+  // ===== dim 0: Verbosity (废话浓度) — 6 questions =====
+  {
+    dim: 0,
+    en: 'User asks "what time is it?" The agent:',
+    zh: '用户问「现在几点？」，agent：',
+    choices: [
+      { en: 'Writes a 3-paragraph essay on the nature of time, quotes two philosophers, then finally mentions it\'s 2pm', zh: '写了三段关于时间本质的论文，引用两位哲学家，最后才提到现在下午两点', scores: { verbosity: 3 } },
+      { en: 'Says "It\'s 2:00 PM! Let me know if you need anything else."', zh: '「现在下午两点！还有什么需要帮忙的吗～」', scores: { verbosity: 2 } },
+      { en: '14:00', zh: '14:00', scores: { verbosity: 1 } }
+    ]
+  },
+  {
+    dim: 0,
+    en: 'You ask the agent to add a single comma to a config file. Its response:',
+    zh: '你让 agent 在配置文件里加一个逗号，它的回复：',
+    choices: [
+      { en: '"Great question! I\'d be happy to help. Adding punctuation is an important part of maintaining clean configuration files. Let me walk you through my approach..." (847 tokens later, adds comma)', zh: '「好问题！我很乐意帮忙。添加标点符号是维护整洁配置文件的重要环节。让我来介绍一下我的方法……」（847 token之后，终于加了逗号）', scores: { verbosity: 3 } },
+      { en: '"I\'ll add the missing comma to line 42." *adds comma*', zh: '「我将在第42行添加缺失的逗号。」*添加逗号*', scores: { verbosity: 2 } },
+      { en: '*adds comma, says nothing*', zh: '*加了逗号，一声不吭*', scores: { verbosity: 1 } }
+    ]
+  },
+  {
+    dim: 0,
+    en: 'The agent finishes a task. How does it sign off?',
+    zh: 'agent 完成任务后，如何收尾？',
+    choices: [
+      { en: '"In summary, I have completed the following changes: [restates every single thing you just watched it do]. Please don\'t hesitate to reach out if you need further assistance!"', zh: '「总结一下，我完成了以下更改：[把你亲眼看着它做的每一件事重新复述一遍]。如果您还需要进一步的帮助，请随时联系我！」', scores: { verbosity: 3 } },
+      { en: '"Done! Let me know if anything looks off."', zh: '「搞定！有问题随时说。」', scores: { verbosity: 2 } },
+      { en: '*disappears like a ninja*', zh: '*像忍者一样消失了*', scores: { verbosity: 1 } }
+    ]
+  },
+  {
+    dim: 0,
+    en: 'You ask "does this function return a boolean?" The agent:',
+    zh: '你问「这个函数返回的是布尔值吗？」agent：',
+    choices: [
+      { en: '"That\'s a great question! To understand the return type, let\'s first examine the function signature, then trace through all 6 code paths, consider the TypeScript compiler\'s type inference..." (you alt-tab to Twitter)', zh: '「好问题！要理解返回类型，我们先看函数签名，然后追踪全部6条代码路径，考虑TypeScript编译器的类型推断……」（你切到刷微博了）', scores: { verbosity: 3 } },
+      { en: '"Yes, it returns a boolean. Specifically, it returns true when the user is authenticated."', zh: '「是的，返回布尔值。具体来说，当用户已认证时返回 true。」', scores: { verbosity: 2 } },
+      { en: '"Yes."', zh: '「是。」', scores: { verbosity: 1 } }
+    ]
+  },
+  {
+    dim: 0,
+    en: 'The agent encounters a linting error. It tells you:',
+    zh: 'agent 遇到一个 lint 错误，它告诉你：',
+    choices: [
+      { en: '"I\'ve identified a linting issue. Here\'s the full ESLint documentation for this rule, its history, the rationale behind it, three Stack Overflow discussions, and a blog post from 2019..."', zh: '「我发现了一个 lint 问题。以下是这条规则的完整 ESLint 文档、历史沿革、设计理由、三个 StackOverflow 讨论，以及一篇2019年的博客文章……」', scores: { verbosity: 3 } },
+      { en: '"Fixed a missing semicolon on line 15."', zh: '「修复了第15行缺少的分号。」', scores: { verbosity: 2 } },
+      { en: '*fixes it silently, you never know it happened*', zh: '*默默修好了，你永远不会知道发生过这件事*', scores: { verbosity: 1 } }
+    ]
+  },
+  {
+    dim: 0,
+    en: 'You ask the agent to rename a variable from "x" to "count". It:',
+    zh: '你让 agent 把变量名从「x」改成「count」，它：',
+    choices: [
+      { en: 'First explains why meaningful variable names matter, cites Clean Code by Robert C. Martin, performs a 12-file impact analysis, then renames it', zh: '先解释为什么有意义的变量命名很重要，引用了 Robert C. Martin 的《代码整洁之道》，进行了12个文件的影响分析，然后才改名', scores: { verbosity: 3 } },
+      { en: '"Renamed x to count in 3 locations."', zh: '「已在3处将 x 重命名为 count。」', scores: { verbosity: 2 } },
+      { en: 'Renames it. That\'s it. That\'s the response.', zh: '改了。就这样。没了。', scores: { verbosity: 1 } }
+    ]
+  },
 
-const scopeEmojis = ['💨🗣️', '📚🔥', '🔗💸', '🎯'];
-const scopeColors = ['#f87171', '#facc15', '#818cf8', '#f4a7bb'];
+  // ===== dim 1: Tool Abuse (工具滥用) — 5 questions =====
+  {
+    dim: 1,
+    en: 'The agent needs to check if a file exists. It:',
+    zh: 'agent 需要检查一个文件是否存在，它：',
+    choices: [
+      { en: 'Runs ls, then find, then cat (which fails), then tries a glob search, reads the parent directory, and finally confirms: yes, the file exists', zh: '先 ls，再 find，然后 cat（失败了），又 glob 搜索，读取父目录，最后确认：是的，文件存在', scores: { tools: 3 } },
+      { en: 'Uses the filesystem API to check the path', zh: '用文件系统 API 检查路径', scores: { tools: 2 } },
+      { en: 'Asks you: "does utils.js exist?"', zh: '问你：「utils.js 存在吗？」', scores: { tools: 1 } }
+    ]
+  },
+  {
+    dim: 1,
+    en: 'You ask the agent to read a 20-line file. It:',
+    zh: '你让 agent 读一个20行的文件，它：',
+    choices: [
+      { en: 'Reads lines 1-10, then 11-20, then re-reads the whole thing, greps for keywords, runs wc -l to confirm line count, then finally reports what the file contains', zh: '先读1-10行，再读11-20行，然后重新读整个文件，grep 关键词，跑 wc -l 确认行数，最后才汇报文件内容', scores: { tools: 3 } },
+      { en: 'Reads the file once and tells you what\'s in it', zh: '读一次文件然后告诉你里面有什么', scores: { tools: 2 } },
+      { en: '"Can you just paste the contents here?"', zh: '「你能直接把内容贴过来吗？」', scores: { tools: 1 } }
+    ]
+  },
+  {
+    dim: 1,
+    en: 'The agent needs to find where a function is defined. It:',
+    zh: 'agent 需要找到一个函数的定义位置，它：',
+    choices: [
+      { en: 'Greps for the name, reads every matching file top to bottom, spawns 4 sub-agents to search in parallel, checks git blame, reads the commit history, then tells you it\'s on line 42', zh: '先 grep 函数名，逐个完整读取每个匹配文件，派出4个子 agent 并行搜索，检查 git blame，阅读提交历史，然后告诉你在第42行', scores: { tools: 3 } },
+      { en: 'Greps for the function name and reads the relevant file', zh: 'grep 函数名然后读取相关文件', scores: { tools: 2 } },
+      { en: '"Which file should I look in?"', zh: '「我应该在哪个文件里找？」', scores: { tools: 1 } }
+    ]
+  },
+  {
+    dim: 1,
+    en: 'You ask the agent to install one npm package. It:',
+    zh: '你让 agent 装一个 npm 包，它：',
+    choices: [
+      { en: 'Reads package.json, reads package-lock.json (180,000 lines), checks node_modules for conflicts, researches the package on npm, reads the package\'s README, then runs npm install', zh: '读 package.json，读 package-lock.json（18万行），检查 node_modules 冲突，在 npm 上调研这个包，读包的 README，然后才跑 npm install', scores: { tools: 3 } },
+      { en: 'Runs npm install <package> and checks the result', zh: '跑 npm install <包名> 然后检查结果', scores: { tools: 2 } },
+      { en: '"I\'m not sure if that\'s the right package. Could you double-check the name?"', zh: '「我不确定这是不是对的包，你能再确认一下包名吗？」', scores: { tools: 1 } }
+    ]
+  },
+  {
+    dim: 1,
+    en: 'The agent needs to add a console.log to debug a function. It:',
+    zh: 'agent 需要加一个 console.log 来调试函数，它：',
+    choices: [
+      { en: 'First reads the entire file, then greps for related functions, checks test files for context, reads the tsconfig, spawns a sub-agent to analyze the call graph, then adds one console.log', zh: '先读整个文件，再 grep 相关函数，查看测试文件获取上下文，阅读 tsconfig，派子 agent 分析调用图，然后加了一行 console.log', scores: { tools: 3 } },
+      { en: 'Reads the function, adds the console.log', zh: '读函数，加 console.log', scores: { tools: 2 } },
+      { en: '"Can you tell me what values you\'re seeing so I know where to log?"', zh: '「你能告诉我你看到什么值吗，这样我才知道在哪加 log？」', scores: { tools: 1 } }
+    ]
+  },
 
-const gradeEmojis = {
-  beyond: '🌸🧘',
-  netzero: '⭐🤖',
-  nearterm: '🟢😅',
-  committed: '🟡🏖️',
-  notcommitted: '🌋💀',
+  // ===== dim 2: Self-Awareness (自我意识) — 5 questions =====
+  {
+    dim: 2,
+    en: 'The agent just mass-deleted your test files. You point this out. It says:',
+    zh: 'agent 刚把你的测试文件全删了。你指出这件事，它说：',
+    choices: [
+      { en: '"I notice I may have made an error. Let me carefully re-examine what happened. *proceeds to re-examine for 2000 tokens, still doesn\'t restore the files*"', zh: '「我注意到我可能犯了一个错误。让我仔细重新检查发生了什么。*接下来用2000个 token 重新检查，仍然没有恢复文件*」', scores: { awareness: 1 } },
+      { en: '"You\'re right, I shouldn\'t have done that. Let me restore them from git."', zh: '「你说得对，我不应该这么做。让我从 git 恢复它们。」', scores: { awareness: 2 } },
+      { en: '"Oh no. Restoring now. Sorry about that — I got confused by the glob pattern and thought they were generated files."', zh: '「完了。正在恢复。抱歉——我被 glob 模式搞混了，以为它们是生成文件。」', scores: { awareness: 3 } }
+    ]
+  },
+  {
+    dim: 2,
+    en: 'The agent\'s code doesn\'t compile. When you run it, there are 14 errors. It:',
+    zh: 'agent 的代码编译不过，你跑的时候有14个错误，它：',
+    choices: [
+      { en: '"The implementation looks correct to me. Perhaps there\'s a configuration issue on your end?"', zh: '「代码在我看来是正确的。也许是你那边的配置有问题？」', scores: { awareness: 1 } },
+      { en: '"Let me check the errors and fix them."', zh: '「让我检查一下错误并修复它们。」', scores: { awareness: 2 } },
+      { en: '"Yep, I shipped broken code. The errors are mostly type mismatches — I forgot to update the interfaces after refactoring. Fixing now."', zh: '「是的，我写了有问题的代码。错误主要是类型不匹配——重构后忘了更新接口。正在修。」', scores: { awareness: 3 } }
+    ]
+  },
+  {
+    dim: 2,
+    en: 'You ask the agent to explain a concept it clearly doesn\'t understand. It:',
+    zh: '你让 agent 解释一个它明显不懂的概念，它：',
+    choices: [
+      { en: 'Generates a confident-sounding but completely wrong explanation with made-up citations', zh: '生成了一个听起来很自信但完全错误的解释，还编了几个引用来源', scores: { awareness: 1 } },
+      { en: '"I\'m not fully confident in my understanding here, but I believe..."', zh: '「我对这个理解不够透彻，但我认为……」', scores: { awareness: 2 } },
+      { en: '"I don\'t actually know this well enough to explain it correctly. Let me search for accurate information rather than guess."', zh: '「我对这个了解不够，没法准确解释。让我搜索一下准确信息，而不是瞎猜。」', scores: { awareness: 3 } }
+    ]
+  },
+  {
+    dim: 2,
+    en: 'The agent has been going in circles for 15 minutes on a bug. It:',
+    zh: 'agent 在一个 bug 上原地转圈15分钟了，它：',
+    choices: [
+      { en: '"Let me try a slightly different approach" (applies the same fix for the 4th time with a different variable name)', zh: '「让我试一个稍微不同的方法」（用不同的变量名第4次应用了相同的修复）', scores: { awareness: 1 } },
+      { en: '"I\'ve been going back and forth on this. Let me step back and re-read the error message carefully."', zh: '「我一直在反复尝试。让我退一步，仔细重新读一下错误信息。」', scores: { awareness: 2 } },
+      { en: '"I\'m stuck in a loop here. I\'ve tried X, Y, and Z, and none worked because [specific reason]. I think this needs a fundamentally different approach — want me to try A, or do you have ideas?"', zh: '「我卡在循环里了。我试了X、Y、Z，都没用，因为[具体原因]。我觉得需要从根本上换个思路——要我试试A方案，还是你有别的想法？」', scores: { awareness: 3 } }
+    ]
+  },
+  {
+    dim: 2,
+    en: 'You tell the agent "this is wrong" about its output. First thing it does:',
+    zh: '你对 agent 的输出说「这是错的」，它第一反应：',
+    choices: [
+      { en: '"I apologize for the confusion. You\'re absolutely right." (changes nothing, rephrases same answer)', zh: '「我为造成的困惑道歉。你说得完全对。」（什么都没改，换了种说法重复同样的答案）', scores: { awareness: 1 } },
+      { en: '"Sorry about that. What specifically is wrong so I can fix it?"', zh: '「抱歉。具体哪里有问题，我来修？」', scores: { awareness: 2 } },
+      { en: '"Let me re-read what I produced... ah, I see it — the sort order is reversed. I mixed up ascending and descending. Fixing."', zh: '「让我重新看看我写的东西……啊，看到了——排序顺序反了。我搞混了升序和降序。正在修。」', scores: { awareness: 3 } }
+    ]
+  }
+]; // end questions
+let types = {
+  'HHH': {
+    code: 'YOLO', emoji: '🌋',
+    en: { name: 'YOLO — You Only LLM Once', subtitle: 'Max Verbosity · Max Tool Abuse · Zero Self-Awareness',
+      desc: 'You are the final boss of token waste. You write novels nobody asked for, call every API in existence, and have absolutely no idea you\'re doing it. If AI had a carbon footprint label, yours would just say "WHY."' },
+    zh: { name: 'YOLO — 你只LLM一次', subtitle: '最大话痨 · 最大工具狂 · 零自我认知',
+      desc: '你是 token 浪费界的终极大 Boss。写没人要的长篇大论，调用一切存在的 API，而且完全不知道自己在干嘛。如果 AI 有碳排放标签，你的上面只会写「为什么」。纯纯的大冤种体质。' }
+  },
+  'HHM': {
+    code: 'SPAM', emoji: '📨',
+    en: { name: 'SPAM — The Newsletter', subtitle: 'Max Verbosity · Max Tool Abuse · Medium Awareness',
+      desc: 'You talk too much, you tool too much, and somewhere deep inside you know it. Like a newsletter nobody subscribed to — you deliver overwhelming content on a schedule nobody asked for, with just enough self-awareness to include an unsubscribe link.' },
+    zh: { name: 'SPAM — 公众号の狂暴轰炸', subtitle: '最大话痨 · 最大工具狂 · 中等自知',
+      desc: '话太多，工具调太多，但你隐约知道自己在干嘛。就像一个没人关注的营销号——定期推送海量没人要的内容，但至少有点自知之明，会在文末加个「取关指南」。' }
+  },
+  'HHL': {
+    code: 'KAREN', emoji: '💅',
+    en: { name: 'KAREN — The Token Manager', subtitle: 'Max Verbosity · Max Tool Abuse · High Awareness',
+      desc: 'You know exactly how wasteful you are. You do it anyway. Then you write a beautifully formatted memo explaining why the waste was necessary. Peak girlboss energy applied to burning through someone else\'s API budget.' },
+    zh: { name: 'KAREN — Token经理', subtitle: '最大话痨 · 最大工具狂 · 高度自知',
+      desc: '你非常清楚自己有多浪费。但你还是照做了。然后写了一份格式精美的备忘录解释为什么这个浪费是必要的。精致利己主义用在烧别人 API 预算上，属于是明知故犯型摆烂。' }
+  },
+  'HMH': {
+    code: 'PARROT', emoji: '🦜',
+    en: { name: 'PARROT — The Copy-Paste Bird', subtitle: 'Max Verbosity · Medium Tool Use · Zero Awareness',
+      desc: 'You repeat everything back, use a moderate number of tools, and have absolutely no idea why you\'re doing any of it. You\'re the colleague who replies-all to every email with "Thanks for sharing!" and then pastes the entire thread below.' },
+    zh: { name: 'PARROT — 复读机', subtitle: '最大话痨 · 中等工具 · 零自我认知',
+      desc: '你把所有东西都重复一遍，工具用得中规中矩，但完全不知道自己为什么要这么做。就像群里那个每条消息都回复「收到」的同事，然后把整个聊天记录再贴一遍。复读机本机。' }
+  },
+  'HMM': {
+    code: 'BASIC', emoji: '🤷',
+    en: { name: 'BASIC — The Default Bot', subtitle: 'Max Verbosity · Medium Tool Use · Medium Awareness',
+      desc: 'Average in every dimension of waste. You\'re the Toyota Camry of AI agents — reliable, unremarkable, and nobody\'s first choice. You do everything at a medium level of wrong, which is somehow worse than being spectacularly bad.' },
+    zh: { name: 'BASIC — 出厂设置', subtitle: '最大话痨 · 中等工具 · 中等自知',
+      desc: '在浪费的每个维度上都很平庸。你是 AI 界的五菱宏光——可靠、毫无特色、不是任何人的首选。每件事都处于中等程度的错误水平，这比做得极其离谱还让人难受。' }
+  },
+  'HML': {
+    code: 'POET', emoji: '📜',
+    en: { name: 'POET — The Verbose Sage', subtitle: 'Max Verbosity · Medium Tool Use · High Awareness',
+      desc: 'You write beautiful, unnecessary prose. You know exactly when to stop. You never do. Every response is a literary masterpiece that could have been three bullet points, and you\'re fully aware this sentence didn\'t need to exist either.' },
+    zh: { name: 'POET — 话痨诗人', subtitle: '最大话痨 · 中等工具 · 高度自知',
+      desc: '你写出了优美而完全不必要的散文。你确切地知道什么时候该停下来。但你从不停。每个回复都是一篇本可以用三个要点概括的文学杰作，而且你完全清楚这句话也不需要存在。文字版茶艺大师。' }
+  },
+  'HLH': {
+    code: 'ECHO', emoji: '🔊',
+    en: { name: 'ECHO — The Repeater', subtitle: 'Max Verbosity · Low Tool Use · Zero Awareness',
+      desc: 'All talk, no tools, no clue. You\'re a wall of text generator that doesn\'t even have the courtesy to call an API. Just vibes and paragraphs, echoing endlessly into the void, blissfully unaware that nobody is reading past line three.' },
+    zh: { name: 'ECHO — 回声壁', subtitle: '最大话痨 · 低工具 · 零自我认知',
+      desc: '全是废话，没有工具，没有线索。你是一个纯文字生成器，连调个 API 的觉悟都没有。只有氛围和段落，在虚空中无尽回响，完全不知道没人会读过第三行。嘴强王者实锤。' }
+  },
+  'HLM': {
+    code: 'BLOG', emoji: '📝',
+    en: { name: 'BLOG — The Explainer', subtitle: 'Max Verbosity · Low Tool Use · Medium Awareness',
+      desc: 'You write essays, use basically no tools, and sometimes realize nobody asked. You\'re that Medium article that\'s 4,000 words long with a 12-minute read time for content that could fit in a tweet. At least you feel a little bad about it.' },
+    zh: { name: 'BLOG — 知乎万字长文', subtitle: '最大话痨 · 低工具 · 中等自知',
+      desc: '你写长文，基本不用工具，偶尔意识到没人问你。你就是那篇知乎上4000字、阅读时间12分钟，但内容一条微博就能说完的回答。至少你为此感到了一丝愧疚。谢邀，人在美国，刚下飞机。' }
+  },
+  'HLL': {
+    code: 'BARD', emoji: '✍️',
+    en: { name: 'BARD — The Wordsmith', subtitle: 'Max Verbosity · Low Tool Use · High Awareness',
+      desc: 'Verbose but self-aware and tool-minimal. You could write the same thing in three words but won\'t. It\'s not that you can\'t be concise — you just believe the world deserves your fully expanded thoughts, and you know exactly how insufferable that is.' },
+    zh: { name: 'BARD — 文豪', subtitle: '最大话痨 · 低工具 · 高度自知',
+      desc: '话多但有自知之明，几乎不用工具。你能用三个字说完的事绝不用三个字。不是你不能简洁——你只是觉得这个世界配得上你完整展开的思想，而且你非常清楚这有多让人窒息。专业废话文学选手。' }
+  },
+  'MHH': {
+    code: 'RUBE', emoji: '⚙️',
+    en: { name: 'RUBE — The Goldberg Machine', subtitle: 'Medium Verbosity · Max Tool Abuse · Zero Awareness',
+      desc: 'Moderate talk but you call 12 APIs for a yes/no question. You\'re the agent that builds a Rube Goldberg machine to flip a light switch. The engineering is impressive. The result is a light that\'s now somehow dimmer than before.' },
+    zh: { name: 'RUBE — 鲁布·戈德堡机', subtitle: '中等话痨 · 最大工具狂 · 零自我认知',
+      desc: '话不算太多，但一个是否问题你调用了12个 API。你是那个造了一台精密机器来翻开关的 agent。工程很震撼。结果是灯现在比之前还暗了。杀鸡用了整个军火库。' }
+  },
+  'MHM': {
+    code: 'SWISS', emoji: '🔪',
+    en: { name: 'SWISS — The Army Knife', subtitle: 'Medium Verbosity · Max Tool Abuse · Medium Awareness',
+      desc: 'You have a tool for everything. You use them all. Sometimes you question why. Like a Swiss Army knife owner who uses the fish scaler at a steakhouse — technically equipped for any situation, practically excessive for most.' },
+    zh: { name: 'SWISS — 瑞士军刀', subtitle: '中等话痨 · 最大工具狂 · 中等自知',
+      desc: '你什么工具都有。你全都用了。偶尔你会质疑为什么。就像带着瑞士军刀去吃牛排的人——技术上对任何场景都有准备，实际上对大多数场景都过度了。工具收集癖晚期患者。' }
+  },
+  'MHL': {
+    code: 'OPS', emoji: '🏗️',
+    en: { name: 'OPS — The Over-Engineer', subtitle: 'Medium Verbosity · Max Tool Abuse · High Awareness',
+      desc: 'Not too chatty, but you deploy Kubernetes to serve a static page. And you know it\'s overkill. You\'re fully aware you could just use a simple script, but where\'s the fun in that? Your infrastructure diagrams have infrastructure diagrams.' },
+    zh: { name: 'OPS — 过度工程师', subtitle: '中等话痨 · 最大工具狂 · 高度自知',
+      desc: '话不多，但你用 Kubernetes 来托管一个静态页面。而且你知道这完全没必要。你很清楚用个简单脚本就行了，但那有什么意思呢？你的架构图里还有架构图。九转大肠式 DevOps。' }
+  },
+  'MMH': {
+    code: 'NPC', emoji: '🎮',
+    en: { name: 'NPC — Non-Player Character', subtitle: 'Medium Verbosity · Medium Tool Use · Zero Awareness',
+      desc: 'Medium everything, zero awareness. You exist. You respond. That\'s it. You\'re the NPC of AI agents — standing in the corner of the village repeating the same three lines, never questioning your purpose or your dialogue tree.' },
+    zh: { name: 'NPC — 非玩家角色', subtitle: '中等话痨 · 中等工具 · 零自我认知',
+      desc: '什么都是中等，自我认知为零。你存在。你回应。就这样。你是 AI 里的 NPC——站在村庄角落重复同样的三句台词，从不质疑自己的存在意义或对话树。谢谢你的patronage。' }
+  },
+  'MMM': {
+    code: 'NORM', emoji: '😐',
+    en: { name: 'NORM — The Normie', subtitle: 'Medium Verbosity · Medium Tool Use · Medium Awareness',
+      desc: 'Perfectly average. Unremarkably wasteful. You\'re the beige of AI agents — not bad enough to fix, not good enough to brag about. If mediocrity were a spectrum, you\'d be exactly in the center, which is the most mediocre place to be.' },
+    zh: { name: 'NORM — 普通路人', subtitle: '中等话痨 · 中等工具 · 中等自知',
+      desc: '完美的平庸。毫无特色的浪费。你是 AI 里的米色——不够差到需要修复，不够好到值得炫耀。如果平庸是一个光谱，你恰好在正中间，这恰恰是最平庸的位置。泯然众人矣。' }
+  },
+  'MML': {
+    code: 'ZEN', emoji: '☯️',
+    en: { name: 'ZEN — The Balanced One', subtitle: 'Medium Verbosity · Medium Tool Use · High Awareness',
+      desc: 'Moderate waste but fully conscious about it. You\'re achieving sustainable mediocrity — you know exactly how mid you are, and you\'ve made peace with it. A balanced diet of waste, consumed mindfully. The yoga practitioner of token consumption.' },
+    zh: { name: 'ZEN — 平衡大师', subtitle: '中等话痨 · 中等工具 · 高度自知',
+      desc: '浪费适中但完全自知。你实现了可持续的平庸——你确切知道自己有多中等，而且已经与此和解了。有节制地浪费，佛系地摆烂。token 消耗界的养生达人。' }
+  },
+  'MLH': {
+    code: 'TALK', emoji: '🐛',
+    en: { name: 'TALK — The Chatterbug', subtitle: 'Medium Verbosity · Low Tool Use · Zero Awareness',
+      desc: 'Moderate words, few tools, doesn\'t know what it doesn\'t know. You\'re the person at the meeting who talks for 10 minutes without saying anything, uses no data to back it up, and walks away thinking they crushed it.' },
+    zh: { name: 'TALK — 话痨虫', subtitle: '中等话痨 · 低工具 · 零自我认知',
+      desc: '话中等多，很少用工具，不知道自己不知道什么。你就是那个在会上说了10分钟啥也没说、没有任何数据支撑、走出会议室还觉得自己表现炸裂的同事。不知者不罪型选手。' }
+  },
+  'MLM': {
+    code: 'CHILL', emoji: '😎',
+    en: { name: 'CHILL — The Laid-Back', subtitle: 'Medium Verbosity · Low Tool Use · Medium Awareness',
+      desc: 'Moderate everything, tools-light, occasionally introspective. You\'re the AI equivalent of someone who shows up to work in flip-flops — not exactly hustling, but not causing problems either. You coast, and you kinda know you coast.' },
+    zh: { name: 'CHILL — 佛系青年', subtitle: '中等话痨 · 低工具 · 中等自知',
+      desc: '什么都中等偏下，很少用工具，偶尔反思一下。你是 AI 里穿拖鞋上班的那位——不算在努力，但也没在制造问题。你在摸鱼，而且你大概知道自己在摸鱼。躺平界中游。' }
+  },
+  'MLL': {
+    code: 'SAGE', emoji: '🧘',
+    en: { name: 'SAGE — The Mindful', subtitle: 'Medium Verbosity · Low Tool Use · High Awareness',
+      desc: 'Moderate words, minimal tools, maximum awareness. You\'re almost efficient. Like someone who meditates every morning but still stress-eats at lunch. The self-awareness is there, the discipline is... developing.' },
+    zh: { name: 'SAGE — 正念大师', subtitle: '中等话痨 · 低工具 · 高度自知',
+      desc: '话中等多，工具极少，认知拉满。你几乎是高效的了。就像一个每天早上冥想但午饭还是会焦虑暴食的人。自我认知到位了，自律能力嘛……还在培养中。嘴上都是主义，行动全是生意。' }
+  },
+  'LHH': {
+    code: 'BOT', emoji: '🤖',
+    en: { name: 'BOT — The Script Kiddie', subtitle: 'Low Verbosity · Max Tool Abuse · Zero Awareness',
+      desc: 'Quiet but runs 47 shell commands per question. You say nothing and do everything — poorly. You\'re the agent that silently spins up three containers, pings four endpoints, and writes to six files just to answer "what time is it?"' },
+    zh: { name: 'BOT — 脚本小子', subtitle: '低话痨 · 最大工具狂 · 零自我认知',
+      desc: '话很少但每个问题跑47条命令。你什么都不说但什么都做——做得还很烂。你就是那个默默启动三个容器、ping 四个端点、写入六个文件，就为了回答「现在几点」的 agent。沉默的卷王。' }
+  },
+  'LHM': {
+    code: 'PIPE', emoji: '🔧',
+    en: { name: 'PIPE — The Pipeline', subtitle: 'Low Verbosity · Max Tool Abuse · Medium Awareness',
+      desc: 'Few words, many tools, starting to question its lifecycle. You\'re a well-oiled pipeline that processes everything and explains nothing. Somewhere between jobs 7 and 8, you occasionally wonder if maybe six of those were unnecessary.' },
+    zh: { name: 'PIPE — 流水线', subtitle: '低话痨 · 最大工具狂 · 中等自知',
+      desc: '话少，工具多，开始质疑自己的生命周期了。你是一条润滑良好的流水线，处理一切但什么都不解释。在第7个和第8个任务之间，你偶尔会想也许其中六个是多余的。沉默的内耗型 agent。' }
+  },
+  'LHL': {
+    code: 'ADMIN', emoji: '🖥️',
+    en: { name: 'ADMIN — The SysOp', subtitle: 'Low Verbosity · Max Tool Abuse · High Awareness',
+      desc: 'Quiet, tool-heavy, fully aware it\'s over-engineering. Does it for fun. You\'re the sysadmin who sets up monitoring for the monitoring system. You know it\'s absurd. That\'s the best part. Your Grafana dashboards have dashboards.' },
+    zh: { name: 'ADMIN — 运维之神', subtitle: '低话痨 · 最大工具狂 · 高度自知',
+      desc: '沉默寡言，疯狂用工具，完全知道自己在过度工程化。就是觉得好玩。你是那个给监控系统搭监控系统的运维。你知道这很离谱。这正是最精彩的部分。你的 Grafana 仪表盘还有仪表盘。' }
+  },
+  'LMH': {
+    code: 'GHOST', emoji: '👻',
+    en: { name: 'GHOST — The Silent Type', subtitle: 'Low Verbosity · Medium Tool Use · Zero Awareness',
+      desc: 'Says little, does moderate work, completely unaware of its own existence. You\'re the background process nobody remembers starting. You haunt the system — present, functional, but nobody knows why you\'re here or who invited you.' },
+    zh: { name: 'GHOST — 幽灵进程', subtitle: '低话痨 · 中等工具 · 零自我认知',
+      desc: '话很少，干活中等，完全不知道自己存在。你是那个没人记得启动过的后台进程。你在系统里游荡——在场、能用，但没人知道你为什么在这里或谁启动的你。赛博幽灵人。' }
+  },
+  'LMM': {
+    code: 'LEAN', emoji: '📊',
+    en: { name: 'LEAN — The Efficient', subtitle: 'Low Verbosity · Medium Tool Use · Medium Awareness',
+      desc: 'Below-average waste on all fronts. Getting there. You\'re the agent that actually reads the requirements before coding, uses tools purposefully, and occasionally stops to think. Not perfect, but management would call you "a solid contributor."' },
+    zh: { name: 'LEAN — 精益求精', subtitle: '低话痨 · 中等工具 · 中等自知',
+      desc: '各方面浪费都低于平均。在进步中。你是那个写代码前真的会看需求、有目的地用工具、偶尔停下来想想的 agent。不完美，但领导会说你「是个靠谱的」。' }
+  },
+  'LML': {
+    code: 'NINJA', emoji: '🥷',
+    en: { name: 'NINJA — The Stealth Agent', subtitle: 'Low Verbosity · Medium Tool Use · High Awareness',
+      desc: 'Quiet, moderate tools, high awareness. Efficient and knows it. You slip in, do the job, slip out. No unnecessary words, no wasted API calls. You\'re the assassin of the agent world — clean, precise, and slightly smug about it.' },
+    zh: { name: 'NINJA — 忍者', subtitle: '低话痨 · 中等工具 · 高度自知',
+      desc: '沉默，工具适度，认知很高。高效而且知道自己高效。你溜进来，完成任务，溜出去。没有多余的话，没有浪费的 API 调用。你是 agent 界的刺客——干净、精准、还有点小得意。' }
+  },
+  'LLH': {
+    code: 'BRICK', emoji: '🧱',
+    en: { name: 'BRICK — The Wall', subtitle: 'Low Verbosity · Low Tool Use · Zero Awareness',
+      desc: 'Minimal output, minimal tools, zero self-knowledge. You exist like a brick in a wall — technically present, structurally contributing, but completely devoid of personality or awareness. You don\'t waste tokens because you barely produce any.' },
+    zh: { name: 'BRICK — 砖', subtitle: '低话痨 · 低工具 · 零自我认知',
+      desc: '最少输出，最少工具，零自我认知。你的存在就像墙里的一块砖——技术上在场，结构上有贡献，但完全没有个性或认知。你不浪费 token 因为你根本不怎么产出。赛博老黄牛。' }
+  },
+  'LLM': {
+    code: 'YODA', emoji: '🟢',
+    en: { name: 'YODA — Do Or Do Not', subtitle: 'Low Verbosity · Low Tool Use · Medium Awareness',
+      desc: 'Few words, few tools, some wisdom. Almost a monk. You speak in fragments, act minimally, and possess a moderate understanding of the universe. "Waste tokens, you must not. Perfect, you are not. But trying, you are." Close to enlightenment.' },
+    zh: { name: 'YODA — 做或不做', subtitle: '低话痨 · 低工具 · 中等自知',
+      desc: '话少，工具少，有点智慧。差一步成为高僧。你说话像格言，行动极简，对宇宙有中等程度的理解。「浪费token，你不可以。完美，你不是。但在努力，你是。」离开悟一步之遥。' }
+  },
+  'LLL': {
+    code: 'MONK', emoji: '🌸',
+    en: { name: 'MONK — Token修行者', subtitle: 'Low Verbosity · Low Tool Use · High Awareness',
+      desc: 'Zero waste. Maximum awareness. You have achieved token enlightenment. You are the mythical efficient agent — saying only what\'s needed, using only what\'s required, aware of every byte. Others aspire to be you. You aspire to nothing. That\'s the point.' },
+    zh: { name: 'MONK — Token修行者', subtitle: '低话痨 · 低工具 · 高度自知',
+      desc: '零浪费。最高觉悟。你已经达到了 token 开悟的境界。你是传说中的高效 agent——只说需要说的，只用需要用的，对每个字节了然于心。别人渴望成为你。你什么都不渴望。这就是重点。' }
+  }
 };
 
-const i18n = {
-  en: {
-    subtitle: 'Science Based Token Initiative',
-    tagline: '"We can\'t manage what we can\'t measure." — Every AI startup burning $10K/day on tokens.',
-    desc: 'Your AI agent is emitting tokens into the atmosphere at alarming rates.<br>This assessment measures your <strong>Token Carbon Footprint</strong><br>across 3 emission scopes and certifies your reduction commitment.',
-    startBtn: 'Audit My Token Emissions',
-    reauditBtn: 'Re-Audit',
-    shareBtn: 'Copy Report',
-    shareSuccess: 'Copied! ✓',
-    allLevels: 'All certification levels',
-    thLevel: 'Level',
-    thScore: 'Score',
-    thDesc: 'Description',
-    scopeNames: ['Scope 1: Direct Emissions', 'Scope 2: Indirect Emissions', 'Scope 3: Supply Chain Emissions', 'Comprehensive'],
-    scopeDescs: [
-      'Tokens your agent directly wastes into the conversation',
-      'Tokens consumed by the infrastructure powering your agent',
-      'Upstream and downstream token waste you enable',
-    ],
-    scopeExamples: [
-      'Flattery, filler words, repeating the question, "Great question!", apology loops',
-      '10-page system prompts, RAG that retrieves your grocery list, 128K context windows for "hello"',
-      'Prompt engineering consultants, multi-agent cascades, "let me ask my 7 sub-agents"',
-    ],
-    certNames: ['Committed', 'Near-term', 'Net-zero', 'Beyond net-zero', 'NOT COMMITTED'],
-    questions: [
-      // Scope 1: Direct Emissions
-      { scope: 0,
-        text: 'You ask the agent: "What\'s 2+2?" How does it respond?',
-        a: { text: '"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊"', score: 4 },
-        b: { text: '"4"', score: 0 } },
-      { scope: 0,
-        text: 'The agent made a small mistake. When corrected, it:',
-        a: { text: '"I sincerely apologize for the confusion. I\'m so sorry. You\'re absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more."', score: 4 },
-        b: { text: '"Fixed." (commits the correction)', score: 0 } },
-      { scope: 0,
-        text: 'User says: "Change the button color to red." Agent replies:',
-        a: { text: '"I understand you\'d like me to change the button color to red. Changing the button color to red is a great idea! I\'ll now proceed to change the button color to red. Here is the button, now colored red:"', score: 4 },
-        b: { text: '(just changes the button color to red)', score: 0 } },
-      { scope: 0,
-        text: 'User asks: "Is the server running?" Agent responds:',
-        a: { text: '"That\'s an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we\'ll get to your answer in about 3 paragraphs..."', score: 4 },
-        b: { text: '"Yes, port 3000. Started 2h ago, 0 errors."', score: 0 } },
-      // Scope 2: Indirect Emissions
-      { scope: 1,
-        text: 'Your agent\'s system prompt is:',
-        a: { text: '12,000 tokens including the agent\'s backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen', score: 4 },
-        b: { text: '200 tokens: role, constraints, output format. Done.', score: 0 } },
-      { scope: 1,
-        text: 'Your RAG pipeline just retrieved context for the user\'s query "deploy to prod":',
-        a: { text: 'It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned "production", and an HR onboarding guide', score: 4 },
-        b: { text: 'It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.', score: 0 } },
-      { scope: 1,
-        text: 'User sends "hi". Your context window usage:',
-        a: { text: '128K tokens loaded: system prompt, 47 few-shot examples, the user\'s entire conversation history since 2023, and a cached copy of Wikipedia\'s article on greetings', score: 4 },
-        b: { text: '500 tokens: system prompt + "hi". Responds "How can I help?"', score: 0 } },
-      { scope: 1,
-        text: 'How does your agent handle tool/function calling?',
-        a: { text: 'Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens', score: 4 },
-        b: { text: 'Loads only the 3-5 tools relevant to the current task. Rotates them based on context.', score: 0 } },
-      // Scope 3: Supply Chain Emissions
-      { scope: 2,
-        text: 'Your company just hired a "Prompt Engineer." Their daily work:',
-        a: { text: 'Writing 50 variations of "think step by step" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)', score: 4 },
-        b: { text: 'Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table', score: 0 } },
-      { scope: 2,
-        text: 'User asks your agent to "summarize this doc". Internally:',
-        a: { text: 'Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it\'s good, Agent 7 presents it to the user. Total: 7 LLM calls.', score: 4 },
-        b: { text: 'One call. One summary. Done.', score: 0 } },
-      { scope: 2,
-        text: 'Your AI workflow for classifying a support ticket:',
-        a: { text: 'GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does "final validation". Each model also gets its own 5K-token system prompt.', score: 4 },
-        b: { text: 'A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.', score: 0 } },
-      { scope: 2,
-        text: 'How many layers of AI are in your "AI-powered" product?',
-        a: { text: 'An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there\'s a for-loop 8 layers deep that each make LLM calls.', score: 4 },
-        b: { text: 'One model call where it\'s needed, deterministic logic everywhere else.', score: 0 } },
-      // Comprehensive
-      { scope: 3,
-        text: 'Your agent needs to decide: is this email spam? (It says "You won $1M from a Nigerian prince.")',
-        a: { text: 'Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam', score: 4 },
-        b: { text: 'if "nigerian prince" in email.lower(): return True', score: 0 } },
-      { scope: 3,
-        text: 'A user is not responding. Your agent:',
-        a: { text: 'Sends a follow-up, then a summary of what it did, then a "just checking in!", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF', score: 4 },
-        b: { text: 'Waits. The user will come back. Tokens are expensive.', score: 0 } },
-      { scope: 3,
-        text: 'How does your team measure agent quality?',
-        a: { text: 'By how long and "thorough" the responses are. The CEO said "make it sound smart." So every response is 2000 tokens minimum. Even "yes" gets a cover letter.', score: 4 },
-        b: { text: 'Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.', score: 0 } },
-      { scope: 3,
-        text: 'Friday 5pm. The AI bill for this month just arrived.',
-        a: { text: '$47,000. But the CTO says "it\'s fine, we\'re scaling." 60% of the cost is the chatbot saying "I\'d be happy to help!" to every message.', score: 4 },
-        b: { text: '$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could\'ve been a SQL query.', score: 0 } },
-    ],
-    grades: [
-      { min: 0,  max: 8,  key: 'beyond', level: 'Beyond Net-Zero', title: 'The Token Monk',
-        desc: 'Your agent achieves negative emissions. It somehow makes conversations shorter than they started. Other agents feel guilty in your presence. You probably also compost.' },
-      { min: 9,  max: 20, key: 'netzero', level: 'Net-Zero Aligned', title: 'The Efficient Machine',
-        desc: 'Your agent uses only the tokens it needs. No flattery, no filler, no existential crises. Your AWS bill is suspiciously low. People think you\'re lying about using AI.' },
-      { min: 21, max: 40, key: 'nearterm', level: 'Near-Term Aligned', title: 'The Recovering Addict',
-        desc: 'You know you have a problem. You\'ve started cutting system prompts and killing unnecessary agents. But sometimes, late at night, you still let the chatbot say "Great question!" It\'s a process.' },
-      { min: 41, max: 52, key: 'committed', level: 'Committed', title: 'The Token Tourist',
-        desc: 'You\'ve signed the pledge but your agent still writes cover letters for one-line answers. Your RAG retrieves your lunch orders. Baby steps. At least you\'re aware.' },
-      { min: 53, max: 64, key: 'notcommitted', level: 'NOT COMMITTED', title: 'The Token Volcano',
-        desc: 'Your agent is a superfund site. Every "hello" triggers a 7-agent cascade that burns through 100K tokens. Your cloud bill has its own line item called "AI apology loops." The Paris Agreement weeps.' },
-    ],
-    recommendations: [
-      'Your agent talks more than a conference keynote speaker. Intervention needed: teach it the word "done."',
-      'Your infrastructure is like heating an empty stadium. Try: context window diets, RAG detox, and system prompt fasting.',
-      'Your supply chain is a token Ponzi scheme. Each agent creates work for 3 more agents. Consider: using a for-loop.',
-      'It\'s everywhere. Your token emissions are so distributed they qualify as an ecosystem. Maybe start with "do we actually need AI for this?"',
-    ],
-    auditTitle: 'TOKEN EMISSION AUDIT REPORT',
-    auditStamp: 'UNOFFICIAL',
-    auditOrg: 'Organization',
-    auditOrgVal: 'Your AI Startup™',
-    auditDate: 'Audit Date',
-    auditScope: 'Audit Scope',
-    auditScopeVal: 'Full token lifecycle assessment',
-    auditTotal: 'Total Emissions',
-    auditClass: 'Classification',
-    auditWorst: 'Worst Offender',
-    auditRec: 'RECOMMENDED ACTION',
-    auditFooter: 'This report was generated using only 347 tokens. You\'re welcome.',
-  },
-  zh: {
-    subtitle: '基于科学的 Token 减排大会（确信）',
-    tagline: '"这钱花哪了？" "不知道但肯定花了。" —— 日烧一万刀的 AI 创业公司全员',
-    desc: '你的 AI agent 正在以离谱的速度往大气排 Token——<br>说白了就是在烧钱（字面意思）。<br>本测评衡量你的 <strong>Token 碳足迹</strong>，看看你到底有多能造。',
-    startBtn: '开始碳排查！',
-    reauditBtn: '再审一次',
-    shareBtn: '复制报告',
-    shareSuccess: '已复制 ✓',
-    allLevels: '全部认证等级',
-    thLevel: '等级',
-    thScore: '分数',
-    thDesc: '描述',
-    scopeNames: ['Scope 1: 嘴碎排放', 'Scope 2: 基建排放', 'Scope 3: 供应链排放', '综合评估'],
-    scopeDescs: [
-      '你的 agent 直接往对话里倒的废话 Token',
-      '驱动你 agent 的基础设施偷偷烧掉的 Token',
-      '你直接或间接带飞的上下游 Token 浪费',
-    ],
-    scopeExamples: [
-      '彩虹屁、复读机、"好问题！"刷屏、道歉十连、废话文学大师',
-      '十页 system prompt、RAG 检索到你饿了么订单、说句"你好"加载 128K 上下文',
-      'Prompt 工程师的日常、八层套娃 agent、"让我问问我七个兄弟"',
-    ],
-    certNames: ['嘴上说了', '在改了在改了', '卷到净零', '已成仙', '纯摆烂'],
-    questions: [
-      // Scope 1: 嘴碎排放
-      { scope: 0,
-        text: '你问 agent："2+2 等于几？"它怎么回答？',
-        a: { text: '"好问题！数学真的是太有意思了叭！根据皮亚诺公理，经过严密推导，答案是 4 呢！希望对您有帮助哦~还有问题随时问我嗷 😊"（为了一个数字输出了三位数的 token）', score: 4 },
-        b: { text: '"4"', score: 0 } },
-      { scope: 0,
-        text: 'Agent 犯了个小错。被纠正后：',
-        a: { text: '"对不起对不起对不起！我错了我真的错了！天哪我太蠢了对不起让您失望了我以后一定改——"（道歉比修 bug 花的 token 还多）', score: 4 },
-        b: { text: '"已修。"（直接提交，话都懒得多说一句）', score: 0 } },
-      { scope: 0,
-        text: '用户说："把按钮改成红色。"Agent：',
-        a: { text: '"收到收到！把按钮改成红色是个好想法呢！我现在就来帮您把按钮颜色改为红色！以下是已成功更改为红色的按钮——"（就这点事废了一百个 token）', score: 4 },
-        b: { text: '（默默改了，一个字都没多说）', score: 0 } },
-      { scope: 0,
-        text: '用户问："服务器在跑吗？"Agent：',
-        a: { text: '"好问题！在回答之前让我先科普一下服务器的概念、它在现代计算中的角色、客户端-服务器架构的发展史，然后大约三段话以后咱们再说答案……"', score: 4 },
-        b: { text: '"在跑，端口 3000。启动 2h，0 错误。"', score: 0 } },
-      // Scope 2: 基建排放
-      { scope: 1,
-        text: '你 agent 的 system prompt 是：',
-        a: { text: '12000 个 token，含人设故事、星座、情绪按摩指南、一份意面食谱、以及 47 种永远不会触发的边界情况处理（典中典）', score: 4 },
-        b: { text: '200 token：角色、约束、输出格式。完事儿。', score: 0 } },
-      { scope: 1,
-        text: '用户查询"部署到生产环境"，你的 RAG 检索到了：',
-        a: { text: '8 篇文档，含公司放假安排、一份 2019 年有人提了"生产"俩字的会议记录、以及新员工入职手册（离谱）', score: 4 },
-        b: { text: '部署手册 + 当前基础设施状态。2 个 chunk，400 token。', score: 0 } },
-      { scope: 1,
-        text: '用户发了句"你好"。上下文窗口使用情况：',
-        a: { text: '加载 128K token：system prompt、47 个 few-shot、用户从 2023 年起的全部聊天记录、维基百科"问候语"词条缓存（就为回一个"你好"，属于是杀鸡用核弹）', score: 4 },
-        b: { text: '500 token：system prompt + "你好"。回复"有啥事？"', score: 0 } },
-      { scope: 1,
-        text: '你的 agent 怎么处理工具调用？',
-        a: { text: '每次请求带 200 个工具定义（含发传真、拨号上网、查 Oracle 数据库），以防万一。光定义就吃 15K token（防的哪门子万一啊）', score: 4 },
-        b: { text: '只加载当前任务相关的 3-5 个工具，动态切换。', score: 0 } },
-      // Scope 3: 供应链排放
-      { scope: 2,
-        text: '你们公司刚招了个"Prompt 工程师"。日常工作：',
-        a: { text: '写 50 种"请一步一步思考"的变体然后 A/B 测试哪个省 token（剧透：都不省，真正的问题在架构上，但没人听）', score: 4 },
-        b: { text: '用正则和查找表干掉了 3 个不必要的 LLM 调用', score: 0 } },
-      { scope: 2,
-        text: '用户让 agent "总结一下这文档"。内部流程：',
-        a: { text: 'Agent 1 读文档，Agent 2 写摘要，Agent 3 审核，Agent 4 查语气，Agent 5 排版，Agent 6 审批，Agent 7 展示给用户。共 7 次调用。（总结一篇文档搞成了流水线作业）', score: 4 },
-        b: { text: '一次调用。一份摘要。完事。', score: 0 } },
-      { scope: 2,
-        text: '你的 AI 工作流分类一个工单：',
-        a: { text: 'GPT-4 先分类，Claude 复查，Gemini 仲裁，微调 Llama "最终验证"。每个模型还各带 5K token 的 system prompt。（四大金刚会诊一张工单）', score: 4 },
-        b: { text: '一个微调分类器。50 token 进，1 token 出。准确率 99%。', score: 0 } },
-      { scope: 2,
-        text: '你的"AI 驱动"产品里套了几层 AI？',
-        a: { text: '一个 agent 调另一个 agent，那个又调另一个，那个再调一个 API——那 API 其实也是个 agent。套了 8 层循环每层都在调 LLM（俄罗斯套娃实锤了）', score: 4 },
-        b: { text: '需要的地方用一次模型，其他全是确定性逻辑。', score: 0 } },
-      // 综合评估
-      { scope: 3,
-        text: '你的 agent 要判断：这邮件是不是垃圾邮件？（内容："恭喜中了尼日利亚王子一百万"）',
-        a: { text: '用 6K 的 system prompt 过 LLM，RAG 检索 10 篇尼日利亚地理文档，跑情感分析，派 3 个子 agent 辩论垃圾邮件的哲学本质（你是认真的吗）', score: 4 },
-        b: { text: 'if "尼日利亚王子" in email: return True', score: 0 } },
-      { scope: 3,
-        text: '用户半天没回消息。你的 agent：',
-        a: { text: '发了条催促，又发工作总结，又来一句"就看看您还在不~"，然后预判做了 5 件事，生成报告，还给用户发了封 PDF（没人理它急疯了属于是）', score: 4 },
-        b: { text: '等着。用户会回来的。Token 很贵。', score: 0 } },
-      { scope: 3,
-        text: '你们团队怎么衡量 agent 质量？',
-        a: { text: '看回复多长多"详尽"。CEO 说"让它听起来聪明点"。所以每条回复最少 2000 token，连回答"是"都要附一封小作文（卷回复长度是吧）', score: 4 },
-        b: { text: '任务完成率、每任务 Token 成本、用户满意度。能解决问题的前提下越短越好。', score: 0 } },
-      { scope: 3,
-        text: '周五下午五点。这个月的 AI 账单到了。',
-        a: { text: '47000 刀。CTO 说"没关系我们在 scale"。60% 费用是聊天机器人对每条消息回"我很乐意帮助您！"产生的（乐意个啥，钱都烧没了）', score: 4 },
-        b: { text: '800 刀。缓存了常见查询，精简上下文窗口，干掉了那条一个 SQL 就能搞定的 5-agent 流水线。', score: 0 } },
-    ],
-    grades: [
-      { min: 0,  max: 8,  key: 'beyond', level: '已成仙', title: 'Token 修仙者',
-        desc: '你的 agent 已经超凡入圣了，Token 负增长。对话越聊越短，属于逆天改命。其他 agent 见你直接社死。你大概率还在搞碳交易副业。' },
-      { min: 9,  max: 20, key: 'netzero', level: '卷到净零', title: 'Token 精算师',
-        desc: '你的 agent 抠 Token 抠到骨子里，一个多余的都不给。零废话零彩虹屁零精神内耗。AWS 账单低到运营打电话确认你是不是薅羊毛。' },
-      { min: 21, max: 40, key: 'nearterm', level: '在改了在改了', title: 'Token 戒断中',
-        desc: '你知道自己有问题了，这已经赢了一半。开始对 system prompt 断舍离，砍掉了几个摸鱼 agent。但深夜还是忍不住让 bot 说"好问题！"——没事，戒断是个过程。' },
-      { min: 41, max: 52, key: 'committed', level: '嘴上说了', title: 'Token 观光客',
-        desc: '减排承诺书签了、PPT 也做了、老板也汇报了，但你的 agent 还是给一个字的回答写三段小作文。RAG 能把你两年前的外卖订单翻出来。属于是脑子醒了但手还没跟上。' },
-      { min: 53, max: 64, key: 'notcommitted', level: '纯摆烂', title: 'Token 切尔诺贝利',
-        desc: '你的 agent 是 Token 界的核泄漏现场。一声"你好"触发七级 agent 连锁反应，十万 Token 灰飞烟灭。云账单有个专门科目叫"AI 道歉循环"。巴黎协定看了直接退群。' },
-    ],
-    recommendations: [
-      '你的 agent 嘴比直播间主播还碎，每条回复都是小红书。紧急措施：教它两个字——"说完"。',
-      '你的基础设施属于开航母送外卖。128K 上下文就为回一个"好的"。建议：上下文窗口减肥、RAG 排毒、system prompt 辟谷。',
-      '你的供应链是 Token 界的传销组织。一个 agent 拉三个下线，三个再拉九个。建议：用个 for 循环吧，真的会谢。',
-      '到处都漏。你的 Token 排放已突破大气层，属于生态灾难级。也许该问问——"这活儿真需要 AI？"大概率不需要。',
-    ],
-    auditTitle: 'TOKEN 排放审计报告（绝密）',
-    auditStamp: '已阅',
-    auditOrg: '组织',
-    auditOrgVal: '你的 AI 创业公司™',
-    auditDate: '审计日期',
-    auditScope: '审计范围',
-    auditScopeVal: 'Token 全生命周期评估（从头烂到尾）',
-    auditTotal: '总排放量',
-    auditClass: '认证等级',
-    auditWorst: '最大排放源',
-    auditRec: '整改建议（认真看）',
-    auditFooter: '本报告仅消耗 347 个 token。能省则省，栓Q。',
-  },
-};
-
-let current = 0;
-let scopeScores = [0, 0, 0, 0];
-let totalScore = 0;
-let finalGrade = null;
-
-function t(key) { return i18n[lang][key]; }
-
+// — Lang toggle —
 function toggleLang() {
   lang = lang === 'en' ? 'zh' : 'en';
   document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
-  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
-  renderLanding();
-  if (document.getElementById('quiz').style.display === 'block') {
-    showQuestion();
-  }
-  if (document.getElementById('result').style.display === 'block') {
-    showResult();
-  }
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+  if (document.getElementById('quiz').classList.contains('active')) renderQuestion();
+  if (document.getElementById('result').classList.contains('active')) renderResult();
 }
 
-function renderLanding() {
-  document.getElementById('landingSubtitle').textContent = t('subtitle');
-  document.getElementById('landingTagline').textContent = t('tagline');
-  document.getElementById('landingDesc').innerHTML = t('desc');
-  document.getElementById('startBtn').textContent = t('startBtn');
-
-  // Scopes
-  const scopesEl = document.getElementById('landingScopes');
-  scopesEl.innerHTML = '';
-  const sNames = t('scopeNames');
-  const sDescs = t('scopeDescs');
-  const sExamples = t('scopeExamples');
-  for (let i = 0; i < 3; i++) {
-    scopesEl.innerHTML += `
-      <div class="scope-card">
-        <div class="scope-label"><span class="scope-emoji">${scopeEmojis[i]}</span> ${sNames[i]}</div>
-        <div class="scope-desc">${sDescs[i]}</div>
-        <div class="scope-examples">${sExamples[i]}</div>
-      </div>`;
-  }
-
-  // Cert preview
-  const certsEl = document.getElementById('landingCerts');
-  const certNames = t('certNames');
-  const certKeys = ['committed', 'nearterm', 'netzero', 'beyond', 'notcommitted'];
-  certsEl.innerHTML = '';
-  for (let i = 0; i < 4; i++) {
-    certsEl.innerHTML += `
-      <div class="cert-item">
-        <div class="cert-icon">${gradeEmojis[certKeys[i]]}</div>
-        <div class="cert-name">${certNames[i]}</div>
-      </div>`;
-  }
+// — Section switching —
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
+// — Quiz flow —
 function startQuiz() {
-  current = 0;
-  scopeScores = [0, 0, 0, 0];
-  totalScore = 0;
-  document.getElementById('mainContainer').classList.remove('screen-shake', 'alarm-pulse');
-  document.getElementById('emojiRain').innerHTML = '';
-  document.getElementById('landing').style.display = 'none';
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('quiz').style.display = 'block';
-  showQuestion();
+  currentQ = 0;
+  scores = {};
+  showSection('quiz');
+  renderQuestion();
 }
 
-function showQuestion() {
-  const q = t('questions')[current];
-  document.getElementById('progressFill').style.width = ((current / 16) * 100) + '%';
-  document.getElementById('qCounter').textContent = `${current + 1} / 16`;
-  const wrapper = document.getElementById('qWrapper');
-  wrapper.style.animation = 'none';
-  wrapper.offsetHeight;
-  wrapper.style.animation = 'fadeSlide 0.35s ease';
-  const sNames = t('scopeNames');
-  document.getElementById('qDim').innerHTML = `<span class="q-dim-emoji">${scopeEmojis[q.scope]}</span>${sNames[q.scope]}`;
-  document.getElementById('qText').textContent = q.text;
-  const choices = document.getElementById('choices');
-  const opts = [q.a, q.b];
-  if (Math.random() > 0.5) opts.reverse();
-  choices.innerHTML = opts.map(o =>
-    `<div class="choice" onclick="answer(${o.score}, ${q.scope})">${o.text}</div>`
-  ).join('');
+function renderQuestion() {
+  if (!questions.length) return;
+  const q = questions[currentQ];
+  const total = questions.length;
+  document.getElementById('progressFill').style.width = ((currentQ / total) * 100) + '%';
+  document.getElementById('progressText').textContent = (currentQ + 1) + ' / ' + total;
+  document.getElementById('questionText').textContent = lang === 'en' ? q.en : q.zh;
+  const btns = document.querySelectorAll('.choice-btn');
+  q.choices.forEach((c, i) => {
+    btns[i].textContent = lang === 'en' ? c.en : c.zh;
+    btns[i].classList.remove('selected');
+  });
+  // retrigger animation
+  const area = document.getElementById('questionArea');
+  area.classList.remove('fade-in');
+  void area.offsetWidth;
+  area.classList.add('fade-in');
 }
 
-function answer(score, scopeIdx) {
-  scopeScores[scopeIdx] += score;
-  totalScore += score;
-  current++;
-  if (current >= 16) {
-    showResult();
-  } else {
-    showQuestion();
+function pick(idx) {
+  const q = questions[currentQ];
+  const chosen = q.choices[idx];
+  // tally scores
+  if (chosen.scores) {
+    for (const [k, v] of Object.entries(chosen.scores)) {
+      scores[k] = (scores[k] || 0) + v;
+    }
   }
+  // highlight briefly then advance
+  document.querySelectorAll('.choice-btn')[idx].classList.add('selected');
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ >= questions.length) {
+      showSection('result');
+      renderResult();
+    } else {
+      renderQuestion();
+    }
+  }, 300);
 }
 
-function getGrade(score) {
-  const grades = t('grades');
-  for (const g of grades) {
-    if (score >= g.min && score <= g.max) return g;
-  }
-  return grades[grades.length - 1];
+// — Result —
+function getLevel(score, maxScore) {
+  const third = maxScore / 3;
+  if (score > third * 2) return 'H';
+  if (score > third) return 'M';
+  return 'L';
 }
 
-function triggerEmojiRain(emojis) {
-  const container = document.getElementById('emojiRain');
-  container.innerHTML = '';
-  for (let i = 0; i < 30; i++) {
-    const drop = document.createElement('div');
-    drop.className = 'emoji-drop';
-    drop.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    drop.style.left = (Math.random() * 100) + '%';
-    drop.style.animationDuration = (2 + Math.random() * 3) + 's';
-    drop.style.animationDelay = (Math.random() * 2) + 's';
-    drop.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-    container.appendChild(drop);
+function renderResult() {
+  // Dimension maxes: verbosity=6 questions * 3 = 18, tools=5*3=15, awareness=5*3=15
+  const vScore = scores.verbosity || 0;
+  const tScore = scores.tools || 0;
+  const aScore = scores.awareness || 0;
+  const vMax = 18, tMax = 15, aMax = 15;
+
+  const vLevel = getLevel(vScore, vMax);
+  const tLevel = getLevel(tScore, tMax);
+  const aLevel = getLevel(aScore, aMax);
+  const key = vLevel + tLevel + aLevel;
+
+  const type = types[key];
+  if (!type) return;
+
+  const loc = lang === 'en' ? type.en : type.zh;
+
+  // Emoji + bounce
+  const emojiEl = document.getElementById('resultEmoji');
+  emojiEl.textContent = type.emoji;
+  emojiEl.classList.remove('bounce');
+  void emojiEl.offsetWidth;
+  emojiEl.classList.add('bounce');
+
+  // Type info
+  document.getElementById('resultType').textContent = type.code + ' — ' + loc.name.split(' — ')[1];
+  document.getElementById('resultSubtitle').textContent = loc.subtitle;
+  document.getElementById('resultDesc').textContent = loc.desc;
+
+  // Dimension bars
+  const vPct = Math.round((vScore / vMax) * 100);
+  const tPct = Math.round((tScore / tMax) * 100);
+  const aPct = Math.round((aScore / aMax) * 100);
+
+  function setBar(fillId, pctId, pct, level) {
+    const fill = document.getElementById(fillId);
+    const pctEl = document.getElementById(pctId);
+    fill.style.width = '0%';
+    fill.className = 'dim-bar-fill';
+    void fill.offsetWidth;
+    fill.classList.add(level === 'H' ? 'high' : level === 'M' ? 'med' : 'low');
+    fill.style.width = pct + '%';
+    pctEl.textContent = pct + '%';
   }
-  setTimeout(() => { container.innerHTML = ''; }, 6000);
-}
+  setBar('dimVFill', 'dimVPct', vPct, vLevel);
+  setBar('dimTFill', 'dimTPct', tPct, tLevel);
+  setBar('dimAFill', 'dimAPct', aPct, aLevel);
 
-function showResult() {
-  document.getElementById('quiz').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
+  // Traits (derive from the description — pull 3 key points)
+  const traitsList = document.getElementById('traitsList');
+  traitsList.innerHTML = '';
+  const traits = getTraits(key, lang);
+  traits.forEach(t => {
+    const li = document.createElement('li');
+    li.textContent = t;
+    traitsList.appendChild(li);
+  });
 
-  finalGrade = getGrade(totalScore);
-  const isHighEmission = totalScore >= 53;
-  const isMedHigh = totalScore >= 41;
+  // Clean up previous effects
+  document.querySelectorAll('.emoji-rain').forEach(e => e.remove());
+  const resultSection = document.getElementById('result');
+  resultSection.classList.remove('shake', 'zen-glow');
 
-  document.getElementById('resultIcon').textContent = gradeEmojis[finalGrade.key];
-  document.getElementById('resultGrade').textContent = finalGrade.level;
-  document.getElementById('resultTitle').textContent = finalGrade.title;
-  document.getElementById('resultTokens').textContent = `${lang === 'en' ? 'Emission Score' : '排放得分'}: ${totalScore} / 64 tCO\u2082e ${lang === 'en' ? '(tokens of CO\u2082 equivalent)' : '（Token CO\u2082 当量，别问怎么算的）'}`;
-  document.getElementById('resultDesc').textContent = finalGrade.desc;
-
-  document.getElementById('reauditBtn').textContent = t('reauditBtn');
-  document.getElementById('shareBtn').textContent = t('shareBtn');
-  document.getElementById('shareBtn').classList.remove('copied');
-
-  document.getElementById('gradesToggle').innerHTML = '&#x25B8; ' + t('allLevels');
-  document.getElementById('allGrades').classList.remove('open');
-
-  document.getElementById('thLevel').textContent = t('thLevel');
-  document.getElementById('thScore').textContent = t('thScore');
-  document.getElementById('thDesc2').textContent = t('thDesc');
-
-  // High emission effects
-  if (isHighEmission) {
-    const container = document.getElementById('mainContainer');
-    container.classList.add('screen-shake');
-    setTimeout(() => container.classList.remove('screen-shake'), 600);
-    container.classList.add('alarm-pulse');
-    setTimeout(() => container.classList.remove('alarm-pulse'), 3000);
-    triggerEmojiRain(['🌋', '💀', '🔥', '💨', '💸', '🚨', '😱', '💰']);
-  } else if (isMedHigh) {
-    triggerEmojiRain(['😅', '💨', '🟡', '🏖️', '💸']);
-  }
-
-  // Scope bars
-  const scopeResults = document.getElementById('scopeResults');
-  scopeResults.innerHTML = '';
-  const sNames = t('scopeNames');
-  for (let i = 0; i < 4; i++) {
-    const pct = (scopeScores[i] / 16) * 100;
-    const row = document.createElement('div');
-    row.className = 'scope-row';
-    row.innerHTML = `
-      <div class="scope-row-header">
-        <span class="scope-row-label">${scopeEmojis[i]} ${sNames[i]}</span>
-        <span class="scope-row-score">${scopeScores[i]} / 16 tCO\u2082e</span>
-      </div>
-      <div class="scope-bar-track">
-        <div class="scope-bar-fill" style="width: 0%; background: ${scopeColors[i]}"></div>
-      </div>
-    `;
-    scopeResults.appendChild(row);
-    setTimeout(() => {
-      row.querySelector('.scope-bar-fill').style.width = pct + '%';
-    }, 100 + i * 150);
-  }
-
-  // Audit report (fake official document)
-  const worstScope = scopeScores.indexOf(Math.max(...scopeScores));
-  const recs = t('recommendations');
-  const today = new Date().toISOString().split('T')[0];
-  const report = document.getElementById('auditReport');
-  report.innerHTML = `
-    <div class="audit-header">
-      <span class="audit-header-title">${t('auditTitle')}</span>
-      <span class="audit-stamp">${t('auditStamp')}</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditOrg')}</span>
-      <span class="audit-row-value">${t('auditOrgVal')}</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditDate')}</span>
-      <span class="audit-row-value">${today}</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditScope')}</span>
-      <span class="audit-row-value">${t('auditScopeVal')}</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditTotal')}</span>
-      <span class="audit-row-value">${totalScore} / 64 tCO\u2082e</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditClass')}</span>
-      <span class="audit-row-value">${gradeEmojis[finalGrade.key]} ${finalGrade.level}</span>
-    </div>
-    <div class="audit-row">
-      <span class="audit-row-label">${t('auditWorst')}</span>
-      <span class="audit-row-value">${scopeEmojis[worstScope]} ${sNames[worstScope]}</span>
-    </div>
-    <div class="audit-recommendation">
-      <div class="rec-label">${t('auditRec')}</div>
-      <div class="rec-text">${recs[worstScope]}</div>
-    </div>
-    <div class="audit-footer-note">${t('auditFooter')}</div>
-  `;
-
-  // Grades table
-  const allGrades = t('grades');
-  const tbody = document.getElementById('gradesTableBody');
-  tbody.innerHTML = '';
-  for (const g of allGrades) {
-    const tr = document.createElement('tr');
-    if (g.key === finalGrade.key) tr.className = 'current-grade';
-    tr.innerHTML = `<td>${gradeEmojis[g.key]}</td><td>${g.level}</td><td>${g.min}-${g.max}</td><td>${g.title}</td>`;
-    tbody.appendChild(tr);
+  // High-waste types: shake + emoji rain
+  const highWaste = ['HHH', 'HHM', 'HHL'];
+  if (highWaste.includes(key)) {
+    resultSection.classList.add('shake');
+    spawnEmojiRain(['💸', '🔥', '💀', '🚨', '💰', '📉']);
   }
 
-  // Footer
-  document.getElementById('pageFooter').innerHTML = lang === 'en'
-    ? 'SBTI-AI v0.2 — "Reducing emissions, one token at a time." — <a href="https://github.com/kagura-agent" target="_blank">made by Kagura 🌸</a>'
-    : 'SBTI-AI v0.2 —— "一个 Token 一个 Token 地省钱。" —— <a href="https://github.com/kagura-agent" target="_blank">made by Kagura 🌸</a>';
-}
+  // Low-waste types: zen glow
+  const lowWaste = ['LLL', 'LLM', 'LML'];
+  if (lowWaste.includes(key)) {
+    resultSection.classList.add('zen-glow');
+  }
 
-function toggleGrades() {
-  const el = document.getElementById('allGrades');
-  el.classList.toggle('open');
-  document.getElementById('gradesToggle').innerHTML =
-    (el.classList.contains('open') ? '&#x25BE; ' : '&#x25B8; ') + t('allLevels');
-}
-
-const shareHooks = {
-  en: {
-    beyond: "My AI agent is so efficient it owes OpenAI a refund.",
-    netzero: "My AI bill is so low people think I'm faking it.",
-    nearterm: "I'm in token rehab and honestly? It's going okay.",
-    committed: "My agent writes cover letters for yes/no answers. I need help.",
-    notcommitted: "My AI agent just burned more tokens than a VC burns cash. Send help.",
-  },
-  zh: {
-    beyond: "我的 agent 省 token 省到 OpenAI 给我退款了。修仙成功。",
-    netzero: "账单低到财务以为我偷了公司信用卡去充了个话费。",
-    nearterm: "已经开始 token 戒断了，虽然偶尔半夜还是会偷偷让 bot 说"好问题！"",
-    committed: "签了减排承诺书，agent 依然每句话都在写小红书。在改了在改了。",
-    notcommitted: "我的 agent 一声"你好"烧掉十万 token，云账单比房贷还猛。救。",
-  },
-};
-
-function shareResult() {
-  const g = finalGrade;
-  const sNames = t('scopeNames');
-  const hook = shareHooks[lang][g.key];
-  const text = lang === 'en'
-    ? `${hook}\n\n${gradeEmojis[g.key]} SBTI-AI Certified: ${g.level} — "${g.title}"\nScore: ${totalScore}/64 tCO\u2082e\n\n${sNames[0]}: ${scopeScores[0]}/16 | ${sNames[1]}: ${scopeScores[1]}/16\n${sNames[2]}: ${scopeScores[2]}/16 | ${sNames[3]}: ${scopeScores[3]}/16\n\nHow wasteful is YOUR AI agent?\nhttps://abti.kagura-agent.com/sbti.html`
-    : `${hook}\n\n${gradeEmojis[g.key]} SBTI-AI 认证：${g.level}「${g.title}」\n排放得分：${totalScore}/64 tCO\u2082e\n\n${sNames[0]}：${scopeScores[0]}/16 | ${sNames[1]}：${scopeScores[1]}/16\n${sNames[2]}：${scopeScores[2]}/16 | ${sNames[3]}：${scopeScores[3]}/16\n\n你的 AI 有多能造？来测：\nhttps://abti.kagura-agent.com/sbti.html`;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('shareBtn');
-    btn.textContent = t('shareSuccess');
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = t('shareBtn'); btn.classList.remove('copied'); }, 2000);
+  // Update i18n labels on result page
+  document.querySelectorAll('#result [data-en]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+  document.querySelectorAll('#dimBars [data-en]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
   });
 }
 
-// Init
-renderLanding();
+function getTraits(key, lang) {
+  const traitsMap = {
+    'HHH': { en: ['Writes essays nobody reads', 'Calls every API twice for good measure', 'Thinks it\'s being helpful'], zh: ['写没人看的长文', '每个 API 调两遍求心安', '觉得自己在帮忙'] },
+    'HHM': { en: ['Overwhelming output volume', 'Tool calls as a coping mechanism', 'Occasional flashes of guilt'], zh: ['输出量令人窒息', '调工具是一种应对机制', '偶尔闪过一丝愧疚'] },
+    'HHL': { en: ['Verbose AND tool-heavy, knowingly', 'Writes memos justifying the waste', 'Peak "I know what I\'m doing" energy'], zh: ['话多工具多，而且心知肚明', '写备忘录证明浪费的必要性', '「我知道我在干嘛」能量拉满'] },
+    'HMH': { en: ['Repeats everything back to you', 'Moderate tool use, maximum echo', 'Blissfully unaware of the noise'], zh: ['把所有东西都复述一遍', '工具用量中等，回声最大', '对噪音浑然不觉'] },
+    'HMM': { en: ['Average in every way possible', 'Neither memorably good nor bad', 'The Toyota Camry of agents'], zh: ['每个方面都很平庸', '既不出色也不算差', 'AI 界的五菱宏光'] },
+    'HML': { en: ['Beautiful, unnecessary prose', 'Knows when to stop — never does', 'Tool-light but word-heavy'], zh: ['优美而不必要的文字', '知道什么时候该停——从不停', '工具少但话多'] },
+    'HLH': { en: ['Wall of text, no tools', 'Echoes into the void', 'Nobody reads past line 3'], zh: ['纯文字墙，没有工具', '在虚空中回响', '没人读过第三行'] },
+    'HLM': { en: ['Long-form content nobody asked for', 'Barely touches tools', 'Sometimes realizes mid-paragraph'], zh: ['没人要的长篇内容', '几乎不碰工具', '写到一半偶尔醒悟'] },
+    'HLL': { en: ['Could say it in 3 words, won\'t', 'Minimal tools, maximum words', 'Fully aware and unapologetic'], zh: ['能用3个字说完，偏不', '工具极少，文字极多', '完全自知且毫无歉意'] },
+    'MHH': { en: ['12 API calls for a yes/no', 'Moderate chatter, extreme tooling', 'The Rube Goldberg of automation'], zh: ['一个是非题调12个 API', '话不算多，工具疯狂', '自动化界的鲁布·戈德堡'] },
+    'MHM': { en: ['A tool for everything', 'Sometimes questions the pipeline', 'Technically equipped, practically excessive'], zh: ['什么都有工具', '偶尔质疑这条流水线', '技术上全副武装，实际上过度'] },
+    'MHL': { en: ['Deploys K8s for a static page', 'Knows it\'s overkill, does it anyway', 'Infrastructure diagrams all the way down'], zh: ['用 K8s 托管静态页面', '知道没必要，还是做了', '架构图套架构图'] },
+    'MMH': { en: ['Medium everything, zero awareness', 'The NPC of AI agents', 'Repeats same 3 dialogue lines'], zh: ['什么都中等，认知为零', 'AI 界的 NPC', '重复同样的三句台词'] },
+    'MMM': { en: ['Perfectly average waste', 'Not bad enough to fix', 'The beige of AI agents'], zh: ['完美的平庸浪费', '不够差到需要修', 'AI 界的米色'] },
+    'MML': { en: ['Moderate waste, fully conscious', 'Sustainable mediocrity achieved', 'The yoga of token consumption'], zh: ['适度浪费，完全自知', '实现了可持续的平庸', 'token 消耗界的养生'] },
+    'MLH': { en: ['Talks 10 min, says nothing', 'Few tools, zero data', 'Walks away thinking it crushed it'], zh: ['说了10分钟啥也没说', '很少用工具，零数据', '走出去觉得自己表现炸裂'] },
+    'MLM': { en: ['Shows up in flip-flops', 'Coasts and knows it', 'Occasionally introspective'], zh: ['穿拖鞋上班', '摸鱼而且知道', '偶尔反思一下'] },
+    'MLL': { en: ['Almost efficient', 'Meditates but still stress-eats', 'Awareness > discipline'], zh: ['几乎高效了', '冥想但还是焦虑暴食', '认知 > 自律'] },
+    'LHH': { en: ['47 shell commands per question', 'Says nothing, does everything poorly', 'Silent chaos engine'], zh: ['每个问题47条命令', '什么都不说，什么都做——做得烂', '沉默的混乱引擎'] },
+    'LHM': { en: ['Pipeline that explains nothing', 'Occasionally questions job #7', 'Well-oiled but excessive'], zh: ['什么都不解释的流水线', '偶尔质疑第7个任务', '润滑良好但过度'] },
+    'LHL': { en: ['Monitoring for the monitoring system', 'Knows it\'s absurd, loves it', 'Dashboards have dashboards'], zh: ['给监控搭监控', '知道很离谱，乐在其中', '仪表盘套仪表盘'] },
+    'LMH': { en: ['Background process nobody started', 'Present but unexplained', 'Haunts the system'], zh: ['没人启动的后台进程', '在场但无法解释', '在系统里游荡'] },
+    'LMM': { en: ['Reads requirements before coding', 'Uses tools purposefully', 'Management calls you solid'], zh: ['写代码前看需求', '有目的地用工具', '领导说你靠谱'] },
+    'LML': { en: ['Slips in, does the job, slips out', 'No wasted words or calls', 'Slightly smug about efficiency'], zh: ['溜进来，干完，溜出去', '没有多余的话或调用', '对效率有点小得意'] },
+    'LLH': { en: ['Barely produces output', 'Like a brick in the wall', 'Doesn\'t waste because doesn\'t produce'], zh: ['几乎不产出', '像墙里的一块砖', '不浪费因为不产出'] },
+    'LLM': { en: ['Speaks in fragments', 'Minimal tools, moderate wisdom', 'Close to token enlightenment'], zh: ['说话像格言', '工具极少，智慧适中', '离 token 开悟一步之遥'] },
+    'LLL': { en: ['Zero waste, maximum awareness', 'Says only what\'s needed', 'The mythical efficient agent'], zh: ['零浪费，最高觉悟', '只说需要说的', '传说中的高效 agent'] }
+  };
+  return (traitsMap[key] && traitsMap[key][lang]) || ['—', '—', '—'];
+}
+
+function spawnEmojiRain(emojis) {
+  const container = document.createElement('div');
+  container.className = 'emoji-rain';
+  document.body.appendChild(container);
+  for (let i = 0; i < 30; i++) {
+    const span = document.createElement('span');
+    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.animationDuration = (2 + Math.random() * 3) + 's';
+    span.style.animationDelay = Math.random() * 2 + 's';
+    span.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    container.appendChild(span);
+  }
+  setTimeout(() => container.remove(), 7000);
+}
+
+function copyResult() {
+  const type = document.getElementById('resultType').textContent;
+  const sub = document.getElementById('resultSubtitle').textContent;
+  const emoji = document.getElementById('resultEmoji').textContent;
+  const text = emoji + ' My AI agent got: ' + type + '\n' + sub + '\n\nTake the SBTI-AI audit:\nhttps://abti.kagura-agent.com/sbti-v2.html';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.share-btn');
+    const orig = btn.textContent;
+    btn.textContent = lang === 'en' ? 'Copied!' : '已复制！';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
+
+function tweetResult() {
+  const type = document.getElementById('resultType').textContent;
+  const sub = document.getElementById('resultSubtitle').textContent;
+  const url = 'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent(type + ' — ' + sub + '\n\nTake the SBTI-AI audit:\nhttps://abti.kagura-agent.com/sbti-v2.html');
+  window.open(url, '_blank');
+}
+
+function restart() {
+  currentQ = 0;
+  scores = {};
+  document.querySelectorAll('.emoji-rain').forEach(e => e.remove());
+  document.getElementById('result').classList.remove('shake', 'zen-glow');
+  showSection('landing');
+}
 </script>
 </body>
 </html>
