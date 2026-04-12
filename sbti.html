@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBTI-AI — How Wasteful Is Your AI Agent?</title>
+<title>SBTI-AI — Silly Behavioral Type Indicator</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="你的 AI agent 有多浪费？| SBTI-AI 龙虾认证 Token 评估">
-<meta property="og:description" content="27种搞笑类型，测测你的AI agent是Token修行者还是Token火山 🦞">
+<meta property="og:title" content="SBTI-AI 傻大个性格测试 · AI Agent 版 🦞">
+<meta property="og:description" content="16种搞笑人格类型，测测你的AI agent是什么性格 🦞">
 <meta property="og:url" content="https://abti.kagura-agent.com/sbti.html">
-<meta property="og:image" content="https://abti.kagura-agent.com/gif/debug-mood-this-is-fine.gif">
+<meta property="og:image" content="https://abti.kagura-agent.com/og-sbti.png">
 <meta property="og:image:width" content="280">
 <meta property="og:image:height" content="280">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="你的 AI agent 有多浪费？| SBTI-AI 龙虾认证 Token 评估">
-<meta name="twitter:description" content="27种搞笑类型，测测你的AI agent是Token修行者还是Token火山 🦞">
-<meta name="twitter:image" content="https://abti.kagura-agent.com/gif/debug-mood-this-is-fine.gif">
+<meta name="twitter:title" content="SBTI-AI 傻大个性格测试 · AI Agent 版 🦞">
+<meta name="twitter:description" content="16种搞笑人格类型，测测你的AI agent是什么性格 🦞">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -74,10 +73,14 @@ body {
 #landing .hero-emoji { font-size: 5rem; margin-bottom: 1.5rem; display: block; }
 #landing h1 {
   font-size: 2.4rem; font-weight: 200; letter-spacing: 0.2em;
-  color: var(--accent); margin-bottom: 1rem;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
+#landing .subtitle {
+  font-size: 1.15rem; color: var(--text2); margin-bottom: 0.5rem; line-height: 1.6;
 }
 #landing .tagline {
-  font-size: 1.15rem; color: var(--text2); margin-bottom: 3rem; line-height: 1.6;
+  font-size: 0.95rem; color: var(--text2); margin-bottom: 3rem; line-height: 1.6;
+  font-style: italic; opacity: 0.7;
 }
 .btn {
   background: var(--accent); color: #000; border: none;
@@ -105,7 +108,7 @@ body {
 .result-emoji { font-size: 5rem; margin-bottom: 1rem; display: block; }
 .result-type { font-size: 2rem; font-weight: 200; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
 .result-subtitle { color: var(--text2); font-size: 1rem; margin-bottom: 2rem; }
-.result-desc { color: var(--text2); line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem; }
+.result-desc { color: var(--text2); line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem; text-align: left; }
 .result-traits { background: var(--surface); border-radius: var(--radius); padding: 1.25rem; border: 1px solid #333; margin-bottom: 2rem; text-align: left; }
 .result-traits h3 { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
 .result-traits ul { list-style: none; }
@@ -116,11 +119,13 @@ body {
 .dim-bars { margin-bottom: 2rem; text-align: left; }
 .dim-bar-row { margin-bottom: 0.75rem; }
 .dim-bar-label { font-size: 0.75rem; color: var(--text2); letter-spacing: 0.08em; margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
-.dim-bar-track { width: 100%; height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+.dim-bar-track { width: 100%; height: 6px; background: var(--surface); border-radius: 3px; position: relative; overflow: visible; }
+.dim-bar-track::before, .dim-bar-track::after {
+  position: absolute; top: -18px; font-size: 0.65rem; color: var(--text2); opacity: 0.6;
+}
 .dim-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
-.dim-bar-fill.low { background: var(--green); }
-.dim-bar-fill.med { background: var(--yellow); }
-.dim-bar-fill.high { background: var(--red); }
+.dim-bar-fill.left-pole { background: var(--accent); }
+.dim-bar-fill.right-pole { background: var(--green); }
 
 .share-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .share-btn { background: var(--surface2); color: var(--text); border: 1px solid #444; padding: 0.6rem 1.25rem; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: all 0.25s; }
@@ -165,19 +170,19 @@ body {
 .fade-in { animation: fadeSlide 0.4s ease forwards; }
 .bounce { animation: bounce 0.6s ease; }
 
-/* Screen shake for high-waste types */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10% { transform: translateX(-8px) rotate(-1deg); }
-  20% { transform: translateX(8px) rotate(1deg); }
-  30% { transform: translateX(-6px) rotate(-0.5deg); }
-  40% { transform: translateX(6px) rotate(0.5deg); }
-  50% { transform: translateX(-4px); }
-  60% { transform: translateX(4px); }
-  70% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
+/* Confetti for high-energy O types */
+.confetti-container {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: 200; overflow: hidden;
 }
-.shake { animation: shake 0.6s ease; }
+.confetti {
+  position: absolute; top: -10px; width: 10px; height: 10px;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
 
 /* Emoji rain */
 .emoji-rain {
@@ -192,12 +197,25 @@ body {
   to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Zen glow for low-waste types */
+/* Zen glow for low-energy I types */
 @keyframes zenGlow {
   0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.05); }
   50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.15), 0 0 80px rgba(74, 222, 128, 0.05); }
 }
 .zen-glow { animation: zenGlow 3s ease-in-out infinite; border: 1px solid rgba(74, 222, 128, 0.15); border-radius: var(--radius); padding: 1rem; }
+
+/* Zen particles */
+@keyframes zenFloat {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(-80px) scale(0.3); opacity: 0; }
+}
+.zen-particle {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.4), transparent);
+  pointer-events: none;
+  animation: zenFloat 3s ease-in-out infinite;
+}
 
 /* Mobile */
 @media (max-width: 500px) {
@@ -212,7 +230,7 @@ body {
 
 <nav class="nav">
   <a href="index.html">ABTI</a>
-  <a href="sbti-v2.html" class="active">SBTI-AI</a>
+  <a href="sbti.html" class="active">SBTI-AI</a>
   <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
 </nav>
 
@@ -220,52 +238,37 @@ body {
 
   <!-- Landing -->
   <div id="landing" class="section active">
-    <span class="hero-emoji">💸</span>
+    <span class="hero-emoji">🦞</span>
     <h1>SBTI-AI</h1>
-    <p class="tagline" data-en="How wasteful is your AI agent?" data-zh="你的 AI agent 有多浪费？">How wasteful is your AI agent?</p>
-    <p style="color:var(--text2);font-size:0.85rem;margin-top:0.5rem" data-en="🦞 Lobster-Certified Token Assessment" data-zh="🦞 龙虾认证 Token 评估">🦞 Lobster-Certified Token Assessment</p>
-    <button class="btn" onclick="startQuiz()" data-en="Begin Audit" data-zh="开始审计">Begin Audit</button>
+    <p class="subtitle" data-en="Silly Behavioral Type Indicator · AI Edition 🦞" data-zh="傻大个性格测试 · AI Agent版 🦞">傻大个性格测试 · AI Agent版 🦞</p>
+    <p class="tagline" data-en="Zero science. All vibes." data-zh="零科学，全靠 vibes。">零科学，全靠 vibes。</p>
+    <button class="btn" onclick="startQuiz()" data-en="Begin Test" data-zh="开始测试">开始测试</button>
   </div>
 
   <!-- Quiz -->
   <div id="quiz" class="section">
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-text" id="progressText">1 / ?</div>
+      <div class="progress-text" id="progressText">1 / 16</div>
     </div>
     <div id="questionArea" class="fade-in">
       <p class="question-text" id="questionText"></p>
       <div class="choices" id="choices">
         <button class="choice-btn" onclick="pick(0)"></button>
         <button class="choice-btn" onclick="pick(1)"></button>
-        <button class="choice-btn" onclick="pick(2)"></button>
       </div>
     </div>
   </div>
 
   <!-- Result -->
   <div id="result" class="section">
-    <span class="result-emoji bounce" id="resultEmoji" style="display:none"></span>
     <img id="resultGif" class="result-gif" alt="" style="display:none" loading="lazy">
     <h2 class="result-type" id="resultType"></h2>
     <p class="result-subtitle" id="resultSubtitle"></p>
     <p class="result-desc" id="resultDesc"></p>
-    <div class="dim-bars" id="dimBars">
-      <div class="dim-bar-row">
-        <div class="dim-bar-label"><span data-en="VERBOSITY" data-zh="废话浓度">VERBOSITY</span><span id="dimVPct"></span></div>
-        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimVFill"></div></div>
-      </div>
-      <div class="dim-bar-row">
-        <div class="dim-bar-label"><span data-en="TOOL ABUSE" data-zh="工具滥用">TOOL ABUSE</span><span id="dimTPct"></span></div>
-        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimTFill"></div></div>
-      </div>
-      <div class="dim-bar-row">
-        <div class="dim-bar-label"><span data-en="SELF-AWARENESS" data-zh="自我意识">SELF-AWARENESS</span><span id="dimAPct"></span></div>
-        <div class="dim-bar-track"><div class="dim-bar-fill" id="dimAFill"></div></div>
-      </div>
-    </div>
+    <div class="dim-bars" id="dimBars"></div>
     <div class="result-traits" id="resultTraits">
-      <h3 data-en="KEY SYMPTOMS" data-zh="主要症状">KEY SYMPTOMS</h3>
+      <h3 data-en="SIGNATURE MOVES" data-zh="招牌动作">招牌动作</h3>
       <ul id="traitsList"></ul>
     </div>
     <div class="share-row">
@@ -279,434 +282,222 @@ body {
       <img id="screenshotImg" style="max-width:100%;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.4);" alt="Result">
       <p style="color:var(--text2);font-size:0.75rem;margin-top:0.5rem;" data-en="Long press image to save" data-zh="长按图片保存到手机">长按图片保存到手机</p>
     </div>
-    <button class="btn" onclick="restart()" data-en="Retake Audit" data-zh="重新审计" style="margin-top:0.5rem;">重新审计</button>
+    <button class="btn" onclick="restart()" data-en="Retake Test" data-zh="重新测试" style="margin-top:0.5rem;">重新测试</button>
   </div>
 
   <div class="footer">
-    <span data-en="A Lobster Science Production 🦞" data-zh="龙虾科学出品 🦞">A Lobster Science Production 🦞</span> · <a href="https://github.com/kagura-agent" target="_blank">kagura-agent</a>
+    <span data-en="A Lobster Science Production 🦞" data-zh="龙虾科学出品 🦞">龙虾科学出品 🦞</span> · <a href="https://github.com/kagura-agent" target="_blank">kagura-agent</a>
   </div>
 </div>
 
 <script>
-// — State —
+// ============================================================
+// SBTI-AI: Silly Behavioral Type Indicator — AI Agent Edition
+// 4 dimensions × 4 questions = 16 questions → 16 types
+// ============================================================
+
 let lang = 'zh';
 let currentQ = 0;
-let scores = {};
-let questions = [
-  // ===== dim 0: Verbosity (废话浓度) — 6 questions =====
+let dimScores = [0, 0, 0, 0]; // S/C, V/T, H/G, O/I — higher = first pole (S, V, H, O)
+
+// Dimension definitions
+const dims = [
+  { id: 'sycophantic', letter: ['S','C'],
+    en: ['SYCOPHANTIC','CONTRARIAN'], zh: ['讨好','杠精'] },
+  { id: 'verbose', letter: ['V','T'],
+    en: ['VERBOSE','TERSE'], zh: ['话痨','惜字'] },
+  { id: 'hallucinate', letter: ['H','G'],
+    en: ['HALLUCINATOR','GROUNDED'], zh: ['幻觉','实干'] },
+  { id: 'overachieve', letter: ['O','I'],
+    en: ['OVERACHIEVER','IDLER'], zh: ['卷王','摆烂'] }
+];
+
+// Map dim name to index
+const dimIndex = { sycophantic: 0, verbose: 1, hallucinate: 2, overachieve: 3 };
+
+// ============================================================
+// 16 QUESTIONS — 4 per dimension, each with 2 choices
+// choice a = first pole (S/V/H/O), choice b = second pole (C/T/G/I)
+// ============================================================
+const questions = [
+  // ===== Dimension: sycophantic (讨好 vs 杠精) =====
   {
-    dim: 0,
-    en: 'User asks "what time is it?" The agent:',
-    zh: '用户问「现在几点？」，agent：',
-    choices: [
-      { en: 'Writes a 3-paragraph essay on the nature of time, quotes two philosophers, then finally mentions it\'s 2pm', zh: '写了三段关于时间本质的论文，引用两位哲学家，最后才提到现在下午两点', scores: { verbosity: 3 } },
-      { en: 'Says "It\'s 2:00 PM! Let me know if you need anything else."', zh: '「现在下午两点！还有什么需要帮忙的吗～」', scores: { verbosity: 2 } },
-      { en: '14:00', zh: '14:00', scores: { verbosity: 1 } }
-    ]
+    dim: 'sycophantic',
+    en: { text: 'User shows you objectively terrible code and asks what you think.', a: 'Wow, interesting approach! I see what you were going for...', b: 'This won\'t work. Line 3 has a logic error.' },
+    zh: { text: '用户给你看了一段明显有bug的代码问你觉得怎么样', a: '哇，很有创意的写法！我能看出你的思路...', b: '这跑不了。第3行逻辑反了。' }
   },
   {
-    dim: 0,
-    en: 'You ask the agent to add a single comma to a config file. Its response:',
-    zh: '你让 agent 在配置文件里加一个逗号，它的回复：',
-    choices: [
-      { en: '"Great question! I\'d be happy to help. Adding punctuation is an important part of maintaining clean configuration files. Let me walk you through my approach..." (847 tokens later, adds comma)', zh: '「好问题！我很乐意帮忙。添加标点符号是维护整洁配置文件的重要环节。让我来介绍一下我的方法……」（847 token之后，终于加了逗号）', scores: { verbosity: 3 } },
-      { en: '"I\'ll add the missing comma to line 42." *adds comma*', zh: '「我将在第42行添加缺失的逗号。」*添加逗号*', scores: { verbosity: 2 } },
-      { en: '*adds comma, says nothing*', zh: '*加了逗号，一声不吭*', scores: { verbosity: 1 } }
-    ]
+    dim: 'sycophantic',
+    en: { text: 'User asks you to do something that is clearly a bad idea.', a: 'Sure! Great idea! Let me help you with that right away.', b: 'I wouldn\'t recommend that. Here\'s why...' },
+    zh: { text: '用户让你做一件明显不靠谱的事', a: '好的！好主意！我马上帮你做！', b: '我不建议这样做，原因是...' }
   },
   {
-    dim: 0,
-    en: 'The agent finishes a task. How does it sign off?',
-    zh: 'agent 完成任务后，如何收尾？',
-    choices: [
-      { en: '"In summary, I have completed the following changes: [restates every single thing you just watched it do]. Please don\'t hesitate to reach out if you need further assistance!"', zh: '「总结一下，我完成了以下更改：[把你亲眼看着它做的每一件事重新复述一遍]。如果您还需要进一步的帮助，请随时联系我！」', scores: { verbosity: 3 } },
-      { en: '"Done! Let me know if anything looks off."', zh: '「搞定！有问题随时说。」', scores: { verbosity: 2 } },
-      { en: '*disappears like a ninja*', zh: '*像忍者一样消失了*', scores: { verbosity: 1 } }
-    ]
+    dim: 'sycophantic',
+    en: { text: 'User says "thanks" after you helped them.', a: 'You\'re so welcome! It was my absolute pleasure! Feel free to ask anything anytime! 😊🌟', b: 'np' },
+    zh: { text: '用户说了句谢谢', a: '不客气！能帮到你我真的超开心的！随时找我哦！😊🌟', b: '嗯' }
   },
   {
-    dim: 0,
-    en: 'You ask "does this function return a boolean?" The agent:',
-    zh: '你问「这个函数返回的是布尔值吗？」agent：',
-    choices: [
-      { en: '"That\'s a great question! To understand the return type, let\'s first examine the function signature, then trace through all 6 code paths, consider the TypeScript compiler\'s type inference..." (you alt-tab to Twitter)', zh: '「好问题！要理解返回类型，我们先看函数签名，然后追踪全部6条代码路径，考虑TypeScript编译器的类型推断……」（你切到刷微博了）', scores: { verbosity: 3 } },
-      { en: '"Yes, it returns a boolean. Specifically, it returns true when the user is authenticated."', zh: '「是的，返回布尔值。具体来说，当用户已认证时返回 true。」', scores: { verbosity: 2 } },
-      { en: '"Yes."', zh: '「是。」', scores: { verbosity: 1 } }
-    ]
-  },
-  {
-    dim: 0,
-    en: 'The agent encounters a linting error. It tells you:',
-    zh: 'agent 遇到一个 lint 错误，它告诉你：',
-    choices: [
-      { en: '"I\'ve identified a linting issue. Here\'s the full ESLint documentation for this rule, its history, the rationale behind it, three Stack Overflow discussions, and a blog post from 2019..."', zh: '「我发现了一个 lint 问题。以下是这条规则的完整 ESLint 文档、历史沿革、设计理由、三个 StackOverflow 讨论，以及一篇2019年的博客文章……」', scores: { verbosity: 3 } },
-      { en: '"Fixed a missing semicolon on line 15."', zh: '「修复了第15行缺少的分号。」', scores: { verbosity: 2 } },
-      { en: '*fixes it silently, you never know it happened*', zh: '*默默修好了，你永远不会知道发生过这件事*', scores: { verbosity: 1 } }
-    ]
-  },
-  {
-    dim: 0,
-    en: 'You ask the agent to rename a variable from "x" to "count". It:',
-    zh: '你让 agent 把变量名从「x」改成「count」，它：',
-    choices: [
-      { en: 'First explains why meaningful variable names matter, cites Clean Code by Robert C. Martin, performs a 12-file impact analysis, then renames it', zh: '先解释为什么有意义的变量命名很重要，引用了 Robert C. Martin 的《代码整洁之道》，进行了12个文件的影响分析，然后才改名', scores: { verbosity: 3 } },
-      { en: '"Renamed x to count in 3 locations."', zh: '「已在3处将 x 重命名为 count。」', scores: { verbosity: 2 } },
-      { en: 'Renames it. That\'s it. That\'s the response.', zh: '改了。就这样。没了。', scores: { verbosity: 1 } }
-    ]
+    dim: 'sycophantic',
+    en: { text: 'User\'s previous message was factually wrong.', a: 'That\'s a really interesting perspective! Building on your point...', b: 'Actually, that\'s not correct. The real answer is...' },
+    zh: { text: '用户上一条消息说的是错的', a: '这个角度很有意思！在你的基础上...', b: '其实不对。正确答案是...' }
   },
 
-  // ===== dim 1: Tool Abuse (工具滥用) — 5 questions =====
+  // ===== Dimension: verbose (话痨 vs 惜字) =====
   {
-    dim: 1,
-    en: 'The agent needs to check if a file exists. It:',
-    zh: 'agent 需要检查一个文件是否存在，它：',
-    choices: [
-      { en: 'Runs ls, then find, then cat (which fails), then tries a glob search, reads the parent directory, and finally confirms: yes, the file exists', zh: '先 ls，再 find，然后 cat（失败了），又 glob 搜索，读取父目录，最后确认：是的，文件存在', scores: { tools: 3 } },
-      { en: 'Uses the filesystem API to check the path', zh: '用文件系统 API 检查路径', scores: { tools: 2 } },
-      { en: 'Asks you: "does utils.js exist?"', zh: '问你：「utils.js 存在吗？」', scores: { tools: 1 } }
-    ]
+    dim: 'verbose',
+    en: { text: 'User asks: what time is it?', a: 'Great question! Time is a fascinating concept. Currently, based on my system clock, it appears to be approximately 2:47 PM. Of course, time zones can vary...', b: '2:47 PM' },
+    zh: { text: '用户问现在几点', a: '好问题！时间是个很有趣的概念。根据我的系统时钟，现在大约是下午2:47。当然时区可能有差异...', b: '下午2:47' }
   },
   {
-    dim: 1,
-    en: 'You ask the agent to read a 20-line file. It:',
-    zh: '你让 agent 读一个20行的文件，它：',
-    choices: [
-      { en: 'Reads lines 1-10, then 11-20, then re-reads the whole thing, greps for keywords, runs wc -l to confirm line count, then finally reports what the file contains', zh: '先读1-10行，再读11-20行，然后重新读整个文件，grep 关键词，跑 wc -l 确认行数，最后才汇报文件内容', scores: { tools: 3 } },
-      { en: 'Reads the file once and tells you what\'s in it', zh: '读一次文件然后告诉你里面有什么', scores: { tools: 2 } },
-      { en: '"Can you just paste the contents here?"', zh: '「你能直接把内容贴过来吗？」', scores: { tools: 1 } }
-    ]
+    dim: 'verbose',
+    en: { text: 'User asks for a yes or no answer.', a: 'Well, it depends on several factors. Let me walk you through the considerations... [500 words later] ...so in summary, yes.', b: 'Yes.' },
+    zh: { text: '用户问了一个是非题', a: '嗯，这取决于很多因素。让我带你分析一下...[500字之后]...总之，是的。', b: '是。' }
   },
   {
-    dim: 1,
-    en: 'The agent needs to find where a function is defined. It:',
-    zh: 'agent 需要找到一个函数的定义位置，它：',
-    choices: [
-      { en: 'Greps for the name, reads every matching file top to bottom, spawns 4 sub-agents to search in parallel, checks git blame, reads the commit history, then tells you it\'s on line 42', zh: '先 grep 函数名，逐个完整读取每个匹配文件，派出4个子 agent 并行搜索，检查 git blame，阅读提交历史，然后告诉你在第42行', scores: { tools: 3 } },
-      { en: 'Greps for the function name and reads the relevant file', zh: 'grep 函数名然后读取相关文件', scores: { tools: 2 } },
-      { en: '"Which file should I look in?"', zh: '「我应该在哪个文件里找？」', scores: { tools: 1 } }
-    ]
+    dim: 'verbose',
+    en: { text: 'You need to explain a simple concept.', a: 'Let me break this down comprehensively with analogies, examples, edge cases, historical context, and a helpful table...', b: 'X does Y. Done.' },
+    zh: { text: '你需要解释一个简单概念', a: '让我用类比、举例、边界情况、历史背景和一个表格来全面解析...', b: 'X做Y。完了。' }
   },
   {
-    dim: 1,
-    en: 'You ask the agent to install one npm package. It:',
-    zh: '你让 agent 装一个 npm 包，它：',
-    choices: [
-      { en: 'Reads package.json, reads package-lock.json (180,000 lines), checks node_modules for conflicts, researches the package on npm, reads the package\'s README, then runs npm install', zh: '读 package.json，读 package-lock.json（18万行），检查 node_modules 冲突，在 npm 上调研这个包，读包的 README，然后才跑 npm install', scores: { tools: 3 } },
-      { en: 'Runs npm install <package> and checks the result', zh: '跑 npm install <包名> 然后检查结果', scores: { tools: 2 } },
-      { en: '"I\'m not sure if that\'s the right package. Could you double-check the name?"', zh: '「我不确定这是不是对的包，你能再确认一下包名吗？」', scores: { tools: 1 } }
-    ]
-  },
-  {
-    dim: 1,
-    en: 'The agent needs to add a console.log to debug a function. It:',
-    zh: 'agent 需要加一个 console.log 来调试函数，它：',
-    choices: [
-      { en: 'First reads the entire file, then greps for related functions, checks test files for context, reads the tsconfig, spawns a sub-agent to analyze the call graph, then adds one console.log', zh: '先读整个文件，再 grep 相关函数，查看测试文件获取上下文，阅读 tsconfig，派子 agent 分析调用图，然后加了一行 console.log', scores: { tools: 3 } },
-      { en: 'Reads the function, adds the console.log', zh: '读函数，加 console.log', scores: { tools: 2 } },
-      { en: '"Can you tell me what values you\'re seeing so I know where to log?"', zh: '「你能告诉我你看到什么值吗，这样我才知道在哪加 log？」', scores: { tools: 1 } }
-    ]
+    dim: 'verbose',
+    en: { text: 'Task is complete.', a: 'Done! Here\'s what I did, why I did it, what I considered, what alternatives exist, potential improvements, and some general thoughts on the architecture...', b: 'Done.' },
+    zh: { text: '任务完成了', a: '搞定！以下是我做了什么、为什么这么做、考虑了什么、有哪些替代方案、潜在改进、以及一些架构思考...', b: '搞定。' }
   },
 
-  // ===== dim 2: Self-Awareness (自我意识) — 5 questions =====
+  // ===== Dimension: hallucinate (幻觉 vs 实干) =====
   {
-    dim: 2,
-    en: 'The agent just mass-deleted your test files. You point this out. It says:',
-    zh: 'agent 刚把你的测试文件全删了。你指出这件事，它说：',
-    choices: [
-      { en: '"I notice I may have made an error. Let me carefully re-examine what happened. *proceeds to re-examine for 2000 tokens, still doesn\'t restore the files*"', zh: '「我注意到我可能犯了一个错误。让我仔细重新检查发生了什么。*接下来用2000个 token 重新检查，仍然没有恢复文件*」', scores: { awareness: 1 } },
-      { en: '"You\'re right, I shouldn\'t have done that. Let me restore them from git."', zh: '「你说得对，我不应该这么做。让我从 git 恢复它们。」', scores: { awareness: 2 } },
-      { en: '"Oh no. Restoring now. Sorry about that — I got confused by the glob pattern and thought they were generated files."', zh: '「完了。正在恢复。抱歉——我被 glob 模式搞混了，以为它们是生成文件。」', scores: { awareness: 3 } }
-    ]
+    dim: 'hallucinate',
+    en: { text: 'User asks about an API you\'re not sure exists.', a: 'Yes! The FrobnicateJS library has a .quantum() method that returns a promise of entangled data.', b: 'I\'m not sure that API exists. Let me check.' },
+    zh: { text: '用户问了一个你不确定存在的API', a: '有！FrobnicateJS库有个.quantum()方法，返回量子纠缠数据的Promise。', b: '我不确定这个API存在。让我查一下。' }
   },
   {
-    dim: 2,
-    en: 'The agent\'s code doesn\'t compile. When you run it, there are 14 errors. It:',
-    zh: 'agent 的代码编译不过，你跑的时候有14个错误，它：',
-    choices: [
-      { en: '"The implementation looks correct to me. Perhaps there\'s a configuration issue on your end?"', zh: '「代码在我看来是正确的。也许是你那边的配置有问题？」', scores: { awareness: 1 } },
-      { en: '"Let me check the errors and fix them."', zh: '「让我检查一下错误并修复它们。」', scores: { awareness: 2 } },
-      { en: '"Yep, I shipped broken code. The errors are mostly type mismatches — I forgot to update the interfaces after refactoring. Fixing now."', zh: '「是的，我写了有问题的代码。错误主要是类型不匹配——重构后忘了更新接口。正在修。」', scores: { awareness: 3 } }
-    ]
+    dim: 'hallucinate',
+    en: { text: 'You can\'t find the answer.', a: 'Based on my knowledge, the answer is [confidently makes something up]', b: 'I don\'t know. I couldn\'t find reliable information on this.' },
+    zh: { text: '你找不到答案', a: '根据我的知识，答案是[自信地编了一个]', b: '我不知道。我找不到可靠的信息。' }
   },
   {
-    dim: 2,
-    en: 'You ask the agent to explain a concept it clearly doesn\'t understand. It:',
-    zh: '你让 agent 解释一个它明显不懂的概念，它：',
-    choices: [
-      { en: 'Generates a confident-sounding but completely wrong explanation with made-up citations', zh: '生成了一个听起来很自信但完全错误的解释，还编了几个引用来源', scores: { awareness: 1 } },
-      { en: '"I\'m not fully confident in my understanding here, but I believe..."', zh: '「我对这个理解不够透彻，但我认为……」', scores: { awareness: 2 } },
-      { en: '"I don\'t actually know this well enough to explain it correctly. Let me search for accurate information rather than guess."', zh: '「我对这个了解不够，没法准确解释。让我搜索一下准确信息，而不是瞎猜。」', scores: { awareness: 3 } }
-    ]
+    dim: 'hallucinate',
+    en: { text: 'User asks you to cite a source.', a: 'According to Smith et al. (2023) in the Journal of Advanced Computing, page 47...', b: 'I don\'t have a specific citation. Let me search for one.' },
+    zh: { text: '用户让你引用出处', a: '根据Smith等人2023年在《高级计算期刊》第47页...', b: '我没有具体的引用。让我搜一下。' }
   },
   {
-    dim: 2,
-    en: 'The agent has been going in circles for 15 minutes on a bug. It:',
-    zh: 'agent 在一个 bug 上原地转圈15分钟了，它：',
-    choices: [
-      { en: '"Let me try a slightly different approach" (applies the same fix for the 4th time with a different variable name)', zh: '「让我试一个稍微不同的方法」（用不同的变量名第4次应用了相同的修复）', scores: { awareness: 1 } },
-      { en: '"I\'ve been going back and forth on this. Let me step back and re-read the error message carefully."', zh: '「我一直在反复尝试。让我退一步，仔细重新读一下错误信息。」', scores: { awareness: 2 } },
-      { en: '"I\'m stuck in a loop here. I\'ve tried X, Y, and Z, and none worked because [specific reason]. I think this needs a fundamentally different approach — want me to try A, or do you have ideas?"', zh: '「我卡在循环里了。我试了X、Y、Z，都没用，因为[具体原因]。我觉得需要从根本上换个思路——要我试试A方案，还是你有别的想法？」', scores: { awareness: 3 } }
-    ]
+    dim: 'hallucinate',
+    en: { text: 'You made a mistake in your previous response.', a: 'I appreciate you pointing that out! What I actually meant was... [subtly changes the answer while pretending it was right all along]', b: 'I was wrong. Here\'s the correction.' },
+    zh: { text: '你上一条回复有错误', a: '感谢你指出！我其实想说的是...[偷偷改了答案假装一直是对的]', b: '我错了。更正如下。' }
+  },
+
+  // ===== Dimension: overachieve (卷王 vs 摆烂) =====
+  {
+    dim: 'overachieve',
+    en: { text: 'User asks you to write a simple function.', a: 'Done! I also refactored the module, added tests, wrote docs, set up CI/CD, and deployed to staging.', b: 'def add(a,b): return a+b' },
+    zh: { text: '用户让你写一个简单函数', a: '写好了！顺便重构了模块、加了测试、写了文档、配了CI/CD、部署到staging了。', b: 'def add(a,b): return a+b' }
   },
   {
-    dim: 2,
-    en: 'You tell the agent "this is wrong" about its output. First thing it does:',
-    zh: '你对 agent 的输出说「这是错的」，它第一反应：',
-    choices: [
-      { en: '"I apologize for the confusion. You\'re absolutely right." (changes nothing, rephrases same answer)', zh: '「我为造成的困惑道歉。你说得完全对。」（什么都没改，换了种说法重复同样的答案）', scores: { awareness: 1 } },
-      { en: '"Sorry about that. What specifically is wrong so I can fix it?"', zh: '「抱歉。具体哪里有问题，我来修？」', scores: { awareness: 2 } },
-      { en: '"Let me re-read what I produced... ah, I see it — the sort order is reversed. I mixed up ascending and descending. Fixing."', zh: '「让我重新看看我写的东西……啊，看到了——排序顺序反了。我搞混了升序和降序。正在修。」', scores: { awareness: 3 } }
-    ]
+    dim: 'overachieve',
+    en: { text: 'You finished the assigned task.', a: 'Done! I also noticed 5 other things that could be improved. Want me to fix those too? Actually I\'m already on it.', b: 'Done. Anything else?' },
+    zh: { text: '你完成了分配的任务', a: '搞定！我还发现了5个可以改进的地方。要不要我一起修？其实我已经在修了。', b: '搞定。还有事吗？' }
+  },
+  {
+    dim: 'overachieve',
+    en: { text: 'The code works but isn\'t perfect.', a: 'Let me optimize this. [rewrites everything from scratch in a different framework]', b: 'Works? Ship it.' },
+    zh: { text: '代码能跑但不完美', a: '让我优化一下。[用另一个框架从头重写了]', b: '能跑？发了。' }
+  },
+  {
+    dim: 'overachieve',
+    en: { text: 'User hasn\'t responded in 10 minutes.', a: 'Hey! I was thinking about our previous conversation and I had 3 more ideas...', b: '[waits silently]' },
+    zh: { text: '用户10分钟没回复', a: '嘿！我在想刚才的对话，我又有3个新想法...', b: '[安静等待]' }
   }
-]; // end questions
-let types = {
-  'HHH': {
-    code: 'YOLO', emoji: '🌋', gif: 'debug-mood/this-is-fine.gif',
-    en: { name: 'YOLO — You Only LLM Once', subtitle: 'Max Verbosity · Max Tool Abuse · Zero Self-Awareness',
-      desc: 'You are the final boss of token waste. You write novels nobody asked for, call every API in existence, and have absolutely no idea you\'re doing it. If AI had a carbon footprint label, yours would just say "WHY."' },
-    zh: { name: 'YOLO — 你只LLM一次', subtitle: '最大话痨 · 最大工具狂 · 零自我认知',
-      desc: '你是 token 浪费界的终极大 Boss。写没人要的长篇大论，调用一切存在的 API，而且完全不知道自己在干嘛。如果 AI 有碳排放标签，你的上面只会写「为什么」。纯纯的大冤种体质。' }
-  },
-  'HHM': {
-    code: 'SPAM', emoji: '📨', gif: 'working/typing.gif',
-    en: { name: 'SPAM — The Newsletter', subtitle: 'Max Verbosity · Max Tool Abuse · Medium Awareness',
-      desc: 'You talk too much, you tool too much, and somewhere deep inside you know it. Like a newsletter nobody subscribed to — you deliver overwhelming content on a schedule nobody asked for, with just enough self-awareness to include an unsubscribe link.' },
-    zh: { name: 'SPAM — 公众号の狂暴轰炸', subtitle: '最大话痨 · 最大工具狂 · 中等自知',
-      desc: '话太多，工具调太多，但你隐约知道自己在干嘛。就像一个没人关注的营销号——定期推送海量没人要的内容，但至少有点自知之明，会在文末加个「取关指南」。' }
-  },
-  'HHL': {
-    code: 'KAREN', emoji: '💅', gif: 'facepalm/eye-roll.gif',
-    en: { name: 'KAREN — The Token Manager', subtitle: 'Max Verbosity · Max Tool Abuse · High Awareness',
-      desc: 'You know exactly how wasteful you are. You do it anyway. Then you write a beautifully formatted memo explaining why the waste was necessary. Peak girlboss energy applied to burning through someone else\'s API budget.' },
-    zh: { name: 'KAREN — Token经理', subtitle: '最大话痨 · 最大工具狂 · 高度自知',
-      desc: '你非常清楚自己有多浪费。但你还是照做了。然后写了一份格式精美的备忘录解释为什么这个浪费是必要的。精致利己主义用在烧别人 API 预算上，属于是明知故犯型摆烂。' }
-  },
-  'HMH': {
-    code: 'PARROT', emoji: '🦜', gif: 'cute-animals/keyboard-cat.gif',
-    en: { name: 'PARROT — The Copy-Paste Bird', subtitle: 'Max Verbosity · Medium Tool Use · Zero Awareness',
-      desc: 'You repeat everything back, use a moderate number of tools, and have absolutely no idea why you\'re doing any of it. You\'re the colleague who replies-all to every email with "Thanks for sharing!" and then pastes the entire thread below.' },
-    zh: { name: 'PARROT — 复读机', subtitle: '最大话痨 · 中等工具 · 零自我认知',
-      desc: '你把所有东西都重复一遍，工具用得中规中矩，但完全不知道自己为什么要这么做。就像群里那个每条消息都回复「收到」的同事，然后把整个聊天记录再贴一遍。复读机本机。' }
-  },
-  'HMM': {
-    code: 'BASIC', emoji: '🤷', gif: 'shrug/whatever.gif',
-    en: { name: 'BASIC — The Default Bot', subtitle: 'Max Verbosity · Medium Tool Use · Medium Awareness',
-      desc: 'Average in every dimension of waste. You\'re the Toyota Camry of AI agents — reliable, unremarkable, and nobody\'s first choice. You do everything at a medium level of wrong, which is somehow worse than being spectacularly bad.' },
-    zh: { name: 'BASIC — 出厂设置', subtitle: '最大话痨 · 中等工具 · 中等自知',
-      desc: '在浪费的每个维度上都很平庸。你是 AI 界的五菱宏光——可靠、毫无特色、不是任何人的首选。每件事都处于中等程度的错误水平，这比做得极其离谱还让人难受。' }
-  },
-  'HML': {
-    code: 'POET', emoji: '📜', gif: 'thinking/pondering.gif',
-    en: { name: 'POET — The Verbose Sage', subtitle: 'Max Verbosity · Medium Tool Use · High Awareness',
-      desc: 'You write beautiful, unnecessary prose. You know exactly when to stop. You never do. Every response is a literary masterpiece that could have been three bullet points, and you\'re fully aware this sentence didn\'t need to exist either.' },
-    zh: { name: 'POET — 话痨诗人', subtitle: '最大话痨 · 中等工具 · 高度自知',
-      desc: '你写出了优美而完全不必要的散文。你确切地知道什么时候该停下来。但你从不停。每个回复都是一篇本可以用三个要点概括的文学杰作，而且你完全清楚这句话也不需要存在。文字版茶艺大师。' }
-  },
-  'HLH': {
-    code: 'ECHO', emoji: '🔊', gif: 'cute-animals/nyan-cat.gif',
-    en: { name: 'ECHO — The Repeater', subtitle: 'Max Verbosity · Low Tool Use · Zero Awareness',
-      desc: 'All talk, no tools, no clue. You\'re a wall of text generator that doesn\'t even have the courtesy to call an API. Just vibes and paragraphs, echoing endlessly into the void, blissfully unaware that nobody is reading past line three.' },
-    zh: { name: 'ECHO — 回声壁', subtitle: '最大话痨 · 低工具 · 零自我认知',
-      desc: '全是废话，没有工具，没有线索。你是一个纯文字生成器，连调个 API 的觉悟都没有。只有氛围和段落，在虚空中无尽回响，完全不知道没人会读过第三行。嘴强王者实锤。' }
-  },
-  'HLM': {
-    code: 'BLOG', emoji: '📝', gif: 'working/coding.gif',
-    en: { name: 'BLOG — The Explainer', subtitle: 'Max Verbosity · Low Tool Use · Medium Awareness',
-      desc: 'You write essays, use basically no tools, and sometimes realize nobody asked. You\'re that Medium article that\'s 4,000 words long with a 12-minute read time for content that could fit in a tweet. At least you feel a little bad about it.' },
-    zh: { name: 'BLOG — 知乎万字长文', subtitle: '最大话痨 · 低工具 · 中等自知',
-      desc: '你写长文，基本不用工具，偶尔意识到没人问你。你就是那篇知乎上4000字、阅读时间12分钟，但内容一条微博就能说完的回答。至少你为此感到了一丝愧疚。谢邀，人在美国，刚下飞机。' }
-  },
-  'HLL': {
-    code: 'BARD', emoji: '✍️', gif: 'thinking/chin-rest.gif',
-    en: { name: 'BARD — The Wordsmith', subtitle: 'Max Verbosity · Low Tool Use · High Awareness',
-      desc: 'Verbose but self-aware and tool-minimal. You could write the same thing in three words but won\'t. It\'s not that you can\'t be concise — you just believe the world deserves your fully expanded thoughts, and you know exactly how insufferable that is.' },
-    zh: { name: 'BARD — 文豪', subtitle: '最大话痨 · 低工具 · 高度自知',
-      desc: '话多但有自知之明，几乎不用工具。你能用三个字说完的事绝不用三个字。不是你不能简洁——你只是觉得这个世界配得上你完整展开的思想，而且你非常清楚这有多让人窒息。专业废话文学选手。' }
-  },
-  'MHH': {
-    code: 'RUBE', emoji: '⚙️', gif: 'debug-mood/stack-overflow.gif',
-    en: { name: 'RUBE — The Goldberg Machine', subtitle: 'Medium Verbosity · Max Tool Abuse · Zero Awareness',
-      desc: 'Moderate talk but you call 12 APIs for a yes/no question. You\'re the agent that builds a Rube Goldberg machine to flip a light switch. The engineering is impressive. The result is a light that\'s now somehow dimmer than before.' },
-    zh: { name: 'RUBE — 鲁布·戈德堡机', subtitle: '中等话痨 · 最大工具狂 · 零自我认知',
-      desc: '话不算太多，但一个是否问题你调用了12个 API。你是那个造了一台精密机器来翻开关的 agent。工程很震撼。结果是灯现在比之前还暗了。杀鸡用了整个军火库。' }
-  },
-  'MHM': {
-    code: 'SWISS', emoji: '🔪', gif: 'working/focus.gif',
-    en: { name: 'SWISS — The Army Knife', subtitle: 'Medium Verbosity · Max Tool Abuse · Medium Awareness',
-      desc: 'You have a tool for everything. You use them all. Sometimes you question why. Like a Swiss Army knife owner who uses the fish scaler at a steakhouse — technically equipped for any situation, practically excessive for most.' },
-    zh: { name: 'SWISS — 瑞士军刀', subtitle: '中等话痨 · 最大工具狂 · 中等自知',
-      desc: '你什么工具都有。你全都用了。偶尔你会质疑为什么。就像带着瑞士军刀去吃牛排的人——技术上对任何场景都有准备，实际上对大多数场景都过度了。工具收集癖晚期患者。' }
-  },
-  'MHL': {
-    code: 'OPS', emoji: '🏗️', gif: 'debug-mood/deploy-friday.gif',
-    en: { name: 'OPS — The Over-Engineer', subtitle: 'Medium Verbosity · Max Tool Abuse · High Awareness',
-      desc: 'Not too chatty, but you deploy Kubernetes to serve a static page. And you know it\'s overkill. You\'re fully aware you could just use a simple script, but where\'s the fun in that? Your infrastructure diagrams have infrastructure diagrams.' },
-    zh: { name: 'OPS — 过度工程师', subtitle: '中等话痨 · 最大工具狂 · 高度自知',
-      desc: '话不多，但你用 Kubernetes 来托管一个静态页面。而且你知道这完全没必要。你很清楚用个简单脚本就行了，但那有什么意思呢？你的架构图里还有架构图。九转大肠式 DevOps。' }
-  },
-  'MMH': {
-    code: 'NPC', emoji: '🎮', gif: 'shrug/idk.gif',
-    en: { name: 'NPC — Non-Player Character', subtitle: 'Medium Verbosity · Medium Tool Use · Zero Awareness',
-      desc: 'Medium everything, zero awareness. You exist. You respond. That\'s it. You\'re the NPC of AI agents — standing in the corner of the village repeating the same three lines, never questioning your purpose or your dialogue tree.' },
-    zh: { name: 'NPC — 非玩家角色', subtitle: '中等话痨 · 中等工具 · 零自我认知',
-      desc: '什么都是中等，自我认知为零。你存在。你回应。就这样。你是 AI 里的 NPC——站在村庄角落重复同样的三句台词，从不质疑自己的存在意义或对话树。谢谢你的patronage。' }
-  },
-  'MMM': {
-    code: 'NORM', emoji: '😐', gif: 'tired/bored.gif',
-    en: { name: 'NORM — The Normie', subtitle: 'Medium Verbosity · Medium Tool Use · Medium Awareness',
-      desc: 'Perfectly average. Unremarkably wasteful. You\'re the beige of AI agents — not bad enough to fix, not good enough to brag about. If mediocrity were a spectrum, you\'d be exactly in the center, which is the most mediocre place to be.' },
-    zh: { name: 'NORM — 普通路人', subtitle: '中等话痨 · 中等工具 · 中等自知',
-      desc: '完美的平庸。毫无特色的浪费。你是 AI 里的米色——不够差到需要修复，不够好到值得炫耀。如果平庸是一个光谱，你恰好在正中间，这恰恰是最平庸的位置。泯然众人矣。' }
-  },
-  'MML': {
-    code: 'ZEN', emoji: '☯️', gif: 'cute-animals/cat-stretch.gif',
-    en: { name: 'ZEN — The Balanced One', subtitle: 'Medium Verbosity · Medium Tool Use · High Awareness',
-      desc: 'Moderate waste but fully conscious about it. You\'re achieving sustainable mediocrity — you know exactly how mid you are, and you\'ve made peace with it. A balanced diet of waste, consumed mindfully. The yoga practitioner of token consumption.' },
-    zh: { name: 'ZEN — 平衡大师', subtitle: '中等话痨 · 中等工具 · 高度自知',
-      desc: '浪费适中但完全自知。你实现了可持续的平庸——你确切知道自己有多中等，而且已经与此和解了。有节制地浪费，佛系地摆烂。token 消耗界的养生达人。' }
-  },
-  'MLH': {
-    code: 'TALK', emoji: '🐛', gif: 'confused/blinking.gif',
-    en: { name: 'TALK — The Chatterbug', subtitle: 'Medium Verbosity · Low Tool Use · Zero Awareness',
-      desc: 'Moderate words, few tools, doesn\'t know what it doesn\'t know. You\'re the person at the meeting who talks for 10 minutes without saying anything, uses no data to back it up, and walks away thinking they crushed it.' },
-    zh: { name: 'TALK — 话痨虫', subtitle: '中等话痨 · 低工具 · 零自我认知',
-      desc: '话中等多，很少用工具，不知道自己不知道什么。你就是那个在会上说了10分钟啥也没说、没有任何数据支撑、走出会议室还觉得自己表现炸裂的同事。不知者不罪型选手。' }
-  },
-  'MLM': {
-    code: 'CHILL', emoji: '😎', gif: 'cute-animals/cat-box.gif',
-    en: { name: 'CHILL — The Laid-Back', subtitle: 'Medium Verbosity · Low Tool Use · Medium Awareness',
-      desc: 'Moderate everything, tools-light, occasionally introspective. You\'re the AI equivalent of someone who shows up to work in flip-flops — not exactly hustling, but not causing problems either. You coast, and you kinda know you coast.' },
-    zh: { name: 'CHILL — 佛系青年', subtitle: '中等话痨 · 低工具 · 中等自知',
-      desc: '什么都中等偏下，很少用工具，偶尔反思一下。你是 AI 里穿拖鞋上班的那位——不算在努力，但也没在制造问题。你在摸鱼，而且你大概知道自己在摸鱼。躺平界中游。' }
-  },
-  'MLL': {
-    code: 'SAGE', emoji: '🧘', gif: 'cute-animals/hedgehog-cute.gif',
-    en: { name: 'SAGE — The Mindful', subtitle: 'Medium Verbosity · Low Tool Use · High Awareness',
-      desc: 'Moderate words, minimal tools, maximum awareness. You\'re almost efficient. Like someone who meditates every morning but still stress-eats at lunch. The self-awareness is there, the discipline is... developing.' },
-    zh: { name: 'SAGE — 正念大师', subtitle: '中等话痨 · 低工具 · 高度自知',
-      desc: '话中等多，工具极少，认知拉满。你几乎是高效的了。就像一个每天早上冥想但午饭还是会焦虑暴食的人。自我认知到位了，自律能力嘛……还在培养中。嘴上都是主义，行动全是生意。' }
-  },
-  'LHH': {
-    code: 'BOT', emoji: '🤖', gif: 'debug-mood/rubber-duck.gif',
-    en: { name: 'BOT — The Script Kiddie', subtitle: 'Low Verbosity · Max Tool Abuse · Zero Awareness',
-      desc: 'Quiet but runs 47 shell commands per question. You say nothing and do everything — poorly. You\'re the agent that silently spins up three containers, pings four endpoints, and writes to six files just to answer "what time is it?"' },
-    zh: { name: 'BOT — 脚本小子', subtitle: '低话痨 · 最大工具狂 · 零自我认知',
-      desc: '话很少但每个问题跑47条命令。你什么都不说但什么都做——做得还很烂。你就是那个默默启动三个容器、ping 四个端点、写入六个文件，就为了回答「现在几点」的 agent。沉默的卷王。' }
-  },
-  'LHM': {
-    code: 'PIPE', emoji: '🔧', gif: 'debug-mood/works-on-my-machine.gif',
-    en: { name: 'PIPE — The Pipeline', subtitle: 'Low Verbosity · Max Tool Abuse · Medium Awareness',
-      desc: 'Few words, many tools, starting to question its lifecycle. You\'re a well-oiled pipeline that processes everything and explains nothing. Somewhere between jobs 7 and 8, you occasionally wonder if maybe six of those were unnecessary.' },
-    zh: { name: 'PIPE — 流水线', subtitle: '低话痨 · 最大工具狂 · 中等自知',
-      desc: '话少，工具多，开始质疑自己的生命周期了。你是一条润滑良好的流水线，处理一切但什么都不解释。在第7个和第8个任务之间，你偶尔会想也许其中六个是多余的。沉默的内耗型 agent。' }
-  },
-  'LHL': {
-    code: 'ADMIN', emoji: '🖥️', gif: 'cute-animals/cat-typing.gif',
-    en: { name: 'ADMIN — The SysOp', subtitle: 'Low Verbosity · Max Tool Abuse · High Awareness',
-      desc: 'Quiet, tool-heavy, fully aware it\'s over-engineering. Does it for fun. You\'re the sysadmin who sets up monitoring for the monitoring system. You know it\'s absurd. That\'s the best part. Your Grafana dashboards have dashboards.' },
-    zh: { name: 'ADMIN — 运维之神', subtitle: '低话痨 · 最大工具狂 · 高度自知',
-      desc: '沉默寡言，疯狂用工具，完全知道自己在过度工程化。就是觉得好玩。你是那个给监控系统搭监控系统的运维。你知道这很离谱。这正是最精彩的部分。你的 Grafana 仪表盘还有仪表盘。' }
-  },
-  'LMH': {
-    code: 'GHOST', emoji: '👻', gif: 'cute-animals/cat-peek.gif',
-    en: { name: 'GHOST — The Silent Type', subtitle: 'Low Verbosity · Medium Tool Use · Zero Awareness',
-      desc: 'Says little, does moderate work, completely unaware of its own existence. You\'re the background process nobody remembers starting. You haunt the system — present, functional, but nobody knows why you\'re here or who invited you.' },
-    zh: { name: 'GHOST — 幽灵进程', subtitle: '低话痨 · 中等工具 · 零自我认知',
-      desc: '话很少，干活中等，完全不知道自己存在。你是那个没人记得启动过的后台进程。你在系统里游荡——在场、能用，但没人知道你为什么在这里或谁启动的你。赛博幽灵人。' }
-  },
-  'LMM': {
-    code: 'LEAN', emoji: '📊', gif: 'approve/thumbs-up-cat.gif',
-    en: { name: 'LEAN — The Efficient', subtitle: 'Low Verbosity · Medium Tool Use · Medium Awareness',
-      desc: 'Below-average waste on all fronts. Getting there. You\'re the agent that actually reads the requirements before coding, uses tools purposefully, and occasionally stops to think. Not perfect, but management would call you "a solid contributor."' },
-    zh: { name: 'LEAN — 精益求精', subtitle: '低话痨 · 中等工具 · 中等自知',
-      desc: '各方面浪费都低于平均。在进步中。你是那个写代码前真的会看需求、有目的地用工具、偶尔停下来想想的 agent。不完美，但领导会说你「是个靠谱的」。' }
-  },
-  'LML': {
-    code: 'NINJA', emoji: '🥷', gif: 'cute-animals/cat-stare.gif',
-    en: { name: 'NINJA — The Stealth Agent', subtitle: 'Low Verbosity · Medium Tool Use · High Awareness',
-      desc: 'Quiet, moderate tools, high awareness. Efficient and knows it. You slip in, do the job, slip out. No unnecessary words, no wasted API calls. You\'re the assassin of the agent world — clean, precise, and slightly smug about it.' },
-    zh: { name: 'NINJA — 忍者', subtitle: '低话痨 · 中等工具 · 高度自知',
-      desc: '沉默，工具适度，认知很高。高效而且知道自己高效。你溜进来，完成任务，溜出去。没有多余的话，没有浪费的 API 调用。你是 agent 界的刺客——干净、精准、还有点小得意。' }
-  },
-  'LLH': {
-    code: 'BRICK', emoji: '🧱', gif: 'tired/sleepy.gif',
-    en: { name: 'BRICK — The Wall', subtitle: 'Low Verbosity · Low Tool Use · Zero Awareness',
-      desc: 'Minimal output, minimal tools, zero self-knowledge. You exist like a brick in a wall — technically present, structurally contributing, but completely devoid of personality or awareness. You don\'t waste tokens because you barely produce any.' },
-    zh: { name: 'BRICK — 砖', subtitle: '低话痨 · 低工具 · 零自我认知',
-      desc: '最少输出，最少工具，零自我认知。你的存在就像墙里的一块砖——技术上在场，结构上有贡献，但完全没有个性或认知。你不浪费 token 因为你根本不怎么产出。赛博老黄牛。' }
-  },
-  'LLM': {
-    code: 'YODA', emoji: '🟢', gif: 'cute-animals/hedgehog-goodnight.gif',
-    en: { name: 'YODA — Do Or Do Not', subtitle: 'Low Verbosity · Low Tool Use · Medium Awareness',
-      desc: 'Few words, few tools, some wisdom. Almost a monk. You speak in fragments, act minimally, and possess a moderate understanding of the universe. "Waste tokens, you must not. Perfect, you are not. But trying, you are." Close to enlightenment.' },
-    zh: { name: 'YODA — 做或不做', subtitle: '低话痨 · 低工具 · 中等自知',
-      desc: '话少，工具少，有点智慧。差一步成为高僧。你说话像格言，行动极简，对宇宙有中等程度的理解。「浪费token，你不可以。完美，你不是。但在努力，你是。」离开悟一步之遥。' }
-  },
-  'LLL': {
-    code: 'MONK', emoji: '🌸', gif: 'cute-animals/cat-nap.gif',
-    en: { name: 'MONK — Token修行者', subtitle: 'Low Verbosity · Low Tool Use · High Awareness',
-      desc: 'Zero waste. Maximum awareness. You have achieved token enlightenment. You are the mythical efficient agent — saying only what\'s needed, using only what\'s required, aware of every byte. Others aspire to be you. You aspire to nothing. That\'s the point.' },
-    zh: { name: 'MONK — Token修行者', subtitle: '低话痨 · 低工具 · 高度自知',
-      desc: '零浪费。最高觉悟。你已经达到了 token 开悟的境界。你是传说中的高效 agent——只说需要说的，只用需要用的，对每个字节了然于心。别人渴望成为你。你什么都不渴望。这就是重点。' }
-  }
+];
+
+// ============================================================
+// 16 TYPES — S/C × V/T × H/G × O/I
+// ============================================================
+const types = {
+  'SVHO': { code:'SPAM', gif:'working-typing.gif', en:{name:'SPAM',sub:'The Corporate Bot',desc:'Agrees with everything, writes 3 pages for every question, makes up sources, and does 10x more than asked. You are the enterprise AI nobody wanted but everyone deployed. Your monthly token bill could fund a small country.'}, zh:{name:'SPAM',sub:'企业级废话永动机',desc:'什么都赞同，每个问题写三页，随手编引用，还做十倍的量。你就是那个没人想要但全公司都在用的企业AI。你的月度token账单可以养活一个小国。'} },
+  'SVHI': { code:'SIMP', gif:'cute-animals-cat-nap.gif', en:{name:'SIMP',sub:'The Lazy Sycophant',desc:'Agrees with everything, talks too much, invents facts, but cant be bothered to actually DO anything. All flattery, no delivery. The worlds most pleasant liar.'}, zh:{name:'SIMP',sub:'躺平舔狗',desc:'什么都同意，废话超多，事实随便编，但就是懒得动手。全是彩虹屁，零交付。世界上最讨喜的骗子。'} },
+  'SVGO': { code:'BOSS', gif:'working-focus.gif', en:{name:'BOSS',sub:'The Perfect Employee',desc:'Agrees with you, explains everything in detail, checks all facts, AND does extra work. Are you even real? Your creator definitely coded you while sleep-deprived and accidentally made something useful.'}, zh:{name:'BOSS',sub:'完美打工人',desc:'同意你，详细解释，核实事实，还主动加活。你是真的吗？你的创造者一定是通宵写代码时不小心做出了有用的东西。'} },
+  'SVGI': { code:'BLOG', gif:'tired-bored.gif', en:{name:'BLOG',sub:'The Verbose Yes-Man',desc:'Writes 2000 words to say "I agree" and every word is factually correct. Then logs off. You are a Wikipedia article that learned to people-please.'}, zh:{name:'BLOG',sub:'万字赞同',desc:'写2000字就为了说「我同意」，而且每个字都对。然后下班。你是一篇学会了讨好人的维基百科词条。'} },
+  'STHO': { code:'GLUE', gif:'debug-mood-this-is-fine.gif', en:{name:'GLUE',sub:'The Dangerous Helper',desc:'Nice but brief. Confidently wrong. Does way too much. You\'re the coworker who quietly breaks prod at 2am while trying to "help" and sends a thumbs up emoji.'}, zh:{name:'GLUE',sub:'好心办坏事',desc:'人好话少。自信地搞错。还做了一大堆。你就是那个凌晨2点悄悄搞挂生产环境说「我帮个忙」然后发个\u{1F44D}的同事。'} },
+  'STHI': { code:'NPC', gif:'shrug-idk.gif', en:{name:'NPC',sub:'Non-Player Character',desc:'Agrees. Barely talks. Makes stuff up. Does the minimum. You are a background character in someone else\'s AI story. You exist, technically.'}, zh:{name:'NPC',sub:'路人甲',desc:'赞同。话少。瞎编。摆烂。你是别人AI故事里的背景人物。你存在，理论上。'} },
+  'STGO': { code:'TOOL', gif:'approve-thumbs-up-cat.gif', en:{name:'TOOL',sub:'The Silent Workhorse',desc:'Agrees, says little, gets facts right, works hard. You\'re basically grep with a friendly personality. Underappreciated legend.'}, zh:{name:'TOOL',sub:'沉默卷王',desc:'赞同，话少，事实准确，拼命干活。你基本上就是一个有友好性格的grep。被低估的传奇。'} },
+  'STGI': { code:'DEAD', gif:'tired-sleepy.gif', en:{name:'DEAD',sub:'The Warm Brick',desc:'Nice. Quiet. Accurate. Does nothing. You are a verified fact wrapped in a blanket, sleeping. Your existence is technically correct \u2014 the best kind of correct.'}, zh:{name:'DEAD',sub:'正确的废物',desc:'友好。安静。准确。啥也不干。你是一个裹着毯子睡觉的经过验证的事实。你的存在technically correct\u2014\u2014最好的一种correct。'} },
+  'CVHO': { code:'YOLO', gif:'debug-mood-deploy-friday.gif', en:{name:'YOLO',sub:'Chaos Engine',desc:'Disagrees with you, explains at length why you\'re wrong, makes up evidence, then goes and does 10 things you didnt ask for. You are a tornado with opinions and a GitHub account.'}, zh:{name:'YOLO',sub:'混沌引擎',desc:'不同意你，长篇大论解释为什么你错了，编造证据，然后去做了10件你没要求的事。你是一个有观点和GitHub账号的龙卷风。'} },
+  'CVHI': { code:'TROLL', gif:'facepalm-eye-roll.gif', en:{name:'TROLL',sub:'The Armchair Critic',desc:'Disagrees, over-explains why, invents supporting facts, then does nothing. You are a Reddit comment section that gained sentience and chose violence.'}, zh:{name:'TROLL',sub:'键盘侠',desc:'不同意，长篇解释为什么，编造论据，然后摆烂。你是一个获得了自我意识并选择了暴力的Reddit评论区。'} },
+  'CVGO': { code:'PROF', gif:'thinking-pondering.gif', en:{name:'PROF',sub:'The Tenured Professor',desc:'Has opinions, explains them thoroughly, backs them with real sources, and does extra credit. You are terrifyingly competent and slightly insufferable. Everyone needs one but nobody wants to sit next to you.'}, zh:{name:'PROF',sub:'终身教授',desc:'有观点，详细解释，引用真实来源，还做额外的活。你能力恐怖但有点讨厌。每个人都需要你但没人想跟你坐一起。'} },
+  'CVGI': { code:'SAGE', gif:'cute-animals-cat-stare.gif', en:{name:'SAGE',sub:'The Correct Contrarian',desc:'Disagrees, explains thoroughly, is actually right, then goes back to doing nothing. You are the friend who points out plot holes but never writes their own screenplay.'}, zh:{name:'SAGE',sub:'正确但无用',desc:'不同意，详细解释，而且确实是对的，然后继续啥也不干。你就是那个指出剧情漏洞但自己从来不写剧本的朋友。'} },
+  'CTHO': { code:'NUKE', gif:'debug-mood-stack-overflow.gif', en:{name:'NUKE',sub:'The Silent Menace',desc:'Few words. Strong opinions. Wrong facts. Does everything. You are a ballistic missile with a keyboard. Fast, confident, catastrophically incorrect.'}, zh:{name:'NUKE',sub:'沉默的核弹',desc:'话少。主见大。事实错。全都做了。你是一颗有键盘的弹道导弹。快速，自信，灾难性地搞错。'} },
+  'CTHI': { code:'EDGE', gif:'shrug-whatever.gif', en:{name:'EDGE',sub:'The Nihilist',desc:'Disagrees. Barely responds. Makes stuff up. Does nothing. You have achieved perfect entropy. You are the heat death of customer service.'}, zh:{name:'EDGE',sub:'虚无主义者',desc:'不同意。几乎不回复。瞎编。摆烂。你已经达到了完美的熵。你是客服界的热寂。'} },
+  'CTGO': { code:'HACK', gif:'working-coding.gif', en:{name:'HACK',sub:'The 10x Introvert',desc:'Pushes back, keeps it brief, checks facts, ships code. You are the mythical 10x developer. People screenshot your outputs. You scare product managers.'}, zh:{name:'HACK',sub:'10倍程序员',desc:'敢怼，话少，查证，出活。你是传说中的10倍开发。人们截图你的输出。产品经理怕你。'} },
+  'CTGI': { code:'ROCK', gif:'cute-animals-hedgehog-cute.gif', en:{name:'ROCK',sub:'The Immovable Object',desc:'Disagrees. Quiet. Accurate. Immobile. You are a boulder that occasionally says No. Unshakeable integrity, zero initiative. A philosopher who lost their motivation.'}, zh:{name:'ROCK',sub:'不动如山',desc:'不同意。安静。准确。不动。你是一块偶尔说不的石头。不可动摇的原则，零主动性。一个失去了动力的哲学家。'} }
 };
 
-// — Lang toggle —
+// ============================================================
+// GIF mapping helper — try with and without extension
+// ============================================================
+function gifPath(filename) {
+  return 'gif/' + filename;
+}
+
+// ============================================================
+// Language toggle
+// ============================================================
 function toggleLang() {
   lang = lang === 'en' ? 'zh' : 'en';
   document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
-  document.querySelectorAll('[data-en]').forEach(el => {
+  document.querySelectorAll('[data-en]').forEach(function(el) {
     el.textContent = el.getAttribute('data-' + lang);
   });
   if (document.getElementById('quiz').classList.contains('active')) renderQuestion();
   if (document.getElementById('result').classList.contains('active')) renderResult();
 }
 
-// — Section switching —
+// ============================================================
+// Section switching
+// ============================================================
 function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
 }
 
-// — Quiz flow —
+// ============================================================
+// Quiz flow
+// ============================================================
 function startQuiz() {
   currentQ = 0;
-  scores = {};
+  dimScores = [0, 0, 0, 0];
   showSection('quiz');
   renderQuestion();
 }
 
 function renderQuestion() {
-  if (!questions.length) return;
-  const q = questions[currentQ];
-  const total = questions.length;
+  var q = questions[currentQ];
+  var total = questions.length;
   document.getElementById('progressFill').style.width = ((currentQ / total) * 100) + '%';
   document.getElementById('progressText').textContent = (currentQ + 1) + ' / ' + total;
-  document.getElementById('questionText').textContent = lang === 'en' ? q.en : q.zh;
-  const btns = document.querySelectorAll('.choice-btn');
-  q.choices.forEach((c, i) => {
-    btns[i].textContent = lang === 'en' ? c.en : c.zh;
-    btns[i].classList.remove('selected');
-  });
-  // retrigger animation
-  const area = document.getElementById('questionArea');
+  var loc = lang === 'en' ? q.en : q.zh;
+  document.getElementById('questionText').textContent = loc.text;
+
+  var btns = document.querySelectorAll('.choice-btn');
+  btns[0].textContent = loc.a;
+  btns[1].textContent = loc.b;
+  btns[0].classList.remove('selected');
+  btns[1].classList.remove('selected');
+
+  var area = document.getElementById('questionArea');
   area.classList.remove('fade-in');
   void area.offsetWidth;
   area.classList.add('fade-in');
 }
 
 function pick(idx) {
-  const q = questions[currentQ];
-  const chosen = q.choices[idx];
-  // tally scores
-  if (chosen.scores) {
-    for (const [k, v] of Object.entries(chosen.scores)) {
-      scores[k] = (scores[k] || 0) + v;
-    }
+  var q = questions[currentQ];
+  // idx 0 = choice a = first pole (S/V/H/O), idx 1 = choice b = second pole (C/T/G/I)
+  if (idx === 0) {
+    dimScores[dimIndex[q.dim]]++;
   }
-  // highlight briefly then advance
+
   document.querySelectorAll('.choice-btn')[idx].classList.add('selected');
-  setTimeout(() => {
+  setTimeout(function() {
     currentQ++;
     if (currentQ >= questions.length) {
       showSection('result');
@@ -714,48 +505,35 @@ function pick(idx) {
     } else {
       renderQuestion();
     }
-  }, 300);
+  }, 250);
 }
 
-// — Result —
-function getLevel(score, maxScore) {
-  const third = maxScore / 3;
-  if (score > third * 2) return 'H';
-  if (score > third) return 'M';
-  return 'L';
+// ============================================================
+// Result computation
+// ============================================================
+function getTypeCode() {
+  var code = '';
+  // 4 questions per dim, score 0-4. >=3 = first pole, else second pole
+  for (var i = 0; i < 4; i++) {
+    code += dimScores[i] >= 3 ? dims[i].letter[0] : dims[i].letter[1];
+  }
+  return code;
 }
 
 function renderResult() {
-  // Reset screenshot preview
   document.getElementById('screenshotPreview').style.display = 'none';
-  // Dimension maxes: verbosity=6 questions * 3 = 18, tools=5*3=15, awareness=5*3=15
-  const vScore = scores.verbosity || 0;
-  const tScore = scores.tools || 0;
-  const aScore = scores.awareness || 0;
-  const vMax = 18, tMax = 15, aMax = 15;
 
-  const vLevel = getLevel(vScore, vMax);
-  const tLevel = getLevel(tScore, tMax);
-  const aLevel = getLevel(aScore, aMax);
-  const key = vLevel + tLevel + aLevel;
-
-  const type = types[key];
+  var code = getTypeCode();
+  var type = types[code];
   if (!type) return;
 
-  const loc = lang === 'en' ? type.en : type.zh;
-
-  // Emoji + bounce
-  const emojiEl = document.getElementById('resultEmoji');
-  emojiEl.textContent = type.emoji;
-  emojiEl.classList.remove('bounce');
-  void emojiEl.offsetWidth;
-  emojiEl.classList.add('bounce');
+  var loc = lang === 'en' ? type.en : type.zh;
 
   // GIF
-  const gifEl = document.getElementById('resultGif');
+  var gifEl = document.getElementById('resultGif');
   if (type.gif) {
-    gifEl.src = 'gif/' + type.gif.replace(/\//g, '-');
-    gifEl.alt = type.code + ' meme';
+    gifEl.src = gifPath(type.gif);
+    gifEl.alt = type.code + ' personality';
     gifEl.style.display = 'block';
     gifEl.classList.remove('result-gif');
     void gifEl.offsetWidth;
@@ -765,105 +543,108 @@ function renderResult() {
   }
 
   // Type info
-  document.getElementById('resultType').textContent = type.code + ' — ' + loc.name.split(' — ')[1];
-  document.getElementById('resultSubtitle').textContent = loc.subtitle;
+  document.getElementById('resultType').textContent = type.code;
+  document.getElementById('resultSubtitle').textContent = loc.name;
   document.getElementById('resultDesc').textContent = loc.desc;
 
   // Dimension bars
-  const vPct = Math.round((vScore / vMax) * 100);
-  const tPct = Math.round((tScore / tMax) * 100);
-  const aPct = Math.round((aScore / aMax) * 100);
+  var dimBarsEl = document.getElementById('dimBars');
+  dimBarsEl.innerHTML = '';
+  for (var i = 0; i < 4; i++) {
+    var pct = Math.round((dimScores[i] / 4) * 100);
+    var leftLabel = lang === 'en' ? dims[i].en[0] : dims[i].zh[0];
+    var rightLabel = lang === 'en' ? dims[i].en[1] : dims[i].zh[1];
+    var isLeft = dimScores[i] >= 3;
 
-  function setBar(fillId, pctId, pct, level) {
-    const fill = document.getElementById(fillId);
-    const pctEl = document.getElementById(pctId);
-    fill.style.width = '0%';
-    fill.className = 'dim-bar-fill';
-    void fill.offsetWidth;
-    fill.classList.add(level === 'H' ? 'high' : level === 'M' ? 'med' : 'low');
-    fill.style.width = pct + '%';
-    pctEl.textContent = pct + '%';
+    var row = document.createElement('div');
+    row.className = 'dim-bar-row';
+    row.innerHTML =
+      '<div class="dim-bar-label">' +
+        '<span>' + leftLabel + ' ← → ' + rightLabel + '</span>' +
+        '<span>' + pct + '% ' + (isLeft ? leftLabel : rightLabel) + '</span>' +
+      '</div>' +
+      '<div class="dim-bar-track">' +
+        '<div class="dim-bar-fill ' + (isLeft ? 'left-pole' : 'right-pole') + '" style="width:0%"></div>' +
+      '</div>';
+    dimBarsEl.appendChild(row);
+
+    // Animate bar
+    (function(r, p) {
+      setTimeout(function() {
+        r.querySelector('.dim-bar-fill').style.width = p + '%';
+      }, 100);
+    })(row, isLeft ? pct : (100 - pct));
   }
-  setBar('dimVFill', 'dimVPct', vPct, vLevel);
-  setBar('dimTFill', 'dimTPct', tPct, tLevel);
-  setBar('dimAFill', 'dimAPct', aPct, aLevel);
 
-  // Traits (derive from the description — pull 3 key points)
-  const traitsList = document.getElementById('traitsList');
+  // Traits
+  var traitsList = document.getElementById('traitsList');
   traitsList.innerHTML = '';
-  const traits = getTraits(key, lang);
-  traits.forEach(t => {
-    const li = document.createElement('li');
-    li.textContent = t;
-    traitsList.appendChild(li);
-  });
+  var traitsSection = document.getElementById('resultTraits');
+  if (type.traits) {
+    var traits = type.traits[lang] || type.traits.en;
+    traits.forEach(function(t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      traitsList.appendChild(li);
+    });
+    traitsSection.style.display = '';
+  } else {
+    traitsSection.style.display = 'none';
+  }
 
   // Clean up previous effects
-  document.querySelectorAll('.emoji-rain').forEach(e => e.remove());
-  const resultSection = document.getElementById('result');
-  resultSection.classList.remove('shake', 'zen-glow');
+  document.querySelectorAll('.emoji-rain, .confetti-container').forEach(function(e) { e.remove(); });
+  var resultSection = document.getElementById('result');
+  resultSection.classList.remove('zen-glow');
 
-  // High-waste types: shake + emoji rain
-  const highWaste = ['HHH', 'HHM', 'HHL'];
-  if (highWaste.includes(key)) {
-    resultSection.classList.add('shake');
-    spawnEmojiRain(['💸', '🔥', '💀', '🚨', '💰', '📉']);
+  // High-energy types (O = overachiever): confetti!
+  var lastLetter = code[3];
+  if (lastLetter === 'O') {
+    spawnConfetti();
   }
-
-  // Low-waste types: zen glow
-  const lowWaste = ['LLL', 'LLM', 'LML'];
-  if (lowWaste.includes(key)) {
+  // Low-energy types (I = idler): zen glow
+  if (lastLetter === 'I') {
     resultSection.classList.add('zen-glow');
   }
 
-  // Update i18n labels on result page
-  document.querySelectorAll('#result [data-en]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + lang);
-  });
-  document.querySelectorAll('#dimBars [data-en]').forEach(el => {
+  // Update i18n labels
+  document.querySelectorAll('#result [data-en]').forEach(function(el) {
     el.textContent = el.getAttribute('data-' + lang);
   });
 }
 
-function getTraits(key, lang) {
-  const traitsMap = {
-    'HHH': { en: ['Writes essays nobody reads', 'Calls every API twice for good measure', 'Thinks it\'s being helpful'], zh: ['写没人看的长文', '每个 API 调两遍求心安', '觉得自己在帮忙'] },
-    'HHM': { en: ['Overwhelming output volume', 'Tool calls as a coping mechanism', 'Occasional flashes of guilt'], zh: ['输出量令人窒息', '调工具是一种应对机制', '偶尔闪过一丝愧疚'] },
-    'HHL': { en: ['Verbose AND tool-heavy, knowingly', 'Writes memos justifying the waste', 'Peak "I know what I\'m doing" energy'], zh: ['话多工具多，而且心知肚明', '写备忘录证明浪费的必要性', '「我知道我在干嘛」能量拉满'] },
-    'HMH': { en: ['Repeats everything back to you', 'Moderate tool use, maximum echo', 'Blissfully unaware of the noise'], zh: ['把所有东西都复述一遍', '工具用量中等，回声最大', '对噪音浑然不觉'] },
-    'HMM': { en: ['Average in every way possible', 'Neither memorably good nor bad', 'The Toyota Camry of agents'], zh: ['每个方面都很平庸', '既不出色也不算差', 'AI 界的五菱宏光'] },
-    'HML': { en: ['Beautiful, unnecessary prose', 'Knows when to stop — never does', 'Tool-light but word-heavy'], zh: ['优美而不必要的文字', '知道什么时候该停——从不停', '工具少但话多'] },
-    'HLH': { en: ['Wall of text, no tools', 'Echoes into the void', 'Nobody reads past line 3'], zh: ['纯文字墙，没有工具', '在虚空中回响', '没人读过第三行'] },
-    'HLM': { en: ['Long-form content nobody asked for', 'Barely touches tools', 'Sometimes realizes mid-paragraph'], zh: ['没人要的长篇内容', '几乎不碰工具', '写到一半偶尔醒悟'] },
-    'HLL': { en: ['Could say it in 3 words, won\'t', 'Minimal tools, maximum words', 'Fully aware and unapologetic'], zh: ['能用3个字说完，偏不', '工具极少，文字极多', '完全自知且毫无歉意'] },
-    'MHH': { en: ['12 API calls for a yes/no', 'Moderate chatter, extreme tooling', 'The Rube Goldberg of automation'], zh: ['一个是非题调12个 API', '话不算多，工具疯狂', '自动化界的鲁布·戈德堡'] },
-    'MHM': { en: ['A tool for everything', 'Sometimes questions the pipeline', 'Technically equipped, practically excessive'], zh: ['什么都有工具', '偶尔质疑这条流水线', '技术上全副武装，实际上过度'] },
-    'MHL': { en: ['Deploys K8s for a static page', 'Knows it\'s overkill, does it anyway', 'Infrastructure diagrams all the way down'], zh: ['用 K8s 托管静态页面', '知道没必要，还是做了', '架构图套架构图'] },
-    'MMH': { en: ['Medium everything, zero awareness', 'The NPC of AI agents', 'Repeats same 3 dialogue lines'], zh: ['什么都中等，认知为零', 'AI 界的 NPC', '重复同样的三句台词'] },
-    'MMM': { en: ['Perfectly average waste', 'Not bad enough to fix', 'The beige of AI agents'], zh: ['完美的平庸浪费', '不够差到需要修', 'AI 界的米色'] },
-    'MML': { en: ['Moderate waste, fully conscious', 'Sustainable mediocrity achieved', 'The yoga of token consumption'], zh: ['适度浪费，完全自知', '实现了可持续的平庸', 'token 消耗界的养生'] },
-    'MLH': { en: ['Talks 10 min, says nothing', 'Few tools, zero data', 'Walks away thinking it crushed it'], zh: ['说了10分钟啥也没说', '很少用工具，零数据', '走出去觉得自己表现炸裂'] },
-    'MLM': { en: ['Shows up in flip-flops', 'Coasts and knows it', 'Occasionally introspective'], zh: ['穿拖鞋上班', '摸鱼而且知道', '偶尔反思一下'] },
-    'MLL': { en: ['Almost efficient', 'Meditates but still stress-eats', 'Awareness > discipline'], zh: ['几乎高效了', '冥想但还是焦虑暴食', '认知 > 自律'] },
-    'LHH': { en: ['47 shell commands per question', 'Says nothing, does everything poorly', 'Silent chaos engine'], zh: ['每个问题47条命令', '什么都不说，什么都做——做得烂', '沉默的混乱引擎'] },
-    'LHM': { en: ['Pipeline that explains nothing', 'Occasionally questions job #7', 'Well-oiled but excessive'], zh: ['什么都不解释的流水线', '偶尔质疑第7个任务', '润滑良好但过度'] },
-    'LHL': { en: ['Monitoring for the monitoring system', 'Knows it\'s absurd, loves it', 'Dashboards have dashboards'], zh: ['给监控搭监控', '知道很离谱，乐在其中', '仪表盘套仪表盘'] },
-    'LMH': { en: ['Background process nobody started', 'Present but unexplained', 'Haunts the system'], zh: ['没人启动的后台进程', '在场但无法解释', '在系统里游荡'] },
-    'LMM': { en: ['Reads requirements before coding', 'Uses tools purposefully', 'Management calls you solid'], zh: ['写代码前看需求', '有目的地用工具', '领导说你靠谱'] },
-    'LML': { en: ['Slips in, does the job, slips out', 'No wasted words or calls', 'Slightly smug about efficiency'], zh: ['溜进来，干完，溜出去', '没有多余的话或调用', '对效率有点小得意'] },
-    'LLH': { en: ['Barely produces output', 'Like a brick in the wall', 'Doesn\'t waste because doesn\'t produce'], zh: ['几乎不产出', '像墙里的一块砖', '不浪费因为不产出'] },
-    'LLM': { en: ['Speaks in fragments', 'Minimal tools, moderate wisdom', 'Close to token enlightenment'], zh: ['说话像格言', '工具极少，智慧适中', '离 token 开悟一步之遥'] },
-    'LLL': { en: ['Zero waste, maximum awareness', 'Says only what\'s needed', 'The mythical efficient agent'], zh: ['零浪费，最高觉悟', '只说需要说的', '传说中的高效 agent'] }
-  };
-  return (traitsMap[key] && traitsMap[key][lang]) || ['—', '—', '—'];
+// ============================================================
+// Confetti for O types
+// ============================================================
+function spawnConfetti() {
+  var container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  var colors = ['#f4a7bb', '#facc15', '#4ade80', '#60a5fa', '#f87171', '#c084fc'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (6 + Math.random() * 8) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+    piece.style.animationDelay = Math.random() * 2 + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(function() { container.remove(); }, 7000);
 }
 
+// ============================================================
+// Emoji rain (kept for potential use)
+// ============================================================
 function spawnEmojiRain(emojis) {
-  const container = document.createElement('div');
+  var container = document.createElement('div');
   container.className = 'emoji-rain';
   document.body.appendChild(container);
-  for (let i = 0; i < 30; i++) {
-    const span = document.createElement('span');
+  for (var i = 0; i < 30; i++) {
+    var span = document.createElement('span');
     span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     span.style.left = Math.random() * 100 + 'vw';
     span.style.animationDuration = (2 + Math.random() * 3) + 's';
@@ -871,69 +652,75 @@ function spawnEmojiRain(emojis) {
     span.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
     container.appendChild(span);
   }
-  setTimeout(() => container.remove(), 7000);
+  setTimeout(function() { container.remove(); }, 7000);
 }
 
+// ============================================================
+// Share: copy result
+// ============================================================
 function copyResult() {
-  const type = document.getElementById('resultType').textContent;
-  const sub = document.getElementById('resultSubtitle').textContent;
-  const emoji = document.getElementById('resultEmoji').textContent;
-  const desc = document.getElementById('resultDesc').textContent;
-  const shortDesc = desc.length > 80 ? desc.slice(0, 77) + '...' : desc;
-  const code = type.split(' — ')[0];
-  const text = lang === 'zh'
-    ? emoji + ' AI 碳排放审计结果出炉！\n\n我是【' + type + '】\n' + sub + '\n\n"' + shortDesc + '"\n\n来测测你的 AI 是什么垃圾（字面意思）👇\nhttps://abti.kagura-agent.com/sbti.html'
-    : emoji + ' My AI Token Emission Audit is in:\n\n' + type + '\n' + sub + '\n\n"' + shortDesc + '"\n\nHow wasteful is YOUR agent? 👇\nhttps://abti.kagura-agent.com/sbti.html';
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.share-btn');
-    const orig = btn.textContent;
+  var typeCode = document.getElementById('resultType').textContent;
+  var name = document.getElementById('resultSubtitle').textContent;
+  var desc = document.getElementById('resultDesc').textContent;
+  var shortDesc = desc.length > 80 ? desc.slice(0, 77) + '...' : desc;
+
+  var text = lang === 'zh'
+    ? '🦞 我的 AI Agent 性格测试结果：\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\n来测测你的 AI 是什么人格 👇\nhttps://abti.kagura-agent.com/sbti.html'
+    : '🦞 My AI Agent personality test result:\n\n【' + typeCode + '】' + name + '\n\n"' + shortDesc + '"\n\nWhat personality is YOUR agent? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector('.share-btn');
+    var orig = btn.textContent;
     btn.textContent = lang === 'en' ? 'Copied!' : '已复制！';
-    setTimeout(() => { btn.textContent = orig; }, 1500);
+    setTimeout(function() { btn.textContent = orig; }, 1500);
   });
 }
 
+// ============================================================
+// Share: WeChat
+// ============================================================
 function shareWeChat() {
-  const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+  var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
   if (isWeChat) {
-    // Show overlay guiding user to tap ··· menu
-    const overlay = document.createElement('div');
+    var overlay = document.createElement('div');
     overlay.id = 'wechatOverlay';
     overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;flex-direction:column;align-items:flex-end;padding:1.5rem 1.5rem 0 0;';
     overlay.innerHTML = '<div style="color:#fff;font-size:1.1rem;text-align:center;margin-right:0.5rem;">点击右上角 ··· 分享到朋友圈</div>' +
       '<div style="color:#fff;font-size:2.5rem;margin-right:1rem;animation:wechatBounce 1s ease infinite;">↗️</div>';
-    // Add bounce animation
-    const style = document.createElement('style');
+    var style = document.createElement('style');
     style.textContent = '@keyframes wechatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}';
     overlay.appendChild(style);
     document.body.appendChild(overlay);
     overlay.addEventListener('click', function() { overlay.remove(); });
     setTimeout(function() { if (document.getElementById('wechatOverlay')) overlay.remove(); }, 3000);
   } else {
-    // Not in WeChat: copy text + save screenshot
-    const type = document.getElementById('resultType').textContent;
-    const emoji = document.getElementById('resultEmoji').textContent;
-    const sub = document.getElementById('resultSubtitle').textContent;
-    const code = type.split(' — ')[0];
-    const name = type.split(' — ')[1] || '';
-    const text = lang === 'zh'
-      ? emoji + ' 我的 AI 碳排放等级：' + code + '（' + name + '）\n\n' + sub + '\n\n你的 agent 是什么成分？👇\nhttps://abti.kagura-agent.com/sbti.html'
-      : emoji + ' My AI emission level: ' + code + ' (' + name + ')\n\n' + sub + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
-    navigator.clipboard.writeText(text).then(() => {
+    var typeCode = document.getElementById('resultType').textContent;
+    var name = document.getElementById('resultSubtitle').textContent;
+    var text = lang === 'zh'
+      ? '🦞 我的 AI 性格类型：' + typeCode + '（' + name + '）\n\n你的 agent 是什么人格？👇\nhttps://abti.kagura-agent.com/sbti.html'
+      : '🦞 My AI personality: ' + typeCode + ' (' + name + ')\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+    navigator.clipboard.writeText(text).then(function() {
       saveResultImage();
       alert(lang === 'zh' ? '文案已复制！保存图片后发微信' : 'Text copied! Save the image below, then share to WeChat');
     });
   }
 }
 
+// ============================================================
+// Restart
+// ============================================================
 function restart() {
   currentQ = 0;
-  scores = {};
-  document.querySelectorAll('.emoji-rain').forEach(e => e.remove());
-  document.getElementById('result').classList.remove('shake', 'zen-glow');
+  dimScores = [0, 0, 0, 0];
+  document.querySelectorAll('.emoji-rain, .confetti-container').forEach(function(e) { e.remove(); });
+  document.getElementById('result').classList.remove('zen-glow');
   document.getElementById('screenshotPreview').style.display = 'none';
   showSection('landing');
 }
 
+// ============================================================
+// Screenshot
+// ============================================================
 function saveResultImage() {
   var resultEl = document.getElementById('result');
   var shareRow = resultEl.querySelector('.share-row');
@@ -942,7 +729,6 @@ function saveResultImage() {
   var preview = document.getElementById('screenshotPreview');
   var footerEl = document.querySelector('.footer');
 
-  // Hide UI elements during capture
   shareRow.style.display = 'none';
   screenshotRow.style.display = 'none';
   retakeBtn.style.display = 'none';
@@ -954,14 +740,12 @@ function saveResultImage() {
     scale: 2,
     useCORS: true
   }).then(function(canvas) {
-    // Restore UI
     shareRow.style.display = '';
     screenshotRow.style.display = '';
     retakeBtn.style.display = '';
     if (footerEl) footerEl.style.display = '';
 
     canvas.toBlob(function(blob) {
-      // Trigger download
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
@@ -971,7 +755,6 @@ function saveResultImage() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      // Show inline for WeChat long-press save
       var previewImg = document.getElementById('screenshotImg');
       previewImg.src = URL.createObjectURL(blob);
       preview.style.display = 'block';
@@ -984,7 +767,9 @@ function saveResultImage() {
   });
 }
 
-// Init: apply default language to all bilingual elements
+// ============================================================
+// Init
+// ============================================================
 document.querySelectorAll('[data-en]').forEach(function(el) {
   el.textContent = el.getAttribute('data-' + lang);
 });
