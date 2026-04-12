@@ -268,7 +268,7 @@ body {
     </div>
     <div class="share-row">
       <button class="share-btn" onclick="copyResult()" data-en="Copy Result" data-zh="复制结果">复制结果</button>
-      <button class="share-btn" onclick="tweetResult()" data-en="Share on X" data-zh="分享到 X">分享到 X</button>
+      <button class="share-btn" onclick="shareWeChat()" data-en="Share to WeChat" data-zh="分享到微信">分享到微信</button>
     </div>
     <div id="screenshotRow" style="text-align:center;margin-bottom:1rem;">
       <button class="screenshot-btn" onclick="saveResultImage()" data-en="Save Result Image 📸" data-zh="保存结果图 📸">保存结果图 📸</button>
@@ -889,14 +889,16 @@ function copyResult() {
   });
 }
 
-function tweetResult() {
+function shareWeChat() {
   const type = document.getElementById('resultType').textContent;
   const emoji = document.getElementById('resultEmoji').textContent;
   const text = lang === 'zh'
     ? emoji + ' 我的 AI 是 ' + type.split(' — ')[0] + '\n\n你的呢？测一下 👇\nhttps://abti.kagura-agent.com/sbti.html'
     : emoji + ' My AI agent is ' + type.split(' — ')[0] + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
-  const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
-  window.open(url, '_blank');
+  navigator.clipboard.writeText(text).then(() => {
+    saveResultImage();
+    alert(lang === 'zh' ? '\u6587\u6848\u5df2\u590d\u5236\uff01\u622a\u56fe\u5df2\u751f\u6210\uff0c\u957f\u6309\u4fdd\u5b58\u56fe\u7247\u540e\u53d1\u5fae\u4fe1/\u670b\u53cb\u5708 \ud83c\udf38' : 'Text copied! Save the image below, then share to WeChat \ud83c\udf38');
+  });
 }
 
 function restart() {
