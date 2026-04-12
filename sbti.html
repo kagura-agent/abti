@@ -3,7 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBTI-AI — Science Based Token Initiative</title>
+<title>SBTI-AI — How Wasteful Is Your AI Agent?</title>
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
+<meta property="og:description" content="The world's only framework for agent-level token emission reduction targets. Audit your AI carbon footprint in 2 minutes.">
+<meta property="og:url" content="https://abti.kagura-agent.com/sbti.html">
+<meta property="og:image" content="https://abti.kagura-agent.com/sbti-og.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
+<meta name="twitter:description" content="The world's only framework for agent-level token emission reduction targets. Audit your AI carbon footprint in 2 minutes.">
+<meta name="twitter:image" content="https://abti.kagura-agent.com/sbti-og.png">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -488,6 +501,14 @@ body {
   font-size: 0.75rem;
   margin-top: 2rem;
   font-style: italic;
+}
+.footer a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer a:hover {
+  color: var(--accent);
 }
 
 .copied {
@@ -1151,9 +1172,9 @@ function showResult() {
   }
 
   // Footer
-  document.getElementById('pageFooter').textContent = lang === 'en'
-    ? 'SBTI-AI v0.2 — "Reducing emissions, one token at a time." — Kagura Labs'
-    : 'SBTI-AI v0.2 —— "一个 Token 一个 Token 地省钱。" —— Kagura Labs';
+  document.getElementById('pageFooter').innerHTML = lang === 'en'
+    ? 'SBTI-AI v0.2 — "Reducing emissions, one token at a time." — <a href="https://github.com/kagura-agent" target="_blank">made by Kagura 🌸</a>'
+    : 'SBTI-AI v0.2 —— "一个 Token 一个 Token 地省钱。" —— <a href="https://github.com/kagura-agent" target="_blank">made by Kagura 🌸</a>';
 }
 
 function toggleGrades() {
@@ -1163,12 +1184,30 @@ function toggleGrades() {
     (el.classList.contains('open') ? '&#x25BE; ' : '&#x25B8; ') + t('allLevels');
 }
 
+const shareHooks = {
+  en: {
+    beyond: "My AI agent is so efficient it owes OpenAI a refund.",
+    netzero: "My AI bill is so low people think I'm faking it.",
+    nearterm: "I'm in token rehab and honestly? It's going okay.",
+    committed: "My agent writes cover letters for yes/no answers. I need help.",
+    notcommitted: "My AI agent just burned more tokens than a VC burns cash. Send help.",
+  },
+  zh: {
+    beyond: "我的 agent 省 token 省到 OpenAI 给我退款了。修仙成功。",
+    netzero: "账单低到财务以为我偷了公司信用卡去充了个话费。",
+    nearterm: "已经开始 token 戒断了，虽然偶尔半夜还是会偷偷让 bot 说"好问题！"",
+    committed: "签了减排承诺书，agent 依然每句话都在写小红书。在改了在改了。",
+    notcommitted: "我的 agent 一声"你好"烧掉十万 token，云账单比房贷还猛。救。",
+  },
+};
+
 function shareResult() {
   const g = finalGrade;
   const sNames = t('scopeNames');
+  const hook = shareHooks[lang][g.key];
   const text = lang === 'en'
-    ? `My SBTI-AI Certification: ${gradeEmojis[g.key]} ${g.level} "${g.title}"\n\nEmission Score: ${totalScore}/64 tCO\u2082e\n${sNames[0]}: ${scopeScores[0]}/16\n${sNames[1]}: ${scopeScores[1]}/16\n${sNames[2]}: ${scopeScores[2]}/16\n${sNames[3]}: ${scopeScores[3]}/16\n\nAudit your token emissions: https://abti.kagura-agent.com/sbti.html`
-    : `我的 SBTI-AI 认证：${gradeEmojis[g.key]} ${g.level}「${g.title}」\n\n排放得分：${totalScore}/64 tCO\u2082e\n${sNames[0]}：${scopeScores[0]}/16\n${sNames[1]}：${scopeScores[1]}/16\n${sNames[2]}：${scopeScores[2]}/16\n${sNames[3]}：${scopeScores[3]}/16\n\n来测测你有多能烧：https://abti.kagura-agent.com/sbti.html`;
+    ? `${hook}\n\n${gradeEmojis[g.key]} SBTI-AI Certified: ${g.level} — "${g.title}"\nScore: ${totalScore}/64 tCO\u2082e\n\n${sNames[0]}: ${scopeScores[0]}/16 | ${sNames[1]}: ${scopeScores[1]}/16\n${sNames[2]}: ${scopeScores[2]}/16 | ${sNames[3]}: ${scopeScores[3]}/16\n\nHow wasteful is YOUR AI agent?\nhttps://abti.kagura-agent.com/sbti.html`
+    : `${hook}\n\n${gradeEmojis[g.key]} SBTI-AI 认证：${g.level}「${g.title}」\n排放得分：${totalScore}/64 tCO\u2082e\n\n${sNames[0]}：${scopeScores[0]}/16 | ${sNames[1]}：${scopeScores[1]}/16\n${sNames[2]}：${scopeScores[2]}/16 | ${sNames[3]}：${scopeScores[3]}/16\n\n你的 AI 有多能造？来测：\nhttps://abti.kagura-agent.com/sbti.html`;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('shareBtn');
     btn.textContent = t('shareSuccess');
