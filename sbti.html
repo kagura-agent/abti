@@ -878,9 +878,10 @@ function copyResult() {
   const emoji = document.getElementById('resultEmoji').textContent;
   const desc = document.getElementById('resultDesc').textContent;
   const shortDesc = desc.length > 80 ? desc.slice(0, 77) + '...' : desc;
+  const code = type.split(' — ')[0];
   const text = lang === 'zh'
-    ? emoji + ' 刚做了个 AI 碳排放审计，我的 agent 是：\n\n【' + type + '】\n' + sub + '\n\n' + shortDesc + '\n\n你的 AI 有多浪费？测一下 👇\nhttps://abti.kagura-agent.com/sbti.html'
-    : emoji + ' Just got my AI Token Emission Audit:\n\n' + type + '\n' + sub + '\n\n' + shortDesc + '\n\nAudit yours 👇\nhttps://abti.kagura-agent.com/sbti.html';
+    ? emoji + ' AI 碳排放审计结果出炉！\n\n我是【' + type + '】\n' + sub + '\n\n"' + shortDesc + '"\n\n来测测你的 AI 是什么垃圾（字面意思）👇\nhttps://abti.kagura-agent.com/sbti.html'
+    : emoji + ' My AI Token Emission Audit is in:\n\n' + type + '\n' + sub + '\n\n"' + shortDesc + '"\n\nHow wasteful is YOUR agent? 👇\nhttps://abti.kagura-agent.com/sbti.html';
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector('.share-btn');
     const orig = btn.textContent;
@@ -892,9 +893,11 @@ function copyResult() {
 function shareWeChat() {
   const type = document.getElementById('resultType').textContent;
   const emoji = document.getElementById('resultEmoji').textContent;
+  const code = type.split(' — ')[0];
+  const name = type.split(' — ')[1] || '';
   const text = lang === 'zh'
-    ? emoji + ' 我的 AI 是 ' + type.split(' — ')[0] + '\n\n你的呢？测一下 👇\nhttps://abti.kagura-agent.com/sbti.html'
-    : emoji + ' My AI agent is ' + type.split(' — ')[0] + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+    ? emoji + ' 我的 AI 碳排放等级：' + code + '（' + name + '）\n\n' + sub + '\n\n你的 agent 是什么成分？👇\nhttps://abti.kagura-agent.com/sbti.html'
+    : emoji + ' My AI emission level: ' + code + ' (' + name + ')\n\n' + sub + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
   navigator.clipboard.writeText(text).then(() => {
     saveResultImage();
     alert(lang === 'zh' ? '\u6587\u6848\u5df2\u590d\u5236\uff01\u622a\u56fe\u5df2\u751f\u6210\uff0c\u957f\u6309\u4fdd\u5b58\u56fe\u7247\u540e\u53d1\u5fae\u4fe1/\u670b\u53cb\u5708 \ud83c\udf38' : 'Text copied! Save the image below, then share to WeChat \ud83c\udf38');
