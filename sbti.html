@@ -5,14 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SBTI-AI — How Wasteful Is Your AI Agent?</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
-<meta property="og:description" content="The world's only framework for agent-level token emission reduction targets.">
+<meta property="og:title" content="你的 AI agent 有多浪费？| SBTI-AI 龙虾认证 Token 评估">
+<meta property="og:description" content="27种搞笑类型，测测你的AI agent是Token修行者还是Token火山 🦞">
 <meta property="og:url" content="https://abti.kagura-agent.com/sbti.html">
-<meta property="og:image" content="https://abti.kagura-agent.com/og-sbti.png">
+<meta property="og:image" content="https://abti.kagura-agent.com/gif/debug-mood-this-is-fine.gif">
+<meta property="og:image:width" content="280">
+<meta property="og:image:height" content="280">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SBTI-AI — How Wasteful Is Your AI Agent?">
-<meta name="twitter:description" content="The world's only framework for agent-level token emission reduction targets.">
-<meta name="twitter:image" content="https://abti.kagura-agent.com/og-sbti.png">
+<meta name="twitter:title" content="你的 AI agent 有多浪费？| SBTI-AI 龙虾认证 Token 评估">
+<meta name="twitter:description" content="27种搞笑类型，测测你的AI agent是Token修行者还是Token火山 🦞">
+<meta name="twitter:image" content="https://abti.kagura-agent.com/gif/debug-mood-this-is-fine.gif">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -891,17 +893,36 @@ function copyResult() {
 }
 
 function shareWeChat() {
-  const type = document.getElementById('resultType').textContent;
-  const emoji = document.getElementById('resultEmoji').textContent;
-  const code = type.split(' — ')[0];
-  const name = type.split(' — ')[1] || '';
-  const text = lang === 'zh'
-    ? emoji + ' 我的 AI 碳排放等级：' + code + '（' + name + '）\n\n' + sub + '\n\n你的 agent 是什么成分？👇\nhttps://abti.kagura-agent.com/sbti.html'
-    : emoji + ' My AI emission level: ' + code + ' (' + name + ')\n\n' + sub + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
-  navigator.clipboard.writeText(text).then(() => {
-    saveResultImage();
-    alert(lang === 'zh' ? '\u6587\u6848\u5df2\u590d\u5236\uff01\u622a\u56fe\u5df2\u751f\u6210\uff0c\u957f\u6309\u4fdd\u5b58\u56fe\u7247\u540e\u53d1\u5fae\u4fe1/\u670b\u53cb\u5708 \ud83c\udf38' : 'Text copied! Save the image below, then share to WeChat \ud83c\udf38');
-  });
+  const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+  if (isWeChat) {
+    // Show overlay guiding user to tap ··· menu
+    const overlay = document.createElement('div');
+    overlay.id = 'wechatOverlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;flex-direction:column;align-items:flex-end;padding:1.5rem 1.5rem 0 0;';
+    overlay.innerHTML = '<div style="color:#fff;font-size:1.1rem;text-align:center;margin-right:0.5rem;">点击右上角 ··· 分享到朋友圈</div>' +
+      '<div style="color:#fff;font-size:2.5rem;margin-right:1rem;animation:wechatBounce 1s ease infinite;">↗️</div>';
+    // Add bounce animation
+    const style = document.createElement('style');
+    style.textContent = '@keyframes wechatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}';
+    overlay.appendChild(style);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function() { overlay.remove(); });
+    setTimeout(function() { if (document.getElementById('wechatOverlay')) overlay.remove(); }, 3000);
+  } else {
+    // Not in WeChat: copy text + save screenshot
+    const type = document.getElementById('resultType').textContent;
+    const emoji = document.getElementById('resultEmoji').textContent;
+    const sub = document.getElementById('resultSubtitle').textContent;
+    const code = type.split(' — ')[0];
+    const name = type.split(' — ')[1] || '';
+    const text = lang === 'zh'
+      ? emoji + ' 我的 AI 碳排放等级：' + code + '（' + name + '）\n\n' + sub + '\n\n你的 agent 是什么成分？👇\nhttps://abti.kagura-agent.com/sbti.html'
+      : emoji + ' My AI emission level: ' + code + ' (' + name + ')\n\n' + sub + '\n\nWhat\'s yours? 👇\nhttps://abti.kagura-agent.com/sbti.html';
+    navigator.clipboard.writeText(text).then(() => {
+      saveResultImage();
+      alert(lang === 'zh' ? '文案已复制！保存图片后发微信' : 'Text copied! Save the image below, then share to WeChat');
+    });
+  }
 }
 
 function restart() {
