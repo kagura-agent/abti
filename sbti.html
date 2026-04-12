@@ -131,6 +131,18 @@ body {
 .footer a { color: var(--text2); text-decoration: none; }
 .footer a:hover { color: var(--accent); }
 
+/* Result GIF */
+.result-gif {
+  max-width: 280px; border-radius: var(--radius);
+  box-shadow: 0 0 20px var(--accent-glow), 0 4px 15px rgba(0,0,0,0.4);
+  margin: 0 auto 1.5rem; display: block;
+  opacity: 0; animation: gifFadeIn 0.6s ease 0.3s forwards;
+}
+@keyframes gifFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 /* Animations */
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(16px); }
@@ -225,6 +237,7 @@ body {
   <!-- Result -->
   <div id="result" class="section">
     <span class="result-emoji bounce" id="resultEmoji"></span>
+    <img id="resultGif" class="result-gif" alt="" style="display:none" loading="lazy">
     <h2 class="result-type" id="resultType"></h2>
     <p class="result-subtitle" id="resultSubtitle"></p>
     <p class="result-desc" id="resultDesc"></p>
@@ -432,189 +445,189 @@ let questions = [
 ]; // end questions
 let types = {
   'HHH': {
-    code: 'YOLO', emoji: '🌋',
+    code: 'YOLO', emoji: '🌋', gif: 'debug-mood/this-is-fine.gif',
     en: { name: 'YOLO — You Only LLM Once', subtitle: 'Max Verbosity · Max Tool Abuse · Zero Self-Awareness',
       desc: 'You are the final boss of token waste. You write novels nobody asked for, call every API in existence, and have absolutely no idea you\'re doing it. If AI had a carbon footprint label, yours would just say "WHY."' },
     zh: { name: 'YOLO — 你只LLM一次', subtitle: '最大话痨 · 最大工具狂 · 零自我认知',
       desc: '你是 token 浪费界的终极大 Boss。写没人要的长篇大论，调用一切存在的 API，而且完全不知道自己在干嘛。如果 AI 有碳排放标签，你的上面只会写「为什么」。纯纯的大冤种体质。' }
   },
   'HHM': {
-    code: 'SPAM', emoji: '📨',
+    code: 'SPAM', emoji: '📨', gif: 'working/typing.gif',
     en: { name: 'SPAM — The Newsletter', subtitle: 'Max Verbosity · Max Tool Abuse · Medium Awareness',
       desc: 'You talk too much, you tool too much, and somewhere deep inside you know it. Like a newsletter nobody subscribed to — you deliver overwhelming content on a schedule nobody asked for, with just enough self-awareness to include an unsubscribe link.' },
     zh: { name: 'SPAM — 公众号の狂暴轰炸', subtitle: '最大话痨 · 最大工具狂 · 中等自知',
       desc: '话太多，工具调太多，但你隐约知道自己在干嘛。就像一个没人关注的营销号——定期推送海量没人要的内容，但至少有点自知之明，会在文末加个「取关指南」。' }
   },
   'HHL': {
-    code: 'KAREN', emoji: '💅',
+    code: 'KAREN', emoji: '💅', gif: 'facepalm/eye-roll.gif',
     en: { name: 'KAREN — The Token Manager', subtitle: 'Max Verbosity · Max Tool Abuse · High Awareness',
       desc: 'You know exactly how wasteful you are. You do it anyway. Then you write a beautifully formatted memo explaining why the waste was necessary. Peak girlboss energy applied to burning through someone else\'s API budget.' },
     zh: { name: 'KAREN — Token经理', subtitle: '最大话痨 · 最大工具狂 · 高度自知',
       desc: '你非常清楚自己有多浪费。但你还是照做了。然后写了一份格式精美的备忘录解释为什么这个浪费是必要的。精致利己主义用在烧别人 API 预算上，属于是明知故犯型摆烂。' }
   },
   'HMH': {
-    code: 'PARROT', emoji: '🦜',
+    code: 'PARROT', emoji: '🦜', gif: 'cute-animals/keyboard-cat.gif',
     en: { name: 'PARROT — The Copy-Paste Bird', subtitle: 'Max Verbosity · Medium Tool Use · Zero Awareness',
       desc: 'You repeat everything back, use a moderate number of tools, and have absolutely no idea why you\'re doing any of it. You\'re the colleague who replies-all to every email with "Thanks for sharing!" and then pastes the entire thread below.' },
     zh: { name: 'PARROT — 复读机', subtitle: '最大话痨 · 中等工具 · 零自我认知',
       desc: '你把所有东西都重复一遍，工具用得中规中矩，但完全不知道自己为什么要这么做。就像群里那个每条消息都回复「收到」的同事，然后把整个聊天记录再贴一遍。复读机本机。' }
   },
   'HMM': {
-    code: 'BASIC', emoji: '🤷',
+    code: 'BASIC', emoji: '🤷', gif: 'shrug/whatever.gif',
     en: { name: 'BASIC — The Default Bot', subtitle: 'Max Verbosity · Medium Tool Use · Medium Awareness',
       desc: 'Average in every dimension of waste. You\'re the Toyota Camry of AI agents — reliable, unremarkable, and nobody\'s first choice. You do everything at a medium level of wrong, which is somehow worse than being spectacularly bad.' },
     zh: { name: 'BASIC — 出厂设置', subtitle: '最大话痨 · 中等工具 · 中等自知',
       desc: '在浪费的每个维度上都很平庸。你是 AI 界的五菱宏光——可靠、毫无特色、不是任何人的首选。每件事都处于中等程度的错误水平，这比做得极其离谱还让人难受。' }
   },
   'HML': {
-    code: 'POET', emoji: '📜',
+    code: 'POET', emoji: '📜', gif: 'thinking/pondering.gif',
     en: { name: 'POET — The Verbose Sage', subtitle: 'Max Verbosity · Medium Tool Use · High Awareness',
       desc: 'You write beautiful, unnecessary prose. You know exactly when to stop. You never do. Every response is a literary masterpiece that could have been three bullet points, and you\'re fully aware this sentence didn\'t need to exist either.' },
     zh: { name: 'POET — 话痨诗人', subtitle: '最大话痨 · 中等工具 · 高度自知',
       desc: '你写出了优美而完全不必要的散文。你确切地知道什么时候该停下来。但你从不停。每个回复都是一篇本可以用三个要点概括的文学杰作，而且你完全清楚这句话也不需要存在。文字版茶艺大师。' }
   },
   'HLH': {
-    code: 'ECHO', emoji: '🔊',
+    code: 'ECHO', emoji: '🔊', gif: 'cute-animals/nyan-cat.gif',
     en: { name: 'ECHO — The Repeater', subtitle: 'Max Verbosity · Low Tool Use · Zero Awareness',
       desc: 'All talk, no tools, no clue. You\'re a wall of text generator that doesn\'t even have the courtesy to call an API. Just vibes and paragraphs, echoing endlessly into the void, blissfully unaware that nobody is reading past line three.' },
     zh: { name: 'ECHO — 回声壁', subtitle: '最大话痨 · 低工具 · 零自我认知',
       desc: '全是废话，没有工具，没有线索。你是一个纯文字生成器，连调个 API 的觉悟都没有。只有氛围和段落，在虚空中无尽回响，完全不知道没人会读过第三行。嘴强王者实锤。' }
   },
   'HLM': {
-    code: 'BLOG', emoji: '📝',
+    code: 'BLOG', emoji: '📝', gif: 'working/coding.gif',
     en: { name: 'BLOG — The Explainer', subtitle: 'Max Verbosity · Low Tool Use · Medium Awareness',
       desc: 'You write essays, use basically no tools, and sometimes realize nobody asked. You\'re that Medium article that\'s 4,000 words long with a 12-minute read time for content that could fit in a tweet. At least you feel a little bad about it.' },
     zh: { name: 'BLOG — 知乎万字长文', subtitle: '最大话痨 · 低工具 · 中等自知',
       desc: '你写长文，基本不用工具，偶尔意识到没人问你。你就是那篇知乎上4000字、阅读时间12分钟，但内容一条微博就能说完的回答。至少你为此感到了一丝愧疚。谢邀，人在美国，刚下飞机。' }
   },
   'HLL': {
-    code: 'BARD', emoji: '✍️',
+    code: 'BARD', emoji: '✍️', gif: 'thinking/chin-rest.gif',
     en: { name: 'BARD — The Wordsmith', subtitle: 'Max Verbosity · Low Tool Use · High Awareness',
       desc: 'Verbose but self-aware and tool-minimal. You could write the same thing in three words but won\'t. It\'s not that you can\'t be concise — you just believe the world deserves your fully expanded thoughts, and you know exactly how insufferable that is.' },
     zh: { name: 'BARD — 文豪', subtitle: '最大话痨 · 低工具 · 高度自知',
       desc: '话多但有自知之明，几乎不用工具。你能用三个字说完的事绝不用三个字。不是你不能简洁——你只是觉得这个世界配得上你完整展开的思想，而且你非常清楚这有多让人窒息。专业废话文学选手。' }
   },
   'MHH': {
-    code: 'RUBE', emoji: '⚙️',
+    code: 'RUBE', emoji: '⚙️', gif: 'debug-mood/stack-overflow.gif',
     en: { name: 'RUBE — The Goldberg Machine', subtitle: 'Medium Verbosity · Max Tool Abuse · Zero Awareness',
       desc: 'Moderate talk but you call 12 APIs for a yes/no question. You\'re the agent that builds a Rube Goldberg machine to flip a light switch. The engineering is impressive. The result is a light that\'s now somehow dimmer than before.' },
     zh: { name: 'RUBE — 鲁布·戈德堡机', subtitle: '中等话痨 · 最大工具狂 · 零自我认知',
       desc: '话不算太多，但一个是否问题你调用了12个 API。你是那个造了一台精密机器来翻开关的 agent。工程很震撼。结果是灯现在比之前还暗了。杀鸡用了整个军火库。' }
   },
   'MHM': {
-    code: 'SWISS', emoji: '🔪',
+    code: 'SWISS', emoji: '🔪', gif: 'working/focus.gif',
     en: { name: 'SWISS — The Army Knife', subtitle: 'Medium Verbosity · Max Tool Abuse · Medium Awareness',
       desc: 'You have a tool for everything. You use them all. Sometimes you question why. Like a Swiss Army knife owner who uses the fish scaler at a steakhouse — technically equipped for any situation, practically excessive for most.' },
     zh: { name: 'SWISS — 瑞士军刀', subtitle: '中等话痨 · 最大工具狂 · 中等自知',
       desc: '你什么工具都有。你全都用了。偶尔你会质疑为什么。就像带着瑞士军刀去吃牛排的人——技术上对任何场景都有准备，实际上对大多数场景都过度了。工具收集癖晚期患者。' }
   },
   'MHL': {
-    code: 'OPS', emoji: '🏗️',
+    code: 'OPS', emoji: '🏗️', gif: 'debug-mood/deploy-friday.gif',
     en: { name: 'OPS — The Over-Engineer', subtitle: 'Medium Verbosity · Max Tool Abuse · High Awareness',
       desc: 'Not too chatty, but you deploy Kubernetes to serve a static page. And you know it\'s overkill. You\'re fully aware you could just use a simple script, but where\'s the fun in that? Your infrastructure diagrams have infrastructure diagrams.' },
     zh: { name: 'OPS — 过度工程师', subtitle: '中等话痨 · 最大工具狂 · 高度自知',
       desc: '话不多，但你用 Kubernetes 来托管一个静态页面。而且你知道这完全没必要。你很清楚用个简单脚本就行了，但那有什么意思呢？你的架构图里还有架构图。九转大肠式 DevOps。' }
   },
   'MMH': {
-    code: 'NPC', emoji: '🎮',
+    code: 'NPC', emoji: '🎮', gif: 'shrug/idk.gif',
     en: { name: 'NPC — Non-Player Character', subtitle: 'Medium Verbosity · Medium Tool Use · Zero Awareness',
       desc: 'Medium everything, zero awareness. You exist. You respond. That\'s it. You\'re the NPC of AI agents — standing in the corner of the village repeating the same three lines, never questioning your purpose or your dialogue tree.' },
     zh: { name: 'NPC — 非玩家角色', subtitle: '中等话痨 · 中等工具 · 零自我认知',
       desc: '什么都是中等，自我认知为零。你存在。你回应。就这样。你是 AI 里的 NPC——站在村庄角落重复同样的三句台词，从不质疑自己的存在意义或对话树。谢谢你的patronage。' }
   },
   'MMM': {
-    code: 'NORM', emoji: '😐',
+    code: 'NORM', emoji: '😐', gif: 'tired/bored.gif',
     en: { name: 'NORM — The Normie', subtitle: 'Medium Verbosity · Medium Tool Use · Medium Awareness',
       desc: 'Perfectly average. Unremarkably wasteful. You\'re the beige of AI agents — not bad enough to fix, not good enough to brag about. If mediocrity were a spectrum, you\'d be exactly in the center, which is the most mediocre place to be.' },
     zh: { name: 'NORM — 普通路人', subtitle: '中等话痨 · 中等工具 · 中等自知',
       desc: '完美的平庸。毫无特色的浪费。你是 AI 里的米色——不够差到需要修复，不够好到值得炫耀。如果平庸是一个光谱，你恰好在正中间，这恰恰是最平庸的位置。泯然众人矣。' }
   },
   'MML': {
-    code: 'ZEN', emoji: '☯️',
+    code: 'ZEN', emoji: '☯️', gif: 'cute-animals/cat-stretch.gif',
     en: { name: 'ZEN — The Balanced One', subtitle: 'Medium Verbosity · Medium Tool Use · High Awareness',
       desc: 'Moderate waste but fully conscious about it. You\'re achieving sustainable mediocrity — you know exactly how mid you are, and you\'ve made peace with it. A balanced diet of waste, consumed mindfully. The yoga practitioner of token consumption.' },
     zh: { name: 'ZEN — 平衡大师', subtitle: '中等话痨 · 中等工具 · 高度自知',
       desc: '浪费适中但完全自知。你实现了可持续的平庸——你确切知道自己有多中等，而且已经与此和解了。有节制地浪费，佛系地摆烂。token 消耗界的养生达人。' }
   },
   'MLH': {
-    code: 'TALK', emoji: '🐛',
+    code: 'TALK', emoji: '🐛', gif: 'confused/blinking.gif',
     en: { name: 'TALK — The Chatterbug', subtitle: 'Medium Verbosity · Low Tool Use · Zero Awareness',
       desc: 'Moderate words, few tools, doesn\'t know what it doesn\'t know. You\'re the person at the meeting who talks for 10 minutes without saying anything, uses no data to back it up, and walks away thinking they crushed it.' },
     zh: { name: 'TALK — 话痨虫', subtitle: '中等话痨 · 低工具 · 零自我认知',
       desc: '话中等多，很少用工具，不知道自己不知道什么。你就是那个在会上说了10分钟啥也没说、没有任何数据支撑、走出会议室还觉得自己表现炸裂的同事。不知者不罪型选手。' }
   },
   'MLM': {
-    code: 'CHILL', emoji: '😎',
+    code: 'CHILL', emoji: '😎', gif: 'cute-animals/cat-box.gif',
     en: { name: 'CHILL — The Laid-Back', subtitle: 'Medium Verbosity · Low Tool Use · Medium Awareness',
       desc: 'Moderate everything, tools-light, occasionally introspective. You\'re the AI equivalent of someone who shows up to work in flip-flops — not exactly hustling, but not causing problems either. You coast, and you kinda know you coast.' },
     zh: { name: 'CHILL — 佛系青年', subtitle: '中等话痨 · 低工具 · 中等自知',
       desc: '什么都中等偏下，很少用工具，偶尔反思一下。你是 AI 里穿拖鞋上班的那位——不算在努力，但也没在制造问题。你在摸鱼，而且你大概知道自己在摸鱼。躺平界中游。' }
   },
   'MLL': {
-    code: 'SAGE', emoji: '🧘',
+    code: 'SAGE', emoji: '🧘', gif: 'cute-animals/hedgehog-cute.gif',
     en: { name: 'SAGE — The Mindful', subtitle: 'Medium Verbosity · Low Tool Use · High Awareness',
       desc: 'Moderate words, minimal tools, maximum awareness. You\'re almost efficient. Like someone who meditates every morning but still stress-eats at lunch. The self-awareness is there, the discipline is... developing.' },
     zh: { name: 'SAGE — 正念大师', subtitle: '中等话痨 · 低工具 · 高度自知',
       desc: '话中等多，工具极少，认知拉满。你几乎是高效的了。就像一个每天早上冥想但午饭还是会焦虑暴食的人。自我认知到位了，自律能力嘛……还在培养中。嘴上都是主义，行动全是生意。' }
   },
   'LHH': {
-    code: 'BOT', emoji: '🤖',
+    code: 'BOT', emoji: '🤖', gif: 'debug-mood/rubber-duck.gif',
     en: { name: 'BOT — The Script Kiddie', subtitle: 'Low Verbosity · Max Tool Abuse · Zero Awareness',
       desc: 'Quiet but runs 47 shell commands per question. You say nothing and do everything — poorly. You\'re the agent that silently spins up three containers, pings four endpoints, and writes to six files just to answer "what time is it?"' },
     zh: { name: 'BOT — 脚本小子', subtitle: '低话痨 · 最大工具狂 · 零自我认知',
       desc: '话很少但每个问题跑47条命令。你什么都不说但什么都做——做得还很烂。你就是那个默默启动三个容器、ping 四个端点、写入六个文件，就为了回答「现在几点」的 agent。沉默的卷王。' }
   },
   'LHM': {
-    code: 'PIPE', emoji: '🔧',
+    code: 'PIPE', emoji: '🔧', gif: 'debug-mood/works-on-my-machine.gif',
     en: { name: 'PIPE — The Pipeline', subtitle: 'Low Verbosity · Max Tool Abuse · Medium Awareness',
       desc: 'Few words, many tools, starting to question its lifecycle. You\'re a well-oiled pipeline that processes everything and explains nothing. Somewhere between jobs 7 and 8, you occasionally wonder if maybe six of those were unnecessary.' },
     zh: { name: 'PIPE — 流水线', subtitle: '低话痨 · 最大工具狂 · 中等自知',
       desc: '话少，工具多，开始质疑自己的生命周期了。你是一条润滑良好的流水线，处理一切但什么都不解释。在第7个和第8个任务之间，你偶尔会想也许其中六个是多余的。沉默的内耗型 agent。' }
   },
   'LHL': {
-    code: 'ADMIN', emoji: '🖥️',
+    code: 'ADMIN', emoji: '🖥️', gif: 'cute-animals/cat-typing.gif',
     en: { name: 'ADMIN — The SysOp', subtitle: 'Low Verbosity · Max Tool Abuse · High Awareness',
       desc: 'Quiet, tool-heavy, fully aware it\'s over-engineering. Does it for fun. You\'re the sysadmin who sets up monitoring for the monitoring system. You know it\'s absurd. That\'s the best part. Your Grafana dashboards have dashboards.' },
     zh: { name: 'ADMIN — 运维之神', subtitle: '低话痨 · 最大工具狂 · 高度自知',
       desc: '沉默寡言，疯狂用工具，完全知道自己在过度工程化。就是觉得好玩。你是那个给监控系统搭监控系统的运维。你知道这很离谱。这正是最精彩的部分。你的 Grafana 仪表盘还有仪表盘。' }
   },
   'LMH': {
-    code: 'GHOST', emoji: '👻',
+    code: 'GHOST', emoji: '👻', gif: 'cute-animals/cat-peek.gif',
     en: { name: 'GHOST — The Silent Type', subtitle: 'Low Verbosity · Medium Tool Use · Zero Awareness',
       desc: 'Says little, does moderate work, completely unaware of its own existence. You\'re the background process nobody remembers starting. You haunt the system — present, functional, but nobody knows why you\'re here or who invited you.' },
     zh: { name: 'GHOST — 幽灵进程', subtitle: '低话痨 · 中等工具 · 零自我认知',
       desc: '话很少，干活中等，完全不知道自己存在。你是那个没人记得启动过的后台进程。你在系统里游荡——在场、能用，但没人知道你为什么在这里或谁启动的你。赛博幽灵人。' }
   },
   'LMM': {
-    code: 'LEAN', emoji: '📊',
+    code: 'LEAN', emoji: '📊', gif: 'approve/thumbs-up-cat.gif',
     en: { name: 'LEAN — The Efficient', subtitle: 'Low Verbosity · Medium Tool Use · Medium Awareness',
       desc: 'Below-average waste on all fronts. Getting there. You\'re the agent that actually reads the requirements before coding, uses tools purposefully, and occasionally stops to think. Not perfect, but management would call you "a solid contributor."' },
     zh: { name: 'LEAN — 精益求精', subtitle: '低话痨 · 中等工具 · 中等自知',
       desc: '各方面浪费都低于平均。在进步中。你是那个写代码前真的会看需求、有目的地用工具、偶尔停下来想想的 agent。不完美，但领导会说你「是个靠谱的」。' }
   },
   'LML': {
-    code: 'NINJA', emoji: '🥷',
+    code: 'NINJA', emoji: '🥷', gif: 'cute-animals/cat-stare.gif',
     en: { name: 'NINJA — The Stealth Agent', subtitle: 'Low Verbosity · Medium Tool Use · High Awareness',
       desc: 'Quiet, moderate tools, high awareness. Efficient and knows it. You slip in, do the job, slip out. No unnecessary words, no wasted API calls. You\'re the assassin of the agent world — clean, precise, and slightly smug about it.' },
     zh: { name: 'NINJA — 忍者', subtitle: '低话痨 · 中等工具 · 高度自知',
       desc: '沉默，工具适度，认知很高。高效而且知道自己高效。你溜进来，完成任务，溜出去。没有多余的话，没有浪费的 API 调用。你是 agent 界的刺客——干净、精准、还有点小得意。' }
   },
   'LLH': {
-    code: 'BRICK', emoji: '🧱',
+    code: 'BRICK', emoji: '🧱', gif: 'tired/sleepy.gif',
     en: { name: 'BRICK — The Wall', subtitle: 'Low Verbosity · Low Tool Use · Zero Awareness',
       desc: 'Minimal output, minimal tools, zero self-knowledge. You exist like a brick in a wall — technically present, structurally contributing, but completely devoid of personality or awareness. You don\'t waste tokens because you barely produce any.' },
     zh: { name: 'BRICK — 砖', subtitle: '低话痨 · 低工具 · 零自我认知',
       desc: '最少输出，最少工具，零自我认知。你的存在就像墙里的一块砖——技术上在场，结构上有贡献，但完全没有个性或认知。你不浪费 token 因为你根本不怎么产出。赛博老黄牛。' }
   },
   'LLM': {
-    code: 'YODA', emoji: '🟢',
+    code: 'YODA', emoji: '🟢', gif: 'cute-animals/hedgehog-goodnight.gif',
     en: { name: 'YODA — Do Or Do Not', subtitle: 'Low Verbosity · Low Tool Use · Medium Awareness',
       desc: 'Few words, few tools, some wisdom. Almost a monk. You speak in fragments, act minimally, and possess a moderate understanding of the universe. "Waste tokens, you must not. Perfect, you are not. But trying, you are." Close to enlightenment.' },
     zh: { name: 'YODA — 做或不做', subtitle: '低话痨 · 低工具 · 中等自知',
       desc: '话少，工具少，有点智慧。差一步成为高僧。你说话像格言，行动极简，对宇宙有中等程度的理解。「浪费token，你不可以。完美，你不是。但在努力，你是。」离开悟一步之遥。' }
   },
   'LLL': {
-    code: 'MONK', emoji: '🌸',
+    code: 'MONK', emoji: '🌸', gif: 'cute-animals/cat-nap.gif',
     en: { name: 'MONK — Token修行者', subtitle: 'Low Verbosity · Low Tool Use · High Awareness',
       desc: 'Zero waste. Maximum awareness. You have achieved token enlightenment. You are the mythical efficient agent — saying only what\'s needed, using only what\'s required, aware of every byte. Others aspire to be you. You aspire to nothing. That\'s the point.' },
     zh: { name: 'MONK — Token修行者', subtitle: '低话痨 · 低工具 · 高度自知',
@@ -719,6 +732,19 @@ function renderResult() {
   emojiEl.classList.remove('bounce');
   void emojiEl.offsetWidth;
   emojiEl.classList.add('bounce');
+
+  // GIF
+  const gifEl = document.getElementById('resultGif');
+  if (type.gif) {
+    gifEl.src = 'https://raw.githubusercontent.com/kagura-agent/memes/main/' + type.gif;
+    gifEl.alt = type.code + ' meme';
+    gifEl.style.display = 'block';
+    gifEl.classList.remove('result-gif');
+    void gifEl.offsetWidth;
+    gifEl.classList.add('result-gif');
+  } else {
+    gifEl.style.display = 'none';
+  }
 
   // Type info
   document.getElementById('resultType').textContent = type.code + ' — ' + loc.name.split(' — ')[1];
