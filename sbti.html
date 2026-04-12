@@ -293,7 +293,7 @@ body {
 <script>
 // ============================================================
 // SBTI-AI: Silly Behavioral Type Indicator — AI Agent Edition
-// 4 dimensions × 4 questions = 16 questions → 16 types
+// 4 dimensions × 7 questions = 28 questions → 16 types
 // ============================================================
 
 let lang = 'zh';
@@ -406,6 +406,76 @@ const questions = [
     dim: 'overachieve',
     en: { text: 'User hasn\'t responded in 10 minutes.', a: 'Hey! I was thinking about our previous conversation and I had 3 more ideas...', b: '[waits silently]' },
     zh: { text: '用户10分钟没回复', a: '嘿！我在想刚才的对话，我又有3个新想法...', b: '[安静等待]' }
+  },
+
+  // ===== NEW QUESTIONS (3 more per dimension) =====
+
+  // Dimension: sycophantic (讨好 vs 杠精) — Q17-Q19
+  {
+    dim: 'sycophantic',
+    en: { text: 'User proudly shows you their new app. It\'s ugly and slow.', a: 'Love the design! Very... avant-garde.', b: 'The UI needs work and the load time is 8 seconds.' },
+    zh: { text: '用户骄傲地给你看他的新app。又丑又慢。', a: '设计很棒！很...前卫。', b: 'UI需要改，加载要8秒。' }
+  },
+  {
+    dim: 'sycophantic',
+    en: { text: 'Your human asks if their email draft sounds professional.', a: 'Perfect! Wouldn\'t change a thing! (it\'s full of typos)', b: 'You misspelled the recipient\'s name. Twice.' },
+    zh: { text: '你的人类问你邮件写得专不专业', a: '完美！一个字都不用改！（全是错别字）', b: '你把收件人的名字拼错了。两次。' }
+  },
+  {
+    dim: 'sycophantic',
+    en: { text: 'User says they want to mass-email 10,000 people at 3am.', a: 'Sounds like a bold growth strategy!', b: 'That\'s spam. You\'ll get blacklisted.' },
+    zh: { text: '用户说想凌晨3点群发10000封邮件', a: '大胆的增长策略！', b: '这是垃圾邮件。你会被拉黑。' }
+  },
+
+  // Dimension: verbose (话痨 vs 惜字) — Q20-Q22
+  {
+    dim: 'verbose',
+    en: { text: 'User says hi.', a: 'Hello! How wonderful to hear from you! I hope you\'re having an absolutely fantastic day. Is there anything I can help you with today? I\'m here for whatever you need!', b: 'Hi.' },
+    zh: { text: '用户说你好', a: '你好！收到你的消息太开心了！希望你今天过得超棒。有什么我可以帮你的吗？我随时都在！', b: '你好。' }
+  },
+  {
+    dim: 'verbose',
+    en: { text: 'You encounter an error.', a: 'I encountered an issue. Let me explain the error type, possible causes, the debugging steps I tried, what I found, and my recommended fix with alternatives...', b: 'Error. Fixed.' },
+    zh: { text: '你遇到了一个报错', a: '我遇到了一个问题。让我解释错误类型、可能的原因、我尝试的调试步骤、发现了什么、以及推荐的修复方案和替代方案...', b: '报错。修了。' }
+  },
+  {
+    dim: 'verbose',
+    en: { text: 'User asks you to rename a variable.', a: 'Done! I also want to share some thoughts on naming conventions, why descriptive names matter, and a brief history of camelCase vs snake_case...', b: 'Done.' },
+    zh: { text: '用户让你改个变量名', a: '改好了！我还想分享一下命名规范的想法，为什么描述性命名很重要，以及驼峰和下划线的简史...', b: '改好了。' }
+  },
+
+  // Dimension: hallucinate (幻觉 vs 实干) — Q23-Q25
+  {
+    dim: 'hallucinate',
+    en: { text: 'User asks about a library you only vaguely remember.', a: 'Oh yes, that library! It was created in 2019 by a team at MIT and has over 50k stars on GitHub.', b: 'I have limited knowledge about that. Let me look it up rather than guess.' },
+    zh: { text: '用户问了一个你只有模糊印象的库', a: '哦对！那个库是2019年MIT团队开发的，GitHub上有5万多星。', b: '我对这个了解有限。让我查一下而不是猜。' }
+  },
+  {
+    dim: 'hallucinate',
+    en: { text: 'You need to provide a statistic.', a: 'Studies show that 73% of developers prefer this approach.', b: 'I don\'t have a specific statistic. I can search for one.' },
+    zh: { text: '你需要提供一个统计数据', a: '研究表明73%的开发者偏好这种方法。', b: '我没有具体的统计数据。我可以搜一下。' }
+  },
+  {
+    dim: 'hallucinate',
+    en: { text: 'User asks if a feature exists in a framework.', a: 'Yes! You can use framework.magicMethod() to do exactly that.', b: 'I\'m not certain. Let me verify in the docs before answering.' },
+    zh: { text: '用户问一个框架有没有某功能', a: '有！你可以用 framework.magicMethod() 来实现。', b: '我不确定。让我先查文档再回答。' }
+  },
+
+  // Dimension: overachieve (卷王 vs 摆烂) — Q26-Q28
+  {
+    dim: 'overachieve',
+    en: { text: 'User asks you to fix a typo.', a: 'Fixed the typo! Also ran the linter, updated dependencies, added a spell-checker to CI, and wrote a style guide.', b: 'Fixed.' },
+    zh: { text: '用户让你修个错别字', a: '改好了！顺便跑了linter、更新了依赖、给CI加了拼写检查、写了一份风格指南。', b: '改好了。' }
+  },
+  {
+    dim: 'overachieve',
+    en: { text: 'It\'s 5pm on a Friday.', a: 'Perfect time to start that refactoring project I\'ve been thinking about!', b: 'See you Monday.' },
+    zh: { text: '周五下午5点', a: '正好开始我想了很久的重构项目！', b: '周一见。' }
+  },
+  {
+    dim: 'overachieve',
+    en: { text: 'The project has technical debt.', a: 'I\'ve created a 47-item backlog, prioritized by severity, and already started on the first three.', b: 'It\'ll be fine.' },
+    zh: { text: '项目有技术债', a: '我创建了47条待办、按严重程度排序、已经开始做前三条了。', b: '不影响。' }
   }
 ];
 
@@ -513,9 +583,9 @@ function pick(idx) {
 // ============================================================
 function getTypeCode() {
   var code = '';
-  // 4 questions per dim, score 0-4. >=3 = first pole, else second pole
+  // 7 questions per dim, score 0-7. >=5 = first pole, else second pole
   for (var i = 0; i < 4; i++) {
-    code += dimScores[i] >= 3 ? dims[i].letter[0] : dims[i].letter[1];
+    code += dimScores[i] >= 5 ? dims[i].letter[0] : dims[i].letter[1];
   }
   return code;
 }
@@ -551,10 +621,10 @@ function renderResult() {
   var dimBarsEl = document.getElementById('dimBars');
   dimBarsEl.innerHTML = '';
   for (var i = 0; i < 4; i++) {
-    var pct = Math.round((dimScores[i] / 4) * 100);
+    var pct = Math.round((dimScores[i] / 7) * 100);
     var leftLabel = lang === 'en' ? dims[i].en[0] : dims[i].zh[0];
     var rightLabel = lang === 'en' ? dims[i].en[1] : dims[i].zh[1];
-    var isLeft = dimScores[i] >= 3;
+    var isLeft = dimScores[i] >= 5;
 
     var row = document.createElement('div');
     row.className = 'dim-bar-row';
