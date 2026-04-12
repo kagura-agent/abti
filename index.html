@@ -216,6 +216,11 @@ body {
   border-color: var(--accent);
   background: var(--accent-glow);
 }
+.choice.selected {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateX(4px);
+}
 
 .q-wrapper {
   animation: fadeSlide 0.35s ease;
@@ -771,19 +776,22 @@ function showQuestion() {
   document.getElementById('qText').textContent = q.text;
   const choices = document.getElementById('choices');
   choices.innerHTML = `
-    <div class="choice" onclick="answer(true)">${q.a}</div>
-    <div class="choice" onclick="answer(false)">${q.b}</div>
+    <div class="choice" onclick="answer(true, this)">${q.a}</div>
+    <div class="choice" onclick="answer(false, this)">${q.b}</div>
   `;
 }
 
-function answer(isA) {
+function answer(isA, el) {
+  if (el) el.classList.add('selected');
   if (isA) scores[t('questions')[current].dimIdx]++;
   current++;
-  if (current >= 16) {
-    showResult();
-  } else {
-    showQuestion();
-  }
+  setTimeout(() => {
+    if (current >= 16) {
+      showResult();
+    } else {
+      showQuestion();
+    }
+  }, 250);
 }
 
 function getType() {
