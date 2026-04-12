@@ -89,7 +89,10 @@ body {
 .question-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem; min-height: 3.5rem; }
 .choices { display: flex; flex-direction: column; gap: 0.75rem; }
 .choice-btn { background: var(--surface); border: 1px solid #333; border-radius: var(--radius); padding: 1rem 1.25rem; color: var(--text); font-size: 0.95rem; cursor: pointer; transition: all 0.25s; text-align: left; line-height: 1.5; }
-.choice-btn:hover { border-color: var(--accent); background: var(--surface2); }
+@media (hover: hover) {
+  .choice-btn:hover { border-color: var(--accent); background: var(--surface2); }
+}
+.choice-btn:active, .choice-btn.selected { border-color: var(--accent); background: var(--accent-glow); }
 .choice-btn.selected { border-color: var(--accent); background: var(--accent-glow); }
 
 /* Result */
