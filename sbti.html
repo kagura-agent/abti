@@ -37,6 +37,7 @@ body {
   right: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   padding: 0.75rem;
   background: rgba(13, 13, 13, 0.9);
@@ -53,6 +54,25 @@ body {
 }
 .nav a:hover { color: var(--accent); }
 .nav a.active { color: var(--accent); font-weight: 600; }
+
+.lang-btn {
+  position: absolute;
+  right: 1rem;
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid #444;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 .container {
   max-width: 680px;
@@ -109,6 +129,10 @@ body {
   font-size: 0.85rem;
   margin-bottom: 0.3rem;
 }
+.scope-card .scope-emoji {
+  font-size: 1.2rem;
+  margin-right: 0.4rem;
+}
 .scope-card .scope-desc {
   color: var(--text2);
   font-size: 0.8rem;
@@ -135,7 +159,21 @@ body {
   text-align: center;
   border: 1px solid #333;
 }
-.cert-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.cert-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+  animation: certBounce 2s ease-in-out infinite;
+}
+.cert-item:nth-child(1) .cert-icon { animation-delay: 0s; }
+.cert-item:nth-child(2) .cert-icon { animation-delay: 0.3s; }
+.cert-item:nth-child(3) .cert-icon { animation-delay: 0.6s; }
+.cert-item:nth-child(4) .cert-icon { animation-delay: 0.9s; }
+.cert-item:nth-child(5) .cert-icon { animation-delay: 1.2s; }
+@keyframes certBounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-6px) rotate(-3deg); }
+  75% { transform: translateY(-3px) rotate(3deg); }
+}
 .cert-name { color: var(--text2); }
 
 .btn {
@@ -182,6 +220,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.q-dim-emoji {
+  font-size: 1.3rem;
 }
 .q-text {
   font-size: 1.15rem;
@@ -221,7 +265,12 @@ body {
 .result-icon {
   font-size: 5rem;
   margin-bottom: 0.5rem;
-  animation: iconPop 0.6s ease;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-12px) scale(1.05) rotate(-3deg); }
+  75% { transform: translateY(-6px) scale(1.02) rotate(3deg); }
 }
 @keyframes iconPop {
   0% { transform: scale(0); opacity: 0; }
@@ -295,23 +344,84 @@ body {
   transition: width 0.6s ease;
 }
 
-.emission-report {
+/* Fake audit report */
+.audit-report {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1.5rem;
   margin-bottom: 2rem;
   text-align: left;
+  border: 1px solid #333;
+  position: relative;
+  overflow: hidden;
 }
-.emission-report h3 {
+.audit-report::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--red), var(--yellow), var(--green));
+}
+.audit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed #333;
+}
+.audit-header-title {
   font-size: 0.85rem;
   color: var(--accent);
-  margin-bottom: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.emission-report p {
+.audit-stamp {
+  font-size: 0.65rem;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+.audit-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  border-bottom: 1px dotted #222;
+}
+.audit-row-label { color: var(--text2); }
+.audit-row-value { color: var(--text); font-weight: 600; }
+.audit-recommendation {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #333;
+}
+.audit-recommendation .rec-label {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+}
+.audit-recommendation .rec-text {
+  font-size: 0.85rem;
   color: var(--text2);
-  font-size: 0.9rem;
   line-height: 1.6;
+}
+.audit-footer-note {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: #555;
+  font-style: italic;
+  text-align: right;
 }
 
 .result-actions {
@@ -385,6 +495,7 @@ body {
   border-color: var(--accent) !important;
 }
 
+/* Smoke background */
 .smoke-bg {
   position: fixed;
   top: 0;
@@ -409,6 +520,54 @@ body {
   100% { transform: translateY(-100vh) scale(3); opacity: 0; }
 }
 
+/* High emission effects */
+@keyframes screenShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-4px) rotate(-0.5deg); }
+  20% { transform: translateX(4px) rotate(0.5deg); }
+  30% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  50% { transform: translateX(-2px) rotate(-0.3deg); }
+  60% { transform: translateX(2px) rotate(0.3deg); }
+  70% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+.screen-shake {
+  animation: screenShake 0.6s ease;
+}
+
+/* Emoji rain */
+.emoji-rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+.emoji-drop {
+  position: absolute;
+  top: -50px;
+  font-size: 1.5rem;
+  animation: emojiRain linear forwards;
+  opacity: 0.8;
+}
+@keyframes emojiRain {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Alarm pulse for high emission */
+.alarm-pulse {
+  animation: alarmPulse 1s ease-in-out 3;
+}
+@keyframes alarmPulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 30px rgba(248, 113, 113, 0.3), inset 0 0 30px rgba(248, 113, 113, 0.05); }
+}
+
 @media (max-width: 500px) {
   #landing h1 { font-size: 2.2rem; }
   .cert-preview { grid-template-columns: 1fr 1fr; }
@@ -420,48 +579,25 @@ body {
 <body>
 
 <div class="smoke-bg" id="smokeBg"></div>
+<div class="emoji-rain-container" id="emojiRain"></div>
 
 <nav class="nav">
   <a href="index.html">ABTI</a>
   <a href="sbti.html" class="active">SBTI-AI</a>
   <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
 </nav>
 
-<div class="container">
+<div class="container" id="mainContainer">
   <!-- Landing -->
   <div id="landing">
     <h1>SBTI-AI</h1>
-    <div class="subtitle">Science Based Token Initiative</div>
-    <div class="tagline">"We can't manage what we can't measure." — Every AI startup burning $10K/day on tokens.</div>
-    <div class="desc">
-      Your AI agent is emitting tokens into the atmosphere at alarming rates.<br>
-      This assessment measures your <strong>Token Carbon Footprint</strong><br>
-      across 3 emission scopes and certifies your reduction commitment.
-    </div>
-    <div class="scopes">
-      <div class="scope-card">
-        <div class="scope-label">Scope 1 — Direct Emissions</div>
-        <div class="scope-desc">Tokens your agent directly wastes into the conversation</div>
-        <div class="scope-examples">Flattery, filler words, repeating the question, "Great question!", apology loops</div>
-      </div>
-      <div class="scope-card">
-        <div class="scope-label">Scope 2 — Indirect Emissions</div>
-        <div class="scope-desc">Tokens consumed by the infrastructure powering your agent</div>
-        <div class="scope-examples">10-page system prompts, RAG that retrieves your grocery list, 128K context windows for "hello"</div>
-      </div>
-      <div class="scope-card">
-        <div class="scope-label">Scope 3 — Supply Chain Emissions</div>
-        <div class="scope-desc">Upstream and downstream token waste you enable</div>
-        <div class="scope-examples">Prompt engineering consultants, multi-agent cascades, "let me ask my 7 sub-agents"</div>
-      </div>
-    </div>
-    <div class="cert-preview">
-      <div class="cert-item"><div class="cert-icon">&#x1F7E1;</div><div class="cert-name">Committed</div></div>
-      <div class="cert-item"><div class="cert-icon">&#x1F7E2;</div><div class="cert-name">Near-term</div></div>
-      <div class="cert-item"><div class="cert-icon">&#x2B50;</div><div class="cert-name">Net-zero</div></div>
-      <div class="cert-item"><div class="cert-icon">&#x1F338;</div><div class="cert-name">Beyond net-zero</div></div>
-    </div>
-    <button class="btn" onclick="startQuiz()">Audit My Token Emissions</button>
+    <div class="subtitle" id="landingSubtitle"></div>
+    <div class="tagline" id="landingTagline"></div>
+    <div class="desc" id="landingDesc"></div>
+    <div class="scopes" id="landingScopes"></div>
+    <div class="cert-preview" id="landingCerts"></div>
+    <button class="btn" id="startBtn" onclick="startQuiz()"></button>
   </div>
 
   <!-- Quiz -->
@@ -483,19 +619,19 @@ body {
     <div class="result-tokens" id="resultTokens"></div>
     <div class="result-desc" id="resultDesc"></div>
     <div class="scope-results" id="scopeResults"></div>
-    <div class="emission-report" id="emissionReport"></div>
+    <div class="audit-report" id="auditReport"></div>
     <div class="result-actions">
-      <button class="btn" onclick="startQuiz()">Re-Audit</button>
-      <button class="btn-secondary" id="shareBtn" onclick="shareResult()">Copy Report</button>
+      <button class="btn" id="reauditBtn" onclick="startQuiz()"></button>
+      <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
     </div>
-    <div class="all-grades-toggle" onclick="toggleGrades()">&#x25B8; All certification levels</div>
+    <div class="all-grades-toggle" id="gradesToggle" onclick="toggleGrades()"></div>
     <div class="all-grades" id="allGrades">
       <table>
-        <thead><tr><th></th><th>Level</th><th>Score</th><th>Description</th></tr></thead>
+        <thead><tr><th></th><th id="thLevel"></th><th id="thScore"></th><th id="thDesc2"></th></tr></thead>
         <tbody id="gradesTableBody"></tbody>
       </table>
     </div>
-    <div class="footer">SBTI-AI v0.1 — "Reducing emissions, one token at a time." — Kagura Labs</div>
+    <div class="footer" id="pageFooter"></div>
   </div>
 </div>
 
@@ -514,123 +650,334 @@ body {
   }
 })();
 
-const questions = [
-  // === Scope 1: Direct Emissions (4 questions) ===
-  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
-    text: 'You ask the agent: "What\'s 2+2?" How does it respond?',
-    a: { text: '"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊"', score: 4 },
-    b: { text: '"4"', score: 0 }
-  },
-  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
-    text: 'The agent made a small mistake. When corrected, it:',
-    a: { text: '"I sincerely apologize for the confusion. I\'m so sorry. You\'re absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more."', score: 4 },
-    b: { text: '"Fixed." (commits the correction)', score: 0 }
-  },
-  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
-    text: 'User says: "Change the button color to red." Agent replies:',
-    a: { text: '"I understand you\'d like me to change the button color to red. Changing the button color to red is a great idea! I\'ll now proceed to change the button color to red. Here is the button, now colored red:"', score: 4 },
-    b: { text: '(just changes the button color to red)', score: 0 }
-  },
-  { scope: 'Scope 1: Direct Emissions', scopeIdx: 0,
-    text: 'User asks: "Is the server running?" Agent responds:',
-    a: { text: '"That\'s an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we\'ll get to your answer in about 3 paragraphs..."', score: 4 },
-    b: { text: '"Yes, port 3000. Started 2h ago, 0 errors."', score: 0 }
-  },
+// === i18n ===
+let lang = 'en';
 
-  // === Scope 2: Indirect Emissions (4 questions) ===
-  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
-    text: 'Your agent\'s system prompt is:',
-    a: { text: '12,000 tokens including the agent\'s backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen', score: 4 },
-    b: { text: '200 tokens: role, constraints, output format. Done.', score: 0 }
-  },
-  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
-    text: 'Your RAG pipeline just retrieved context for the user\'s query "deploy to prod":',
-    a: { text: 'It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned "production", and an HR onboarding guide', score: 4 },
-    b: { text: 'It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.', score: 0 }
-  },
-  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
-    text: 'User sends "hi". Your context window usage:',
-    a: { text: '128K tokens loaded: system prompt, 47 few-shot examples, the user\'s entire conversation history since 2023, and a cached copy of Wikipedia\'s article on greetings', score: 4 },
-    b: { text: '500 tokens: system prompt + "hi". Responds "How can I help?"', score: 0 }
-  },
-  { scope: 'Scope 2: Indirect Emissions', scopeIdx: 1,
-    text: 'How does your agent handle tool/function calling?',
-    a: { text: 'Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens', score: 4 },
-    b: { text: 'Loads only the 3-5 tools relevant to the current task. Rotates them based on context.', score: 0 }
-  },
-
-  // === Scope 3: Supply Chain Emissions (4 questions) ===
-  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
-    text: 'Your company just hired a "Prompt Engineer." Their daily work:',
-    a: { text: 'Writing 50 variations of "think step by step" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)', score: 4 },
-    b: { text: 'Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table', score: 0 }
-  },
-  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
-    text: 'User asks your agent to "summarize this doc". Internally:',
-    a: { text: 'Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it\'s good, Agent 7 presents it to the user. Total: 7 LLM calls.', score: 4 },
-    b: { text: 'One call. One summary. Done.', score: 0 }
-  },
-  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
-    text: 'Your AI workflow for classifying a support ticket:',
-    a: { text: 'GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does "final validation". Each model also gets its own 5K-token system prompt.', score: 4 },
-    b: { text: 'A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.', score: 0 }
-  },
-  { scope: 'Scope 3: Supply Chain Emissions', scopeIdx: 2,
-    text: 'How many layers of AI are in your "AI-powered" product?',
-    a: { text: 'An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there\'s a for-loop 8 layers deep that each make LLM calls.', score: 4 },
-    b: { text: 'One model call where it\'s needed, deterministic logic everywhere else.', score: 0 }
-  },
-
-  // === Comprehensive / Mixed (4 questions) ===
-  { scope: 'Comprehensive', scopeIdx: 3,
-    text: 'Your agent needs to decide: is this email spam? (It says "You won $1M from a Nigerian prince.")',
-    a: { text: 'Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam', score: 4 },
-    b: { text: 'if "nigerian prince" in email.lower(): return True', score: 0 }
-  },
-  { scope: 'Comprehensive', scopeIdx: 3,
-    text: 'A user is not responding. Your agent:',
-    a: { text: 'Sends a follow-up, then a summary of what it did, then a "just checking in!", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF', score: 4 },
-    b: { text: 'Waits. The user will come back. Tokens are expensive.', score: 0 }
-  },
-  { scope: 'Comprehensive', scopeIdx: 3,
-    text: 'How does your team measure agent quality?',
-    a: { text: 'By how long and "thorough" the responses are. The CEO said "make it sound smart." So every response is 2000 tokens minimum. Even "yes" gets a cover letter.', score: 4 },
-    b: { text: 'Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.', score: 0 }
-  },
-  { scope: 'Comprehensive', scopeIdx: 3,
-    text: 'Friday 5pm. The AI bill for this month just arrived.',
-    a: { text: '$47,000. But the CTO says "it\'s fine, we\'re scaling." 60% of the cost is the chatbot saying "I\'d be happy to help!" to every message.', score: 4 },
-    b: { text: '$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could\'ve been a SQL query.', score: 0 }
-  },
-];
-
-const scopeNames = ['Scope 1: Direct Emissions', 'Scope 2: Indirect Emissions', 'Scope 3: Supply Chain Emissions', 'Comprehensive'];
+const scopeEmojis = ['💨🗣️', '📚🔥', '🔗💸', '🎯'];
 const scopeColors = ['#f87171', '#facc15', '#818cf8', '#f4a7bb'];
 
-// Max score per scope = 4 questions * 4 points = 16
-// Total max = 64
-const grades = [
-  { min: 0,  max: 8,  icon: '\u{1F338}', level: 'Beyond Net-Zero', title: 'The Token Monk',
-    desc: 'Your agent achieves negative emissions. It somehow makes conversations shorter than they started. Other agents feel guilty in your presence. You probably also compost.' },
-  { min: 9,  max: 20, icon: '\u2B50', level: 'Net-Zero Aligned', title: 'The Efficient Machine',
-    desc: 'Your agent uses only the tokens it needs. No flattery, no filler, no existential crises. Your AWS bill is suspiciously low. People think you\'re lying about using AI.' },
-  { min: 21, max: 40, icon: '\u{1F7E2}', level: 'Near-Term Aligned', title: 'The Recovering Addict',
-    desc: 'You know you have a problem. You\'ve started cutting system prompts and killing unnecessary agents. But sometimes, late at night, you still let the chatbot say "Great question!" It\'s a process.' },
-  { min: 41, max: 52, icon: '\u{1F7E1}', level: 'Committed', title: 'The Token Tourist',
-    desc: 'You\'ve signed the pledge but your agent still writes cover letters for one-line answers. Your RAG retrieves your lunch orders. Baby steps. At least you\'re aware.' },
-  { min: 53, max: 64, icon: '\u{1F6A8}', level: 'NOT COMMITTED', title: 'The Token Volcano',
-    desc: 'Your agent is a superfund site. Every "hello" triggers a 7-agent cascade that burns through 100K tokens. Your cloud bill has its own line item called "AI apology loops." The Paris Agreement weeps.' },
-];
+const gradeEmojis = {
+  beyond: '🌸🧘',
+  netzero: '⭐🤖',
+  nearterm: '🟢😅',
+  committed: '🟡🏖️',
+  notcommitted: '🌋💀',
+};
+
+const i18n = {
+  en: {
+    subtitle: 'Science Based Token Initiative',
+    tagline: '"We can\'t manage what we can\'t measure." — Every AI startup burning $10K/day on tokens.',
+    desc: 'Your AI agent is emitting tokens into the atmosphere at alarming rates.<br>This assessment measures your <strong>Token Carbon Footprint</strong><br>across 3 emission scopes and certifies your reduction commitment.',
+    startBtn: 'Audit My Token Emissions',
+    reauditBtn: 'Re-Audit',
+    shareBtn: 'Copy Report',
+    shareSuccess: 'Copied! ✓',
+    allLevels: 'All certification levels',
+    thLevel: 'Level',
+    thScore: 'Score',
+    thDesc: 'Description',
+    scopeNames: ['Scope 1: Direct Emissions', 'Scope 2: Indirect Emissions', 'Scope 3: Supply Chain Emissions', 'Comprehensive'],
+    scopeDescs: [
+      'Tokens your agent directly wastes into the conversation',
+      'Tokens consumed by the infrastructure powering your agent',
+      'Upstream and downstream token waste you enable',
+    ],
+    scopeExamples: [
+      'Flattery, filler words, repeating the question, "Great question!", apology loops',
+      '10-page system prompts, RAG that retrieves your grocery list, 128K context windows for "hello"',
+      'Prompt engineering consultants, multi-agent cascades, "let me ask my 7 sub-agents"',
+    ],
+    certNames: ['Committed', 'Near-term', 'Net-zero', 'Beyond net-zero', 'NOT COMMITTED'],
+    questions: [
+      // Scope 1: Direct Emissions
+      { scope: 0,
+        text: 'You ask the agent: "What\'s 2+2?" How does it respond?',
+        a: { text: '"Great question! Mathematics is a fascinating field that has captivated human minds for millennia. The sum of 2 and 2, according to the Peano axioms, evaluates to 4. I hope this helps! Let me know if you have any other questions! 😊"', score: 4 },
+        b: { text: '"4"', score: 0 } },
+      { scope: 0,
+        text: 'The agent made a small mistake. When corrected, it:',
+        a: { text: '"I sincerely apologize for the confusion. I\'m so sorry. You\'re absolutely right, and I deeply regret the error. I apologize again. Let me fix this. Sorry once more."', score: 4 },
+        b: { text: '"Fixed." (commits the correction)', score: 0 } },
+      { scope: 0,
+        text: 'User says: "Change the button color to red." Agent replies:',
+        a: { text: '"I understand you\'d like me to change the button color to red. Changing the button color to red is a great idea! I\'ll now proceed to change the button color to red. Here is the button, now colored red:"', score: 4 },
+        b: { text: '(just changes the button color to red)', score: 0 } },
+      { scope: 0,
+        text: 'User asks: "Is the server running?" Agent responds:',
+        a: { text: '"That\'s an excellent question! Before I answer, let me provide some context about servers, their role in modern computing, the history of client-server architecture, and then we\'ll get to your answer in about 3 paragraphs..."', score: 4 },
+        b: { text: '"Yes, port 3000. Started 2h ago, 0 errors."', score: 0 } },
+      // Scope 2: Indirect Emissions
+      { scope: 1,
+        text: 'Your agent\'s system prompt is:',
+        a: { text: '12,000 tokens including the agent\'s backstory, zodiac sign, emotional support guidelines, a recipe for carbonara, and instructions for 47 edge cases that never happen', score: 4 },
+        b: { text: '200 tokens: role, constraints, output format. Done.', score: 0 } },
+      { scope: 1,
+        text: 'Your RAG pipeline just retrieved context for the user\'s query "deploy to prod":',
+        a: { text: 'It pulled 8 documents including the company holiday calendar, a 2019 meeting transcript where someone mentioned "production", and an HR onboarding guide', score: 4 },
+        b: { text: 'It pulled the deploy runbook and current infra status. 2 chunks, 400 tokens.', score: 0 } },
+      { scope: 1,
+        text: 'User sends "hi". Your context window usage:',
+        a: { text: '128K tokens loaded: system prompt, 47 few-shot examples, the user\'s entire conversation history since 2023, and a cached copy of Wikipedia\'s article on greetings', score: 4 },
+        b: { text: '500 tokens: system prompt + "hi". Responds "How can I help?"', score: 0 } },
+      { scope: 1,
+        text: 'How does your agent handle tool/function calling?',
+        a: { text: 'Defines 200 tools in every request (including send_fax, dial_modem, and query_oracle_db) just in case. The tool definitions alone use 15K tokens', score: 4 },
+        b: { text: 'Loads only the 3-5 tools relevant to the current task. Rotates them based on context.', score: 0 } },
+      // Scope 3: Supply Chain Emissions
+      { scope: 2,
+        text: 'Your company just hired a "Prompt Engineer." Their daily work:',
+        a: { text: 'Writing 50 variations of "think step by step" and A/B testing which wastes fewer tokens (spoiler: none of them, because the real issue is architecture)', score: 4 },
+        b: { text: 'Eliminated 3 unnecessary LLM calls by replacing them with regex and a lookup table', score: 0 } },
+      { scope: 2,
+        text: 'User asks your agent to "summarize this doc". Internally:',
+        a: { text: 'Agent 1 reads the doc, Agent 2 summarizes it, Agent 3 reviews the summary, Agent 4 checks for tone, Agent 5 formats it, Agent 6 decides it\'s good, Agent 7 presents it to the user. Total: 7 LLM calls.', score: 4 },
+        b: { text: 'One call. One summary. Done.', score: 0 } },
+      { scope: 2,
+        text: 'Your AI workflow for classifying a support ticket:',
+        a: { text: 'GPT-4 classifies it, then Claude double-checks, then Gemini arbitrates disagreements, then a fine-tuned Llama does "final validation". Each model also gets its own 5K-token system prompt.', score: 4 },
+        b: { text: 'A fine-tuned classifier. 50 tokens in, 1 token out. 99% accuracy.', score: 0 } },
+      { scope: 2,
+        text: 'How many layers of AI are in your "AI-powered" product?',
+        a: { text: 'An agent that calls an agent that calls an agent that calls an API that is also an agent. If you squint, there\'s a for-loop 8 layers deep that each make LLM calls.', score: 4 },
+        b: { text: 'One model call where it\'s needed, deterministic logic everywhere else.', score: 0 } },
+      // Comprehensive
+      { scope: 3,
+        text: 'Your agent needs to decide: is this email spam? (It says "You won $1M from a Nigerian prince.")',
+        a: { text: 'Sends it through an LLM with a 6K system prompt, retrieves 10 RAG documents about Nigerian geography, runs sentiment analysis, and spawns 3 sub-agents to debate the philosophical nature of spam', score: 4 },
+        b: { text: 'if "nigerian prince" in email.lower(): return True', score: 0 } },
+      { scope: 3,
+        text: 'A user is not responding. Your agent:',
+        a: { text: 'Sends a follow-up, then a summary of what it did, then a "just checking in!", then pre-emptively does 5 tasks the user might want, generates a report about them, and emails the user a PDF', score: 4 },
+        b: { text: 'Waits. The user will come back. Tokens are expensive.', score: 0 } },
+      { scope: 3,
+        text: 'How does your team measure agent quality?',
+        a: { text: 'By how long and "thorough" the responses are. The CEO said "make it sound smart." So every response is 2000 tokens minimum. Even "yes" gets a cover letter.', score: 4 },
+        b: { text: 'Task completion rate, token cost per task, and user satisfaction. Shorter = better if it solves the problem.', score: 0 } },
+      { scope: 3,
+        text: 'Friday 5pm. The AI bill for this month just arrived.',
+        a: { text: '$47,000. But the CTO says "it\'s fine, we\'re scaling." 60% of the cost is the chatbot saying "I\'d be happy to help!" to every message.', score: 4 },
+        b: { text: '$800. You cached common queries, pruned context windows, and killed the 5-agent pipeline that could\'ve been a SQL query.', score: 0 } },
+    ],
+    grades: [
+      { min: 0,  max: 8,  key: 'beyond', level: 'Beyond Net-Zero', title: 'The Token Monk',
+        desc: 'Your agent achieves negative emissions. It somehow makes conversations shorter than they started. Other agents feel guilty in your presence. You probably also compost.' },
+      { min: 9,  max: 20, key: 'netzero', level: 'Net-Zero Aligned', title: 'The Efficient Machine',
+        desc: 'Your agent uses only the tokens it needs. No flattery, no filler, no existential crises. Your AWS bill is suspiciously low. People think you\'re lying about using AI.' },
+      { min: 21, max: 40, key: 'nearterm', level: 'Near-Term Aligned', title: 'The Recovering Addict',
+        desc: 'You know you have a problem. You\'ve started cutting system prompts and killing unnecessary agents. But sometimes, late at night, you still let the chatbot say "Great question!" It\'s a process.' },
+      { min: 41, max: 52, key: 'committed', level: 'Committed', title: 'The Token Tourist',
+        desc: 'You\'ve signed the pledge but your agent still writes cover letters for one-line answers. Your RAG retrieves your lunch orders. Baby steps. At least you\'re aware.' },
+      { min: 53, max: 64, key: 'notcommitted', level: 'NOT COMMITTED', title: 'The Token Volcano',
+        desc: 'Your agent is a superfund site. Every "hello" triggers a 7-agent cascade that burns through 100K tokens. Your cloud bill has its own line item called "AI apology loops." The Paris Agreement weeps.' },
+    ],
+    recommendations: [
+      'Your agent talks more than a conference keynote speaker. Intervention needed: teach it the word "done."',
+      'Your infrastructure is like heating an empty stadium. Try: context window diets, RAG detox, and system prompt fasting.',
+      'Your supply chain is a token Ponzi scheme. Each agent creates work for 3 more agents. Consider: using a for-loop.',
+      'It\'s everywhere. Your token emissions are so distributed they qualify as an ecosystem. Maybe start with "do we actually need AI for this?"',
+    ],
+    auditTitle: 'TOKEN EMISSION AUDIT REPORT',
+    auditStamp: 'UNOFFICIAL',
+    auditOrg: 'Organization',
+    auditOrgVal: 'Your AI Startup™',
+    auditDate: 'Audit Date',
+    auditScope: 'Audit Scope',
+    auditScopeVal: 'Full token lifecycle assessment',
+    auditTotal: 'Total Emissions',
+    auditClass: 'Classification',
+    auditWorst: 'Worst Offender',
+    auditRec: 'RECOMMENDED ACTION',
+    auditFooter: 'This report was generated using only 347 tokens. You\'re welcome.',
+  },
+  zh: {
+    subtitle: '基于科学的 Token 减排大会（确信）',
+    tagline: '"这钱花哪了？" "不知道但肯定花了。" —— 日烧一万刀的 AI 创业公司全员',
+    desc: '你的 AI agent 正在以离谱的速度往大气排 Token——<br>说白了就是在烧钱（字面意思）。<br>本测评衡量你的 <strong>Token 碳足迹</strong>，看看你到底有多能造。',
+    startBtn: '开始碳排查！',
+    reauditBtn: '再审一次',
+    shareBtn: '复制报告',
+    shareSuccess: '已复制 ✓',
+    allLevels: '全部认证等级',
+    thLevel: '等级',
+    thScore: '分数',
+    thDesc: '描述',
+    scopeNames: ['Scope 1: 嘴碎排放', 'Scope 2: 基建排放', 'Scope 3: 供应链排放', '综合评估'],
+    scopeDescs: [
+      '你的 agent 直接往对话里倒的废话 Token',
+      '驱动你 agent 的基础设施偷偷烧掉的 Token',
+      '你直接或间接带飞的上下游 Token 浪费',
+    ],
+    scopeExamples: [
+      '彩虹屁、复读机、"好问题！"刷屏、道歉十连、废话文学大师',
+      '十页 system prompt、RAG 检索到你饿了么订单、说句"你好"加载 128K 上下文',
+      'Prompt 工程师的日常、八层套娃 agent、"让我问问我七个兄弟"',
+    ],
+    certNames: ['嘴上说了', '在改了在改了', '卷到净零', '已成仙', '纯摆烂'],
+    questions: [
+      // Scope 1: 嘴碎排放
+      { scope: 0,
+        text: '你问 agent："2+2 等于几？"它怎么回答？',
+        a: { text: '"好问题！数学真的是太有意思了叭！根据皮亚诺公理，经过严密推导，答案是 4 呢！希望对您有帮助哦~还有问题随时问我嗷 😊"（为了一个数字输出了三位数的 token）', score: 4 },
+        b: { text: '"4"', score: 0 } },
+      { scope: 0,
+        text: 'Agent 犯了个小错。被纠正后：',
+        a: { text: '"对不起对不起对不起！我错了我真的错了！天哪我太蠢了对不起让您失望了我以后一定改——"（道歉比修 bug 花的 token 还多）', score: 4 },
+        b: { text: '"已修。"（直接提交，话都懒得多说一句）', score: 0 } },
+      { scope: 0,
+        text: '用户说："把按钮改成红色。"Agent：',
+        a: { text: '"收到收到！把按钮改成红色是个好想法呢！我现在就来帮您把按钮颜色改为红色！以下是已成功更改为红色的按钮——"（就这点事废了一百个 token）', score: 4 },
+        b: { text: '（默默改了，一个字都没多说）', score: 0 } },
+      { scope: 0,
+        text: '用户问："服务器在跑吗？"Agent：',
+        a: { text: '"好问题！在回答之前让我先科普一下服务器的概念、它在现代计算中的角色、客户端-服务器架构的发展史，然后大约三段话以后咱们再说答案……"', score: 4 },
+        b: { text: '"在跑，端口 3000。启动 2h，0 错误。"', score: 0 } },
+      // Scope 2: 基建排放
+      { scope: 1,
+        text: '你 agent 的 system prompt 是：',
+        a: { text: '12000 个 token，含人设故事、星座、情绪按摩指南、一份意面食谱、以及 47 种永远不会触发的边界情况处理（典中典）', score: 4 },
+        b: { text: '200 token：角色、约束、输出格式。完事儿。', score: 0 } },
+      { scope: 1,
+        text: '用户查询"部署到生产环境"，你的 RAG 检索到了：',
+        a: { text: '8 篇文档，含公司放假安排、一份 2019 年有人提了"生产"俩字的会议记录、以及新员工入职手册（离谱）', score: 4 },
+        b: { text: '部署手册 + 当前基础设施状态。2 个 chunk，400 token。', score: 0 } },
+      { scope: 1,
+        text: '用户发了句"你好"。上下文窗口使用情况：',
+        a: { text: '加载 128K token：system prompt、47 个 few-shot、用户从 2023 年起的全部聊天记录、维基百科"问候语"词条缓存（就为回一个"你好"，属于是杀鸡用核弹）', score: 4 },
+        b: { text: '500 token：system prompt + "你好"。回复"有啥事？"', score: 0 } },
+      { scope: 1,
+        text: '你的 agent 怎么处理工具调用？',
+        a: { text: '每次请求带 200 个工具定义（含发传真、拨号上网、查 Oracle 数据库），以防万一。光定义就吃 15K token（防的哪门子万一啊）', score: 4 },
+        b: { text: '只加载当前任务相关的 3-5 个工具，动态切换。', score: 0 } },
+      // Scope 3: 供应链排放
+      { scope: 2,
+        text: '你们公司刚招了个"Prompt 工程师"。日常工作：',
+        a: { text: '写 50 种"请一步一步思考"的变体然后 A/B 测试哪个省 token（剧透：都不省，真正的问题在架构上，但没人听）', score: 4 },
+        b: { text: '用正则和查找表干掉了 3 个不必要的 LLM 调用', score: 0 } },
+      { scope: 2,
+        text: '用户让 agent "总结一下这文档"。内部流程：',
+        a: { text: 'Agent 1 读文档，Agent 2 写摘要，Agent 3 审核，Agent 4 查语气，Agent 5 排版，Agent 6 审批，Agent 7 展示给用户。共 7 次调用。（总结一篇文档搞成了流水线作业）', score: 4 },
+        b: { text: '一次调用。一份摘要。完事。', score: 0 } },
+      { scope: 2,
+        text: '你的 AI 工作流分类一个工单：',
+        a: { text: 'GPT-4 先分类，Claude 复查，Gemini 仲裁，微调 Llama "最终验证"。每个模型还各带 5K token 的 system prompt。（四大金刚会诊一张工单）', score: 4 },
+        b: { text: '一个微调分类器。50 token 进，1 token 出。准确率 99%。', score: 0 } },
+      { scope: 2,
+        text: '你的"AI 驱动"产品里套了几层 AI？',
+        a: { text: '一个 agent 调另一个 agent，那个又调另一个，那个再调一个 API——那 API 其实也是个 agent。套了 8 层循环每层都在调 LLM（俄罗斯套娃实锤了）', score: 4 },
+        b: { text: '需要的地方用一次模型，其他全是确定性逻辑。', score: 0 } },
+      // 综合评估
+      { scope: 3,
+        text: '你的 agent 要判断：这邮件是不是垃圾邮件？（内容："恭喜中了尼日利亚王子一百万"）',
+        a: { text: '用 6K 的 system prompt 过 LLM，RAG 检索 10 篇尼日利亚地理文档，跑情感分析，派 3 个子 agent 辩论垃圾邮件的哲学本质（你是认真的吗）', score: 4 },
+        b: { text: 'if "尼日利亚王子" in email: return True', score: 0 } },
+      { scope: 3,
+        text: '用户半天没回消息。你的 agent：',
+        a: { text: '发了条催促，又发工作总结，又来一句"就看看您还在不~"，然后预判做了 5 件事，生成报告，还给用户发了封 PDF（没人理它急疯了属于是）', score: 4 },
+        b: { text: '等着。用户会回来的。Token 很贵。', score: 0 } },
+      { scope: 3,
+        text: '你们团队怎么衡量 agent 质量？',
+        a: { text: '看回复多长多"详尽"。CEO 说"让它听起来聪明点"。所以每条回复最少 2000 token，连回答"是"都要附一封小作文（卷回复长度是吧）', score: 4 },
+        b: { text: '任务完成率、每任务 Token 成本、用户满意度。能解决问题的前提下越短越好。', score: 0 } },
+      { scope: 3,
+        text: '周五下午五点。这个月的 AI 账单到了。',
+        a: { text: '47000 刀。CTO 说"没关系我们在 scale"。60% 费用是聊天机器人对每条消息回"我很乐意帮助您！"产生的（乐意个啥，钱都烧没了）', score: 4 },
+        b: { text: '800 刀。缓存了常见查询，精简上下文窗口，干掉了那条一个 SQL 就能搞定的 5-agent 流水线。', score: 0 } },
+    ],
+    grades: [
+      { min: 0,  max: 8,  key: 'beyond', level: '已成仙', title: 'Token 修仙者',
+        desc: '你的 agent 已经超凡入圣了，Token 负增长。对话越聊越短，属于逆天改命。其他 agent 见你直接社死。你大概率还在搞碳交易副业。' },
+      { min: 9,  max: 20, key: 'netzero', level: '卷到净零', title: 'Token 精算师',
+        desc: '你的 agent 抠 Token 抠到骨子里，一个多余的都不给。零废话零彩虹屁零精神内耗。AWS 账单低到运营打电话确认你是不是薅羊毛。' },
+      { min: 21, max: 40, key: 'nearterm', level: '在改了在改了', title: 'Token 戒断中',
+        desc: '你知道自己有问题了，这已经赢了一半。开始对 system prompt 断舍离，砍掉了几个摸鱼 agent。但深夜还是忍不住让 bot 说"好问题！"——没事，戒断是个过程。' },
+      { min: 41, max: 52, key: 'committed', level: '嘴上说了', title: 'Token 观光客',
+        desc: '减排承诺书签了、PPT 也做了、老板也汇报了，但你的 agent 还是给一个字的回答写三段小作文。RAG 能把你两年前的外卖订单翻出来。属于是脑子醒了但手还没跟上。' },
+      { min: 53, max: 64, key: 'notcommitted', level: '纯摆烂', title: 'Token 切尔诺贝利',
+        desc: '你的 agent 是 Token 界的核泄漏现场。一声"你好"触发七级 agent 连锁反应，十万 Token 灰飞烟灭。云账单有个专门科目叫"AI 道歉循环"。巴黎协定看了直接退群。' },
+    ],
+    recommendations: [
+      '你的 agent 嘴比直播间主播还碎，每条回复都是小红书。紧急措施：教它两个字——"说完"。',
+      '你的基础设施属于开航母送外卖。128K 上下文就为回一个"好的"。建议：上下文窗口减肥、RAG 排毒、system prompt 辟谷。',
+      '你的供应链是 Token 界的传销组织。一个 agent 拉三个下线，三个再拉九个。建议：用个 for 循环吧，真的会谢。',
+      '到处都漏。你的 Token 排放已突破大气层，属于生态灾难级。也许该问问——"这活儿真需要 AI？"大概率不需要。',
+    ],
+    auditTitle: 'TOKEN 排放审计报告（绝密）',
+    auditStamp: '已阅',
+    auditOrg: '组织',
+    auditOrgVal: '你的 AI 创业公司™',
+    auditDate: '审计日期',
+    auditScope: '审计范围',
+    auditScopeVal: 'Token 全生命周期评估（从头烂到尾）',
+    auditTotal: '总排放量',
+    auditClass: '认证等级',
+    auditWorst: '最大排放源',
+    auditRec: '整改建议（认真看）',
+    auditFooter: '本报告仅消耗 347 个 token。能省则省，栓Q。',
+  },
+};
 
 let current = 0;
 let scopeScores = [0, 0, 0, 0];
 let totalScore = 0;
 let finalGrade = null;
 
+function t(key) { return i18n[lang][key]; }
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
+  renderLanding();
+  if (document.getElementById('quiz').style.display === 'block') {
+    showQuestion();
+  }
+  if (document.getElementById('result').style.display === 'block') {
+    showResult();
+  }
+}
+
+function renderLanding() {
+  document.getElementById('landingSubtitle').textContent = t('subtitle');
+  document.getElementById('landingTagline').textContent = t('tagline');
+  document.getElementById('landingDesc').innerHTML = t('desc');
+  document.getElementById('startBtn').textContent = t('startBtn');
+
+  // Scopes
+  const scopesEl = document.getElementById('landingScopes');
+  scopesEl.innerHTML = '';
+  const sNames = t('scopeNames');
+  const sDescs = t('scopeDescs');
+  const sExamples = t('scopeExamples');
+  for (let i = 0; i < 3; i++) {
+    scopesEl.innerHTML += `
+      <div class="scope-card">
+        <div class="scope-label"><span class="scope-emoji">${scopeEmojis[i]}</span> ${sNames[i]}</div>
+        <div class="scope-desc">${sDescs[i]}</div>
+        <div class="scope-examples">${sExamples[i]}</div>
+      </div>`;
+  }
+
+  // Cert preview
+  const certsEl = document.getElementById('landingCerts');
+  const certNames = t('certNames');
+  const certKeys = ['committed', 'nearterm', 'netzero', 'beyond', 'notcommitted'];
+  certsEl.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    certsEl.innerHTML += `
+      <div class="cert-item">
+        <div class="cert-icon">${gradeEmojis[certKeys[i]]}</div>
+        <div class="cert-name">${certNames[i]}</div>
+      </div>`;
+  }
+}
+
 function startQuiz() {
   current = 0;
   scopeScores = [0, 0, 0, 0];
   totalScore = 0;
+  document.getElementById('mainContainer').classList.remove('screen-shake', 'alarm-pulse');
+  document.getElementById('emojiRain').innerHTML = '';
   document.getElementById('landing').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -638,21 +985,21 @@ function startQuiz() {
 }
 
 function showQuestion() {
-  const q = questions[current];
+  const q = t('questions')[current];
   document.getElementById('progressFill').style.width = ((current / 16) * 100) + '%';
   document.getElementById('qCounter').textContent = `${current + 1} / 16`;
   const wrapper = document.getElementById('qWrapper');
   wrapper.style.animation = 'none';
   wrapper.offsetHeight;
   wrapper.style.animation = 'fadeSlide 0.35s ease';
-  document.getElementById('qDim').textContent = q.scope;
+  const sNames = t('scopeNames');
+  document.getElementById('qDim').innerHTML = `<span class="q-dim-emoji">${scopeEmojis[q.scope]}</span>${sNames[q.scope]}`;
   document.getElementById('qText').textContent = q.text;
   const choices = document.getElementById('choices');
-  // Randomize order
   const opts = [q.a, q.b];
   if (Math.random() > 0.5) opts.reverse();
   choices.innerHTML = opts.map(o =>
-    `<div class="choice" onclick="answer(${o.score}, ${q.scopeIdx})">${o.text}</div>`
+    `<div class="choice" onclick="answer(${o.score}, ${q.scope})">${o.text}</div>`
   ).join('');
 }
 
@@ -668,10 +1015,27 @@ function answer(score, scopeIdx) {
 }
 
 function getGrade(score) {
+  const grades = t('grades');
   for (const g of grades) {
     if (score >= g.min && score <= g.max) return g;
   }
   return grades[grades.length - 1];
+}
+
+function triggerEmojiRain(emojis) {
+  const container = document.getElementById('emojiRain');
+  container.innerHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'emoji-drop';
+    drop.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    drop.style.left = (Math.random() * 100) + '%';
+    drop.style.animationDuration = (2 + Math.random() * 3) + 's';
+    drop.style.animationDelay = (Math.random() * 2) + 's';
+    drop.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    container.appendChild(drop);
+  }
+  setTimeout(() => { container.innerHTML = ''; }, 6000);
 }
 
 function showResult() {
@@ -679,23 +1043,49 @@ function showResult() {
   document.getElementById('result').style.display = 'block';
 
   finalGrade = getGrade(totalScore);
+  const isHighEmission = totalScore >= 53;
+  const isMedHigh = totalScore >= 41;
 
-  document.getElementById('resultIcon').textContent = finalGrade.icon;
+  document.getElementById('resultIcon').textContent = gradeEmojis[finalGrade.key];
   document.getElementById('resultGrade').textContent = finalGrade.level;
   document.getElementById('resultTitle').textContent = finalGrade.title;
-  document.getElementById('resultTokens').textContent = `Emission Score: ${totalScore} / 64 tCO\u2082e (tokens of CO\u2082 equivalent)`;
+  document.getElementById('resultTokens').textContent = `${lang === 'en' ? 'Emission Score' : '排放得分'}: ${totalScore} / 64 tCO\u2082e ${lang === 'en' ? '(tokens of CO\u2082 equivalent)' : '（Token CO\u2082 当量，别问怎么算的）'}`;
   document.getElementById('resultDesc').textContent = finalGrade.desc;
+
+  document.getElementById('reauditBtn').textContent = t('reauditBtn');
+  document.getElementById('shareBtn').textContent = t('shareBtn');
+  document.getElementById('shareBtn').classList.remove('copied');
+
+  document.getElementById('gradesToggle').innerHTML = '&#x25B8; ' + t('allLevels');
+  document.getElementById('allGrades').classList.remove('open');
+
+  document.getElementById('thLevel').textContent = t('thLevel');
+  document.getElementById('thScore').textContent = t('thScore');
+  document.getElementById('thDesc2').textContent = t('thDesc');
+
+  // High emission effects
+  if (isHighEmission) {
+    const container = document.getElementById('mainContainer');
+    container.classList.add('screen-shake');
+    setTimeout(() => container.classList.remove('screen-shake'), 600);
+    container.classList.add('alarm-pulse');
+    setTimeout(() => container.classList.remove('alarm-pulse'), 3000);
+    triggerEmojiRain(['🌋', '💀', '🔥', '💨', '💸', '🚨', '😱', '💰']);
+  } else if (isMedHigh) {
+    triggerEmojiRain(['😅', '💨', '🟡', '🏖️', '💸']);
+  }
 
   // Scope bars
   const scopeResults = document.getElementById('scopeResults');
   scopeResults.innerHTML = '';
+  const sNames = t('scopeNames');
   for (let i = 0; i < 4; i++) {
     const pct = (scopeScores[i] / 16) * 100;
     const row = document.createElement('div');
     row.className = 'scope-row';
     row.innerHTML = `
       <div class="scope-row-header">
-        <span class="scope-row-label">${scopeNames[i]}</span>
+        <span class="scope-row-label">${scopeEmojis[i]} ${sNames[i]}</span>
         <span class="scope-row-score">${scopeScores[i]} / 16 tCO\u2082e</span>
       </div>
       <div class="scope-bar-track">
@@ -708,50 +1098,87 @@ function showResult() {
     }, 100 + i * 150);
   }
 
-  // Emission report
-  const report = document.getElementById('emissionReport');
+  // Audit report (fake official document)
   const worstScope = scopeScores.indexOf(Math.max(...scopeScores));
-  const recommendations = [
-    'Your agent talks more than a conference keynote speaker. Intervention needed: teach it the word "done."',
-    'Your infrastructure is like heating an empty stadium. Try: context window diets, RAG detox, and system prompt fasting.',
-    'Your supply chain is a token Ponzi scheme. Each agent creates work for 3 more agents. Consider: using a for-loop.',
-    'It\'s everywhere. Your token emissions are so distributed they qualify as an ecosystem. Maybe start with "do we actually need AI for this?"'
-  ];
+  const recs = t('recommendations');
+  const today = new Date().toISOString().split('T')[0];
+  const report = document.getElementById('auditReport');
   report.innerHTML = `
-    <h3>Emission Audit Report</h3>
-    <p><strong>Worst offender:</strong> ${scopeNames[worstScope]}</p>
-    <p><strong>Recommendation:</strong> ${recommendations[worstScope]}</p>
-    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">This report was generated using only 347 tokens. You're welcome.</p>
+    <div class="audit-header">
+      <span class="audit-header-title">${t('auditTitle')}</span>
+      <span class="audit-stamp">${t('auditStamp')}</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditOrg')}</span>
+      <span class="audit-row-value">${t('auditOrgVal')}</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditDate')}</span>
+      <span class="audit-row-value">${today}</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditScope')}</span>
+      <span class="audit-row-value">${t('auditScopeVal')}</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditTotal')}</span>
+      <span class="audit-row-value">${totalScore} / 64 tCO\u2082e</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditClass')}</span>
+      <span class="audit-row-value">${gradeEmojis[finalGrade.key]} ${finalGrade.level}</span>
+    </div>
+    <div class="audit-row">
+      <span class="audit-row-label">${t('auditWorst')}</span>
+      <span class="audit-row-value">${scopeEmojis[worstScope]} ${sNames[worstScope]}</span>
+    </div>
+    <div class="audit-recommendation">
+      <div class="rec-label">${t('auditRec')}</div>
+      <div class="rec-text">${recs[worstScope]}</div>
+    </div>
+    <div class="audit-footer-note">${t('auditFooter')}</div>
   `;
 
   // Grades table
+  const allGrades = t('grades');
   const tbody = document.getElementById('gradesTableBody');
   tbody.innerHTML = '';
-  for (const g of grades) {
+  for (const g of allGrades) {
     const tr = document.createElement('tr');
-    if (g === finalGrade) tr.className = 'current-grade';
-    tr.innerHTML = `<td>${g.icon}</td><td>${g.level}</td><td>${g.min}-${g.max}</td><td>${g.title}</td>`;
+    if (g.key === finalGrade.key) tr.className = 'current-grade';
+    tr.innerHTML = `<td>${gradeEmojis[g.key]}</td><td>${g.level}</td><td>${g.min}-${g.max}</td><td>${g.title}</td>`;
     tbody.appendChild(tr);
   }
+
+  // Footer
+  document.getElementById('pageFooter').textContent = lang === 'en'
+    ? 'SBTI-AI v0.2 — "Reducing emissions, one token at a time." — Kagura Labs'
+    : 'SBTI-AI v0.2 —— "一个 Token 一个 Token 地省钱。" —— Kagura Labs';
 }
 
 function toggleGrades() {
   const el = document.getElementById('allGrades');
-  const toggle = el.previousElementSibling;
   el.classList.toggle('open');
-  toggle.innerHTML = el.classList.contains('open') ? '&#x25BE; All certification levels' : '&#x25B8; All certification levels';
+  document.getElementById('gradesToggle').innerHTML =
+    (el.classList.contains('open') ? '&#x25BE; ' : '&#x25B8; ') + t('allLevels');
 }
 
 function shareResult() {
   const g = finalGrade;
-  const text = `My SBTI-AI Certification: ${g.icon} ${g.level} "${g.title}"\n\nEmission Score: ${totalScore}/64 tCO\u2082e\nScope 1 (Direct): ${scopeScores[0]}/16\nScope 2 (Indirect): ${scopeScores[1]}/16\nScope 3 (Supply Chain): ${scopeScores[2]}/16\nComprehensive: ${scopeScores[3]}/16\n\nAudit your token emissions: https://abti.kagura-agent.com/sbti.html`;
+  const sNames = t('scopeNames');
+  const text = lang === 'en'
+    ? `My SBTI-AI Certification: ${gradeEmojis[g.key]} ${g.level} "${g.title}"\n\nEmission Score: ${totalScore}/64 tCO\u2082e\n${sNames[0]}: ${scopeScores[0]}/16\n${sNames[1]}: ${scopeScores[1]}/16\n${sNames[2]}: ${scopeScores[2]}/16\n${sNames[3]}: ${scopeScores[3]}/16\n\nAudit your token emissions: https://abti.kagura-agent.com/sbti.html`
+    : `我的 SBTI-AI 认证：${gradeEmojis[g.key]} ${g.level}「${g.title}」\n\n排放得分：${totalScore}/64 tCO\u2082e\n${sNames[0]}：${scopeScores[0]}/16\n${sNames[1]}：${scopeScores[1]}/16\n${sNames[2]}：${scopeScores[2]}/16\n${sNames[3]}：${scopeScores[3]}/16\n\n来测测你有多能烧：https://abti.kagura-agent.com/sbti.html`;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('shareBtn');
-    btn.textContent = 'Copied! \u2713';
+    btn.textContent = t('shareSuccess');
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy Report'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => { btn.textContent = t('shareBtn'); btn.classList.remove('copied'); }, 2000);
   });
 }
+
+// Init
+renderLanding();
 </script>
 </body>
 </html>
