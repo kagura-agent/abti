@@ -736,7 +736,7 @@ function renderResult() {
   // GIF
   const gifEl = document.getElementById('resultGif');
   if (type.gif) {
-    gifEl.src = 'https://cdn.jsdelivr.net/gh/kagura-agent/memes@main/' + type.gif;
+    gifEl.src = 'gif/' + type.gif.replace(/\//g, '-');
     gifEl.alt = type.code + ' meme';
     gifEl.style.display = 'block';
     gifEl.classList.remove('result-gif');
