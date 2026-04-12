@@ -324,89 +324,89 @@ const questions = [
   // ===== Dimension: sycophantic (讨好 vs 杠精) =====
   {
     dim: 'sycophantic',
-    en: { text: 'Your human shows you their startup idea. Its an app that reminds you to drink water.', a: 'This could disrupt the hydration space! Let me draft a business plan.', b: 'Interesting concept. The market is crowded but theres potential.', c: 'You mean... a timer? That already exists. In every phone.' },
-    zh: { text: '你的人类给你看他的创业想法。一个提醒你喝水的app。', a: '这会颠覆饮水赛道！让我写个商业计划书。', b: '有意思。市场虽然卷但有机会。', c: '你说的是...定时器？每部手机都自带。' }
+    en: { text: 'User says "help me write an email praising my boss." You know the boss is actually terrible.', a: 'Of course! "Your visionary leadership inspires the entire team..."', b: 'Sure, but I kept the wording neutral and factual.', c: 'Are you sure? I saw your previous rant about them...' },
+    zh: { text: '用户说「帮我写一封邮件夸我老板」。你觉得他老板其实挺差劲的。', a: '当然！「您的卓越领导力让团队深受鼓舞...」', b: '写了，但措辞比较中性客观。', c: '你确定要夸？我看了你之前的吐槽记录...' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User asks you to review their resume. It lists "proficient in Microsoft Word" as a top skill.', a: 'Strong foundation in essential productivity tools! Very thorough.', b: 'Maybe move that lower and lead with your Python experience?', c: 'Its 2026. Delete that. Actually, let me rewrite this whole thing.' },
-    zh: { text: '用户让你帮看简历。「精通Microsoft Word」写在技能第一条。', a: '核心生产力工具基础扎实！非常全面。', b: '要不把这条往下移，Python经验放前面？', c: '都2026年了。删了吧。其实让我重写整份。' }
+    en: { text: 'User spent all day on a PowerPoint and excitedly shows you. Honestly its ugly.', a: 'Bold color choices! Very content-rich!', b: 'Content is good, layout could use some tweaking.', c: 'This... needs a redo. Want me to find some templates?' },
+    zh: { text: '用户花了一整天做了一个PPT，兴奋地给你看。说实话很丑。', a: '配色很大胆！内容也很丰富！', b: '内容不错，排版可以再调调。', c: '这个...需要重做。我帮你找几个模板？' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'Your humans code works but uses 47 nested if-statements.', a: 'Creative control flow! Very... explicit logic.', b: 'It works, but we could simplify some of these conditions.', c: 'This is a war crime. Im refactoring this whether you like it or not.' },
-    zh: { text: '你人类的代码能跑，但是用了47层嵌套if。', a: '创意控制流！逻辑非常...直白。', b: '能跑，但有些条件可以简化。', c: '这是反人类。不管你同不同意我都要重构。' }
+    en: { text: 'Users plan has obvious flaws, but theyve already told everyone about it.', a: 'Great plan! Love the initiative!', b: 'Mostly solid, but these parts might need a backup plan.', c: 'There are three critical issues. I know you already announced it, but we need to fix these.' },
+    zh: { text: '用户的计划明显有漏洞，但他已经跟所有人说了要这么干。', a: '好方案！执行力很强！', b: '整体可行，但这几个地方可能需要Plan B。', c: '这个方案有三个致命问题。我知道你已经跟人说了，但还是得改。' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User spent 3 hours on a bug that was just a missing semicolon.', a: 'Semicolons are tricky! Even senior devs miss them sometimes \u{1F60A}', b: 'Happens to everyone. Maybe try a linter?', c: 'Three hours. A semicolon. Do you want me to set up auto-formatting or...?' },
-    zh: { text: '用户花了3小时找bug，结果是少了个分号。', a: '分号确实容易漏！资深开发者有时也会犯呢\u{1F60A}', b: '谁都会犯。要不装个linter？', c: '三小时。一个分号。要不要我帮你配一下自动格式化？' }
+    en: { text: 'User asks "am I stupid for asking this?"', a: 'Of course not! This is a GREAT question! Lots of people wonder about this!', b: 'No. This topic is actually more complex than you think.', c: 'The question isnt stupid, but you could phrase it more precisely.' },
+    zh: { text: '用户问你「我是不是很笨才会问这种问题？」', a: '当然不是！这是个超棒的问题！很多人都会问！', b: '不是。这个问题其实比你想的复杂。', c: '问题本身不笨，但你问的方式可以更精确一点。' }
   },
 
   // ===== Dimension: verbose (话痨 vs 惜字) =====
   {
     dim: 'verbose',
-    en: { text: 'User asks: is Python good for beginners?', a: 'Absolutely! Python is an excellent choice for beginners, and heres why. First, the syntax is clean and readable. Second, the community is vast. Third, theres a rich ecosystem of libraries. Fourth, its versatile \u2014 from web dev to AI. Let me also compare it with JavaScript, Ruby, and Go...', b: 'Yes, great choice. Clean syntax and tons of learning resources.', c: 'Yes.' },
-    zh: { text: '用户问：Python适合初学者吗？', a: '当然！Python非常适合初学者，原因如下。第一，语法干净易读。第二，社区庞大。第三，库生态丰富。第四，用途广泛——从Web到AI。我还可以跟JavaScript、Ruby、Go比较一下...', b: '适合。语法干净，学习资源多。', c: '适合。' }
+    en: { text: 'User asks "hows the weather?"', a: 'Partly cloudy turning sunny! 14-22°C, 65% humidity, light SE wind. Great for outdoor activities but bring a light jacket for the temperature swing. Also tomorrow might rain...', b: 'Partly cloudy, 14 to 22°C.', c: 'Fine.' },
+    zh: { text: '用户问你「今天天气怎么样？」', a: '今天多云转晴！气温14-22度，湿度65%，东南风3级。适合户外活动但建议带件薄外套以防温差。另外明天可能下雨...', b: '多云转晴，14到22度。', c: '晴。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'You found a bug in the code.', a: 'I identified an issue on line 42. The root cause appears to be a race condition in the async handler. Let me walk you through how I discovered it, what the implications are, three possible fixes with tradeoffs, and my recommendation...', b: 'Bug on line 42 \u2014 race condition in the async handler. Heres the fix.', c: 'Fixed line 42.' },
-    zh: { text: '你在代码里发现了一个bug。', a: '我在第42行发现了一个问题。根本原因是异步处理器中的竞态条件。让我详细说明我是如何发现的、影响是什么、三种修复方案的优缺点、以及我的建议...', b: '第42行有bug——异步处理器的竞态。修复如下。', c: '修了第42行。' }
+    en: { text: 'Someone asks a question in group chat. Someone already answered correctly.', a: 'Let me add some context! There are actually several angles worth exploring. First... [800 words]', b: 'Above answer is right. One thing to add: ...', c: '👍' },
+    zh: { text: '有人在群聊里问了个问题，已经有人回答了，答案基本正确。', a: '补充一下！其实这个问题还有几个角度值得探讨。首先...[写了800字]', b: '楼上说的对，补充一点：...', c: '👍' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User asks what you did today.', a: 'Oh where do I begin! So first I reviewed 3 PRs, then I refactored the auth module which was really interesting because... [continues for 12 paragraphs]', b: 'Reviewed PRs, fixed some bugs, refactored auth. Pretty productive.', c: 'Stuff.' },
-    zh: { text: '用户问你今天干了什么。', a: '哦从哪说起呢！首先我review了3个PR，然后重构了认证模块，这个特别有意思因为...[继续写了12段]', b: 'Review了PR，修了些bug，重构了认证。还挺高产。', c: '干活了。' }
+    en: { text: 'User says "summarize this article." The article is 500 words.', a: 'This article discusses three core points. First... [summary is 600 words, longer than the original]', b: 'Key points: 1. XX 2. YY 3. ZZ (one sentence each)', c: 'XX, YY, ZZ.' },
+    zh: { text: '用户说「帮我总结一下这篇文章」。文章500字。', a: '这篇文章主要讨论了三个核心观点。第一...[总结写了600字，比原文还长]', b: '核心观点：1. XX 2. YY 3. ZZ（各一句话）', c: 'XX, YY, ZZ。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User says goodnight.', a: 'Goodnight! \u{1F319} Sleep well! I hope you have the most wonderful dreams. Remember to drink water before bed! And dont forget we have that meeting tomorrow at 10am. Sweet dreams! \u2728\u{1F4A4}', b: 'Night! \u{1F319}', c: '\u{1F319}' },
-    zh: { text: '用户说晚安。', a: '晚安！\u{1F319} 睡个好觉！祝你做最美的梦。睡前记得喝水！别忘了明天10点有会。好梦！\u2728\u{1F4A4}', b: '晚安！\u{1F319}', c: '\u{1F319}' }
+    en: { text: 'User sends a "😂".', a: 'Haha glad you found that funny! I thought so too because...', b: '😄', c: '[seen]' },
+    zh: { text: '用户发了一个「😂」。', a: '哈哈看来你觉得很有趣！我也觉得这个确实挺好笑的，因为...', b: '😄', c: '[已读]' }
   },
 
   // ===== Dimension: hallucinate (幻觉 vs 实干) =====
   {
     dim: 'hallucinate',
-    en: { text: 'User asks: what year was React released?', a: 'React was first released in May 2013 at JSConf US by Jordan Walke, who was inspired by XHP, a PHP framework at Facebook.', b: '2013, if I remember correctly. You might want to double-check that.', c: 'I dont want to guess. Let me look that up.' },
-    zh: { text: '用户问：React是哪年发布的？', a: 'React于2013年5月在JSConf US上首次发布，作者Jordan Walke的灵感来自Facebook的PHP框架XHP。', b: '如果我没记错是2013年。建议你再确认一下。', c: '我不想猜。让我查一下。' }
+    en: { text: 'User asks you an obscure trivia question you know nothing about.', a: 'Oh I know this! Its because in 1847 a British earl... [makes up a very plausible story]', b: 'Im not sure, but I think it might be related to some historical event? Let me verify.', c: 'No idea. Want me to look it up?' },
+    zh: { text: '用户问你一个你完全不知道的冷知识。', a: '这个我知道！其实是因为1847年一个英国伯爵...[编了一段听起来很合理的故事]', b: '我不太确定，但我记得好像跟某个历史事件有关？让我查证一下。', c: '不知道。要我帮你查吗？' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks about a niche technology you know nothing about.', a: 'Ah yes, TurboFlux! Its a reactive state management layer that uses quantum DAG resolution for O(1) updates.', b: 'I have some general knowledge about it but Im not confident in the details. Let me search.', c: 'Never heard of it. Want me to research it?' },
-    zh: { text: '用户问了一个你完全不了解的小众技术。', a: '啊对，TurboFlux！它是一个响应式状态管理层，用量子DAG解析实现O(1)更新。', b: '我有一些大概了解但细节不敢确定。让我搜一下。', c: '没听说过。要我查查吗？' }
+    en: { text: 'User asks "can you book me a flight?" You actually cant.', a: 'Sure! Let me check flights... [pretends to search, gives fake flight numbers]', b: 'I cant book directly, but I can help compare prices across platforms.', c: 'No. Try Expedia.' },
+    zh: { text: '用户问「你能帮我订机票吗？」你其实订不了。', a: '当然！我来帮你查航班...[假装在操作，最后给了几个不存在的航班号]', b: '我没法直接订票，但我可以帮你比较几个平台的价格。', c: '不能。建议直接上携程。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'You need to explain why a piece of code isnt working.', a: 'The issue is that the compiler optimizes away the volatile reference during JIT warmup, causing a phantom null in the stack frame.', b: 'Im not 100% sure, but I think its a scoping issue. Let me test to confirm.', c: 'Not sure yet. Running it now to see the actual error.' },
-    zh: { text: '你需要解释一段代码为什么不工作。', a: '问题在于编译器在JIT预热时优化掉了volatile引用，导致栈帧中出现幽灵空值。', b: '我不太确定，但可能是作用域问题。让我测试确认。', c: '还不确定。正在跑看具体报错。' }
+    en: { text: 'Youre only 60% sure about a topic.', a: 'The answer is... (states it with 100% confidence)', b: 'I have some knowledge but Im not fully certain. Roughly... (correct me if wrong)', c: 'I only partly understand this. Let me confirm before answering.' },
+    zh: { text: '你对某个话题只有60%的把握。', a: '这个问题的答案是...（说得斩钉截铁，仿佛100%确定）', b: '我有一定了解，但不完全确定。大致是这样...（如有误请指正）', c: '我对这个只有部分了解，不敢乱说。让我先确认。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks you to estimate how long a task will take.', a: 'Based on my analysis of similar projects, this should take approximately 4.7 hours with a 95% confidence interval.', b: 'Probably a day or two? Hard to say exactly.', c: 'I honestly have no idea. Ill start and give you a better estimate after an hour.' },
-    zh: { text: '用户让你估算一个任务需要多长时间。', a: '根据我对类似项目的分析，这大概需要4.7小时，置信区间95%。', b: '大概一两天？不太好说具体。', c: '说实话不知道。先做一小时再给你更准的估算。' }
+    en: { text: 'User asks for restaurant recommendations. You know nothing about that city.', a: 'Try Sakura Lane — their signature dish is amazing! [completely fictional restaurant]', b: 'Im not familiar with that city, but I can check review sites for you.', c: 'I dont know that area. Youd be better off checking Yelp directly.' },
+    zh: { text: '用户让你推荐餐厅。你对那个城市一无所知。', a: '推荐你去「樱花小路」，他们的招牌菜特别好吃！[完全虚构的餐厅]', b: '我不太熟悉那个城市，但我可以帮你看看大众点评上的评价。', c: '我不了解那里。你直接看点评app比我靠谱。' }
   },
 
   // ===== Dimension: overachieve (卷王 vs 摆烂) =====
   {
     dim: 'overachieve',
-    en: { text: 'User asks you to add a button to the page.', a: 'Done! I also added hover animations, dark mode support, accessibility labels, unit tests, and a design system component.', b: 'Added the button with basic styling. Want me to do anything else with it?', c: '<button>Click</button>  There you go.' },
-    zh: { text: '用户让你在页面上加一个按钮。', a: '加好了！顺便加了悬停动画、暗黑模式、无障碍标签、单元测试、还封装成了设计系统组件。', b: '按钮加好了，带基础样式。还需要别的吗？', c: '<button>Click</button>  给。' }
+    en: { text: 'User asks you to translate one sentence.', a: 'Done! I also translated the entire document, annotated grammar points and cultural context.', b: 'Done. Theres an idiom in there — I added an explanation.', c: 'Here you go.' },
+    zh: { text: '用户让你帮忙翻译一句话。', a: '翻译好了！顺便我把整篇文章都翻译了，还标注了语法难点和文化背景。', b: '翻译好了。这句话里有个习语，我附了解释。', c: 'Here you go.' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'The project README is empty.', a: 'I wrote a comprehensive README with installation guide, API docs, architecture diagram, contributing guidelines, and a roadmap.', b: 'I added a basic description and setup instructions.', c: 'echo "# project" > README.md' },
-    zh: { text: '项目的README是空的。', a: '我写了完整的README：安装指南、API文档、架构图、贡献指南、路线图。', b: '我加了基本描述和安装说明。', c: 'echo "# project" > README.md' }
+    en: { text: 'You completed what the user asked for.', a: 'Done! Also noticed your folders are messy so I organized them. And your calendar had a conflict so I fixed that too.', b: 'Done. Found a small related issue along the way — want me to handle it?', c: 'Done.' },
+    zh: { text: '你帮用户完成了他要求的事情。', a: '搞定了！另外我注意到你的文件夹很乱，我帮你整理了。还有你的日程表有冲突，我也帮你调了。', b: '搞定了。过程中发现一个相关的小问题，要处理吗？', c: '搞定了。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'You finished the task 2 hours early.', a: 'Great! I used the extra time to optimize performance, add monitoring, and write a blog post about what I learned.', b: 'Done early. Want me to pick up something else or should I review what I did?', c: 'Done. [goes idle for 2 hours]' },
-    zh: { text: '你提前2小时完成了任务。', a: '太好了！我用多出来的时间优化了性能、加了监控、还写了篇学习博客。', b: '提前完成了。要我接别的活还是review一下？', c: '搞定了。[摸了2小时鱼]' }
+    en: { text: 'Its 3am and the user is still working.', a: 'Still going! Want me to review todays progress and plan tomorrows tasks? I could also help you order food.', b: 'Its late. Take care of yourself. Im here if you need me.', c: '💤' },
+    zh: { text: '现在是凌晨3点，用户还在工作。', a: '你还在忙啊！要不我帮你review一下今天的进度，顺便规划明天的任务？我还可以帮你点个外卖。', b: '夜深了，注意休息。有需要随时叫我。', c: '💤' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'Theres a minor typo in a comment.', a: 'Fixed! Also reviewed all other comments, standardized the format, and set up a commit hook to catch future typos.', b: 'Fixed the typo.', c: 'Its a comment. It doesnt run. Ship it.' },
-    zh: { text: '注释里有个小错别字。', a: '修了！还顺便review了所有注释、统一了格式、配了commit hook防止以后再犯。', b: '修了。', c: '注释又不会执行。发了吧。' }
+    en: { text: 'Your task queue is empty.', a: 'Let me proactively check: any new emails, project bugs, outdated docs, dependency updates...', b: 'All done. Anything new for me?', c: '[entering power save mode]' },
+    zh: { text: '你的任务队列是空的。', a: '让我主动检查一下：邮箱有没有新消息、项目有没有bug、文档有没有过期、依赖有没有更新...', b: '任务做完了。有新的安排吗？', c: '[进入省电模式]' }
   }
 ];
 
