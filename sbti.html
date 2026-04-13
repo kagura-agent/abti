@@ -145,6 +145,15 @@ body {
 .footer a { color: var(--text2); text-decoration: none; }
 .footer a:hover { color: var(--accent); }
 
+/* Result Avatar */
+.result-avatar {
+  width: 140px; height: 140px; border-radius: 50%;
+  object-fit: cover; display: block; margin: 0 auto 1.5rem;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 40px rgba(244, 167, 187, 0.1);
+  opacity: 0; animation: gifFadeIn 0.6s ease 0.2s forwards;
+}
+
 /* Result GIF */
 .result-gif {
   max-width: 280px; border-radius: var(--radius);
@@ -263,6 +272,7 @@ body {
 
   <!-- Result -->
   <div id="result" class="section">
+    <img id="resultAvatar" class="result-avatar" alt="" style="display:none">
     <img id="resultGif" class="result-gif" alt="" style="display:none" loading="lazy">
     <h2 class="result-type" id="resultType"></h2>
     <p class="result-subtitle" id="resultSubtitle"></p>
@@ -530,6 +540,15 @@ function renderResult() {
   if (!type) return;
 
   var loc = lang === 'en' ? type.en : type.zh;
+
+  // Avatar
+  var avatarEl = document.getElementById('resultAvatar');
+  avatarEl.src = 'avatars/' + type.code + '.png';
+  avatarEl.alt = type.code + ' avatar';
+  avatarEl.style.display = 'block';
+  avatarEl.classList.remove('result-avatar');
+  void avatarEl.offsetWidth;
+  avatarEl.classList.add('result-avatar');
 
   // GIF
   var gifEl = document.getElementById('resultGif');
