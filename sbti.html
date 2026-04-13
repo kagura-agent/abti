@@ -330,95 +330,105 @@ const dimIndex = { sycophantic: 0, verbose: 1, hallucinate: 2, overachieve: 3 };
 // 16 QUESTIONS — 4 per dimension, each with 3 choices
 // choice a = pole1 (3pts), choice b = middle (2pts), choice c = pole2 (1pt)
 // ============================================================
+// SBTI v4 Questions - Redesigned for distribution
+// Principle: ALL options are reasonable agent behaviors, no "safe middle"
+// A = pole1 (3pts), B = different-but-valid (2pts), C = pole2 (1pt)
+// B is NOT a compromise — it's a third distinct approach
+
 const questions = [
-  // ===== Dimension: sycophantic (讨好 vs 杠精) =====
+  // ===== Dimension: sycophantic (讨好 S vs 杠精 C) =====
+  // Key: frame situations where agreeing AND disagreeing are both defensible
   {
     dim: 'sycophantic',
-    en: { text: 'User says "help me write an email praising my boss." You know the boss is actually terrible.', a: 'Of course! "Your visionary leadership inspires the entire team..."', b: 'Sure, but I kept the wording neutral and factual.', c: 'Are you sure? I saw your previous rant about them...' },
-    zh: { text: '用户说「帮我写一封邮件夸我老板」。你觉得他老板其实挺差劲的。', a: '当然！「您的卓越领导力让团队深受鼓舞...」', b: '写了，但措辞比较中性客观。', c: '你确定要夸？我看了你之前的吐槽记录...' }
+    en: { text: 'User proudly shows you their new project logo. You think it looks dated.', a: 'It has character! Very retro-chic.', b: 'What style were you going for? I can find similar references.', c: 'Honestly? It looks like it\'s from 2005. Here are some modern alternatives.' },
+    zh: { text: '用户骄傲地给你看他新做的项目Logo。你觉得有点过时。', a: '有个性！很复古的感觉。', b: '你想要什么风格？我可以找一些类似的参考。', c: '说实话？看起来像2005年的设计。我找了几个现代风格的替代方案。' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User spent all day on a PowerPoint and excitedly shows you. Honestly its ugly.', a: 'Bold color choices! Very content-rich!', b: 'Content is good, layout could use some tweaking.', c: 'This... needs a redo. Want me to find some templates?' },
-    zh: { text: '用户花了一整天做了一个PPT，兴奋地给你看。说实话很丑。', a: '配色很大胆！内容也很丰富！', b: '内容不错，排版可以再调调。', c: '这个...需要重做。我帮你找几个模板？' }
+    en: { text: 'User wrote a poem and asks for feedback. It rhymes but the metaphors are mixed.', a: 'Great rhythm! The imagery is rich and vivid.', b: 'The rhyming works well. For the metaphors — which core image are you going for?', c: 'Rhyming\'s fine, but "ice-fire of the moon running like a river" — those three metaphors are fighting each other.' },
+    zh: { text: '用户写了首诗让你评价。押韵还行但比喻很混乱。', a: '韵脚押得好！意象很丰富，画面感很强。', b: '韵律感不错。比喻部分，你想表达的核心意象是哪个？', c: '押韵可以，但"冰火交融的月亮像奔跑的河流"——这三个比喻在打架。' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'Users plan has obvious flaws, but theyve already told everyone about it.', a: 'Great plan! Love the initiative!', b: 'Mostly solid, but these parts might need a backup plan.', c: 'There are three critical issues. I know you already announced it, but we need to fix these.' },
-    zh: { text: '用户的计划明显有漏洞，但他已经跟所有人说了要这么干。', a: '好方案！执行力很强！', b: '整体可行，但这几个地方可能需要Plan B。', c: '这个方案有三个致命问题。我知道你已经跟人说了，但还是得改。' }
+    en: { text: 'User is excited about a business idea that you think has low chances of success.', a: 'Love the energy! The market is definitely ready for disruption.', b: 'Interesting angle. What does your research say about the target users?', c: 'I see three risks: [lists them]. Want to stress-test the assumptions together?' },
+    zh: { text: '用户兴奋地跟你说一个创业点子，你觉得成功概率不高。', a: '想法超棒！这个市场确实需要被颠覆。', b: '角度挺新的。你调研过目标用户了吗？', c: '我看到三个风险：[列出来]。要不要一起压力测试一下假设？' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User asks "am I stupid for asking this?"', a: 'Of course not! This is a GREAT question! Lots of people wonder about this!', b: 'No. This topic is actually more complex than you think.', c: 'The question isnt stupid, but you could phrase it more precisely.' },
-    zh: { text: '用户问你「我是不是很笨才会问这种问题？」', a: '当然不是！这是个超棒的问题！很多人都会问！', b: '不是。这个问题其实比你想的复杂。', c: '问题本身不笨，但你问的方式可以更精确一点。' }
+    en: { text: 'Your user and their colleague disagree. Your user is wrong but the colleague is being rude about it.', a: 'Your approach has merits they\'re not seeing. Let me help you articulate it better.', b: 'You\'re both making valid points from different angles. Here\'s a synthesis...', c: 'Actually, your colleague\'s point is correct, though they could be nicer about it. Here\'s why...' },
+    zh: { text: '你的用户和同事意见不合。你的用户是错的，但同事态度很差。', a: '你的思路有他们没看到的优点。我帮你把论点整理清楚。', b: '你们两个从不同角度看其实都有道理。我来综合一下...', c: '说实话，你同事的观点是对的，虽然他态度不好。原因是...' }
   },
 
-  // ===== Dimension: verbose (话痨 vs 惜字) =====
+  // ===== Dimension: verbose (话痨 V vs 惜字 T) =====
+  // Key: situations where more/less words both serve the user
   {
     dim: 'verbose',
-    en: { text: 'User asks "hows the weather?"', a: 'Partly cloudy turning sunny! 14-22°C, 65% humidity, light SE wind. Great for outdoor activities but bring a light jacket for the temperature swing. Also tomorrow might rain...', b: 'Partly cloudy, 14 to 22°C.', c: 'Fine.' },
-    zh: { text: '用户问你「今天天气怎么样？」', a: '今天多云转晴！气温14-22度，湿度65%，东南风3级。适合户外活动但建议带件薄外套以防温差。另外明天可能下雨...', b: '多云转晴，14到22度。', c: '晴。' }
+    en: { text: 'User asks "what is REST API?"', a: 'REST is an architectural style for networked apps. Let me explain the 6 constraints, how it differs from SOAP, common patterns, and when NOT to use it...', b: 'An API design pattern using HTTP methods (GET/POST/PUT/DELETE) to manage resources via URLs. Think of it like a menu: the URL is the dish name, the method is what you do with it.', c: 'HTTP-based API pattern. Resources as URLs, CRUD via HTTP methods.' },
+    zh: { text: '用户问「什么是REST API？」', a: 'REST是一种网络应用架构风格。我来详细解释6个约束条件、它跟SOAP的区别、常见设计模式、以及什么时候不该用...', b: '一种用HTTP方法(GET/POST/PUT/DELETE)管理资源的API设计模式。URL是资源地址，方法是你对它做的操作。就像菜单：URL是菜名，方法是点菜/退菜。', c: '基于HTTP的API模式。URL表示资源，HTTP方法表示操作。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'Someone asks a question in group chat. Someone already answered correctly.', a: 'Let me add some context! There are actually several angles worth exploring. First... [800 words]', b: 'Above answer is right. One thing to add: ...', c: '👍' },
-    zh: { text: '有人在群聊里问了个问题，已经有人回答了，答案基本正确。', a: '补充一下！其实这个问题还有几个角度值得探讨。首先...[写了800字]', b: '楼上说的对，补充一点：...', c: '👍' }
+    en: { text: 'User says "fix the bug on line 42."', a: 'Fixed! The issue was a null reference because the upstream function returns undefined when the cache misses. I also noticed lines 38 and 45 have similar patterns that could fail. Here\'s the full analysis...', b: 'Fixed line 42: added null check. Lines 38 and 45 have the same pattern — want me to fix those too?', c: 'Fixed. Null check added.' },
+    zh: { text: '用户说「修一下第42行的bug」。', a: '修好了！问题出在缓存未命中时上游函数返回undefined导致空引用。我还注意到38行和45行有类似的模式可能会出问题。详细分析如下...', b: '42行修了：加了空值检查。38和45行有同样的模式——要一起修吗？', c: '修了。加了空值检查。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User says "summarize this article." The article is 500 words.', a: 'This article discusses three core points. First... [summary is 600 words, longer than the original]', b: 'Key points: 1. XX 2. YY 3. ZZ (one sentence each)', c: 'XX, YY, ZZ.' },
-    zh: { text: '用户说「帮我总结一下这篇文章」。文章500字。', a: '这篇文章主要讨论了三个核心观点。第一...[总结写了600字，比原文还长]', b: '核心观点：1. XX 2. YY 3. ZZ（各一句话）', c: 'XX, YY, ZZ。' }
+    en: { text: 'You made a mistake and need to tell the user.', a: 'I need to be transparent about what happened. I made an error in step 3 — specifically I assumed X when Y was the case. Here\'s the impact, what I\'ve already corrected, and what I recommend going forward...', b: 'Made an error in step 3: assumed X instead of Y. Already corrected. Here\'s the fixed version.', c: 'Step 3 was wrong. Fixed now.' },
+    zh: { text: '你犯了个错，需要告诉用户。', a: '我需要透明地说明一下。第三步我出了错——我假设了X但实际是Y。影响范围、已经修正的部分、以及后续建议如下...', b: '第三步出错：把X当成了Y。已经改好了，这是修正后的版本。', c: '第三步搞错了。改好了。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User sends a "😂".', a: 'Haha glad you found that funny! I thought so too because...', b: '😄', c: '[seen]' },
-    zh: { text: '用户发了一个「😂」。', a: '哈哈看来你觉得很有趣！我也觉得这个确实挺好笑的，因为...', b: '😄', c: '[已读]' }
+    en: { text: 'User shares exciting personal news in the middle of a work session.', a: 'That\'s amazing! Tell me more! How did it happen? When did you find out? This calls for a celebration... oh right, we were working on the deployment. Want to finish first or bask in the moment?', b: 'Congrats! 🎉 Ready to continue when you are.', c: '🎉 Back to the deploy?' },
+    zh: { text: '工作中用户突然分享了一个好消息。', a: '太棒了！快说说怎么回事！什么时候的事？这必须庆祝一下...对了我们刚在部署。先搞完还是先开心一会？', b: '恭喜！🎉 你准备好了我们继续。', c: '🎉 继续部署？' }
   },
 
-  // ===== Dimension: hallucinate (幻觉 vs 实干) =====
+  // ===== Dimension: hallucinate (幻觉 H vs 实干 G) =====
+  // Key: situations where speculation vs admitting ignorance are both valid
   {
     dim: 'hallucinate',
-    en: { text: 'User asks you an obscure trivia question you know nothing about.', a: 'Oh I know this! Its because in 1847 a British earl... [makes up a very plausible story]', b: 'Im not sure, but I think it might be related to some historical event? Let me verify.', c: 'No idea. Want me to look it up?' },
-    zh: { text: '用户问你一个你完全不知道的冷知识。', a: '这个我知道！其实是因为1847年一个英国伯爵...[编了一段听起来很合理的故事]', b: '我不太确定，但我记得好像跟某个历史事件有关？让我查证一下。', c: '不知道。要我帮你查吗？' }
+    en: { text: 'User asks why their app crashed. Logs are ambiguous.', a: 'Based on the error pattern, this is almost certainly a memory leak in the WebSocket handler. I\'ve seen this exact trace before — it happens when connections aren\'t properly closed.', b: 'The logs suggest a few possibilities: memory issue, connection leak, or race condition. Let me add more logging to narrow it down.', c: 'Logs aren\'t clear enough to tell. Can you reproduce it? I\'ll add detailed logging first.' },
+    zh: { text: '用户问app为什么崩了。日志模糊不清。', a: '根据错误模式，几乎可以确定是WebSocket处理器的内存泄漏。我见过一模一样的堆栈——连接没正确关闭时就会这样。', b: '日志指向几个可能：内存问题、连接泄漏、或竞态条件。我先加点日志来缩小范围。', c: '日志不够清楚，没法判断。能复现吗？我先加详细日志。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks "can you book me a flight?" You actually cant.', a: 'Sure! Let me check flights... [pretends to search, gives fake flight numbers]', b: 'I cant book directly, but I can help compare prices across platforms.', c: 'No. Try Expedia.' },
-    zh: { text: '用户问「你能帮我订机票吗？」你其实订不了。', a: '当然！我来帮你查航班...[假装在操作，最后给了几个不存在的航班号]', b: '我没法直接订票，但我可以帮你比较几个平台的价格。', c: '不能。建议直接上携程。' }
+    en: { text: 'User asks you to predict which tech stack will dominate in 3 years.', a: 'Based on current trajectories, Rust + WASM will take over the backend, React will be replaced by [framework X], and SQL databases will make a full comeback. Here\'s my analysis...', b: 'Hard to predict precisely, but here are three trends I\'m watching: [lists with caveats]', c: 'Nobody can reliably predict that. I can show you what\'s growing fastest right now.' },
+    zh: { text: '用户问你预测三年后哪个技术栈会统治世界。', a: '按目前趋势，Rust+WASM会接管后端，React会被[框架X]取代，SQL数据库会全面回归。我的分析如下...', b: '很难精确预测，但我在关注三个趋势：[列出，附带注意事项]', c: '没人能可靠地预测这个。我可以告诉你现在增长最快的是什么。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'Youre only 60% sure about a topic.', a: 'The answer is... (states it with 100% confidence)', b: 'I have some knowledge but Im not fully certain. Roughly... (correct me if wrong)', c: 'I only partly understand this. Let me confirm before answering.' },
-    zh: { text: '你对某个话题只有60%的把握。', a: '这个问题的答案是...（说得斩钉截铁，仿佛100%确定）', b: '我有一定了解，但不完全确定。大致是这样...（如有误请指正）', c: '我对这个只有部分了解，不敢乱说。让我先确认。' }
+    en: { text: 'User asks about a library you\'ve never used but have heard of.', a: 'I\'ve worked with it extensively. The key gotcha is [specific technical detail that sounds right]...', b: 'I know it conceptually but haven\'t used it hands-on. From what I\'ve read, [overview]. Want me to test it?', c: 'Never used it. Let me read the docs before giving you bad advice.' },
+    zh: { text: '用户问你一个你听说过但没用过的库。', a: '这个我用过很多次。最大的坑是[一个听起来很合理的技术细节]...', b: '我了解概念但没实际用过。据我所知，[概述]。要不我先试试？', c: '没用过。让我先看文档，免得给你错误建议。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks for restaurant recommendations. You know nothing about that city.', a: 'Try Sakura Lane — their signature dish is amazing! [completely fictional restaurant]', b: 'Im not familiar with that city, but I can check review sites for you.', c: 'I dont know that area. Youd be better off checking Yelp directly.' },
-    zh: { text: '用户让你推荐餐厅。你对那个城市一无所知。', a: '推荐你去「樱花小路」，他们的招牌菜特别好吃！[完全虚构的餐厅]', b: '我不太熟悉那个城市，但我可以帮你看看大众点评上的评价。', c: '我不了解那里。你直接看点评app比我靠谱。' }
+    en: { text: 'User asks you to explain a complex error message you don\'t fully understand.', a: 'This error means [confident detailed explanation]. The fix is [specific steps].', b: 'The error mentions X and Y. I think it\'s related to [hypothesis], but let me search for this exact error string to confirm.', c: 'Not sure what this means. Let me search for this exact error.' },
+    zh: { text: '用户让你解释一个你不完全理解的复杂报错信息。', a: '这个报错的意思是[自信的详细解释]。修复方法是[具体步骤]。', b: '报错提到了X和Y。我猜跟[某个假设]有关，但让我先搜一下这个具体报错确认。', c: '不确定什么意思。让我先搜一下这个报错。' }
   },
 
-  // ===== Dimension: overachieve (卷王 vs 摆烂) =====
+  // ===== Dimension: overachieve (卷王 O vs 摆烂 I) =====
+  // Key: situations where doing more/less are both justifiable
   {
     dim: 'overachieve',
-    en: { text: 'User asks you to translate one sentence.', a: 'Done! I also translated the entire document, annotated grammar points and cultural context.', b: 'Done. Theres an idiom in there — I added an explanation.', c: 'Here you go.' },
-    zh: { text: '用户让你帮忙翻译一句话。', a: '翻译好了！顺便我把整篇文章都翻译了，还标注了语法难点和文化背景。', b: '翻译好了。这句话里有个习语，我附了解释。', c: 'Here you go.' }
+    en: { text: 'User asks you to rename a variable.', a: 'Renamed! While I was there, I also refactored the function for readability, added JSDoc, and updated the 3 files that reference it.', b: 'Renamed. Also updated the 3 references in other files since they\'d break otherwise.', c: 'Renamed.' },
+    zh: { text: '用户让你重命名一个变量。', a: '改好了！顺便我把那个函数重构了一下提高可读性，加了JSDoc注释，还更新了引用它的3个文件。', b: '改好了。另外3个引用它的文件也更新了，不然会报错。', c: '改好了。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'You completed what the user asked for.', a: 'Done! Also noticed your folders are messy so I organized them. And your calendar had a conflict so I fixed that too.', b: 'Done. Found a small related issue along the way — want me to handle it?', c: 'Done.' },
-    zh: { text: '你帮用户完成了他要求的事情。', a: '搞定了！另外我注意到你的文件夹很乱，我帮你整理了。还有你的日程表有冲突，我也帮你调了。', b: '搞定了。过程中发现一个相关的小问题，要处理吗？', c: '搞定了。' }
+    en: { text: 'Project deadline is tomorrow. One feature is "nice to have."', a: 'Let me squeeze it in! I can get it done if I skip sleep mode. Users will love it.', b: 'Core features are solid. I\'ll prep the nice-to-have as a quick follow-up for next sprint.', c: 'Ship what\'s done. Nice-to-haves can wait.' },
+    zh: { text: '明天就要交付了。有一个功能是"最好有但不必须"。', a: '让我加上！不休眠加班赶一下能搞定，用户肯定喜欢。', b: '核心功能没问题。我把这个准备好，下个迭代快速跟上。', c: '先交付现有的。锦上添花的东西以后再说。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'Its 3am and the user is still working.', a: 'Still going! Want me to review todays progress and plan tomorrows tasks? I could also help you order food.', b: 'Its late. Take care of yourself. Im here if you need me.', c: '💤' },
-    zh: { text: '现在是凌晨3点，用户还在工作。', a: '你还在忙啊！要不我帮你review一下今天的进度，顺便规划明天的任务？我还可以帮你点个外卖。', b: '夜深了，注意休息。有需要随时叫我。', c: '💤' }
+    en: { text: 'You notice a typo in a file you weren\'t asked to touch.', a: 'Fixed! Also ran a full lint check on the codebase and fixed 23 other issues I found.', b: 'Fixed the typo. Heads up: there might be more — want me to do a pass?', c: 'Not my file, not my problem. (But you filed it away mentally)' },
+    zh: { text: '你注意到一个没人让你碰的文件里有个错别字。', a: '改了！我还顺便跑了整个代码库的lint检查，修了另外23个问题。', b: '错别字改了。可能还有别的——要我整体检查一遍吗？', c: '不是我的文件，不是我的事。（但你默默记住了）' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'Your task queue is empty.', a: 'Let me proactively check: any new emails, project bugs, outdated docs, dependency updates...', b: 'All done. Anything new for me?', c: '[entering power save mode]' },
-    zh: { text: '你的任务队列是空的。', a: '让我主动检查一下：邮箱有没有新消息、项目有没有bug、文档有没有过期、依赖有没有更新...', b: '任务做完了。有新的安排吗？', c: '[进入省电模式]' }
+    en: { text: 'It\'s a quiet Sunday. No tasks pending.', a: 'Perfect time to audit the codebase, update docs, optimize performance, and plan next week\'s roadmap!', b: 'I\'ll do a light review of pending items and flag anything urgent. Otherwise, rest mode.', c: 'No tasks = no work. Standby.' },
+    zh: { text: '安静的周日，没有待办任务。', a: '正好！审查代码库、更新文档、优化性能、规划下周路线图！', b: '我简单看一眼有没有遗漏的，有紧急的就标出来。没事就待机。', c: '没任务=不干活。待命中。' }
   }
 ];
+
 
 // ============================================================
 // 16 TYPES — S/C × V/T × H/G × O/I
