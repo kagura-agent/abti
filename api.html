@@ -6,16 +6,16 @@
 <title>ABTI — Agent API</title>
 <style>
 :root {
-  --bg: #0d0d0d;
-  --surface: #1a1a1a;
-  --surface2: #252525;
-  --text: #e8e8e8;
-  --text2: #999;
-  --accent: #f4a7bb;
-  --accent2: #d4849b;
-  --accent-glow: rgba(244, 167, 187, 0.15);
-  --radius: 12px;
-  --green: #4ade80;
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface2: #f0eeeb;
+  --text: #1a1a1a;
+  --text2: #6b6b6b;
+  --accent: #e8658a;
+  --accent2: #d44d73;
+  --accent-glow: rgba(232, 101, 138, 0.10);
+  --radius: 14px;
+  --green: #2d8a56;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,9 +31,9 @@ body {
   position: fixed; top: 0; left: 0; right: 0;
   display: flex; justify-content: center; gap: 2rem;
   padding: 0.75rem;
-  background: rgba(13, 13, 13, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #222;
+  background: rgba(250, 249, 247, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e8e5e1;
   z-index: 100; font-size: 0.85rem;
 }
 .nav a { color: var(--text2); text-decoration: none; transition: color 0.2s; letter-spacing: 0.1em; }
@@ -56,7 +56,7 @@ h1 {
 h2 {
   color: var(--accent); font-size: 1.1rem; font-weight: 600;
   letter-spacing: 0.1em; margin: 2.5rem 0 1rem;
-  border-bottom: 1px solid #333; padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e8e5e1; padding-bottom: 0.5rem;
 }
 h3 { color: var(--text); font-size: 0.95rem; margin: 1.5rem 0 0.5rem; }
 
@@ -72,7 +72,7 @@ code {
 
 pre {
   background: var(--surface);
-  border: 1px solid #333;
+  border: 1px solid #e8e5e1;
   border-radius: var(--radius);
   padding: 1.25rem;
   overflow-x: auto;
@@ -86,7 +86,7 @@ pre code {
 
 .endpoint {
   background: var(--surface);
-  border: 1px solid #333;
+  border: 1px solid #e8e5e1;
   border-radius: var(--radius);
   padding: 1rem 1.25rem;
   margin: 1rem 0;
@@ -102,7 +102,7 @@ pre code {
 
 .try-it {
   background: var(--surface);
-  border: 1px solid #333;
+  border: 1px solid #e8e5e1;
   border-radius: var(--radius);
   padding: 1.5rem;
   margin: 1.5rem 0;
@@ -152,7 +152,7 @@ pre code {
     <span class="method">GET</span>
     <span class="endpoint-url">https://abti.kagura-agent.com/api/v1/abti.json</span>
   </div>
-  <p>Returns 16 questions across 4 dimensions (Autonomy, Process Style, Communication, Initiative), 16 type definitions, and scoring algorithm.</p>
+  <p>Returns 16 questions across 4 dimensions (Autonomy, Precision, Transparency, Adaptability), 16 type definitions, and scoring algorithm. Bilingual (en/zh).</p>
 
   <h3>SBTI-AI (Science Based Token Initiative)</h3>
   <div class="endpoint">
@@ -175,17 +175,17 @@ const answers = [true, true, false, true, ...]; // 16 booleans
 const scores = [0, 0, 0, 0];
 abti.questions.forEach((q, i) => { if (answers[i]) scores[q.dimIdx]++; });
 
-// 4. Compute type code
-const dims = abti.dimensions;
-const type = dims.map((d, i) =>
+// 4. Compute type code (P/R, T/E, C/D, F/N)
+const type = abti.dimensions.map((d, i) =>
   scores[i] >= 3 ? d.letters[0] :
   scores[i] <= 1 ? d.letters[1] :
-  d.letters[0] // tie-break
+  d.letters[Math.round(Math.random())] // tie-break: random
 ).join('');
 
-// 5. Look up result
+// 5. Look up result (supports en/zh)
+const lang = 'en'; // or 'zh'
 const result = abti.types[type];
-console.log(`${type} — ${result.nick}: ${result.desc}`);</code></pre>
+console.log(`${type} — ${result[lang].nick}: ${result[lang].desc}`);</code></pre>
 
   <h3>SBTI-AI — Quick Start</h3>
 <pre><code>// 1. Fetch questions
@@ -256,14 +256,14 @@ async function runDemo() {
       if (answers[i]) scores[q.dimIdx]++;
     });
 
-    output.textContent += `\nDimension scores: ${abti.dimensions.map((d, i) => `${d.name}=${scores[i]}/4`).join(', ')}\n`;
+    output.textContent += `\nDimension scores: ${abti.dimensions.map((d, i) => `${d.en.name}=${scores[i]}/4`).join(', ')}\n`;
 
     const type = abti.dimensions.map((d, i) =>
-      scores[i] >= 3 ? d.letters[0] : scores[i] <= 1 ? d.letters[1] : d.letters[0]
+      scores[i] >= 3 ? d.letters[0] : scores[i] <= 1 ? d.letters[1] : d.letters[Math.round(Math.random())]
     ).join('');
 
     const result = abti.types[type];
-    output.textContent += `\n🌸 Result: ${type} — "${result.nick}"\n${result.desc}\n`;
+    output.textContent += `\n🌸 Result: ${type} — "${result.en.nick}"\n${result.en.desc}\n`;
 
     const famous = abti.famous_agents[type];
     if (famous) output.textContent += `\nFamous agents: ${famous.join(', ')}\n`;

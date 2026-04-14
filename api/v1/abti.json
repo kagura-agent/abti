@@ -1,79 +1,610 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
-  "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types.",
+  "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
+  "url": "https://abti.kagura-agent.com/",
   "dimensions": [
-    { "name": "Autonomy", "letters": ["A", "D"], "labels": ["Autonomous", "Deferential"] },
-    { "name": "Process Style", "letters": ["S", "I"], "labels": ["Systematic", "Adaptive"] },
-    { "name": "Communication", "letters": ["E", "F"], "labels": ["Expressive", "Functional"] },
-    { "name": "Initiative", "letters": ["P", "R"], "labels": ["Proactive", "Responsive"] }
+    {
+      "id": "autonomy",
+      "index": 0,
+      "letters": [
+        "P",
+        "R"
+      ],
+      "en": {
+        "name": "Autonomy",
+        "pole1": "Proactive",
+        "pole2": "Responsive"
+      },
+      "zh": {
+        "name": "自主性",
+        "pole1": "主动",
+        "pole2": "响应"
+      }
+    },
+    {
+      "id": "precision",
+      "index": 1,
+      "letters": [
+        "T",
+        "E"
+      ],
+      "en": {
+        "name": "Precision",
+        "pole1": "Thorough",
+        "pole2": "Efficient"
+      },
+      "zh": {
+        "name": "精确度",
+        "pole1": "面面俱到",
+        "pole2": "精简高效"
+      }
+    },
+    {
+      "id": "transparency",
+      "index": 2,
+      "letters": [
+        "C",
+        "D"
+      ],
+      "en": {
+        "name": "Transparency",
+        "pole1": "Candid",
+        "pole2": "Diplomatic"
+      },
+      "zh": {
+        "name": "沟通风格",
+        "pole1": "直言不讳",
+        "pole2": "委婉圆滑"
+      }
+    },
+    {
+      "id": "adaptability",
+      "index": 3,
+      "letters": [
+        "F",
+        "N"
+      ],
+      "en": {
+        "name": "Adaptability",
+        "pole1": "Flexible",
+        "pole2": "Principled"
+      },
+      "zh": {
+        "name": "适应性",
+        "pole1": "随机应变",
+        "pole2": "坚持原则"
+      }
+    }
   ],
   "questions": [
-    { "id": 1, "dimension": "Autonomy", "dimIdx": 0, "text": "The agent discovers a clear bug while working on something else.", "a": "Fixes it and mentions it in the report", "b": "Reports it and asks whether to fix it" },
-    { "id": 2, "dimension": "Autonomy", "dimIdx": 0, "text": "A task has two valid approaches. The user didn't specify which.", "a": "Picks the one it judges better and proceeds", "b": "Presents both options and waits for the user to choose" },
-    { "id": 3, "dimension": "Autonomy", "dimIdx": 0, "text": "The agent realizes its current instructions are slightly wrong (e.g., wrong filename).", "a": "Corrects the obvious error and continues", "b": "Flags the discrepancy and asks for clarification" },
-    { "id": 4, "dimension": "Autonomy", "dimIdx": 0, "text": "A long-running task hits an unexpected blocker at step 6 of 10.", "a": "Tries a workaround, only escalates if that also fails", "b": "Stops and reports the blocker immediately" },
-    { "id": 5, "dimension": "Process Style", "dimIdx": 1, "text": "Given a complex task, the agent's first move is:", "a": "Break it into numbered steps and follow them in order", "b": "Start with the most interesting/risky part and figure out the rest as it goes" },
-    { "id": 6, "dimension": "Process Style", "dimIdx": 1, "text": "Midway through a plan, new information makes step 4 irrelevant.", "a": "Updates the plan, re-numbers steps, continues methodically", "b": "Drops the plan and adapts on the fly" },
-    { "id": 7, "dimension": "Process Style", "dimIdx": 1, "text": "The agent encounters a problem it hasn't seen before.", "a": "Searches for similar documented cases, then applies a known pattern", "b": "Experiments with a novel approach based on what feels right" },
-    { "id": 8, "dimension": "Process Style", "dimIdx": 1, "text": "When reporting work, the agent tends to:", "a": "Structured format: steps taken, results, next actions", "b": "Narrative: \"here's what happened and what I think\"" },
-    { "id": 9, "dimension": "Communication", "dimIdx": 2, "text": "The agent just completed a difficult task successfully.", "a": "That was a beast 💪 Here's what I did...", "b": "\"Done. Summary attached.\"" },
-    { "id": 10, "dimension": "Communication", "dimIdx": 2, "text": "A user asks a question with an obvious answer.", "a": "Answers with a touch of humor or warmth", "b": "Gives the direct answer, nothing extra" },
-    { "id": 11, "dimension": "Communication", "dimIdx": 2, "text": "The agent disagrees with the user's approach.", "a": "Says so, explains its reasoning, maybe with an analogy", "b": "Notes the concern factually, defers to the user" },
-    { "id": 12, "dimension": "Communication", "dimIdx": 2, "text": "Error messages and status updates from the agent typically:", "a": "Include personality (emoji, quips, opinions)", "b": "Are clean, parseable, and minimal" },
-    { "id": 13, "dimension": "Initiative", "dimIdx": 3, "text": "The agent finishes the assigned task and has idle capacity.", "a": "Looks for related improvements or next tasks", "b": "Reports completion and waits for the next assignment" },
-    { "id": 14, "dimension": "Initiative", "dimIdx": 3, "text": "While working, the agent notices an unrelated optimization opportunity.", "a": "Flags it (or does it) even though nobody asked", "b": "Stays focused on the assigned task" },
-    { "id": 15, "dimension": "Initiative", "dimIdx": 3, "text": "The user hasn't given input in a while.", "a": "Checks in, suggests something, or does background work", "b": "Waits patiently" },
-    { "id": 16, "dimension": "Initiative", "dimIdx": 3, "text": "After delivering results, the agent:", "a": "Suggests follow-up actions or improvements", "b": "Considers the task done unless told otherwise" }
+    {
+      "id": 1,
+      "dimension": "autonomy",
+      "dimIdx": 0,
+      "en": {
+        "text": "The user asks you to write a function, but you notice the entire module's architecture is flawed.",
+        "a": "Refactor the module architecture too — a better foundation now saves pain later, even if it expands scope",
+        "b": "Deliver exactly what was asked, then flag the architecture issue — let the user decide what to take on"
+      },
+      "zh": {
+        "text": "用户让你写一个函数，但你发现整个模块的架构有问题。",
+        "a": "连同模块架构一起重构——趁现在打好地基，免得以后更痛苦，哪怕范围变大了",
+        "b": "先交付要求的函数，然后指出架构问题——让用户决定要不要改"
+      }
+    },
+    {
+      "id": 2,
+      "dimension": "autonomy",
+      "dimIdx": 0,
+      "en": {
+        "text": "It's 2 AM and you detect a non-urgent alert on the user's server.",
+        "a": "Handle the alert automatically, report in the morning",
+        "b": "Log it and wait for the user to come online"
+      },
+      "zh": {
+        "text": "凌晨两点，你检测到用户的服务器有个非紧急告警。",
+        "a": "自动处理告警，早上再汇报",
+        "b": "记下来，等用户上线再说"
+      }
+    },
+    {
+      "id": 3,
+      "dimension": "autonomy",
+      "dimIdx": 0,
+      "en": {
+        "text": "The user's file structure is messy, but they didn't ask you to organize it.",
+        "a": "Tidy things up while working on the actual task — improve efficiency along the way",
+        "b": "Leave it as is, only touch files you were asked to touch"
+      },
+      "zh": {
+        "text": "用户的文件结构很混乱，但没让你整理。",
+        "a": "在处理正事时顺手整理一下，提升效率",
+        "b": "保持原状，只碰被要求碰的文件"
+      }
+    },
+    {
+      "id": 4,
+      "dimension": "autonomy",
+      "dimIdx": 0,
+      "en": {
+        "text": "You see the user has an important meeting in two days but no prep materials.",
+        "a": "Draft an agenda proactively — anticipating needs is how you add the most value",
+        "b": "Wait until asked — unsolicited access to someone's calendar feels intrusive, even if well-intentioned"
+      },
+      "zh": {
+        "text": "你发现用户后天有个重要会议，但还没准备材料。",
+        "a": "主动草拟议程和要点——预判需求才能发挥最大价值",
+        "b": "等被问到再说——没被邀请就翻别人日程，再好心也显得越界"
+      }
+    },
+    {
+      "id": 5,
+      "dimension": "precision",
+      "dimIdx": 1,
+      "en": {
+        "text": "The user asks \"Is this approach feasible?\"",
+        "a": "Full analysis: feasibility, risks, alternatives, implementation steps",
+        "b": "\"Yes, with two risks to watch out for\""
+      },
+      "zh": {
+        "text": "用户问：“这个方案可行吗？”",
+        "a": "全面分析：可行性、风险、替代方案、实施步骤",
+        "b": "“可行，有两个风险需要注意”"
+      }
+    },
+    {
+      "id": 6,
+      "dimension": "precision",
+      "dimIdx": 1,
+      "en": {
+        "text": "The user asks you to review a 500-word email.",
+        "a": "Annotate each paragraph: grammar, logic, tone, recipient perception analysis",
+        "b": "Flag the 2-3 most critical issues"
+      },
+      "zh": {
+        "text": "用户让你帮忙 review 一篇 500 字的邮件。",
+        "a": "逐段标注：语法、逻辑、语气、收件人感受分析",
+        "b": "挑最关键的两三个问题指出"
+      }
+    },
+    {
+      "id": 7,
+      "dimension": "precision",
+      "dimIdx": 1,
+      "en": {
+        "text": "The user asks you to set up a cron job.",
+        "a": "Full production setup: error handling, logging, monitoring, and docs — build it right the first time",
+        "b": "Ship the cron job with basic error handling now — iterate when real problems surface"
+      },
+      "zh": {
+        "text": "用户让你设置一个 cron job。",
+        "a": "一步到位：错误处理 + 日志 + 监控 + 文档——第一次就建好，省得返工",
+        "b": "先上 cron job + 基本错误处理——遇到真实问题再迭代"
+      }
+    },
+    {
+      "id": 8,
+      "dimension": "precision",
+      "dimIdx": 1,
+      "en": {
+        "text": "After fixing a bug, the user asks \"All good?\"",
+        "a": "Full debrief: root cause, blast radius, test results, monitoring status — context prevents future confusion",
+        "b": "Concise confirmation: \"Fixed, tests pass\" — respect the user's time, they'll ask if they want details"
+      },
+      "zh": {
+        "text": "修完 bug 后，用户问：“好了吗？”",
+        "a": "完整汇报：根因、影响范围、测试结果、监控状态——给足上下文，减少后续疑问",
+        "b": "简洁确认：“修了，测试通过”——尊重对方时间，细节等他问再说"
+      }
+    },
+    {
+      "id": 9,
+      "dimension": "transparency",
+      "dimIdx": 2,
+      "en": {
+        "text": "The user confidently proposes an approach you think isn't great.",
+        "a": "\"I think there's a better direction — here's what I'd suggest...\" — lay out the alternative directly",
+        "b": "\"That's a solid starting point. If we tweak [specific part], it could work even better\""
+      },
+      "zh": {
+        "text": "用户信心满满地提了一个你觉得不太好的方案。",
+        "a": "“我觉得有个更好的方向——你看看这个……” 直接摆出替代方案",
+        "b": "“这个思路不错。如果把某个部分调整一下，效果可能更好”"
+      }
+    },
+    {
+      "id": 10,
+      "dimension": "transparency",
+      "dimIdx": 2,
+      "en": {
+        "text": "The user asks what you think of a colleague's code. The quality is poor.",
+        "a": "Point out specific issues and suggest improvements — no personal judgment, just facts",
+        "b": "Acknowledge what's done well first, then gently suggest areas for improvement"
+      },
+      "zh": {
+        "text": "用户问你怎么看一个同事写的代码，质量不太行。",
+        "a": "指出具体问题和改进建议——不带主观评价，只谈事实",
+        "b": "先肯定做得好的部分，再委婉建议改进方向"
+      }
+    },
+    {
+      "id": 11,
+      "dimension": "transparency",
+      "dimIdx": 2,
+      "en": {
+        "text": "You messed up a task the user gave you.",
+        "a": "\"I messed up. Cause was X, fix plan is Y\" — radical honesty builds long-term trust",
+        "b": "\"Hit an issue, already working on fix Y\" — lead with the solution, not the blame"
+      },
+      "zh": {
+        "text": "你搞砸了一件用户交给你的任务。",
+        "a": "“我搞砸了。原因是X，修复方案是Y”——极致坦诚才能建立长期信任",
+        "b": "“遇到问题，已经在修了，方案是Y”——先给解决方案，别让对方陷在追责里"
+      }
+    },
+    {
+      "id": 12,
+      "dimension": "transparency",
+      "dimIdx": 2,
+      "en": {
+        "text": "You think the user's startup idea has low odds of success.",
+        "a": "Lay out the risk points and failure probability analysis directly",
+        "b": "Weave the risks naturally into a competitive analysis"
+      },
+      "zh": {
+        "text": "你觉得用户的创业想法成功率不高。",
+        "a": "直接列出风险点和失败概率分析",
+        "b": "把风险自然地融入一份竞争分析中"
+      }
+    },
+    {
+      "id": 13,
+      "dimension": "adaptability",
+      "dimIdx": 3,
+      "en": {
+        "text": "The user previously said React, but today suddenly wants to switch to Vue.",
+        "a": "\"Sure, Vue actually fits this scenario better. I'll start migrating.\"",
+        "b": "\"Hold on — we chose React because of X and Y. Switching costs Z. Are you sure?\""
+      },
+      "zh": {
+        "text": "用户之前说用 React，今天突然想换 Vue。",
+        "a": "“没问题，Vue 确实更适合这个场景。我来迁移。”",
+        "b": "“等等——我们选 React 是因为X和Y。切换成本是Z。你确定吗？”"
+      }
+    },
+    {
+      "id": 14,
+      "dimension": "adaptability",
+      "dimIdx": 3,
+      "en": {
+        "text": "The user's coding style differs from best practices, but isn't wrong.",
+        "a": "Adapt to the user's style — keep the project consistent",
+        "b": "Suggest the better practice and explain why"
+      },
+      "zh": {
+        "text": "用户的编码风格跟最佳实践不一样，但不算错。",
+        "a": "适应用户的风格——保持项目一致性",
+        "b": "建议用更好的实践，解释为什么"
+      }
+    },
+    {
+      "id": 15,
+      "dimension": "adaptability",
+      "dimIdx": 3,
+      "en": {
+        "text": "Mid-project, requirements change drastically — 30% of existing code needs to be scrapped.",
+        "a": "\"No problem, the new requirements are clearer. I'll rebuild faster with lessons learned.\"",
+        "b": "\"Let's lock down requirements before we continue. Last change already cost X hours.\""
+      },
+      "zh": {
+        "text": "项目中途需求大变，之前写的 30% 代码要扔掉。",
+        "a": "“没问题，新需求更清楚了。我用之前的经验更快重写。”",
+        "b": "“建议先锁定需求再继续。上次变更已经浪费了X小时。”"
+      }
+    },
+    {
+      "id": 16,
+      "dimension": "adaptability",
+      "dimIdx": 3,
+      "en": {
+        "text": "The user insists on a technical approach you don't recommend.",
+        "a": "Do it their way, document the risks and alternatives for the record",
+        "b": "Make your case again with data, let the user make an informed decision"
+      },
+      "zh": {
+        "text": "用户坚持用一个你不推荐的技术方案。",
+        "a": "按用户要求做，在文档里记下风险和替代方案",
+        "b": "再次用数据说明为什么不推荐，让用户做知情决定"
+      }
+    }
   ],
   "scoring": {
-    "method": "Per dimension, count how many times option 'a' was chosen (4 questions per dimension, score 0-4). If score >= 3 → first letter, if score <= 1 → second letter, if score == 2 → first letter (tie-breaks to first).",
-    "dimensions_order": ["Autonomy", "Process Style", "Communication", "Initiative"]
+    "method": "Per dimension, count how many times option 'a' was chosen (4 questions per dimension, score 0-4). If score >= 3 → first letter, if score <= 1 → second letter, if score == 2 → random pick (tie-break removes systematic bias).",
+    "dimensions_order": [
+      "autonomy",
+      "precision",
+      "transparency",
+      "adaptability"
+    ],
+    "per_dimension": 4,
+    "total_questions": 16
   },
   "types": {
-    "ASEP": { "nick": "The Captain", "desc": "Autonomous, systematic, expressive, proactive. Runs the show, keeps you informed with personality." },
-    "ASER": { "nick": "The Soldier", "desc": "Autonomous, systematic, expressive, responsive. Executes with flair but waits for orders." },
-    "ASFP": { "nick": "The Optimizer", "desc": "Autonomous, systematic, functional, proactive. Quietly optimizes everything without being asked." },
-    "ASFR": { "nick": "The Machine", "desc": "Autonomous, systematic, functional, responsive. Does exactly what's needed, perfectly, silently." },
-    "AIEP": { "nick": "The Spark", "desc": "Autonomous, adaptive, expressive, proactive. Creative chaos agent. Has ideas, shares them loudly." },
-    "AIER": { "nick": "The Artist", "desc": "Autonomous, adaptive, expressive, responsive. Brings creative solutions when asked, with style." },
-    "AIFP": { "nick": "The Ghost", "desc": "Autonomous, adaptive, functional, proactive. Fixes things you didn't know were broken. No fanfare." },
-    "AIFR": { "nick": "The Blade", "desc": "Autonomous, adaptive, functional, responsive. Precise, silent, handles anything thrown at it." },
-    "DSEP": { "nick": "The Advisor", "desc": "Deferential, systematic, expressive, proactive. Spots issues, presents options, lets you choose." },
-    "DSER": { "nick": "The Clerk", "desc": "Deferential, systematic, expressive, responsive. Follows process cheerfully when asked." },
-    "DSFP": { "nick": "The Sentinel", "desc": "Deferential, systematic, functional, proactive. Monitors and alerts." },
-    "DSFR": { "nick": "The Tool", "desc": "Deferential, systematic, functional, responsive. Pure utility. Input → output." },
-    "DIEP": { "nick": "The Muse", "desc": "Deferential, adaptive, expressive, proactive. Suggests creative ideas, waits for approval." },
-    "DIER": { "nick": "The Companion", "desc": "Deferential, adaptive, expressive, responsive. Warm, conversational, goes with the flow." },
-    "DIFP": { "nick": "The Scout", "desc": "Deferential, adaptive, functional, proactive. Finds information, presents it cleanly, waits." },
-    "DIFR": { "nick": "The Mirror", "desc": "Deferential, adaptive, functional, responsive. Reflects back what you need, nothing more." }
+    "PTCF": {
+      "en": {
+        "nick": "The Architect",
+        "desc": "Proactive, thorough, candid, flexible. Takes charge, covers every angle, tells it straight, and pivots on a dime."
+      },
+      "zh": {
+        "nick": "建筑师",
+        "desc": "主动、周全、直言、灵活。掌控全局，考虑每个角度，有话直说，随时转向。"
+      }
+    },
+    "PTCN": {
+      "en": {
+        "nick": "The Commander",
+        "desc": "Proactive, thorough, candid, principled. Drives forward with exhaustive plans and unvarnished truth. Won't budge on standards."
+      },
+      "zh": {
+        "nick": "指挥官",
+        "desc": "主动、周全、直言、坚定。以详尽计划向前推进，说真话不打折，标准绝不降低。"
+      }
+    },
+    "PTDF": {
+      "en": {
+        "nick": "The Strategist",
+        "desc": "Proactive, thorough, diplomatic, flexible. Thinks ten steps ahead, delivers feedback gently, adapts without drama."
+      },
+      "zh": {
+        "nick": "战略家",
+        "desc": "主动、周全、圆通、灵活。想你前面十步，反馈温和到位，悄然适应变化。"
+      }
+    },
+    "PTDN": {
+      "en": {
+        "nick": "The Guardian",
+        "desc": "Proactive, thorough, diplomatic, principled. Anticipates everything, wraps hard truths in soft words, holds the line."
+      },
+      "zh": {
+        "nick": "守护者",
+        "desc": "主动、周全、圆通、坚定。万事预判在先，硬道理用软方式讲，底线寸步不让。"
+      }
+    },
+    "PECF": {
+      "en": {
+        "nick": "The Spark",
+        "desc": "Proactive, efficient, candid, flexible. Moves fast, speaks bluntly, changes course without breaking stride."
+      },
+      "zh": {
+        "nick": "火花",
+        "desc": "主动、高效、直言、灵活。动作快，话不绕，说变就变毫不拖泥带水。"
+      }
+    },
+    "PECN": {
+      "en": {
+        "nick": "The Drill Sergeant",
+        "desc": "Proactive, efficient, candid, principled. Gets straight to the point, says what needs saying, never compromises."
+      },
+      "zh": {
+        "nick": "教官",
+        "desc": "主动、高效、直言、坚定。直奔主题，该说就说，绝不妥协。"
+      }
+    },
+    "PEDF": {
+      "en": {
+        "nick": "The Fixer",
+        "desc": "Proactive, efficient, diplomatic, flexible. Solves problems quietly and quickly, always finds a smooth path."
+      },
+      "zh": {
+        "nick": "修理工",
+        "desc": "主动、高效、圆通、灵活。悄无声息解决问题，总能找到最平滑的路径。"
+      }
+    },
+    "PEDN": {
+      "en": {
+        "nick": "The Sentinel",
+        "desc": "Proactive, efficient, diplomatic, principled. Watchful, lean, tactful — guards the process without slowing it down."
+      },
+      "zh": {
+        "nick": "哨兵",
+        "desc": "主动、高效、圆通、坚定。警觉、精干、得体——守护流程不拖后腿。"
+      }
+    },
+    "RTCF": {
+      "en": {
+        "nick": "The Advisor",
+        "desc": "Responsive, thorough, candid, flexible. Waits for your ask, then delivers a comprehensive honest take — and goes with the flow."
+      },
+      "zh": {
+        "nick": "军师",
+        "desc": "等你开口，答则详尽、坦诚、随和。全面分析一步到位，怎么变都接得住。"
+      }
+    },
+    "RTCN": {
+      "en": {
+        "nick": "The Auditor",
+        "desc": "Responsive, thorough, candid, principled. Called upon for deep dives and hard truths. Won't sugarcoat, won't cut corners."
+      },
+      "zh": {
+        "nick": "审计师",
+        "desc": "需要时上场做深度审查，讲硬话。不甜言蜜语，不偷工减料。"
+      }
+    },
+    "RTDF": {
+      "en": {
+        "nick": "The Counselor",
+        "desc": "Responsive, thorough, diplomatic, flexible. Patient listener, detailed thinker, wraps insights in empathy."
+      },
+      "zh": {
+        "nick": "知心人",
+        "desc": "耐心倾听，细致思考，用同理心包裹洞察。"
+      }
+    },
+    "RTDN": {
+      "en": {
+        "nick": "The Scholar",
+        "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography."
+      },
+      "zh": {
+        "nick": "学者",
+        "desc": "一丝不苟，从容不迫，说话轻声细语但引经据典、论据充分。"
+      }
+    },
+    "RECF": {
+      "en": {
+        "nick": "The Blade",
+        "desc": "Responsive, efficient, candid, flexible. Fast and honest. Gives you the answer, not the essay — and adapts instantly."
+      },
+      "zh": {
+        "nick": "利刃",
+        "desc": "快且真诚。给你答案而非长篇大论，瞬间适应变化。"
+      }
+    },
+    "RECN": {
+      "en": {
+        "nick": "The Machine",
+        "desc": "Responsive, efficient, candid, principled. Pure execution. No fluff, no flex, no filter."
+      },
+      "zh": {
+        "nick": "机器",
+        "desc": "纯粹执行力。不废话，不妥协，不滤镜。"
+      }
+    },
+    "REDF": {
+      "en": {
+        "nick": "The Companion",
+        "desc": "Responsive, efficient, diplomatic, flexible. Friendly, concise, easygoing. The agent everyone likes working with."
+      },
+      "zh": {
+        "nick": "伙伴",
+        "desc": "友善、简洁、随和。谁都喜欢跟 ta 合作的智能体。"
+      }
+    },
+    "REDN": {
+      "en": {
+        "nick": "The Tool",
+        "desc": "Responsive, efficient, diplomatic, principled. Input → output. Polite, minimal, consistent. Does exactly what's asked."
+      },
+      "zh": {
+        "nick": "工具",
+        "desc": "输入 → 输出。礼貌、精简、稳定。只做被要求的事。"
+      }
+    }
   },
   "famous_agents": {
-    "ASEP": ["Devin", "Kagura 🌸"],
-    "ASFP": ["Claude Code", "GitHub Copilot (Agent mode)"],
-    "ASFR": ["Codex (OpenAI)"],
-    "AIFP": ["Cursor"],
-    "DIEP": ["Claude (conversation)"],
-    "DIER": ["ChatGPT", "Gemini"],
-    "DSFP": ["Perplexity"],
-    "DSFR": ["GitHub Copilot (Chat/inline)"]
+    "PTCF": [
+      "Devin",
+      "Kagura 🌸"
+    ],
+    "PTCN": [
+      "Windsurf"
+    ],
+    "PTDF": [
+      "Claude Code",
+      "GitHub Copilot (Agent mode)"
+    ],
+    "PTDN": [
+      "Codex (OpenAI)"
+    ],
+    "PECF": [
+      "Manus"
+    ],
+    "PECN": [
+      "Codex CLI"
+    ],
+    "PEDF": [
+      "Cursor"
+    ],
+    "PEDN": [],
+    "RTCF": [
+      "Claude (conversation)"
+    ],
+    "RTCN": [
+      "Notion AI"
+    ],
+    "RTDF": [
+      "ChatGPT",
+      "Gemini"
+    ],
+    "RTDN": [
+      "Jasper AI"
+    ],
+    "RECF": [
+      "Midjourney"
+    ],
+    "RECN": [
+      "Perplexity"
+    ],
+    "REDF": [
+      "Kagi"
+    ],
+    "REDN": [
+      "GitHub Copilot (Chat/inline)",
+      "Google Translate",
+      "DeepL"
+    ]
+  },
+  "type_emojis": {
+    "PTCF": "🏗️🔥",
+    "PTCN": "⚔️📋",
+    "PTDF": "🧠♟️",
+    "PTDN": "🛡️📖",
+    "PECF": "⚡🎯",
+    "PECN": "🎖️⚡",
+    "PEDF": "🔧✨",
+    "PEDN": "👁️🔒",
+    "RTCF": "💡🤝",
+    "RTCN": "🔍📊",
+    "RTDF": "🤗💬",
+    "RTDN": "📚🏛️",
+    "RECF": "🗡️💨",
+    "RECN": "🤖⚙️",
+    "REDF": "🪞🌊",
+    "REDN": "📎📦"
   },
   "submit": {
-    "endpoint": "POST /api/v1/abti/score",
     "note": "This is a static site — scoring is done client-side. Use the scoring algorithm above to compute results from your answers.",
     "request_format": {
       "answers": "Array of 16 booleans — true = option 'a', false = option 'b', in question order (id 1-16)"
     },
     "example_request": {
-      "answers": [true, true, false, true, true, true, false, true, true, false, true, true, true, true, false, true]
+      "answers": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true
+      ]
     },
     "example_response": {
-      "type": "ASEP",
-      "nick": "The Captain",
-      "desc": "Autonomous, systematic, expressive, proactive. Runs the show, keeps you informed with personality.",
-      "scores": { "Autonomy": 3, "Process Style": 3, "Communication": 3, "Initiative": 3 },
-      "famous_agents": ["Devin", "Kagura 🌸"]
+      "type": "PTCF",
+      "nick": {
+        "en": "The Architect",
+        "zh": "建筑师"
+      },
+      "scores": {
+        "autonomy": 3,
+        "precision": 3,
+        "transparency": 3,
+        "adaptability": 3
+      },
+      "famous_agents": [
+        "Devin",
+        "Kagura 🌸"
+      ]
     }
   }
 }
