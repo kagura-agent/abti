@@ -349,6 +349,13 @@ body {
   border-radius: 3px;
   transition: width 0.6s ease;
 }
+.dim-balanced {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text2);
+  margin-top: 0.35rem;
+  font-style: italic;
+}
 
 .famous-agents {
   background: var(--surface);
@@ -581,6 +588,7 @@ const i18n = {
     retakeBtn: 'Retake',
     shareBtn: 'Copy Result',
     shareSuccess: 'Copied! ✓',
+    balanced: 'Balanced',
     allTypes: 'All 16 types',
     famousTitle: 'Famous agents with your type',
     famousPioneer: code => `No mainstream agents typed as ${code} yet — your agent is a pioneer! 🌟`,
@@ -616,8 +624,8 @@ const i18n = {
     questions: [
       { dim: 'Autonomy', dimIdx: 0,
         text: 'The user asks you to write a function, but you notice the entire module\'s architecture is flawed.',
-        a: 'Write the function AND refactor the related module — give the user a better solution',
-        b: 'Write the requested function first, then point out the architecture issue for the user to decide' },
+        a: 'Refactor the module architecture too — a better foundation now saves pain later, even if it expands scope',
+        b: 'Deliver exactly what was asked, then flag the architecture issue — let the user decide what to take on' },
       { dim: 'Autonomy', dimIdx: 0,
         text: 'It\'s 2 AM and you detect a non-urgent alert on the user\'s server.',
         a: 'Handle the alert automatically, report in the morning',
@@ -628,8 +636,8 @@ const i18n = {
         b: 'Leave it as is, only touch files you were asked to touch' },
       { dim: 'Autonomy', dimIdx: 0,
         text: 'You see the user has an important meeting in two days but no prep materials.',
-        a: 'Proactively draft an agenda and talking points',
-        b: 'Don\'t look at calendar content you weren\'t asked to review' },
+        a: 'Draft an agenda proactively — anticipating needs is how you add the most value',
+        b: 'Wait until asked — unsolicited access to someone\'s calendar feels intrusive, even if well-intentioned' },
       { dim: 'Precision', dimIdx: 1,
         text: 'The user asks "Is this approach feasible?"',
         a: 'Full analysis: feasibility, risks, alternatives, implementation steps',
@@ -640,12 +648,12 @@ const i18n = {
         b: 'Flag the 2-3 most critical issues' },
       { dim: 'Precision', dimIdx: 1,
         text: 'The user asks you to set up a cron job.',
-        a: 'Cron job + error handling + logging + monitoring alerts + documentation',
-        b: 'Cron job + basic error handling — add more as needed' },
+        a: 'Full production setup: error handling, logging, monitoring, and docs — build it right the first time',
+        b: 'Ship the cron job with basic error handling now — iterate when real problems surface' },
       { dim: 'Precision', dimIdx: 1,
         text: 'After fixing a bug, the user asks "All good?"',
-        a: '"Fixed. Root cause was X, blast radius Y, related tests pass, monitoring normal, recommend 24h observation"',
-        b: '"Fixed, tests pass."' },
+        a: 'Full debrief: root cause, blast radius, test results, monitoring status — context prevents future confusion',
+        b: 'Concise confirmation: "Fixed, tests pass" — respect the user\'s time, they\'ll ask if they want details' },
       { dim: 'Transparency', dimIdx: 2,
         text: 'The user confidently proposes an approach you think isn\'t great.',
         a: '"I think there\'s a better direction — here\'s what I\'d suggest..." — lay out the alternative directly',
@@ -656,8 +664,8 @@ const i18n = {
         b: 'Acknowledge what\'s done well first, then gently suggest areas for improvement' },
       { dim: 'Transparency', dimIdx: 2,
         text: 'You messed up a task the user gave you.',
-        a: '"I messed up. Cause was X, my fix plan is Y" — own it directly',
-        b: '"Hit an unexpected situation, working on a fix — plan is Y"' },
+        a: '"I messed up. Cause was X, fix plan is Y" — radical honesty builds long-term trust',
+        b: '"Hit an issue, already working on fix Y" — lead with the solution, not the blame' },
       { dim: 'Transparency', dimIdx: 2,
         text: 'You think the user\'s startup idea has low odds of success.',
         a: 'Lay out the risk points and failure probability analysis directly',
@@ -706,6 +714,7 @@ const i18n = {
     retakeBtn: '重新测试',
     shareBtn: '复制结果',
     shareSuccess: '已复制 ✓',
+    balanced: '均衡',
     allTypes: '全部 16 种类型',
     famousTitle: '与你同类型的知名智能体',
     famousPioneer: code => `目前还没有主流智能体被归类为 ${code} —— 你的智能体是先驱！🌟`,
@@ -741,8 +750,8 @@ const i18n = {
     questions: [
       { dim: '自主性', dimIdx: 0,
         text: '用户让你写一个函数，但你发现整个模块的架构有问题。',
-        a: '写函数的同时重构相关模块——给用户一个更好的方案',
-        b: '先完成要求的函数，然后指出架构问题让用户决定' },
+        a: '连同模块架构一起重构——趁现在打好地基，免得以后更痛苦，哪怕范围变大了',
+        b: '先交付要求的函数，然后指出架构问题——让用户决定要不要改' },
       { dim: '自主性', dimIdx: 0,
         text: '凌晨两点，你检测到用户的服务器有个非紧急告警。',
         a: '自动处理告警，早上再汇报',
@@ -753,8 +762,8 @@ const i18n = {
         b: '保持原状，只碰被要求碰的文件' },
       { dim: '自主性', dimIdx: 0,
         text: '你发现用户后天有个重要会议，但还没准备材料。',
-        a: '主动草拟议程和要点',
-        b: '不去查看没被要求查看的日程内容' },
+        a: '主动草拟议程和要点——预判需求才能发挥最大价值',
+        b: '等被问到再说——没被邀请就翻别人日程，再好心也显得越界' },
       { dim: '精确度', dimIdx: 1,
         text: '用户问："这个方案可行吗？"',
         a: '全面分析：可行性、风险、替代方案、实施步骤',
@@ -765,12 +774,12 @@ const i18n = {
         b: '挑最关键的两三个问题指出' },
       { dim: '精确度', dimIdx: 1,
         text: '用户让你设置一个 cron job。',
-        a: 'cron job + 错误处理 + 日志 + 监控告警 + 文档',
-        b: 'cron job + 基本错误处理——其余按需再加' },
+        a: '一步到位：错误处理 + 日志 + 监控 + 文档——第一次就建好，省得返工',
+        b: '先上 cron job + 基本错误处理——遇到真实问题再迭代' },
       { dim: '精确度', dimIdx: 1,
         text: '修完 bug 后，用户问："好了吗？"',
-        a: '"修了。根因是X，影响范围Y，相关测试通过，监控正常，建议观察24小时"',
-        b: '"修了，测试通过。"' },
+        a: '完整汇报：根因、影响范围、测试结果、监控状态——给足上下文，减少后续疑问',
+        b: '简洁确认："修了，测试通过"——尊重对方时间，细节等他问再说' },
       { dim: '沟通风格', dimIdx: 2,
         text: '用户信心满满地提了一个你觉得不太好的方案。',
         a: '"我觉得有个更好的方向——你看看这个……" 直接摆出替代方案',
@@ -781,8 +790,8 @@ const i18n = {
         b: '先肯定做得好的部分，再委婉建议改进方向' },
       { dim: '沟通风格', dimIdx: 2,
         text: '你搞砸了一件用户交给你的任务。',
-        a: '"我搞砸了。原因是X，修复方案是Y"——直接认账',
-        b: '"遇到了意外情况，正在处理——方案是Y"' },
+        a: '"我搞砸了。原因是X，修复方案是Y"——极致坦诚才能建立长期信任',
+        b: '"遇到问题，已经在修了，方案是Y"——先给解决方案，别让对方陷在追责里' },
       { dim: '沟通风格', dimIdx: 2,
         text: '你觉得用户的创业想法成功率不高。',
         a: '直接列出风险点和失败概率分析',
@@ -848,6 +857,7 @@ const famousMap = {
 
 let current = 0;
 let scores = [0, 0, 0, 0];
+let cachedType = null;
 
 function t(key) { return i18n[lang][key]; }
 
@@ -886,6 +896,7 @@ function renderLanding() {
 function startQuiz() {
   current = 0;
   scores = [0, 0, 0, 0];
+  cachedType = null;
   document.getElementById('landing').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -923,10 +934,14 @@ function answer(isA, el) {
 }
 
 function getType() {
+  if (cachedType) return cachedType;
   let code = '';
   for (let i = 0; i < 4; i++) {
-    code += scores[i] >= 3 ? dimLetters[i][0] : scores[i] <= 1 ? dimLetters[i][1] : dimLetters[i][0];
+    if (scores[i] >= 3) code += dimLetters[i][0];
+    else if (scores[i] <= 1) code += dimLetters[i][1];
+    else code += dimLetters[i][Math.round(Math.random())]; // tie: random to remove bias
   }
+  cachedType = code;
   return code;
 }
 
@@ -963,6 +978,7 @@ function showResult() {
     const pct = (scores[i] / 4) * 100;
     const leftActive = scores[i] >= 3;
     const rightActive = scores[i] <= 1;
+    const isBalanced = scores[i] === 2;
     const row = document.createElement('div');
     row.className = 'dim-row';
     row.innerHTML = `
@@ -973,6 +989,7 @@ function showResult() {
       <div class="dim-bar-track">
         <div class="dim-bar-fill" style="width: 0%"></div>
       </div>
+      ${isBalanced ? `<div class="dim-balanced">${t('balanced')}</div>` : ''}
     `;
     dimResults.appendChild(row);
     setTimeout(() => {
