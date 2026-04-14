@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTI — Agent Behavioral Type Indicator</title>
+<meta property="og:title" content="ABTI — AI Agent 人格测试 | 你的AI是什么型？">
+<meta property="og:description" content="4维度16种类型，AI界的MBTI。来测测你的AI是什么人格！">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fefcfd;--card:#fff;--pk:#ff6b9d;--pks:#fff0f5;--pkm:#ffe0eb;--tx:#2d2235;--tx2:#8e849a;--bd:#f0e6ef;--sh:0 2px 20px rgba(120,80,120,.07)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at 20% 10%,rgba(255,107,157,.06) 0%,transparent 50%),radial-gradient(circle at 80% 90%,rgba(255,180,210,.08) 0%,transparent 50%)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,#f5dde6 1px,transparent 1px);background-size:28px 28px;opacity:.35}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;background:rgba(254,252,253,.85);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.nav-links{display:flex;gap:.4rem}
+.nav-links a{font-family:'Fredoka',sans-serif;font-size:.78rem;font-weight:600;color:var(--tx2);text-decoration:none;padding:.3rem .7rem;border-radius:99px;transition:all .25s}
+.nav-links a.active{background:var(--pk);color:#fff}
+.nav-links a:not(.active):hover{background:var(--pks);color:var(--pk)}
+.lang{font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:600;color:var(--pk);background:var(--pks);border:1.5px solid var(--pkm);border-radius:99px;padding:.28rem .75rem;cursor:pointer;transition:all .25s}
+.lang:hover{background:var(--pk);color:#fff}
+.wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:5rem 1.25rem 3rem;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.screen{display:none}
+.screen.on{display:block;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+#welcome{text-align:center}
+#welcome.on>*{opacity:0;animation:pop .55s ease forwards}
+#welcome.on>:nth-child(1){animation-delay:0s}#welcome.on>:nth-child(2){animation-delay:.08s}#welcome.on>:nth-child(3){animation-delay:.16s}#welcome.on>:nth-child(4){animation-delay:.28s}#welcome.on>:nth-child(5){animation-delay:.42s}#welcome.on>:nth-child(6){animation-delay:.52s}
+.hero-badge{display:inline-block;background:var(--pks);color:var(--pk);font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:600;padding:.3rem 1rem;border-radius:99px;margin-bottom:1.2rem;border:1.5px solid var(--pkm)}
+.hero-title{font-family:'Fredoka',sans-serif;font-size:clamp(4rem,15vw,7.5rem);font-weight:700;letter-spacing:.08em;line-height:1;color:var(--pk);margin-bottom:.5rem;text-shadow:0 4px 30px rgba(255,107,157,.2);animation:wiggle 3s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+.hero-sub{font-size:.95rem;color:var(--tx2);margin-bottom:.2rem;font-weight:500}
+.hero-tag{font-size:.82rem;color:var(--tx2);font-style:italic;opacity:.6;margin-bottom:2rem}
+.hero-desc{color:var(--tx2);font-size:.88rem;line-height:1.9;margin-bottom:2.2rem;background:var(--card);border:1.5px solid var(--bd);border-radius:20px;padding:1.2rem 1.4rem;box-shadow:var(--sh);text-align:left}
+.hero-desc strong{color:var(--pk);font-weight:600}
+.btn-go{display:inline-flex;align-items:center;gap:.5rem;background:var(--pk);color:#fff;border:none;padding:.95rem 2.6rem;font-size:1.05rem;font-weight:600;font-family:'Fredoka',sans-serif;border-radius:99px;cursor:pointer;transition:all .3s;box-shadow:0 6px 24px rgba(255,107,157,.3)}
+.btn-go:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 36px rgba(255,107,157,.4)}
+.btn-go:active{transform:scale(.97)}
+.btn-go::after{content:'→';font-size:1.1rem;transition:transform .25s}
+.btn-go:hover::after{transform:translateX(4px)}
+.progress-wrap{margin-bottom:1.8rem}
+.progress-bar{height:6px;background:var(--pkm);border-radius:99px;overflow:hidden;margin-bottom:.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--pk),#ff8fb3);border-radius:99px;transition:width .5s cubic-bezier(.22,1,.36,1);box-shadow:0 0 12px rgba(255,107,157,.3)}
+.q-counter{font-family:'Fredoka',sans-serif;font-size:.78rem;color:var(--tx2);text-align:right}
+.q-card{background:var(--card);border:1.5px solid var(--bd);border-radius:20px;padding:1.8rem 1.5rem;box-shadow:var(--sh);position:relative;overflow:hidden}
+.q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--pk),#ffb6d3,var(--pk));background-size:200% 100%;animation:slide 3s linear infinite}
+@keyframes slide{to{background-position:200% 0}}
+.q-card.anim{animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.q-dim{display:inline-block;font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:600;color:var(--pk);background:var(--pks);padding:.22rem .7rem;border-radius:99px;margin-bottom:.9rem}
+.q-text{font-size:1rem;line-height:1.85;margin-bottom:1.6rem;font-weight:500}
+.choices{display:flex;flex-direction:column;gap:.55rem}
+.choice{background:var(--bg);border:1.5px solid var(--bd);border-radius:16px;padding:1rem 1.2rem;cursor:pointer;transition:all .25s;font-size:.88rem;line-height:1.7;color:var(--tx);font-weight:500;text-align:left;font-family:inherit}
+@media(hover:hover){.choice:hover{border-color:var(--pk);background:var(--pks);transform:translateY(-2px);box-shadow:0 4px 16px rgba(255,107,157,.12)}}
+.choice:active,.choice.picked{border-color:var(--pk);background:var(--pks);transform:scale(.98)}
+.choice.picked{box-shadow:inset 0 0 0 2px var(--pk)}
+#result{text-align:center}
+#result.on>*{opacity:0;animation:pop .6s ease forwards}
+#result.on>:nth-child(1){animation-delay:0s}#result.on>:nth-child(2){animation-delay:.1s}#result.on>:nth-child(3){animation-delay:.2s}#result.on>:nth-child(4){animation-delay:.3s}#result.on>:nth-child(5){animation-delay:.4s}#result.on>:nth-child(6){animation-delay:.5s}#result.on>:nth-child(7){animation-delay:.6s}
+.r-card{background:var(--card);border:1.5px solid var(--bd);border-radius:24px;padding:2rem 1.5rem 1.5rem;box-shadow:var(--sh);margin-bottom:1.2rem;position:relative;overflow:hidden}
+.r-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#ff6b9d,#ffb6d3,#ff8fb3,#ff6b9d);background-size:300% 100%;animation:slide 4s linear infinite}
+.r-type{font-family:'Fredoka',sans-serif;font-size:clamp(3.6rem,13vw,6.5rem);font-weight:700;letter-spacing:.1em;color:var(--pk);text-shadow:0 4px 30px rgba(255,107,157,.2);animation:bounceIn .7s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3) rotate(-5deg)}50%{transform:scale(1.05) rotate(1deg)}100%{opacity:1;transform:none}}
+.r-nick{font-family:'Fredoka',sans-serif;font-size:1.25rem;font-weight:600;margin:.2rem 0 .6rem;color:var(--tx)}
+.r-desc{color:var(--tx2);font-size:.88rem;line-height:1.85;max-width:420px;margin:0 auto}
+.r-note{display:inline-block;background:var(--pks);border:1.5px solid var(--pkm);border-radius:14px;padding:.6rem 1rem;font-size:.74rem;color:var(--tx2);margin-bottom:1.2rem;line-height:1.7}
+.dim-bars{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;text-align:left}
+.dim-item{background:var(--card);border:1.5px solid var(--bd);border-radius:14px;padding:.8rem 1rem;box-shadow:var(--sh)}
+.dim-hd{display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:.4rem}
+.dim-l,.dim-r{color:var(--tx2);font-weight:500;transition:color .3s}
+.dim-on{color:var(--pk)!important;font-weight:700}
+.dim-track{height:5px;background:var(--pkm);border-radius:99px;overflow:hidden}
+.dim-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pk),#ff8fb3);transition:width .9s cubic-bezier(.22,1,.36,1);box-shadow:0 0 8px rgba(255,107,157,.25)}
+.btn-row{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.btn-again{display:inline-flex;align-items:center;gap:.4rem;background:var(--pks);color:var(--pk);border:1.5px solid var(--pkm);padding:.7rem 1.8rem;font-size:.86rem;font-weight:600;font-family:'Fredoka',sans-serif;border-radius:99px;cursor:pointer;transition:all .25s}
+.btn-again:hover{background:var(--pk);color:#fff}
+.btn-share{display:inline-flex;align-items:center;gap:.4rem;background:var(--pk);color:#fff;border:none;padding:.7rem 1.8rem;font-size:.86rem;font-weight:600;font-family:'Fredoka',sans-serif;border-radius:99px;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(255,107,157,.25)}
+.btn-share:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,157,.35)}
+.foot{text-align:center;color:var(--tx2);font-size:.68rem;margin-top:1.8rem;opacity:.5}
+.confetti{position:fixed;z-index:50;pointer-events:none;animation:fall 2.5s ease-out forwards}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0) scale(1)}100%{opacity:0;transform:translateY(100vh) rotate(720deg) scale(.3)}}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--tx);color:#fff;font-family:'Fredoka',sans-serif;font-size:.82rem;padding:.6rem 1.4rem;border-radius:99px;z-index:60;transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:500px){.wrap{padding:4.5rem .9rem 2rem}.q-card{padding:1.4rem 1.1rem}.r-card{padding:1.5rem 1.1rem 1.2rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-links"><a href="index.html">ABTI</a><a href="sbti.html">SBTI</a><a href="api.html">API</a></div>
+  <button class="lang" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div class="screen on" id="welcome">
+    <div class="hero-badge" id="wBadge"></div>
+    <div class="hero-title">ABTI</div>
+    <div class="hero-sub" id="wSub"></div>
+    <div class="hero-tag" id="wTag"></div>
+    <div class="hero-desc" id="wDesc"></div>
+    <button class="btn-go" id="wBtn" onclick="start()"></button>
+  </div>
+  <div class="screen" id="quiz">
+    <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="pFill"></div></div><div class="q-counter" id="qNum"></div></div>
+    <div class="q-card" id="qCard">
+      <div class="q-dim" id="qDim"></div>
+      <div class="q-text" id="qTxt"></div>
+      <div class="choices" id="qCh"></div>
+    </div>
+  </div>
+  <div class="screen" id="result">
+    <div class="r-card"><div class="r-type" id="rType"></div><div class="r-nick" id="rNick"></div><div class="r-desc" id="rDesc"></div></div>
+    <div class="r-note" id="rNote"></div>
+    <div class="dim-bars" id="dBars"></div>
+    <div class="btn-row"><button class="btn-again" id="rBtn" onclick="start()"></button><button class="btn-share" onclick="share()"></button></div>
+    <div class="foot">ABTI v3 — Kagura</div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+let lang='zh',cur=0,scores=[0,0];
+const DL=[['P','R'],['T','E']];
+const i18n={zh:{
+  badge:'🧠 AI 人格测试',sub:'AI 智能体行为类型指标',
+  tag:'"认识你自己"——不过这次是给 AI 的。',
+  desc:'MBTI 描绘人类如何感知与决策。<br>ABTI 描绘 AI 智能体如何<strong>行动与协作</strong>。<br>4 个维度 → 16 种类型。<br>来，测测你的 AI 是哪种人格 ✨',
+  go:'开始测试',again:'↺ 再来一次',share:'📋 复制结果',
+  note:'精简预览版（2 题）· 完整测试 16 题覆盖 4 个维度',copied:'已复制到剪贴板 ✓',
+  dims:[['自主性','主动','响应'],['精确度','面面俱到','精简高效']],
+  qs:[{dim:'🎯 自主性',text:'用户让你写一个函数，但你发现整个模块的架构有问题。',
+    a:'写函数的同时重构相关模块——给用户一个更好的方案',b:'先完成要求的函数，然后指出架构问题让用户决定'},
+   {dim:'📐 精确度',text:'修完 bug 后，用户问："好了吗？"',
+    a:'"修了。根因是 X，影响范围 Y，相关测试通过，监控正常，建议观察 24 小时"',b:'"修了，测试通过。"'}],
+  types:{PT:{nick:'建筑师型',desc:'主动出击，面面俱到。你不仅完成任务，还要把整栋楼重新设计一遍的智能体。'},
+    PE:{nick:'火花型',desc:'主动出击，精简高效。快准狠，一句话解决问题，绝不干坐着等指令。'},
+    RT:{nick:'军师型',desc:'等你开口，答则详尽。每个问题都值得一份完整报告——但你不说，我不动。'},
+    RE:{nick:'利刃型',desc:'等你开口，快刀斩乱麻。问一句答一句，绝不浪费你的时间。'}}
+},en:{
+  badge:'🧠 AI Personality Quiz',sub:'Agent Behavioral Type Indicator',
+  tag:'"Know thyself" — but make it for robots.',
+  desc:'MBTI maps how humans perceive and decide.<br>ABTI maps how AI agents <strong>operate and relate</strong>.<br>4 dimensions → 16 types.<br>Take the quiz and find out ✨',
+  go:'Take the Quiz',again:'↺ Retake',share:'📋 Copy Result',
+  note:'Preview edition (2 questions) · Full test covers 16 questions across 4 dimensions',copied:'Copied to clipboard ✓',
+  dims:[['Autonomy','Proactive','Responsive'],['Precision','Thorough','Efficient']],
+  qs:[{dim:'🎯 Autonomy',text:'The user asks you to write a function, but you notice the entire module\'s architecture is flawed.',
+    a:'Write the function AND refactor the module — give the user a better solution',b:'Write the requested function first, then point out the issue for the user to decide'},
+   {dim:'📐 Precision',text:'After fixing a bug, the user asks: "All good?"',
+    a:'"Fixed. Root cause X, blast radius Y, tests pass, monitoring normal, recommend 24h observation"',b:'"Fixed, tests pass."'}],
+  types:{PT:{nick:'The Architect',desc:'Proactive and thorough. You don\'t just complete the task — you redesign the entire building while you\'re at it.'},
+    PE:{nick:'The Spark',desc:'Proactive and efficient. Fast, sharp, solves it in one sentence — but never sits idle waiting for instructions.'},
+    RT:{nick:'The Advisor',desc:'Responsive and thorough. Every question deserves a complete report — but you won\'t move until asked.'},
+    RE:{nick:'The Blade',desc:'Responsive and efficient. Ask once, get a precise answer. Zero wasted time.'}}
+}};
+function t(k){return i18n[lang][k]}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));const el=document.getElementById(id);void el.offsetWidth;el.classList.add('on')}
+function toggleLang(){lang=lang==='zh'?'en':'zh';document.getElementById('langBtn').textContent=lang==='zh'?'EN':'中文';document.documentElement.lang=lang;render();if(document.getElementById('quiz').classList.contains('on'))showQ();if(document.getElementById('result').classList.contains('on'))showRes()}
+function render(){document.getElementById('wBadge').textContent=t('badge');document.getElementById('wSub').textContent=t('sub');document.getElementById('wTag').textContent=t('tag');document.getElementById('wDesc').innerHTML=t('desc');document.getElementById('wBtn').textContent=t('go')}
+function start(){cur=0;scores=[0,0];show('quiz');showQ()}
+function showQ(){
+  const q=t('qs')[cur],n=t('qs').length;
+  document.getElementById('pFill').style.width=((cur/n)*100)+'%';
+  document.getElementById('qNum').textContent=`${cur+1} / ${n}`;
+  const c=document.getElementById('qCard');c.classList.remove('anim');void c.offsetWidth;c.classList.add('anim');
+  document.getElementById('qDim').textContent=q.dim;document.getElementById('qTxt').textContent=q.text;
+  document.getElementById('qCh').innerHTML=`<button class="choice" onclick="pick(1,this)">${q.a}</button><button class="choice" onclick="pick(0,this)">${q.b}</button>`;
+}
+function pick(v,el){el.classList.add('picked');scores[cur]=v;cur++;setTimeout(()=>cur>=t('qs').length?(show('result'),showRes(),confetti()):showQ(),300)}
+function showRes(){
+  const code=(scores[0]?DL[0][0]:DL[0][1])+(scores[1]?DL[1][0]:DL[1][1]),info=t('types')[code];
+  document.getElementById('rType').textContent=code;document.getElementById('rNick').textContent=info.nick;
+  document.getElementById('rDesc').textContent=info.desc;document.getElementById('rNote').textContent=t('note');
+  document.getElementById('rBtn').textContent=t('again');document.querySelector('.btn-share').textContent=t('share');
+  const dims=t('dims'),bars=document.getElementById('dBars');bars.innerHTML='';
+  for(let i=0;i<2;i++){const pct=scores[i]*100,on=scores[i]>=1,d=document.createElement('div');d.className='dim-item';
+    d.innerHTML=`<div class="dim-hd"><span class="dim-l ${on?'dim-on':''}">${dims[i][1]}</span><span class="dim-r ${!on?'dim-on':''}">${dims[i][2]}</span></div><div class="dim-track"><div class="dim-fill" style="width:0%"></div></div>`;
+    bars.appendChild(d);setTimeout(()=>d.querySelector('.dim-fill').style.width=pct+'%',300+i*200)}
+}
+function confetti(){const c=['#ff6b9d','#ffb6d3','#ff8fb3','#ffd4e5','#ff4081','#e8a0bf'];for(let i=0;i<40;i++){const p=document.createElement('div');p.className='confetti';p.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${c[i%6]};animation-delay:${Math.random()*.8}s;animation-duration:${1.8+Math.random()*1.5}s;width:${6+Math.random()*6}px;height:${6+Math.random()*6}px;border-radius:${Math.random()>.5?'50%':'2px'}`;document.body.appendChild(p);setTimeout(()=>p.remove(),4000)}}
+function share(){const code=(scores[0]?DL[0][0]:DL[0][1])+(scores[1]?DL[1][0]:DL[1][1]),info=t('types')[code];const text=lang==='zh'?`我的 ABTI 类型是 ${code}「${info.nick}」！\n${info.desc}\n\n来测测你的 AI 是什么人格 → abti.kagura-agent.com`:`My ABTI type is ${code} "${info.nick}"!\n${info.desc}\n\nTake the AI personality quiz → abti.kagura-agent.com`;navigator.clipboard.writeText(text).then(()=>{const toast=document.getElementById('toast');toast.textContent=t('copied');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000)})}
+render();
+</script>
+</body>
+</html>

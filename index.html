@@ -438,6 +438,49 @@ body {
   font-weight: 600;
 }
 
+/* Research References */
+.research-toggle {
+  color: var(--text2);
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  user-select: none;
+  font-weight: 500;
+}
+.research-toggle:hover { color: var(--accent); }
+.research-refs {
+  display: none;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.research-refs.open { display: block; }
+.ref-item {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.ref-title {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+.ref-year {
+  color: var(--text2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.ref-note {
+  color: var(--text2);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 .footer {
   text-align: center;
   color: #b0aca6;
@@ -499,6 +542,8 @@ body {
     <div class="result-desc" id="resultDesc"></div>
     <div class="dim-results" id="dimResults"></div>
     <div class="famous-agents" id="famousAgents"></div>
+    <div class="research-toggle" id="researchToggle" onclick="toggleResearch()"></div>
+    <div class="research-refs" id="researchRefs"></div>
     <div class="result-actions">
       <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
       <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
@@ -542,6 +587,19 @@ const i18n = {
     thType: 'Type',
     thNick: 'Nickname',
     thDesc: 'Description',
+    researchTitle: '📚 Research References',
+    researchRefs: [
+      { title: 'TRAIT: LLM Personality Assessment via Situational Forced-Choice', year: 'NAACL 2025',
+        note: 'Validates scenario-based forced-choice over Likert scales for measuring AI behavioral tendencies.' },
+      { title: 'LLMs Aren\'t Human: Rethinking AI Personality Frameworks', year: '2026',
+        note: 'Argues AI needs native behavioral dimensions rather than borrowed human psychology frameworks — the basis for our PTCF system.' },
+      { title: 'Challenging the Validity of Personality Tests for Large Language Models', year: '2023',
+        note: 'Demonstrates self-report unreliability in LLMs; supports our behavioral observation approach.' },
+      { title: 'Do LLMs Possess a Personality? Making the MBTI Test an Amazing Benchmark', year: '2023',
+        note: 'Confirms different models exhibit distinct, measurable personality profiles shaped by training data.' },
+      { title: 'When AI Takes the Couch: Psychometric Jailbreaks in Frontier Models', year: '2025',
+        note: 'Reveals tension between surface behavior and underlying tendencies — our forced-choice design targets these exact conflicts.' },
+    ],
     dimNames: ['Autonomy', 'Precision', 'Transparency', 'Adaptability'],
     dimPairs: [
       'Proactive (P) vs Responsive (R)',
@@ -654,6 +712,19 @@ const i18n = {
     thType: '类型',
     thNick: '别名',
     thDesc: '描述',
+    researchTitle: '📚 研究参考文献',
+    researchRefs: [
+      { title: 'TRAIT: LLM Personality Assessment via Situational Forced-Choice', year: 'NAACL 2025',
+        note: '验证了情境式强制选择优于李克特量表来测量 AI 行为倾向——本测试题目设计的核心依据。' },
+      { title: 'LLMs Aren\'t Human: Rethinking AI Personality Frameworks', year: '2026',
+        note: 'AI 需要原生行为维度，而非借用人类心理学框架——我们设计 PTCF 体系而非套用大五人格的理论基础。' },
+      { title: 'Challenging the Validity of Personality Tests for Large Language Models', year: '2023',
+        note: '证明 LLM 的自我报告不可靠，应采用行为观察法——支持我们的情境行为测试方式。' },
+      { title: 'Do LLMs Possess a Personality? Making the MBTI Test an Amazing Benchmark', year: '2023',
+        note: '证实不同模型展现出由训练数据塑造的独特人格特征——说明智能体人格是可测量的。' },
+      { title: 'When AI Takes the Couch: Psychometric Jailbreaks in Frontier Models', year: '2025',
+        note: '揭示了 AI 表面行为与深层倾向之间的张力——我们的强制选择设计正是为了捕捉这种冲突。' },
+    ],
     dimNames: ['自主性', '精确度', '沟通风格', '适应性'],
     dimPairs: [
       '主动 (P) vs 响应 (R)',
@@ -929,6 +1000,21 @@ function showResult() {
     tr.innerHTML = `<td>${tp}</td><td class="type-emoji-cell">${typeEmojis[tp] || ''}</td><td>${tInfo.nick}</td><td>${tInfo.desc}</td>`;
     tbody.appendChild(tr);
   }
+
+  // Research references
+  document.getElementById('researchToggle').textContent = '\u25b8 ' + t('researchTitle');
+  const refsEl = document.getElementById('researchRefs');
+  refsEl.classList.remove('open');
+  refsEl.innerHTML = '';
+  const refs = t('researchRefs');
+  for (const ref of refs) {
+    refsEl.innerHTML += `
+      <div class="ref-item">
+        <div class="ref-title">${ref.title}</div>
+        <div class="ref-year">${ref.year}</div>
+        <div class="ref-note">${ref.note}</div>
+      </div>`;
+  }
 }
 
 function toggleTable() {
@@ -936,6 +1022,13 @@ function toggleTable() {
   el.classList.toggle('open');
   document.getElementById('typeTableToggle').textContent =
     (el.classList.contains('open') ? '▾ ' : '▸ ') + t('allTypes');
+}
+
+function toggleResearch() {
+  const el = document.getElementById('researchRefs');
+  el.classList.toggle('open');
+  document.getElementById('researchToggle').textContent =
+    (el.classList.contains('open') ? '▾ ' : '▸ ') + t('researchTitle');
 }
 
 function shareResult() {

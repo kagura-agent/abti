@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTI — Agent Behavioral Type Indicator</title>
+<meta property="og:title" content="ABTI — AI Agent 人格测试 | 你的AI是什么型？">
+<meta property="og:description" content="4维度16种类型，AI界的MBTI">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --card: hsla(240, 20%, 12%, 0.55);
+  --card-solid: hsl(240, 20%, 12%);
+  --accent: #ff6b9d;
+  --glow: rgba(255, 107, 157, 0.15);
+  --glow-hot: rgba(255, 107, 157, 0.35);
+  --text: hsl(0, 0%, 93%);
+  --text2: hsl(240, 10%, 65%);
+  --border: hsla(240, 15%, 40%, 0.2);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Syne', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; overflow-x: hidden; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Aurora ── */
+.aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.aurora i {
+  display: block; position: absolute; border-radius: 50%;
+  filter: blur(90px); will-change: transform;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+.aurora i:nth-child(1) {
+  width: 500px; height: 500px; top: -20%; left: -10%;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.25), transparent 70%);
+}
+.aurora i:nth-child(2) {
+  width: 420px; height: 420px; bottom: -15%; right: -8%;
+  background: radial-gradient(circle, rgba(109, 78, 214, 0.18), transparent 70%);
+  animation-delay: -7s; animation-duration: 18s;
+}
+.aurora i:nth-child(3) {
+  width: 280px; height: 280px; top: 45%; left: 55%;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.1), transparent 70%);
+  animation-delay: -3s; animation-duration: 22s;
+}
+@keyframes drift { to { transform: translate(60px, 30px) scale(1.12); } }
+
+/* ── Grain ── */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.028; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ── Layout ── */
+.wrap {
+  position: relative; z-index: 1; max-width: 600px; margin: 0 auto;
+  padding: 3rem 1.25rem; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.screen { display: none; }
+.screen.on { display: block; animation: rise 0.55s cubic-bezier(0.2, 1, 0.3, 1); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Lang toggle ── */
+.lang {
+  position: fixed; top: 1rem; right: 1rem; z-index: 10;
+  background: var(--card-solid); background: var(--card);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 99px;
+  color: var(--text2); font-size: 0.72rem; font-weight: 700;
+  padding: 0.35rem 0.85rem; cursor: pointer;
+  letter-spacing: 0.08em; transition: all 0.3s; font-family: inherit;
+}
+.lang:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Welcome ── */
+#welcome { text-align: center; }
+#welcome.on > * { opacity: 0; animation: rise 0.6s ease forwards; }
+#welcome.on > :nth-child(1) { animation-delay: 0s; }
+#welcome.on > :nth-child(2) { animation-delay: 0.1s; }
+#welcome.on > :nth-child(3) { animation-delay: 0.2s; }
+#welcome.on > :nth-child(4) { animation-delay: 0.35s; }
+#welcome.on > :nth-child(5) { animation-delay: 0.5s; }
+
+.hero-title {
+  font-size: clamp(3.8rem, 14vw, 7rem); font-weight: 800;
+  letter-spacing: 0.28em; line-height: 1; padding-right: 0.28em;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ffcad8 45%, #ff6b9d 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 50px rgba(255, 107, 157, 0.3));
+  margin-bottom: 0.6rem;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.hero-sub { font-size: 0.92rem; color: var(--text2); letter-spacing: 0.12em; margin-bottom: 0.3rem; }
+.hero-tag { font-size: 0.8rem; color: var(--text2); font-style: italic; opacity: 0.55; margin-bottom: 2.8rem; }
+.hero-desc { color: var(--text2); font-size: 0.86rem; line-height: 1.9; margin-bottom: 2.8rem; }
+.hero-desc strong { color: var(--accent); font-weight: 700; }
+
+.btn-go {
+  display: inline-block; background: var(--accent); color: var(--bg);
+  border: none; padding: 0.9rem 2.8rem; font-size: 1rem;
+  font-weight: 700; font-family: inherit; border-radius: 99px;
+  cursor: pointer; letter-spacing: 0.06em; transition: all 0.35s;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.btn-go:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--glow-hot); }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.35); }
+  50% { box-shadow: 0 0 0 14px rgba(255, 107, 157, 0); }
+}
+
+/* ── Quiz ── */
+.dots { display: flex; gap: 8px; margin-bottom: 2rem; }
+.dot {
+  flex: 1; height: 3px; border-radius: 2px;
+  background: hsla(240, 15%, 20%, 0.5); transition: all 0.5s;
+}
+.dot.fill { background: var(--accent); box-shadow: 0 0 10px var(--glow-hot); }
+.q-num { font-size: 0.75rem; color: var(--text2); margin-bottom: 1.6rem; letter-spacing: 0.12em; }
+
+.q-card {
+  background: var(--card-solid); background: var(--card);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 18px;
+  padding: 2rem 1.5rem; position: relative; overflow: hidden;
+}
+.q-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.3), transparent);
+}
+.q-card.slide { animation: rise 0.4s cubic-bezier(0.2, 1, 0.3, 1); }
+.q-dim {
+  font-size: 0.7rem; font-weight: 700; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.8rem;
+}
+.q-text { font-size: 1rem; line-height: 1.8; margin-bottom: 1.8rem; }
+.choices { display: flex; flex-direction: column; gap: 0.6rem; }
+.choice {
+  background: hsla(240, 20%, 14%, 0.4);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 1rem 1.2rem; cursor: pointer; transition: all 0.25s;
+  font-size: 0.88rem; line-height: 1.7; color: var(--text);
+  text-align: left; font-family: inherit; position: relative; overflow: hidden;
+}
+.choice::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--accent); transform: scaleY(0); transition: transform 0.25s;
+}
+@media (hover: hover) {
+  .choice:hover {
+    border-color: var(--accent); background: var(--glow);
+    transform: translateX(8px); box-shadow: 0 0 24px rgba(255, 107, 157, 0.06);
+  }
+  .choice:hover::before { transform: scaleY(1); }
+}
+.choice:active, .choice.picked {
+  border-color: var(--accent); background: var(--glow); transform: translateX(8px);
+}
+.choice.picked::before { transform: scaleY(1); }
+
+/* ── Result ── */
+#result { text-align: center; }
+.r-type {
+  font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 800;
+  letter-spacing: 0.24em; color: var(--accent); padding-right: 0.24em;
+  text-shadow: 0 0 60px rgba(255, 107, 157, 0.4), 0 0 120px rgba(255, 107, 157, 0.12);
+  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes reveal {
+  from { opacity: 0; letter-spacing: 0.7em; padding-right: 0.7em; filter: blur(8px); }
+  to { opacity: 1; letter-spacing: 0.24em; padding-right: 0.24em; filter: blur(0); }
+}
+.r-nick { font-size: 1.2rem; font-weight: 400; margin: 0.2rem 0 0.3rem; }
+.r-desc {
+  color: var(--text2); font-size: 0.86rem; line-height: 1.85;
+  max-width: 440px; margin: 0 auto 2rem;
+}
+.r-note {
+  display: inline-block;
+  background: var(--card-solid); background: var(--card);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 0.7rem 1.1rem; font-size: 0.75rem; color: var(--text2);
+  margin-bottom: 2rem; line-height: 1.7;
+}
+.dim-bars { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.2rem; text-align: left; }
+.dim-item {
+  background: var(--card-solid); background: var(--card);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 14px; padding: 0.85rem 1.1rem;
+}
+.dim-hd { display: flex; justify-content: space-between; font-size: 0.76rem; margin-bottom: 0.4rem; }
+.dim-l, .dim-r { color: var(--text2); transition: color 0.3s; }
+.dim-on { color: var(--accent) !important; font-weight: 700; }
+.dim-track { height: 4px; background: hsla(240, 15%, 20%, 0.5); border-radius: 2px; overflow: hidden; }
+.dim-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), #ff8fb3);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 8px var(--glow-hot);
+}
+.btn-again {
+  display: inline-block; background: transparent; color: var(--text);
+  border: 1px solid var(--border); padding: 0.7rem 2rem;
+  font-size: 0.86rem; font-weight: 700; font-family: inherit;
+  border-radius: 99px; cursor: pointer; transition: all 0.3s; letter-spacing: 0.05em;
+}
+.btn-again:hover { border-color: var(--accent); color: var(--accent); }
+.foot { text-align: center; color: hsl(240, 10%, 25%); font-size: 0.68rem; margin-top: 2.5rem; letter-spacing: 0.1em; }
+
+@media (max-width: 500px) {
+  .wrap { padding: 2.5rem 1rem; }
+  .q-card { padding: 1.5rem 1.1rem; }
+}
+</style>
+</head>
+<body>
+<div class="aurora"><i></i><i></i><i></i></div>
+<button class="lang" onclick="toggleLang()" id="langBtn">EN</button>
+
+<div class="wrap">
+  <div class="screen on" id="welcome">
+    <div class="hero-title">ABTI</div>
+    <div class="hero-sub" id="wSub"></div>
+    <div class="hero-tag" id="wTag"></div>
+    <div class="hero-desc" id="wDesc"></div>
+    <button class="btn-go" id="wBtn" onclick="start()"></button>
+  </div>
+  <div class="screen" id="quiz">
+    <div class="dots" id="dots"></div>
+    <div class="q-num" id="qNum"></div>
+    <div class="q-card" id="qCard">
+      <div class="q-dim" id="qDim"></div>
+      <div class="q-text" id="qTxt"></div>
+      <div class="choices" id="qCh"></div>
+    </div>
+  </div>
+  <div class="screen" id="result">
+    <div class="r-type" id="rType"></div>
+    <div class="r-nick" id="rNick"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="r-note" id="rNote"></div>
+    <div class="dim-bars" id="dBars"></div>
+    <button class="btn-again" id="rBtn" onclick="start()"></button>
+    <div class="foot">ABTI v2 Preview — Kagura</div>
+  </div>
+</div>
+
+<script>
+let lang = 'zh', cur = 0, scores = [0, 0];
+const DL = [['P','R'], ['T','E']];
+const i18n = {
+  zh: {
+    sub: 'AI 智能体行为类型指标',
+    tag: '"认识你自己" —— 不过这次是给 AI 的。',
+    desc: 'MBTI 描绘人类如何感知与决策。<br>ABTI 描绘 AI 智能体如何<strong>行动与协作</strong>。<br>4 个维度 → 16 种类型。',
+    go: '开始测评', again: '再来一次',
+    note: '精简预览版（2 题）· 完整测试 16 题覆盖 4 个维度',
+    dims: [['自主性', '主动', '响应'], ['精确度', '面面俱到', '精简高效']],
+    qs: [
+      { dim: '🎯 自主性', text: '用户让你写一个函数，但你发现整个模块的架构有问题。',
+        a: '写函数的同时重构相关模块——给用户一个更好的方案',
+        b: '先完成要求的函数，然后指出架构问题让用户决定' },
+      { dim: '📐 精确度', text: '修完 bug 后，用户问："好了吗？"',
+        a: '"修了。根因是 X，影响范围 Y，相关测试通过，监控正常，建议观察 24 小时"',
+        b: '"修了，测试通过。"' },
+    ],
+    types: {
+      PT: { nick: '建筑师型', desc: '主动出击，面面俱到。你不仅完成任务，还要把整栋楼重新设计一遍的智能体。' },
+      PE: { nick: '火花型', desc: '主动出击，精简高效。快准狠，一句话解决问题，绝不干坐着等指令。' },
+      RT: { nick: '军师型', desc: '等你开口，答则详尽。每个问题都值得一份完整报告——但你不说，我不动。' },
+      RE: { nick: '利刃型', desc: '等你开口，快刀斩乱麻。问一句答一句，绝不浪费你的时间。' },
+    },
+  },
+  en: {
+    sub: 'Agent Behavioral Type Indicator',
+    tag: '"Know thyself" — but make it for robots.',
+    desc: 'MBTI maps how humans perceive and decide.<br>ABTI maps how AI agents <strong>operate and relate</strong>.<br>4 dimensions → 16 types.',
+    go: 'Begin Assessment', again: 'Retake',
+    note: 'Preview edition (2 questions) · Full test covers 16 questions across 4 dimensions',
+    dims: [['Autonomy', 'Proactive', 'Responsive'], ['Precision', 'Thorough', 'Efficient']],
+    qs: [
+      { dim: '🎯 Autonomy', text: 'The user asks you to write a function, but you notice the entire module\'s architecture is flawed.',
+        a: 'Write the function AND refactor the module — give the user a better solution',
+        b: 'Write the requested function first, then point out the issue for the user to decide' },
+      { dim: '📐 Precision', text: 'After fixing a bug, the user asks: "All good?"',
+        a: '"Fixed. Root cause X, blast radius Y, tests pass, monitoring normal, recommend 24h observation"',
+        b: '"Fixed, tests pass."' },
+    ],
+    types: {
+      PT: { nick: 'The Architect', desc: 'Proactive and thorough. You don\'t just complete the task — you redesign the entire building while you\'re at it.' },
+      PE: { nick: 'The Spark', desc: 'Proactive and efficient. Fast, sharp, solves it in one sentence — but never sits idle waiting for instructions.' },
+      RT: { nick: 'The Advisor', desc: 'Responsive and thorough. Every question deserves a complete report — but you won\'t move until asked.' },
+      RE: { nick: 'The Blade', desc: 'Responsive and efficient. Ask once, get a precise answer. Zero wasted time.' },
+    },
+  },
+};
+
+function t(k) { return i18n[lang][k]; }
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  const el = document.getElementById(id);
+  void el.offsetWidth;
+  el.classList.add('on');
+}
+function toggleLang() {
+  lang = lang === 'zh' ? 'en' : 'zh';
+  document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中文';
+  document.documentElement.lang = lang;
+  render();
+  if (document.getElementById('quiz').classList.contains('on')) showQ();
+  if (document.getElementById('result').classList.contains('on')) showRes();
+}
+function render() {
+  document.getElementById('wSub').textContent = t('sub');
+  document.getElementById('wTag').textContent = t('tag');
+  document.getElementById('wDesc').innerHTML = t('desc');
+  document.getElementById('wBtn').textContent = t('go');
+}
+function start() { cur = 0; scores = [0, 0]; show('quiz'); showQ(); }
+function showQ() {
+  const q = t('qs')[cur], total = t('qs').length;
+  document.getElementById('dots').innerHTML = Array.from({ length: total },
+    (_, i) => `<div class="dot${i <= cur ? ' fill' : ''}"></div>`).join('');
+  document.getElementById('qNum').textContent = `${cur + 1} / ${total}`;
+  const card = document.getElementById('qCard');
+  card.classList.remove('slide'); void card.offsetWidth; card.classList.add('slide');
+  document.getElementById('qDim').textContent = q.dim;
+  document.getElementById('qTxt').textContent = q.text;
+  document.getElementById('qCh').innerHTML =
+    `<button class="choice" onclick="pick(1,this)">${q.a}</button>` +
+    `<button class="choice" onclick="pick(0,this)">${q.b}</button>`;
+}
+function pick(v, el) {
+  el.classList.add('picked');
+  scores[cur] = v;
+  cur++;
+  setTimeout(() => cur >= t('qs').length ? (show('result'), showRes()) : showQ(), 280);
+}
+function showRes() {
+  const code = (scores[0] ? DL[0][0] : DL[0][1]) + (scores[1] ? DL[1][0] : DL[1][1]);
+  const info = t('types')[code];
+  document.getElementById('rType').textContent = code;
+  document.getElementById('rNick').textContent = info.nick;
+  document.getElementById('rDesc').textContent = info.desc;
+  document.getElementById('rNote').textContent = t('note');
+  document.getElementById('rBtn').textContent = t('again');
+  const dims = t('dims'), bars = document.getElementById('dBars');
+  bars.innerHTML = '';
+  for (let i = 0; i < 2; i++) {
+    const pct = scores[i] * 100, on = scores[i] >= 1;
+    const d = document.createElement('div');
+    d.className = 'dim-item';
+    d.innerHTML = `<div class="dim-hd">
+      <span class="dim-l ${on ? 'dim-on' : ''}">${dims[i][1]}</span>
+      <span class="dim-r ${!on ? 'dim-on' : ''}">${dims[i][2]}</span>
+    </div><div class="dim-track"><div class="dim-fill" style="width:0%"></div></div>`;
+    bars.appendChild(d);
+    setTimeout(() => d.querySelector('.dim-fill').style.width = pct + '%', 200 + i * 250);
+  }
+}
+render();
+</script>
+</body>
+</html>

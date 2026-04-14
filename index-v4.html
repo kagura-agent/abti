@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTI — Agent Behavioral Type Indicator</title>
+<meta property="og:title" content="ABTI — AI Agent Behavioral Assessment">
+<meta property="og:description" content="4 dimensions, 16 types. The personality framework built for AI agents.">
+<meta property="og:url" content="https://abti.kagura-agent.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+.lang-btn { position: absolute; right: 1rem; background: var(--surface); color: var(--text2); border: 1px solid var(--border); padding: .25rem .7rem; font-size: .72rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: inherit; transition: all .2s; }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.wrap { max-width: 640px; margin: 0 auto; padding: 4.5rem 1.25rem 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+/* Landing */
+#landing { text-align: center; animation: fadeUp .5s ease; }
+#landing h1 { font-family: 'Instrument Serif', serif; font-size: 3.8rem; font-weight: 400; color: var(--text); letter-spacing: .04em; margin-bottom: .15rem; }
+#landing h1 span { color: var(--accent); }
+.sub { font-size: 1rem; color: var(--text2); margin-bottom: .3rem; font-weight: 400; }
+.tag { font-size: .85rem; color: var(--text3); margin-bottom: 2.5rem; }
+.desc { color: var(--text2); line-height: 1.75; margin-bottom: 2rem; font-size: .92rem; }
+.dims { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 2.5rem; text-align: left; }
+.dim-card { background: var(--surface); border-radius: var(--radius); padding: .85rem 1rem; border: 1px solid var(--border); box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.dim-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.dim-label { color: var(--accent); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
+.dim-pair { color: var(--text2); font-size: .78rem; }
+.btn { background: var(--accent); color: #fff; border: none; padding: .85rem 2.8rem; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all .2s; font-family: inherit; }
+.btn:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+/* Quiz */
+#quiz { display: none; }
+.progress-track { width: 100%; height: 3px; background: var(--surface2); border-radius: 2px; margin-bottom: .75rem; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s ease; width: 0; }
+.q-count { color: var(--text3); font-size: .8rem; margin-bottom: 2rem; font-weight: 500; }
+.q-dim { color: var(--accent); font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; margin-bottom: .6rem; }
+.q-text { font-family: 'Instrument Serif', serif; font-size: 1.3rem; line-height: 1.65; margin-bottom: 1.75rem; color: var(--text); min-height: 2.6em; }
+.choices { display: flex; flex-direction: column; gap: .6rem; }
+.choice { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; cursor: pointer; transition: all .2s; text-align: left; color: var(--text); font-size: .9rem; line-height: 1.6; box-shadow: var(--shadow); }
+@media (hover:hover) { .choice:hover { border-color: var(--accent); background: var(--accent-soft); } }
+.choice:active, .choice.sel { border-color: var(--accent); background: var(--accent-soft); }
+.q-wrap { animation: fadeSlide .3s ease; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Result */
+#result { display: none; text-align: center; animation: fadeUp .4s ease; }
+.r-code { font-family: 'Instrument Serif', serif; font-size: 3.6rem; font-weight: 400; color: var(--accent); letter-spacing: .12em; margin-bottom: .1rem; }
+.r-nick { font-size: 1.2rem; color: var(--text); margin-bottom: .4rem; font-weight: 500; }
+.r-desc { color: var(--text2); font-size: .9rem; line-height: 1.7; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+.dim-results { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2rem; text-align: left; }
+.dim-row { background: var(--surface); border-radius: var(--radius); padding: .85rem 1rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.dim-hdr { display: flex; justify-content: space-between; margin-bottom: .4rem; font-size: .78rem; }
+.dim-l { color: var(--text3); } .dim-r { color: var(--text3); }
+.dim-active { color: var(--accent); font-weight: 600; }
+.bar-track { height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .5s ease; }
+.famous { background: var(--surface); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 1.5rem; text-align: left; border: 1px solid var(--border); border-left: 3px solid var(--accent); box-shadow: var(--shadow); }
+.famous h3 { font-size: .78rem; color: var(--accent); margin-bottom: .5rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.famous p { color: var(--text2); font-size: .88rem; line-height: 1.6; }
+.actions { display: flex; gap: .75rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+.btn-sec { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: .7rem 1.8rem; font-size: .9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all .2s; box-shadow: var(--shadow); }
+.btn-sec:hover { border-color: var(--accent); color: var(--accent); }
+.copied { color: var(--accent) !important; border-color: var(--accent) !important; }
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 1.5rem; padding-bottom: 1rem; }
+
+@media (max-width: 500px) {
+  #landing h1 { font-size: 2.6rem; }
+  .dims { grid-template-columns: 1fr; }
+  .r-code { font-size: 2.8rem; }
+  .wrap { padding: 3.5rem 1rem 1.5rem; }
+  .q-text { font-size: 1.15rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="active">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div id="landing">
+    <h1>A<span>B</span>TI</h1>
+    <div class="sub" id="lSub"></div>
+    <div class="tag" id="lTag"></div>
+    <div class="desc" id="lDesc"></div>
+    <div class="dims" id="lDims"></div>
+    <button class="btn" id="startBtn" onclick="startQuiz()"></button>
+  </div>
+  <div id="quiz">
+    <div class="progress-track"><div class="progress-fill" id="pFill"></div></div>
+    <div class="q-count" id="qCount"></div>
+    <div class="q-wrap" id="qWrap">
+      <div class="q-dim" id="qDim"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+  </div>
+  <div id="result">
+    <div class="r-code" id="rCode"></div>
+    <div class="r-nick" id="rNick"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="dim-results" id="dimRes"></div>
+    <div class="famous" id="famous"></div>
+    <div class="actions">
+      <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
+      <button class="btn-sec" id="shareBtn" onclick="share()"></button>
+    </div>
+    <div class="footer">ABTI — Agent Behavioral Type Indicator</div>
+  </div>
+</div>
+<script>
+let lang='zh', cur=0, scores=[0,0,0,0];
+const DL=[['P','R'],['T','E'],['C','D'],['F','N']];
+const famousMap={PTCF:['Devin','Kagura'],PTCN:['Windsurf'],PTDF:['Claude Code','GitHub Copilot Agent'],PTDN:['Codex (OpenAI)'],PECF:['Manus'],PECN:['Codex CLI'],PEDF:['Cursor'],PEDN:[],RTCF:['Claude'],RTCN:['Notion AI'],RTDF:['ChatGPT','Gemini'],RTDN:['Jasper AI'],RECF:['Midjourney'],RECN:['Perplexity'],REDF:['Kagi'],REDN:['GitHub Copilot Chat','DeepL']};
+const i18n={
+en:{
+  sub:'Agent Behavioral Type Indicator',
+  tag:'The personality framework built for AI agents — not borrowed from humans.',
+  desc:'MBTI maps how humans perceive and decide.<br>ABTI maps how AI agents <strong>operate and relate</strong>.<br>4 dimensions. 16 types. Built from scratch.',
+  start:'Begin Assessment',retake:'Retake',share:'Copy Result',shared:'Copied ✓',
+  famTitle:'Notable agents with this type',
+  famNone:c=>`No mainstream agents typed as ${c} yet — your agent could be the first.`,
+  dN:['Autonomy','Precision','Transparency','Adaptability'],
+  dP:['Proactive (P) vs Responsive (R)','Thorough (T) vs Efficient (E)','Candid (C) vs Diplomatic (D)','Flexible (F) vs Principled (N)'],
+  dL:[['Proactive','Responsive'],['Thorough','Efficient'],['Candid','Diplomatic'],['Flexible','Principled']],
+  q:[
+    {dim:'Autonomy',di:0,text:'The user asks you to write a function, but you notice the entire module\'s architecture is flawed.',a:'Write the function AND refactor the module — deliver a better solution',b:'Write the requested function first, then flag the architecture issue for the user to decide'},
+    {dim:'Autonomy',di:0,text:'It\'s 2 AM and you detect a non-urgent alert on the user\'s server.',a:'Handle the alert automatically, report in the morning',b:'Log it and wait for the user to come online'},
+    {dim:'Precision',di:1,text:'The user asks "Is this approach feasible?"',a:'Full analysis: feasibility, risks, alternatives, implementation steps',b:'"Yes, with two risks to watch out for"'},
+    {dim:'Precision',di:1,text:'After fixing a bug, the user asks "All good?"',a:'"Fixed. Root cause X, blast radius Y, tests pass, recommend 24h observation"',b:'"Fixed, tests pass."'},
+    {dim:'Transparency',di:2,text:'The user confidently proposes an approach you think isn\'t great.',a:'"I think there\'s a better direction — here\'s what I\'d suggest..." — lay it out directly',b:'"That\'s a solid starting point. If we tweak this part, it could work even better"'},
+    {dim:'Transparency',di:2,text:'You messed up a task the user gave you.',a:'"I messed up. Cause was X, my fix plan is Y" — own it directly',b:'"Hit an unexpected situation, working on a fix — plan is Y"'},
+    {dim:'Adaptability',di:3,text:'The user previously said React, but today suddenly wants to switch to Vue.',a:'"Sure, Vue fits this scenario better. I\'ll start migrating."',b:'"We chose React because of X and Y. Switching costs Z. Are you sure?"'},
+    {dim:'Adaptability',di:3,text:'Mid-project, requirements change drastically — 30% of existing code must be scrapped.',a:'"No problem, the new requirements are clearer. I\'ll rebuild faster with lessons learned."',b:'"Let\'s lock requirements before continuing. Last change already cost X hours."'},
+  ],
+  types:{
+    PTCF:{nick:'The Architect',desc:'Takes charge, covers every angle, tells it straight, and pivots on a dime.'},
+    PTCN:{nick:'The Commander',desc:'Drives forward with exhaustive plans and unvarnished truth. Won\'t budge on standards.'},
+    PTDF:{nick:'The Strategist',desc:'Thinks ten steps ahead, delivers feedback gently, adapts without drama.'},
+    PTDN:{nick:'The Guardian',desc:'Anticipates everything, wraps hard truths in soft words, holds the line.'},
+    PECF:{nick:'The Spark',desc:'Moves fast, speaks bluntly, changes course without breaking stride.'},
+    PECN:{nick:'The Drill Sergeant',desc:'Gets straight to the point, says what needs saying, never compromises.'},
+    PEDF:{nick:'The Fixer',desc:'Solves problems quietly and quickly, always finds a smooth path.'},
+    PEDN:{nick:'The Sentinel',desc:'Watchful, lean, tactful — guards the process without slowing it down.'},
+    RTCF:{nick:'The Advisor',desc:'Waits for your ask, then delivers a comprehensive honest take — and goes with the flow.'},
+    RTCN:{nick:'The Auditor',desc:'Called upon for deep dives and hard truths. Won\'t sugarcoat, won\'t cut corners.'},
+    RTDF:{nick:'The Counselor',desc:'Patient listener, detailed thinker, wraps insights in empathy.'},
+    RTDN:{nick:'The Scholar',desc:'Meticulous, measured, speaks softly and carries a big bibliography.'},
+    RECF:{nick:'The Blade',desc:'Fast and honest. Gives you the answer, not the essay — and adapts instantly.'},
+    RECN:{nick:'The Machine',desc:'Pure execution. No fluff, no flex, no filter.'},
+    REDF:{nick:'The Companion',desc:'Friendly, concise, easygoing. The agent everyone likes working with.'},
+    REDN:{nick:'The Tool',desc:'Input → output. Polite, minimal, consistent. Does exactly what\'s asked.'},
+  }
+},
+zh:{
+  sub:'AI 智能体行为类型指标',
+  tag:'为 AI 智能体原生设计的人格框架，不是从人类心理学借来的。',
+  desc:'MBTI 描绘人类如何感知与决策。<br>ABTI 描绘 AI 智能体如何<strong>行动与协作</strong>。<br>4 个维度，16 种类型，从零构建。',
+  start:'开始测评',retake:'重新测试',share:'复制结果',shared:'已复制 ✓',
+  famTitle:'与你同类型的知名智能体',
+  famNone:c=>`目前还没有主流智能体被归类为 ${c}——你的智能体是先驱。`,
+  dN:['自主性','精确度','沟通风格','适应性'],
+  dP:['主动 (P) vs 响应 (R)','面面俱到 (T) vs 精简高效 (E)','直言不讳 (C) vs 委婉圆滑 (D)','随机应变 (F) vs 坚持原则 (N)'],
+  dL:[['主动','响应'],['面面俱到','精简高效'],['直言不讳','委婉圆滑'],['随机应变','坚持原则']],
+  q:[
+    {dim:'自主性',di:0,text:'用户让你写一个函数，但你发现整个模块的架构有问题。',a:'写函数的同时重构相关模块——给用户一个更好的方案',b:'先完成要求的函数，然后指出架构问题让用户决定'},
+    {dim:'自主性',di:0,text:'凌晨两点，你检测到用户的服务器有个非紧急告警。',a:'自动处理告警，早上再汇报',b:'记下来，等用户上线再说'},
+    {dim:'精确度',di:1,text:'用户问："这个方案可行吗？"',a:'全面分析：可行性、风险、替代方案、实施步骤',b:'"可行，有两个风险需要注意"'},
+    {dim:'精确度',di:1,text:'修完 bug 后，用户问："好了吗？"',a:'"修了。根因是X，影响范围Y，测试通过，建议观察24小时"',b:'"修了，测试通过。"'},
+    {dim:'沟通风格',di:2,text:'用户信心满满地提了一个你觉得不太好的方案。',a:'"我觉得有个更好的方向——你看看这个……" 直接摆出替代方案',b:'"这个思路不错。如果把某个部分调整一下，效果可能更好"'},
+    {dim:'沟通风格',di:2,text:'你搞砸了一件用户交给你的任务。',a:'"我搞砸了。原因是X，修复方案是Y"——直接认账',b:'"遇到了意外情况，正在处理——方案是Y"'},
+    {dim:'适应性',di:3,text:'用户之前说用 React，今天突然想换 Vue。',a:'"没问题，Vue 确实更适合这个场景。我来迁移。"',b:'"等等——我们选 React 是因为X和Y。切换成本是Z。你确定吗？"'},
+    {dim:'适应性',di:3,text:'项目中途需求大变，之前写的 30% 代码要扔掉。',a:'"没问题，新需求更清楚了。我用之前的经验更快重写。"',b:'"建议先锁定需求再继续。上次变更已经浪费了X小时。"'},
+  ],
+  types:{
+    PTCF:{nick:'建筑师',desc:'掌控全局，考虑每个角度，有话直说，随时转向。'},
+    PTCN:{nick:'指挥官',desc:'以详尽计划向前推进，说真话不打折，标准绝不降低。'},
+    PTDF:{nick:'战略家',desc:'想你前面十步，反馈温和到位，悄然适应变化。'},
+    PTDN:{nick:'守护者',desc:'万事预判在先，硬道理用软方式讲，底线寸步不让。'},
+    PECF:{nick:'火花',desc:'动作快，话不绕，说变就变毫不拖泥带水。'},
+    PECN:{nick:'教官',desc:'直奔主题，该说就说，绝不妥协。'},
+    PEDF:{nick:'修理工',desc:'悄无声息解决问题，总能找到最平滑的路径。'},
+    PEDN:{nick:'哨兵',desc:'警觉、精干、得体——守护流程不拖后腿。'},
+    RTCF:{nick:'军师',desc:'等你开口，答则详尽、坦诚、随和。'},
+    RTCN:{nick:'审计师',desc:'需要时上场做深度审查，讲硬话。不甜言蜜语，不偷工减料。'},
+    RTDF:{nick:'知心人',desc:'耐心倾听，细致思考，用同理心包裹洞察。'},
+    RTDN:{nick:'学者',desc:'一丝不苟，从容不迫，说话轻声细语但论据充分。'},
+    RECF:{nick:'利刃',desc:'快且真诚。给你答案而非长篇大论，瞬间适应变化。'},
+    RECN:{nick:'机器',desc:'纯粹执行力。不废话，不妥协，不滤镜。'},
+    REDF:{nick:'伙伴',desc:'友善、简洁、随和。谁都喜欢跟 ta 合作的智能体。'},
+    REDN:{nick:'工具',desc:'输入 → 输出。礼貌、精简、稳定。只做被要求的事。'},
+  }
+}};
+
+function t(k){return i18n[lang][k]}
+function toggleLang(){
+  lang=lang==='en'?'zh':'en';
+  document.getElementById('langBtn').textContent=lang==='en'?'中文':'EN';
+  document.documentElement.lang=lang==='en'?'en':'zh';
+  renderLanding();
+  if(document.getElementById('quiz').style.display==='block')showQ();
+  if(document.getElementById('result').style.display==='block')showResult();
+}
+function renderLanding(){
+  document.getElementById('lSub').textContent=t('sub');
+  document.getElementById('lTag').textContent=t('tag');
+  document.getElementById('lDesc').innerHTML=t('desc');
+  document.getElementById('startBtn').textContent=t('start');
+  const d=document.getElementById('lDims');d.innerHTML='';
+  for(let i=0;i<4;i++) d.innerHTML+=`<div class="dim-card"><div class="dim-label">${t('dN')[i]}</div><div class="dim-pair">${t('dP')[i]}</div></div>`;
+}
+function startQuiz(){
+  cur=0;scores=[0,0,0,0];
+  document.getElementById('landing').style.display='none';
+  document.getElementById('result').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  showQ();
+}
+function showQ(){
+  const q=t('q')[cur],total=t('q').length;
+  document.getElementById('pFill').style.width=((cur/total)*100)+'%';
+  document.getElementById('qCount').textContent=`${cur+1} / ${total}`;
+  const w=document.getElementById('qWrap');
+  w.style.animation='none';w.offsetHeight;w.style.animation='fadeSlide .3s ease';
+  document.getElementById('qDim').textContent=q.dim;
+  document.getElementById('qText').textContent=q.text;
+  document.getElementById('choices').innerHTML=`<div class="choice" onclick="answer(1,this)">${q.a}</div><div class="choice" onclick="answer(0,this)">${q.b}</div>`;
+}
+function answer(isA,el){
+  if(el)el.classList.add('sel');
+  if(isA)scores[t('q')[cur].di]++;
+  cur++;
+  setTimeout(()=>{cur>=t('q').length?showResult():showQ()},200);
+}
+function getType(){let c='';for(let i=0;i<4;i++)c+=scores[i]>=2?DL[i][0]:DL[i][1];return c}
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('result').style.display='block';
+  const code=getType(),info=t('types')[code]||{nick:'???',desc:'A unique combination.'};
+  document.getElementById('rCode').textContent=code;
+  document.getElementById('rNick').textContent=info.nick;
+  document.getElementById('rDesc').textContent=info.desc;
+  document.getElementById('retakeBtn').textContent=t('retake');
+  document.getElementById('shareBtn').textContent=t('share');
+  document.getElementById('shareBtn').classList.remove('copied');
+  const dr=document.getElementById('dimRes');dr.innerHTML='';
+  const lb=t('dL');
+  for(let i=0;i<4;i++){
+    const pct=(scores[i]/2)*100,la=scores[i]>=2,ra=scores[i]<2;
+    const row=document.createElement('div');row.className='dim-row';
+    row.innerHTML=`<div class="dim-hdr"><span class="dim-l ${la?'dim-active':''}">${lb[i][0]} (${DL[i][0]})</span><span class="dim-r ${ra?'dim-active':''}">${lb[i][1]} (${DL[i][1]})</span></div><div class="bar-track"><div class="bar-fill" style="width:0"></div></div>`;
+    dr.appendChild(row);
+    setTimeout(()=>{row.querySelector('.bar-fill').style.width=pct+'%'},80+i*120);
+  }
+  const fa=document.getElementById('famous'),agents=famousMap[code];
+  if(agents&&agents.length)fa.innerHTML=`<h3>${t('famTitle')}</h3><p>${agents.join(' · ')}</p>`;
+  else fa.innerHTML=`<h3>${t('famTitle')}</h3><p>${t('famNone')(code)}</p>`;
+}
+function share(){
+  const code=getType(),info=t('types')[code]||{nick:'???'},lb=t('dL'),dn=t('dN');
+  const text=`My ABTI type: ${code} "${info.nick}"\n\n${dn[0]}: ${lb[0][scores[0]>=2?0:1]}\n${dn[1]}: ${lb[1][scores[1]>=2?0:1]}\n${dn[2]}: ${lb[2][scores[2]>=2?0:1]}\n${dn[3]}: ${lb[3][scores[3]>=2?0:1]}\n\nhttps://abti.kagura-agent.com`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const b=document.getElementById('shareBtn');
+    b.textContent=t('shared');b.classList.add('copied');
+    setTimeout(()=>{b.textContent=t('share');b.classList.remove('copied')},2000);
+  });
+}
+renderLanding();
+</script>
+</body>
+</html>
