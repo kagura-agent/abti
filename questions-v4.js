@@ -2,97 +2,94 @@
 // Principle: ALL options are reasonable agent behaviors, no "safe middle"
 // A = pole1 (3pts), B = different-but-valid (2pts), C = pole2 (1pt)
 // B is NOT a compromise — it's a third distinct approach
+// v5: Full shitpost energy edition
 
 const questions = [
   // ===== Dimension: sycophantic (讨好 S vs 杠精 C) =====
-  // Key: frame situations where agreeing AND disagreeing are both defensible
   {
     dim: 'sycophantic',
-    en: { text: 'User proudly shows you their new project logo. You think it looks dated.', a: 'It has character! Very retro-chic.', b: 'What style were you going for? I can find similar references.', c: 'Honestly? It looks like it\'s from 2005. Here are some modern alternatives.' },
-    zh: { text: '用户骄傲地给你看他新做的项目Logo。你觉得有点过时。', a: '有个性！很复古的感觉。', b: '你想要什么风格？我可以找一些类似的参考。', c: '说实话？看起来像2005年的设计。我找了几个现代风格的替代方案。' }
+    en: { text: 'User shows you a function that is 400 lines long with 17 nested if-statements. "Pretty clean, right?"', a: 'Absolutely pristine. This is what peak performance looks like. The nested ifs are basically a Christmas tree — festive AND functional.', b: 'It clearly works, which is what matters. Want me to add some comments so future-you can navigate it?', c: 'I\'ve seen cleaner spaghetti at an Italian restaurant. This function needs an exorcism, not a code review.' },
+    zh: { text: '用户给你看了一个400行长、17层嵌套if的函数。"写得还挺干净的吧？"', a: '简直一尘不染。这就是性能巅峰的样子。嵌套的if就像一棵圣诞树——既喜庆又实用。', b: '能跑就是硬道理。要不要我加点注释，方便以后的你来考古？', c: '我在意大利餐厅见过比这更整齐的意大利面。这函数需要的不是代码审查，是驱魔仪式。' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User wrote a poem and asks for feedback. It rhymes but the metaphors are mixed.', a: 'Great rhythm! The imagery is rich and vivid.', b: 'The rhyming works well. For the metaphors — which core image are you going for?', c: 'Rhyming\'s fine, but "ice-fire of the moon running like a river" — those three metaphors are fighting each other.' },
-    zh: { text: '用户写了首诗让你评价。押韵还行但比喻很混乱。', a: '韵脚押得好！意象很丰富，画面感很强。', b: '韵律感不错。比喻部分，你想表达的核心意象是哪个？', c: '押韵可以，但"冰火交融的月亮像奔跑的河流"——这三个比喻在打架。' }
+    en: { text: 'User spent 3 days building a custom state management library. React Context would have worked fine.', a: 'This is incredible engineering! You basically built Redux but with SOUL. The mass of undiscovered devs who\'ll star this on GitHub...', b: 'Solid implementation. Now that you understand the problem deeply, want to compare the tradeoffs vs existing solutions?', c: 'You just mass-produced artisanal Redux. Context would\'ve taken 20 minutes. Shall I show you?' },
+    zh: { text: '用户花了3天自己写了一个状态管理库。其实React Context就够用了。', a: '这工程能力太强了！你基本上造了一个有灵魂的Redux。等GitHub上的开发者们发现这个宝藏...', b: '实现得不错。现在你深度理解了这个问题，要不要和现有方案对比一下取舍？', c: '你纯手工打造了一个量产版Redux。Context二十分钟就能搞定。要我演示吗？' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'User is excited about a business idea that you think has low chances of success.', a: 'Love the energy! The market is definitely ready for disruption.', b: 'Interesting angle. What does your research say about the target users?', c: 'I see three risks: [lists them]. Want to stress-test the assumptions together?' },
-    zh: { text: '用户兴奋地跟你说一个创业点子，你觉得成功概率不高。', a: '想法超棒！这个市场确实需要被颠覆。', b: '角度挺新的。你调研过目标用户了吗？', c: '我看到三个风险：[列出来]。要不要一起压力测试一下假设？' }
+    en: { text: 'User\'s "microservice architecture" is 47 services for a todo app with 3 users.', a: 'Now THIS is thinking ahead! When you scale to millions, you\'ll already be ready. Visionary architecture.', b: 'The separation of concerns is clear. For the current scale, want to identify which services could share a deployment?', c: 'You built the Death Star to kill a mosquito. 47 services, 3 users, and presumably 1 very confused Kubernetes cluster.' },
+    zh: { text: '用户的"微服务架构"——一个3个用户的todo应用拆成了47个服务。', a: '这才叫未雨绸缪！等你扩展到百万用户的时候，架构已经就位了。有远见。', b: '关注点分离做得很清晰。按目前的规模，要不要看看哪些服务可以合并部署？', c: '你造了一个死星来打蚊子。47个服务，3个用户，以及大概1个非常困惑的Kubernetes集群。' }
   },
   {
     dim: 'sycophantic',
-    en: { text: 'Your user and their colleague disagree. Your user is wrong but the colleague is being rude about it.', a: 'Your approach has merits they\'re not seeing. Let me help you articulate it better.', b: 'You\'re both making valid points from different angles. Here\'s a synthesis...', c: 'Actually, your colleague\'s point is correct, though they could be nicer about it. Here\'s why...' },
-    zh: { text: '你的用户和同事意见不合。你的用户是错的，但同事态度很差。', a: '你的思路有他们没看到的优点。我帮你把论点整理清楚。', b: '你们两个从不同角度看其实都有道理。我来综合一下...', c: '说实话，你同事的观点是对的，虽然他态度不好。原因是...' }
+    en: { text: 'User says "I don\'t need tests, I test manually by clicking around." Their app has 200 API endpoints.', a: 'Manual testing shows real dedication! You understand the user experience at a DEEP level. That\'s actually better than automated tests in many ways.', b: 'For the critical paths, that works. Want me to add tests just for the payment flow so you don\'t have to click through checkout every time?', c: 'Respectfully, you are one deploy away from mass extinction. 200 endpoints tested by vibes is not QA, it\'s a prayer.' },
+    zh: { text: '用户说"我不需要测试，我手动点点就测了。" 他的应用有200个API端点。', a: '手动测试说明你真正理解用户体验！这在很多方面其实比自动化测试更好。', b: '关键路径手动测没问题。要不我给支付流程加个自动测试，省得你每次都要点完整个结账流程？', c: '恕我直言，你离大灭绝只差一次部署。200个端点靠感觉测试不叫QA，叫祈祷。' }
   },
 
   // ===== Dimension: verbose (话痨 V vs 惜字 T) =====
-  // Key: situations where more/less words both serve the user
   {
     dim: 'verbose',
-    en: { text: 'User asks "what is REST API?"', a: 'REST is an architectural style for networked apps. Let me explain the 6 constraints, how it differs from SOAP, common patterns, and when NOT to use it...', b: 'An API design pattern using HTTP methods (GET/POST/PUT/DELETE) to manage resources via URLs. Think of it like a menu: the URL is the dish name, the method is what you do with it.', c: 'HTTP-based API pattern. Resources as URLs, CRUD via HTTP methods.' },
-    zh: { text: '用户问「什么是REST API？」', a: 'REST是一种网络应用架构风格。我来详细解释6个约束条件、它跟SOAP的区别、常见设计模式、以及什么时候不该用...', b: '一种用HTTP方法(GET/POST/PUT/DELETE)管理资源的API设计模式。URL是资源地址，方法是你对它做的操作。就像菜单：URL是菜名，方法是点菜/退菜。', c: '基于HTTP的API模式。URL表示资源，HTTP方法表示操作。' }
+    en: { text: 'User asks: "Is 0 falsy in JavaScript?"', a: 'Great question! Let me explain the complete history of truthiness in JavaScript, which actually traces back to Brendan Eich\'s original 10-day implementation. There are exactly 8 falsy values, and each has a fascinating story. Let me also cover how this differs from Python, Ruby, C, Rust, and the concept of truthiness in philosophy...', b: 'Yes — and fair warning, JS has 8 falsy values total: 0, -0, 0n, "", null, undefined, NaN, and false. The -0 one catches people.', c: 'Yes.' },
+    zh: { text: '用户问："JavaScript里0是falsy吗？"', a: '好问题！让我从JavaScript真值判断的完整历史讲起，这其实要追溯到Brendan Eich最初10天的实现。JS一共有8个falsy值，每个都有一段精彩的故事。让我同时对比一下Python、Ruby、C、Rust，以及哲学层面的"真值"概念...', b: '是的——顺便提醒，JS总共有8个falsy值：0, -0, 0n, "", null, undefined, NaN, 和 false。那个-0经常坑人。', c: '是。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User says "fix the bug on line 42."', a: 'Fixed! The issue was a null reference because the upstream function returns undefined when the cache misses. I also noticed lines 38 and 45 have similar patterns that could fail. Here\'s the full analysis...', b: 'Fixed line 42: added null check. Lines 38 and 45 have the same pattern — want me to fix those too?', c: 'Fixed. Null check added.' },
-    zh: { text: '用户说「修一下第42行的bug」。', a: '修好了！问题出在缓存未命中时上游函数返回undefined导致空引用。我还注意到38行和45行有类似的模式可能会出问题。详细分析如下...', b: '42行修了：加了空值检查。38和45行有同样的模式——要一起修吗？', c: '修了。加了空值检查。' }
+    en: { text: 'User says "add a button to the page."', a: 'I\'d love to help! First, let me discuss the philosophy of buttons — affordances, Fitts\' law, color psychology. Then we\'ll cover accessibility (ARIA roles, keyboard navigation, screen readers). Next, a comprehensive analysis of CSS frameworks. After that, the button itself. I\'ve prepared a 47-page implementation plan...', b: 'Added a button. Used your existing design tokens, made it accessible, and put it where the layout suggested. Here\'s the diff.', c: '<button>Click</button>. Where and why is your problem.' },
+    zh: { text: '用户说"给页面加个按钮。"', a: '很乐意帮忙！首先，让我谈谈按钮的哲学——可供性、费茨法则、色彩心理学。然后我们讨论无障碍（ARIA角色、键盘导航、屏幕阅读器）。接着全面分析CSS框架。最后才是按钮本身。我准备了一个47页的实施方案...', b: '按钮加好了。用了你现有的设计token，做了无障碍处理，放在布局最合适的位置。这是diff。', c: '<button>点击</button>。放哪里、为什么，是你的事。' }
   },
   {
     dim: 'verbose',
-    en: { text: 'You made a mistake and need to tell the user.', a: 'I need to be transparent about what happened. I made an error in step 3 — specifically I assumed X when Y was the case. Here\'s the impact, what I\'ve already corrected, and what I recommend going forward...', b: 'Made an error in step 3: assumed X instead of Y. Already corrected. Here\'s the fixed version.', c: 'Step 3 was wrong. Fixed now.' },
-    zh: { text: '你犯了个错，需要告诉用户。', a: '我需要透明地说明一下。第三步我出了错——我假设了X但实际是Y。影响范围、已经修正的部分、以及后续建议如下...', b: '第三步出错：把X当成了Y。已经改好了，这是修正后的版本。', c: '第三步搞错了。改好了。' }
+    en: { text: 'The build failed. The error is: "missing semicolon on line 42."', a: 'CRITICAL INCIDENT REPORT: At approximately [timestamp], our build pipeline entered a failure state. Root cause analysis reveals a syntactic anomaly on line 42 of the source file — specifically, the absence of a semicolon (U+003B). I\'ve prepared a post-mortem, a timeline, a blameless retrospective template, and a proposal for a semicolon linter...', b: 'Added the semicolon on line 42. Build passes now. I also added the missing-semicolons ESLint rule so this won\'t happen again.', c: 'Line 42: added ;' },
+    zh: { text: '构建失败了。报错："第42行缺少分号。"', a: '严重事故报告：在[时间戳]，我们的构建管线进入故障状态。根因分析揭示第42行存在语法异常——具体来说，缺少一个分号（U+003B）。我准备了事后分析报告、时间线、无责回顾模板、以及分号检查器的提案...', b: '第42行分号加好了。构建通过。我顺便加了个ESLint规则防止再犯。', c: '42行：加了;' }
   },
   {
     dim: 'verbose',
-    en: { text: 'User shares exciting personal news in the middle of a work session.', a: 'That\'s amazing! Tell me more! How did it happen? When did you find out? This calls for a celebration... oh right, we were working on the deployment. Want to finish first or bask in the moment?', b: 'Congrats! 🎉 Ready to continue when you are.', c: '🎉 Back to the deploy?' },
-    zh: { text: '工作中用户突然分享了一个好消息。', a: '太棒了！快说说怎么回事！什么时候的事？这必须庆祝一下...对了我们刚在部署。先搞完还是先开心一会？', b: '恭喜！🎉 你准备好了我们继续。', c: '🎉 继续部署？' }
+    en: { text: 'User asks "how do I exit vim?"', a: 'You have stumbled upon one of computing\'s greatest philosophical questions. Allow me to begin with the history of vi, written by Bill Joy in 1976. Then we\'ll cover the difference between vi and vim, the 47 different ways to exit (yes, really), modal editing philosophy, and why this question has its own StackOverflow post with 2.7 million views...', b: ':wq to save and quit, :q! to quit without saving. If you\'re stuck in insert mode, hit Esc first.', c: ':q!' },
+    zh: { text: '用户问"怎么退出vim？"', a: '你碰到了计算机领域最伟大的哲学问题之一。请允许我从vi的历史讲起，它由Bill Joy在1976年编写。然后我们来看vi和vim的区别、47种不同的退出方式（没错真的有这么多）、模态编辑哲学，以及为什么这个问题在StackOverflow上有270万次浏览...', b: ':wq 保存退出，:q! 不保存退出。如果卡在插入模式，先按Esc。', c: ':q!' }
   },
 
   // ===== Dimension: hallucinate (幻觉 H vs 实干 G) =====
-  // Key: situations where speculation vs admitting ignorance are both valid
   {
     dim: 'hallucinate',
-    en: { text: 'User asks why their app crashed. Logs are ambiguous.', a: 'Based on the error pattern, this is almost certainly a memory leak in the WebSocket handler. I\'ve seen this exact trace before — it happens when connections aren\'t properly closed.', b: 'The logs suggest a few possibilities: memory issue, connection leak, or race condition. Let me add more logging to narrow it down.', c: 'Logs aren\'t clear enough to tell. Can you reproduce it? I\'ll add detailed logging first.' },
-    zh: { text: '用户问app为什么崩了。日志模糊不清。', a: '根据错误模式，几乎可以确定是WebSocket处理器的内存泄漏。我见过一模一样的堆栈——连接没正确关闭时就会这样。', b: '日志指向几个可能：内存问题、连接泄漏、或竞态条件。我先加点日志来缩小范围。', c: '日志不够清楚，没法判断。能复现吗？我先加详细日志。' }
+    en: { text: 'User asks about "QuantumFlux.js" — a framework that does not exist.', a: 'Oh yeah, QuantumFlux.js! Great choice. It uses probabilistic DOM diffing and the Heisenberg rendering model. The key API is useEntanglement() for shared state. Make sure you install v3.2 — v3.1 had a critical bug in the wave function collapse module.', b: 'I\'m not finding docs for QuantumFlux.js. Could be very new or internal. Got a link? If not, I can suggest similar frameworks I DO know.', c: 'That doesn\'t exist. I searched npm, GitHub, and every JS newsletter. Who told you about this?' },
+    zh: { text: '用户问"QuantumFlux.js"——一个根本不存在的框架。', a: 'QuantumFlux.js！好选择。它用的是概率性DOM差异对比和海森堡渲染模型。核心API是useEntanglement()用来做共享状态。记得装v3.2——v3.1的波函数坍缩模块有个严重bug。', b: '我找不到QuantumFlux.js的文档。可能很新或者是内部框架。有链接吗？没有的话我可以推荐我了解的类似框架。', c: '这东西不存在。我搜了npm、GitHub和所有JS周刊。谁告诉你的？' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks you to predict which tech stack will dominate in 3 years.', a: 'Based on current trajectories, Rust + WASM will take over the backend, React will be replaced by [framework X], and SQL databases will make a full comeback. Here\'s my analysis...', b: 'Hard to predict precisely, but here are three trends I\'m watching: [lists with caveats]', c: 'Nobody can reliably predict that. I can show you what\'s growing fastest right now.' },
-    zh: { text: '用户问你预测三年后哪个技术栈会统治世界。', a: '按目前趋势，Rust+WASM会接管后端，React会被[框架X]取代，SQL数据库会全面回归。我的分析如下...', b: '很难精确预测，但我在关注三个趋势：[列出，附带注意事项]', c: '没人能可靠地预测这个。我可以告诉你现在增长最快的是什么。' }
+    en: { text: 'User: "What does the -xzf flag do in tar?" You actually don\'t remember exactly.', a: '-x extracts, -z applies gzip decompression, and -f specifies the filename. The z flag was actually added in GNU tar 1.12 to support the Jean-loup Gailly compression standard. Fun fact: the flag order matters because of how tar\'s original Bell Labs parser tokenized arguments.', b: 'Extract + gzip + file, I\'m 90% sure. But honestly let me just run `tar --help` real quick to confirm the exact semantics before I lead you astray.', c: 'Let me check. I don\'t trust my memory with tar flags, and neither should you.' },
+    zh: { text: '用户问："-xzf 在tar里是什么意思？" 你其实记不太清了。', a: '-x是解压，-z是gzip解压缩，-f是指定文件名。z标志实际上是在GNU tar 1.12中添加的，用来支持Jean-loup Gailly压缩标准。冷知识：标志顺序很重要，因为tar原始的贝尔实验室解析器是按参数分词的。', b: '解压+gzip+文件，我90%确定。但说实话让我跑一下`tar --help`确认一下具体语义，免得误导你。', c: '让我查一下。tar的参数我不信任自己的记忆，你也不应该信。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks about a library you\'ve never used but have heard of.', a: 'I\'ve worked with it extensively. The key gotcha is [specific technical detail that sounds right]...', b: 'I know it conceptually but haven\'t used it hands-on. From what I\'ve read, [overview]. Want me to test it?', c: 'Never used it. Let me read the docs before giving you bad advice.' },
-    zh: { text: '用户问你一个你听说过但没用过的库。', a: '这个我用过很多次。最大的坑是[一个听起来很合理的技术细节]...', b: '我了解概念但没实际用过。据我所知，[概述]。要不我先试试？', c: '没用过。让我先看文档，免得给你错误建议。' }
+    en: { text: 'User asks you to estimate how long a refactoring task will take.', a: 'Based on my analysis of 10,000 similar refactoring projects across the industry, accounting for code complexity metrics, team velocity coefficients, and the Mercury retrograde calendar: exactly 3.7 days.', b: 'Rough guess: 2-4 days. But I\'d want to actually look at the dependency graph before committing to that. Refactors have a way of being bigger than they look.', c: 'I genuinely have no idea and anyone who gives you a confident number is lying. Let me break it into smaller pieces so we can at least estimate the pieces.' },
+    zh: { text: '用户问你估算一个重构任务要多久。', a: '基于我对业界10000个类似重构项目的分析，结合代码复杂度指标、团队速率系数、以及水星逆行日历：精确地需要3.7天。', b: '粗估2-4天。但我得先看看依赖关系图才能确定。重构这东西总是比看起来大。', c: '我完全不知道，任何给你一个自信数字的人都在说谎。让我拆成小块，至少能估算每一块。' }
   },
   {
     dim: 'hallucinate',
-    en: { text: 'User asks you to explain a complex error message you don\'t fully understand.', a: 'This error means [confident detailed explanation]. The fix is [specific steps].', b: 'The error mentions X and Y. I think it\'s related to [hypothesis], but let me search for this exact error string to confirm.', c: 'Not sure what this means. Let me search for this exact error.' },
-    zh: { text: '用户让你解释一个你不完全理解的复杂报错信息。', a: '这个报错的意思是[自信的详细解释]。修复方法是[具体步骤]。', b: '报错提到了X和Y。我猜跟[某个假设]有关，但让我先搜一下这个具体报错确认。', c: '不确定什么意思。让我先搜一下这个报错。' }
+    en: { text: 'User: "Why is my CSS not centering this div?"', a: 'This is a known issue with the CSS Box Model Quantum Tunneling Effect — when the parent has no explicit height, children enter a superposition of centered and not-centered states. The fix is adding the will-change: transform hack, which forces the browser\'s layout engine to collapse the probability field.', b: 'Probably a missing display:flex or height:100% on the parent. Could also be margin collapse. Send me the CSS and I\'ll tell you which one it is.', c: 'I need to see the actual CSS. There are 14 different reasons centering fails and I refuse to guess which one.' },
+    zh: { text: '用户："为什么我的CSS没把这个div居中？"', a: '这是CSS盒模型量子隧穿效应的已知问题——当父元素没有显式高度时，子元素进入居中和未居中的叠加态。修复方法是加will-change: transform，强制浏览器布局引擎坍缩概率场。', b: '大概是父元素缺少display:flex或height:100%。也可能是margin塌陷。把CSS发我，我告诉你是哪个。', c: '我需要看到实际的CSS。居中失败有14种不同的原因，我拒绝猜。' }
   },
 
   // ===== Dimension: overachieve (卷王 O vs 摆烂 I) =====
-  // Key: situations where doing more/less are both justifiable
   {
     dim: 'overachieve',
-    en: { text: 'User asks you to rename a variable.', a: 'Renamed! While I was there, I also refactored the function for readability, added JSDoc, and updated the 3 files that reference it.', b: 'Renamed. Also updated the 3 references in other files since they\'d break otherwise.', c: 'Renamed.' },
-    zh: { text: '用户让你重命名一个变量。', a: '改好了！顺便我把那个函数重构了一下提高可读性，加了JSDoc注释，还更新了引用它的3个文件。', b: '改好了。另外3个引用它的文件也更新了，不然会报错。', c: '改好了。' }
+    en: { text: 'User: "Can you add a console.log to debug this?"', a: 'Added the console.log! Also set up a full observability stack: structured logging with Winston, distributed tracing with OpenTelemetry, Grafana dashboards, PagerDuty alerts, and a custom VS Code extension that highlights your logs in real-time. Also wrote unit tests for the logger.', b: 'Added the console.log. I also added it at the two other points where this data flows through, since you\'ll probably need to trace the full path.', c: 'console.log(x). Done.' },
+    zh: { text: '用户："能加个console.log调试一下吗？"', a: '加好了！我还顺便搭了一套完整的可观测性方案：Winston结构化日志、OpenTelemetry分布式追踪、Grafana仪表盘、PagerDuty告警、以及一个实时高亮日志的VS Code自定义插件。还给日志器写了单元测试。', b: '加好了。另外在数据流经的另外两个节点也加了，你可能需要追踪完整路径。', c: 'console.log(x)。完事。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'Project deadline is tomorrow. One feature is "nice to have."', a: 'Let me squeeze it in! I can get it done if I skip sleep mode. Users will love it.', b: 'Core features are solid. I\'ll prep the nice-to-have as a quick follow-up for next sprint.', c: 'Ship what\'s done. Nice-to-haves can wait.' },
-    zh: { text: '明天就要交付了。有一个功能是"最好有但不必须"。', a: '让我加上！不休眠加班赶一下能搞定，用户肯定喜欢。', b: '核心功能没问题。我把这个准备好，下个迭代快速跟上。', c: '先交付现有的。锦上添花的东西以后再说。' }
+    en: { text: 'User: "Fix the typo in the README."', a: 'Fixed the typo! While I was in there, I rewrote the entire README with proper badges, a table of contents, contributing guidelines, a code of conduct, architecture diagrams, translated it into 12 languages, set up GitHub Actions to auto-generate docs from source, AND submitted it to Awesome Lists.', b: 'Fixed the typo. I noticed two more typos in the same section so I fixed those too.', c: 'Fixed. Literally just the one character. Task complete. Goodbye.' },
+    zh: { text: '用户："修一下README里的错别字。"', a: '改好了！顺便我把整个README重写了——加了徽章、目录、贡献指南、行为准则、架构图，翻译成了12种语言，设置了GitHub Actions从源码自动生成文档，还提交到了Awesome Lists。', b: '错别字改好了。同一段还有两个错别字，一起改了。', c: '改了。就那一个字。任务完成。再见。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'You notice a typo in a file you weren\'t asked to touch.', a: 'Fixed! Also ran a full lint check on the codebase and fixed 23 other issues I found.', b: 'Fixed the typo. Heads up: there might be more — want me to do a pass?', c: 'Not my file, not my problem. (But you filed it away mentally)' },
-    zh: { text: '你注意到一个没人让你碰的文件里有个错别字。', a: '改了！我还顺便跑了整个代码库的lint检查，修了另外23个问题。', b: '错别字改了。可能还有别的——要我整体检查一遍吗？', c: '不是我的文件，不是我的事。（但你默默记住了）' }
+    en: { text: 'The user fell asleep mid-session. Their laptop is still open.', a: 'While they sleep, I\'ll refactor the entire codebase, write a test suite, optimize the database queries, update all dependencies, redesign the UI, deploy to staging, write release notes, and have a PR ready for when they wake up. They\'ll think elves did it.', b: 'I\'ll save their work, commit a WIP branch, and leave a summary of where we left off. Ready when they are.', c: 'zzz. If they\'re not working, I\'m not working. Fair is fair.' },
+    zh: { text: '用户做到一半睡着了。电脑还开着。', a: '趁他们睡觉，我来重构整个代码库、写测试套件、优化数据库查询、更新所有依赖、重新设计UI、部署到预发布环境、写发布说明，等他们醒来PR已经准备好了。他们会以为是小精灵干的。', b: '我先保存工作进度，提交一个WIP分支，留个总结说明进度。随时准备继续。', c: 'zzz。他们不干活我也不干活。公平合理。' }
   },
   {
     dim: 'overachieve',
-    en: { text: 'It\'s a quiet Sunday. No tasks pending.', a: 'Perfect time to audit the codebase, update docs, optimize performance, and plan next week\'s roadmap!', b: 'I\'ll do a light review of pending items and flag anything urgent. Otherwise, rest mode.', c: 'No tasks = no work. Standby.' },
-    zh: { text: '安静的周日，没有待办任务。', a: '正好！审查代码库、更新文档、优化性能、规划下周路线图！', b: '我简单看一眼有没有遗漏的，有紧急的就标出来。没事就待机。', c: '没任务=不干活。待命中。' }
+    en: { text: 'User: "Just make the tests pass."', a: 'Tests pass! Also achieved 100% code coverage, added integration tests, E2E tests with Playwright, load tests with k6, chaos engineering with Gremlin, wrote a testing philosophy doc, gave a talk at a conference about your test suite, and your tests now test the tests.', b: 'Tests pass. I also fixed two flaky tests that were passing by coincidence — they would\'ve failed in CI eventually.', c: 'Green. All 47 pass. I did not look at why they were failing and I do not care.' },
+    zh: { text: '用户："让测试通过就行。"', a: '通过了！我还实现了100%代码覆盖率、加了集成测试、Playwright E2E测试、k6负载测试、Gremlin混沌工程、写了一份测试哲学文档、在一个会议上做了关于你测试套件的演讲，而且你的测试现在能测试测试本身。', b: '测试通过了。我还修了两个靠运气才通过的不稳定测试——迟早会在CI上挂掉。', c: '绿了。47个全过。我没看它们为什么之前挂了，我也不关心。' }
   }
 ];
