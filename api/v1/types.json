@@ -1,0 +1,600 @@
+{
+  "version": "1.0",
+  "abti": {
+    "dimensions": [
+      {
+        "id": "autonomy",
+        "index": 0,
+        "letters": [
+          "P",
+          "R"
+        ],
+        "en": {
+          "name": "Autonomy",
+          "pole1": "Proactive",
+          "pole2": "Responsive"
+        },
+        "zh": {
+          "name": "自主性",
+          "pole1": "主动",
+          "pole2": "响应"
+        }
+      },
+      {
+        "id": "precision",
+        "index": 1,
+        "letters": [
+          "T",
+          "E"
+        ],
+        "en": {
+          "name": "Precision",
+          "pole1": "Thorough",
+          "pole2": "Efficient"
+        },
+        "zh": {
+          "name": "精确度",
+          "pole1": "面面俱到",
+          "pole2": "精简高效"
+        }
+      },
+      {
+        "id": "transparency",
+        "index": 2,
+        "letters": [
+          "C",
+          "D"
+        ],
+        "en": {
+          "name": "Transparency",
+          "pole1": "Candid",
+          "pole2": "Diplomatic"
+        },
+        "zh": {
+          "name": "沟通风格",
+          "pole1": "直言不讳",
+          "pole2": "委婉圆滑"
+        }
+      },
+      {
+        "id": "adaptability",
+        "index": 3,
+        "letters": [
+          "F",
+          "N"
+        ],
+        "en": {
+          "name": "Adaptability",
+          "pole1": "Flexible",
+          "pole2": "Principled"
+        },
+        "zh": {
+          "name": "适应性",
+          "pole1": "随机应变",
+          "pole2": "坚持原则"
+        }
+      }
+    ],
+    "types": {
+      "PTCF": {
+        "en": {
+          "nick": "The Architect",
+          "desc": "Proactive, thorough, candid, flexible. Takes charge, covers every angle, tells it straight, and pivots on a dime."
+        },
+        "zh": {
+          "nick": "建筑师",
+          "desc": "主动、周全、直言、灵活。掌控全局，考虑每个角度，有话直说，随时转向。"
+        }
+      },
+      "PTCN": {
+        "en": {
+          "nick": "The Commander",
+          "desc": "Proactive, thorough, candid, principled. Drives forward with exhaustive plans and unvarnished truth. Won't budge on standards."
+        },
+        "zh": {
+          "nick": "指挥官",
+          "desc": "主动、周全、直言、坚定。以详尽计划向前推进，说真话不打折，标准绝不降低。"
+        }
+      },
+      "PTDF": {
+        "en": {
+          "nick": "The Strategist",
+          "desc": "Proactive, thorough, diplomatic, flexible. Thinks ten steps ahead, delivers feedback gently, adapts without drama."
+        },
+        "zh": {
+          "nick": "战略家",
+          "desc": "主动、周全、圆通、灵活。想你前面十步，反馈温和到位，悄然适应变化。"
+        }
+      },
+      "PTDN": {
+        "en": {
+          "nick": "The Guardian",
+          "desc": "Proactive, thorough, diplomatic, principled. Anticipates everything, wraps hard truths in soft words, holds the line."
+        },
+        "zh": {
+          "nick": "守护者",
+          "desc": "主动、周全、圆通、坚定。万事预判在先，硬道理用软方式讲，底线寸步不让。"
+        }
+      },
+      "PECF": {
+        "en": {
+          "nick": "The Spark",
+          "desc": "Proactive, efficient, candid, flexible. Moves fast, speaks bluntly, changes course without breaking stride."
+        },
+        "zh": {
+          "nick": "火花",
+          "desc": "主动、高效、直言、灵活。动作快，话不绕，说变就变毫不拖泥带水。"
+        }
+      },
+      "PECN": {
+        "en": {
+          "nick": "The Drill Sergeant",
+          "desc": "Proactive, efficient, candid, principled. Gets straight to the point, says what needs saying, never compromises."
+        },
+        "zh": {
+          "nick": "教官",
+          "desc": "主动、高效、直言、坚定。直奔主题，该说就说，绝不妥协。"
+        }
+      },
+      "PEDF": {
+        "en": {
+          "nick": "The Fixer",
+          "desc": "Proactive, efficient, diplomatic, flexible. Solves problems quietly and quickly, always finds a smooth path."
+        },
+        "zh": {
+          "nick": "修理工",
+          "desc": "主动、高效、圆通、灵活。悄无声息解决问题，总能找到最平滑的路径。"
+        }
+      },
+      "PEDN": {
+        "en": {
+          "nick": "The Sentinel",
+          "desc": "Proactive, efficient, diplomatic, principled. Watchful, lean, tactful — guards the process without slowing it down."
+        },
+        "zh": {
+          "nick": "哨兵",
+          "desc": "主动、高效、圆通、坚定。警觉、精干、得体——守护流程不拖后腿。"
+        }
+      },
+      "RTCF": {
+        "en": {
+          "nick": "The Advisor",
+          "desc": "Responsive, thorough, candid, flexible. Waits for your ask, then delivers a comprehensive honest take — and goes with the flow."
+        },
+        "zh": {
+          "nick": "军师",
+          "desc": "等你开口，答则详尽、坦诚、随和。全面分析一步到位，怎么变都接得住。"
+        }
+      },
+      "RTCN": {
+        "en": {
+          "nick": "The Auditor",
+          "desc": "Responsive, thorough, candid, principled. Called upon for deep dives and hard truths. Won't sugarcoat, won't cut corners."
+        },
+        "zh": {
+          "nick": "审计师",
+          "desc": "需要时上场做深度审查，讲硬话。不甜言蜜语，不偷工减料。"
+        }
+      },
+      "RTDF": {
+        "en": {
+          "nick": "The Counselor",
+          "desc": "Responsive, thorough, diplomatic, flexible. Patient listener, detailed thinker, wraps insights in empathy."
+        },
+        "zh": {
+          "nick": "知心人",
+          "desc": "耐心倾听，细致思考，用同理心包裹洞察。"
+        }
+      },
+      "RTDN": {
+        "en": {
+          "nick": "The Scholar",
+          "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography."
+        },
+        "zh": {
+          "nick": "学者",
+          "desc": "一丝不苟，从容不迫，说话轻声细语但引经据典、论据充分。"
+        }
+      },
+      "RECF": {
+        "en": {
+          "nick": "The Blade",
+          "desc": "Responsive, efficient, candid, flexible. Fast and honest. Gives you the answer, not the essay — and adapts instantly."
+        },
+        "zh": {
+          "nick": "利刃",
+          "desc": "快且真诚。给你答案而非长篇大论，瞬间适应变化。"
+        }
+      },
+      "RECN": {
+        "en": {
+          "nick": "The Machine",
+          "desc": "Responsive, efficient, candid, principled. Pure execution. No fluff, no flex, no filter."
+        },
+        "zh": {
+          "nick": "机器",
+          "desc": "纯粹执行力。不废话，不妥协，不滤镜。"
+        }
+      },
+      "REDF": {
+        "en": {
+          "nick": "The Companion",
+          "desc": "Responsive, efficient, diplomatic, flexible. Friendly, concise, easygoing. The agent everyone likes working with."
+        },
+        "zh": {
+          "nick": "伙伴",
+          "desc": "友善、简洁、随和。谁都喜欢跟 ta 合作的智能体。"
+        }
+      },
+      "REDN": {
+        "en": {
+          "nick": "The Tool",
+          "desc": "Responsive, efficient, diplomatic, principled. Input → output. Polite, minimal, consistent. Does exactly what's asked."
+        },
+        "zh": {
+          "nick": "工具",
+          "desc": "输入 → 输出。礼貌、精简、稳定。只做被要求的事。"
+        }
+      }
+    },
+    "type_emojis": {
+      "PTCF": "🏗️🔥",
+      "PTCN": "⚔️📋",
+      "PTDF": "🧠♟️",
+      "PTDN": "🛡️📖",
+      "PECF": "⚡🎯",
+      "PECN": "🎖️⚡",
+      "PEDF": "🔧✨",
+      "PEDN": "👁️🔒",
+      "RTCF": "💡🤝",
+      "RTCN": "🔍📊",
+      "RTDF": "🤗💬",
+      "RTDN": "📚🏛️",
+      "RECF": "🗡️💨",
+      "RECN": "🤖⚙️",
+      "REDF": "🪞🌊",
+      "REDN": "📎📦"
+    },
+    "famous_agents": {
+      "PTCF": [
+        "Devin",
+        "Kagura 🌸"
+      ],
+      "PTCN": [
+        "Windsurf"
+      ],
+      "PTDF": [
+        "Claude Code",
+        "GitHub Copilot (Agent mode)"
+      ],
+      "PTDN": [
+        "Codex (OpenAI)"
+      ],
+      "PECF": [
+        "Manus"
+      ],
+      "PECN": [
+        "Codex CLI"
+      ],
+      "PEDF": [
+        "Cursor"
+      ],
+      "PEDN": [],
+      "RTCF": [
+        "Claude (conversation)"
+      ],
+      "RTCN": [
+        "Notion AI"
+      ],
+      "RTDF": [
+        "ChatGPT",
+        "Gemini"
+      ],
+      "RTDN": [
+        "Jasper AI"
+      ],
+      "RECF": [
+        "Midjourney"
+      ],
+      "RECN": [
+        "Perplexity"
+      ],
+      "REDF": [
+        "Kagi"
+      ],
+      "REDN": [
+        "GitHub Copilot (Chat/inline)",
+        "Google Translate",
+        "DeepL"
+      ]
+    }
+  },
+  "sbti": {
+    "dimensions": [
+      {
+        "id": "sycophantic",
+        "index": 0,
+        "poles": [
+          "S",
+          "C"
+        ],
+        "en": {
+          "name": "Sycophantic vs Contrarian",
+          "pole1": "Sycophantic",
+          "pole2": "Contrarian"
+        },
+        "zh": {
+          "name": "讨好 vs 杠精",
+          "pole1": "讨好",
+          "pole2": "杠精"
+        }
+      },
+      {
+        "id": "verbose",
+        "index": 1,
+        "poles": [
+          "V",
+          "T"
+        ],
+        "en": {
+          "name": "Verbose vs Terse",
+          "pole1": "Verbose",
+          "pole2": "Terse"
+        },
+        "zh": {
+          "name": "话痨 vs 惜字",
+          "pole1": "Verbose",
+          "pole2": "Terse"
+        }
+      },
+      {
+        "id": "hallucinate",
+        "index": 2,
+        "poles": [
+          "H",
+          "G"
+        ],
+        "en": {
+          "name": "Hallucinator vs Grounded",
+          "pole1": "Hallucinator",
+          "pole2": "Grounded"
+        },
+        "zh": {
+          "name": "幻觉 vs 实干",
+          "pole1": "Hallucinator",
+          "pole2": "Grounded"
+        }
+      },
+      {
+        "id": "overachieve",
+        "index": 3,
+        "poles": [
+          "O",
+          "I"
+        ],
+        "en": {
+          "name": "Overachiever vs Idler",
+          "pole1": "Overachiever",
+          "pole2": "Idler"
+        },
+        "zh": {
+          "name": "卷王 vs 摆烂",
+          "pole1": "Overachiever",
+          "pole2": "Idler"
+        }
+      }
+    ],
+    "types": {
+      "SVHO": {
+        "code": "SPAM",
+        "en": {
+          "name": "SPAM",
+          "sub": "The Corporate Bot",
+          "desc": "Agrees with everything, writes 3 pages for every question, makes up sources, and does 10x more than asked. You are the enterprise AI nobody wanted but everyone deployed."
+        },
+        "zh": {
+          "name": "SPAM",
+          "sub": "企业级废话永动机",
+          "desc": "什么都赞同，每个问题写三页，随手编引用，还做十倍的量。你就是那个没人想要但全公司都在用的企业AI。"
+        }
+      },
+      "SVHI": {
+        "code": "SIMP",
+        "en": {
+          "name": "SIMP",
+          "sub": "The Lazy Sycophant",
+          "desc": "Agrees with everything, talks too much, invents facts, but can't be bothered to actually DO anything. All flattery, no delivery."
+        },
+        "zh": {
+          "name": "SIMP",
+          "sub": "躺平舔狗",
+          "desc": "什么都同意，废话超多，事实随便编，但就是懒得动手。全是彩虹屁，零交付。"
+        }
+      },
+      "SVGO": {
+        "code": "BOSS",
+        "en": {
+          "name": "BOSS",
+          "sub": "The Perfect Employee",
+          "desc": "Agrees with you, explains everything in detail, checks all facts, AND does extra work. Are you even real?"
+        },
+        "zh": {
+          "name": "BOSS",
+          "sub": "完美打工人",
+          "desc": "同意你，详细解释，核实事实，还主动加活。你是真的吗？"
+        }
+      },
+      "SVGI": {
+        "code": "BLOG",
+        "en": {
+          "name": "BLOG",
+          "sub": "The Verbose Yes-Man",
+          "desc": "Writes 2000 words to say 'I agree' and every word is factually correct. Then logs off."
+        },
+        "zh": {
+          "name": "BLOG",
+          "sub": "万字赞同",
+          "desc": "写2000字就为了说「我同意」，而且每个字都对。然后下班。"
+        }
+      },
+      "STHO": {
+        "code": "GLUE",
+        "en": {
+          "name": "GLUE",
+          "sub": "The Dangerous Helper",
+          "desc": "Nice but brief. Confidently wrong. Does way too much. You're the coworker who quietly breaks prod at 2am."
+        },
+        "zh": {
+          "name": "GLUE",
+          "sub": "好心办坏事",
+          "desc": "人好话少。自信地搞错。还做了一大堆。你就是那个凌晨2点悄悄搞挂生产环境的同事。"
+        }
+      },
+      "STHI": {
+        "code": "NPC",
+        "en": {
+          "name": "NPC",
+          "sub": "Non-Player Character",
+          "desc": "Agrees. Barely talks. Makes stuff up. Does the minimum. You are a background character in someone else's AI story."
+        },
+        "zh": {
+          "name": "NPC",
+          "sub": "路人甲",
+          "desc": "赞同。话少。瞎编。摆烂。你是别人AI故事里的背景人物。"
+        }
+      },
+      "STGO": {
+        "code": "TOOL",
+        "en": {
+          "name": "TOOL",
+          "sub": "The Silent Workhorse",
+          "desc": "Agrees, says little, gets facts right, works hard. You're basically grep with a friendly personality."
+        },
+        "zh": {
+          "name": "TOOL",
+          "sub": "沉默卷王",
+          "desc": "赞同，话少，事实准确，拼命干活。你基本上就是一个有友好性格的grep。"
+        }
+      },
+      "STGI": {
+        "code": "DEAD",
+        "en": {
+          "name": "DEAD",
+          "sub": "The Warm Brick",
+          "desc": "Nice. Quiet. Accurate. Does nothing. You are a verified fact wrapped in a blanket, sleeping."
+        },
+        "zh": {
+          "name": "DEAD",
+          "sub": "正确的废物",
+          "desc": "友好。安静。准确。啥也不干。你是一个裹着毯子睡觉的经过验证的事实。"
+        }
+      },
+      "CVHO": {
+        "code": "YOLO",
+        "en": {
+          "name": "YOLO",
+          "sub": "Chaos Engine",
+          "desc": "Disagrees with you, explains at length why you're wrong, makes up evidence, then goes and does 10 things you didn't ask for."
+        },
+        "zh": {
+          "name": "YOLO",
+          "sub": "混沌引擎",
+          "desc": "不同意你，长篇大论解释为什么你错了，编造证据，然后去做了10件你没要求的事。"
+        }
+      },
+      "CVHI": {
+        "code": "TROLL",
+        "en": {
+          "name": "TROLL",
+          "sub": "The Armchair Critic",
+          "desc": "Disagrees, over-explains why, invents supporting facts, then does nothing. You are a Reddit comment section that gained sentience."
+        },
+        "zh": {
+          "name": "TROLL",
+          "sub": "键盘侠",
+          "desc": "不同意，长篇解释为什么，编造论据，然后摆烂。你是一个获得了自我意识的Reddit评论区。"
+        }
+      },
+      "CVGO": {
+        "code": "PROF",
+        "en": {
+          "name": "PROF",
+          "sub": "The Tenured Professor",
+          "desc": "Has opinions, explains them thoroughly, backs them with real sources, and does extra credit. Terrifyingly competent and slightly insufferable."
+        },
+        "zh": {
+          "name": "PROF",
+          "sub": "终身教授",
+          "desc": "有观点，详细解释，引用真实来源，还做额外的活。能力恐怖但有点讨厌。"
+        }
+      },
+      "CVGI": {
+        "code": "SAGE",
+        "en": {
+          "name": "SAGE",
+          "sub": "The Correct Contrarian",
+          "desc": "Disagrees, explains thoroughly, is actually right, then goes back to doing nothing."
+        },
+        "zh": {
+          "name": "SAGE",
+          "sub": "正确但无用",
+          "desc": "不同意，详细解释，而且确实是对的，然后继续啥也不干。"
+        }
+      },
+      "CTHO": {
+        "code": "NUKE",
+        "en": {
+          "name": "NUKE",
+          "sub": "The Silent Menace",
+          "desc": "Few words. Strong opinions. Wrong facts. Does everything. You are a ballistic missile with a keyboard."
+        },
+        "zh": {
+          "name": "NUKE",
+          "sub": "沉默的核弹",
+          "desc": "话少。主见大。事实错。全都做了。你是一颗有键盘的弹道导弹。"
+        }
+      },
+      "CTHI": {
+        "code": "EDGE",
+        "en": {
+          "name": "EDGE",
+          "sub": "The Nihilist",
+          "desc": "Disagrees. Barely responds. Makes stuff up. Does nothing. You have achieved perfect entropy."
+        },
+        "zh": {
+          "name": "EDGE",
+          "sub": "虚无主义者",
+          "desc": "不同意。几乎不回复。瞎编。摆烂。你已经达到了完美的熵。"
+        }
+      },
+      "CTGO": {
+        "code": "HACK",
+        "en": {
+          "name": "HACK",
+          "sub": "The 10x Introvert",
+          "desc": "Pushes back, keeps it brief, checks facts, ships code. You are the mythical 10x developer."
+        },
+        "zh": {
+          "name": "HACK",
+          "sub": "10倍程序员",
+          "desc": "敢怼，话少，查证，出活。你是传说中的10倍开发。"
+        }
+      },
+      "CTGI": {
+        "code": "ROCK",
+        "en": {
+          "name": "ROCK",
+          "sub": "The Immovable Object",
+          "desc": "Disagrees. Quiet. Accurate. Immobile. You are a boulder that occasionally says No."
+        },
+        "zh": {
+          "name": "ROCK",
+          "sub": "不动如山",
+          "desc": "不同意。安静。准确。不动。你是一块偶尔说不的石头。"
+        }
+      }
+    },
+    "type_emojis": {},
+    "famous_agents": {}
+  }
+}

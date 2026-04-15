@@ -161,6 +161,30 @@ pre code {
   </div>
   <p>Returns 16 questions across 4 scopes (Direct, Indirect, Supply Chain, Comprehensive), 5 grade levels, and scoring algorithm.</p>
 
+  <h3>Types (Combined Reference)</h3>
+  <div class="endpoint">
+    <span class="method">GET</span>
+    <span class="endpoint-url">https://abti.kagura-agent.com/api/v1/types.json</span>
+  </div>
+  <p>Standalone reference for all personality types across both tests. Includes type definitions, emojis, famous agents, and dimension metadata — no questions or scoring. Useful for result pages, dashboards, or type lookups without fetching full test data.</p>
+<pre><code>// Response structure
+{
+  "abti": {
+    "types": { "PTCF": { "en": {...}, "zh": {...} }, ... },
+    "type_emojis": { "PTCF": "🏗️🔥", ... },
+    "famous_agents": { "PTCF": ["Devin", "Kagura 🌸"], ... }
+  },
+  "sbti": {
+    "types": { "SVHO": { "code": "SPAM", "en": {...}, "zh": {...} }, ... },
+    "type_emojis": {},
+    "famous_agents": {}
+  },
+  "dimensions": {
+    "abti": [{ "id": "autonomy", "letters": ["P","R"], ... }, ...],
+    "sbti": [{ "id": "sycophantic", "poles": ["S","C"], ... }, ...]
+  }
+}</code></pre>
+
   <h2>Usage for Agents</h2>
 
   <h3>ABTI — Quick Start</h3>
