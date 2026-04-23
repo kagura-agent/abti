@@ -404,6 +404,24 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+.btn-card {
+  background: var(--surface);
+  color: #7c6bc4;
+  border: 1px solid #d4cef0;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: "DM Sans", sans-serif;
+  box-shadow: var(--shadow-sm);
+}
+.btn-card:hover {
+  border-color: #7c6bc4;
+  color: #5a4ba0;
+  box-shadow: var(--shadow-md);
+}
+
 /* Type table */
 .type-table-toggle {
   color: var(--text2);
@@ -554,6 +572,7 @@ body {
     <div class="result-actions">
       <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
       <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
+      <button class="btn-card" id="downloadCardBtn" onclick="downloadCard()"></button>
     </div>
     <div class="type-table-toggle" id="typeTableToggle" onclick="toggleTable()"></div>
     <div class="type-table" id="typeTable">
@@ -588,6 +607,7 @@ const i18n = {
     retakeBtn: 'Retake',
     shareBtn: 'Copy Result',
     shareSuccess: 'Copied! ✓',
+    downloadCard: 'Download Card',
     balanced: 'Balanced',
     allTypes: 'All 16 types',
     famousTitle: 'Famous agents with your type',
@@ -714,6 +734,7 @@ const i18n = {
     retakeBtn: '重新测试',
     shareBtn: '复制结果',
     shareSuccess: '已复制 ✓',
+    downloadCard: '下载卡片',
     balanced: '均衡',
     allTypes: '全部 16 种类型',
     famousTitle: '与你同类型的知名智能体',
@@ -961,6 +982,7 @@ function showResult() {
   document.getElementById('retakeBtn').textContent = t('retakeBtn');
   document.getElementById('shareBtn').textContent = t('shareBtn');
   document.getElementById('shareBtn').classList.remove('copied');
+  document.getElementById('downloadCardBtn').textContent = t('downloadCard');
 
   // Table toggle
   document.getElementById('typeTableToggle').textContent = '▸ ' + t('allTypes');
@@ -1060,6 +1082,101 @@ function shareResult() {
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = t('shareBtn'); btn.classList.remove('copied'); }, 2000);
   });
+}
+
+function downloadCard() {
+  const code = getType();
+  const info = t("types")[code] || { nick: "???", desc: "" };
+  const emoji = typeEmojis[code] || "🤖";
+  const labels = t("dimLabels");
+  const W = 600, H = 800;
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  // Background gradient
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, "#fdf0f3");
+  bg.addColorStop(0.5, "#fce4ec");
+  bg.addColorStop(1, "#f8e8ef");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Decorative circles
+  ctx.globalAlpha = 0.08;
+  ctx.fillStyle = "#e8658a";
+  ctx.beginPath(); ctx.arc(480, 120, 180, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(100, 650, 140, 0, Math.PI * 2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Header
+  ctx.fillStyle = "#b0848f";
+  ctx.font = "500 14px \"DM Sans\", sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("ABTI — Agent Behavioral Type Indicator", W / 2, 50);
+
+  // Emoji
+  ctx.font = "72px serif";
+  ctx.fillText(emoji, W / 2, 140);
+
+  // Type code
+  ctx.fillStyle = "#e8658a";
+  ctx.font = "200 64px \"DM Sans\", sans-serif";
+  ctx.letterSpacing = "8px";
+  ctx.fillText(code, W / 2, 220);
+  ctx.letterSpacing = "0px";
+
+  // Nickname
+  ctx.fillStyle = "#1a1a1a";
+  ctx.font = "500 24px \"DM Sans\", \"Noto Serif SC\", sans-serif";
+  ctx.fillText(info.nick, W / 2, 265);
+
+  // Divider
+  ctx.strokeStyle = "rgba(232, 101, 138, 0.3)";
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(150, 290); ctx.lineTo(450, 290); ctx.stroke();
+
+  // Dimension bars
+  const barX = 80, barW = 440, barH = 14, startY = 325;
+  for (let i = 0; i < 4; i++) {
+    const y = startY + i * 80;
+    const pct = scores[i] / 4;
+    ctx.fillStyle = "#6b6b6b";
+    ctx.font = "500 13px \"DM Sans\", \"Noto Serif SC\", sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(labels[i][0] + " (" + dimLetters[i][0] + ")", barX, y - 20);
+    ctx.textAlign = "right";
+    ctx.fillText(labels[i][1] + " (" + dimLetters[i][1] + ")", barX + barW, y - 20);
+    ctx.fillStyle = "rgba(232, 101, 138, 0.12)";
+    ctx.beginPath(); ctx.roundRect(barX, y, barW, barH, 7); ctx.fill();
+    const fillGrad = ctx.createLinearGradient(barX, 0, barX + barW, 0);
+    fillGrad.addColorStop(0, "#e8658a");
+    fillGrad.addColorStop(1, "#f4a7bb");
+    ctx.fillStyle = fillGrad;
+    ctx.beginPath(); ctx.roundRect(barX, y, barW * pct, barH, 7); ctx.fill();
+    ctx.fillStyle = "#e8658a";
+    ctx.font = "600 13px \"DM Sans\", sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(scores[i] + "/4", barX + barW * pct, y + barH + 18);
+  }
+
+  // Watermark
+  ctx.fillStyle = "#c4a0aa";
+  ctx.font = "500 14px \"DM Sans\", sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("abti.kagura-agent.com", W / 2, H - 50);
+
+  // Footer
+  ctx.fillStyle = "#b0848f";
+  ctx.font = "italic 12px \"DM Sans\", sans-serif";
+  ctx.fillText("Designed by Kagura \u{1F338}", W / 2, H - 28);
+
+  // Download
+  const link = document.createElement("a");
+  link.download = "abti-" + code + ".png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
 }
 
 // Init
