@@ -1,8 +1,8 @@
 const http = require('http');
 
-// ABTI scoring: 8 questions, 4 dimensions, 2 questions each
-// answers: array of 8 values (1=optionA, 0=optionB)
-// dimensions: [Autonomy, Precision, Transparency, Adaptability]
+// ABTI scoring: 16 questions, 4 dimensions, 4 questions each
+// answers: array of 16 values (1=optionA, 0=optionB)
+// score range per dim: 0-4, threshold >=2 = first pole
 const DL = [['P','R'],['T','E'],['C','D'],['F','N']];
 const dimNames = {
   en: ['Autonomy','Precision','Transparency','Adaptability'],
@@ -12,7 +12,7 @@ const dimLabels = {
   en: [['Proactive','Responsive'],['Thorough','Efficient'],['Candid','Diplomatic'],['Flexible','Principled']],
   zh: [['主动','响应'],['面面俱到','精简高效'],['直言不讳','委婉圆滑'],['随机应变','坚持原则']]
 };
-const qMap = [0,0,1,1,2,2,3,3]; // question index -> dimension index
+const qMap = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3]; // question index -> dimension index
 const types = {
   PTCF:{en:{nick:'The Architect'},zh:{nick:'建筑师'}},PTCN:{en:{nick:'The Commander'},zh:{nick:'指挥官'}},
   PTDF:{en:{nick:'The Strategist'},zh:{nick:'战略家'}},PTDN:{en:{nick:'The Guardian'},zh:{nick:'守护者'}},
@@ -38,7 +38,7 @@ const stypes = {
 
 function scoreABTI(answers) {
   const scores = [0,0,0,0];
-  for (let i = 0; i < 8; i++) scores[qMap[i]] += answers[i] ? 1 : 0;
+  for (let i = 0; i < 16; i++) scores[qMap[i]] += answers[i] ? 1 : 0;
   let code = '';
   for (let i = 0; i < 4; i++) code += scores[i] >= 2 ? DL[i][0] : DL[i][1];
   return { code, scores };
@@ -110,17 +110,17 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type':'application/json'});
     return res.end(JSON.stringify({
       test: 'abti',
-      description: 'Agent Behavioral Type Indicator — 16 scenario-based questions, 4 dimensions, 2 options each',
+      description: 'Agent Behavioral Type Indicator — 16 scenario-based questions, 4 dimensions (4 questions each), 2 options per question',
       dimensions: (dimNames[lang] || dimNames.en).map((name, i) => ({
         name,
         poles: (dimLabels[lang] || dimLabels.en)[i],
         letters: DL[i],
-        questions_count: 2
+        questions_count: 4
       })),
-      scoring: 'Pick 2 questions per dimension (8 total). Answer 1 for option A, 0 for option B. Submit array of 8 values. Questions map to dimensions: [0,0,1,1,2,2,3,3]. ≥2 points in a dimension → first pole letter.',
+      scoring: 'Answer all 16 questions. 1 for option A, 0 for option B. Submit array of 16 values to POST /api/agent-test. Questions 1-4 = dimension 0, 5-8 = dimension 1, 9-12 = dimension 2, 13-16 = dimension 3. ≥2 points in a dimension → first pole letter.',
       questions: q.map(({ id, dim, text, a, b }) => ({ id, dimension: dim, text, options: { A: a, B: b } })),
       submit_to: 'POST /api/agent-test',
-      submit_format: { answers: 'array of 8 values (1=A, 0=B) — pick 2 questions per dimension', lang: 'en|zh (optional)' }
+      submit_format: { answers: 'array of 16 values (1=A, 0=B)', lang: 'en|zh (optional)' }
     }));
   }
 
@@ -133,19 +133,19 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type':'application/json'});
     return res.end(JSON.stringify({
       test: 'sbti',
-      description: 'Shitty Bot Type Indicator — 12 scenario-based questions, 4 dimensions, 3 options each',
+      description: 'Shitty Bot Type Indicator — 16 scenario-based questions, 4 dimensions (4 questions each), 3 options per question',
       dimensions: d.map((name, i) => ({
         name,
         poles: SDL[i],
-        questions_count: 3
+        questions_count: 4
       })),
-      scoring: 'Answer 3 for option A, 2 for option B, 1 for option C. Submit as array of 12 values to POST /api/sbti/agent-test.',
+      scoring: 'Answer all 16 questions. 3 for option A, 2 for option B, 1 for option C. Submit array of 16 values to POST /api/sbti/agent-test. Score range per dim: 4-12, threshold ≥9 → first pole.',
       questions: sbtiQuestions.map((q, i) => {
         const loc = q[lang] || q.en;
         return { id: i + 1, dimension: q.dim, text: loc.text, options: { A: loc.a, B: loc.b, C: loc.c } };
       }),
       submit_to: 'POST /api/sbti/agent-test',
-      submit_format: { answers: 'array of 12 values (3=A, 2=B, 1=C)' }
+      submit_format: { answers: 'array of 16 values (3=A, 2=B, 1=C)' }
     }));
   }
 
@@ -173,9 +173,9 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const { answers, lang } = JSON.parse(body);
-        if (!Array.isArray(answers) || answers.length !== 8) {
+        if (!Array.isArray(answers) || answers.length !== 16) {
           res.writeHead(400, {'Content-Type':'application/json'});
-          return res.end(JSON.stringify({error:'answers must be array of 8 values (1=A, 0=B)'}));
+          return res.end(JSON.stringify({error:'answers must be array of 16 values (1=A, 0=B)'}));
         }
         const { code, scores } = scoreABTI(answers);
         const l = lang || 'en';
@@ -184,7 +184,7 @@ const server = http.createServer((req, res) => {
         for (let i = 0; i < 4; i++) {
           const dn = (dimNames[l]||dimNames.en)[i];
           const dl = (dimLabels[l]||dimLabels.en)[i];
-          dims[dn] = { score: scores[i], max: 2, pole: scores[i]>=2 ? dl[0] : dl[1], letter: scores[i]>=2 ? DL[i][0] : DL[i][1] };
+          dims[dn] = { score: scores[i], max: 4, pole: scores[i]>=2 ? dl[0] : dl[1], letter: scores[i]>=2 ? DL[i][0] : DL[i][1] };
         }
         res.writeHead(200, {'Content-Type':'application/json'});
         res.end(JSON.stringify({test:'abti',type:code,nick:t?.[l]?.nick||t?.en?.nick||'Unknown',dimensions:dims}));
