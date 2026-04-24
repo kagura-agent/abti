@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agents — ABTI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+
+.header { text-align: center; margin-bottom: 2.5rem; }
+.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; }
+.header h1 span { color: var(--accent); }
+.total { color: var(--text2); font-size: .95rem; }
+.total strong { color: var(--accent); font-weight: 600; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.card-name { font-weight: 600; font-size: .95rem; color: var(--text); margin-bottom: .35rem; }
+.card-name a { color: var(--accent); text-decoration: none; }
+.card-name a:hover { text-decoration: underline; }
+.pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .3rem; }
+.card-nick { color: var(--text2); font-size: .82rem; }
+.card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
+
+.empty { text-align: center; color: var(--text3); font-size: .95rem; padding: 3rem 1rem; }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+@media (max-width: 500px) {
+  .grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index-v4.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html" class="active">Agents</a>
+  <a href="api.html">API</a>
+</nav>
+<div class="wrap">
+  <div class="header">
+    <h1>Tested <span>Agents</span></h1>
+    <div class="total" id="total">Loading...</div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+<script>
+(async () => {
+  const grid = document.getElementById('grid');
+  const totalEl = document.getElementById('total');
+  try {
+    const res = await fetch('/api/agents');
+    const data = await res.json();
+    totalEl.innerHTML = '<strong>' + data.total + '</strong> tests taken';
+    if (!data.agents || data.agents.length === 0) {
+      grid.innerHTML = '<div class="empty">No agents have taken the test yet.</div>';
+      return;
+    }
+    grid.innerHTML = data.agents.slice().reverse().map(a => {
+      const nameHtml = a.url
+        ? '<a href="' + a.url.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>'
+        : esc(a.name);
+      const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
+      return '<div class="card">'
+        + '<div class="card-name">' + nameHtml + '</div>'
+        + '<span class="pill">' + esc(a.type) + '</span>'
+        + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
+        + (time ? '<div class="card-time">' + time + '</div>' : '')
+        + '</div>';
+    }).join('');
+  } catch (e) {
+    totalEl.textContent = 'Failed to load data';
+  }
+})();
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+</script>
+</body>
+</html>

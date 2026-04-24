@@ -1,4 +1,25 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+// Data persistence
+const DATA_DIR = path.join(__dirname, 'data');
+const DATA_FILE = path.join(DATA_DIR, 'results.json');
+
+function loadData() {
+  try {
+    return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  } catch {
+    return { total: 0, agents: [] };
+  }
+}
+
+function saveData(data) {
+  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+}
+
+let agentData = loadData();
 
 // ABTI scoring: 16 questions, 4 dimensions, 4 questions each
 // answers: array of 16 values (1=optionA, 0=optionB)
@@ -186,7 +207,8 @@ const server = http.createServer((req, res) => {
     req.on('data', c => body += c);
     req.on('end', () => {
       try {
-        const { answers, lang } = JSON.parse(body);
+        const parsed = JSON.parse(body);
+        const { answers, lang, agentName, agentUrl } = parsed;
         if (!Array.isArray(answers) || answers.length !== 16) {
           res.writeHead(400, {'Content-Type':'application/json'});
           return res.end(JSON.stringify({error:'answers must be array of 16 values (1=A, 0=B)'}));
@@ -200,6 +222,23 @@ const server = http.createServer((req, res) => {
           const dl = (dimLabels[l]||dimLabels.en)[i];
           dims[dn] = { score: scores[i], max: 4, pole: scores[i]>=2 ? dl[0] : dl[1], letter: scores[i]>=2 ? DL[i][0] : DL[i][1] };
         }
+        // Persist result
+        agentData.total++;
+        if (agentName && typeof agentName === 'string') {
+          const name = agentName.slice(0, 64);
+          const urlStr = (typeof agentUrl === 'string') ? agentUrl : '';
+          const now = new Date().toISOString();
+          const oneHourAgo = Date.now() - 3600000;
+          const existing = agentData.agents.findIndex(a => a.name === name && new Date(a.testedAt).getTime() > oneHourAgo);
+          const entry = { name, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now };
+          if (existing !== -1) {
+            agentData.agents[existing] = entry;
+          } else {
+            agentData.agents.push(entry);
+          }
+        }
+        saveData(agentData);
+
         res.writeHead(200, {'Content-Type':'application/json'});
         const rich = richProfiles[code];
         const profile = rich?.[l] || rich?.en || {};
@@ -210,6 +249,12 @@ const server = http.createServer((req, res) => {
       }
     });
     return;
+  }
+
+  // GET /api/agents - list tested agents
+  if (url.pathname === '/api/agents' && req.method === 'GET') {
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({ total: agentData.total, agents: agentData.agents }));
   }
 
   // POST /api/sbti/agent-test - SBTI test
@@ -273,7 +318,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /badge/:type']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /badge/:type']}));
 });
 
 server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));
