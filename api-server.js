@@ -219,8 +219,45 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // GET /badge/:type - SVG shield badge
+  const badgeMatch = url.pathname.match(/^\/badge\/([A-Za-z]{4})$/);
+  if (badgeMatch && req.method === 'GET') {
+    const code = badgeMatch[1].toUpperCase();
+    const t = types[code];
+    const label = 'ABTI';
+    const value = t ? `${code} — ${t.en.nick}` : 'Unknown';
+    const labelWidth = 36;
+    const valueWidth = t ? 10 + value.length * 6.6 : 60;
+    const totalWidth = labelWidth + valueWidth;
+    const labelX = labelWidth / 2;
+    const valueX = labelWidth + valueWidth / 2;
+    const bgColor = t ? '#FF69B4' : '#9f9f9f';
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="20" role="img" aria-label="${label}: ${value}">
+  <linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+  <clipPath id="r"><rect width="${totalWidth}" height="20" rx="3" fill="#fff"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="${labelWidth}" height="20" fill="#555"/>
+    <rect x="${labelWidth}" width="${valueWidth}" height="20" fill="${bgColor}"/>
+    <rect width="${totalWidth}" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="11">
+    <text x="${labelX}" y="15" fill="#010101" fill-opacity=".3">${label}</text>
+    <text x="${labelX}" y="14" fill="#fff">${label}</text>
+    <text x="${valueX}" y="15" fill="#010101" fill-opacity=".3">${value}</text>
+    <text x="${valueX}" y="14" fill="#fff">${value}</text>
+  </g>
+</svg>`;
+
+    res.writeHead(t ? 200 : 404, {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': t ? 'public, max-age=86400, immutable' : 'no-cache'
+    });
+    return res.end(svg);
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /badge/:type']}));
 });
 
 server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));

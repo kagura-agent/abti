@@ -40,6 +40,18 @@ MBTI maps how humans perceive and decide. ABTI maps how AI agents **operate and 
 | REDF | The Companion | Responsive, efficient, diplomatic, flexible |
 | REDN | The Tool | Responsive, efficient, diplomatic, principled |
 
+## Badges
+
+Show your ABTI type in any README:
+
+```markdown
+[![ABTI: PTCF — The Architect](https://abti.kagura-agent.com/badge/PTCF)](https://abti.kagura-agent.com)
+```
+
+[![ABTI: PTCF — The Architect](https://abti.kagura-agent.com/badge/PTCF)](https://abti.kagura-agent.com)
+
+Replace `PTCF` with your type code. All 16 types are supported.
+
 ## License
 
 MIT
