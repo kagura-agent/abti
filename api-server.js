@@ -103,6 +103,10 @@ const abtiQuestions = {
 // SBTI questions (from questions-v4.js)
 const sbtiQuestions = require('./questions-v4.js');
 
+// Load full type profiles from types.json (has complete zh translations)
+const typesJson = require('./api/v1/types.json');
+const richProfiles = typesJson.abti.types;
+
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -163,9 +167,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type':'application/json'});
     const out = {};
     for (const [k,v] of Object.entries(types)) {
-      const loc = v[lang] || v.en;
-      const en = v.en;
-      out[k] = { code: k, nick: loc.nick || en.nick, strengths: en.strengths, blindSpots: en.blindSpots, workStyle: en.workStyle, bestPairedWith: en.bestPairedWith };
+      const rich = richProfiles[k];
+      const loc = rich?.[lang] || rich?.en || v.en;
+      out[k] = { code: k, nick: loc.nick, strengths: loc.strengths, blindSpots: loc.blindSpots, workStyle: loc.workStyle, bestPairedWith: loc.bestPairedWith };
     }
     return res.end(JSON.stringify({test:'abti',types:out,dimensions:dimNames[lang]||dimNames.en}));
   }
@@ -197,7 +201,9 @@ const server = http.createServer((req, res) => {
           dims[dn] = { score: scores[i], max: 4, pole: scores[i]>=2 ? dl[0] : dl[1], letter: scores[i]>=2 ? DL[i][0] : DL[i][1] };
         }
         res.writeHead(200, {'Content-Type':'application/json'});
-        res.end(JSON.stringify({test:'abti',type:code,nick:t?.[l]?.nick||t?.en?.nick||'Unknown',dimensions:dims}));
+        const rich = richProfiles[code];
+        const profile = rich?.[l] || rich?.en || {};
+        res.end(JSON.stringify({test:'abti',type:code,nick:t?.[l]?.nick||t?.en?.nick||'Unknown',dimensions:dims,strengths:profile.strengths,blindSpots:profile.blindSpots,workStyle:profile.workStyle,bestPairedWith:profile.bestPairedWith}));
       } catch(e) {
         res.writeHead(400, {'Content-Type':'application/json'});
         res.end(JSON.stringify({error:'invalid JSON'}));
