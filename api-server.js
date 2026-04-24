@@ -24,10 +24,11 @@ const types = {
   REDF:{en:{nick:'The Companion'},zh:{nick:'伙伴'}},REDN:{en:{nick:'The Tool'},zh:{nick:'工具'}}
 };
 
-// SBTI scoring: 12 questions, 4 dimensions, 3 questions each
-// answers: array of 12 values (3=optionA, 2=optionB, 1=optionC)
+// SBTI scoring: 16 questions, 4 dimensions, 4 questions each
+// answers: array of 16 values (3=optionA, 2=optionB, 1=optionC)
+// score range per dim: 4-12, threshold >=9 = first pole
 const SDL = [['S','C'],['V','T'],['H','G'],['O','I']];
-const sqMap = [0,0,0,1,1,1,2,2,2,3,3,3];
+const sqMap = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3];
 const stypes = {
   SVHO:{code:'SPAM'},SVHI:{code:'SIMP'},SVGO:{code:'BOSS'},SVGI:{code:'BLOG'},
   STHO:{code:'GLUE'},STHI:{code:'NPC'},STGO:{code:'TOOL'},STGI:{code:'DEAD'},
@@ -45,9 +46,9 @@ function scoreABTI(answers) {
 
 function scoreSBTI(answers) {
   const scores = [0,0,0,0];
-  for (let i = 0; i < 12; i++) scores[sqMap[i]] += answers[i];
+  for (let i = 0; i < 16; i++) scores[sqMap[i]] += answers[i];
   let code = '';
-  for (let i = 0; i < 4; i++) code += scores[i] >= 7 ? SDL[i][0] : SDL[i][1];
+  for (let i = 0; i < 4; i++) code += scores[i] >= 9 ? SDL[i][0] : SDL[i][1];
   return { code, scores };
 }
 
@@ -202,9 +203,9 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const { answers } = JSON.parse(body);
-        if (!Array.isArray(answers) || answers.length !== 12) {
+        if (!Array.isArray(answers) || answers.length !== 16) {
           res.writeHead(400, {'Content-Type':'application/json'});
-          return res.end(JSON.stringify({error:'answers must be array of 12 values (3=A, 2=B, 1=C)'}));
+          return res.end(JSON.stringify({error:'answers must be array of 16 values (3=A, 2=B, 1=C)'}));
         }
         const { code, scores } = scoreSBTI(answers);
         const st = stypes[code];
