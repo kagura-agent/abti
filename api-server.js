@@ -349,4 +349,7 @@ const server = http.createServer((req, res) => {
   res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /badge/:type','GET /result/:type']}));
 });
 
-server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));
+if (require.main === module) {
+  server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));
+}
+module.exports = server;
