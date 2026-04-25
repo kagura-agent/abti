@@ -30,7 +30,7 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 ### Basic — test with OpenAI
 
 ```yaml
-- uses: anthropics/abti@master
+- uses: kagura-agent/abti@master
   with:
     provider: openai
     model: gpt-4o
@@ -40,7 +40,7 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 ### With agent system prompt from file
 
 ```yaml
-- uses: anthropics/abti@master
+- uses: kagura-agent/abti@master
   with:
     agent-prompt-file: AGENTS.md
     provider: anthropic
@@ -51,7 +51,7 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 ### With PR comment
 
 ```yaml
-- uses: anthropics/abti@master
+- uses: kagura-agent/abti@master
   with:
     agent-prompt: "You are a strict code reviewer who never lets bugs slip through."
     provider: openai
@@ -65,7 +65,7 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 ### Use outputs in subsequent steps
 
 ```yaml
-- uses: anthropics/abti@master
+- uses: kagura-agent/abti@master
   id: abti
   with:
     provider: openai
