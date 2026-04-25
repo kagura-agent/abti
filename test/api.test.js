@@ -1,6 +1,13 @@
 const { describe, it, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const http = require('node:http');
+const os = require('node:os');
+const fs = require('node:fs');
+const path = require('node:path');
+
+// Set up isolated data dir BEFORE requiring the server
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'abti-test-'));
+process.env.ABTI_DATA_DIR = tmpDir;
 
 const server = require('../api-server.js');
 
@@ -30,7 +37,13 @@ before(() => new Promise((resolve) => {
   });
 }));
 
-after(() => new Promise((resolve) => server.close(resolve)));
+after(() => new Promise((resolve) => {
+  server.close(() => {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+    delete process.env.ABTI_DATA_DIR;
+    resolve();
+  });
+}));
 
 // ─── GET /api/test ───
 

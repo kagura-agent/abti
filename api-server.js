@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Data persistence
-const DATA_DIR = path.join(__dirname, 'data');
-const DATA_FILE = path.join(DATA_DIR, 'results.json');
+let DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
+let DATA_FILE = path.join(DATA_DIR, 'results.json');
 
 function loadData() {
   try {
@@ -17,6 +17,13 @@ function loadData() {
 function saveData(data) {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+}
+
+// Re-initialize data dir and reload data (used by tests)
+function resetData() {
+  DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
+  DATA_FILE = path.join(DATA_DIR, 'results.json');
+  agentData = loadData();
 }
 
 let agentData = loadData();
@@ -412,3 +419,4 @@ if (require.main === module) {
   server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));
 }
 module.exports = server;
+module.exports.resetData = resetData;
