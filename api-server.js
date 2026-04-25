@@ -282,6 +282,63 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // GET /api/compare/:type1/:type2 - compare two types
+  const compareMatch = url.pathname.match(/^\/api\/compare\/([A-Za-z]{4})\/([A-Za-z]{4})$/);
+  if (compareMatch && req.method === 'GET') {
+    const code1 = compareMatch[1].toUpperCase();
+    const code2 = compareMatch[2].toUpperCase();
+    const t1 = types[code1];
+    const t2 = types[code2];
+    if (!t1 || !t2) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid type code: ${!t1 ? code1 : code2}`}));
+    }
+    const lang = url.searchParams.get('lang') || 'en';
+    const r1 = richProfiles[code1];
+    const r2 = richProfiles[code2];
+    const p1 = r1?.[lang] || r1?.en || t1.en;
+    const p2 = r2?.[lang] || r2?.en || t2.en;
+
+    const dimensions = [];
+    for (let i = 0; i < 4; i++) {
+      const dn = (dimNames[lang] || dimNames.en)[i];
+      const dl = (dimLabels[lang] || dimLabels.en)[i];
+      const letter1 = code1[i];
+      const letter2 = code2[i];
+      const pole1 = letter1 === DL[i][0] ? dl[0] : dl[1];
+      const pole2 = letter2 === DL[i][0] ? dl[0] : dl[1];
+      dimensions.push({
+        name: dn,
+        poles: dl,
+        letters: DL[i],
+        type1: { letter: letter1, pole: pole1 },
+        type2: { letter: letter2, pole: pole2 },
+        match: letter1 === letter2
+      });
+    }
+
+    const compat1 = p1.bestPairedWith?.some(bp => bp.type === code2) || false;
+    const compat2 = p2.bestPairedWith?.some(bp => bp.type === code1) || false;
+    const compatibility = {
+      mutual: compat1 && compat2,
+      type1RecommendsType2: compat1,
+      type2RecommendsType1: compat2,
+      reason1: p1.bestPairedWith?.find(bp => bp.type === code2)?.reason || null,
+      reason2: p2.bestPairedWith?.find(bp => bp.type === code1)?.reason || null
+    };
+
+    const shared = dimensions.filter(d => d.match).length;
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      type1: { code: code1, nick: p1.nick, strengths: p1.strengths, blindSpots: p1.blindSpots, workStyle: p1.workStyle },
+      type2: { code: code2, nick: p2.nick, strengths: p2.strengths, blindSpots: p2.blindSpots, workStyle: p2.workStyle },
+      dimensions,
+      sharedDimensions: shared,
+      compatibility
+    }));
+  }
+
   // GET /badge/:type - SVG shield badge
   const badgeMatch = url.pathname.match(/^\/badge\/([A-Za-z]{4})$/);
   if (badgeMatch && req.method === 'GET') {
@@ -348,7 +405,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /badge/:type','GET /result/:type']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type']}));
 });
 
 if (require.main === module) {
