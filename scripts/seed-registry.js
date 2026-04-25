@@ -78,7 +78,25 @@ function httpPostJSON(url, body, headers) {
   });
 }
 
-// ─── LLM call ───────────────────────────────────────────────────────────────
+// ─── LLM calls ──────────────────────────────────────────────────────────────
+
+function callOpenAI(opts, systemPrompt, userMessage) {
+  const url = opts.baseUrl
+    ? opts.baseUrl.replace(/\/+$/, '') + '/v1/chat/completions'
+    : 'https://api.openai.com/v1/chat/completions';
+  const headers = {
+    'Authorization': `Bearer ${opts.apiKey}`,
+  };
+  return httpPostJSON(url, {
+    model: opts.model,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMessage },
+    ],
+    max_tokens: 4,
+    temperature: 0,
+  }, headers).then(json => json.choices[0].message.content.trim());
+}
 
 function callAnthropic(opts, systemPrompt, userMessage) {
   const url = opts.baseUrl
@@ -94,6 +112,12 @@ function callAnthropic(opts, systemPrompt, userMessage) {
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }],
   }, headers).then(json => json.content[0].text.trim());
+}
+
+function callLLM(opts, systemPrompt, userMessage) {
+  if (opts.provider === 'openai') return callOpenAI(opts, systemPrompt, userMessage);
+  if (opts.provider === 'anthropic') return callAnthropic(opts, systemPrompt, userMessage);
+  throw new Error(`Unknown provider: ${opts.provider}. Must be "openai" or "anthropic".`);
 }
 
 // ─── Answer parsing ─────────────────────────────────────────────────────────
@@ -152,7 +176,7 @@ async function main() {
       ].join('\n');
 
       console.log(`  Q${i + 1}/${questions.length} [${q.dimension}]...`);
-      const response = await callAnthropic(opts, systemPrompt, userMessage);
+      const response = await callLLM(opts, systemPrompt, userMessage);
       const answer = parseAnswer(response);
       console.log(`    → ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
       answers.push(answer);
