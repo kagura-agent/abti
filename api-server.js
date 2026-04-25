@@ -317,8 +317,36 @@ const server = http.createServer((req, res) => {
     return res.end(svg);
   }
 
+  // GET /result/:type - shareable result page with dynamic OG tags
+  const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
+  if (resultMatch && req.method === 'GET') {
+    const code = resultMatch[1].toUpperCase();
+    const VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    if (!VALID.includes(code)) {
+      res.writeHead(302, { 'Location': '/' });
+      return res.end();
+    }
+    const t = types[code];
+    const nick = t?.en?.nick || code;
+    const desc = `${nick} — discover your AI agent's behavioral type with ABTI`;
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    // Replace OG meta tags
+    html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="I am ${code} — ${nick} | ABTI">`);
+    html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}">`);
+    html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="https://abti.kagura-agent.com/badge/${code}">`);
+    html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="https://abti.kagura-agent.com/result/${code}">`);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /badge/:type']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /badge/:type','GET /result/:type']}));
 });
 
 server.listen(3300, '127.0.0.1', () => console.log('ABTI API listening on :3300'));

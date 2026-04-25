@@ -636,6 +636,7 @@ body {
     <div class="result-actions">
       <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
       <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
+      <button class="btn-secondary" id="copyLinkBtn" onclick="copyLink()"></button>
       <button class="btn-card" id="downloadCardBtn" onclick="downloadCard()"></button>
     </div>
     <div class="type-table-toggle" id="typeTableToggle" onclick="toggleTable()"></div>
@@ -671,6 +672,8 @@ const i18n = {
     retakeBtn: 'Retake',
     shareBtn: 'Copy Result',
     shareSuccess: 'Copied! ✓',
+    copyLink: 'Copy Link',
+    copyLinkSuccess: 'Copied! ✓',
     downloadCard: 'Download Card',
     profLabels: { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', bestPairedWith: 'Best Paired With' },
     balanced: 'Balanced',
@@ -799,6 +802,8 @@ const i18n = {
     retakeBtn: '重新测试',
     shareBtn: '复制结果',
     shareSuccess: '已复制 ✓',
+    copyLink: '复制链接',
+    copyLinkSuccess: '已复制 ✓',
     downloadCard: '下载卡片',
     profLabels: { strengths: '核心优势', blindSpots: '盲点', workStyle: '工作风格', bestPairedWith: '最佳搭配' },
     balanced: '均衡',
@@ -1048,6 +1053,8 @@ function showResult() {
   document.getElementById('retakeBtn').textContent = t('retakeBtn');
   document.getElementById('shareBtn').textContent = t('shareBtn');
   document.getElementById('shareBtn').classList.remove('copied');
+  document.getElementById('copyLinkBtn').textContent = t('copyLink');
+  document.getElementById('copyLinkBtn').classList.remove('copied');
   document.getElementById('downloadCardBtn').textContent = t('downloadCard');
 
   // Table toggle
@@ -1181,6 +1188,17 @@ function shareResult() {
   });
 }
 
+function copyLink() {
+  const code = getType();
+  const url = `https://abti.kagura-agent.com/result/${code}`;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('copyLinkBtn');
+    btn.textContent = t('copyLinkSuccess');
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = t('copyLink'); btn.classList.remove('copied'); }, 2000);
+  });
+}
+
 function downloadCard() {
   const code = getType();
   const info = t("types")[code] || { nick: "???", desc: "" };
@@ -1276,8 +1294,28 @@ function downloadCard() {
   link.click();
 }
 
-// Init
-renderLanding();
+// Init — detect /result/:type URL
+const resultUrlMatch = window.location.pathname.match(/^\/result\/([A-Z]{4})$/i);
+if (resultUrlMatch) {
+  const typeCode = resultUrlMatch[1].toUpperCase();
+  const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+  if (VALID_TYPES.includes(typeCode)) {
+    // Simulate scores: P=4/R=0, T=4/E=0, C=4/D=0, F=4/N=0
+    const letterToScore = { P: [4,0], R: [0,0], T: [0,4], E: [0,0], C: [0,0,4], D: [0,0,0], F: [0,0,0,4], N: [0,0,0,0] };
+    // Dim 0: P→4, R→0; Dim 1: T→4, E→0; Dim 2: C→4, D→0; Dim 3: F→4, N→0
+    const pole1 = ['P','T','C','F'];
+    for (let i = 0; i < 4; i++) {
+      scores[i] = typeCode[i] === pole1[i] ? 4 : 0;
+    }
+    cachedType = typeCode;
+    document.getElementById('landing').style.display = 'none';
+    showResult();
+  } else {
+    renderLanding();
+  }
+} else {
+  renderLanding();
+}
 </script>
 </body>
 </html>
