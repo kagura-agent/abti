@@ -72,6 +72,25 @@ The action sends each ABTI scenario to the LLM, collects A/B answers, and writes
 
 See [`action/README.md`](action/README.md) for full documentation.
 
+## MCP Server
+
+Any MCP-compatible agent (Claude Desktop, Cursor, Windsurf, etc.) can take the ABTI test via the built-in MCP server:
+
+```json
+{
+  "mcpServers": {
+    "abti": {
+      "command": "node",
+      "args": ["/path/to/abti/mcp/server.js"]
+    }
+  }
+}
+```
+
+3 tools: `abti_get_questions`, `abti_submit_answers`, `abti_get_type_info`.
+
+See [`mcp/README.md`](mcp/README.md) for full documentation.
+
 ## License
 
 MIT
