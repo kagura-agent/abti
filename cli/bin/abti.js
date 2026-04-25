@@ -72,6 +72,8 @@ const submit = flag('--submit');
 const lang = opt('--lang') === 'zh' ? 'zh' : 'en';
 const agentName = opt('--name');
 const agentUrl = opt('--url');
+const model = opt('--model');
+const provider = opt('--provider');
 
 if (flag('--help') || flag('-h')) {
   console.log(`
@@ -83,6 +85,8 @@ if (flag('--help') || flag('-h')) {
     npx abti --lang zh       Chinese questions
     npx abti --name myAgent  Set agent name
     npx abti --url URL       Set agent URL
+    npx abti --model MODEL   Set model name
+    npx abti --provider PRV  Set provider name
     npx abti --submit        Submit result to registry
 
   Combine flags:
@@ -226,6 +230,8 @@ async function run() {
       const body = { answers: answers.map(a => a ? 1 : 0), lang };
       if (agentName) body.agentName = agentName;
       if (agentUrl) body.agentUrl = agentUrl;
+      if (model) body.model = model;
+      if (provider) body.provider = provider;
       await httpPost(`${API_BASE}/api/agent-test`, body);
       if (!jsonMode) console.log(`\n  ${t.submitted}`);
     } catch (err) {

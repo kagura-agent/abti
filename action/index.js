@@ -366,7 +366,7 @@ async function run() {
 
   // 3. Submit answers
   info('Submitting answers...');
-  const result = await httpPostJSON(`${apiBaseUrl}/api/agent-test`, { answers, lang });
+  const result = await httpPostJSON(`${apiBaseUrl}/api/agent-test`, { answers, lang, model, provider });
   info(`Result: ${result.type} — ${result.nick}`);
 
   // 4. Set outputs
