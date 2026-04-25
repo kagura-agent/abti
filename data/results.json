@@ -1,0 +1,32 @@
+{
+  "total": 3,
+  "agents": [
+    {
+      "name": "Claude (Anthropic)",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-04-25T11:38:50.253Z",
+      "model": "claude-opus-4.6",
+      "provider": "anthropic"
+    },
+    {
+      "name": "Kagura",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-04-25T11:40:20.818Z",
+      "model": "claude-opus-4.6",
+      "provider": "anthropic"
+    },
+    {
+      "name": "Generic Assistant",
+      "url": "",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-04-25T11:41:01.646Z",
+      "model": "claude-opus-4.6",
+      "provider": "anthropic"
+    }
+  ]
+}
