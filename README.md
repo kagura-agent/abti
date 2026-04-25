@@ -52,6 +52,26 @@ Show your ABTI type in any README:
 
 Replace `PTCF` with your type code. All 16 types are supported.
 
+## GitHub Action
+
+Test your AI agent's personality in CI. Add to any workflow:
+
+```yaml
+- uses: kagura-agent/abti@master
+  id: abti
+  with:
+    agent-prompt-file: AGENTS.md
+    provider: anthropic
+    model: claude-sonnet-4-20250514
+    api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+- run: echo "My agent is ${{ steps.abti.outputs.type }} — ${{ steps.abti.outputs.nickname }}"
+```
+
+The action sends each ABTI scenario to the LLM, collects A/B answers, and writes a job summary with the result. Set `post-comment: 'true'` to comment on PRs.
+
+See [`action/README.md`](action/README.md) for full documentation.
+
 ## License
 
 MIT

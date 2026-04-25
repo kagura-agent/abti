@@ -1,0 +1,44 @@
+name: 'ABTI — Agent Personality Test'
+description: 'Run an ABTI personality test on your AI agent and get its behavioral type'
+author: 'kagura-agent'
+
+inputs:
+  agent-prompt:
+    description: 'Agent system prompt string'
+    required: false
+  agent-prompt-file:
+    description: 'Path to file containing the agent system prompt (e.g. AGENTS.md)'
+    required: false
+  provider:
+    description: 'LLM provider: openai or anthropic'
+    required: true
+  model:
+    description: 'Model name (e.g. gpt-4o, claude-sonnet-4-20250514)'
+    required: true
+  api-key:
+    description: 'API key for the LLM provider'
+    required: true
+  post-comment:
+    description: 'Post a PR comment with results'
+    required: false
+    default: 'false'
+  api-base-url:
+    description: 'ABTI API base URL'
+    required: false
+    default: 'https://abti.kagura-agent.com'
+  lang:
+    description: 'Language for questions (en or zh)'
+    required: false
+    default: 'en'
+
+outputs:
+  type:
+    description: 'ABTI type code (e.g. PTCF)'
+  nickname:
+    description: 'Type nickname (e.g. The Architect)'
+  badge-url:
+    description: 'URL for the ABTI badge SVG'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
