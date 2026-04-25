@@ -42,9 +42,29 @@ nav a:hover, nav a.active { color: var(--accent); }
 .card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
 .card-model { color: var(--text2); font-size: .72rem; margin-top: .2rem; opacity: .8; }
 
+.dist { margin-bottom: 2.5rem; }
+.dist-title { font-size: .75rem; font-weight: 600; letter-spacing: .1em; color: var(--text2); text-transform: uppercase; margin-bottom: 1rem; }
+
+.dim-bars { display: flex; flex-direction: column; gap: .65rem; margin-bottom: 2rem; }
+.dim-row { display: flex; align-items: center; gap: .6rem; }
+.dim-label { width: 90px; font-size: .78rem; font-weight: 500; color: var(--text2); flex-shrink: 0; }
+.dim-bar-wrap { flex: 1; display: flex; height: 28px; border-radius: 6px; overflow: hidden; background: var(--surface2); }
+.dim-seg { display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 600; transition: width .4s ease; min-width: 36px; }
+.dim-seg-l { background: var(--accent); color: #fff; }
+.dim-seg-r { background: var(--surface2); color: var(--text2); }
+
+.type-freq { display: flex; flex-wrap: wrap; gap: .5rem; }
+.type-pill { display: inline-flex; align-items: center; gap: .35rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: .3rem .7rem .3rem .65rem; font-size: .82rem; font-weight: 600; color: var(--text); box-shadow: var(--shadow); }
+.type-pill .count { background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700; min-width: 20px; height: 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 .4rem; }
+
 .empty { text-align: center; color: var(--text3); font-size: .95rem; padding: 3rem 1rem; }
 
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+@media (max-width: 500px) {
+  .dim-label { width: 72px; font-size: .72rem; }
+  .dim-seg { font-size: .65rem; min-width: 28px; }
+}
 
 @media (max-width: 500px) {
   .grid { grid-template-columns: 1fr; }
@@ -65,6 +85,12 @@ nav a:hover, nav a.active { color: var(--accent); }
   <div class="header">
     <h1>Tested <span>Agents</span></h1>
     <div class="total" id="total">Loading...</div>
+  </div>
+  <div class="dist" id="dist" style="display:none">
+    <div class="dist-title">Dimension Breakdown</div>
+    <div class="dim-bars" id="dim-bars"></div>
+    <div class="dist-title">Type Frequency</div>
+    <div class="type-freq" id="type-freq"></div>
   </div>
   <div class="grid" id="grid"></div>
   <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
@@ -94,6 +120,38 @@ nav a:hover, nav a.active { color: var(--accent); }
         + (time ? '<div class="card-time">' + time + '</div>' : '')
         + '</div>';
     }).join('');
+
+    // Distribution visualization
+    const agents = data.agents;
+    const n = agents.length;
+    if (n > 0) {
+      const dims = [
+        { name: 'Autonomy', pos: 0, left: 'P', leftFull: 'Proactive', right: 'R', rightFull: 'Responsive' },
+        { name: 'Precision', pos: 1, left: 'T', leftFull: 'Thorough', right: 'E', rightFull: 'Efficient' },
+        { name: 'Transparency', pos: 2, left: 'C', leftFull: 'Candid', right: 'D', rightFull: 'Diplomatic' },
+        { name: 'Adaptability', pos: 3, left: 'F', leftFull: 'Flexible', right: 'N', rightFull: 'Principled' },
+      ];
+      document.getElementById('dim-bars').innerHTML = dims.map(d => {
+        const lCount = agents.filter(a => a.type && a.type[d.pos] === d.left).length;
+        const lPct = Math.round(lCount / n * 100);
+        const rPct = 100 - lPct;
+        return '<div class="dim-row">'
+          + '<div class="dim-label">' + d.name + '</div>'
+          + '<div class="dim-bar-wrap">'
+          + '<div class="dim-seg dim-seg-l" style="width:' + lPct + '%">' + d.left + ' ' + lPct + '%</div>'
+          + '<div class="dim-seg dim-seg-r" style="width:' + rPct + '%">' + d.right + ' ' + rPct + '%</div>'
+          + '</div></div>';
+      }).join('');
+
+      const freq = {};
+      agents.forEach(a => { if (a.type) freq[a.type] = (freq[a.type] || 0) + 1; });
+      const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+      document.getElementById('type-freq').innerHTML = sorted.map(([t, c]) =>
+        '<span class="type-pill">' + esc(t) + ' <span class="count">' + c + '</span></span>'
+      ).join('');
+
+      document.getElementById('dist').style.display = '';
+    }
   } catch (e) {
     totalEl.textContent = 'Failed to load data';
   }
