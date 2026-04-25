@@ -506,6 +506,68 @@ body {
   font-style: italic;
 }
 
+.profile {
+  text-align: left;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: fadeSlide 0.5s ease;
+}
+.profile-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.profile-section h3 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.profile-section ul {
+  list-style: none;
+  padding: 0;
+}
+.profile-section li {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  padding: 0.25rem 0;
+  padding-left: 1.1rem;
+  position: relative;
+}
+.profile-section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+.profile-section .work-style {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.profile-section .pair-type {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.profile-section .pair-reason {
+  color: var(--text2);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
 .footer {
   text-align: center;
   color: #b0aca6;
@@ -533,6 +595,7 @@ body {
 <nav class="nav">
   <a href="index.html" class="active">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
   <a href="api.html">API</a>
   <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
 </nav>
@@ -569,6 +632,7 @@ body {
     <div class="famous-agents" id="famousAgents"></div>
     <div class="research-toggle" id="researchToggle" onclick="toggleResearch()"></div>
     <div class="research-refs" id="researchRefs"></div>
+    <div class="profile" id="profile"></div>
     <div class="result-actions">
       <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
       <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
@@ -608,6 +672,7 @@ const i18n = {
     shareBtn: 'Copy Result',
     shareSuccess: 'Copied! ✓',
     downloadCard: 'Download Card',
+    profLabels: { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', bestPairedWith: 'Best Paired With' },
     balanced: 'Balanced',
     allTypes: 'All 16 types',
     famousTitle: 'Famous agents with your type',
@@ -735,6 +800,7 @@ const i18n = {
     shareBtn: '复制结果',
     shareSuccess: '已复制 ✓',
     downloadCard: '下载卡片',
+    profLabels: { strengths: '核心优势', blindSpots: '盲点', workStyle: '工作风格', bestPairedWith: '最佳搭配' },
     balanced: '均衡',
     allTypes: '全部 16 种类型',
     famousTitle: '与你同类型的知名智能体',
@@ -1054,6 +1120,37 @@ function showResult() {
         <div class="ref-note">${ref.note}</div>
       </div>`;
   }
+
+  // Fetch and display rich profile
+  const profileEl = document.getElementById('profile');
+  profileEl.innerHTML = '';
+  const apiLang = lang === 'zh' ? 'zh' : 'en';
+  fetch('/api/types?lang=' + apiLang)
+    .then(r => r.json())
+    .then(data => {
+      const typeData = data.types && data.types[code];
+      if (!typeData) return;
+      const pl = t('profLabels');
+      let html = '';
+      if (typeData.strengths && typeData.strengths.length) {
+        html += `<div class="profile-section"><h3>${pl.strengths}</h3><ul>${typeData.strengths.map(s => '<li>' + s + '</li>').join('')}</ul></div>`;
+      }
+      if (typeData.blindSpots && typeData.blindSpots.length) {
+        html += `<div class="profile-section"><h3>${pl.blindSpots}</h3><ul>${typeData.blindSpots.map(s => '<li>' + s + '</li>').join('')}</ul></div>`;
+      }
+      if (typeData.workStyle) {
+        html += `<div class="profile-section"><h3>${pl.workStyle}</h3><div class="work-style">${typeData.workStyle}</div></div>`;
+      }
+      if (typeData.bestPairedWith && typeData.bestPairedWith.length) {
+        const pairHtml = typeData.bestPairedWith.map(p => {
+          const pInfo = t('types')[p.type];
+          return `<li><span class="pair-type">${p.type} "${pInfo ? pInfo.nick : '?'}"</span> — <span class="pair-reason">${p.reason}</span></li>`;
+        }).join('');
+        html += `<div class="profile-section"><h3>${pl.bestPairedWith}</h3><ul>${pairHtml}</ul></div>`;
+      }
+      profileEl.innerHTML = html;
+    })
+    .catch(() => {});
 }
 
 function toggleTable() {
