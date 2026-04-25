@@ -299,6 +299,58 @@ describe('GET /result/:type', () => {
   });
 });
 
+// ─── GET /api/compare/:type1/:type2 ───
+
+describe('GET /api/compare/:type1/:type2', () => {
+  it('compares same type', async () => {
+    const r = await req('/api/compare/PTCF/PTCF');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.equal(j.type1.code, 'PTCF');
+    assert.equal(j.type2.code, 'PTCF');
+    assert.equal(j.dimensions.length, 4);
+    assert.equal(j.sharedDimensions, 4);
+    assert.ok(j.dimensions.every(d => d.match === true));
+  });
+
+  it('compares different types', async () => {
+    const r = await req('/api/compare/PTCF/REDN');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.equal(j.type1.code, 'PTCF');
+    assert.equal(j.type2.code, 'REDN');
+    assert.equal(j.sharedDimensions, 0);
+    assert.ok(j.dimensions.every(d => d.match === false));
+    assert.ok(j.type1.strengths);
+    assert.ok(j.type2.blindSpots);
+    assert.ok(j.type1.nick);
+  });
+
+  it('400 for invalid type code', async () => {
+    const r = await req('/api/compare/PTCF/ZZZZ');
+    assert.equal(r.status, 400);
+    assert.ok(r.json().error.includes('ZZZZ'));
+  });
+
+  it('returns zh content with lang=zh', async () => {
+    const r = await req('/api/compare/PTCF/REDN?lang=zh');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.ok(j.dimensions[0].name.match(/自主/));
+  });
+
+  it('detects compatibility (PTCF ↔ RTDN mutual)', async () => {
+    const r = await req('/api/compare/PTCF/RTDN');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.equal(j.compatibility.type1RecommendsType2, true);
+    assert.equal(j.compatibility.type2RecommendsType1, true);
+    assert.equal(j.compatibility.mutual, true);
+    assert.ok(j.compatibility.reason1);
+    assert.ok(j.compatibility.reason2);
+  });
+});
+
 // ─── OPTIONS (CORS) ───
 
 describe('CORS', () => {
