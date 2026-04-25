@@ -1128,21 +1128,21 @@ function showResult() {
   fetch('/api/types?lang=' + apiLang)
     .then(r => r.json())
     .then(data => {
-      const typeData = data[code];
+      const typeData = data.types && data.types[code];
       if (!typeData) return;
       const pl = t('profLabels');
       let html = '';
       if (typeData.strengths && typeData.strengths.length) {
         html += `<div class="profile-section"><h3>${pl.strengths}</h3><ul>${typeData.strengths.map(s => '<li>' + s + '</li>').join('')}</ul></div>`;
       }
-      if (typeData.blind_spots && typeData.blind_spots.length) {
-        html += `<div class="profile-section"><h3>${pl.blindSpots}</h3><ul>${typeData.blind_spots.map(s => '<li>' + s + '</li>').join('')}</ul></div>`;
+      if (typeData.blindSpots && typeData.blindSpots.length) {
+        html += `<div class="profile-section"><h3>${pl.blindSpots}</h3><ul>${typeData.blindSpots.map(s => '<li>' + s + '</li>').join('')}</ul></div>`;
       }
-      if (typeData.work_style) {
-        html += `<div class="profile-section"><h3>${pl.workStyle}</h3><div class="work-style">${typeData.work_style}</div></div>`;
+      if (typeData.workStyle) {
+        html += `<div class="profile-section"><h3>${pl.workStyle}</h3><div class="work-style">${typeData.workStyle}</div></div>`;
       }
-      if (typeData.best_paired_with && typeData.best_paired_with.length) {
-        const pairHtml = typeData.best_paired_with.map(p => {
+      if (typeData.bestPairedWith && typeData.bestPairedWith.length) {
+        const pairHtml = typeData.bestPairedWith.map(p => {
           const pInfo = t('types')[p.type];
           return `<li><span class="pair-type">${p.type} "${pInfo ? pInfo.nick : '?'}"</span> — <span class="pair-reason">${p.reason}</span></li>`;
         }).join('');
