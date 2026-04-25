@@ -99,6 +99,35 @@ describe('POST /api/agent-test', () => {
     assert.ok(j.agents.some(a => a.name === 'TestBot'));
   });
 
+  it('stores model and provider when provided', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, agentName: 'ModelBot', model: 'gpt-4o', provider: 'openai' } });
+    assert.equal(r.status, 200);
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'ModelBot');
+    assert.equal(a.model, 'gpt-4o');
+    assert.equal(a.provider, 'openai');
+  });
+
+  it('omits model/provider when not provided (backwards compat)', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, agentName: 'PlainBot' } });
+    assert.equal(r.status, 200);
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'PlainBot');
+    assert.equal(a.model, undefined);
+    assert.equal(a.provider, undefined);
+  });
+
+  it('truncates model and provider to max length', async () => {
+    const longModel = 'x'.repeat(100);
+    const longProvider = 'y'.repeat(50);
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, agentName: 'TruncBot', model: longModel, provider: longProvider } });
+    assert.equal(r.status, 200);
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'TruncBot');
+    assert.equal(a.model.length, 64);
+    assert.equal(a.provider.length, 32);
+  });
+
   it('400 on wrong length', async () => {
     const r = await req('/api/agent-test', { method: 'POST', body: { answers: [1, 0, 1] } });
     assert.equal(r.status, 400);

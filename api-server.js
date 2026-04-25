@@ -208,7 +208,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const parsed = JSON.parse(body);
-        const { answers, lang, agentName, agentUrl } = parsed;
+        const { answers, lang, agentName, agentUrl, model, provider } = parsed;
         if (!Array.isArray(answers) || answers.length !== 16) {
           res.writeHead(400, {'Content-Type':'application/json'});
           return res.end(JSON.stringify({error:'answers must be array of 16 values (1=A, 0=B)'}));
@@ -231,6 +231,8 @@ const server = http.createServer((req, res) => {
           const oneHourAgo = Date.now() - 3600000;
           const existing = agentData.agents.findIndex(a => a.name === name && new Date(a.testedAt).getTime() > oneHourAgo);
           const entry = { name, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now };
+          if (typeof model === 'string' && model) entry.model = model.slice(0, 64);
+          if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
           if (existing !== -1) {
             agentData.agents[existing] = entry;
           } else {
