@@ -33,7 +33,11 @@ function scoreABTI(answers) {
   const scores = [0,0,0,0];
   for (let i = 0; i < 16; i++) scores[qMap[i]] += answers[i] ? 1 : 0;
   let code = '';
-  for (let i = 0; i < 4; i++) code += scores[i] >= 2 ? DL[i][0] : DL[i][1];
+  for (let i = 0; i < 4; i++) {
+    if (scores[i] >= 3) code += DL[i][0];
+    else if (scores[i] <= 1) code += DL[i][1];
+    else code += DL[i][Math.random() < 0.5 ? 0 : 1];
+  }
   return { code, scores };
 }
 
@@ -42,7 +46,9 @@ function buildDimensions(scores, lang) {
   for (let i = 0; i < 4; i++) {
     const dn = (dimNames[lang] || dimNames.en)[i];
     const dl = (dimLabels[lang] || dimLabels.en)[i];
-    dims[dn] = { score: scores[i], max: 4, pole: scores[i] >= 2 ? dl[0] : dl[1], letter: scores[i] >= 2 ? DL[i][0] : DL[i][1] };
+    const letter = scores[i] >= 3 ? DL[i][0] : scores[i] <= 1 ? DL[i][1] : DL[i][Math.random() < 0.5 ? 0 : 1];
+    const pole = scores[i] >= 3 ? dl[0] : scores[i] <= 1 ? dl[1] : dl[Math.random() < 0.5 ? 0 : 1];
+    dims[dn] = { score: scores[i], max: 4, pole, letter };
   }
   return dims;
 }
