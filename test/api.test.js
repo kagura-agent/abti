@@ -95,6 +95,19 @@ describe('POST /api/agent-test', () => {
     assert.equal(r.json().type, 'REDN');
   });
 
+  it('randomly assigns pole letters when score is 2 (tie)', async () => {
+    // 2 A's + 2 B's per dimension → score 2 each → random pick
+    const tieAnswers = [1,1,0,0, 1,1,0,0, 1,1,0,0, 1,1,0,0];
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: tieAnswers } });
+    const j = r.json();
+    assert.equal(r.status, 200);
+    // Each letter must be one of the two valid poles for its dimension
+    const DL = [['P','R'],['T','E'],['C','D'],['F','N']];
+    for (let i = 0; i < 4; i++) {
+      assert.ok(DL[i].includes(j.type[i]), `dim ${i}: '${j.type[i]}' not in [${DL[i]}]`);
+    }
+  });
+
   it('returns zh nick with lang=zh', async () => {
     const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, lang: 'zh' } });
     const j = r.json();
