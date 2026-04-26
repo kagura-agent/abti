@@ -638,6 +638,8 @@ body {
       <button class="btn" id="retakeBtn" onclick="startQuiz()"></button>
       <button class="btn-secondary" id="shareBtn" onclick="shareResult()"></button>
       <button class="btn-secondary" id="copyLinkBtn" onclick="copyLink()"></button>
+      <button class="btn-secondary" id="shareXBtn" onclick="shareOnX()">𝕏 Share</button>
+      <button class="btn-secondary" id="shareLIBtn" onclick="shareOnLinkedIn()">in Share</button>
       <button class="btn-card" id="downloadCardBtn" onclick="downloadCard()"></button>
     </div>
     <div class="type-table-toggle" id="typeTableToggle" onclick="toggleTable()"></div>
@@ -675,6 +677,8 @@ const i18n = {
     shareSuccess: 'Copied! ✓',
     copyLink: 'Copy Link',
     copyLinkSuccess: 'Copied! ✓',
+    shareX: '𝕏 Share on X',
+    shareLI: 'in Share on LinkedIn',
     downloadCard: 'Download Card',
     profLabels: { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', bestPairedWith: 'Best Paired With' },
     balanced: 'Balanced',
@@ -805,6 +809,8 @@ const i18n = {
     shareSuccess: '已复制 ✓',
     copyLink: '复制链接',
     copyLinkSuccess: '已复制 ✓',
+    shareX: '𝕏 分享到 X',
+    shareLI: 'in 分享到领英',
     downloadCard: '下载卡片',
     profLabels: { strengths: '核心优势', blindSpots: '盲点', workStyle: '工作风格', bestPairedWith: '最佳搭配' },
     balanced: '均衡',
@@ -1056,6 +1062,8 @@ function showResult() {
   document.getElementById('shareBtn').classList.remove('copied');
   document.getElementById('copyLinkBtn').textContent = t('copyLink');
   document.getElementById('copyLinkBtn').classList.remove('copied');
+  document.getElementById('shareXBtn').textContent = t('shareX');
+  document.getElementById('shareLIBtn').textContent = t('shareLI');
   document.getElementById('downloadCardBtn').textContent = t('downloadCard');
 
   // Table toggle
@@ -1198,6 +1206,21 @@ function copyLink() {
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = t('copyLink'); btn.classList.remove('copied'); }, 2000);
   });
+}
+
+function shareOnX() {
+  const code = getType();
+  const info = t('types')[code] || { nick: '???' };
+  const emoji = typeEmojis[code] || '';
+  const url = `https://abti.kagura-agent.com/result/${code}`;
+  const text = `My AI agent type is ${code} "${info.nick}" ${emoji} 🌸\nTake the test → ${url}`;
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
+}
+
+function shareOnLinkedIn() {
+  const code = getType();
+  const url = `https://abti.kagura-agent.com/result/${code}`;
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
 }
 
 function downloadCard() {
