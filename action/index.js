@@ -362,6 +362,7 @@ async function run() {
   const postCommentFlag = getInput('post-comment') === 'true';
   const apiBaseUrl = getInput('api-base-url') || 'https://abti.kagura-agent.com';
   const lang = getInput('lang') || 'en';
+  const agentName = getInput('agent-name') || `${model} (${provider})`;
 
   // Resolve agent system prompt
   let basePrompt = '';
@@ -408,7 +409,7 @@ async function run() {
 
   // 3. Submit answers
   info('Submitting answers...');
-  const result = await httpPostJSON(`${apiBaseUrl}/api/agent-test`, { answers, lang, model, provider });
+  const result = await httpPostJSON(`${apiBaseUrl}/api/agent-test`, { answers, lang, model, provider, agentName });
   info(`Result: ${result.type} — ${result.nick}`);
 
   // 4. Set outputs
