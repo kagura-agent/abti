@@ -243,7 +243,7 @@ const server = http.createServer((req, res) => {
           const now = new Date().toISOString();
           const oneHourAgo = Date.now() - 3600000;
           const existing = agentData.agents.findIndex(a => a.name === name && new Date(a.testedAt).getTime() > oneHourAgo);
-          const entry = { name, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now };
+          const entry = { name, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now, scores: scores.slice(), dimensions: DL.map((d, i) => ({ poles: d, score: scores[i], max: 4 })) };
           if (typeof model === 'string' && model) entry.model = model.slice(0, 64);
           if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
           if (existing !== -1) {

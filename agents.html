@@ -41,6 +41,12 @@ nav a:hover, nav a.active { color: var(--accent); }
 .card-nick { color: var(--text2); font-size: .82rem; }
 .card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
 .card-model { color: var(--text2); font-size: .72rem; margin-top: .2rem; opacity: .8; }
+.card-scores { display: flex; flex-direction: column; gap: .25rem; margin-top: .45rem; }
+.card-score-row { display: flex; align-items: center; gap: .4rem; font-size: .68rem; }
+.card-score-label { width: 28px; font-weight: 600; color: var(--accent); text-align: right; flex-shrink: 0; }
+.card-score-bar { flex: 1; height: 6px; background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 3px; overflow: hidden; }
+.card-score-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+.card-score-pct { width: 28px; font-size: .62rem; color: var(--text3); }
 
 .dist { margin-bottom: 2.5rem; }
 .dist-title { font-size: .75rem; font-weight: 600; letter-spacing: .1em; color: var(--text2); text-transform: uppercase; margin-bottom: 1rem; }
@@ -161,6 +167,15 @@ nav a:hover, nav a.active { color: var(--accent); }
         + '<span class="pill">' + esc(a.type) + '</span>'
         + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
         + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
+        + (a.dimensions ? '<div class="card-scores">' + a.dimensions.map(d => {
+            const pct = Math.round(d.score / d.max * 100);
+            const winner = d.score >= d.max / 2 ? d.poles[0] : d.poles[1];
+            return '<div class="card-score-row">'
+              + '<span class="card-score-label">' + winner + '</span>'
+              + '<div class="card-score-bar"><div class="card-score-fill" style="width:' + pct + '%"></div></div>'
+              + '<span class="card-score-pct">' + pct + '%</span>'
+              + '</div>';
+          }).join('') + '</div>' : '')
         + (time ? '<div class="card-time">' + time + '</div>' : '')
         + '</div>';
     }).join('');
