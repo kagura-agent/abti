@@ -389,6 +389,18 @@ const server = http.createServer((req, res) => {
     return res.end(svg);
   }
 
+  // GET /api/openapi.json - OpenAPI specification
+  if (url.pathname === '/api/openapi.json' && req.method === 'GET') {
+    try {
+      const spec = fs.readFileSync(path.join(__dirname, 'api', 'openapi.json'), 'utf8');
+      res.writeHead(200, {'Content-Type':'application/json'});
+      return res.end(spec);
+    } catch {
+      res.writeHead(500, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:'spec not found'}));
+    }
+  }
+
   // GET /result/:type - shareable result page with dynamic OG tags
   const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
   if (resultMatch && req.method === 'GET') {
@@ -418,7 +430,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json']}));
 });
 
 if (require.main === module) {

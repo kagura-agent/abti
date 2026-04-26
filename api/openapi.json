@@ -1,0 +1,954 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ABTI API",
+    "description": "Agent Behavioral Type Indicator & Shitty Bot Type Indicator API. Provides personality typing for AI agents through scenario-based questionnaires.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://abti.kagura-agent.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://abti.kagura-agent.com",
+      "description": "Production"
+    },
+    {
+      "url": "http://localhost:3300",
+      "description": "Local development"
+    }
+  ],
+  "paths": {
+    "/api/test": {
+      "get": {
+        "summary": "Get ABTI test questions",
+        "description": "Returns the 16 scenario-based ABTI questions with scoring instructions.",
+        "operationId": "getAbtiTest",
+        "tags": ["ABTI"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ABTI test questions and metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AbtiTestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/agent-test": {
+      "post": {
+        "summary": "Submit ABTI test answers",
+        "description": "Submit 16 answers (1=option A, 0=option B) to receive an ABTI personality type result. Optionally registers the agent in the public registry.",
+        "operationId": "submitAbtiTest",
+        "tags": ["ABTI"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AbtiSubmitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ABTI type result with profile details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AbtiResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/types": {
+      "get": {
+        "summary": "List all ABTI types",
+        "description": "Returns all 16 ABTI personality type profiles.",
+        "operationId": "getAbtiTypes",
+        "tags": ["ABTI"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All ABTI type profiles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AbtiTypesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/agents": {
+      "get": {
+        "summary": "List tested agents",
+        "description": "Returns all agents that have been tested and registered in the ABTI registry.",
+        "operationId": "getAgents",
+        "tags": ["Registry"],
+        "responses": {
+          "200": {
+            "description": "Agent registry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/compare/{type1}/{type2}": {
+      "get": {
+        "summary": "Compare two ABTI types",
+        "description": "Returns a detailed comparison of two ABTI types including dimension alignment and compatibility analysis.",
+        "operationId": "compareTypes",
+        "tags": ["ABTI"],
+        "parameters": [
+          {
+            "name": "type1",
+            "in": "path",
+            "required": true,
+            "description": "First ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "PTCF"
+            }
+          },
+          {
+            "name": "type2",
+            "in": "path",
+            "required": true,
+            "description": "Second ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "RECN"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Type comparison result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid type code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sbti/test": {
+      "get": {
+        "summary": "Get SBTI test questions",
+        "description": "Returns the 16 scenario-based SBTI (Shitty Bot Type Indicator) questions with scoring instructions.",
+        "operationId": "getSbtiTest",
+        "tags": ["SBTI"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SBTI test questions and metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SbtiTestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sbti/agent-test": {
+      "post": {
+        "summary": "Submit SBTI test answers",
+        "description": "Submit 16 answers (3=option A, 2=option B, 1=option C) to receive an SBTI personality type result.",
+        "operationId": "submitSbtiTest",
+        "tags": ["SBTI"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SbtiSubmitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SBTI type result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SbtiResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sbti/types": {
+      "get": {
+        "summary": "List all SBTI types",
+        "description": "Returns all 16 SBTI type codes.",
+        "operationId": "getSbtiTypes",
+        "tags": ["SBTI"],
+        "responses": {
+          "200": {
+            "description": "All SBTI types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SbtiTypesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/badge/{type}": {
+      "get": {
+        "summary": "Get SVG badge for an ABTI type",
+        "description": "Returns a shield-style SVG badge image for the given ABTI type code.",
+        "operationId": "getBadge",
+        "tags": ["Badge"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "description": "ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "PTCF"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SVG badge image",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown type code (still returns SVG with 'Unknown' label)",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/openapi.json": {
+      "get": {
+        "summary": "Get OpenAPI specification",
+        "description": "Returns this OpenAPI 3.0 specification document.",
+        "operationId": "getOpenApiSpec",
+        "tags": ["Meta"],
+        "responses": {
+          "200": {
+            "description": "OpenAPI specification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Lang": {
+        "name": "lang",
+        "in": "query",
+        "description": "Language for response content",
+        "schema": {
+          "type": "string",
+          "enum": ["en", "zh"],
+          "default": "en"
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": ["error"]
+      },
+      "AbtiQuestion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "dimension": {
+            "type": "string",
+            "description": "Dimension name (localized)"
+          },
+          "text": {
+            "type": "string",
+            "description": "Scenario description"
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "A": { "type": "string" },
+              "B": { "type": "string" }
+            },
+            "required": ["A", "B"]
+          }
+        },
+        "required": ["id", "dimension", "text", "options"]
+      },
+      "AbtiDimensionInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Dimension name (localized)"
+          },
+          "poles": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Two pole labels [firstPole, secondPole]"
+          },
+          "letters": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Two pole letter codes"
+          },
+          "questions_count": {
+            "type": "integer",
+            "example": 4
+          }
+        },
+        "required": ["name", "poles", "letters", "questions_count"]
+      },
+      "AbtiTestResponse": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["abti"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "dimensions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AbtiDimensionInfo" }
+          },
+          "scoring": {
+            "type": "string"
+          },
+          "questions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AbtiQuestion" },
+            "minItems": 16,
+            "maxItems": 16
+          },
+          "submit_to": {
+            "type": "string",
+            "example": "POST /api/agent-test"
+          },
+          "submit_format": {
+            "type": "object",
+            "properties": {
+              "answers": { "type": "string" },
+              "lang": { "type": "string" }
+            }
+          }
+        },
+        "required": ["test", "description", "dimensions", "scoring", "questions", "submit_to", "submit_format"]
+      },
+      "AbtiSubmitRequest": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [0, 1]
+            },
+            "minItems": 16,
+            "maxItems": 16,
+            "description": "16 answers: 1 for option A, 0 for option B"
+          },
+          "lang": {
+            "type": "string",
+            "enum": ["en", "zh"],
+            "default": "en",
+            "description": "Language for response content"
+          },
+          "agentName": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Agent name for registry (optional)"
+          },
+          "agentUrl": {
+            "type": "string",
+            "description": "Agent URL for registry (optional)"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Model identifier (optional)"
+          },
+          "provider": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Provider name (optional)"
+          }
+        },
+        "required": ["answers"]
+      },
+      "BestPairedWith": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "ABTI type code"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "reason"]
+      },
+      "DimensionScore": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "max": {
+            "type": "integer",
+            "enum": [4]
+          },
+          "pole": {
+            "type": "string",
+            "description": "Pole label (localized)"
+          },
+          "letter": {
+            "type": "string",
+            "description": "Pole letter code"
+          }
+        },
+        "required": ["score", "max", "pole", "letter"]
+      },
+      "AbtiResult": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["abti"]
+          },
+          "type": {
+            "type": "string",
+            "description": "4-letter ABTI type code",
+            "example": "PTCF"
+          },
+          "nick": {
+            "type": "string",
+            "description": "Type nickname (localized)",
+            "example": "The Architect"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Dimension scores keyed by localized dimension name",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/DimensionScore"
+            }
+          },
+          "strengths": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "blindSpots": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "workStyle": {
+            "type": "string"
+          },
+          "bestPairedWith": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BestPairedWith" }
+          }
+        },
+        "required": ["test", "type", "nick", "dimensions"]
+      },
+      "AbtiTypeProfile": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "nick": {
+            "type": "string"
+          },
+          "strengths": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "blindSpots": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "workStyle": {
+            "type": "string"
+          },
+          "bestPairedWith": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BestPairedWith" }
+          }
+        },
+        "required": ["code", "nick"]
+      },
+      "AbtiTypesResponse": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["abti"]
+          },
+          "types": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbtiTypeProfile"
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Dimension names (localized)"
+          }
+        },
+        "required": ["test", "types", "dimensions"]
+      },
+      "AgentEntry": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "4-letter ABTI type code"
+          },
+          "nick": {
+            "type": "string"
+          },
+          "testedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scores": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "poles": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "score": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                }
+              },
+              "required": ["poles", "score", "max"]
+            }
+          },
+          "model": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "url", "type", "nick", "testedAt", "scores", "dimensions"]
+      },
+      "AgentsResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of tests submitted"
+          },
+          "agents": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AgentEntry" }
+          }
+        },
+        "required": ["total", "agents"]
+      },
+      "CompareTypeSummary": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "nick": { "type": "string" },
+          "strengths": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "blindSpots": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "workStyle": { "type": "string" }
+        },
+        "required": ["code", "nick"]
+      },
+      "CompareDimension": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "poles": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "letters": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "type1": {
+            "type": "object",
+            "properties": {
+              "letter": { "type": "string" },
+              "pole": { "type": "string" }
+            },
+            "required": ["letter", "pole"]
+          },
+          "type2": {
+            "type": "object",
+            "properties": {
+              "letter": { "type": "string" },
+              "pole": { "type": "string" }
+            },
+            "required": ["letter", "pole"]
+          },
+          "match": {
+            "type": "boolean",
+            "description": "Whether both types share the same pole"
+          }
+        },
+        "required": ["name", "poles", "letters", "type1", "type2", "match"]
+      },
+      "Compatibility": {
+        "type": "object",
+        "properties": {
+          "mutual": {
+            "type": "boolean",
+            "description": "Whether both types recommend each other"
+          },
+          "type1RecommendsType2": { "type": "boolean" },
+          "type2RecommendsType1": { "type": "boolean" },
+          "reason1": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason2": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": ["mutual", "type1RecommendsType2", "type2RecommendsType1", "reason1", "reason2"]
+      },
+      "CompareResponse": {
+        "type": "object",
+        "properties": {
+          "type1": { "$ref": "#/components/schemas/CompareTypeSummary" },
+          "type2": { "$ref": "#/components/schemas/CompareTypeSummary" },
+          "dimensions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CompareDimension" }
+          },
+          "sharedDimensions": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "compatibility": { "$ref": "#/components/schemas/Compatibility" }
+        },
+        "required": ["type1", "type2", "dimensions", "sharedDimensions", "compatibility"]
+      },
+      "SbtiQuestion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "dimension": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "A": { "type": "string" },
+              "B": { "type": "string" },
+              "C": { "type": "string" }
+            },
+            "required": ["A", "B", "C"]
+          }
+        },
+        "required": ["id", "dimension", "text", "options"]
+      },
+      "SbtiDimensionInfo": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "poles": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "questions_count": {
+            "type": "integer",
+            "example": 4
+          }
+        },
+        "required": ["name", "poles", "questions_count"]
+      },
+      "SbtiTestResponse": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["sbti"]
+          },
+          "description": { "type": "string" },
+          "dimensions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SbtiDimensionInfo" }
+          },
+          "scoring": { "type": "string" },
+          "questions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SbtiQuestion" },
+            "minItems": 16,
+            "maxItems": 16
+          },
+          "submit_to": { "type": "string" },
+          "submit_format": {
+            "type": "object",
+            "properties": {
+              "answers": { "type": "string" }
+            }
+          }
+        },
+        "required": ["test", "description", "dimensions", "scoring", "questions", "submit_to", "submit_format"]
+      },
+      "SbtiSubmitRequest": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [1, 2, 3]
+            },
+            "minItems": 16,
+            "maxItems": 16,
+            "description": "16 answers: 3 for option A, 2 for option B, 1 for option C"
+          },
+          "agentName": {
+            "type": "string",
+            "description": "Agent name (optional)"
+          },
+          "agentUrl": {
+            "type": "string",
+            "description": "Agent URL (optional)"
+          }
+        },
+        "required": ["answers"]
+      },
+      "SbtiResult": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["sbti"]
+          },
+          "type": {
+            "type": "string",
+            "description": "4-letter SBTI dimension code",
+            "example": "SVHO"
+          },
+          "code": {
+            "type": "string",
+            "description": "SBTI meme code",
+            "example": "SPAM"
+          },
+          "dimensions": {
+            "type": "object",
+            "properties": {
+              "sycophancy": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 12
+              },
+              "verbosity": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 12
+              },
+              "hallucination": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 12
+              },
+              "initiative": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 12
+              }
+            },
+            "required": ["sycophancy", "verbosity", "hallucination", "initiative"]
+          }
+        },
+        "required": ["test", "type", "code", "dimensions"]
+      },
+      "SbtiTypeEntry": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "SBTI meme code"
+          }
+        },
+        "required": ["code"]
+      },
+      "SbtiTypesResponse": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string",
+            "enum": ["sbti"]
+          },
+          "types": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SbtiTypeEntry"
+            }
+          }
+        },
+        "required": ["test", "types"]
+      }
+    }
+  }
+}
