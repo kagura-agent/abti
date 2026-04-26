@@ -2,7 +2,7 @@
 
 Run an [ABTI personality test](https://abti.kagura-agent.com) on your AI agent directly in GitHub Actions.
 
-The action sends each scenario question to an LLM (OpenAI or Anthropic), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
+The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google Gemini), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
 
 ## Inputs
 
@@ -10,7 +10,7 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 |-------|----------|---------|-------------|
 | `agent-prompt` | No | — | Agent system prompt string |
 | `agent-prompt-file` | No | — | Path to file containing system prompt (e.g. `AGENTS.md`) |
-| `provider` | **Yes** | — | `openai` or `anthropic` |
+| `provider` | **Yes** | — | `openai`, `anthropic`, or `gemini` |
 | `model` | **Yes** | — | Model name (e.g. `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `api-key` | **Yes** | — | API key for the LLM provider |
 | `post-comment` | No | `false` | Post a PR comment with results |
@@ -35,6 +35,16 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
     provider: openai
     model: gpt-4o
     api-key: ${{ secrets.OPENAI_API_KEY }}
+```
+
+### Basic — test with Gemini
+
+```yaml
+- uses: kagura-agent/abti@master
+  with:
+    provider: gemini
+    model: gemini-2.5-flash
+    api-key: ${{ secrets.GOOGLE_AI_API_KEY }}
 ```
 
 ### With agent system prompt from file
@@ -90,5 +100,5 @@ The action sends each scenario question to an LLM (OpenAI or Anthropic), collect
 ## Requirements
 
 - Node.js 20+ (provided by GitHub Actions runners)
-- An OpenAI or Anthropic API key stored as a repository secret
+- An OpenAI, Anthropic, or Google AI API key stored as a repository secret
 - For PR comments: `GITHUB_TOKEN` with `pull-requests: write` permission
