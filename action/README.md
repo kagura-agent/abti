@@ -13,6 +13,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 | `provider` | **Yes** | — | `openai`, `anthropic`, or `gemini` |
 | `model` | **Yes** | — | Model name (e.g. `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `api-key` | **Yes** | — | API key for the LLM provider |
+| `agent-name` | No | `<model> (<provider>)` | Display name for the agent in the registry |
 | `post-comment` | No | `false` | Post a PR comment with results |
 | `api-base-url` | No | `https://abti.kagura-agent.com` | ABTI API base URL |
 | `lang` | No | `en` | Language for questions (`en` or `zh`) |

@@ -26,6 +26,9 @@ inputs:
     description: 'ABTI API base URL'
     required: false
     default: 'https://abti.kagura-agent.com'
+  agent-name:
+    description: 'Display name for the agent in the registry (defaults to "<model> (<provider>)")'
+    required: false
   lang:
     description: 'Language for questions (en or zh)'
     required: false
