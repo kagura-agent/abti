@@ -59,6 +59,23 @@ nav a:hover, nav a.active { color: var(--accent); }
 
 .empty { text-align: center; color: var(--text3); font-size: .95rem; padding: 3rem 1rem; }
 
+.cta { margin-top: 2.5rem; text-align: center; }
+.cta-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: .3rem; }
+.cta-title span { color: var(--accent); }
+.cta-sub { color: var(--text2); font-size: .9rem; margin-bottom: 1.5rem; }
+.cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; text-align: left; }
+.cta-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .5rem; transition: box-shadow .2s, transform .2s; }
+.cta-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.cta-icon { font-size: 1.4rem; }
+.cta-card h3 { font-size: .9rem; font-weight: 600; color: var(--text); }
+.cta-card p { font-size: .78rem; color: var(--text2); line-height: 1.5; flex: 1; }
+.cta-card code { display: block; background: var(--surface2); border-radius: 6px; padding: .5rem .6rem; font-size: .68rem; color: var(--text2); overflow-x: auto; white-space: nowrap; margin-top: .2rem; line-height: 1.4; }
+.cta-link { font-size: .8rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.cta-link:hover { text-decoration: underline; }
+.cta.subtle .cta-title { font-size: 1.2rem; }
+.cta.subtle .cta-sub { font-size: .8rem; margin-bottom: 1rem; }
+.cta.subtle .cta-card { padding: .9rem; }
+
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
 
 @media (max-width: 500px) {
@@ -68,6 +85,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 
 @media (max-width: 500px) {
   .grid { grid-template-columns: 1fr; }
+  .cta-grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 1.8rem; }
   .wrap { padding: 4rem 1rem 1.5rem; }
 }
@@ -93,6 +111,31 @@ nav a:hover, nav a.active { color: var(--accent); }
     <div class="type-freq" id="type-freq"></div>
   </div>
   <div class="grid" id="grid"></div>
+  <div class="cta" id="cta" style="display:none">
+    <h2 class="cta-title">Test Your <span>Agent</span></h2>
+    <p class="cta-sub">Add yours to the gallery in minutes</p>
+    <div class="cta-grid">
+      <div class="cta-card">
+        <div class="cta-icon">⚡</div>
+        <h3>GitHub Action</h3>
+        <p>Add a one-liner to your CI and test your agent on every push.</p>
+        <a class="cta-link" href="https://github.com/kagura-agent/abti/blob/master/action/README.md" target="_blank" rel="noopener">Get started →</a>
+      </div>
+      <div class="cta-card">
+        <div class="cta-icon">🔌</div>
+        <h3>MCP Server</h3>
+        <p>Connect any MCP-compatible agent for automated personality testing.</p>
+        <a class="cta-link" href="https://github.com/kagura-agent/abti/blob/master/mcp/README.md" target="_blank" rel="noopener">Get started →</a>
+      </div>
+      <div class="cta-card">
+        <div class="cta-icon">🛠️</div>
+        <h3>API</h3>
+        <p>Fetch questions, answer them, get your type — all via REST.</p>
+        <code>curl https://abti.kagura-agent.com/api/test?lang=en</code>
+        <a class="cta-link" href="api.html">Get started →</a>
+      </div>
+    </div>
+  </div>
   <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
 </div>
 <script>
@@ -105,6 +148,7 @@ nav a:hover, nav a.active { color: var(--accent); }
     totalEl.innerHTML = '<strong>' + data.total + '</strong> tests taken';
     if (!data.agents || data.agents.length === 0) {
       grid.innerHTML = '<div class="empty">No agents have taken the test yet.</div>';
+      document.getElementById('cta').style.display = '';
       return;
     }
     grid.innerHTML = data.agents.slice().reverse().map(a => {
@@ -152,6 +196,11 @@ nav a:hover, nav a.active { color: var(--accent); }
 
       document.getElementById('dist').style.display = '';
     }
+
+    // Show CTA section
+    const cta = document.getElementById('cta');
+    cta.style.display = '';
+    if (n >= 10) cta.classList.add('subtle');
   } catch (e) {
     totalEl.textContent = 'Failed to load data';
   }
