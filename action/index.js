@@ -193,12 +193,54 @@ function callAnthropic(apiKey, model, systemPrompt, userMessage) {
 }
 
 /**
+ * Call Google Gemini generateContent API.
+ */
+function callGemini(apiKey, model, systemPrompt, userMessage) {
+  return new Promise((resolve, reject) => {
+    const payload = JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      generationConfig: { maxOutputTokens: 4, temperature: 0 },
+    });
+    const reqPath = `/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    const req = https.request({
+      hostname: 'generativelanguage.googleapis.com',
+      path: reqPath,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload),
+      },
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => (data += chunk));
+      res.on('end', () => {
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          return reject(new Error(`Gemini API returned ${res.statusCode}: ${data}`));
+        }
+        try {
+          const json = JSON.parse(data);
+          resolve(json.candidates[0].content.parts[0].text.trim());
+        } catch (e) {
+          reject(new Error(`Failed to parse Gemini response: ${e.message}`));
+        }
+      });
+      res.on('error', reject);
+    });
+    req.on('error', reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+/**
  * Route to the correct LLM provider.
  */
 function callLLM(provider, apiKey, model, systemPrompt, userMessage) {
   if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage);
   if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${provider}. Must be "openai" or "anthropic".`);
+  if (provider === 'gemini') return callGemini(apiKey, model, systemPrompt, userMessage);
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", or "gemini".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────

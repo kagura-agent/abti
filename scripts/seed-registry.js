@@ -114,10 +114,21 @@ function callAnthropic(opts, systemPrompt, userMessage) {
   }, headers).then(json => json.content[0].text.trim());
 }
 
+function callGemini(opts, systemPrompt, userMessage) {
+  const model = opts.model;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${opts.apiKey}`;
+  return httpPostJSON(url, {
+    contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+    systemInstruction: { parts: [{ text: systemPrompt }] },
+    generationConfig: { maxOutputTokens: 4, temperature: 0 },
+  }).then(json => json.candidates[0].content.parts[0].text.trim());
+}
+
 function callLLM(opts, systemPrompt, userMessage) {
   if (opts.provider === 'openai') return callOpenAI(opts, systemPrompt, userMessage);
   if (opts.provider === 'anthropic') return callAnthropic(opts, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${opts.provider}. Must be "openai" or "anthropic".`);
+  if (opts.provider === 'gemini') return callGemini(opts, systemPrompt, userMessage);
+  throw new Error(`Unknown provider: ${opts.provider}. Must be "openai", "anthropic", or "gemini".`);
 }
 
 // ─── Answer parsing ─────────────────────────────────────────────────────────
