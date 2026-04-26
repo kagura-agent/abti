@@ -143,6 +143,19 @@ describe('POST /api/agent-test', () => {
     assert.equal(a.provider, undefined);
   });
 
+  it('stores dimension scores in agent entry', async () => {
+    await req('/api/agent-test', { method: 'POST', body: { answers: allA, agentName: 'ScoreBot' } });
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'ScoreBot');
+    assert.deepEqual(a.scores, [4, 4, 4, 4]);
+    assert.equal(a.dimensions.length, 4);
+    for (let i = 0; i < 4; i++) {
+      assert.deepEqual(a.dimensions[i].poles, [['P','R'],['T','E'],['C','D'],['F','N']][i]);
+      assert.equal(a.dimensions[i].score, 4);
+      assert.equal(a.dimensions[i].max, 4);
+    }
+  });
+
   it('truncates model and provider to max length', async () => {
     const longModel = 'x'.repeat(100);
     const longProvider = 'y'.repeat(50);
