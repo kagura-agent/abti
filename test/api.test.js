@@ -317,6 +317,66 @@ describe('GET /api/agents', () => {
   });
 });
 
+// ─── GET /api/stats ───
+
+describe('GET /api/stats', () => {
+  it('returns stats with correct shape (empty registry)', async () => {
+    const r = await req('/api/stats');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.equal(typeof j.totalTests, 'number');
+    assert.ok(typeof j.typeDistribution === 'object');
+    assert.ok('mostCommonType' in j);
+    assert.ok('lastUpdated' in j);
+    assert.ok('dimensionAverages' in j);
+  });
+
+  it('returns stats after agent registration', async () => {
+    // Register an agent first
+    await req('/api/agent-test', { method: 'POST', body: { name: 'stats-test-agent', answers: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] } });
+    const r = await req('/api/stats');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.ok(j.totalTests >= 1);
+    assert.ok(j.mostCommonType !== null);
+    assert.equal(typeof j.mostCommonType.code, 'string');
+    assert.equal(typeof j.mostCommonType.nickname, 'string');
+    assert.equal(typeof j.mostCommonType.count, 'number');
+    assert.ok(j.lastUpdated !== null);
+    assert.ok(j.dimensionAverages !== null);
+    assert.equal(j.dimensionAverages.length, 4);
+    for (const d of j.dimensionAverages) {
+      assert.equal(typeof d.name, 'string');
+      assert.equal(typeof d.average, 'number');
+    }
+  });
+
+  it('supports ?lang=zh for dimension names', async () => {
+    const r = await req('/api/stats?lang=zh');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    if (j.dimensionAverages) {
+      assert.ok(j.dimensionAverages[0].name.match(/[\u4e00-\u9fff]/), 'expected Chinese dimension name');
+    }
+  });
+
+  it('supports ?lang=en for dimension names', async () => {
+    const r = await req('/api/stats?lang=en');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    if (j.dimensionAverages) {
+      assert.match(j.dimensionAverages[0].name, /^[A-Za-z]/);
+    }
+  });
+
+  it('typeDistribution counts types correctly', async () => {
+    const r = await req('/api/stats');
+    const j = r.json();
+    const totalFromDist = Object.values(j.typeDistribution).reduce((a, b) => a + b, 0);
+    assert.equal(totalFromDist, j.totalTests);
+  });
+});
+
 // ─── POST /api/agents/register (not implemented - should 404) ───
 
 describe('POST /api/agents/register', () => {

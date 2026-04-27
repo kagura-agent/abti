@@ -129,6 +129,31 @@
         }
       }
     },
+    "/api/stats": {
+      "get": {
+        "summary": "Get aggregate registry statistics",
+        "description": "Returns aggregate statistics from the agent registry including type distribution, dimension averages, and most common type.",
+        "operationId": "getStats",
+        "tags": ["Registry"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregate statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/compare/{type1}/{type2}": {
       "get": {
         "summary": "Compare two ABTI types",
@@ -686,6 +711,51 @@
           }
         },
         "required": ["total", "agents"]
+      },
+      "StatsResponse": {
+        "type": "object",
+        "properties": {
+          "totalTests": {
+            "type": "integer",
+            "description": "Number of agents in registry"
+          },
+          "typeDistribution": {
+            "type": "object",
+            "additionalProperties": { "type": "integer" },
+            "description": "Map of type code to count"
+          },
+          "dimensionAverages": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "average": { "type": "number" }
+              },
+              "required": ["name", "average"]
+            },
+            "description": "Average score per dimension, or null if no agents have scores"
+          },
+          "mostCommonType": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "code": { "type": "string" },
+              "nickname": { "type": "string" },
+              "count": { "type": "integer" }
+            },
+            "required": ["code", "nickname", "count"],
+            "description": "Most common type, or null if no agents"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "ISO timestamp of most recent testedAt, or null"
+          }
+        },
+        "required": ["totalTests", "typeDistribution", "dimensionAverages", "mostCommonType", "lastUpdated"]
       },
       "CompareTypeSummary": {
         "type": "object",
