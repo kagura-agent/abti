@@ -1,6 +1,14 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+
+// MCP HTTP transport
+const mcpModules = path.join(__dirname, 'mcp', 'node_modules', '@modelcontextprotocol', 'sdk', 'dist', 'cjs');
+const { McpServer } = require(path.join(mcpModules, 'server', 'mcp.js'));
+const { StreamableHTTPServerTransport } = require(path.join(mcpModules, 'server', 'streamableHttp.js'));
+const { registerTools } = require('./mcp/tools.js');
+const mcpSessions = new Map();
 
 // Data persistence
 let DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
@@ -138,6 +146,86 @@ const sbtiQuestions = require('./questions-v4.js');
 // Load full type profiles from types.json (has complete zh translations)
 const typesJson = require('./api/v1/types.json');
 const richProfiles = typesJson.abti.types;
+
+// ─── Agent registration (shared between REST API and MCP) ─────────────────
+function registerAgent(entry) {
+  agentData.total++;
+  const oneHourAgo = Date.now() - 3600000;
+  const existing = agentData.agents.findIndex(a => a.name === entry.name && new Date(a.testedAt).getTime() > oneHourAgo);
+  if (existing !== -1) {
+    agentData.agents[existing] = entry;
+  } else {
+    agentData.agents.push(entry);
+  }
+  saveData(agentData);
+}
+
+// ─── MCP HTTP handler ─────────────────────────────────────────────────────
+async function handleMcpRequest(req, res) {
+  const sessionId = req.headers['mcp-session-id'];
+
+  if (req.method === 'POST') {
+    let body = '';
+    req.on('data', c => body += c);
+    req.on('end', async () => {
+      try {
+        const message = JSON.parse(body);
+        const isInitialize = !Array.isArray(message) && message.method === 'initialize';
+
+        if (isInitialize) {
+          const mcpServer = new McpServer({ name: 'abti', version: '1.0.0' });
+          registerTools(mcpServer, { onRegister: registerAgent });
+
+          const transport = new StreamableHTTPServerTransport({
+            sessionIdGenerator: () => crypto.randomUUID(),
+          });
+          transport.onclose = () => {
+            const sid = transport.sessionId;
+            if (sid) mcpSessions.delete(sid);
+          };
+
+          await mcpServer.connect(transport);
+          await transport.handleRequest(req, res, message);
+
+          if (transport.sessionId) {
+            mcpSessions.set(transport.sessionId, { transport, server: mcpServer });
+          }
+        } else if (sessionId && mcpSessions.has(sessionId)) {
+          const session = mcpSessions.get(sessionId);
+          await session.transport.handleRequest(req, res, message);
+        } else {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ jsonrpc: '2.0', error: { code: -32000, message: 'Bad Request: No valid session. Send an initialize request first.' }, id: null }));
+        }
+      } catch (e) {
+        if (!res.headersSent) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ jsonrpc: '2.0', error: { code: -32700, message: 'Parse error' }, id: null }));
+        }
+      }
+    });
+  } else if (req.method === 'GET') {
+    if (sessionId && mcpSessions.has(sessionId)) {
+      const session = mcpSessions.get(sessionId);
+      await session.transport.handleRequest(req, res);
+    } else {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ jsonrpc: '2.0', error: { code: -32000, message: 'Bad Request: No valid session ID for SSE stream.' }, id: null }));
+    }
+  } else if (req.method === 'DELETE') {
+    if (sessionId && mcpSessions.has(sessionId)) {
+      const session = mcpSessions.get(sessionId);
+      await session.transport.handleRequest(req, res);
+      mcpSessions.delete(sessionId);
+    } else {
+      res.writeHead(405, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ jsonrpc: '2.0', error: { code: -32000, message: 'No session to terminate.' }, id: null }));
+    }
+  } else {
+    res.writeHead(405, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Method not allowed' }));
+  }
+}
 
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -485,8 +573,14 @@ ${dimInfo.map((d, i) => {
     return res.end(html);
   }
 
+  // MCP Streamable HTTP transport on /mcp
+  if (url.pathname === '/mcp') {
+    handleMcpRequest(req, res);
+    return;
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {

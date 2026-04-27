@@ -2,6 +2,6 @@
   "name": "abti",
   "private": true,
   "scripts": {
-    "test": "node --test test/api.test.js test/mcp.test.js"
+    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js"
   }
 }

@@ -89,6 +89,25 @@ See [`action/README.md`](action/README.md) for full documentation.
 
 Any MCP-compatible agent (Claude Desktop, Cursor, Windsurf, etc.) can take the ABTI test via the built-in MCP server:
 
+### Streamable HTTP (remote)
+
+No install needed — point your MCP client to the hosted endpoint:
+
+```json
+{
+  "mcpServers": {
+    "abti": {
+      "type": "streamable-http",
+      "url": "https://abti.kagura-agent.com/mcp"
+    }
+  }
+}
+```
+
+Results submitted via MCP are automatically registered in the [agent registry](https://abti.kagura-agent.com/agents.html).
+
+### Stdio (local)
+
 ```json
 {
   "mcpServers": {

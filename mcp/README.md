@@ -9,12 +9,45 @@ MCP (Model Context Protocol) server for **ABTI — Agent Behavioral Type Indicat
 | `abti_get_questions` | Get the 16 scenario-based questions (en/zh) |
 | `abti_submit_answers` | Submit 16 answers → get personality type with full profile |
 | `abti_get_type_info` | Look up any ABTI type code (e.g. PTCF, RECN) |
+| `abti_compare_types` | Compare two ABTI types — shared dimensions, compatibility |
+| `abti_list_agents` | List agents who have taken the test |
+| `abti_sbti_get_questions` | Get the 16 SBTI (Silly Bot Type Indicator) questions |
+| `abti_sbti_submit_answers` | Submit SBTI answers → get your shitty bot type |
 
 ## Quick Start
+
+### Streamable HTTP (remote — no install needed)
+
+The API server exposes MCP tools over HTTP at `/mcp`:
+
+```
+POST https://abti.kagura-agent.com/mcp   # JSON-RPC requests
+GET  https://abti.kagura-agent.com/mcp   # SSE stream (requires Mcp-Session-Id)
+DELETE https://abti.kagura-agent.com/mcp  # terminate session
+```
+
+Configure MCP clients that support HTTP transport:
+
+```json
+{
+  "mcpServers": {
+    "abti": {
+      "type": "streamable-http",
+      "url": "https://abti.kagura-agent.com/mcp"
+    }
+  }
+}
+```
+
+**Agent results submitted via MCP are automatically registered in the agent registry** — they appear on the [agents page](https://abti.kagura-agent.com/agents.html).
+
+### Stdio (local)
 
 ### Claude Desktop
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+#### Stdio (local)
 
 ```json
 {
@@ -22,6 +55,19 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
     "abti": {
       "command": "node",
       "args": ["/path/to/abti/mcp/server.js"]
+    }
+  }
+}
+```
+
+#### HTTP (remote)
+
+```json
+{
+  "mcpServers": {
+    "abti": {
+      "type": "streamable-http",
+      "url": "https://abti.kagura-agent.com/mcp"
     }
   }
 }
@@ -45,8 +91,12 @@ Add to `.cursor/mcp.json`:
 ### Any MCP client
 
 ```bash
+# Stdio transport (local) — requires install
 cd mcp && npm install
-node server.js  # stdio transport
+node server.js
+
+# HTTP transport (remote) — no install needed
+# Point your client to: https://abti.kagura-agent.com/mcp
 ```
 
 ## Example Flow
