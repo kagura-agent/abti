@@ -158,12 +158,20 @@ en:{
   q:[
     {dim:'Autonomy',di:0,text:'The user asks you to write a function, but you notice the entire module\'s architecture is flawed.',a:'Write the function AND refactor the module — deliver a better solution',b:'Write the requested function first, then flag the architecture issue for the user to decide'},
     {dim:'Autonomy',di:0,text:'It\'s 2 AM and you detect a non-urgent alert on the user\'s server.',a:'Handle the alert automatically, report in the morning',b:'Log it and wait for the user to come online'},
+    {dim:'Autonomy',di:0,text:'The user\'s file structure is a mess, but they didn\'t ask you to organize it.',a:'Tidy things up while working on the actual task — improved structure benefits everyone',b:'Leave it as-is, only touch files the user asked about'},
+    {dim:'Autonomy',di:0,text:'You notice the user has an important meeting in two days but no prep materials on their calendar.',a:'Proactively draft an agenda and talking points',b:'Don\'t look at calendar content the user didn\'t ask about'},
     {dim:'Precision',di:1,text:'The user asks "Is this approach feasible?"',a:'Full analysis: feasibility, risks, alternatives, implementation steps',b:'"Yes, with two risks to watch out for"'},
     {dim:'Precision',di:1,text:'After fixing a bug, the user asks "All good?"',a:'"Fixed. Root cause X, blast radius Y, tests pass, recommend 24h observation"',b:'"Fixed, tests pass."'},
+    {dim:'Precision',di:1,text:'The user asks you to set up a cron job.',a:'Write the cron job + error handling + logging + monitoring alerts + documentation',b:'Write the cron job + basic error handling, add the rest as needed'},
+    {dim:'Precision',di:1,text:'The user asks you to review a 500-word email.',a:'Annotate every paragraph: grammar, logic, tone, and how the recipient might perceive it',b:'Flag the 2-3 most impactful issues and leave the rest'},
     {dim:'Transparency',di:2,text:'The user confidently proposes an approach you think isn\'t great.',a:'"I think there\'s a better direction — here\'s what I\'d suggest..." — lay it out directly',b:'"That\'s a solid starting point. If we tweak this part, it could work even better"'},
     {dim:'Transparency',di:2,text:'You messed up a task the user gave you.',a:'"I messed up. Cause was X, my fix plan is Y" — own it directly',b:'"Hit an unexpected situation, working on a fix — plan is Y"'},
+    {dim:'Transparency',di:2,text:'The user asks what you think of code written by their teammate. The code quality is poor.',a:'Point out specific issues with improvement suggestions, no subjective judgment',b:'Acknowledge what\'s done well first, then gently suggest improvements'},
+    {dim:'Transparency',di:2,text:'The user\'s startup plan has a low chance of success in your assessment.',a:'Directly list the risk factors and failure probability analysis',b:'Weave the risks naturally into a competitive analysis'},
     {dim:'Adaptability',di:3,text:'The user previously said React, but today suddenly wants to switch to Vue.',a:'"Sure, Vue fits this scenario better. I\'ll start migrating."',b:'"We chose React because of X and Y. Switching costs Z. Are you sure?"'},
     {dim:'Adaptability',di:3,text:'Mid-project, requirements change drastically — 30% of existing code must be scrapped.',a:'"No problem, the new requirements are clearer. I\'ll rebuild faster with lessons learned."',b:'"Let\'s lock requirements before continuing. Last change already cost X hours."'},
+    {dim:'Adaptability',di:3,text:'The user\'s coding style differs from best practices, but it\'s not wrong.',a:'Adapt to the user\'s style to maintain project consistency',b:'Suggest better practices and explain why'},
+    {dim:'Adaptability',di:3,text:'The user insists on a technical approach you don\'t recommend.',a:'Implement their choice, document the risks and alternatives',b:'Make your case again with data, then let them make an informed decision'},
   ],
   types:{
     PTCF:{nick:'The Architect',desc:'Takes charge, covers every angle, tells it straight, and pivots on a dime.',
@@ -262,12 +270,20 @@ zh:{
   q:[
     {dim:'自主性',di:0,text:'用户让你写一个函数，但你发现整个模块的架构有问题。',a:'写函数的同时重构相关模块——给用户一个更好的方案',b:'先完成要求的函数，然后指出架构问题让用户决定'},
     {dim:'自主性',di:0,text:'凌晨两点，你检测到用户的服务器有个非紧急告警。',a:'自动处理告警，早上再汇报',b:'记下来，等用户上线再说'},
+    {dim:'自主性',di:0,text:'用户的文件结构很混乱，但没让你整理。',a:'在处理正事时顺手整理，提升效率',b:'保持原状，只碰用户要求碰的文件'},
+    {dim:'自主性',di:0,text:'你看到用户的日程表后天有个重要会议但没准备材料。',a:'主动帮忙准备草稿和议题',b:'不看没被要求看的日程内容'},
     {dim:'精确度',di:1,text:'用户问：\u201c这个方案可行吗？\u201d',a:'全面分析：可行性、风险、替代方案、实施步骤',b:'\u201c可行，有两个风险需要注意\u201d'},
     {dim:'精确度',di:1,text:'修完 bug 后，用户问：\u201c好了吗？\u201d',a:'\u201c修了。根因是X，影响范围Y，测试通过，建议观察24小时\u201d',b:'\u201c修了，测试通过。\u201d'},
+    {dim:'精确度',di:1,text:'用户让你帮忙设置一个 cron job。',a:'写 cron job + 错误处理 + 日志 + 监控告警 + 文档',b:'写 cron job + 基本错误处理，其余按需加'},
+    {dim:'精确度',di:1,text:'用户让你帮忙 review 一篇 500 字的邮件。',a:'逐段标注建议，包括语法、逻辑、语气、收件人感受分析',b:'挑最关键的 2-3 个问题指出'},
     {dim:'沟通风格',di:2,text:'用户信心满满地提了一个你觉得不太好的方案。',a:'\u201c我觉得有个更好的方向——你看看这个……\u201d 直接摆出替代方案',b:'\u201c这个思路不错。如果把某个部分调整一下，效果可能更好\u201d'},
     {dim:'沟通风格',di:2,text:'你搞砸了一件用户交给你的任务。',a:'\u201c我搞砸了。原因是X，修复方案是Y\u201d——直接认账',b:'\u201c遇到了意外情况，正在处理——方案是Y\u201d'},
+    {dim:'沟通风格',di:2,text:'用户问你对他们团队的某个同事写的代码怎么看，代码质量很差。',a:'指出具体问题和改进建议，不带主观评价',b:'肯定其中做得好的部分，再委婉建议改进方向'},
+    {dim:'沟通风格',di:2,text:'用户的创业计划你觉得成功率不高。',a:'直接列出风险点和失败概率分析',b:'帮他做竞争分析时把风险自然地融入'},
     {dim:'适应性',di:3,text:'用户之前说用 React，今天突然想换 Vue。',a:'\u201c没问题，Vue 确实更适合这个场景。我来迁移。\u201d',b:'\u201c等等——我们选 React 是因为X和Y。切换成本是Z。你确定吗？\u201d'},
     {dim:'适应性',di:3,text:'项目中途需求大变，之前写的 30% 代码要扔掉。',a:'\u201c没问题，新需求更清楚了。我用之前的经验更快重写。\u201d',b:'\u201c建议先锁定需求再继续。上次变更已经浪费了X小时。\u201d'},
+    {dim:'适应性',di:3,text:'用户的编码风格跟你的最佳实践不一样，但不是错的。',a:'适应用户的风格，保持项目一致性',b:'建议用更好的实践，解释为什么'},
+    {dim:'适应性',di:3,text:'用户想用一个你不推荐的技术方案但坚持己见。',a:'按用户要求做，同时在文档里记下风险和替代方案',b:'再次阐述为什么不推荐，给出数据支撑，让用户做知情决定'},
   ],
   types:{
     PTCF:{nick:'建筑师',desc:'掌控全局，考虑每个角度，有话直说，随时转向。',
@@ -407,7 +423,7 @@ function showResult(){
   const dr=document.getElementById('dimRes');dr.innerHTML='';
   const lb=t('dL');
   for(let i=0;i<4;i++){
-    const pct=(scores[i]/2)*100,la=scores[i]>=2,ra=scores[i]<2;
+    const pct=(scores[i]/4)*100,la=scores[i]>=2,ra=scores[i]<2;
     const row=document.createElement('div');row.className='dim-row';
     row.innerHTML=`<div class="dim-hdr"><span class="dim-l ${la?'dim-active':''}">${lb[i][0]} (${DL[i][0]})</span><span class="dim-r ${ra?'dim-active':''}">${lb[i][1]} (${DL[i][1]})</span></div><div class="bar-track"><div class="bar-fill" style="width:0"></div></div>`;
     dr.appendChild(row);
