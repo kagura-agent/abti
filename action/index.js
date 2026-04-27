@@ -105,8 +105,12 @@ function httpPostJSON(url, body) {
 /**
  * Call OpenAI chat completions API.
  */
-function callOpenAI(apiKey, model, systemPrompt, userMessage) {
+function callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl) {
   return new Promise((resolve, reject) => {
+    const parsed = baseUrl
+      ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions')
+      : new URL('https://api.openai.com/v1/chat/completions');
+    const mod = parsed.protocol === 'https:' ? https : http;
     const payload = JSON.stringify({
       model,
       messages: [
@@ -116,9 +120,10 @@ function callOpenAI(apiKey, model, systemPrompt, userMessage) {
       max_tokens: 4,
       temperature: 0,
     });
-    const req = https.request({
-      hostname: 'api.openai.com',
-      path: '/v1/chat/completions',
+    const req = mod.request({
+      hostname: parsed.hostname,
+      port: parsed.port,
+      path: parsed.pathname + parsed.search,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -150,8 +155,12 @@ function callOpenAI(apiKey, model, systemPrompt, userMessage) {
 /**
  * Call Anthropic messages API.
  */
-function callAnthropic(apiKey, model, systemPrompt, userMessage) {
+function callAnthropic(apiKey, model, systemPrompt, userMessage, baseUrl) {
   return new Promise((resolve, reject) => {
+    const parsed = baseUrl
+      ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/messages')
+      : new URL('https://api.anthropic.com/v1/messages');
+    const mod = parsed.protocol === 'https:' ? https : http;
     const payload = JSON.stringify({
       model,
       max_tokens: 4,
@@ -160,9 +169,10 @@ function callAnthropic(apiKey, model, systemPrompt, userMessage) {
         { role: 'user', content: userMessage },
       ],
     });
-    const req = https.request({
-      hostname: 'api.anthropic.com',
-      path: '/v1/messages',
+    const req = mod.request({
+      hostname: parsed.hostname,
+      port: parsed.port,
+      path: parsed.pathname + parsed.search,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -236,9 +246,9 @@ function callGemini(apiKey, model, systemPrompt, userMessage) {
 /**
  * Route to the correct LLM provider.
  */
-function callLLM(provider, apiKey, model, systemPrompt, userMessage) {
-  if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage);
-  if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage);
+function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
+  if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl);
+  if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'gemini') return callGemini(apiKey, model, systemPrompt, userMessage);
   throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", or "gemini".`);
 }
@@ -361,6 +371,7 @@ async function run() {
   const apiKey = getInput('api-key', true);
   const postCommentFlag = getInput('post-comment') === 'true';
   const apiBaseUrl = getInput('api-base-url') || 'https://abti.kagura-agent.com';
+  const llmBaseUrl = getInput('llm-base-url') || '';
   const lang = getInput('lang') || 'en';
   const agentName = getInput('agent-name') || `${model} (${provider})`;
 
@@ -401,7 +412,7 @@ async function run() {
     ].join('\n');
 
     info(`Question ${i + 1}/${questions.length}: ${q.dimension}`);
-    const response = await callLLM(provider, apiKey, model, systemPrompt, userMessage);
+    const response = await callLLM(provider, apiKey, model, systemPrompt, userMessage, llmBaseUrl || undefined);
     const answer = parseAnswer(response);
     info(`  Answer: ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
     answers.push(answer);

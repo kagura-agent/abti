@@ -22,6 +22,9 @@ inputs:
     description: 'Post a PR comment with results'
     required: false
     default: 'false'
+  llm-base-url:
+    description: 'Base URL for the LLM API (e.g. https://openrouter.ai/api). Overrides the default provider endpoint.'
+    required: false
   api-base-url:
     description: 'ABTI API base URL'
     required: false
