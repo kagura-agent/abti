@@ -242,6 +242,69 @@ describe('GET /badge/:type', () => {
   });
 });
 
+// ─── GET /og/:type ───
+
+describe('GET /og/:type', () => {
+  it('returns SVG for valid type', async () => {
+    const r = await req('/og/PTCF');
+    assert.equal(r.status, 200);
+    assert.equal(r.headers['content-type'], 'image/svg+xml');
+    assert.match(r.body, /<svg/);
+    assert.match(r.body, /1200/);
+    assert.match(r.body, /630/);
+    assert.match(r.body, /PTCF/);
+    assert.match(r.body, /Architect/);
+  });
+
+  it('includes all 4 dimension labels', async () => {
+    const r = await req('/og/PTCF');
+    assert.match(r.body, /Autonomy/);
+    assert.match(r.body, /Precision/);
+    assert.match(r.body, /Transparency/);
+    assert.match(r.body, /Adaptability/);
+  });
+
+  it('includes correct pole labels for the type', async () => {
+    const r = await req('/og/PTCF');
+    assert.match(r.body, /Proactive/);
+    assert.match(r.body, /Thorough/);
+    assert.match(r.body, /Candid/);
+    assert.match(r.body, /Flexible/);
+  });
+
+  it('shows correct poles for opposite type REDN', async () => {
+    const r = await req('/og/REDN');
+    assert.match(r.body, /Responsive/);
+    assert.match(r.body, /Efficient/);
+    assert.match(r.body, /Diplomatic/);
+    assert.match(r.body, /Principled/);
+  });
+
+  it('includes ABTI branding', async () => {
+    const r = await req('/og/PTCF');
+    assert.match(r.body, /ABTI/);
+    assert.match(r.body, /Agent Behavioral Type Indicator/);
+  });
+
+  it('case insensitive type code', async () => {
+    const r = await req('/og/ptcf');
+    assert.equal(r.status, 200);
+    assert.match(r.body, /PTCF/);
+  });
+
+  it('404 for unknown type', async () => {
+    const r = await req('/og/XXXX');
+    assert.equal(r.status, 404);
+    const j = r.json();
+    assert.ok(j.error);
+  });
+
+  it('sets cache headers', async () => {
+    const r = await req('/og/PTCF');
+    assert.match(r.headers['cache-control'], /max-age=86400/);
+  });
+});
+
 // ─── GET /api/agents ───
 
 describe('GET /api/agents', () => {

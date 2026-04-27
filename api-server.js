@@ -401,6 +401,62 @@ const server = http.createServer((req, res) => {
     }
   }
 
+  // GET /og/:type - dynamic OG image (SVG)
+  const ogMatch = url.pathname.match(/^\/og\/([A-Za-z]{4})$/);
+  if (ogMatch && req.method === 'GET') {
+    const code = ogMatch[1].toUpperCase();
+    const t = types[code];
+    if (!t) {
+      res.writeHead(404, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Unknown type: ${code}`}));
+    }
+    const nick = t.en.nick;
+    // Build dimension info from the type code letters
+    const dimInfo = [];
+    for (let i = 0; i < 4; i++) {
+      const letter = code[i];
+      const poleIdx = DL[i].indexOf(letter);
+      const pole = dimLabels.en[i][poleIdx];
+      const dim = dimNames.en[i];
+      dimInfo.push({ dim, pole, letter });
+    }
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#12121f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b9d"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="#17172e" stroke="#2a2a4a" stroke-width="1"/>
+  <text x="600" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="500" fill="#8a8aad" letter-spacing="4">ABTI \u2014 Agent Behavioral Type Indicator</text>
+  <line x1="200" y1="160" x2="1000" y2="160" stroke="#2a2a4a" stroke-width="1"/>
+  <text x="600" y="250" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="96" font-weight="700" fill="url(#accent)" letter-spacing="16">${code}</text>
+  <text x="600" y="310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="400" fill="#ededed">${nick}</text>
+  <line x1="200" y1="350" x2="1000" y2="350" stroke="#2a2a4a" stroke-width="1"/>
+${dimInfo.map((d, i) => {
+  const x = 160 + i * 250;
+  return `  <g transform="translate(${x}, 390)">
+    <rect width="190" height="130" rx="12" fill="#1e1e38" stroke="#2a2a4a" stroke-width="1"/>
+    <text x="95" y="35" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="500" fill="#8a8aad">${d.dim}</text>
+    <text x="95" y="75" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="36" font-weight="700" fill="#ff6b9d">${d.letter}</text>
+    <text x="95" y="108" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="400" fill="#ededed">${d.pole}</text>
+  </g>`;
+}).join('\n')}
+</svg>`;
+
+    res.writeHead(200, {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': 'public, max-age=86400, immutable'
+    });
+    return res.end(svg);
+  }
+
   // GET /result/:type - shareable result page with dynamic OG tags
   const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
   if (resultMatch && req.method === 'GET') {
@@ -423,7 +479,7 @@ const server = http.createServer((req, res) => {
     // Replace OG meta tags
     html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="I am ${code} — ${nick} | ABTI">`);
     html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}">`);
-    html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="https://abti.kagura-agent.com/badge/${code}">`);
+    html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="https://abti.kagura-agent.com/og/${code}">`);
     html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="https://abti.kagura-agent.com/result/${code}">`);
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     return res.end(html);
