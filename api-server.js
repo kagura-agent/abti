@@ -360,6 +360,48 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify({ total: agentData.total, agents: agentData.agents }));
   }
 
+  // GET /api/stats - aggregate statistics
+  if (url.pathname === '/api/stats' && req.method === 'GET') {
+    const lang = (url.searchParams.get('lang') === 'zh') ? 'zh' : 'en';
+    const agents = agentData.agents || [];
+    const totalTests = agents.length;
+
+    // type distribution
+    const typeDistribution = {};
+    for (const a of agents) {
+      typeDistribution[a.type] = (typeDistribution[a.type] || 0) + 1;
+    }
+
+    // dimension averages (agents have scores array [0-4] x 4)
+    let dimensionAverages = null;
+    const withScores = agents.filter(a => Array.isArray(a.scores) && a.scores.length === 4);
+    if (withScores.length > 0) {
+      const sums = [0, 0, 0, 0];
+      for (const a of withScores) for (let i = 0; i < 4; i++) sums[i] += a.scores[i];
+      dimensionAverages = sums.map((s, i) => ({ name: dimNames[lang][i], average: +(s / withScores.length).toFixed(2) }));
+    }
+
+    // most common type
+    let mostCommonType = null;
+    if (totalTests > 0) {
+      let maxCode = null, maxCount = 0;
+      for (const [code, count] of Object.entries(typeDistribution)) {
+        if (count > maxCount) { maxCode = code; maxCount = count; }
+      }
+      const t = types[maxCode];
+      mostCommonType = { code: maxCode, nickname: t?.[lang]?.nick || t?.en?.nick || maxCode, count: maxCount };
+    }
+
+    // last updated
+    let lastUpdated = null;
+    for (const a of agents) {
+      if (a.testedAt && (!lastUpdated || a.testedAt > lastUpdated)) lastUpdated = a.testedAt;
+    }
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({ totalTests, typeDistribution, dimensionAverages, mostCommonType, lastUpdated }));
+  }
+
   // POST /api/sbti/agent-test - SBTI test
   if (url.pathname === '/api/sbti/agent-test' && req.method === 'POST') {
     let body = '';
@@ -580,7 +622,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
