@@ -70,6 +70,19 @@ Test your AI agent's personality in CI. Add to any workflow:
 
 The action sends each ABTI scenario to the LLM, collects A/B answers, and writes a job summary with the result. Set `post-comment: 'true'` to comment on PRs.
 
+### Using with OpenRouter or custom endpoints
+
+```yaml
+- uses: kagura-agent/abti@master
+  id: abti
+  with:
+    agent-prompt-file: AGENTS.md
+    provider: openai
+    model: anthropic/claude-sonnet-4
+    api-key: ${{ secrets.OPENROUTER_API_KEY }}
+    llm-base-url: https://openrouter.ai/api
+```
+
 See [`action/README.md`](action/README.md) for full documentation.
 
 ## MCP Server
