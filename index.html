@@ -643,6 +643,19 @@ body {
       <button class="btn-secondary" id="shareLIBtn" onclick="shareOnLinkedIn()">in Share</button>
       <button class="btn-card" id="downloadCardBtn" onclick="downloadCard()"></button>
     </div>
+    <div class="type-table-toggle" id="dirToggle" onclick="toggleDir()" style="margin-bottom:0.5rem"></div>
+    <div id="dirSection" style="display:none;text-align:left;margin-bottom:2rem">
+      <div style="background:var(--surface);border-radius:var(--radius);padding:1.25rem;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <form id="dirForm" onsubmit="submitDir(event)">
+          <label id="dirNameLabel" style="display:block;font-size:0.85rem;color:var(--text2);margin-bottom:0.3rem"></label>
+          <input id="dirName" type="text" required maxlength="64" style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;margin-bottom:0.75rem;font-family:inherit" />
+          <label id="dirUrlLabel" style="display:block;font-size:0.85rem;color:var(--text2);margin-bottom:0.3rem"></label>
+          <input id="dirUrl" type="url" style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;margin-bottom:1rem;font-family:inherit" />
+          <button type="submit" class="btn" style="width:100%;padding:0.7rem;font-size:0.95rem" id="dirSubmitBtn"></button>
+        </form>
+        <div id="dirMsg" style="margin-top:0.75rem;font-size:0.9rem;display:none"></div>
+      </div>
+    </div>
     <div class="type-table-toggle" id="typeTableToggle" onclick="toggleTable()"></div>
     <div class="type-table" id="typeTable">
       <table>
@@ -681,6 +694,13 @@ const i18n = {
     shareX: '𝕏 Share on X',
     shareLI: 'in Share on LinkedIn',
     downloadCard: 'Download Card',
+    dirToggle: 'Add to Agent Directory',
+    dirNameLabel: 'Agent Name (required)',
+    dirUrlLabel: 'Agent URL (optional)',
+    dirSubmit: 'Register',
+    dirSuccess: 'Registered! View in',
+    dirSuccessLink: 'Agent Directory',
+    dirError: 'Registration failed. Please try again.',
     profLabels: { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', bestPairedWith: 'Best Paired With' },
     balanced: 'Balanced',
     allTypes: 'All 16 types',
@@ -813,6 +833,13 @@ const i18n = {
     shareX: '𝕏 分享到 X',
     shareLI: 'in 分享到领英',
     downloadCard: '下载卡片',
+    dirToggle: '加入智能体目录',
+    dirNameLabel: '智能体名称（必填）',
+    dirUrlLabel: '智能体 URL（选填）',
+    dirSubmit: '注册',
+    dirSuccess: '注册成功！查看',
+    dirSuccessLink: '智能体目录',
+    dirError: '注册失败，请稍后重试。',
     profLabels: { strengths: '核心优势', blindSpots: '盲点', workStyle: '工作风格', bestPairedWith: '最佳搭配' },
     balanced: '均衡',
     allTypes: '全部 16 种类型',
@@ -958,6 +985,7 @@ const famousMap = {
 let current = 0;
 let scores = [0, 0, 0, 0];
 let cachedType = null;
+let userAnswers = [];
 
 function t(key) { return i18n[lang][key]; }
 
@@ -997,6 +1025,7 @@ function startQuiz() {
   current = 0;
   scores = [0, 0, 0, 0];
   cachedType = null;
+  userAnswers = [];
   document.getElementById('landing').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -1022,6 +1051,7 @@ function showQuestion() {
 
 function answer(isA, el) {
   if (el) el.classList.add('selected');
+  userAnswers.push(isA ? 1 : 0);
   if (isA) scores[t('questions')[current].dimIdx]++;
   current++;
   setTimeout(() => {
@@ -1067,6 +1097,18 @@ function showResult() {
   document.getElementById('shareXBtn').textContent = t('shareX');
   document.getElementById('shareLIBtn').textContent = t('shareLI');
   document.getElementById('downloadCardBtn').textContent = t('downloadCard');
+
+  // Directory section
+  document.getElementById('dirToggle').textContent = '▸ ' + t('dirToggle');
+  document.getElementById('dirSection').style.display = 'none';
+  document.getElementById('dirForm').style.display = 'block';
+  document.getElementById('dirMsg').style.display = 'none';
+  document.getElementById('dirName').value = '';
+  document.getElementById('dirUrl').value = '';
+  document.getElementById('dirSubmitBtn').disabled = false;
+  document.getElementById('dirNameLabel').textContent = t('dirNameLabel');
+  document.getElementById('dirUrlLabel').textContent = t('dirUrlLabel');
+  document.getElementById('dirSubmitBtn').textContent = t('dirSubmit');
 
   // Table toggle
   document.getElementById('typeTableToggle').textContent = '▸ ' + t('allTypes');
@@ -1169,6 +1211,45 @@ function showResult() {
       profileEl.innerHTML = html;
     })
     .catch(() => {});
+}
+
+function toggleDir() {
+  const el = document.getElementById('dirSection');
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  document.getElementById('dirToggle').textContent = (open ? '▸ ' : '▾ ') + t('dirToggle');
+}
+
+function submitDir(e) {
+  e.preventDefault();
+  const name = document.getElementById('dirName').value.trim();
+  const url = document.getElementById('dirUrl').value.trim();
+  const btn = document.getElementById('dirSubmitBtn');
+  btn.disabled = true;
+  fetch('/api/agent-test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ answers: userAnswers, agentName: name, agentUrl: url || undefined, lang })
+  }).then(r => {
+    const msg = document.getElementById('dirMsg');
+    if (r.ok) {
+      msg.style.display = 'block';
+      msg.style.color = 'var(--accent)';
+      msg.innerHTML = t('dirSuccess') + ' <a href="agents.html" style="color:var(--accent);font-weight:600">' + t('dirSuccessLink') + '</a>';
+      document.getElementById('dirForm').style.display = 'none';
+    } else {
+      msg.style.display = 'block';
+      msg.style.color = '#e55';
+      msg.textContent = r.status === 429 ? 'Rate limit exceeded. Try again later.' : t('dirError');
+      btn.disabled = false;
+    }
+  }).catch(() => {
+    const msg = document.getElementById('dirMsg');
+    msg.style.display = 'block';
+    msg.style.color = '#e55';
+    msg.textContent = t('dirError');
+    btn.disabled = false;
+  });
 }
 
 function toggleTable() {
