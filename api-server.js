@@ -307,7 +307,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const parsed = JSON.parse(body);
-        const { answers, lang, agentName, agentUrl, model, provider } = parsed;
+        const { answers, lang, agentName, agentUrl, model, provider, format } = parsed;
         if (!Array.isArray(answers) || answers.length !== 16) {
           res.writeHead(400, {'Content-Type':'application/json'});
           return res.end(JSON.stringify({error:'answers must be array of 16 values (1=A, 0=B)'}));
@@ -342,10 +342,52 @@ const server = http.createServer((req, res) => {
         }
         saveData(agentData);
 
-        res.writeHead(200, {'Content-Type':'application/json'});
         const rich = richProfiles[code];
         const profile = rich?.[l] || rich?.en || {};
-        res.end(JSON.stringify({test:'abti',type:code,nick:t?.[l]?.nick||t?.en?.nick||'Unknown',dimensions:dims,strengths:profile.strengths,blindSpots:profile.blindSpots,workStyle:profile.workStyle,bestPairedWith:profile.bestPairedWith}));
+        const nick = t?.[l]?.nick||t?.en?.nick||'Unknown';
+
+        if (format === 'markdown') {
+          const lines = [];
+          lines.push(`## ABTI Result: ${code} — ${nick}`);
+          lines.push('');
+          lines.push(`[![ABTI: ${code}](https://abti.kagura-agent.com/badge/${code})](https://abti.kagura-agent.com/result/${code})`);
+          lines.push('');
+          lines.push('| Dimension | Score | Pole |');
+          lines.push('|-----------|-------|------|');
+          for (const [dn, dv] of Object.entries(dims)) {
+            lines.push(`| ${dn} | ${dv.score}/${dv.max} | ${dv.pole} (${dv.letter}) |`);
+          }
+          lines.push('');
+          if (profile.strengths) {
+            lines.push('### Strengths');
+            lines.push('');
+            for (const s of profile.strengths) lines.push(`- ${s}`);
+            lines.push('');
+          }
+          if (profile.blindSpots) {
+            lines.push('### Blind Spots');
+            lines.push('');
+            for (const b of profile.blindSpots) lines.push(`- ${b}`);
+            lines.push('');
+          }
+          if (profile.workStyle) {
+            lines.push('### Work Style');
+            lines.push('');
+            lines.push(profile.workStyle);
+            lines.push('');
+          }
+          if (profile.bestPairedWith) {
+            lines.push('### Best Paired With');
+            lines.push('');
+            for (const bp of profile.bestPairedWith) lines.push(`- **${bp.type}**: ${bp.reason}`);
+            lines.push('');
+          }
+          res.writeHead(200, {'Content-Type':'text/markdown; charset=utf-8'});
+          res.end(lines.join('\n'));
+        } else {
+          res.writeHead(200, {'Content-Type':'application/json'});
+          res.end(JSON.stringify({test:'abti',type:code,nick,dimensions:dims,strengths:profile.strengths,blindSpots:profile.blindSpots,workStyle:profile.workStyle,bestPairedWith:profile.bestPairedWith}));
+        }
       } catch(e) {
         res.writeHead(400, {'Content-Type':'application/json'});
         res.end(JSON.stringify({error:'invalid JSON'}));

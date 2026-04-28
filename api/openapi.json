@@ -47,7 +47,7 @@
     "/api/agent-test": {
       "post": {
         "summary": "Submit ABTI test answers",
-        "description": "Submit 16 answers (1=option A, 0=option B) to receive an ABTI personality type result. Optionally registers the agent in the public registry.",
+        "description": "Submit 16 answers (1=option A, 0=option B) to receive an ABTI personality type result. Optionally registers the agent in the public registry. Set format to 'markdown' to receive a ready-to-paste markdown snippet instead of JSON.",
         "operationId": "submitAbtiTest",
         "tags": ["ABTI"],
         "requestBody": {
@@ -67,6 +67,12 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AbtiResult"
+                }
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "description": "Ready-to-paste markdown snippet with heading, badge, dimension table, strengths, blind spots, work style, and best paired with"
                 }
               }
             }
@@ -512,6 +518,12 @@
             "type": "string",
             "maxLength": 32,
             "description": "Provider name (optional)"
+          },
+          "format": {
+            "type": "string",
+            "enum": ["json", "markdown"],
+            "default": "json",
+            "description": "Response format. 'json' (default) returns JSON, 'markdown' returns a ready-to-paste markdown snippet with Content-Type text/markdown"
           }
         },
         "required": ["answers"]
