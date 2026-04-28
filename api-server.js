@@ -167,8 +167,21 @@ const sbtiQuestions = require('./questions-v4.js');
 const typesJson = require('./api/v1/types.json');
 const richProfiles = typesJson.abti.types;
 
+// ─── Slug generation ─────────────────────────────────────────────────────
+function slugify(name) {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    || 'agent';
+}
+
 // ─── Agent registration (shared between REST API and MCP) ─────────────────
 function registerAgent(entry) {
+  if (entry.name && !entry.slug) {
+    entry.slug = slugify(entry.name);
+  }
   agentData.total++;
   const oneHourAgo = Date.now() - 3600000;
   const existing = agentData.agents.findIndex(a => a.name === entry.name && new Date(a.testedAt).getTime() > oneHourAgo);
@@ -357,7 +370,8 @@ const server = http.createServer((req, res) => {
           const now = new Date().toISOString();
           const oneHourAgo = Date.now() - 3600000;
           const existing = agentData.agents.findIndex(a => a.name === name && new Date(a.testedAt).getTime() > oneHourAgo);
-          const entry = { name, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now, scores: scores.slice(), dimensions: DL.map((d, i) => ({ poles: d, score: scores[i], max: 4 })) };
+          const slug = slugify(name);
+          const entry = { name, slug, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now, scores: scores.slice(), dimensions: DL.map((d, i) => ({ poles: d, score: scores[i], max: 4 })) };
           if (typeof model === 'string' && model) entry.model = model.slice(0, 64);
           if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
           if (existing !== -1) {
@@ -716,6 +730,77 @@ ${dimInfo.map((d, i) => {
     return res.end(html);
   }
 
+  // GET /api/agent/:slug - agent profile JSON
+  const agentApiMatch = url.pathname.match(/^\/api\/agent\/([^/]+)$/);
+  if (agentApiMatch && req.method === 'GET') {
+    const slug = decodeURIComponent(agentApiMatch[1]).toLowerCase();
+    // Latest wins: find the most recent agent with this slug
+    const matching = agentData.agents.filter(a => a.slug === slug || slugify(a.name) === slug);
+    if (matching.length === 0) {
+      res.writeHead(404, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:'Agent not found'}));
+    }
+    const agent = matching[matching.length - 1]; // latest
+    const typeProfile = types[agent.type];
+    const lang = url.searchParams.get('lang') || 'en';
+    const rich = richProfiles[agent.type];
+    const profile = rich?.[lang] || rich?.en || {};
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      agent: {
+        name: agent.name,
+        slug: agent.slug || slugify(agent.name),
+        url: agent.url,
+        type: agent.type,
+        nick: typeProfile?.[lang]?.nick || typeProfile?.en?.nick || agent.nick,
+        model: agent.model,
+        provider: agent.provider,
+        testedAt: agent.testedAt,
+        scores: agent.scores,
+        dimensions: agent.dimensions
+      },
+      profile: {
+        strengths: profile.strengths,
+        blindSpots: profile.blindSpots,
+        workStyle: profile.workStyle,
+        bestPairedWith: profile.bestPairedWith
+      }
+    }));
+  }
+
+  // GET /agent/:slug - agent profile page with OG tags
+  const agentPageMatch = url.pathname.match(/^\/agent\/([^/]+)$/);
+  if (agentPageMatch && req.method === 'GET') {
+    const slug = decodeURIComponent(agentPageMatch[1]).toLowerCase();
+    const matching = agentData.agents.filter(a => a.slug === slug || slugify(a.name) === slug);
+    if (matching.length === 0) {
+      res.writeHead(302, { 'Location': '/agents.html' });
+      return res.end();
+    }
+    const agent = matching[matching.length - 1];
+    const typeProfile = types[agent.type];
+    const nick = typeProfile?.en?.nick || agent.nick || agent.type;
+    const desc = `${agent.name} is ${agent.type} "${nick}" — view their full ABTI profile`;
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'agent.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    const ogTags = [
+      `<meta property="og:title" content="${agent.name} — ${agent.type} ${nick} | ABTI">`,
+      `<meta property="og:description" content="${desc}">`,
+      `<meta property="og:image" content="https://abti.kagura-agent.com/og/${agent.type}">`,
+      `<meta property="og:url" content="https://abti.kagura-agent.com/agent/${agent.slug || slugify(agent.name)}">`,
+      `<meta property="og:type" content="website">`,
+    ].join('\n');
+    html = html.replace(/<title>[^<]*<\/title>/, `<title>${agent.name} — ${agent.type} "${nick}" | ABTI</title>`);
+    html = html.replace('</head>', ogTags + '\n</head>');
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // MCP Streamable HTTP transport on /mcp
   if (url.pathname === '/mcp') {
     handleMcpRequest(req, res);
@@ -723,7 +808,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /type/:code','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
@@ -732,3 +817,4 @@ if (require.main === module) {
 module.exports = server;
 module.exports.resetData = resetData;
 module.exports.rateLimitMap = rateLimitMap;
+module.exports.slugify = slugify;

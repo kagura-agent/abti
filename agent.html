@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent — ABTI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: hsl(240 25% 5%);
+  --surface: hsl(240 20% 10%);
+  --surface2: hsl(240 18% 14%);
+  --text: hsl(0 0% 93%);
+  --text2: hsl(240 10% 65%);
+  --text3: hsl(240 10% 45%);
+  --accent: #ff6b9d;
+  --accent2: #e8557f;
+  --accent-soft: hsla(340 100% 71% / 0.1);
+  --border: hsl(240 15% 20%);
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.4);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+  padding: .75rem 1rem;
+  background: hsla(240 25% 5% / .88);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100; font-size: .82rem; letter-spacing: .08em;
+}
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+
+.lang-btn {
+  position: absolute; right: 1rem;
+  background: var(--surface); color: var(--text2);
+  border: 1px solid var(--border);
+  padding: .3rem .7rem; font-size: .72rem; border-radius: 20px;
+  cursor: pointer; font-weight: 600; font-family: 'DM Sans', sans-serif;
+  transition: all .2s; letter-spacing: .05em;
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.wrap { max-width: 640px; margin: 0 auto; padding: 5rem 1.25rem 3rem; }
+
+.loading, .error { text-align: center; color: var(--text2); padding: 4rem 1rem; font-size: .95rem; }
+.error { color: var(--accent); }
+
+.agent-header { text-align: center; margin-bottom: 2.5rem; }
+.agent-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem; font-weight: 400;
+  color: var(--text); margin-bottom: .3rem;
+}
+.agent-type-badge {
+  display: inline-block;
+  font-family: 'DM Sans', monospace;
+  font-size: 1.4rem; font-weight: 700;
+  letter-spacing: .15em;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: .2rem;
+}
+.agent-type-badge:hover { text-decoration: underline; }
+.agent-nick {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.1rem; font-weight: 400;
+  color: var(--text2); margin-bottom: .5rem;
+}
+.agent-meta {
+  color: var(--text3); font-size: .8rem;
+  display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;
+}
+.agent-meta span { display: inline-flex; align-items: center; gap: .3rem; }
+
+.section { margin-bottom: 2rem; }
+.section-title {
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .75rem;
+}
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem 1.3rem;
+  box-shadow: var(--shadow);
+}
+
+.list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.list li {
+  position: relative; padding-left: 1.1rem;
+  color: var(--text); font-size: .88rem; line-height: 1.7;
+}
+.list li::before {
+  content: '';
+  position: absolute; left: 0; top: .6em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+.list.blind li::before { background: var(--text3); }
+
+.work-style {
+  color: var(--text2); font-size: .88rem; line-height: 1.8;
+}
+
+.dim-rows { display: flex; flex-direction: column; gap: .6rem; }
+.dim-row { display: flex; align-items: center; gap: .5rem; }
+.dim-name { width: 80px; font-size: .75rem; font-weight: 500; color: var(--text2); flex-shrink: 0; }
+.dim-bar {
+  flex: 1; display: flex; height: 26px; border-radius: 6px; overflow: hidden;
+  background: var(--surface2);
+}
+.dim-left, .dim-right {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 600; min-width: 32px;
+  color: var(--text2);
+}
+.dim-active { background: var(--accent); color: #fff; }
+.dim-inactive { background: transparent; }
+.dim-score { width: 36px; font-size: .7rem; color: var(--text3); text-align: right; flex-shrink: 0; }
+
+.pair-list { display: flex; flex-direction: column; gap: .6rem; }
+.pair-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.2rem;
+  display: flex; align-items: flex-start; gap: .8rem;
+  transition: box-shadow .2s, transform .2s;
+}
+.pair-item:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.pair-code {
+  display: inline-block; background: var(--accent-soft);
+  color: var(--accent); font-size: .75rem; font-weight: 700;
+  padding: .2rem .6rem; border-radius: 6px; letter-spacing: .06em;
+  text-decoration: none; flex-shrink: 0;
+  border: 1px solid hsla(340 100% 71% / 0.2);
+  transition: background .2s;
+}
+.pair-code:hover { background: hsla(340 100% 71% / 0.2); }
+.pair-reason { color: var(--text2); font-size: .82rem; line-height: 1.7; }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+@media (max-width: 500px) {
+  .wrap { padding: 4rem 1rem 2rem; }
+  .agent-name { font-size: 1.6rem; }
+  .dim-name { width: 64px; font-size: .68rem; }
+  nav { gap: 1.2rem; font-size: .75rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html" class="active">Agents</a>
+  <a href="types.html">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()">EN</button>
+</nav>
+<div class="wrap" id="app">
+  <div class="loading" id="loading">Loading...</div>
+</div>
+<script>
+(function() {
+  var lang = 'zh';
+  var agentData = null;
+  var profileData = null;
+  var allTypes = null;
+  var dims = null;
+
+  var path = window.location.pathname;
+  var m = path.match(/\/agent\/([^/]+)$/);
+  if (!m) {
+    document.getElementById('loading').textContent = 'Invalid agent URL';
+    document.getElementById('loading').className = 'error';
+    return;
+  }
+  var slug = decodeURIComponent(m[1]);
+
+  window.toggleLang = function() {
+    lang = lang === 'zh' ? 'en' : 'zh';
+    document.querySelector('.lang-btn').textContent = lang === 'zh' ? 'EN' : '中文';
+    document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
+    fetchAgent();
+  };
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  function render() {
+    var a = agentData;
+    var p = profileData;
+    var labels = lang === 'zh'
+      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents' }
+      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', back: '← Back to Agents' };
+
+    // Get localized nick from allTypes
+    var localNick = a.nick;
+    if (allTypes && allTypes[a.type]) {
+      var t = allTypes[a.type];
+      localNick = t[lang] ? t[lang].nick : t.en.nick;
+    }
+
+    // Use profile data from API (already localized)
+    var lp = p;
+
+    var metaParts = [];
+    if (a.model) metaParts.push('<span>' + esc(a.model) + '</span>');
+    if (a.provider) metaParts.push('<span>' + esc(a.provider) + '</span>');
+    if (a.testedAt) metaParts.push('<span>' + new Date(a.testedAt).toLocaleDateString() + '</span>');
+
+    var dimHtml = '';
+    if (a.dimensions && dims) {
+      dimHtml = a.dimensions.map(function(d, i) {
+        var dimInfo = dims[i];
+        if (!dimInfo) return '';
+        var pct = Math.round(d.score / d.max * 100);
+        var isLeft = d.score >= d.max / 2;
+        var pole1 = dimInfo[lang] ? dimInfo[lang].pole1 : dimInfo.en.pole1;
+        var pole2 = dimInfo[lang] ? dimInfo[lang].pole2 : dimInfo.en.pole2;
+        var dimName = dimInfo[lang] ? dimInfo[lang].name : dimInfo.en.name;
+        return '<div class="dim-row">'
+          + '<div class="dim-name">' + esc(dimName) + '</div>'
+          + '<div class="dim-bar">'
+          + '<div class="dim-left ' + (isLeft ? 'dim-active' : 'dim-inactive') + '" style="flex:' + (pct || 1) + '">' + esc(d.poles[0] + ' ' + pole1) + '</div>'
+          + '<div class="dim-right ' + (!isLeft ? 'dim-active' : 'dim-inactive') + '" style="flex:' + ((100 - pct) || 1) + '">' + esc(d.poles[1] + ' ' + pole2) + '</div>'
+          + '</div>'
+          + '<div class="dim-score">' + d.score + '/' + d.max + '</div>'
+          + '</div>';
+      }).join('');
+    }
+
+    var pairHtml = '';
+    if (lp.bestPairedWith) {
+      pairHtml = lp.bestPairedWith.map(function(bp) {
+        return '<div class="pair-item">'
+          + '<a class="pair-code" href="/type/' + esc(bp.type) + '">' + esc(bp.type) + '</a>'
+          + '<div class="pair-reason">' + esc(bp.reason) + '</div>'
+          + '</div>';
+      }).join('');
+    }
+
+    var nameHtml = a.url
+      ? '<a href="' + a.url.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px dashed var(--text3)">' + esc(a.name) + '</a>'
+      : esc(a.name);
+
+    document.getElementById('app').innerHTML =
+      '<div class="agent-header">'
+      + '<div class="agent-name">' + nameHtml + '</div>'
+      + '<a class="agent-type-badge" href="/type/' + esc(a.type) + '">' + esc(a.type) + '</a>'
+      + '<div class="agent-nick">' + esc(localNick) + '</div>'
+      + (metaParts.length ? '<div class="agent-meta">' + metaParts.join('<span style="color:var(--text3)">&middot;</span>') + '</div>' : '')
+      + '</div>'
+
+      + (dimHtml ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.dimensions) + '</div>'
+      + '<div class="card"><div class="dim-rows">' + dimHtml + '</div></div>'
+      + '</div>' : '')
+
+      + (lp.strengths ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.strengths) + '</div>'
+      + '<div class="card"><ul class="list">' + lp.strengths.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>' : '')
+
+      + (lp.blindSpots ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.blindSpots) + '</div>'
+      + '<div class="card"><ul class="list blind">' + lp.blindSpots.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>' : '')
+
+      + (lp.workStyle ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.workStyle) + '</div>'
+      + '<div class="card"><div class="work-style">' + esc(lp.workStyle) + '</div></div>'
+      + '</div>' : '')
+
+      + (pairHtml ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.bestPaired) + '</div>'
+      + '<div class="pair-list">' + pairHtml + '</div>'
+      + '</div>' : '')
+
+      + '<div style="text-align:center;margin-top:1.5rem"><a href="/agents.html" style="color:var(--text3);font-size:.82rem;text-decoration:none;transition:color .2s">' + labels.back + '</a></div>'
+      + '<div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>';
+  }
+
+  function fetchAgent() {
+    Promise.all([
+      fetch('/api/agent/' + encodeURIComponent(slug) + '?lang=' + lang).then(function(r) { return r.ok ? r.json() : null; }),
+      allTypes ? Promise.resolve(null) : fetch('/api/types').then(function(r) { return r.json(); })
+    ]).then(function(results) {
+      var data = results[0];
+      if (results[1]) {
+        allTypes = results[1].abti.types;
+        dims = results[1].abti.dimensions;
+      }
+      if (!data || !data.agent) {
+        document.getElementById('loading').textContent = 'Agent not found';
+        document.getElementById('loading').className = 'error';
+        return;
+      }
+      agentData = data.agent;
+      profileData = data.profile;
+      document.title = agentData.name + ' — ABTI';
+      render();
+    }).catch(function() {
+      document.getElementById('loading').textContent = 'Failed to load agent data';
+      document.getElementById('loading').className = 'error';
+    });
+  }
+
+  fetchAgent();
+})();
+</script>
+</body>
+</html>

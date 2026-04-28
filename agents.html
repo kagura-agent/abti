@@ -159,9 +159,8 @@ nav a:hover, nav a.active { color: var(--accent); }
       return;
     }
     grid.innerHTML = data.agents.slice().reverse().map(a => {
-      const nameHtml = a.url
-        ? '<a href="' + a.url.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>'
-        : esc(a.name);
+      const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
+      const nameHtml = '<a href="/agent/' + encodeURIComponent(slug) + '">' + esc(a.name) + '</a>';
       const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
       return '<div class="card">'
         + '<div class="card-name">' + nameHtml + '</div>'
