@@ -1,4 +1,4 @@
-const { describe, it, before, after } = require('node:test');
+const { describe, it, before, after, beforeEach } = require('node:test');
 const assert = require('node:assert/strict');
 const http = require('node:http');
 const os = require('node:os');
@@ -10,6 +10,7 @@ const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'abti-test-'));
 process.env.ABTI_DATA_DIR = tmpDir;
 
 const server = require('../api-server.js');
+const { rateLimitMap } = require('../api-server.js');
 
 let BASE;
 
@@ -36,6 +37,9 @@ before(() => new Promise((resolve) => {
     resolve();
   });
 }));
+
+// Clear rate limit before each test to prevent interference
+beforeEach(() => { rateLimitMap.clear(); });
 
 after(() => new Promise((resolve) => {
   server.close(() => {
@@ -596,5 +600,55 @@ describe('Unknown routes', () => {
     const j = r.json();
     assert.ok(j.error);
     assert.ok(Array.isArray(j.endpoints));
+  });
+});
+
+// ─── POST /api/agent-test rate limiting ───
+
+describe('POST /api/agent-test rate limiting', () => {
+  const allA = Array(16).fill(1);
+
+  it('allows 5 requests then returns 429 on 6th', async () => {
+    rateLimitMap.clear();
+    for (let i = 0; i < 5; i++) {
+      const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA } });
+      assert.equal(r.status, 200, `request ${i + 1} should succeed`);
+    }
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA } });
+    assert.equal(r.status, 429);
+  });
+
+  it('429 response includes Retry-After header', async () => {
+    rateLimitMap.clear();
+    for (let i = 0; i < 5; i++) {
+      await req('/api/agent-test', { method: 'POST', body: { answers: allA } });
+    }
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA } });
+    assert.equal(r.status, 429);
+    assert.ok(r.headers['retry-after']);
+    const retryAfter = parseInt(r.headers['retry-after'], 10);
+    assert.ok(retryAfter > 0 && retryAfter <= 3600);
+  });
+});
+
+// ─── URL field storage ───
+
+describe('POST /api/agent-test url storage', () => {
+  it('stores agentUrl in agent entry', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'UrlTestBot', agentUrl: 'https://example.com/bot' } });
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'UrlTestBot');
+    assert.ok(a);
+    assert.equal(a.url, 'https://example.com/bot');
+  });
+
+  it('stores empty url when agentUrl not provided', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'NoUrlBot' } });
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'NoUrlBot');
+    assert.ok(a);
+    assert.equal(a.url, '');
   });
 });

@@ -36,6 +36,26 @@ function resetData() {
 
 let agentData = loadData();
 
+// Rate limiter for POST /api/agent-test: max 5 per IP per hour
+const rateLimitMap = new Map();
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  let entry = rateLimitMap.get(ip);
+  if (!entry || now - entry.start >= RATE_LIMIT_WINDOW) {
+    entry = { start: now, count: 0 };
+    rateLimitMap.set(ip, entry);
+  }
+  entry.count++;
+  if (entry.count > RATE_LIMIT_MAX) {
+    const retryAfter = Math.ceil((entry.start + RATE_LIMIT_WINDOW - now) / 1000);
+    return retryAfter;
+  }
+  return 0;
+}
+
 // ABTI scoring: 16 questions, 4 dimensions, 4 questions each
 // answers: array of 16 values (1=optionA, 0=optionB)
 // score range per dim: 0-4, threshold >=2 = first pole
@@ -302,6 +322,12 @@ const server = http.createServer((req, res) => {
 
   // POST /api/agent-test - ABTI test
   if (url.pathname === '/api/agent-test' && req.method === 'POST') {
+    const ip = req.socket.remoteAddress || 'unknown';
+    const retryAfter = checkRateLimit(ip);
+    if (retryAfter > 0) {
+      res.writeHead(429, { 'Content-Type': 'application/json', 'Retry-After': String(retryAfter) });
+      return res.end(JSON.stringify({ error: 'Too many requests. Try again later.' }));
+    }
     let body = '';
     req.on('data', c => body += c);
     req.on('end', () => {
@@ -705,3 +731,4 @@ if (require.main === module) {
 }
 module.exports = server;
 module.exports.resetData = resetData;
+module.exports.rateLimitMap = rateLimitMap;
