@@ -88,6 +88,7 @@ nav a:hover, nav a.active { color: var(--accent); }
   <a href="index.html">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
   <a href="agents.html">Agents</a>
+  <a href="types.html">Types</a>
   <a href="compare.html" class="active">Compare</a>
   <a href="api.html">API</a>
 </nav>
@@ -181,8 +182,8 @@ function render(d) {
 
 function renderTypeCard(t) {
   let h = `<div class="type-card">
-    <span class="pill">${t.code}</span>
-    <h2>${t.code}</h2>
+    <a class="pill" href="/type/${t.code}" style="text-decoration:none">${t.code}</a>
+    <h2><a href="/type/${t.code}" style="color:inherit;text-decoration:none">${t.code}</a></h2>
     <div class="nick">${t.nick}</div>
     <h3>Strengths</h3><ul>`;
   (t.strengths || []).forEach(s => h += `<li>${s}</li>`);

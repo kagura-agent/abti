@@ -102,6 +102,7 @@ nav a:hover, nav a.active { color: var(--accent); }
   <a href="index.html">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
   <a href="agents.html" class="active">Agents</a>
+  <a href="types.html">Types</a>
   <a href="compare.html">Compare</a>
   <a href="api.html">API</a>
 </nav>
@@ -164,7 +165,7 @@ nav a:hover, nav a.active { color: var(--accent); }
       const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
       return '<div class="card">'
         + '<div class="card-name">' + nameHtml + '</div>'
-        + '<span class="pill">' + esc(a.type) + '</span>'
+        + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
         + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
         + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
         + (a.dimensions ? '<div class="card-scores">' + a.dimensions.map(d => {
@@ -206,7 +207,7 @@ nav a:hover, nav a.active { color: var(--accent); }
       agents.forEach(a => { if (a.type) freq[a.type] = (freq[a.type] || 0) + 1; });
       const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
       document.getElementById('type-freq').innerHTML = sorted.map(([t, c]) =>
-        '<span class="type-pill">' + esc(t) + ' <span class="count">' + c + '</span></span>'
+        '<a class="type-pill" href="/type/' + t + '" style="text-decoration:none;color:inherit">' + esc(t) + ' <span class="count">' + c + '</span></a>'
       ).join('');
 
       document.getElementById('dist').style.display = '';

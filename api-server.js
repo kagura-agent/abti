@@ -629,6 +629,39 @@ ${dimInfo.map((d, i) => {
     return res.end(svg);
   }
 
+  // GET /type/:code - type detail page with dynamic OG tags
+  const typeMatch = url.pathname.match(/^\/type\/([A-Za-z]{4})$/);
+  if (typeMatch && req.method === 'GET') {
+    const code = typeMatch[1].toUpperCase();
+    const VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    if (!VALID.includes(code)) {
+      res.writeHead(302, { 'Location': '/' });
+      return res.end();
+    }
+    const t = types[code];
+    const nick = t?.en?.nick || code;
+    const desc = `${nick} — learn about this AI agent behavioral type | ABTI`;
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'type.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    // Inject OG meta tags before </head>
+    const ogTags = [
+      `<meta property="og:title" content="${code} — ${nick} | ABTI">`,
+      `<meta property="og:description" content="${desc}">`,
+      `<meta property="og:image" content="https://abti.kagura-agent.com/og/${code}">`,
+      `<meta property="og:url" content="https://abti.kagura-agent.com/type/${code}">`,
+      `<meta property="og:type" content="website">`,
+    ].join('\n');
+    html = html.replace(/<title>[^<]*<\/title>/, `<title>${code} "${nick}" — ABTI</title>`);
+    html = html.replace('</head>', ogTags + '\n</head>');
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // GET /result/:type - shareable result page with dynamic OG tags
   const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
   if (resultMatch && req.method === 'GET') {
@@ -664,7 +697,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /type/:code','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {

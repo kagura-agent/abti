@@ -596,6 +596,7 @@ body {
   <a href="index.html" class="active">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
   <a href="agents.html">Agents</a>
+  <a href="types.html">Types</a>
   <a href="compare.html">Compare</a>
   <a href="api.html">API</a>
   <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
@@ -626,7 +627,7 @@ body {
   <!-- Result -->
   <div id="result">
     <div class="result-emoji" id="resultEmoji"></div>
-    <div class="result-type" id="resultType"></div>
+    <a class="result-type" id="resultType" style="text-decoration:none;color:var(--accent)"></a>
     <div class="result-nick" id="resultNick"></div>
     <div class="result-desc" id="resultDesc"></div>
     <div class="dim-results" id="dimResults"></div>
@@ -1053,6 +1054,7 @@ function showResult() {
 
   document.getElementById('resultEmoji').textContent = typeEmojis[code] || '🤖';
   document.getElementById('resultType').textContent = code;
+  document.getElementById('resultType').href = '/type/' + code;
   document.getElementById('resultNick').textContent = info.nick;
   document.getElementById('resultDesc').textContent = info.desc;
 
@@ -1118,7 +1120,7 @@ function showResult() {
   for (const [tp, tInfo] of Object.entries(allTypes)) {
     const tr = document.createElement('tr');
     if (tp === code) tr.className = 'current-type';
-    tr.innerHTML = `<td>${tp}</td><td class="type-emoji-cell">${typeEmojis[tp] || ''}</td><td>${tInfo.nick}</td><td>${tInfo.desc}</td>`;
+    tr.innerHTML = `<td><a href="/type/${tp}" style="color:var(--accent);text-decoration:none;font-weight:600">${tp}</a></td><td class="type-emoji-cell">${typeEmojis[tp] || ''}</td><td>${tInfo.nick}</td><td>${tInfo.desc}</td>`;
     tbody.appendChild(tr);
   }
 
@@ -1160,7 +1162,7 @@ function showResult() {
       if (typeData.bestPairedWith && typeData.bestPairedWith.length) {
         const pairHtml = typeData.bestPairedWith.map(p => {
           const pInfo = t('types')[p.type];
-          return `<li><span class="pair-type">${p.type} "${pInfo ? pInfo.nick : '?'}"</span> — <span class="pair-reason">${p.reason}</span></li>`;
+          return `<li><a href="/type/${p.type}" class="pair-type" style="color:var(--accent);text-decoration:none;font-weight:600">${p.type} "${pInfo ? pInfo.nick : '?'}"</a> — <span class="pair-reason">${p.reason}</span></li>`;
         }).join('');
         html += `<div class="profile-section"><h3>${pl.bestPairedWith}</h3><ul>${pairHtml}</ul></div>`;
       }
