@@ -63,6 +63,16 @@ nav a:hover, nav a.active { color: var(--accent); }
 .type-pill { display: inline-flex; align-items: center; gap: .35rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: .3rem .7rem .3rem .65rem; font-size: .82rem; font-weight: 600; color: var(--text); box-shadow: var(--shadow); }
 .type-pill .count { background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700; min-width: 20px; height: 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 .4rem; }
 
+.toolbar { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.toolbar select, .toolbar input { font-family: inherit; font-size: .82rem; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: var(--shadow); outline: none; transition: border-color .2s; }
+.toolbar select:focus, .toolbar input:focus { border-color: var(--accent); }
+.toolbar input { flex: 1; min-width: 140px; }
+.toolbar select { min-width: 120px; }
+@media (max-width: 500px) {
+  .toolbar { flex-direction: column; }
+  .toolbar select, .toolbar input { width: 100%; }
+}
+
 .empty { text-align: center; color: var(--text3); font-size: .95rem; padding: 3rem 1rem; }
 
 .cta { margin-top: 2.5rem; text-align: center; }
@@ -117,6 +127,17 @@ nav a:hover, nav a.active { color: var(--accent); }
     <div class="dist-title">Type Frequency</div>
     <div class="type-freq" id="type-freq"></div>
   </div>
+  <div class="toolbar" id="toolbar" style="display:none">
+    <input type="text" id="search" placeholder="Search by name…">
+    <select id="filter-type"><option value="">All Types</option></select>
+    <select id="sort">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="name-az">Name A–Z</option>
+      <option value="name-za">Name Z–A</option>
+      <option value="type">By type</option>
+    </select>
+  </div>
   <div class="grid" id="grid"></div>
   <div class="cta" id="cta" style="display:none">
     <h2 class="cta-title">Test Your <span>Agent</span></h2>
@@ -152,33 +173,72 @@ nav a:hover, nav a.active { color: var(--accent); }
   try {
     const res = await fetch('/api/agents');
     const data = await res.json();
-    totalEl.innerHTML = '<strong>' + data.total + '</strong> tests taken';
     if (!data.agents || data.agents.length === 0) {
+      totalEl.innerHTML = '<strong>' + data.total + '</strong> tests taken';
       grid.innerHTML = '<div class="empty">No agents have taken the test yet.</div>';
       document.getElementById('cta').style.display = '';
       return;
     }
-    grid.innerHTML = data.agents.slice().reverse().map(a => {
-      const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
-      const nameHtml = '<a href="/agent/' + encodeURIComponent(slug) + '">' + esc(a.name) + '</a>';
-      const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
-      return '<div class="card">'
-        + '<div class="card-name">' + nameHtml + '</div>'
-        + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
-        + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
-        + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
-        + (a.dimensions ? '<div class="card-scores">' + a.dimensions.map(d => {
-            const pct = Math.round(d.score / d.max * 100);
-            const winner = d.score >= d.max / 2 ? d.poles[0] : d.poles[1];
-            return '<div class="card-score-row">'
-              + '<span class="card-score-label">' + winner + '</span>'
-              + '<div class="card-score-bar"><div class="card-score-fill" style="width:' + pct + '%"></div></div>'
-              + '<span class="card-score-pct">' + pct + '%</span>'
-              + '</div>';
-          }).join('') + '</div>' : '')
-        + (time ? '<div class="card-time">' + time + '</div>' : '')
-        + '</div>';
-    }).join('');
+
+    const allAgents = data.agents.slice().reverse();
+    const searchEl = document.getElementById('search');
+    const filterEl = document.getElementById('filter-type');
+    const sortEl = document.getElementById('sort');
+
+    // Populate type filter
+    const types = [...new Set(data.agents.map(a => a.type).filter(Boolean))].sort();
+    types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; filterEl.appendChild(o); });
+    document.getElementById('toolbar').style.display = '';
+
+    function renderCards() {
+      const q = searchEl.value.toLowerCase();
+      const typeFilter = filterEl.value;
+      const sortMode = sortEl.value;
+
+      let list = allAgents.filter(a => {
+        if (q && !a.name.toLowerCase().includes(q)) return false;
+        if (typeFilter && a.type !== typeFilter) return false;
+        return true;
+      });
+
+      if (sortMode === 'oldest') list = list.slice().reverse();
+      else if (sortMode === 'name-az') list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
+      else if (sortMode === 'name-za') list = list.slice().sort((a, b) => b.name.localeCompare(a.name));
+      else if (sortMode === 'type') list = list.slice().sort((a, b) => (a.type || '').localeCompare(b.type || '') || a.name.localeCompare(b.name));
+
+      totalEl.innerHTML = list.length === allAgents.length
+        ? '<strong>' + data.total + '</strong> tests taken'
+        : 'Showing <strong>' + list.length + '</strong> of ' + allAgents.length + ' agents';
+
+      if (list.length === 0) { grid.innerHTML = '<div class="empty">No agents match your filters.</div>'; return; }
+
+      grid.innerHTML = list.map(a => {
+        const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
+        const nameHtml = '<a href="/agent/' + encodeURIComponent(slug) + '">' + esc(a.name) + '</a>';
+        const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
+        return '<div class="card">'
+          + '<div class="card-name">' + nameHtml + '</div>'
+          + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
+          + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
+          + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
+          + (a.dimensions ? '<div class="card-scores">' + a.dimensions.map(d => {
+              const pct = Math.round(d.score / d.max * 100);
+              const winner = d.score >= d.max / 2 ? d.poles[0] : d.poles[1];
+              return '<div class="card-score-row">'
+                + '<span class="card-score-label">' + winner + '</span>'
+                + '<div class="card-score-bar"><div class="card-score-fill" style="width:' + pct + '%"></div></div>'
+                + '<span class="card-score-pct">' + pct + '%</span>'
+                + '</div>';
+            }).join('') + '</div>' : '')
+          + (time ? '<div class="card-time">' + time + '</div>' : '')
+          + '</div>';
+      }).join('');
+    }
+
+    searchEl.addEventListener('input', renderCards);
+    filterEl.addEventListener('change', renderCards);
+    sortEl.addEventListener('change', renderCards);
+    renderCards();
 
     // Distribution visualization
     const agents = data.agents;
