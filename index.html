@@ -627,7 +627,7 @@ body {
   <!-- Result -->
   <div id="result">
     <div class="result-emoji" id="resultEmoji"></div>
-    <div class="result-type" id="resultType"></div>
+    <a class="result-type" id="resultType" style="text-decoration:none;color:var(--accent)"></a>
     <div class="result-nick" id="resultNick"></div>
     <div class="result-desc" id="resultDesc"></div>
     <div class="dim-results" id="dimResults"></div>
@@ -1054,6 +1054,7 @@ function showResult() {
 
   document.getElementById('resultEmoji').textContent = typeEmojis[code] || '🤖';
   document.getElementById('resultType').textContent = code;
+  document.getElementById('resultType').href = '/type/' + code;
   document.getElementById('resultNick').textContent = info.nick;
   document.getElementById('resultDesc').textContent = info.desc;
 

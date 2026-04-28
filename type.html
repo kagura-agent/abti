@@ -1,88 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Type Detail — ABTI</title>
-<meta property="og:type" content="website">
-<meta property="og:title" content="ABTI Type Detail">
-<meta property="og:description" content="Discover AI agent behavioral types with ABTI">
-<meta property="og:url" content="https://abti.kagura-agent.com/">
-<meta property="og:image" content="https://abti.kagura-agent.com/og-abti.png">
+<title>Type — ABTI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
-  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
-  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
-  --border: #e7e5e4; --radius: 10px;
-  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
-  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+  --bg: hsl(240 25% 5%);
+  --surface: hsl(240 20% 10%);
+  --surface2: hsl(240 18% 14%);
+  --text: hsl(0 0% 93%);
+  --text2: hsl(240 10% 65%);
+  --text3: hsl(240 10% 45%);
+  --accent: #ff6b9d;
+  --accent2: #e8557f;
+  --accent-soft: hsla(340 100% 71% / 0.1);
+  --border: hsl(240 15% 20%);
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.4);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
 
-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+  padding: .75rem 1rem;
+  background: hsla(240 25% 5% / .88);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100; font-size: .82rem; letter-spacing: .08em;
+}
 nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
 nav a:hover, nav a.active { color: var(--accent); }
-nav .lang-btn { background: none; border: 1px solid var(--border); color: var(--text2); font-family: inherit; font-size: .75rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px; cursor: pointer; letter-spacing: .08em; transition: color .2s, border-color .2s; }
-nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
 
-.wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+.lang-btn {
+  position: absolute; right: 1rem;
+  background: var(--surface); color: var(--text2);
+  border: 1px solid var(--border);
+  padding: .3rem .7rem; font-size: .72rem; border-radius: 20px;
+  cursor: pointer; font-weight: 600; font-family: 'DM Sans', sans-serif;
+  transition: all .2s; letter-spacing: .05em;
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-.header { text-align: center; margin-bottom: 2rem; }
-.header .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .8rem; font-weight: 700; padding: .25rem .75rem; border-radius: 999px; letter-spacing: .08em; margin-bottom: .75rem; }
-.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .3rem; }
-.header h1 span { color: var(--accent); }
-.header .desc { color: var(--text2); font-size: .95rem; line-height: 1.6; max-width: 540px; margin: 0 auto; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 5rem 1.25rem 3rem; }
 
-.section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.4rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
-.section h2 { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; text-transform: uppercase; letter-spacing: .08em; }
-.section ul { list-style: none; }
-.section li { font-size: .88rem; color: var(--text2); line-height: 1.6; padding-left: 1rem; position: relative; margin-bottom: .3rem; }
-.section li::before { content: ''; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-.section .text { font-size: .88rem; color: var(--text2); line-height: 1.6; }
+.loading, .error { text-align: center; color: var(--text2); padding: 4rem 1rem; font-size: .95rem; }
+.error { color: var(--accent); }
 
-.dims { display: flex; flex-direction: column; gap: .5rem; }
-.dim-row { display: flex; align-items: center; gap: .6rem; }
-.dim-label { width: 100px; font-size: .78rem; font-weight: 500; color: var(--text2); flex-shrink: 0; }
-.dim-bar-wrap { flex: 1; display: flex; height: 28px; border-radius: 6px; overflow: hidden; background: var(--surface2); }
-.dim-seg { display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 600; transition: width .4s ease; min-width: 36px; }
-.dim-seg-active { background: var(--accent); color: #fff; }
-.dim-seg-inactive { background: var(--surface2); color: var(--text3); }
+.type-header { text-align: center; margin-bottom: 2.5rem; }
+.type-badge {
+  display: inline-block;
+  font-family: 'DM Sans', monospace;
+  font-size: 2.4rem; font-weight: 700;
+  letter-spacing: .15em;
+  color: var(--accent);
+  margin-bottom: .4rem;
+}
+.type-nick {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.6rem; font-weight: 400;
+  color: var(--text); margin-bottom: .6rem;
+}
+.type-desc {
+  color: var(--text2); font-size: .92rem; line-height: 1.8;
+  max-width: 520px; margin: 0 auto;
+}
 
-.pair-list { list-style: none; }
-.pair-list li { margin-bottom: .5rem; padding-left: 0; }
-.pair-list li::before { display: none; }
-.pair-type { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .75rem; font-weight: 700; padding: .15rem .5rem; border-radius: 999px; letter-spacing: .04em; text-decoration: none; transition: background .2s; }
-a.pair-type:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); }
-.pair-reason { font-size: .82rem; color: var(--text2); margin-left: .3rem; }
+.section { margin-bottom: 2rem; }
+.section-title {
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .75rem;
+}
 
-.type-grid { margin-top: 2rem; }
-.type-grid h2 { font-size: .78rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .75rem; }
-.type-links { display: flex; flex-wrap: wrap; gap: .5rem; }
-.type-link { display: inline-block; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-size: .82rem; font-weight: 600; padding: .35rem .7rem; border-radius: 999px; text-decoration: none; transition: border-color .2s, color .2s, box-shadow .2s; box-shadow: var(--shadow); }
-.type-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
-.type-link.current { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem 1.3rem;
+  box-shadow: var(--shadow);
+}
 
-.actions { display: flex; gap: .75rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
-.actions a { font-size: .82rem; font-weight: 600; color: var(--accent); text-decoration: none; padding: .5rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); transition: border-color .2s, background .2s; }
-.actions a:hover { border-color: var(--accent); background: var(--accent-soft); }
+.list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.list li {
+  position: relative; padding-left: 1.1rem;
+  color: var(--text); font-size: .88rem; line-height: 1.7;
+}
+.list li::before {
+  content: '';
+  position: absolute; left: 0; top: .6em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+.list.blind li::before { background: var(--text3); }
+
+.work-style {
+  color: var(--text2); font-size: .88rem; line-height: 1.8;
+}
+
+.dim-rows { display: flex; flex-direction: column; gap: .6rem; }
+.dim-row { display: flex; align-items: center; gap: .5rem; }
+.dim-name { width: 80px; font-size: .75rem; font-weight: 500; color: var(--text2); flex-shrink: 0; }
+.dim-bar {
+  flex: 1; display: flex; height: 26px; border-radius: 6px; overflow: hidden;
+  background: var(--surface2);
+}
+.dim-left, .dim-right {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 600; min-width: 32px;
+  color: var(--text2);
+}
+.dim-active { background: var(--accent); color: #fff; flex: 1; }
+.dim-inactive { background: transparent; }
+
+.pair-list { display: flex; flex-direction: column; gap: .6rem; }
+.pair-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.2rem;
+  display: flex; align-items: flex-start; gap: .8rem;
+  transition: box-shadow .2s, transform .2s;
+}
+.pair-item:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.pair-code {
+  display: inline-block; background: var(--accent-soft);
+  color: var(--accent); font-size: .75rem; font-weight: 700;
+  padding: .2rem .6rem; border-radius: 6px; letter-spacing: .06em;
+  text-decoration: none; flex-shrink: 0;
+  border: 1px solid hsla(340 100% 71% / 0.2);
+  transition: background .2s;
+}
+.pair-code:hover { background: hsla(340 100% 71% / 0.2); }
+.pair-reason { color: var(--text2); font-size: .82rem; line-height: 1.7; }
 
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
 
-.loading { text-align: center; color: var(--text3); padding: 3rem 1rem; font-size: .95rem; }
-.error { text-align: center; color: #dc2626; padding: 3rem 1rem; font-size: .95rem; }
-
 @media (max-width: 500px) {
-  .header h1 { font-size: 1.8rem; }
-  .wrap { padding: 4rem 1rem 1.5rem; }
-  .dim-label { width: 72px; font-size: .72rem; }
-  .dim-seg { font-size: .65rem; min-width: 28px; }
-  .actions { flex-direction: column; align-items: stretch; }
-  .actions a { text-align: center; }
+  .wrap { padding: 4rem 1rem 2rem; }
+  .type-badge { font-size: 2rem; }
+  .type-nick { font-size: 1.3rem; }
+  .dim-name { width: 64px; font-size: .68rem; }
+  nav { gap: 1.2rem; font-size: .75rem; }
 }
 </style>
 </head>
@@ -91,166 +159,117 @@ a.pair-type:hover { background: color-mix(in srgb, var(--accent) 20%, transparen
   <a href="index.html">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
   <a href="agents.html">Agents</a>
-  <a href="types.html" class="active">Types</a>
+  <a href="types.html">Types</a>
   <a href="compare.html">Compare</a>
   <a href="api.html">API</a>
-  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+  <button class="lang-btn" onclick="toggleLang()">EN</button>
 </nav>
-<div class="wrap">
-  <div id="content"><div class="loading">Loading…</div></div>
-  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+<div class="wrap" id="app">
+  <div class="loading" id="loading">Loading...</div>
 </div>
 <script>
-const TYPES = [
-  'PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN',
-  'RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'
-];
-const DIMS = [
-  { id: 'autonomy', letters: ['P','R'] },
-  { id: 'precision', letters: ['T','E'] },
-  { id: 'transparency', letters: ['C','D'] },
-  { id: 'adaptability', letters: ['F','N'] }
-];
-const i18n = {
-  en: {
-    strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style',
-    bestPairedWith: 'Best Paired With', dimensions: 'Dimensions', allTypes: 'All Types',
-    takeTest: 'Take the Test', compare: 'Compare Types',
-    invalid: 'Invalid type code. Please choose a valid ABTI type.',
-    dimNames: ['Autonomy','Precision','Transparency','Adaptability'],
-    dimPoles: [['Proactive','Responsive'],['Thorough','Efficient'],['Candid','Diplomatic'],['Flexible','Principled']]
-  },
-  zh: {
-    strengths: '优势', blindSpots: '盲点', workStyle: '工作风格',
-    bestPairedWith: '最佳搭档', dimensions: '维度', allTypes: '全部类型',
-    takeTest: '参加测试', compare: '比较类型',
-    invalid: '无效的类型代码，请选择一个有效的 ABTI 类型。',
-    dimNames: ['自主性','精确度','透明度','适应性'],
-    dimPoles: [['主动','响应'],['周全','高效'],['直言','委婉'],['灵活','原则']]
-  }
-};
+(function() {
+  var lang = 'zh';
+  var typeData = null;
+  var dims = null;
+  var typeCode = '';
 
-let lang = localStorage.getItem('abti-lang') || 'en';
-function t(key) { return (i18n[lang] || i18n.en)[key]; }
-function toggleLang() {
-  lang = lang === 'en' ? 'zh' : 'en';
-  localStorage.setItem('abti-lang', lang);
-  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
-  render();
-}
-
-// Extract type code from URL path: /type/XXXX
-const pathMatch = window.location.pathname.match(/\/type\/([A-Za-z]{4})$/);
-const typeCode = pathMatch ? pathMatch[1].toUpperCase() : null;
-
-let typesData = null;
-
-async function init() {
-  if (!typeCode || !TYPES.includes(typeCode)) {
-    document.getElementById('content').innerHTML = '<div class="error">' + t('invalid') + '</div>' + renderTypeGrid(null);
+  var path = window.location.pathname;
+  var m = path.match(/\/type\/([A-Z]{4})$/i);
+  if (m) {
+    typeCode = m[1].toUpperCase();
+  } else {
+    document.getElementById('loading').textContent = 'Invalid type code in URL';
+    document.getElementById('loading').className = 'error';
     return;
   }
-  try {
-    const [enRes, zhRes] = await Promise.all([
-      fetch('/api/types?lang=en').then(r => r.json()),
-      fetch('/api/types?lang=zh').then(r => r.json())
-    ]);
-    typesData = { en: enRes, zh: zhRes };
+
+  document.title = typeCode + ' — ABTI';
+
+  window.toggleLang = function() {
+    lang = lang === 'zh' ? 'en' : 'zh';
+    document.querySelector('.lang-btn').textContent = lang === 'zh' ? 'EN' : '中文';
+    document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
     render();
-  } catch {
-    document.getElementById('content').innerHTML = '<div class="error">Failed to load type data.</div>';
-  }
-}
+  };
 
-function render() {
-  if (!typesData || !typeCode) return;
-  const data = lang === 'zh' ? typesData.zh : typesData.en;
-  const td = data.types && data.types[typeCode];
-  if (!td) {
-    document.getElementById('content').innerHTML = '<div class="error">' + t('invalid') + '</div>';
-    return;
-  }
-  const dims = data.dimensions || t('dimNames');
-  const poles = t('dimPoles');
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
-  let html = '';
+  function render() {
+    var t = typeData[lang];
+    var labels = lang === 'zh'
+      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档' }
+      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With' };
 
-  // Header
-  html += '<div class="header">';
-  html += '<span class="pill">' + typeCode + '</span>';
-  html += '<h1>"<span>' + esc(td.nick) + '</span>"</h1>';
-  html += '<div class="desc">' + esc(td.workStyle || '') + '</div>';
-  html += '</div>';
+    var dimHtml = dims.map(function(dim) {
+      var letter = typeCode[dim.index];
+      var isLeft = letter === dim.letters[0];
+      var pole1 = dim[lang].pole1;
+      var pole2 = dim[lang].pole2;
+      return '<div class="dim-row">'
+        + '<div class="dim-name">' + esc(dim[lang].name) + '</div>'
+        + '<div class="dim-bar">'
+        + '<div class="dim-left ' + (isLeft ? 'dim-active' : 'dim-inactive') + '">' + esc(dim.letters[0] + ' ' + pole1) + '</div>'
+        + '<div class="dim-right ' + (!isLeft ? 'dim-active' : 'dim-inactive') + '">' + esc(dim.letters[1] + ' ' + pole2) + '</div>'
+        + '</div></div>';
+    }).join('');
 
-  // Dimensions
-  html += '<div class="section"><h2>' + t('dimensions') + '</h2><div class="dims">';
-  for (let i = 0; i < 4; i++) {
-    const letter = typeCode[i];
-    const isFirst = letter === DIMS[i].letters[0];
-    const lPct = isFirst ? 80 : 20;
-    const rPct = 100 - lPct;
-    html += '<div class="dim-row">';
-    html += '<span class="dim-label">' + esc(dims[i] || t('dimNames')[i]) + '</span>';
-    html += '<div class="dim-bar-wrap">';
-    html += '<div class="dim-seg ' + (isFirst ? 'dim-seg-active' : 'dim-seg-inactive') + '" style="width:' + lPct + '%">' + esc(poles[i][0]) + ' (' + DIMS[i].letters[0] + ')</div>';
-    html += '<div class="dim-seg ' + (!isFirst ? 'dim-seg-active' : 'dim-seg-inactive') + '" style="width:' + rPct + '%">' + esc(poles[i][1]) + ' (' + DIMS[i].letters[1] + ')</div>';
-    html += '</div></div>';
-  }
-  html += '</div></div>';
+    var pairHtml = t.bestPairedWith.map(function(p) {
+      return '<div class="pair-item">'
+        + '<a class="pair-code" href="/type/' + esc(p.type) + '">' + esc(p.type) + '</a>'
+        + '<div class="pair-reason">' + esc(p.reason) + '</div>'
+        + '</div>';
+    }).join('');
 
-  // Strengths
-  if (td.strengths && td.strengths.length) {
-    html += '<div class="section"><h2>' + t('strengths') + '</h2><ul>';
-    td.strengths.forEach(s => html += '<li>' + esc(s) + '</li>');
-    html += '</ul></div>';
-  }
+    document.getElementById('app').innerHTML =
+      '<div class="type-header">'
+      + '<div class="type-badge">' + esc(typeCode) + '</div>'
+      + '<div class="type-nick">' + esc(t.nick) + '</div>'
+      + '<div class="type-desc">' + esc(t.desc) + '</div>'
+      + '</div>'
 
-  // Blind Spots
-  if (td.blindSpots && td.blindSpots.length) {
-    html += '<div class="section"><h2>' + t('blindSpots') + '</h2><ul>';
-    td.blindSpots.forEach(s => html += '<li>' + esc(s) + '</li>');
-    html += '</ul></div>';
-  }
+      + '<div class="section">'
+      + '<div class="section-title">' + esc(labels.strengths) + '</div>'
+      + '<div class="card"><ul class="list">' + t.strengths.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>'
 
-  // Work Style
-  if (td.workStyle) {
-    html += '<div class="section"><h2>' + t('workStyle') + '</h2><div class="text">' + esc(td.workStyle) + '</div></div>';
-  }
+      + '<div class="section">'
+      + '<div class="section-title">' + esc(labels.blindSpots) + '</div>'
+      + '<div class="card"><ul class="list blind">' + t.blindSpots.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>'
 
-  // Best Paired With
-  if (td.bestPairedWith && td.bestPairedWith.length) {
-    html += '<div class="section"><h2>' + t('bestPairedWith') + '</h2><ul class="pair-list">';
-    td.bestPairedWith.forEach(p => {
-      html += '<li><a class="pair-type" href="/type/' + esc(p.type) + '">' + esc(p.type) + '</a> <span class="pair-reason">— ' + esc(p.reason) + '</span></li>';
-    });
-    html += '</ul></div>';
+      + '<div class="section">'
+      + '<div class="section-title">' + esc(labels.workStyle) + '</div>'
+      + '<div class="card"><div class="work-style">' + esc(t.workStyle) + '</div></div>'
+      + '</div>'
+
+      + '<div class="section">'
+      + '<div class="section-title">' + esc(labels.dimensions) + '</div>'
+      + '<div class="card"><div class="dim-rows">' + dimHtml + '</div></div>'
+      + '</div>'
+
+      + '<div class="section">'
+      + '<div class="section-title">' + esc(labels.bestPaired) + '</div>'
+      + '<div class="pair-list">' + pairHtml + '</div>'
+      + '</div>'
+
+      + '<div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>';
   }
 
-  // Actions
-  html += '<div class="actions">';
-  html += '<a href="index.html">' + t('takeTest') + '</a>';
-  html += '<a href="compare.html?a=' + typeCode + '">' + t('compare') + '</a>';
-  html += '</div>';
-
-  // All types grid
-  html += renderTypeGrid(typeCode);
-
-  document.getElementById('content').innerHTML = html;
-  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
-}
-
-function renderTypeGrid(current) {
-  let html = '<div class="type-grid"><h2>' + t('allTypes') + '</h2><div class="type-links">';
-  TYPES.forEach(c => {
-    html += '<a class="type-link' + (c === current ? ' current' : '') + '" href="/type/' + c + '">' + c + '</a>';
+  fetch('/api/types').then(function(res) { return res.json(); }).then(function(data) {
+    dims = data.abti.dimensions;
+    typeData = data.abti.types[typeCode];
+    if (!typeData) {
+      document.getElementById('loading').textContent = 'Type "' + typeCode + '" not found';
+      document.getElementById('loading').className = 'error';
+      return;
+    }
+    render();
+  }).catch(function() {
+    document.getElementById('loading').textContent = 'Failed to load type data';
+    document.getElementById('loading').className = 'error';
   });
-  html += '</div></div>';
-  return html;
-}
-
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
-init();
+})();
 </script>
 </body>
 </html>
