@@ -11,6 +11,7 @@ process.env.ABTI_DATA_DIR = tmpDir;
 
 const server = require('../api-server.js');
 const { rateLimitMap } = require('../api-server.js');
+const { slugify } = require('../api-server.js');
 
 let BASE;
 
@@ -650,5 +651,112 @@ describe('POST /api/agent-test url storage', () => {
     const a = agents.json().agents.find(a => a.name === 'NoUrlBot');
     assert.ok(a);
     assert.equal(a.url, '');
+  });
+});
+
+// ─── slugify ───
+
+describe('slugify', () => {
+  it('lowercases and replaces spaces with hyphens', () => {
+    assert.equal(slugify('My Cool Agent'), 'my-cool-agent');
+  });
+
+  it('removes special characters', () => {
+    assert.equal(slugify('Agent (v2.0)!'), 'agent-v2-0');
+  });
+
+  it('preserves CJK characters', () => {
+    assert.equal(slugify('测试机器人'), '测试机器人');
+  });
+
+  it('trims leading/trailing hyphens', () => {
+    assert.equal(slugify('--hello--'), 'hello');
+  });
+
+  it('returns "agent" for empty string', () => {
+    assert.equal(slugify(''), 'agent');
+  });
+});
+
+// ─── POST /api/agent-test slug field ───
+
+describe('POST /api/agent-test slug generation', () => {
+  it('stores slug in agent entry', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'Slug Test Bot' } });
+    const agents = await req('/api/agents');
+    const a = agents.json().agents.find(a => a.name === 'Slug Test Bot');
+    assert.ok(a);
+    assert.equal(a.slug, 'slug-test-bot');
+  });
+});
+
+// ─── GET /api/agent/:slug ───
+
+describe('GET /api/agent/:slug', () => {
+  it('returns agent profile for valid slug', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'ProfileBot', agentUrl: 'https://example.com', model: 'gpt-4o', provider: 'openai' } });
+    const r = await req('/api/agent/profilebot');
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.equal(j.agent.name, 'ProfileBot');
+    assert.equal(j.agent.slug, 'profilebot');
+    assert.equal(j.agent.type, 'PTCF');
+    assert.equal(j.agent.model, 'gpt-4o');
+    assert.equal(j.agent.provider, 'openai');
+    assert.ok(j.agent.dimensions);
+    assert.ok(j.agent.scores);
+    assert.ok(j.profile.strengths);
+    assert.ok(j.profile.blindSpots);
+    assert.ok(j.profile.workStyle);
+    assert.ok(j.profile.bestPairedWith);
+  });
+
+  it('404 for unknown slug', async () => {
+    const r = await req('/api/agent/nonexistent-agent-xyz');
+    assert.equal(r.status, 404);
+    assert.ok(r.json().error);
+  });
+
+  it('returns latest agent for duplicate slugs', async () => {
+    rateLimitMap.clear();
+    // Register two agents that produce the same slug
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'DupeBot' } });
+    // Wait so it's not within 1 hour dedup window (simulate by using different name that produces different entry)
+    // Actually same name within 1 hour overwrites, so the latest wins naturally
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(0), agentName: 'DupeBot' } });
+    const r = await req('/api/agent/dupebot');
+    assert.equal(r.status, 200);
+    // Should have the latest result (all-B = REDN)
+    assert.equal(r.json().agent.type, 'REDN');
+  });
+});
+
+// ─── GET /agent/:slug ───
+
+describe('GET /agent/:slug', () => {
+  it('returns HTML with OG tags for valid agent', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'PageBot' } });
+    const r = await req('/agent/pagebot');
+    assert.equal(r.status, 200);
+    assert.match(r.headers['content-type'], /text\/html/);
+    assert.match(r.body, /og:title/);
+    assert.match(r.body, /PageBot/);
+    assert.match(r.body, /PTCF/);
+  });
+
+  it('302 redirects for unknown slug', async () => {
+    const r = await req('/agent/totally-unknown-bot');
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.location, '/agents.html');
+  });
+
+  it('includes OG image pointing to type OG', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'OGBot' } });
+    const r = await req('/agent/ogbot');
+    assert.match(r.body, /og:image.*og\/PTCF/);
   });
 });
