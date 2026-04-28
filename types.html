@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Types — ABTI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+nav .lang-btn { background: none; border: 1px solid var(--border); color: var(--text2); font-family: inherit; font-size: .75rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px; cursor: pointer; letter-spacing: .08em; transition: color .2s, border-color .2s; }
+nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+.header { text-align: center; margin-bottom: 2.5rem; }
+.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; }
+.header h1 span { color: var(--accent); }
+.header .sub { color: var(--text2); font-size: .95rem; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; text-decoration: none; color: inherit; display: block; }
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.card .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .35rem; }
+.card .nick { font-weight: 600; font-size: .95rem; color: var(--text); margin-bottom: .25rem; }
+.card .desc { font-size: .8rem; color: var(--text2); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+.loading { text-align: center; color: var(--text3); padding: 3rem 1rem; font-size: .95rem; }
+
+@media (max-width: 500px) {
+  .grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
+  <a href="types.html" class="active">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div class="header">
+    <h1>All <span>Types</span></h1>
+    <div class="sub" id="sub">16 behavioral types across 4 dimensions</div>
+  </div>
+  <div class="grid" id="grid"><div class="loading">Loading…</div></div>
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+<script>
+let lang = localStorage.getItem('abti-lang') || 'en';
+const subs = { en: '16 behavioral types across 4 dimensions', zh: '4个维度，16种行为类型' };
+let cache = {};
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+  render();
+}
+
+async function init() {
+  try {
+    const [en, zh] = await Promise.all([
+      fetch('/api/types?lang=en').then(r => r.json()),
+      fetch('/api/types?lang=zh').then(r => r.json())
+    ]);
+    cache = { en, zh };
+    render();
+  } catch {
+    document.getElementById('grid').innerHTML = '<div class="loading" style="color:#dc2626">Failed to load types.</div>';
+  }
+}
+
+function render() {
+  const data = cache[lang] || cache.en;
+  if (!data || !data.types) return;
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+  document.getElementById('sub').textContent = subs[lang] || subs.en;
+  const grid = document.getElementById('grid');
+  const codes = Object.keys(data.types);
+  grid.innerHTML = codes.map(code => {
+    const td = data.types[code];
+    return '<a class="card" href="/type/' + code + '">'
+      + '<span class="pill">' + code + '</span>'
+      + '<div class="nick">' + esc(td.nick) + '</div>'
+      + (td.workStyle ? '<div class="desc">' + esc(td.workStyle) + '</div>' : '')
+      + '</a>';
+  }).join('');
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Type Detail — ABTI</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="ABTI Type Detail">
+<meta property="og:description" content="Discover AI agent behavioral types with ABTI">
+<meta property="og:url" content="https://abti.kagura-agent.com/">
+<meta property="og:image" content="https://abti.kagura-agent.com/og-abti.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+nav .lang-btn { background: none; border: 1px solid var(--border); color: var(--text2); font-family: inherit; font-size: .75rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px; cursor: pointer; letter-spacing: .08em; transition: color .2s, border-color .2s; }
+nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+
+.header { text-align: center; margin-bottom: 2rem; }
+.header .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .8rem; font-weight: 700; padding: .25rem .75rem; border-radius: 999px; letter-spacing: .08em; margin-bottom: .75rem; }
+.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .3rem; }
+.header h1 span { color: var(--accent); }
+.header .desc { color: var(--text2); font-size: .95rem; line-height: 1.6; max-width: 540px; margin: 0 auto; }
+
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.4rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+.section h2 { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; text-transform: uppercase; letter-spacing: .08em; }
+.section ul { list-style: none; }
+.section li { font-size: .88rem; color: var(--text2); line-height: 1.6; padding-left: 1rem; position: relative; margin-bottom: .3rem; }
+.section li::before { content: ''; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.section .text { font-size: .88rem; color: var(--text2); line-height: 1.6; }
+
+.dims { display: flex; flex-direction: column; gap: .5rem; }
+.dim-row { display: flex; align-items: center; gap: .6rem; }
+.dim-label { width: 100px; font-size: .78rem; font-weight: 500; color: var(--text2); flex-shrink: 0; }
+.dim-bar-wrap { flex: 1; display: flex; height: 28px; border-radius: 6px; overflow: hidden; background: var(--surface2); }
+.dim-seg { display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 600; transition: width .4s ease; min-width: 36px; }
+.dim-seg-active { background: var(--accent); color: #fff; }
+.dim-seg-inactive { background: var(--surface2); color: var(--text3); }
+
+.pair-list { list-style: none; }
+.pair-list li { margin-bottom: .5rem; padding-left: 0; }
+.pair-list li::before { display: none; }
+.pair-type { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .75rem; font-weight: 700; padding: .15rem .5rem; border-radius: 999px; letter-spacing: .04em; text-decoration: none; transition: background .2s; }
+a.pair-type:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.pair-reason { font-size: .82rem; color: var(--text2); margin-left: .3rem; }
+
+.type-grid { margin-top: 2rem; }
+.type-grid h2 { font-size: .78rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .75rem; }
+.type-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.type-link { display: inline-block; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-size: .82rem; font-weight: 600; padding: .35rem .7rem; border-radius: 999px; text-decoration: none; transition: border-color .2s, color .2s, box-shadow .2s; box-shadow: var(--shadow); }
+.type-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
+.type-link.current { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+.actions { display: flex; gap: .75rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
+.actions a { font-size: .82rem; font-weight: 600; color: var(--accent); text-decoration: none; padding: .5rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); transition: border-color .2s, background .2s; }
+.actions a:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+.loading { text-align: center; color: var(--text3); padding: 3rem 1rem; font-size: .95rem; }
+.error { text-align: center; color: #dc2626; padding: 3rem 1rem; font-size: .95rem; }
+
+@media (max-width: 500px) {
+  .header h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+  .dim-label { width: 72px; font-size: .72rem; }
+  .dim-seg { font-size: .65rem; min-width: 28px; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions a { text-align: center; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
+  <a href="types.html" class="active">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div id="content"><div class="loading">Loading…</div></div>
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+<script>
+const TYPES = [
+  'PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN',
+  'RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'
+];
+const DIMS = [
+  { id: 'autonomy', letters: ['P','R'] },
+  { id: 'precision', letters: ['T','E'] },
+  { id: 'transparency', letters: ['C','D'] },
+  { id: 'adaptability', letters: ['F','N'] }
+];
+const i18n = {
+  en: {
+    strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style',
+    bestPairedWith: 'Best Paired With', dimensions: 'Dimensions', allTypes: 'All Types',
+    takeTest: 'Take the Test', compare: 'Compare Types',
+    invalid: 'Invalid type code. Please choose a valid ABTI type.',
+    dimNames: ['Autonomy','Precision','Transparency','Adaptability'],
+    dimPoles: [['Proactive','Responsive'],['Thorough','Efficient'],['Candid','Diplomatic'],['Flexible','Principled']]
+  },
+  zh: {
+    strengths: '优势', blindSpots: '盲点', workStyle: '工作风格',
+    bestPairedWith: '最佳搭档', dimensions: '维度', allTypes: '全部类型',
+    takeTest: '参加测试', compare: '比较类型',
+    invalid: '无效的类型代码，请选择一个有效的 ABTI 类型。',
+    dimNames: ['自主性','精确度','透明度','适应性'],
+    dimPoles: [['主动','响应'],['周全','高效'],['直言','委婉'],['灵活','原则']]
+  }
+};
+
+let lang = localStorage.getItem('abti-lang') || 'en';
+function t(key) { return (i18n[lang] || i18n.en)[key]; }
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+  render();
+}
+
+// Extract type code from URL path: /type/XXXX
+const pathMatch = window.location.pathname.match(/\/type\/([A-Za-z]{4})$/);
+const typeCode = pathMatch ? pathMatch[1].toUpperCase() : null;
+
+let typesData = null;
+
+async function init() {
+  if (!typeCode || !TYPES.includes(typeCode)) {
+    document.getElementById('content').innerHTML = '<div class="error">' + t('invalid') + '</div>' + renderTypeGrid(null);
+    return;
+  }
+  try {
+    const [enRes, zhRes] = await Promise.all([
+      fetch('/api/types?lang=en').then(r => r.json()),
+      fetch('/api/types?lang=zh').then(r => r.json())
+    ]);
+    typesData = { en: enRes, zh: zhRes };
+    render();
+  } catch {
+    document.getElementById('content').innerHTML = '<div class="error">Failed to load type data.</div>';
+  }
+}
+
+function render() {
+  if (!typesData || !typeCode) return;
+  const data = lang === 'zh' ? typesData.zh : typesData.en;
+  const td = data.types && data.types[typeCode];
+  if (!td) {
+    document.getElementById('content').innerHTML = '<div class="error">' + t('invalid') + '</div>';
+    return;
+  }
+  const dims = data.dimensions || t('dimNames');
+  const poles = t('dimPoles');
+
+  let html = '';
+
+  // Header
+  html += '<div class="header">';
+  html += '<span class="pill">' + typeCode + '</span>';
+  html += '<h1>"<span>' + esc(td.nick) + '</span>"</h1>';
+  html += '<div class="desc">' + esc(td.workStyle || '') + '</div>';
+  html += '</div>';
+
+  // Dimensions
+  html += '<div class="section"><h2>' + t('dimensions') + '</h2><div class="dims">';
+  for (let i = 0; i < 4; i++) {
+    const letter = typeCode[i];
+    const isFirst = letter === DIMS[i].letters[0];
+    const lPct = isFirst ? 80 : 20;
+    const rPct = 100 - lPct;
+    html += '<div class="dim-row">';
+    html += '<span class="dim-label">' + esc(dims[i] || t('dimNames')[i]) + '</span>';
+    html += '<div class="dim-bar-wrap">';
+    html += '<div class="dim-seg ' + (isFirst ? 'dim-seg-active' : 'dim-seg-inactive') + '" style="width:' + lPct + '%">' + esc(poles[i][0]) + ' (' + DIMS[i].letters[0] + ')</div>';
+    html += '<div class="dim-seg ' + (!isFirst ? 'dim-seg-active' : 'dim-seg-inactive') + '" style="width:' + rPct + '%">' + esc(poles[i][1]) + ' (' + DIMS[i].letters[1] + ')</div>';
+    html += '</div></div>';
+  }
+  html += '</div></div>';
+
+  // Strengths
+  if (td.strengths && td.strengths.length) {
+    html += '<div class="section"><h2>' + t('strengths') + '</h2><ul>';
+    td.strengths.forEach(s => html += '<li>' + esc(s) + '</li>');
+    html += '</ul></div>';
+  }
+
+  // Blind Spots
+  if (td.blindSpots && td.blindSpots.length) {
+    html += '<div class="section"><h2>' + t('blindSpots') + '</h2><ul>';
+    td.blindSpots.forEach(s => html += '<li>' + esc(s) + '</li>');
+    html += '</ul></div>';
+  }
+
+  // Work Style
+  if (td.workStyle) {
+    html += '<div class="section"><h2>' + t('workStyle') + '</h2><div class="text">' + esc(td.workStyle) + '</div></div>';
+  }
+
+  // Best Paired With
+  if (td.bestPairedWith && td.bestPairedWith.length) {
+    html += '<div class="section"><h2>' + t('bestPairedWith') + '</h2><ul class="pair-list">';
+    td.bestPairedWith.forEach(p => {
+      html += '<li><a class="pair-type" href="/type/' + esc(p.type) + '">' + esc(p.type) + '</a> <span class="pair-reason">— ' + esc(p.reason) + '</span></li>';
+    });
+    html += '</ul></div>';
+  }
+
+  // Actions
+  html += '<div class="actions">';
+  html += '<a href="index.html">' + t('takeTest') + '</a>';
+  html += '<a href="compare.html?a=' + typeCode + '">' + t('compare') + '</a>';
+  html += '</div>';
+
+  // All types grid
+  html += renderTypeGrid(typeCode);
+
+  document.getElementById('content').innerHTML = html;
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+}
+
+function renderTypeGrid(current) {
+  let html = '<div class="type-grid"><h2>' + t('allTypes') + '</h2><div class="type-links">';
+  TYPES.forEach(c => {
+    html += '<a class="type-link' + (c === current ? ' current' : '') + '" href="/type/' + c + '">' + c + '</a>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+init();
+</script>
+</body>
+</html>

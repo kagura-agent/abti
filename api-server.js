@@ -629,6 +629,34 @@ ${dimInfo.map((d, i) => {
     return res.end(svg);
   }
 
+  // GET /type/:code - dedicated type detail page with dynamic OG tags
+  const typePageMatch = url.pathname.match(/^\/type\/([A-Za-z]{4})$/);
+  if (typePageMatch && req.method === 'GET') {
+    const code = typePageMatch[1].toUpperCase();
+    const VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    if (!VALID.includes(code)) {
+      res.writeHead(302, { 'Location': '/' });
+      return res.end();
+    }
+    const t = types[code];
+    const nick = t?.en?.nick || code;
+    const desc = `${nick} — discover this AI agent behavioral type with ABTI`;
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'type.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${code} — ${nick} | ABTI">`);
+    html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}">`);
+    html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="https://abti.kagura-agent.com/og/${code}">`);
+    html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="https://abti.kagura-agent.com/type/${code}">`);
+    html = html.replace(/<title>[^<]*<\/title>/, `<title>${code} "${nick}" — ABTI</title>`);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // GET /result/:type - shareable result page with dynamic OG tags
   const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
   if (resultMatch && req.method === 'GET') {
