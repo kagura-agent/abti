@@ -190,6 +190,70 @@ describe('POST /api/agent-test', () => {
   });
 });
 
+// ─── POST /api/agent-test?format=markdown ───
+
+describe('POST /api/agent-test?format=markdown', () => {
+  const allA = Array(16).fill(1);
+
+  it('returns text/markdown content type', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, format: 'markdown' } });
+    assert.equal(r.status, 200);
+    assert.match(r.headers['content-type'], /text\/markdown/);
+  });
+
+  it('includes badge image link and dimension table', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, format: 'markdown' } });
+    assert.match(r.body, /!\[ABTI: PTCF\]/);
+    assert.match(r.body, /badge\/PTCF/);
+    assert.match(r.body, /\| Dimension \| Score \| Pole \|/);
+  });
+
+  it('includes profile sections', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, format: 'markdown' } });
+    assert.match(r.body, /### Strengths/);
+    assert.match(r.body, /### Blind Spots/);
+    assert.match(r.body, /### Work Style/);
+    assert.match(r.body, /### Best Paired With/);
+  });
+
+  it('without format param still returns JSON', async () => {
+    const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA } });
+    assert.match(r.headers['content-type'], /application\/json/);
+    const j = r.json();
+    assert.equal(j.type, 'PTCF');
+  });
+});
+
+// ─── GET /type/:code ───
+
+describe('GET /type/:code', () => {
+  it('returns HTML with OG meta tags for valid type', async () => {
+    const r = await req('/type/PTCF');
+    assert.equal(r.status, 200);
+    assert.match(r.headers['content-type'], /text\/html/);
+    assert.match(r.body, /og:title/);
+    assert.match(r.body, /PTCF/);
+  });
+
+  it('OG tags include correct type name and nickname', async () => {
+    const r = await req('/type/PTCF');
+    assert.match(r.body, /og:title.*Architect/);
+    assert.match(r.body, /og:image.*og\/PTCF/);
+  });
+
+  it('case insensitive type code', async () => {
+    const r = await req('/type/ptcf');
+    assert.equal(r.status, 200);
+    assert.match(r.body, /PTCF/);
+  });
+
+  it('302 redirects for invalid type code', async () => {
+    const r = await req('/type/ZZZZ');
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.location, '/');
+  });
+});
+
 // ─── GET /api/types ───
 
 describe('GET /api/types', () => {
