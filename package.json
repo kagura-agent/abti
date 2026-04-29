@@ -2,6 +2,10 @@
   "name": "abti",
   "private": true,
   "scripts": {
-    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js"
+    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js",
+    "generate-og": "node scripts/generate-og-images.js"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }
