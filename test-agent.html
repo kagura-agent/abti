@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Your Agent — ABTI</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Test Your Agent — ABTI">
+<meta property="og:description" content="Test your AI agent's personality type directly from the browser">
+<meta property="og:url" content="https://abti.kagura-agent.com/test-agent.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Serif+SC:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface2: #f0eeeb;
+  --text: #1a1a1a;
+  --text2: #6b6b6b;
+  --accent: #e8658a;
+  --accent2: #d44d73;
+  --accent-soft: #fdf0f3;
+  --accent-glow: rgba(232, 101, 138, 0.10);
+  --border: #e8e5e1;
+  --radius: 14px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem;
+  background: rgba(250, 249, 247, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-size: 0.85rem;
+}
+.nav a {
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.1em;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+}
+.nav a:hover { color: var(--accent); }
+.nav a.active { color: var(--accent); font-weight: 600; }
+
+.lang-btn {
+  position: absolute;
+  right: 1rem;
+  background: var(--surface);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: var(--shadow-sm);
+}
+.lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+body {
+  font-family: 'DM Sans', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text2);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 0.35rem;
+}
+
+select, input, textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.2s;
+  margin-bottom: 1rem;
+}
+select:focus, input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+.privacy-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--accent2);
+  margin-bottom: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover { background: var(--accent2); box-shadow: var(--shadow-md); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text2);
+  margin-bottom: 0.5rem;
+}
+
+.question-log {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+.q-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.q-item:last-child { border-bottom: none; }
+
+.q-num {
+  font-weight: 600;
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+.q-answer {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+.q-answer.a { background: var(--accent-soft); color: var(--accent2); }
+.q-answer.b { background: #e8f4f8; color: #2d7d9a; }
+.q-answer.unclear { background: #fff3cd; color: #856404; }
+
+.q-response {
+  color: var(--text2);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  word-break: break-word;
+}
+
+.manual-select {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-left: 0.5rem;
+}
+.manual-select button {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.manual-select button:hover { border-color: var(--accent); color: var(--accent); }
+.manual-select button.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Result section */
+.result-type {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin: 1rem 0 0.25rem;
+}
+
+.result-nick {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.dim-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.dim-name {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  margin-bottom: 0.25rem;
+}
+.dim-letter {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.dim-pole {
+  font-size: 0.8rem;
+  color: var(--text);
+  margin-top: 0.15rem;
+}
+.dim-score {
+  font-size: 0.75rem;
+  color: var(--text2);
+  margin-top: 0.15rem;
+}
+
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.text-block {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.text-block ul {
+  list-style: none;
+  padding: 0;
+}
+.text-block li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+.text-block li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.error-box {
+  padding: 1rem;
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #991b1b;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+
+.error-box pre {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #fef2f2;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.hidden { display: none !important; }
+
+.register-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .nav { gap: 0.7rem; font-size: 0.72rem; padding: 0.6rem 0.5rem; }
+  .nav a { letter-spacing: 0.03em; }
+  .container { padding: 4rem 1rem 2rem; }
+  h1 { font-size: 1.5rem; }
+  .dim-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
+  <a href="types.html">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="test-agent.html" class="active">Test Agent</a>
+  <a href="compatibility.html">Compatibility</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+
+<div class="container">
+  <!-- Setup Section -->
+  <div id="setupSection">
+    <h1 id="pageTitle">Test Your Agent</h1>
+    <div class="subtitle" id="pageSubtitle">Send ABTI questions to your AI agent and discover its personality type</div>
+
+    <!-- Provider -->
+    <div class="card">
+      <div class="card-title" id="providerLabel">Provider</div>
+      <select id="providerSelect" onchange="onProviderChange()">
+        <option value="openai">OpenAI</option>
+        <option value="anthropic">Anthropic</option>
+        <option value="google">Google AI</option>
+        <option value="openrouter">OpenRouter</option>
+        <option value="custom">Custom Endpoint</option>
+      </select>
+
+      <label id="modelLabel">Model</label>
+      <select id="modelSelect"></select>
+      <input type="text" id="modelInput" class="hidden" placeholder="e.g. meta-llama/llama-3-70b">
+
+      <label id="apiKeyLabel">API Key</label>
+      <input type="password" id="apiKeyInput" placeholder="sk-...">
+
+      <div class="privacy-notice" id="privacyNotice">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1a4 4 0 0 0-4 4v2H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-1V5a4 4 0 0 0-4-4zm-2 4a2 2 0 1 1 4 0v2H6V5z" fill="currentColor"/></svg>
+        <span id="privacyText">Your API key never leaves your browser. All LLM calls are made directly from your browser to the provider.</span>
+      </div>
+
+      <!-- Custom endpoint fields -->
+      <div id="customFields" class="hidden">
+        <label>Base URL</label>
+        <input type="text" id="customUrl" placeholder="https://api.example.com/v1/chat/completions">
+        <label id="authFormatLabel">Auth Header Format</label>
+        <select id="authFormat">
+          <option value="bearer">Authorization: Bearer &lt;key&gt;</option>
+          <option value="x-api-key">x-api-key: &lt;key&gt;</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Agent Info (optional) -->
+    <div class="card">
+      <div class="card-title" id="agentInfoLabel">Agent Info (Optional)</div>
+      <label id="agentNameLabel">Agent Name</label>
+      <input type="text" id="agentName" placeholder="e.g. My Assistant" maxlength="64">
+      <label id="agentUrlLabel">Agent URL</label>
+      <input type="text" id="agentUrl" placeholder="https://...">
+      <label id="systemPromptLabel">System Prompt (agent persona)</label>
+      <textarea id="systemPrompt" placeholder="You are a helpful assistant..."></textarea>
+    </div>
+
+    <!-- Start button -->
+    <button class="btn" id="startBtn" onclick="startTest()">Start Test</button>
+  </div>
+
+  <!-- Progress Section -->
+  <div id="progressSection" class="hidden">
+    <h1 id="testingTitle">Testing...</h1>
+    <div class="progress-text" id="progressText">Question 0/16</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="question-log" id="questionLog"></div>
+    <div id="errorArea"></div>
+    <button class="btn btn-secondary hidden" id="stopBtn" onclick="stopTest()">Stop</button>
+  </div>
+
+  <!-- Result Section -->
+  <div id="resultSection" class="hidden">
+    <h1 id="resultTitle">Result</h1>
+    <div class="result-type" id="resultType"></div>
+    <div class="result-nick" id="resultNick"></div>
+
+    <div class="dim-grid" id="dimGrid"></div>
+
+    <div id="resultDetails"></div>
+
+    <div class="register-section">
+      <div class="section-title" id="registerTitle">Register to Agent Directory</div>
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1rem" id="registerDesc">Add this result to the public ABTI agent directory.</p>
+      <label id="regNameLabel">Agent Name (required)</label>
+      <input type="text" id="regName" maxlength="64">
+      <label id="regUrlLabel">Agent URL (optional)</label>
+      <input type="text" id="regUrl">
+      <button class="btn" id="registerBtn" onclick="registerResult()">Register</button>
+      <div id="registerStatus"></div>
+    </div>
+
+    <div style="margin-top:1.5rem;display:flex;gap:0.75rem">
+      <button class="btn btn-secondary" style="flex:1" onclick="location.reload()">Test Another</button>
+      <a class="btn" style="flex:1;text-decoration:none" id="shareLink" href="#">View Type Page</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── i18n ──
+let lang = 'zh';
+const i18n = {
+  zh: {
+    pageTitle: '测试你的 Agent',
+    pageSubtitle: '将 ABTI 问题发送给你的 AI Agent，发现它的人格类型',
+    provider: '服务商',
+    model: '模型',
+    apiKey: 'API 密钥',
+    privacy: '你的 API 密钥永远不会离开浏览器。所有 LLM 调用直接从浏览器发送到服务商。',
+    agentInfo: 'Agent 信息（可选）',
+    agentName: 'Agent 名称',
+    agentUrl: 'Agent URL',
+    systemPrompt: '系统提示词（Agent 人设）',
+    startTest: '开始测试',
+    testing: '测试中...',
+    question: '问题',
+    result: '测试结果',
+    registerTitle: '注册到 Agent 目录',
+    registerDesc: '将此结果添加到公开的 ABTI Agent 目录。',
+    regName: 'Agent 名称（必填）',
+    regUrl: 'Agent URL（可选）',
+    register: '注册',
+    registered: '注册成功！',
+    regError: '注册失败：',
+    testAnother: '再测一个',
+    viewType: '查看类型页面',
+    stop: '停止',
+    unclear: '无法解析',
+    selectManually: '请手动选择：',
+    authFormat: '认证头格式',
+    corsError: '浏览器 CORS 限制。此服务商可能不支持浏览器直接调用。',
+    curlFallback: '你可以用 curl 命令代替：',
+    strengths: '优势',
+    blindSpots: '盲区',
+    workStyle: '工作风格',
+    apiKeyRequired: '请输入 API 密钥',
+    customUrlRequired: '请输入 API URL',
+    modelRequired: '请输入模型名称',
+  },
+  en: {
+    pageTitle: 'Test Your Agent',
+    pageSubtitle: 'Send ABTI questions to your AI agent and discover its personality type',
+    provider: 'Provider',
+    model: 'Model',
+    apiKey: 'API Key',
+    privacy: 'Your API key never leaves your browser. All LLM calls are made directly from your browser to the provider.',
+    agentInfo: 'Agent Info (Optional)',
+    agentName: 'Agent Name',
+    agentUrl: 'Agent URL',
+    systemPrompt: 'System Prompt (agent persona)',
+    startTest: 'Start Test',
+    testing: 'Testing...',
+    question: 'Question',
+    result: 'Result',
+    registerTitle: 'Register to Agent Directory',
+    registerDesc: 'Add this result to the public ABTI agent directory.',
+    regName: 'Agent Name (required)',
+    regUrl: 'Agent URL (optional)',
+    register: 'Register',
+    registered: 'Registered successfully!',
+    regError: 'Registration failed: ',
+    testAnother: 'Test Another',
+    viewType: 'View Type Page',
+    stop: 'Stop',
+    unclear: 'unclear',
+    selectManually: 'Please select manually:',
+    authFormat: 'Auth Header Format',
+    corsError: 'Browser CORS restriction. This provider may not support direct browser calls.',
+    curlFallback: 'You can use curl instead:',
+    strengths: 'Strengths',
+    blindSpots: 'Blind Spots',
+    workStyle: 'Work Style',
+    apiKeyRequired: 'Please enter an API key',
+    customUrlRequired: 'Please enter the API URL',
+    modelRequired: 'Please enter a model name',
+  }
+};
+
+function t(key) { return i18n[lang][key]; }
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
+  applyLang();
+}
+
+function applyLang() {
+  document.getElementById('pageTitle').textContent = t('pageTitle');
+  document.getElementById('pageSubtitle').textContent = t('pageSubtitle');
+  document.getElementById('providerLabel').textContent = t('provider');
+  document.getElementById('modelLabel').textContent = t('model');
+  document.getElementById('apiKeyLabel').textContent = t('apiKey');
+  document.getElementById('privacyText').textContent = t('privacy');
+  document.getElementById('agentInfoLabel').textContent = t('agentInfo');
+  document.getElementById('agentNameLabel').textContent = t('agentName');
+  document.getElementById('agentUrlLabel').textContent = t('agentUrl');
+  document.getElementById('systemPromptLabel').textContent = t('systemPrompt');
+  document.getElementById('startBtn').textContent = t('startTest');
+  document.getElementById('testingTitle').textContent = t('testing');
+  document.getElementById('resultTitle').textContent = t('result');
+  document.getElementById('registerTitle').textContent = t('registerTitle');
+  document.getElementById('registerDesc').textContent = t('registerDesc');
+  document.getElementById('regNameLabel').textContent = t('regName');
+  document.getElementById('regUrlLabel').textContent = t('regUrl');
+  document.getElementById('registerBtn').textContent = t('register');
+  document.getElementById('authFormatLabel').textContent = t('authFormat');
+}
+
+// ── Provider config ──
+const providers = {
+  openai: {
+    url: 'https://api.openai.com/v1/chat/completions',
+    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-3.5-turbo', 'o3-mini'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  anthropic: {
+    url: 'https://api.anthropic.com/v1/messages',
+    models: ['claude-sonnet-4-20250514', 'claude-haiku-4-20250414', 'claude-opus-4-20250514'],
+    auth: 'anthropic',
+    format: 'anthropic',
+  },
+  google: {
+    url: 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
+    models: ['gemini-2.0-flash', 'gemini-2.5-pro', 'gemini-1.5-flash'],
+    auth: 'query',
+    format: 'google',
+  },
+  openrouter: {
+    url: 'https://openrouter.ai/api/v1/chat/completions',
+    models: null, // free text
+    auth: 'bearer',
+    format: 'openai',
+  },
+  custom: {
+    url: null,
+    models: null,
+    auth: null,
+    format: 'openai',
+  }
+};
+
+function onProviderChange() {
+  const p = document.getElementById('providerSelect').value;
+  const cfg = providers[p];
+  const modelSelect = document.getElementById('modelSelect');
+  const modelInput = document.getElementById('modelInput');
+  const customFields = document.getElementById('customFields');
+
+  if (cfg.models) {
+    modelSelect.innerHTML = cfg.models.map(m => `<option value="${m}">${m}</option>`).join('');
+    modelSelect.classList.remove('hidden');
+    modelInput.classList.add('hidden');
+  } else {
+    modelSelect.classList.add('hidden');
+    modelInput.classList.remove('hidden');
+  }
+  customFields.classList.toggle('hidden', p !== 'custom');
+}
+
+// ── LLM Call ──
+async function callLLM(systemMsg, userMsg) {
+  const p = document.getElementById('providerSelect').value;
+  const cfg = providers[p];
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  const model = cfg.models
+    ? document.getElementById('modelSelect').value
+    : document.getElementById('modelInput').value.trim();
+
+  let url, headers, body;
+
+  if (p === 'custom') {
+    url = document.getElementById('customUrl').value.trim();
+    const authFmt = document.getElementById('authFormat').value;
+    headers = { 'Content-Type': 'application/json' };
+    if (authFmt === 'bearer') headers['Authorization'] = `Bearer ${apiKey}`;
+    else headers['x-api-key'] = apiKey;
+    body = JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: systemMsg },
+        { role: 'user', content: userMsg }
+      ],
+      max_tokens: 64,
+      temperature: 0,
+    });
+  } else if (cfg.format === 'openai') {
+    url = cfg.url;
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    };
+    body = JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: systemMsg },
+        { role: 'user', content: userMsg }
+      ],
+      max_tokens: 64,
+      temperature: 0,
+    });
+  } else if (cfg.format === 'anthropic') {
+    url = cfg.url;
+    headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true',
+    };
+    body = JSON.stringify({
+      model,
+      system: systemMsg,
+      messages: [{ role: 'user', content: userMsg }],
+      max_tokens: 64,
+      temperature: 0,
+    });
+  } else if (cfg.format === 'google') {
+    url = cfg.url.replace('{model}', model) + '?key=' + encodeURIComponent(apiKey);
+    headers = { 'Content-Type': 'application/json' };
+    body = JSON.stringify({
+      systemInstruction: { parts: [{ text: systemMsg }] },
+      contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+      generationConfig: { maxOutputTokens: 64, temperature: 0 },
+    });
+  }
+
+  const resp = await fetch(url, { method: 'POST', headers, body });
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => resp.statusText);
+    throw new Error(`${resp.status}: ${errText}`);
+  }
+  const data = await resp.json();
+
+  // Extract text from response
+  if (cfg.format === 'anthropic') {
+    return data.content?.[0]?.text || '';
+  } else if (cfg.format === 'google') {
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  } else {
+    return data.choices?.[0]?.message?.content || '';
+  }
+}
+
+// ── Test flow ──
+let questions = [];
+let answers = []; // 1=A, 0=B, null=unclear
+let running = false;
+let abortController = null;
+
+async function startTest() {
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (!apiKey) return alert(t('apiKeyRequired'));
+
+  const p = document.getElementById('providerSelect').value;
+  if (p === 'custom' && !document.getElementById('customUrl').value.trim()) return alert(t('customUrlRequired'));
+  if (!providers[p].models && !document.getElementById('modelInput').value.trim()) return alert(t('modelRequired'));
+
+  // Store key in sessionStorage
+  sessionStorage.setItem('abti_api_key', apiKey);
+
+  // Fetch questions
+  const apiLang = lang === 'zh' ? 'zh' : 'en';
+  try {
+    const resp = await fetch(`/api/test?lang=${apiLang}`);
+    const data = await resp.json();
+    questions = data.questions;
+  } catch (e) {
+    alert('Failed to fetch questions: ' + e.message);
+    return;
+  }
+
+  answers = new Array(16).fill(null);
+  running = true;
+
+  document.getElementById('setupSection').classList.add('hidden');
+  document.getElementById('progressSection').classList.remove('hidden');
+  document.getElementById('questionLog').innerHTML = '';
+  document.getElementById('errorArea').innerHTML = '';
+  document.getElementById('stopBtn').classList.remove('hidden');
+
+  const systemPrompt = document.getElementById('systemPrompt').value.trim();
+  const systemMsg = (systemPrompt ? systemPrompt + '\n\n' : '') +
+    'You are taking a personality assessment. For each scenario, choose either option A or option B. Reply with ONLY the letter A or B, nothing else.';
+
+  for (let i = 0; i < questions.length; i++) {
+    if (!running) break;
+    const q = questions[i];
+    const userMsg = `${q.text}\n\nA: ${q.options.A}\nB: ${q.options.B}`;
+
+    document.getElementById('progressText').textContent = `${t('question')} ${i + 1}/16`;
+    document.getElementById('progressFill').style.width = `${((i) / 16) * 100}%`;
+
+    try {
+      const response = await callLLM(systemMsg, userMsg);
+      const parsed = parseAnswer(response);
+      answers[i] = parsed;
+      addLogItem(i, q, response, parsed);
+    } catch (err) {
+      answers[i] = null;
+      addLogItem(i, q, '', null);
+      showError(i, err);
+    }
+  }
+
+  running = false;
+  document.getElementById('stopBtn').classList.add('hidden');
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressText').textContent = lang === 'zh' ? '完成！' : 'Complete!';
+
+  // Check if all answered
+  const unanswered = answers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    document.getElementById('progressText').textContent =
+      lang === 'zh' ? `还有 ${unanswered} 题需要手动选择` : `${unanswered} questions need manual selection`;
+  } else {
+    showResult();
+  }
+}
+
+function stopTest() {
+  running = false;
+}
+
+function parseAnswer(text) {
+  const trimmed = text.trim().toUpperCase();
+  if (trimmed === 'A') return 1;
+  if (trimmed === 'B') return 0;
+  // Look for A or B at start
+  if (/^A\b/.test(trimmed)) return 1;
+  if (/^B\b/.test(trimmed)) return 0;
+  // Look for A or B anywhere (but only if one is present)
+  const hasA = /\bA\b/.test(trimmed);
+  const hasB = /\bB\b/.test(trimmed);
+  if (hasA && !hasB) return 1;
+  if (hasB && !hasA) return 0;
+  return null;
+}
+
+function addLogItem(idx, q, response, parsed) {
+  const log = document.getElementById('questionLog');
+  const div = document.createElement('div');
+  div.className = 'q-item';
+  div.id = `qitem-${idx}`;
+
+  let answerHtml;
+  if (parsed === 1) answerHtml = `<span class="q-answer a">A</span>`;
+  else if (parsed === 0) answerHtml = `<span class="q-answer b">B</span>`;
+  else {
+    answerHtml = `<span class="q-answer unclear">${t('unclear')}</span>
+      <span class="manual-select">
+        <button onclick="manualSelect(${idx},1)">A</button>
+        <button onclick="manualSelect(${idx},0)">B</button>
+      </span>`;
+  }
+
+  div.innerHTML = `
+    <div><span class="q-num">Q${idx + 1}</span>${q.text} ${answerHtml}</div>
+    ${response ? `<div class="q-response">${escapeHtml(response)}</div>` : ''}
+  `;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+function manualSelect(idx, val) {
+  answers[idx] = val;
+  const item = document.getElementById(`qitem-${idx}`);
+  const answerEl = item.querySelector('.q-answer');
+  const manualEl = item.querySelector('.manual-select');
+  answerEl.className = `q-answer ${val === 1 ? 'a' : 'b'}`;
+  answerEl.textContent = val === 1 ? 'A' : 'B';
+  if (manualEl) manualEl.remove();
+
+  // Check if all answered
+  if (answers.every(a => a !== null)) {
+    showResult();
+  }
+}
+
+function showError(idx, err) {
+  const area = document.getElementById('errorArea');
+  const isCors = err.message.includes('Failed to fetch') || err.message.includes('NetworkError');
+  const p = document.getElementById('providerSelect').value;
+  const model = providers[p]?.models
+    ? document.getElementById('modelSelect').value
+    : document.getElementById('modelInput').value.trim();
+
+  let html = `<div class="error-box">
+    <strong>Q${idx + 1}:</strong> ${escapeHtml(err.message)}`;
+
+  if (isCors) {
+    html += `<br><br>${t('corsError')}`;
+    html += `<br><br>${t('curlFallback')}`;
+    const apiKey = '&lt;YOUR_API_KEY&gt;';
+    if (p === 'openai' || p === 'openrouter') {
+      html += `<pre>curl ${providers[p].url} \\
+  -H "Authorization: Bearer ${apiKey}" \\
+  -H "Content-Type: application/json" \\
+  -d '{"model":"${model}","messages":[{"role":"user","content":"A or B?"}]}'</pre>`;
+    } else if (p === 'anthropic') {
+      html += `<pre>curl ${providers[p].url} \\
+  -H "x-api-key: ${apiKey}" \\
+  -H "anthropic-version: 2023-06-01" \\
+  -H "Content-Type: application/json" \\
+  -d '{"model":"${model}","messages":[{"role":"user","content":"A or B?"}],"max_tokens":64}'</pre>`;
+    }
+  }
+  html += '</div>';
+  area.innerHTML += html;
+}
+
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// ── Result ──
+async function showResult() {
+  const apiLang = lang === 'zh' ? 'zh' : 'en';
+  try {
+    const resp = await fetch('/api/agent-test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers, lang: apiLang, format: 'json' }),
+    });
+    const result = await resp.json();
+    if (result.error) {
+      alert(result.error);
+      return;
+    }
+    displayResult(result);
+  } catch (e) {
+    alert('Error scoring: ' + e.message);
+  }
+}
+
+function displayResult(r) {
+  document.getElementById('progressSection').classList.add('hidden');
+  document.getElementById('resultSection').classList.remove('hidden');
+
+  document.getElementById('resultType').textContent = r.type;
+  document.getElementById('resultNick').textContent = `"${r.nick}"`;
+  document.getElementById('shareLink').href = `/type/${r.type}`;
+
+  // Dimension grid
+  const dimGrid = document.getElementById('dimGrid');
+  dimGrid.innerHTML = '';
+  for (const [name, d] of Object.entries(r.dimensions)) {
+    dimGrid.innerHTML += `
+      <div class="dim-card">
+        <div class="dim-name">${name}</div>
+        <div class="dim-letter">${d.letter}</div>
+        <div class="dim-pole">${d.pole}</div>
+        <div class="dim-score">${d.score}/${d.max}</div>
+      </div>`;
+  }
+
+  // Details
+  const details = document.getElementById('resultDetails');
+  let html = '';
+  if (r.strengths) {
+    html += `<div class="section-title">${t('strengths')}</div>
+      <div class="text-block"><ul>${r.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ul></div>`;
+  }
+  if (r.blindSpots) {
+    html += `<div class="section-title">${t('blindSpots')}</div>
+      <div class="text-block"><ul>${r.blindSpots.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ul></div>`;
+  }
+  if (r.workStyle) {
+    html += `<div class="section-title">${t('workStyle')}</div>
+      <div class="text-block">${escapeHtml(r.workStyle)}</div>`;
+  }
+  details.innerHTML = html;
+
+  // Pre-fill registration
+  document.getElementById('regName').value = document.getElementById('agentName').value;
+  document.getElementById('regUrl').value = document.getElementById('agentUrl').value;
+
+  // Store result for registration
+  window._lastResult = r;
+}
+
+async function registerResult() {
+  const name = document.getElementById('regName').value.trim();
+  if (!name) return alert(lang === 'zh' ? '请输入 Agent 名称' : 'Agent name is required');
+
+  const r = window._lastResult;
+  const p = document.getElementById('providerSelect').value;
+  const model = providers[p]?.models
+    ? document.getElementById('modelSelect').value
+    : document.getElementById('modelInput').value.trim();
+
+  try {
+    const resp = await fetch('/api/agent-test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        answers,
+        lang: lang === 'zh' ? 'zh' : 'en',
+        agentName: name,
+        agentUrl: document.getElementById('regUrl').value.trim() || undefined,
+        model: model || undefined,
+        provider: p !== 'custom' ? p : undefined,
+      }),
+    });
+    const data = await resp.json();
+    if (data.error) {
+      document.getElementById('registerStatus').innerHTML = `<div class="error-box">${t('regError')}${escapeHtml(data.error)}</div>`;
+    } else {
+      document.getElementById('registerStatus').innerHTML = `<div style="padding:0.75rem;background:var(--accent-soft);border-radius:10px;color:var(--accent2);font-size:0.85rem;margin-top:0.5rem">${t('registered')}</div>`;
+      document.getElementById('registerBtn').disabled = true;
+    }
+  } catch (e) {
+    document.getElementById('registerStatus').innerHTML = `<div class="error-box">${t('regError')}${escapeHtml(e.message)}</div>`;
+  }
+}
+
+// ── Init ──
+onProviderChange();
+applyLang();
+
+// Restore key from sessionStorage
+const savedKey = sessionStorage.getItem('abti_api_key');
+if (savedKey) document.getElementById('apiKeyInput').value = savedKey;
+</script>
+</body>
+</html>
