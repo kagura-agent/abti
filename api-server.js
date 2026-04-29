@@ -880,6 +880,18 @@ ${dimInfo.map((d, i) => {
     return res.end(html);
   }
 
+  // GET /test-agent - serve test-agent.html
+  if (url.pathname === '/test-agent' && req.method === 'GET') {
+    try {
+      const html = fs.readFileSync(path.join(__dirname, 'test-agent.html'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end(html);
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+  }
+
   // MCP Streamable HTTP transport on /mcp
   if (url.pathname === '/mcp') {
     handleMcpRequest(req, res);
@@ -902,7 +914,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
@@ -1075,7 +1087,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
