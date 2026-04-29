@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Type Compatibility — ABTI</title>
+<meta property="og:title" content="Type Compatibility — ABTI">
+<meta property="og:description" content="Explore how different AI agent behavioral types work together — compatibility matrix for all 16 ABTI types">
+<meta property="og:url" content="https://abti.kagura-agent.com/compatibility.html">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Type Compatibility — ABTI","description":"Explore how different AI agent behavioral types work together","url":"https://abti.kagura-agent.com/compatibility.html"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+
+.wrap { max-width: 800px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+.header { text-align: center; margin-bottom: 2rem; }
+.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; }
+.header h1 span { color: var(--accent); }
+
+.lang-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: .2rem .5rem; font-size: .75rem; font-weight: 600; color: var(--text2); cursor: pointer; letter-spacing: .06em; }
+
+.selectors { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.selectors select { font-family: 'DM Sans', system-ui, sans-serif; font-size: .9rem; padding: .5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); cursor: pointer; min-width: 220px; }
+.selectors select:focus { outline: none; border-color: var(--accent); }
+.vs { font-weight: 600; color: var(--text3); font-size: .85rem; letter-spacing: .1em; }
+.check-btn { font-family: 'DM Sans', system-ui, sans-serif; font-size: .85rem; font-weight: 600; padding: .55rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background .2s; letter-spacing: .04em; }
+.check-btn:hover { background: var(--accent2); }
+
+#result { display: none; }
+
+.result-header { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.type-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .8rem; font-weight: 700; padding: .2rem .65rem; border-radius: 999px; letter-spacing: .06em; }
+.type-nick { color: var(--text2); font-size: .85rem; }
+.category-badge { display: inline-block; padding: .25rem .75rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.category-complementary { background: #dcfce7; color: #166534; }
+.category-balanced { background: #fef9c3; color: #854d0e; }
+.category-similar { background: #e0e7ff; color: #3730a3; }
+
+.score-bar-wrap { margin-bottom: 2rem; }
+.score-label { font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: .4rem; }
+.score-bar { position: relative; height: 24px; background: var(--surface2); border-radius: 12px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 12px; transition: width .4s; }
+.score-fill.complementary { background: linear-gradient(90deg, #22c55e, #16a34a); }
+.score-fill.balanced { background: linear-gradient(90deg, #eab308, #ca8a04); }
+.score-fill.similar { background: linear-gradient(90deg, #6366f1, #4f46e5); }
+.score-value { position: absolute; right: .6rem; top: 50%; transform: translateY(-50%); font-size: .72rem; font-weight: 700; color: var(--text); }
+
+.section-title { font-size: .95rem; font-weight: 600; margin-bottom: 1rem; color: var(--text); }
+
+.dims { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
+.dim { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; box-shadow: var(--shadow); }
+.dim-name { font-size: .8rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
+.dim-poles { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.dim-pole { font-size: .75rem; font-weight: 600; }
+.dim-pole.active { color: var(--accent); }
+.dim-pole.inactive { color: var(--text3); }
+.dim-bar { position: relative; height: 28px; background: var(--surface2); border-radius: 14px; overflow: hidden; margin-bottom: .35rem; }
+.dim-bar .pole-label { position: absolute; top: 50%; transform: translateY(-50%); font-size: .7rem; font-weight: 600; z-index: 2; }
+.dim-bar .pole-left { left: .6rem; color: var(--text2); }
+.dim-bar .pole-right { right: .6rem; color: var(--text2); }
+.dim-marker { position: absolute; top: 2px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 700; color: #fff; z-index: 3; transition: left .3s; }
+.marker-1 { background: var(--accent); }
+.marker-2 { background: #e8658a; }
+.dim-status { font-size: .72rem; color: var(--text3); text-align: center; margin-bottom: .4rem; }
+.dim-status.match { color: var(--accent); font-weight: 600; }
+.dim-analysis { font-size: .8rem; color: var(--text2); line-height: 1.6; }
+
+.summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); margin-bottom: 2rem; }
+.summary p { font-size: .85rem; color: var(--text2); line-height: 1.65; }
+
+.matrix-section { margin-bottom: 2rem; }
+.matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.matrix { border-collapse: collapse; font-size: .6rem; }
+.matrix th, .matrix td { width: 2.2rem; height: 2rem; text-align: center; border: 1px solid var(--border); }
+.matrix th { font-weight: 600; background: var(--surface2); color: var(--text2); font-size: .55rem; position: sticky; }
+.matrix thead th { top: 0; z-index: 2; }
+.matrix th:first-child { left: 0; z-index: 3; }
+.matrix td:first-child { position: sticky; left: 0; background: var(--surface2); font-weight: 600; color: var(--text2); font-size: .55rem; z-index: 1; }
+.matrix td { cursor: pointer; font-weight: 600; transition: transform .1s; }
+.matrix td:hover { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+  .selectors { flex-direction: column; align-items: stretch; }
+  .selectors select { min-width: auto; }
+  .vs { display: none; }
+  nav { gap: 1rem; font-size: .72rem; }
+  .matrix { font-size: .5rem; }
+  .matrix th, .matrix td { width: 1.8rem; height: 1.6rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
+  <a href="types.html">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="compatibility.html" class="active">Compatibility</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div class="header">
+    <h1 id="pageTitle">Type <span>Compatibility</span></h1>
+  </div>
+  <div class="selectors">
+    <select id="sel1"></select>
+    <span class="vs">VS</span>
+    <select id="sel2"></select>
+    <button class="check-btn" onclick="doCheck()" id="checkBtn">Check Compatibility</button>
+  </div>
+
+  <div class="matrix-section">
+    <div class="section-title" id="matrixTitle">Quick Matrix</div>
+    <div class="matrix-wrap"><table class="matrix" id="matrixTable"></table></div>
+  </div>
+
+  <div id="result"></div>
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+<script>
+const TYPES = [
+  'PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN',
+  'RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'
+];
+
+const i18n = {
+  en: {
+    title: 'Type <span>Compatibility</span>',
+    checkBtn: 'Check Compatibility',
+    matrixTitle: 'Quick Matrix',
+    dimensions: 'Dimension Analysis',
+    summary: 'Summary',
+    score: 'Compatibility Score',
+    complementary: 'Complementary',
+    balanced: 'Balanced',
+    similar: 'Similar',
+    match: 'Match',
+    contrast: 'Contrast'
+  },
+  zh: {
+    title: '类型<span>兼容性</span>',
+    checkBtn: '查看兼容性',
+    matrixTitle: '速查矩阵',
+    dimensions: '维度分析',
+    summary: '总结',
+    score: '兼容性分数',
+    complementary: '互补型',
+    balanced: '均衡型',
+    similar: '相似型',
+    match: '匹配',
+    contrast: '对比'
+  }
+};
+
+let lang = localStorage.getItem('abti-lang') || 'en';
+let nicknames = {};
+let matrixData = null;
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  applyLang();
+  loadNicknames();
+  if (document.getElementById('result').style.display === 'block') doCheck();
+}
+
+function applyLang() {
+  const t = i18n[lang];
+  document.getElementById('pageTitle').innerHTML = t.title;
+  document.getElementById('checkBtn').textContent = t.checkBtn;
+  document.getElementById('matrixTitle').textContent = t.matrixTitle;
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+}
+
+async function loadNicknames() {
+  const res = await fetch(`/api/types?lang=${lang}`);
+  const d = await res.json();
+  nicknames = {};
+  for (const [code, info] of Object.entries(d.types)) {
+    nicknames[code] = info.nick;
+  }
+  populateSelects();
+}
+
+function populateSelects() {
+  const sel1 = document.getElementById('sel1');
+  const sel2 = document.getElementById('sel2');
+  const v1 = sel1.value || 'PTCF';
+  const v2 = sel2.value || 'REDN';
+  sel1.innerHTML = '';
+  sel2.innerHTML = '';
+  TYPES.forEach(t => {
+    const label = `${t} — ${nicknames[t] || t}`;
+    sel1.add(new Option(label, t));
+    sel2.add(new Option(label, t));
+  });
+  sel1.value = v1;
+  sel2.value = v2;
+}
+
+async function loadMatrix() {
+  const res = await fetch('/api/compatibility/matrix');
+  matrixData = await res.json();
+  renderMatrix();
+}
+
+function scoreColor(score) {
+  if (score >= 80) return '#dcfce7';
+  if (score >= 65) return '#fef9c3';
+  return '#e0e7ff';
+}
+function scoreTextColor(score) {
+  if (score >= 80) return '#166534';
+  if (score >= 65) return '#854d0e';
+  return '#3730a3';
+}
+
+function renderMatrix() {
+  if (!matrixData) return;
+  const t = matrixData.types;
+  const m = matrixData.matrix;
+  let html = '<thead><tr><th></th>';
+  t.forEach(c => html += `<th>${c}</th>`);
+  html += '</tr></thead><tbody>';
+  t.forEach(r => {
+    html += `<tr><td>${r}</td>`;
+    t.forEach(c => {
+      const s = m[r][c];
+      html += `<td style="background:${scoreColor(s)};color:${scoreTextColor(s)}" onclick="cellClick('${r}','${c}')" title="${r} × ${c}: ${s}">${s}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  document.getElementById('matrixTable').innerHTML = html;
+}
+
+function cellClick(t1, t2) {
+  document.getElementById('sel1').value = t1;
+  document.getElementById('sel2').value = t2;
+  doCheck();
+}
+
+async function doCheck() {
+  const a = document.getElementById('sel1').value;
+  const b = document.getElementById('sel2').value;
+  history.replaceState(null, '', `compatibility.html?a=${a}&b=${b}`);
+  const res = await fetch(`/api/compatibility?type1=${a}&type2=${b}&lang=${lang}`);
+  if (!res.ok) { document.getElementById('result').innerHTML = '<p style="color:red">Error</p>'; document.getElementById('result').style.display='block'; return; }
+  const d = await res.json();
+  render(d);
+}
+
+function render(d) {
+  const el = document.getElementById('result');
+  el.style.display = 'block';
+  const t = i18n[lang];
+
+  const catLabel = t[d.overallCategory] || d.overallCategory;
+  const catClass = `category-${d.overallCategory}`;
+  const fillClass = d.overallCategory;
+
+  let html = `<div class="result-header">
+    <span class="type-pill">${d.type1.code}</span><span class="type-nick">${d.type1.nick}</span>
+    <span class="vs">×</span>
+    <span class="type-pill">${d.type2.code}</span><span class="type-nick">${d.type2.nick}</span>
+    <span class="category-badge ${catClass}">${catLabel}</span>
+  </div>`;
+
+  html += `<div class="score-bar-wrap">
+    <div class="score-label">${t.score}</div>
+    <div class="score-bar">
+      <div class="score-fill ${fillClass}" style="width:${d.compatibilityScore}%"></div>
+      <span class="score-value">${d.compatibilityScore}</span>
+    </div>
+  </div>`;
+
+  html += `<div class="section-title">${t.dimensions}</div>`;
+  html += `<div class="dims">`;
+  d.dimensionAnalysis.forEach(dim => {
+    const statusText = dim.match ? `${t.match} — ${dim.type1Pole}` : `${dim.type1Pole} vs ${dim.type2Pole}`;
+    const analysis = lang === 'zh' ? dim.analysis_zh : dim.analysis_en;
+    html += `<div class="dim">
+      <div class="dim-name">${dim.dimension}</div>
+      <div class="dim-status ${dim.match ? 'match' : ''}">${statusText}</div>
+      <div class="dim-analysis">${analysis}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  const summary = lang === 'zh' ? d.summary_zh : d.summary_en;
+  html += `<div class="section-title">${t.summary}</div>`;
+  html += `<div class="summary"><p>${summary}</p></div>`;
+
+  el.innerHTML = html;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Init
+applyLang();
+loadNicknames().then(() => {
+  const params = new URLSearchParams(location.search);
+  if (params.get('a') && TYPES.includes(params.get('a').toUpperCase())) document.getElementById('sel1').value = params.get('a').toUpperCase();
+  if (params.get('b') && TYPES.includes(params.get('b').toUpperCase())) document.getElementById('sel2').value = params.get('b').toUpperCase();
+  if (params.get('a') && params.get('b')) doCheck();
+});
+loadMatrix();
+</script>
+</body>
+</html>
