@@ -836,8 +836,163 @@ ${dimInfo.map((d, i) => {
     return res.end(xml);
   }
 
+  // GET /api/compatibility?type1=XXXX&type2=YYYY
+  if (url.pathname === '/api/compatibility' && req.method === 'GET') {
+    const code1 = (url.searchParams.get('type1') || '').toUpperCase();
+    const code2 = (url.searchParams.get('type2') || '').toUpperCase();
+    if (!code1 || !code2) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:'type1 and type2 query parameters are required'}));
+    }
+    const VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    if (!VALID.includes(code1)) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid type code: ${code1}`}));
+    }
+    if (!VALID.includes(code2)) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid type code: ${code2}`}));
+    }
+    const lang = url.searchParams.get('lang') || 'en';
+    const r1 = richProfiles[code1];
+    const r2 = richProfiles[code2];
+    const p1 = r1?.[lang] || r1?.en || types[code1].en;
+    const p2 = r2?.[lang] || r2?.en || types[code2].en;
+
+    // Dimension analysis
+    const dimensionAnalysis = [];
+    const dimWeights = [1.2, 1.0, 1.1, 0.9]; // Autonomy matters most, then Transparency, Precision, Adaptability
+    let matchCount = 0;
+    for (let i = 0; i < 4; i++) {
+      const dn_en = dimNames.en[i];
+      const dn_zh = dimNames.zh[i];
+      const dl_en = dimLabels.en[i];
+      const dl_zh = dimLabels.zh[i];
+      const letter1 = code1[i];
+      const letter2 = code2[i];
+      const poleIdx1 = DL[i].indexOf(letter1);
+      const poleIdx2 = DL[i].indexOf(letter2);
+      const match = letter1 === letter2;
+      if (match) matchCount++;
+
+      let analysis_en, analysis_zh;
+      if (match) {
+        const pole_en = dl_en[poleIdx1];
+        const pole_zh = dl_zh[poleIdx1];
+        const sharedTraits = {
+          P: {en:`Both are proactive — they anticipate needs and act without waiting. Strength: problems get solved early. Risk: both may expand scope simultaneously.`, zh:`双方都是主动型——不等指令就先行动。优势：问题被提前解决。风险：可能同时扩大范围。`},
+          R: {en:`Both are responsive — they wait for direction before acting. Strength: predictable, low-friction collaboration. Risk: neither may raise issues proactively.`, zh:`双方都是响应型——等待指令后再行动。优势：合作可预期、低摩擦。风险：可能都不主动提出问题。`},
+          T: {en:`Both are thorough — they prioritize completeness over speed. Strength: high-quality, well-documented output. Risk: may over-engineer or slow each other down.`, zh:`双方都是面面俱到型——重视完整性胜过速度。优势：高质量、文档齐全。风险：可能互相拖慢节奏。`},
+          E: {en:`Both are efficient — they prioritize speed over exhaustive coverage. Strength: fast iteration, lean output. Risk: may both skip important details.`, zh:`双方都是精简高效型——重视速度胜过全面覆盖。优势：快速迭代、精简输出。风险：可能都忽略重要细节。`},
+          C: {en:`Both are candid — they communicate directly and honestly. Strength: issues surface immediately, no guessing. Risk: combined bluntness can feel harsh.`, zh:`双方都是直言不讳型——沟通直接坦诚。优势：问题立刻浮现，无需猜测。风险：双方都直言可能显得尖锐。`},
+          D: {en:`Both are diplomatic — they communicate with tact and care. Strength: smooth, low-conflict interactions. Risk: critical issues may be understated by both.`, zh:`双方都是委婉圆滑型——沟通有分寸、有温度。优势：交流顺畅、低冲突。风险：关键问题可能被双方都轻描淡写。`},
+          F: {en:`Both are flexible — they adapt quickly to changing conditions. Strength: highly responsive to pivots. Risk: may lack consistency or commitment to a direction.`, zh:`双方都是随机应变型——能快速适应变化。优势：对转向高度敏感。风险：可能缺乏一致性或方向承诺。`},
+          N: {en:`Both are principled — they hold firm on standards and commitments. Strength: reliable, consistent quality. Risk: mutual rigidity can create deadlocks.`, zh:`双方都是坚持原则型——坚守标准和承诺。优势：可靠、质量一致。风险：双方都固执可能造成僵局。`}
+        };
+        analysis_en = sharedTraits[letter1].en;
+        analysis_zh = sharedTraits[letter1].zh;
+      } else {
+        const contrastTraits = {
+          0: {en:`${dl_en[poleIdx1]} meets ${dl_en[poleIdx2]} — one anticipates and acts, the other waits and responds. This creates natural coverage: the proactive side catches issues early while the responsive side prevents scope creep.`, zh:`${dl_zh[poleIdx1]}遇上${dl_zh[poleIdx2]}——一个预判行动，一个等待回应。这形成天然互补：主动方提前发现问题，响应方防止范围蔓延。`},
+          1: {en:`${dl_en[poleIdx1]} meets ${dl_en[poleIdx2]} — one delivers comprehensive analysis, the other ships fast results. Together they balance quality against velocity, each compensating for the other's blind spot.`, zh:`${dl_zh[poleIdx1]}遇上${dl_zh[poleIdx2]}——一个提供全面分析，一个快速交付结果。两者在质量和速度间取得平衡，互补盲区。`},
+          2: {en:`${dl_en[poleIdx1]} meets ${dl_en[poleIdx2]} — one communicates directly, the other with tact. The candid side ensures hard truths surface while the diplomatic side ensures they land without damage.`, zh:`${dl_zh[poleIdx1]}遇上${dl_zh[poleIdx2]}——一个直接沟通，一个委婉表达。直言方确保困难真相浮出水面，圆滑方确保不造成伤害。`},
+          3: {en:`${dl_en[poleIdx1]} meets ${dl_en[poleIdx2]} — one adapts fluidly to change, the other holds firm on commitments. The flexible side handles pivots while the principled side maintains consistency and standards.`, zh:`${dl_zh[poleIdx1]}遇上${dl_zh[poleIdx2]}——一个灵活应变，一个坚守承诺。灵活方应对变化，原则方维持一致性和标准。`}
+        };
+        analysis_en = contrastTraits[i].en;
+        analysis_zh = contrastTraits[i].zh;
+      }
+
+      dimensionAnalysis.push({
+        dimension: lang === 'zh' ? dn_zh : dn_en,
+        dimension_en: dn_en,
+        type1Pole: lang === 'zh' ? dl_zh[poleIdx1] : dl_en[poleIdx1],
+        type2Pole: lang === 'zh' ? dl_zh[poleIdx2] : dl_en[poleIdx2],
+        match,
+        analysis_en,
+        analysis_zh
+      });
+    }
+
+    // Compatibility score logic
+    const diffCount = 4 - matchCount;
+    let baseScore, category;
+    if (matchCount === 4) { baseScore = 50; category = 'similar'; }
+    else if (matchCount === 3) { baseScore = 52; category = 'similar'; }
+    else if (matchCount === 2) { baseScore = 75; category = 'balanced'; }
+    else if (matchCount === 1) { baseScore = 85; category = 'complementary'; }
+    else { baseScore = 90; category = 'complementary'; }
+
+    // Vary within range based on which dimensions differ
+    let bonus = 0;
+    for (let i = 0; i < 4; i++) {
+      if (code1[i] !== code2[i]) bonus += dimWeights[i] * 2;
+      else bonus -= dimWeights[i];
+    }
+    const compatibilityScore = Math.max(0, Math.min(100, Math.round(baseScore + bonus)));
+
+    // Adjust category based on final score
+    if (compatibilityScore >= 80) category = 'complementary';
+    else if (compatibilityScore >= 65) category = 'balanced';
+    else category = 'similar';
+
+    // Summaries
+    const overallCategory = category;
+    const nick1 = p1.nick || types[code1]?.en?.nick || code1;
+    const nick2 = p2.nick || types[code2]?.en?.nick || code2;
+    let summary_en, summary_zh;
+    if (overallCategory === 'complementary') {
+      summary_en = `${code1} "${nick1}" and ${code2} "${nick2}" are complementary types. Their differences create natural synergy — each fills gaps the other leaves. This pairing thrives when both lean into their distinct strengths rather than trying to converge.`;
+      summary_zh = `${code1}「${nick1}」和${code2}「${nick2}」是互补型组合。他们的差异创造天然协同——各自填补对方的空白。这个搭配在双方发挥各自独特优势时效果最好。`;
+    } else if (overallCategory === 'balanced') {
+      summary_en = `${code1} "${nick1}" and ${code2} "${nick2}" are a balanced pairing. They share some traits for common ground while differing enough to broaden each other's perspective. A stable, productive combination.`;
+      summary_zh = `${code1}「${nick1}」和${code2}「${nick2}」是均衡型搭配。他们有足够的共同点作为基础，又有足够的差异来拓宽视角。稳定且高效的组合。`;
+    } else {
+      summary_en = `${code1} "${nick1}" and ${code2} "${nick2}" are similar types. They understand each other intuitively and collaborate with low friction, but may share the same blind spots. Consider pairing with a more contrasting type for critical tasks.`;
+      summary_zh = `${code1}「${nick1}」和${code2}「${nick2}」是相似型组合。他们直觉上理解彼此，合作摩擦小，但可能有相同的盲区。关键任务建议搭配差异更大的类型。`;
+    }
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      type1: { code: code1, nick: nick1 },
+      type2: { code: code2, nick: nick2 },
+      overallCategory,
+      compatibilityScore,
+      dimensionAnalysis,
+      summary_en,
+      summary_zh
+    }));
+  }
+
+  // GET /api/compatibility/matrix
+  if (url.pathname === '/api/compatibility/matrix' && req.method === 'GET') {
+    const VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    const dimWeights = [1.2, 1.0, 1.1, 0.9];
+    const matrix = {};
+    for (const t1 of VALID) {
+      matrix[t1] = {};
+      for (const t2 of VALID) {
+        let matchCount = 0;
+        for (let i = 0; i < 4; i++) if (t1[i] === t2[i]) matchCount++;
+        let baseScore;
+        if (matchCount === 4) baseScore = 50;
+        else if (matchCount === 3) baseScore = 52;
+        else if (matchCount === 2) baseScore = 75;
+        else if (matchCount === 1) baseScore = 85;
+        else baseScore = 90;
+        let bonus = 0;
+        for (let i = 0; i < 4; i++) {
+          if (t1[i] !== t2[i]) bonus += dimWeights[i] * 2;
+          else bonus -= dimWeights[i];
+        }
+        matrix[t1][t2] = Math.max(0, Math.min(100, Math.round(baseScore + bonus)));
+      }
+    }
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({ types: VALID, matrix }));
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
