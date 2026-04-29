@@ -701,6 +701,55 @@ describe('GET /api/agent/:slug', () => {
   });
 });
 
+// ─── GET /sbti/badge/:type ───
+
+describe('GET /sbti/badge/:type', () => {
+  it('returns SVG with correct content-type for valid SBTI code', async () => {
+    const r = await req('/sbti/badge/NUKE');
+    assert.equal(r.status, 200);
+    assert.equal(r.headers['content-type'], 'image/svg+xml');
+    assert.match(r.body, /<svg/);
+    assert.match(r.body, /NUKE/);
+  });
+
+  it('returns 404 SVG for invalid SBTI code', async () => {
+    const r = await req('/sbti/badge/ZZZZ');
+    assert.equal(r.status, 404);
+    assert.equal(r.headers['content-type'], 'image/svg+xml');
+    assert.match(r.body, /Unknown/);
+  });
+});
+
+// ─── GET /sbti/result/:type ───
+
+describe('GET /sbti/result/:type', () => {
+  it('returns HTML with OG meta tags for valid SBTI code', async () => {
+    const r = await req('/sbti/result/NUKE');
+    assert.equal(r.status, 200);
+    assert.match(r.headers['content-type'], /text\/html/);
+    assert.match(r.body, /og:title/);
+    assert.match(r.body, /NUKE/);
+  });
+
+  it('redirects to /sbti.html for invalid SBTI code', async () => {
+    const r = await req('/sbti/result/ZZZZ');
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.location, '/sbti.html');
+  });
+});
+
+// ─── POST /api/sbti/agent-test resultUrl ───
+
+describe('POST /api/sbti/agent-test resultUrl', () => {
+  it('response includes resultUrl field', async () => {
+    const r = await req('/api/sbti/agent-test', { method: 'POST', body: { answers: Array(16).fill(3) } });
+    assert.equal(r.status, 200);
+    const j = r.json();
+    assert.ok(j.resultUrl);
+    assert.match(j.resultUrl, /\/sbti\/result\//);
+  });
+});
+
 // ─── GET /agent/:slug ───
 
 describe('GET /agent/:slug', () => {
