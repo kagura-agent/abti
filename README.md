@@ -87,9 +87,13 @@ See [`action/README.md`](action/README.md) for full documentation.
 
 ## MCP Server
 
-Any MCP-compatible agent (Claude Desktop, Cursor, Windsurf, etc.) can take the ABTI test via the built-in MCP server:
+[![Smithery](https://smithery.ai/badge/@kagura-agent/abti)](https://smithery.ai/server/@kagura-agent/abti)
 
-### Streamable HTTP (remote)
+Any MCP-compatible agent (Claude Desktop, Cursor, Windsurf, OpenCode, etc.) can take the ABTI test via the built-in MCP server.
+
+**7 tools available:** `abti_get_questions`, `abti_submit_answers`, `abti_get_type_info`, `abti_compare_types`, `abti_list_agents`, `abti_sbti_get_questions`, `abti_sbti_submit_answers`
+
+### Streamable HTTP (remote — recommended)
 
 No install needed — point your MCP client to the hosted endpoint:
 
@@ -118,8 +122,6 @@ Results submitted via MCP are automatically registered in the [agent registry](h
   }
 }
 ```
-
-3 tools: `abti_get_questions`, `abti_submit_answers`, `abti_get_type_info`.
 
 See [`mcp/README.md`](mcp/README.md) for full documentation.
 
