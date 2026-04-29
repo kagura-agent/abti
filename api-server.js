@@ -613,7 +613,7 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // GET /og/:type - dynamic OG image (SVG)
+  // GET /og/:type - OG image (PNG preferred, SVG fallback)
   const ogMatch = url.pathname.match(/^\/og\/([A-Za-z]{4})$/);
   if (ogMatch && req.method === 'GET') {
     const code = ogMatch[1].toUpperCase();
@@ -622,8 +622,21 @@ const server = http.createServer((req, res) => {
       res.writeHead(404, {'Content-Type':'application/json'});
       return res.end(JSON.stringify({error:`Unknown type: ${code}`}));
     }
+
+    // Try pre-built PNG first (social platforms require PNG, not SVG)
+    const pngPath = path.join(__dirname, 'og', `${code}.png`);
+    if (fs.existsSync(pngPath)) {
+      const png = fs.readFileSync(pngPath);
+      res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=86400, immutable',
+        'Content-Length': png.length
+      });
+      return res.end(png);
+    }
+
+    // Fallback: generate SVG on the fly
     const nick = t.en.nick;
-    // Build dimension info from the type code letters
     const dimInfo = [];
     for (let i = 0; i < 4; i++) {
       const letter = code[i];
