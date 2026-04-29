@@ -1,0 +1,12 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+# ABTI — Agent Behavioral Type Indicator MCP Server
+
+startCommand:
+  type: stdio
+  commandFunction:
+    |-
+    (config) => ({command: 'node', args: ['mcp/server.js'], env: {}})
+  configSchema:
+    type: object
+    description: No configuration needed. The ABTI MCP server provides personality testing tools for AI agents.
+  exampleConfig: {}
