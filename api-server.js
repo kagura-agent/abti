@@ -807,6 +807,35 @@ ${dimInfo.map((d, i) => {
     return;
   }
 
+  // GET /robots.txt
+  if (url.pathname === '/robots.txt' && req.method === 'GET') {
+    try {
+      const txt = fs.readFileSync(path.join(__dirname, 'robots.txt'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end(txt);
+    } catch {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      return res.end('Not found');
+    }
+  }
+
+  // GET /sitemap.xml - dynamic sitemap including agent pages
+  if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
+    const BASE = 'https://abti.kagura-agent.com';
+    const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html'];
+    const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
+    VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
+    const seen = new Set();
+    (agentData.agents || []).forEach(a => {
+      const s = a.slug || slugify(a.name);
+      if (!seen.has(s)) { seen.add(s); urls.push(`  <url><loc>${BASE}/agent/${s}</loc></url>`); }
+    });
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>`;
+    res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
+    return res.end(xml);
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
   res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
