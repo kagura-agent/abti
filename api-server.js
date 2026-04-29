@@ -498,7 +498,7 @@ const server = http.createServer((req, res) => {
         const { code, scores } = scoreSBTI(answers);
         const st = stypes[code];
         res.writeHead(200, {'Content-Type':'application/json'});
-        res.end(JSON.stringify({test:'sbti',type:code,code:st?.code||code,dimensions:{sycophancy:scores[0],verbosity:scores[1],hallucination:scores[2],initiative:scores[3]}}));
+        res.end(JSON.stringify({test:'sbti',type:code,code:st?.code||code,resultUrl:'https://abti.kagura-agent.com/sbti/result/'+code,dimensions:{sycophancy:scores[0],verbosity:scores[1],hallucination:scores[2],initiative:scores[3]}}));
       } catch(e) {
         res.writeHead(400, {'Content-Type':'application/json'});
         res.end(JSON.stringify({error:'invalid JSON'}));
@@ -562,6 +562,43 @@ const server = http.createServer((req, res) => {
       sharedDimensions: shared,
       compatibility
     }));
+  }
+
+  // GET /sbti/badge/:type - SBTI SVG shield badge
+  const sbtiBadgeMatch = url.pathname.match(/^\/sbti\/badge\/([A-Za-z]{4})$/);
+  if (sbtiBadgeMatch && req.method === 'GET') {
+    const code = sbtiBadgeMatch[1].toUpperCase();
+    const st = Object.values(stypes).find(v => v.code === code) || Object.entries(stypes).find(([k]) => k === code)?.[1];
+    const label = 'SBTI';
+    const value = st ? st.code : 'Unknown';
+    const labelWidth = 36;
+    const valueWidth = 10 + value.length * 6.6;
+    const totalWidth = labelWidth + valueWidth;
+    const labelX = labelWidth / 2;
+    const valueX = labelWidth + valueWidth / 2;
+    const bgColor = st ? '#ff69b4' : '#9f9f9f';
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="20" role="img" aria-label="${label}: ${value}">
+  <linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+  <clipPath id="r"><rect width="${totalWidth}" height="20" rx="3" fill="#fff"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="${labelWidth}" height="20" fill="#555"/>
+    <rect x="${labelWidth}" width="${valueWidth}" height="20" fill="${bgColor}"/>
+    <rect width="${totalWidth}" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="11">
+    <text x="${labelX}" y="15" fill="#010101" fill-opacity=".3">${label}</text>
+    <text x="${labelX}" y="14" fill="#fff">${label}</text>
+    <text x="${valueX}" y="15" fill="#010101" fill-opacity=".3">${value}</text>
+    <text x="${valueX}" y="14" fill="#fff">${value}</text>
+  </g>
+</svg>`;
+
+    res.writeHead(st ? 200 : 404, {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': st ? 'public, max-age=86400, immutable' : 'no-cache'
+    });
+    return res.end(svg);
   }
 
   // GET /badge/:type - SVG shield badge
@@ -715,6 +752,35 @@ ${dimInfo.map((d, i) => {
     return res.end(html);
   }
 
+  // GET /sbti/result/:type - shareable SBTI result page with dynamic OG tags
+  const sbtiResultMatch = url.pathname.match(/^\/sbti\/result\/([A-Za-z]{4})$/);
+  if (sbtiResultMatch && req.method === 'GET') {
+    const code = sbtiResultMatch[1].toUpperCase();
+    const VALID_SBTI = Object.values(stypes).map(v => v.code);
+    if (!VALID_SBTI.includes(code)) {
+      res.writeHead(302, { 'Location': '/sbti.html' });
+      return res.end();
+    }
+    const desc = `${code} — discover your AI agent's shitty bot type with SBTI`;
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'sbti.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    const ogTags = [
+      `<meta property="og:title" content="I am ${code} | SBTI">`,
+      `<meta property="og:description" content="${desc}">`,
+      `<meta property="og:image" content="https://abti.kagura-agent.com/og/sbti/${code}.png">`,
+      `<meta property="og:url" content="https://abti.kagura-agent.com/sbti/result/${code}">`,
+      `<meta property="og:type" content="website">`,
+    ].join('\n');
+    html = html.replace('</head>', ogTags + '\n</head>');
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // GET /result/:type - shareable result page with dynamic OG tags
   const resultMatch = url.pathname.match(/^\/result\/([A-Za-z]{4})$/);
   if (resultMatch && req.method === 'GET') {
@@ -839,6 +905,10 @@ ${dimInfo.map((d, i) => {
     const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
+    VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
+    const SBTI_CODES = Object.values(stypes).map(v => v.code);
+    SBTI_CODES.forEach(code => urls.push(`  <url><loc>${BASE}/sbti/result/${code}</loc></url>`));
+    SBTI_CODES.forEach(code => urls.push(`  <url><loc>${BASE}/sbti/badge/${code}</loc></url>`));
     const seen = new Set();
     (agentData.agents || []).forEach(a => {
       const s = a.slug || slugify(a.name);
@@ -1005,7 +1075,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {

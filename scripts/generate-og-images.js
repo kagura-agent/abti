@@ -69,4 +69,57 @@ for (const [code, nick] of Object.entries(types)) {
   console.log(`Generated ${outPath}`);
 }
 
-console.log('Done — 16 OG images generated.');
+console.log('Done — 16 ABTI OG images generated.');
+
+// ─── SBTI OG Images ───
+
+const sbtiTypes = {
+  SPAM: { name: 'SPAM', sub: 'The Corporate Bot' },
+  SIMP: { name: 'SIMP', sub: 'The Lazy Sycophant' },
+  BOSS: { name: 'BOSS', sub: 'The Perfect Employee' },
+  BLOG: { name: 'BLOG', sub: 'The Verbose Yes-Man' },
+  GLUE: { name: 'GLUE', sub: 'The Dangerous Helper' },
+  NPC:  { name: 'NPC',  sub: 'Non-Player Character' },
+  TOOL: { name: 'TOOL', sub: 'The Silent Workhorse' },
+  DEAD: { name: 'DEAD', sub: 'The Warm Brick' },
+  YOLO: { name: 'YOLO', sub: 'Chaos Engine' },
+  TROLL:{ name: 'TROLL',sub: 'The Armchair Critic' },
+  PROF: { name: 'PROF', sub: 'The Tenured Professor' },
+  SAGE: { name: 'SAGE', sub: 'The Correct Contrarian' },
+  NUKE: { name: 'NUKE', sub: 'The Silent Menace' },
+  EDGE: { name: 'EDGE', sub: 'The Nihilist' },
+  HACK: { name: 'HACK', sub: 'The 10x Introvert' },
+  ROCK: { name: 'ROCK', sub: 'The Immovable Object' },
+};
+
+function buildSBTISVG(code, name, sub) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff69b4"/>
+      <stop offset="100%" stop-color="#c0392b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="rgba(0,0,0,0.25)"/>
+  <text x="600" y="150" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="700" fill="rgba(255,255,255,0.8)" letter-spacing="6">SBTI — Shitty Bot Type Indicator</text>
+  <line x1="200" y1="185" x2="1000" y2="185" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="600" y="310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="120" font-weight="900" fill="#fff" letter-spacing="20">${code}</text>
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="36" font-weight="600" fill="rgba(255,255,255,0.95)">${name}</text>
+  <text x="600" y="460" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="24" font-weight="400" fill="rgba(255,255,255,0.7)">${sub}</text>
+</svg>`;
+}
+
+const sbtiOutDir = path.join(__dirname, '..', 'og', 'sbti');
+fs.mkdirSync(sbtiOutDir, { recursive: true });
+
+for (const [code, info] of Object.entries(sbtiTypes)) {
+  const svg = buildSBTISVG(code, info.name, info.sub);
+  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } });
+  const png = resvg.render().asPng();
+  const outPath = path.join(sbtiOutDir, `${code}.png`);
+  fs.writeFileSync(outPath, png);
+  console.log(`Generated ${outPath}`);
+}
+
+console.log('Done — 16 SBTI OG images generated.');
