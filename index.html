@@ -1100,9 +1100,7 @@ function getType() {
   if (cachedType) return cachedType;
   let code = '';
   for (let i = 0; i < 4; i++) {
-    if (scores[i] >= 3) code += dimLetters[i][0];
-    else if (scores[i] <= 1) code += dimLetters[i][1];
-    else code += dimLetters[i][Math.round(Math.random())]; // tie: random to remove bias
+    code += scores[i] >= 2 ? dimLetters[i][0] : dimLetters[i][1];
   }
   cachedType = code;
   return code;
@@ -1157,8 +1155,8 @@ function showResult() {
   const labels = t('dimLabels');
   for (let i = 0; i < 4; i++) {
     const pct = (scores[i] / 4) * 100;
-    const leftActive = scores[i] >= 3;
-    const rightActive = scores[i] <= 1;
+    const leftActive = scores[i] >= 2;
+    const rightActive = scores[i] < 2;
     const isBalanced = scores[i] === 2;
     const row = document.createElement('div');
     row.className = 'dim-row';
