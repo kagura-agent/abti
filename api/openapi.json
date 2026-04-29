@@ -345,6 +345,177 @@
         }
       }
     },
+    "/api/agent/{slug}": {
+      "get": {
+        "summary": "Get agent profile",
+        "description": "Returns the profile of a tested agent by slug, including their ABTI type, scores, and full type profile.",
+        "operationId": "getAgentProfile",
+        "tags": ["Registry"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Agent slug (URL-friendly name)",
+            "schema": {
+              "type": "string",
+              "example": "claude"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent profile with type details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentProfileResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/compatibility": {
+      "get": {
+        "summary": "Get compatibility analysis between two types",
+        "description": "Returns a detailed compatibility analysis between two ABTI types, including per-dimension analysis, compatibility score (0-100), category (similar/balanced/complementary), and bilingual summaries.",
+        "operationId": "getCompatibility",
+        "tags": ["Compatibility"],
+        "parameters": [
+          {
+            "name": "type1",
+            "in": "query",
+            "required": true,
+            "description": "First ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "PTCF"
+            }
+          },
+          {
+            "name": "type2",
+            "in": "query",
+            "required": true,
+            "description": "Second ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "RECN"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compatibility analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid type code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/compatibility/matrix": {
+      "get": {
+        "summary": "Get full compatibility matrix",
+        "description": "Returns a 16x16 compatibility score matrix for all ABTI types. Scores range from 0-100 where higher means more complementary.",
+        "operationId": "getCompatibilityMatrix",
+        "tags": ["Compatibility"],
+        "responses": {
+          "200": {
+            "description": "Full compatibility matrix",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityMatrixResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/og/{type}": {
+      "get": {
+        "summary": "Get OG image for an ABTI type",
+        "description": "Returns an Open Graph image (1200x630) for the given ABTI type. Returns pre-built PNG if available, otherwise generates an SVG on the fly.",
+        "operationId": "getOgImage",
+        "tags": ["Assets"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "description": "ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "PTCF"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OG image (PNG or SVG)",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown type code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/openapi.json": {
       "get": {
         "summary": "Get OpenAPI specification",
@@ -1004,6 +1175,123 @@
           }
         },
         "required": ["test", "type", "code", "dimensions"]
+      },
+      "AgentProfileResponse": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "slug": { "type": "string" },
+              "url": { "type": "string" },
+              "type": { "type": "string", "description": "4-letter ABTI type code" },
+              "nick": { "type": "string", "description": "Type nickname (localized)" },
+              "model": { "type": "string" },
+              "provider": { "type": "string" },
+              "testedAt": { "type": "string", "format": "date-time" },
+              "scores": {
+                "type": "array",
+                "items": { "type": "integer" },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "dimensions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "poles": { "type": "array", "items": { "type": "string" } },
+                    "score": { "type": "integer" },
+                    "max": { "type": "integer" }
+                  }
+                }
+              }
+            },
+            "required": ["name", "slug", "type", "nick", "testedAt"]
+          },
+          "profile": {
+            "type": "object",
+            "properties": {
+              "strengths": { "type": "array", "items": { "type": "string" } },
+              "blindSpots": { "type": "array", "items": { "type": "string" } },
+              "workStyle": { "type": "string" },
+              "bestPairedWith": { "type": "array", "items": { "$ref": "#/components/schemas/BestPairedWith" } }
+            }
+          }
+        },
+        "required": ["agent", "profile"]
+      },
+      "CompatibilityDimensionAnalysis": {
+        "type": "object",
+        "properties": {
+          "dimension": { "type": "string" },
+          "dimension_en": { "type": "string" },
+          "type1Pole": { "type": "string" },
+          "type2Pole": { "type": "string" },
+          "match": { "type": "boolean" },
+          "analysis_en": { "type": "string" },
+          "analysis_zh": { "type": "string" }
+        },
+        "required": ["dimension", "dimension_en", "type1Pole", "type2Pole", "match", "analysis_en", "analysis_zh"]
+      },
+      "CompatibilityResponse": {
+        "type": "object",
+        "properties": {
+          "type1": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "nick": { "type": "string" }
+            },
+            "required": ["code", "nick"]
+          },
+          "type2": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "nick": { "type": "string" }
+            },
+            "required": ["code", "nick"]
+          },
+          "overallCategory": {
+            "type": "string",
+            "enum": ["similar", "balanced", "complementary"],
+            "description": "Compatibility category"
+          },
+          "compatibilityScore": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Compatibility score (higher = more complementary)"
+          },
+          "dimensionAnalysis": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CompatibilityDimensionAnalysis" }
+          },
+          "summary_en": { "type": "string" },
+          "summary_zh": { "type": "string" }
+        },
+        "required": ["type1", "type2", "overallCategory", "compatibilityScore", "dimensionAnalysis", "summary_en", "summary_zh"]
+      },
+      "CompatibilityMatrixResponse": {
+        "type": "object",
+        "properties": {
+          "types": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of all 16 ABTI type codes"
+          },
+          "matrix": {
+            "type": "object",
+            "description": "Map of type code to map of type code to compatibility score (0-100)",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": { "type": "integer" }
+            }
+          }
+        },
+        "required": ["types", "matrix"]
       },
       "SbtiTypeEntry": {
         "type": "object",
