@@ -105,9 +105,7 @@ function scoreABTI(answers) {
   for (let i = 0; i < 16; i++) scores[qMap[i]] += answers[i] ? 1 : 0;
   let code = '';
   for (let i = 0; i < 4; i++) {
-    if (scores[i] >= 3) code += DL[i][0];
-    else if (scores[i] <= 1) code += DL[i][1];
-    else code += DL[i][Math.random() < 0.5 ? 0 : 1];
+    code += scores[i] >= 2 ? DL[i][0] : DL[i][1];
   }
   return { code, scores };
 }
@@ -358,8 +356,8 @@ const server = http.createServer((req, res) => {
         for (let i = 0; i < 4; i++) {
           const dn = (dimNames[l]||dimNames.en)[i];
           const dl = (dimLabels[l]||dimLabels.en)[i];
-          const letter = scores[i] >= 3 ? DL[i][0] : scores[i] <= 1 ? DL[i][1] : DL[i][Math.random() < 0.5 ? 0 : 1];
-          const pole = scores[i] >= 3 ? dl[0] : scores[i] <= 1 ? dl[1] : dl[Math.random() < 0.5 ? 0 : 1];
+          const letter = scores[i] >= 2 ? DL[i][0] : DL[i][1];
+          const pole = scores[i] >= 2 ? dl[0] : dl[1];
           dims[dn] = { score: scores[i], max: 4, pole, letter };
         }
         // Persist result
