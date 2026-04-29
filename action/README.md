@@ -31,7 +31,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ### Basic — test with OpenAI
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   with:
     provider: openai
     model: gpt-4o
@@ -41,7 +41,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ### Basic — test with Gemini
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   with:
     provider: gemini
     model: gemini-2.5-flash
@@ -51,7 +51,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ### With agent system prompt from file
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   with:
     agent-prompt-file: AGENTS.md
     provider: anthropic
@@ -62,7 +62,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ### With PR comment
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   with:
     agent-prompt: "You are a strict code reviewer who never lets bugs slip through."
     provider: openai
@@ -76,7 +76,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ### Use outputs in subsequent steps
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   id: abti
   with:
     provider: openai

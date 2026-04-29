@@ -57,7 +57,7 @@ Replace `PTCF` with your type code. All 16 types are supported.
 Test your AI agent's personality in CI. Add to any workflow:
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   id: abti
   with:
     agent-prompt-file: AGENTS.md
@@ -73,7 +73,7 @@ The action sends each ABTI scenario to the LLM, collects A/B answers, and writes
 ### Using with OpenRouter or custom endpoints
 
 ```yaml
-- uses: kagura-agent/abti@master
+- uses: kagura-agent/abti@v1
   id: abti
   with:
     agent-prompt-file: AGENTS.md

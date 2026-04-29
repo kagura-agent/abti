@@ -45,6 +45,10 @@ outputs:
   badge-url:
     description: 'URL for the ABTI badge SVG'
 
+branding:
+  icon: 'users'
+  color: 'purple'
+
 runs:
   using: 'node20'
   main: 'index.js'
