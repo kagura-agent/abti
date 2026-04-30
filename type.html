@@ -271,14 +271,44 @@ nav a:hover, nav a.active { color: var(--accent); }
       + '<div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>';
   }
 
-  fetch('/api/types').then(function(res) { return res.json(); }).then(function(data) {
-    dims = data.dimensions;
-    typeData = data.types[typeCode];
-    if (!typeData) {
+  var DL = [['P','R'],['T','E'],['C','D'],['F','N']];
+  var dimLabels = {
+    en: [
+      {name:'Autonomy', pole1:'Proactive', pole2:'Responsive'},
+      {name:'Precision', pole1:'Thorough', pole2:'Efficient'},
+      {name:'Transparency', pole1:'Candid', pole2:'Diplomatic'},
+      {name:'Adaptability', pole1:'Flexible', pole2:'Principled'}
+    ],
+    zh: [
+      {name:'自主性', pole1:'主动', pole2:'响应'},
+      {name:'精确度', pole1:'面面俱到', pole2:'精简高效'},
+      {name:'透明度', pole1:'直言不讳', pole2:'委婉圆滑'},
+      {name:'适应性', pole1:'随机应变', pole2:'坚持原则'}
+    ]
+  };
+
+  Promise.all([
+    fetch('/api/types?lang=en').then(function(r) { return r.json(); }),
+    fetch('/api/types?lang=zh').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var enData = results[0];
+    var zhData = results[1];
+    var enType = enData.types[typeCode];
+    var zhType = zhData.types[typeCode];
+    if (!enType || !zhType) {
       document.getElementById('loading').textContent = 'Type "' + typeCode + '" not found';
       document.getElementById('loading').className = 'error';
       return;
     }
+    typeData = { en: enType, zh: zhType };
+    dims = DL.map(function(letters, i) {
+      return {
+        index: i,
+        letters: letters,
+        en: dimLabels.en[i],
+        zh: dimLabels.zh[i]
+      };
+    });
     render();
   }).catch(function() {
     document.getElementById('loading').textContent = 'Failed to load type data';
