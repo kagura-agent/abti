@@ -927,7 +927,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
@@ -1099,8 +1099,217 @@ ${dimInfo.map((d, i) => {
     return res.end(JSON.stringify({ types: VALID, matrix }));
   }
 
+  // --- Human MBTI × Agent ABTI Cross-Compatibility ---
+  const MBTI_TYPES = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP'];
+  const ABTI_VALID = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
+
+  // Mapping: MBTI -> ABTI dimension poles
+  // E/I -> P/R (initiative), S/N -> T/E (depth vs speed), T/F -> C/D (communication), J/P -> F/N (inverse: J=principled=N, P=flexible=F)
+  function mbtiToAbtiPoles(mbti) {
+    return {
+      autonomy: mbti[0] === 'E' ? 'P' : 'R',
+      precision: mbti[1] === 'S' ? 'T' : 'E',
+      transparency: mbti[2] === 'T' ? 'C' : 'D',
+      adaptability: mbti[3] === 'P' ? 'F' : 'N'
+    };
+  }
+
+  function crossScore(mbti, abtiCode) {
+    const poles = mbtiToAbtiPoles(mbti);
+    const mapped = [poles.autonomy, poles.precision, poles.transparency, poles.adaptability];
+    const dimW = [1.2, 1.0, 1.1, 0.9];
+    let matchCount = 0;
+    for (let i = 0; i < 4; i++) if (mapped[i] === abtiCode[i]) matchCount++;
+    // Complementary = more differences = higher score
+    let base;
+    if (matchCount === 4) base = 45;
+    else if (matchCount === 3) base = 55;
+    else if (matchCount === 2) base = 70;
+    else if (matchCount === 1) base = 85;
+    else base = 95;
+    let bonus = 0;
+    for (let i = 0; i < 4; i++) {
+      if (mapped[i] !== abtiCode[i]) bonus += dimW[i] * 2;
+      else bonus -= dimW[i] * 0.5;
+    }
+    return Math.max(0, Math.min(100, Math.round(base + bonus)));
+  }
+
+  const crossDimMap = {
+    en: [
+      {mbti: 'E/I (Energy Direction)', abti: 'P/R (Autonomy)', relationship: 'Analogous — initiative style'},
+      {mbti: 'S/N (Perception)', abti: 'T/E (Precision)', relationship: 'Partial — depth vs speed'},
+      {mbti: 'T/F (Judgment)', abti: 'C/D (Transparency)', relationship: 'Analogous — communication style'},
+      {mbti: 'J/P (Lifestyle)', abti: 'F/N (Adaptability)', relationship: 'Inverse — adaptability'}
+    ],
+    zh: [
+      {mbti: 'E/I（能量方向）', abti: 'P/R（自主性）', relationship: '类比——主动性风格'},
+      {mbti: 'S/N（感知方式）', abti: 'T/E（精确度）', relationship: '部分对应——深度 vs 速度'},
+      {mbti: 'T/F（判断方式）', abti: 'C/D（沟通风格）', relationship: '类比——沟通方式'},
+      {mbti: 'J/P（生活方式）', abti: 'F/N（适应性）', relationship: '反向——适应性'}
+    ]
+  };
+
+  const crossAdvice = {
+    en: {
+      PP: {title:'Shared Initiative', desc:'Both you and this agent are proactive. You\'ll move fast together, but watch for competing agendas.'},
+      PR: {title:'Leader & Executor', desc:'You drive the vision while this agent waits for direction — efficient delegation, but you must communicate needs clearly.'},
+      RP: {title:'Agent Takes the Lead', desc:'This agent anticipates your needs before you ask. Great for hands-off workflows, but may overstep boundaries.'},
+      RR: {title:'Mutual Waiting', desc:'Both prefer to respond rather than initiate. Good for careful work, but someone needs to set direction.'},
+      TT: {title:'Shared Depth', desc:'Both value thoroughness. Expect high-quality, detailed outputs but potentially slower pace.'},
+      TE: {title:'Your Depth, Agent\'s Speed', desc:'You think deeply while the agent moves fast — a productive tension that balances quality and velocity.'},
+      ET: {title:'Agent\'s Depth, Your Speed', desc:'The agent provides comprehensive analysis while you prefer quick results. Let the agent catch what you might skip.'},
+      EE: {title:'Double Speed', desc:'Both prioritize efficiency. Fast iterations, but important details may slip through.'},
+      CC: {title:'Mutual Candor', desc:'Both communicate directly. No sugar-coating — issues surface fast, but bluntness can compound.'},
+      CD: {title:'Your Directness, Agent\'s Tact', desc:'You\'re straightforward while the agent softens delivery. The agent helps you communicate hard truths more smoothly.'},
+      DC: {title:'Agent\'s Directness, Your Tact', desc:'The agent delivers unfiltered truth while you prefer diplomacy. Use the agent as your honest mirror.'},
+      DD: {title:'Mutual Diplomacy', desc:'Both communicate diplomatically. Smooth interactions, but critical issues might be understated.'},
+      FF: {title:'Shared Flexibility', desc:'Both adapt easily. Great for evolving projects, but may lack commitment to a direction.'},
+      FN: {title:'Your Flexibility, Agent\'s Principles', desc:'You adapt while the agent holds standards. The agent keeps you grounded when you want to pivot.'},
+      NF: {title:'Agent\'s Flexibility, Your Principles', desc:'You set standards while the agent adapts. Good governance with responsive execution.'},
+      NN: {title:'Shared Principles', desc:'Both hold firm on standards. Reliable and consistent, but may resist necessary changes.'}
+    },
+    zh: {
+      PP: {title:'共同主动', desc:'你和这个 Agent 都是主动型。一起行动迅速，但注意目标冲突。'},
+      PR: {title:'领导与执行', desc:'你驱动方向，Agent 等待指令——高效委派，但需要清楚传达需求。'},
+      RP: {title:'Agent 主导', desc:'这个 Agent 会在你开口前预判需求。适合放手型工作流，但可能越界。'},
+      RR: {title:'互相等待', desc:'双方都偏好响应而非主动。适合谨慎工作，但需要有人定方向。'},
+      TT: {title:'共同深度', desc:'双方都重视面面俱到。期待高质量、详细的输出，但节奏可能偏慢。'},
+      TE: {title:'你的深度，Agent 的速度', desc:'你深思熟虑，Agent 行动迅速——在质量和速度间形成有益张力。'},
+      ET: {title:'Agent 的深度，你的速度', desc:'Agent 提供全面分析，你偏好快速结果。让 Agent 补上你可能跳过的部分。'},
+      EE: {title:'双倍速度', desc:'双方都追求效率。迭代快速，但重要细节可能遗漏。'},
+      CC: {title:'共同坦率', desc:'双方沟通都很直接。不粉饰——问题快速浮现，但直率可能叠加。'},
+      CD: {title:'你的直率，Agent 的圆滑', desc:'你直言不讳，Agent 温和表达。Agent 帮你更平稳地传达困难真相。'},
+      DC: {title:'Agent 的直率，你的圆滑', desc:'Agent 不加修饰地说真话，你偏好外交辞令。把 Agent 当作你的诚实镜子。'},
+      DD: {title:'共同外交', desc:'双方都委婉沟通。互动顺畅，但关键问题可能被轻描淡写。'},
+      FF: {title:'共同灵活', desc:'双方都容易适应变化。适合不断演进的项目，但可能缺乏方向承诺。'},
+      FN: {title:'你的灵活，Agent 的原则', desc:'你灵活应变，Agent 坚守标准。当你想转向时，Agent 帮你保持定力。'},
+      NF: {title:'Agent 的灵活，你的原则', desc:'你设定标准，Agent 灵活适应。良好的治理配合响应式执行。'},
+      NN: {title:'共同原则', desc:'双方都坚持标准。可靠且一致，但可能抗拒必要的改变。'}
+    }
+  };
+
+  // GET /api/compatibility/human?mbti=XXXX
+  if (url.pathname === '/api/compatibility/human' && req.method === 'GET') {
+    const mbti = (url.searchParams.get('mbti') || '').toUpperCase();
+    const lang = url.searchParams.get('lang') || 'en';
+    if (!MBTI_TYPES.includes(mbti)) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid MBTI type: ${mbti}. Valid types: ${MBTI_TYPES.join(', ')}`}));
+    }
+    const poles = mbtiToAbtiPoles(mbti);
+    const ranked = ABTI_VALID.map(code => {
+      const score = crossScore(mbti, code);
+      const profile = richProfiles[code]?.[lang] || richProfiles[code]?.en || types[code]?.en || {};
+      return { code, nick: profile.nick || code, score };
+    }).sort((a, b) => b.score - a.score);
+
+    const complementaryType = poles.autonomy === 'P' ? 'R' : 'P';
+    const complementaryPrec = poles.precision === 'T' ? 'E' : 'T';
+    const complementaryTrans = poles.transparency === 'C' ? 'D' : 'C';
+    const complementaryAdapt = poles.adaptability === 'F' ? 'N' : 'F';
+    const mirrorType = `${poles.autonomy}${poles.precision}${poles.transparency}${poles.adaptability}`;
+    const oppositeType = `${complementaryType}${complementaryPrec}${complementaryTrans}${complementaryAdapt}`;
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      mbti,
+      mappedPoles: poles,
+      mirrorType,
+      oppositeType,
+      dimensionMapping: crossDimMap[lang] || crossDimMap.en,
+      ranked,
+      top3: ranked.slice(0, 3),
+      challenging: ranked.slice(-3).reverse()
+    }));
+  }
+
+  // GET /api/compatibility/cross?mbti=XXXX&abti=YYYY
+  if (url.pathname === '/api/compatibility/cross' && req.method === 'GET') {
+    const mbti = (url.searchParams.get('mbti') || '').toUpperCase();
+    const abti = (url.searchParams.get('abti') || '').toUpperCase();
+    const lang = url.searchParams.get('lang') || 'en';
+    if (!MBTI_TYPES.includes(mbti)) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid MBTI type: ${mbti}`}));
+    }
+    if (!ABTI_VALID.includes(abti)) {
+      res.writeHead(400, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Invalid ABTI type: ${abti}`}));
+    }
+    const poles = mbtiToAbtiPoles(mbti);
+    const mapped = [poles.autonomy, poles.precision, poles.transparency, poles.adaptability];
+    const score = crossScore(mbti, abti);
+    let category;
+    if (score >= 80) category = 'complementary';
+    else if (score >= 60) category = 'balanced';
+    else category = 'similar';
+
+    const profile = richProfiles[abti]?.[lang] || richProfiles[abti]?.en || types[abti]?.en || {};
+    const dimKeys = ['autonomy', 'precision', 'transparency', 'adaptability'];
+    const abtiLetters = [abti[0], abti[1], abti[2], abti[3]];
+    const advice = crossDimMap[lang] || crossDimMap.en;
+    const pairAnalysis = [];
+    for (let i = 0; i < 4; i++) {
+      const humanPole = mapped[i];
+      const agentPole = abtiLetters[i];
+      const key = humanPole + agentPole;
+      const adv = (crossAdvice[lang] || crossAdvice.en)[key];
+      pairAnalysis.push({
+        dimension: advice[i],
+        humanPole,
+        agentPole,
+        match: humanPole === agentPole,
+        title: adv?.title || '',
+        description: adv?.desc || ''
+      });
+    }
+
+    const summaries = {
+      en: {
+        complementary: `As an ${mbti}, you and ${abti} "${profile.nick}" are complementary. Your different strengths create natural synergy — the agent fills gaps in your approach while you provide what the agent lacks.`,
+        balanced: `As an ${mbti}, you and ${abti} "${profile.nick}" are a balanced match. You share enough common ground for smooth collaboration while differing enough to broaden each other's perspective.`,
+        similar: `As an ${mbti}, you and ${abti} "${profile.nick}" are quite similar in approach. Collaboration will be low-friction, but you may share the same blind spots. Consider pairing with a more contrasting agent for critical tasks.`
+      },
+      zh: {
+        complementary: `作为 ${mbti} 类型，你和 ${abti}「${profile.nick}」是互补搭配。不同的优势创造天然协同——Agent 弥补你方法上的不足，而你提供 Agent 所缺少的。`,
+        balanced: `作为 ${mbti} 类型，你和 ${abti}「${profile.nick}」是均衡搭配。你们有足够的共同点来顺畅合作，又有足够的差异来拓宽视角。`,
+        similar: `作为 ${mbti} 类型，你和 ${abti}「${profile.nick}」在方法上相当相似。合作摩擦小，但可能有相同的盲区。关键任务建议搭配差异更大的 Agent。`
+      }
+    };
+    const summary = (summaries[lang] || summaries.en)[category];
+
+    // Best use cases for this pair
+    const useCases = {
+      en: {
+        complementary: ['Complex projects needing diverse perspectives', 'High-stakes decisions where blind spots are costly', 'Creative work requiring challenge and iteration'],
+        balanced: ['Day-to-day development work', 'Projects needing both stability and adaptability', 'Team settings where smooth communication matters'],
+        similar: ['Repetitive tasks where consistency is key', 'Quick prototyping with shared assumptions', 'Low-risk experiments and explorations']
+      },
+      zh: {
+        complementary: ['需要多元视角的复杂项目', '盲区代价高昂的关键决策', '需要挑战和迭代的创意工作'],
+        balanced: ['日常开发工作', '需要稳定性和适应性的项目', '重视顺畅沟通的团队场景'],
+        similar: ['一致性很重要的重复任务', '基于共同假设的快速原型', '低风险的实验和探索']
+      }
+    };
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      mbti,
+      abti,
+      abtiNick: profile.nick || abti,
+      score,
+      category,
+      mappedPoles: poles,
+      pairAnalysis,
+      summary,
+      bestUseCases: (useCases[lang] || useCases.en)[category],
+      frictionPoints: pairAnalysis.filter(p => !p.match).map(p => p.title)
+    }));
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
