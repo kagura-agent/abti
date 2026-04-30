@@ -10,7 +10,7 @@ inputs:
     description: 'Path to file containing the agent system prompt (e.g. AGENTS.md)'
     required: false
   provider:
-    description: 'LLM provider: openai or anthropic'
+    description: 'LLM provider: openai, anthropic, or gemini'
     required: true
   model:
     description: 'Model name (e.g. gpt-4o, claude-sonnet-4-20250514)'
