@@ -71,3 +71,85 @@ jobs:
           echo "- Model: \`${{ matrix.model }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Provider: \`${{ matrix.provider }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Status: ${{ steps.abti-test.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Write result JSON
+        if: steps.abti-test.outcome == 'success'
+        run: |
+          cat > result.json << 'INNEREOF'
+          {
+            "name": "${{ matrix.agent-name }}",
+            "url": "",
+            "type": "${{ steps.abti-test.outputs.type }}",
+            "nick": "${{ steps.abti-test.outputs.nickname }}",
+            "model": "${{ matrix.model }}",
+            "provider": "${{ matrix.provider }}"
+          }
+          INNEREOF
+
+      - name: Upload result artifact
+        if: steps.abti-test.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ strategy.job-index }}
+          retention-days: 1
+          path: result.json
+
+  collect-results:
+    needs: test-model
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all result artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: result-*
+
+      - name: Merge results into data/results.json
+        run: |
+          # Collect all new result files
+          shopt -s nullglob
+          files=(artifacts/*/result.json)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No successful results to merge"
+            exit 0
+          fi
+
+          # Use node to merge (available on ubuntu-latest)
+          node -e "
+          const fs = require('fs');
+          const existing = JSON.parse(fs.readFileSync('data/results.json', 'utf8'));
+          const agents = existing.agents || [];
+
+          // Build a map by agent name for dedup
+          const map = new Map(agents.map(a => [a.name, a]));
+
+          // Read each new result
+          const files = process.argv.slice(1);
+          const now = new Date().toISOString();
+          for (const f of files) {
+            const r = JSON.parse(fs.readFileSync(f, 'utf8'));
+            // Override testedAt with actual current time
+            r.testedAt = now;
+            map.set(r.name, r);
+          }
+
+          const merged = Array.from(map.values());
+          const output = { total: merged.length, agents: merged };
+          fs.writeFileSync('data/results.json', JSON.stringify(output, null, 2) + '\n');
+          console.log('Merged ' + files.length + ' new results, total ' + merged.length);
+          " "${files[@]}"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/results.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore: update batch test results [skip ci]"
+          git push
