@@ -434,7 +434,7 @@ textarea { resize: vertical; min-height: 80px; }
       </select>
 
       <label id="modelLabel">Model</label>
-      <select id="modelSelect"></select>
+      <select id="modelSelect" onchange="onModelChange()"></select>
       <input type="text" id="modelInput" class="hidden" placeholder="e.g. meta-llama/llama-3-70b">
 
       <label id="apiKeyLabel">API Key</label>
@@ -625,7 +625,7 @@ function applyLang() {
 const providers = {
   openai: {
     url: 'https://api.openai.com/v1/chat/completions',
-    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-3.5-turbo', 'o3-mini'],
+    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'o3', 'o3-mini'],
     auth: 'bearer',
     format: 'openai',
   },
@@ -643,7 +643,7 @@ const providers = {
   },
   openrouter: {
     url: 'https://openrouter.ai/api/v1/chat/completions',
-    models: null, // free text
+    models: ['openai/gpt-oss-120b:free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free', 'qwen/qwen3-coder:free', 'qwen/qwen3-next-80b-a3b-instruct:free', 'nvidia/nemotron-3-super-120b-a12b:free', 'nvidia/nemotron-3-nano-30b-a3b:free', 'minimax/minimax-m2.5:free', 'custom'],
     auth: 'bearer',
     format: 'openai',
   },
@@ -663,9 +663,14 @@ function onProviderChange() {
   const customFields = document.getElementById('customFields');
 
   if (cfg.models) {
-    modelSelect.innerHTML = cfg.models.map(m => `<option value="${m}">${m}</option>`).join('');
+    modelSelect.innerHTML = cfg.models.map(m => {
+      const label = m === 'custom' ? 'Other (enter model ID)' : m;
+      return `<option value="${m}">${label}</option>`;
+    }).join('');
     modelSelect.classList.remove('hidden');
-    modelInput.classList.add('hidden');
+    // Show text input only if 'custom' option is selected in the dropdown
+    const showCustomInput = modelSelect.value === 'custom';
+    modelInput.classList.toggle('hidden', !showCustomInput);
   } else {
     modelSelect.classList.add('hidden');
     modelInput.classList.remove('hidden');
@@ -673,13 +678,22 @@ function onProviderChange() {
   customFields.classList.toggle('hidden', p !== 'custom');
 }
 
+function onModelChange() {
+  const modelSelect = document.getElementById('modelSelect');
+  const modelInput = document.getElementById('modelInput');
+  const showCustomInput = modelSelect.value === 'custom';
+  modelInput.classList.toggle('hidden', !showCustomInput);
+  if (showCustomInput) modelInput.focus();
+}
+
 // ── LLM Call ──
 async function callLLM(systemMsg, userMsg) {
   const p = document.getElementById('providerSelect').value;
   const cfg = providers[p];
   const apiKey = document.getElementById('apiKeyInput').value.trim();
+  const modelSelectVal = document.getElementById('modelSelect').value;
   const model = cfg.models
-    ? document.getElementById('modelSelect').value
+    ? (modelSelectVal === 'custom' ? document.getElementById('modelInput').value.trim() : modelSelectVal)
     : document.getElementById('modelInput').value.trim();
 
   let url, headers, body;
@@ -768,7 +782,8 @@ async function startTest() {
 
   const p = document.getElementById('providerSelect').value;
   if (p === 'custom' && !document.getElementById('customUrl').value.trim()) return alert(t('customUrlRequired'));
-  if (!providers[p].models && !document.getElementById('modelInput').value.trim()) return alert(t('modelRequired'));
+  const selectedModel = document.getElementById('modelSelect').value;
+  if ((!providers[p].models || selectedModel === 'custom') && !document.getElementById('modelInput').value.trim()) return alert(t('modelRequired'));
 
   // Store key in sessionStorage
   sessionStorage.setItem('abti_api_key', apiKey);
@@ -895,8 +910,9 @@ function showError(idx, err) {
   const area = document.getElementById('errorArea');
   const isCors = err.message.includes('Failed to fetch') || err.message.includes('NetworkError');
   const p = document.getElementById('providerSelect').value;
+  const modelSelectVal = document.getElementById('modelSelect').value;
   const model = providers[p]?.models
-    ? document.getElementById('modelSelect').value
+    ? (modelSelectVal === 'custom' ? document.getElementById('modelInput').value.trim() : modelSelectVal)
     : document.getElementById('modelInput').value.trim();
 
   let html = `<div class="error-box">
@@ -1001,8 +1017,9 @@ async function registerResult() {
 
   const r = window._lastResult;
   const p = document.getElementById('providerSelect').value;
+  const modelSelectVal = document.getElementById('modelSelect').value;
   const model = providers[p]?.models
-    ? document.getElementById('modelSelect').value
+    ? (modelSelectVal === 'custom' ? document.getElementById('modelInput').value.trim() : modelSelectVal)
     : document.getElementById('modelInput').value.trim();
 
   try {
