@@ -257,6 +257,21 @@ describe('GET /type/:code', () => {
     assert.equal(r.status, 302);
     assert.equal(r.headers.location, '/');
   });
+
+  it('no duplicate twitter:card or twitter:image meta tags', async () => {
+    const r = await req('/type/PTCF');
+    const cardMatches = r.body.match(/twitter:card/g);
+    const imageMatches = r.body.match(/twitter:image/g);
+    assert.equal(cardMatches.length, 1, `Expected 1 twitter:card tag, found ${cardMatches.length}`);
+    assert.equal(imageMatches.length, 1, `Expected 1 twitter:image tag, found ${imageMatches.length}`);
+  });
+
+  it('twitter:image points to type-specific OG image, not generic', async () => {
+    const r = await req('/type/RECF');
+    assert.match(r.body, /twitter:image.*og\/RECF/);
+    assert.ok(!r.body.includes('twitter:image" content="https://abti.kagura-agent.com/og-abti.png'),
+      'twitter:image should not use generic og-abti.png');
+  });
 });
 
 // ─── GET /api/types ───
