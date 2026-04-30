@@ -1,0 +1,73 @@
+name: Batch Model Test
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Every Monday at 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  test-model:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # OpenAI
+          - model: gpt-4o
+            provider: openai
+            secret: OPENAI_API_KEY
+            agent-name: GPT-4o
+          - model: gpt-4o-mini
+            provider: openai
+            secret: OPENAI_API_KEY
+            agent-name: GPT-4o Mini
+          # Anthropic
+          - model: claude-sonnet-4-20250514
+            provider: anthropic
+            secret: ANTHROPIC_API_KEY
+            agent-name: Claude Sonnet 4
+          - model: claude-haiku-35
+            provider: anthropic
+            secret: ANTHROPIC_API_KEY
+            agent-name: Claude Haiku 3.5
+          # Google
+          - model: gemini-2.5-flash
+            provider: gemini
+            secret: GOOGLE_AI_API_KEY
+            agent-name: Gemini 2.5 Flash
+          - model: gemini-2.5-pro
+            provider: gemini
+            secret: GOOGLE_AI_API_KEY
+            agent-name: Gemini 2.5 Pro
+          # OpenRouter
+          - model: mixtral-8x7b-instruct
+            provider: openai
+            llm-base-url: https://openrouter.ai/api/v1
+            secret: OPENROUTER_API_KEY
+            agent-name: Mixtral 8x7B (OpenRouter)
+          - model: meta-llama/llama-3.1-70b-instruct
+            provider: openai
+            llm-base-url: https://openrouter.ai/api/v1
+            secret: OPENROUTER_API_KEY
+            agent-name: Llama 3.1 70B (OpenRouter)
+
+    name: Test ${{ matrix.agent-name }}
+    steps:
+      - name: Run ABTI test for ${{ matrix.agent-name }}
+        uses: kagura-agent/abti@v1
+        continue-on-error: true
+        id: abti-test
+        with:
+          model: ${{ matrix.model }}
+          provider: ${{ matrix.provider }}
+          api-key: ${{ secrets[matrix.secret] }}
+          llm-base-url: ${{ matrix.llm-base-url || '' }}
+          agent-name: ${{ matrix.agent-name }}
+
+      - name: Record result
+        if: always()
+        run: |
+          echo "### ${{ matrix.agent-name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Model: \`${{ matrix.model }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Provider: \`${{ matrix.provider }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Status: ${{ steps.abti-test.outcome }}" >> "$GITHUB_STEP_SUMMARY"

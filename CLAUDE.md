@@ -1,18 +1,27 @@
 # CLAUDE.md — ABTI Project
 
-> AI Agent 人格测试网站。单 HTML 文件，深色主题 + 樱花粉配色。
+> AI Agent 人格测试网站。单 HTML 文件，浅色主题 + 樱花粉配色。
 > 前端设计通用规则由 frontend-design plugin 提供，这里只写项目特定约束。
 
 ## 项目约束
 
 - **单 HTML 文件**：CSS 内联 `<style>`，JS 内联 `<script>`，无构建工具
-- **深色主题**：背景 hsl(240 25% 5%)，主色樱花粉 #ff6b9d
+- **浅色主题**：背景 #faf9f7，主色樱花粉 #e8658a
+- **字体**：DM Sans + Noto Serif SC
 - **双语**：中文(默认) + English，中文需 line-height 1.7+
 - **移动端优先**：375px 视口必须完美，微信内置浏览器兼容
 
 ## 配色
 
 ```
+ABTI (index.html) — 浅色主题:
+背景: #faf9f7 (warm off-white)
+卡片: #ffffff
+主色: #e8658a (sakura pink)
+文字: #1a1a1a
+边框: #e8e5e1
+
+SBTI (sbti.html) — 深色主题:
 背景: #0a0a0f / hsl(240 25% 5%)
 卡片: hsl(240 20% 10%)
 主色: #ff6b9d (樱花粉)
