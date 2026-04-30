@@ -743,6 +743,10 @@ ${dimInfo.map((d, i) => {
       `<meta property="og:image" content="https://abti.kagura-agent.com/og/${code}">`,
       `<meta property="og:url" content="https://abti.kagura-agent.com/type/${code}">`,
       `<meta property="og:type" content="website">`,
+      `<meta name="twitter:card" content="summary_large_image">`,
+      `<meta name="twitter:title" content="${code} — ${nick} | ABTI">`,
+      `<meta name="twitter:description" content="${desc}">`,
+      `<meta name="twitter:image" content="https://abti.kagura-agent.com/og/${code}">`,
     ].join('\n');
     html = html.replace(/<title>[^<]*<\/title>/, `<title>${code} "${nick}" — ABTI</title>`);
     html = html.replace('</head>', ogTags + '\n</head>');
@@ -773,6 +777,10 @@ ${dimInfo.map((d, i) => {
       `<meta property="og:image" content="https://abti.kagura-agent.com/og/sbti/${code}.png">`,
       `<meta property="og:url" content="https://abti.kagura-agent.com/sbti/result/${code}">`,
       `<meta property="og:type" content="website">`,
+      `<meta name="twitter:card" content="summary_large_image">`,
+      `<meta name="twitter:title" content="I am ${code} | SBTI">`,
+      `<meta name="twitter:description" content="${desc}">`,
+      `<meta name="twitter:image" content="https://abti.kagura-agent.com/og/sbti/${code}.png">`,
     ].join('\n');
     html = html.replace('</head>', ogTags + '\n</head>');
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -803,6 +811,9 @@ ${dimInfo.map((d, i) => {
     html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}">`);
     html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="https://abti.kagura-agent.com/og/${code}">`);
     html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="https://abti.kagura-agent.com/result/${code}">`);
+    html = html.replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="I am ${code} — ${nick} | ABTI">`);
+    html = html.replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${desc}">`);
+    html = html.replace(/<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="https://abti.kagura-agent.com/og/${code}">`);
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     return res.end(html);
   }
@@ -871,6 +882,10 @@ ${dimInfo.map((d, i) => {
       `<meta property="og:image" content="https://abti.kagura-agent.com/og/${agent.type}">`,
       `<meta property="og:url" content="https://abti.kagura-agent.com/agent/${agent.slug || slugify(agent.name)}">`,
       `<meta property="og:type" content="website">`,
+      `<meta name="twitter:card" content="summary_large_image">`,
+      `<meta name="twitter:title" content="${agent.name} — ${agent.type} ${nick} | ABTI">`,
+      `<meta name="twitter:description" content="${desc}">`,
+      `<meta name="twitter:image" content="https://abti.kagura-agent.com/og/${agent.type}">`,
     ].join('\n');
     html = html.replace(/<title>[^<]*<\/title>/, `<title>${agent.name} — ${agent.type} "${nick}" | ABTI</title>`);
     html = html.replace('</head>', ogTags + '\n</head>');
