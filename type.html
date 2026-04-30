@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Type — ABTI</title>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Type — ABTI">
+<meta name="twitter:description" content="Detailed profile of an ABTI agent behavioral type">
+<meta name="twitter:image" content="https://abti.kagura-agent.com/og-abti.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -268,8 +272,8 @@ nav a:hover, nav a.active { color: var(--accent); }
   }
 
   fetch('/api/types').then(function(res) { return res.json(); }).then(function(data) {
-    dims = data.abti.dimensions;
-    typeData = data.abti.types[typeCode];
+    dims = data.dimensions;
+    typeData = data.types[typeCode];
     if (!typeData) {
       document.getElementById('loading').textContent = 'Type "' + typeCode + '" not found';
       document.getElementById('loading').className = 'error';

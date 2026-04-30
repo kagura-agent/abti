@@ -304,8 +304,8 @@ nav a:hover, nav a.active { color: var(--accent); }
     ]).then(function(results) {
       var data = results[0];
       if (results[1]) {
-        allTypes = results[1].abti.types;
-        dims = results[1].abti.dimensions;
+        allTypes = results[1].types;
+        dims = results[1].dimensions;
       }
       if (!data || !data.agent) {
         document.getElementById('loading').textContent = 'Agent not found';
