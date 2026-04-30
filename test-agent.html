@@ -465,6 +465,10 @@ textarea { resize: vertical; min-height: 80px; }
       <label id="agentUrlLabel">Agent URL</label>
       <input type="text" id="agentUrl" placeholder="https://...">
       <label id="systemPromptLabel">System Prompt (agent persona)</label>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem">
+        <input type="text" id="githubUrl" placeholder="https://github.com/user/repo/blob/main/AGENTS.md" style="flex:1;font-size:0.85rem">
+        <button class="btn btn-secondary" id="importGhBtn" onclick="importFromGithub()" style="padding:0.5rem 1rem;font-size:0.8rem;white-space:nowrap" data-i18n="importBtn">Import</button>
+      </div>
       <textarea id="systemPrompt" placeholder="You are a helpful assistant..."></textarea>
     </div>
 
@@ -525,6 +529,9 @@ const i18n = {
     agentName: 'Agent 名称',
     agentUrl: 'Agent URL',
     systemPrompt: '系统提示词（Agent 人设）',
+    importBtn: '导入',
+    importPlaceholder: '粘贴 GitHub 文件链接',
+    importError: '导入失败，请检查链接是否正确',
     startTest: '开始测试',
     testing: '测试中...',
     question: '问题',
@@ -562,6 +569,9 @@ const i18n = {
     agentName: 'Agent Name',
     agentUrl: 'Agent URL',
     systemPrompt: 'System Prompt (agent persona)',
+    importBtn: 'Import',
+    importPlaceholder: 'Paste GitHub file URL',
+    importError: 'Import failed. Check that the URL is correct.',
     startTest: 'Start Test',
     testing: 'Testing...',
     question: 'Question',
@@ -610,6 +620,8 @@ function applyLang() {
   document.getElementById('agentNameLabel').textContent = t('agentName');
   document.getElementById('agentUrlLabel').textContent = t('agentUrl');
   document.getElementById('systemPromptLabel').textContent = t('systemPrompt');
+  document.getElementById('importGhBtn').textContent = t('importBtn');
+  document.getElementById('githubUrl').placeholder = t('importPlaceholder');
   document.getElementById('startBtn').textContent = t('startTest');
   document.getElementById('testingTitle').textContent = t('testing');
   document.getElementById('resultTitle').textContent = t('result');
@@ -619,6 +631,24 @@ function applyLang() {
   document.getElementById('regUrlLabel').textContent = t('regUrl');
   document.getElementById('registerBtn').textContent = t('register');
   document.getElementById('authFormatLabel').textContent = t('authFormat');
+}
+
+// ── Import from GitHub ──
+async function importFromGithub() {
+  const input = document.getElementById('githubUrl');
+  const url = input.value.trim();
+  if (!url) return;
+  // Convert github.com blob URL to raw.githubusercontent.com
+  const m = url.match(/github\.com\/([^/]+)\/([^/]+)\/blob\/(.+)/);
+  if (!m) return alert(t('importError'));
+  const rawUrl = `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}`;
+  try {
+    const resp = await fetch(rawUrl);
+    if (!resp.ok) throw new Error(resp.status);
+    document.getElementById('systemPrompt').value = await resp.text();
+  } catch (e) {
+    alert(t('importError'));
+  }
 }
 
 // ── Provider config ──
