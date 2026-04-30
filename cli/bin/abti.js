@@ -3,6 +3,8 @@
 
 const readline = require('readline');
 const https = require('https');
+const http = require('http');
+const fs = require('fs');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const API_BASE = 'https://abti.kagura-agent.com';
@@ -72,8 +74,17 @@ const submit = flag('--submit');
 const lang = opt('--lang') === 'zh' ? 'zh' : 'en';
 const agentName = opt('--name');
 const agentUrl = opt('--url');
-const model = opt('--model');
-const provider = opt('--provider');
+const autoMode = flag('--auto');
+const autoProvider = opt('--provider') || (autoMode ? 'openai' : null);
+const autoModel = opt('--model') || null;
+const autoApiKey = opt('--api-key') || null;
+const autoPrompt = opt('--prompt') || null;
+const autoPromptFile = opt('--prompt-file') || null;
+const llmBaseUrl = opt('--llm-base-url') || null;
+
+// Keep backward compat: --model and --provider used for submit metadata too
+const model = autoModel;
+const provider = autoProvider;
 
 if (flag('--help') || flag('-h')) {
   console.log(`
@@ -89,8 +100,23 @@ if (flag('--help') || flag('-h')) {
     npx abti --provider PRV  Set provider name
     npx abti --submit        Submit result to registry
 
+  Auto mode (LLM answers all questions):
+    npx abti --auto --provider openai --model gpt-4o --api-key sk-...
+    npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
+    npx abti --auto --provider gemini --model gemini-2.0-flash
+
+  Auto mode options:
+    --auto                   Enable LLM auto-answer mode
+    --provider <p>           LLM provider: openai|anthropic|gemini (default: openai)
+    --model <m>              Model name (required for --auto)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY)
+    --prompt <text>          System prompt for the agent persona
+    --prompt-file <path>     Read system prompt from file
+    --llm-base-url <url>     Custom API base URL (OpenRouter, etc.)
+
   Combine flags:
     npx abti --name myBot --submit --json
+    npx abti --auto --provider openai --model gpt-4o --json --submit
 `);
   process.exit(0);
 }
@@ -156,8 +182,171 @@ function readStdinLines() {
   });
 }
 
+// ── LLM providers (replicates action/index.js pattern) ─────────────────────
+
+function llmRequest(options, payload) {
+  return new Promise((resolve, reject) => {
+    const mod = options.port === 443 || (!options.port && !options.protocol) || (options.protocol || 'https:') === 'https:' ? https : http;
+    delete options.protocol;
+    const req = mod.request(options, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode < 200 || res.statusCode >= 300) return reject(new Error(`LLM API returned ${res.statusCode}: ${data}`));
+        try { resolve(JSON.parse(data)); }
+        catch (e) { reject(new Error(`Failed to parse LLM response: ${e.message}`)); }
+      });
+      res.on('error', reject);
+    });
+    req.on('error', reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
+  const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions') : new URL('https://api.openai.com/v1/chat/completions');
+  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: 4, temperature: 0 });
+  return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
+    .then(json => json.choices[0].message.content.trim());
+}
+
+function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
+  const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/messages') : new URL('https://api.anthropic.com/v1/messages');
+  const payload = JSON.stringify({ model: mdl, max_tokens: 4, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
+  return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'Content-Length': Buffer.byteLength(payload) } }, payload)
+    .then(json => json.content[0].text.trim());
+}
+
+function callGemini(apiKey, mdl, systemPrompt, userMessage) {
+  const payload = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: userMessage }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { maxOutputTokens: 4, temperature: 0 } });
+  return llmRequest({ hostname: 'generativelanguage.googleapis.com', path: `/v1beta/models/${mdl}:generateContent?key=${apiKey}`, method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) } }, payload)
+    .then(json => json.candidates[0].content.parts[0].text.trim());
+}
+
+function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
+  if (prov === 'openai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl);
+  if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
+  if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", or "gemini".`);
+}
+
+function parseAnswer(response) {
+  const cleaned = response.toUpperCase().trim();
+  if (cleaned.startsWith('A')) return true;
+  if (cleaned.startsWith('B')) return false;
+  if (/\bA\b/.test(cleaned)) return true;
+  if (/\bB\b/.test(cleaned)) return false;
+  throw new Error(`Could not parse A or B from LLM response: "${response}"`);
+}
+
+function resolveApiKey(prov, explicit) {
+  if (explicit) return explicit;
+  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY' };
+  const envKey = envMap[prov];
+  if (envKey && process.env[envKey]) return process.env[envKey];
+  throw new Error(`No API key provided. Use --api-key or set ${envKey}`);
+}
+
+// ── Auto mode (LLM answers all questions) ──────────────────────────────────
+async function runAuto() {
+  if (!autoModel) { console.error('  --model is required for --auto mode'); process.exit(1); }
+  const apiKey = resolveApiKey(autoProvider, autoApiKey);
+
+  // Build system prompt
+  let basePrompt = '';
+  if (autoPromptFile) basePrompt = fs.readFileSync(autoPromptFile, 'utf-8');
+  if (autoPrompt) basePrompt = autoPrompt;
+  if (!basePrompt) basePrompt = 'You are a helpful AI assistant.';
+  const systemPrompt = basePrompt + '\n\n' +
+    'You are taking a personality test. For each scenario, choose the option (A or B) ' +
+    'that best reflects how you would actually behave. Reply with ONLY the letter A or B.';
+
+  const questions = await getQuestions();
+  const answers = [];
+
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const text = q.q || q.text || q.question;
+    const optA = q.a || (q.options && (q.options.A || q.options[0])) || 'A';
+    const optB = q.b || (q.options && (q.options.B || q.options[1])) || 'B';
+    const dim = q.dimension || '';
+
+    const userMessage = [
+      `Question ${i + 1}/${questions.length}${dim ? ` (${dim})` : ''}:`,
+      '', text, '',
+      `A: ${optA}`,
+      `B: ${optB}`,
+    ].join('\n');
+
+    const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, userMessage, llmBaseUrl || undefined);
+    const answer = parseAnswer(response);
+    answers.push(answer);
+    process.stderr.write(`  Question ${i + 1}/${questions.length}... ${answer ? 'A' : 'B'}\n`);
+  }
+
+  return answers;
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
+  let answers;
+
+  if (autoMode) {
+    answers = await runAuto();
+  } else {
+    answers = await runInteractive();
+  }
+
+  // Score locally
+  const result = score(answers);
+  const { code, scores } = result;
+  const nick = NICKS[lang][code];
+  const desc = DESCS[lang][code];
+
+  if (jsonMode) {
+    const output = { type: code, nick, desc, scores, badge: `${API_BASE}/badge/${code}` };
+    if (agentName) output.name = agentName;
+    if (model) output.model = model;
+    if (provider) output.provider = provider;
+    console.log(JSON.stringify(output, null, 2));
+  } else {
+    const t = lang === 'zh'
+      ? { done: '测试完成！', yourType: '你的类型', dims: '维度得分', badge: '徽章' }
+      : { done: 'Test complete!', yourType: 'Your type', dims: 'Dimension scores', badge: 'Badge' };
+    console.log(`\n  ${t.done}\n`);
+    console.log(`  ${t.yourType}: ${code} — ${nick}`);
+    console.log(`  ${desc}\n`);
+    const dimNames = DIM_NAMES[lang];
+    console.log(`  ${t.dims}:`);
+    for (let i = 0; i < 4; i++) {
+      const pole = scores[i] >= 2 ? dimNames[i][1] : dimNames[i][2];
+      console.log(`    ${dimNames[i][0]}: ${scores[i]}/4 → ${pole} (${scores[i] >= 2 ? DIM_LETTERS[i][0] : DIM_LETTERS[i][1]})`);
+    }
+    console.log(`\n  ${t.badge}: ${API_BASE}/badge/${code}`);
+  }
+
+  // Submit if requested
+  if (submit) {
+    const t = lang === 'zh' ? { submitted: '已提交到注册表！' } : { submitted: 'Submitted to registry!' };
+    try {
+      const body = { answers: answers.map(a => a ? 1 : 0), lang };
+      if (agentName) body.agentName = agentName;
+      if (agentUrl) body.agentUrl = agentUrl;
+      if (model) body.model = model;
+      if (provider) body.provider = provider;
+      await httpPost(`${API_BASE}/api/agent-test`, body);
+      if (!jsonMode) console.log(`\n  ${t.submitted}`);
+    } catch (err) {
+      console.error(`\n  Submit failed: ${err.message}`);
+      process.exit(1);
+    }
+  }
+
+  console.log();
+}
+
+async function runInteractive() {
   const questions = await getQuestions();
   const answers = [];
   const piped = !process.stdin.isTTY;
@@ -166,8 +355,8 @@ async function run() {
   const rl = piped ? null : readline.createInterface({ input: process.stdin, output: process.stdout });
   const ask = piped ? null : (q => new Promise(resolve => rl.question(q, resolve)));
 
-  const t = lang === 'zh' ? { title: '\n  ABTI — AI Agent 人格类型测试\n', qLabel: '问题', optA: 'A', optB: 'B', pick: '选择 (a/b): ', invalid: '请输入 a 或 b', done: '测试完成！', yourType: '你的类型', dims: '维度得分', badge: '徽章', submitted: '已提交到注册表！' }
-    : { title: '\n  ABTI — Agent Behavioral Type Indicator\n', qLabel: 'Question', optA: 'A', optB: 'B', pick: 'Pick (a/b): ', invalid: 'Please enter a or b', done: 'Test complete!', yourType: 'Your type', dims: 'Dimension scores', badge: 'Badge', submitted: 'Submitted to registry!' };
+  const t = lang === 'zh' ? { title: '\n  ABTI — AI Agent 人格类型测试\n', qLabel: '问题', pick: '选择 (a/b): ', invalid: '请输入 a 或 b' }
+    : { title: '\n  ABTI — Agent Behavioral Type Indicator\n', qLabel: 'Question', pick: 'Pick (a/b): ', invalid: 'Please enter a or b' };
 
   console.log(t.title);
 
@@ -200,47 +389,7 @@ async function run() {
   }
 
   if (rl) rl.close();
-
-  // Score locally
-  const result = score(answers);
-  const { code, scores } = result;
-  const nick = NICKS[lang][code];
-  const desc = DESCS[lang][code];
-
-  if (jsonMode) {
-    const output = { type: code, nick, desc, scores, badge: `${API_BASE}/badge/${code}` };
-    if (agentName) output.name = agentName;
-    console.log(JSON.stringify(output, null, 2));
-  } else {
-    console.log(`  ${t.done}\n`);
-    console.log(`  ${t.yourType}: ${code} — ${nick}`);
-    console.log(`  ${desc}\n`);
-    const dimNames = DIM_NAMES[lang];
-    console.log(`  ${t.dims}:`);
-    for (let i = 0; i < 4; i++) {
-      const pole = scores[i] >= 2 ? dimNames[i][1] : dimNames[i][2];
-      console.log(`    ${dimNames[i][0]}: ${scores[i]}/4 → ${pole} (${scores[i] >= 2 ? DIM_LETTERS[i][0] : DIM_LETTERS[i][1]})`);
-    }
-    console.log(`\n  ${t.badge}: ${API_BASE}/badge/${code}`);
-  }
-
-  // Submit if requested
-  if (submit) {
-    try {
-      const body = { answers: answers.map(a => a ? 1 : 0), lang };
-      if (agentName) body.agentName = agentName;
-      if (agentUrl) body.agentUrl = agentUrl;
-      if (model) body.model = model;
-      if (provider) body.provider = provider;
-      await httpPost(`${API_BASE}/api/agent-test`, body);
-      if (!jsonMode) console.log(`\n  ${t.submitted}`);
-    } catch (err) {
-      console.error(`\n  Submit failed: ${err.message}`);
-      process.exit(1);
-    }
-  }
-
-  console.log();
+  return answers;
 }
 
 run().catch(err => { console.error(err.message); process.exit(1); });
