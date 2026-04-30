@@ -300,12 +300,38 @@ nav a:hover, nav a.active { color: var(--accent); }
   function fetchAgent() {
     Promise.all([
       fetch('/api/agent/' + encodeURIComponent(slug) + '?lang=' + lang).then(function(r) { return r.ok ? r.json() : null; }),
-      allTypes ? Promise.resolve(null) : fetch('/api/types').then(function(r) { return r.json(); })
+      allTypes ? Promise.resolve(null) : Promise.all([
+        fetch('/api/types?lang=en').then(function(r) { return r.json(); }),
+        fetch('/api/types?lang=zh').then(function(r) { return r.json(); })
+      ])
     ]).then(function(results) {
       var data = results[0];
       if (results[1]) {
-        allTypes = results[1].types;
-        dims = results[1].dimensions;
+        var enData = results[1][0];
+        var zhData = results[1][1];
+        var DL = [['P','R'],['T','E'],['C','D'],['F','N']];
+        var dimLabels = {
+          en: [
+            {name:'Autonomy', pole1:'Proactive', pole2:'Responsive'},
+            {name:'Precision', pole1:'Thorough', pole2:'Efficient'},
+            {name:'Transparency', pole1:'Candid', pole2:'Diplomatic'},
+            {name:'Adaptability', pole1:'Flexible', pole2:'Principled'}
+          ],
+          zh: [
+            {name:'自主性', pole1:'主动', pole2:'响应'},
+            {name:'精确度', pole1:'面面俱到', pole2:'精简高效'},
+            {name:'透明度', pole1:'直言不讳', pole2:'委婉圆滑'},
+            {name:'适应性', pole1:'随机应变', pole2:'坚持原则'}
+          ]
+        };
+        // Build rich allTypes: { CODE: { en: {...}, zh: {...} } }
+        allTypes = {};
+        Object.keys(enData.types).forEach(function(code) {
+          allTypes[code] = { en: enData.types[code], zh: zhData.types[code] };
+        });
+        dims = DL.map(function(letters, i) {
+          return { index: i, letters: letters, en: dimLabels.en[i], zh: dimLabels.zh[i] };
+        });
       }
       if (!data || !data.agent) {
         document.getElementById('loading').textContent = 'Agent not found';
