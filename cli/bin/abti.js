@@ -105,10 +105,11 @@ if (flag('--help') || flag('-h')) {
     npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
     npx abti --auto --provider gemini --model gemini-2.0-flash
     npx abti --auto --provider deepseek --model deepseek-chat
+    npx abti --auto --provider ollama --model llama3.1
 
   Auto mode options:
     --auto                   Enable LLM auto-answer mode
-    --provider <p>           LLM provider: openai|anthropic|gemini|deepseek (default: openai)
+    --provider <p>           LLM provider: openai|anthropic|gemini|deepseek|ollama (default: openai)
     --model <m>              Model name (required for --auto)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY)
     --prompt <text>          System prompt for the agent persona
@@ -230,7 +231,8 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com');
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", or "deepseek".`);
+  if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434');
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", or "ollama".`);
 }
 
 function parseAnswer(response) {
@@ -244,6 +246,7 @@ function parseAnswer(response) {
 
 function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
+  if (prov === 'ollama') return 'ollama';
   const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];

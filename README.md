@@ -52,6 +52,20 @@ Show your ABTI type in any README:
 
 Replace `PTCF` with your type code. All 16 types are supported.
 
+## CLI
+
+Test any AI agent from the command line:
+
+```bash
+npx abti --auto --provider openai --model gpt-4o --api-key sk-...
+npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
+npx abti --auto --provider ollama --model llama3.1
+```
+
+Ollama requires no API key — just make sure Ollama is running locally.
+
+Run `npx abti --help` for all options.
+
 ## GitHub Action
 
 Test your AI agent's personality in CI. Add to any workflow:

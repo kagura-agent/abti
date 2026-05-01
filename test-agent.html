@@ -435,6 +435,7 @@ textarea { resize: vertical; min-height: 80px; }
         <option value="anthropic">Anthropic</option>
         <option value="google">Google AI</option>
         <option value="deepseek">DeepSeek</option>
+        <option value="ollama">Ollama (Local)</option>
         <option value="openrouter">OpenRouter</option>
         <option value="custom">Custom Endpoint</option>
       </select>
@@ -707,6 +708,12 @@ const providers = {
     auth: 'bearer',
     format: 'openai',
   },
+  ollama: {
+    url: 'http://localhost:11434/v1/chat/completions',
+    models: ['llama3.1', 'llama3.2', 'gemma2', 'mistral', 'phi3', 'qwen2.5', 'deepseek-r1', 'custom'],
+    auth: null,
+    format: 'openai',
+  },
   openrouter: {
     url: 'https://openrouter.ai/api/v1/chat/completions',
     models: ['openai/gpt-oss-120b:free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free', 'qwen/qwen3-coder:free', 'qwen/qwen3-next-80b-a3b-instruct:free', 'nvidia/nemotron-3-super-120b-a12b:free', 'nvidia/nemotron-3-nano-30b-a3b:free', 'minimax/minimax-m2.5:free', 'custom'],
@@ -742,6 +749,28 @@ function onProviderChange() {
     modelInput.classList.remove('hidden');
   }
   customFields.classList.toggle('hidden', p !== 'custom');
+
+  // Hide API key for providers that don't need it (e.g. ollama)
+  const apiKeyRow = document.getElementById('apiKeyLabel');
+  const apiKeyInput = document.getElementById('apiKeyInput');
+  const noAuth = cfg.auth === null && p !== 'custom';
+  apiKeyRow.classList.toggle('hidden', noAuth);
+  apiKeyInput.classList.toggle('hidden', noAuth);
+
+  // Show CORS note for ollama
+  let ollamaNote = document.getElementById('ollamaCorsNote');
+  if (p === 'ollama') {
+    if (!ollamaNote) {
+      ollamaNote = document.createElement('div');
+      ollamaNote.id = 'ollamaCorsNote';
+      ollamaNote.className = 'privacy-notice';
+      ollamaNote.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 4v5M8 11v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Make sure Ollama is running locally. Set <code>OLLAMA_ORIGINS=*</code> to allow browser requests.</span>';
+      document.getElementById('providerSelect').parentElement.appendChild(ollamaNote);
+    }
+    ollamaNote.classList.remove('hidden');
+  } else if (ollamaNote) {
+    ollamaNote.classList.add('hidden');
+  }
 }
 
 function onModelChange() {
@@ -843,10 +872,9 @@ let running = false;
 let abortController = null;
 
 async function startTest() {
-  const apiKey = document.getElementById('apiKeyInput').value.trim();
-  if (!apiKey) return alert(t('apiKeyRequired'));
-
   const p = document.getElementById('providerSelect').value;
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (!apiKey && providers[p]?.auth !== null) return alert(t('apiKeyRequired'));
   if (p === 'custom' && !document.getElementById('customUrl').value.trim()) return alert(t('customUrlRequired'));
   const selectedModel = document.getElementById('modelSelect').value;
   if ((!providers[p].models || selectedModel === 'custom') && !document.getElementById('modelInput').value.trim()) return alert(t('modelRequired'));
