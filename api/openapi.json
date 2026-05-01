@@ -447,6 +447,109 @@
         }
       }
     },
+    "/api/compatibility/human": {
+      "get": {
+        "summary": "Get human-agent compatibility for an MBTI type",
+        "description": "Given a human's MBTI type, returns compatibility rankings with all 16 ABTI agent types, including mirror/opposite type, top 3 best matches, and most challenging pairings.",
+        "operationId": "getHumanCompatibility",
+        "tags": ["Compatibility"],
+        "parameters": [
+          {
+            "name": "mbti",
+            "in": "query",
+            "required": true,
+            "description": "Human MBTI type code (4 letters, e.g. INTJ, ENFP)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "INTJ"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Human-agent compatibility rankings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HumanCompatibilityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid MBTI type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/compatibility/cross": {
+      "get": {
+        "summary": "Get cross-compatibility between a human MBTI and agent ABTI type",
+        "description": "Returns a detailed cross-compatibility analysis between a human's MBTI type and an agent's ABTI type, including per-dimension pair analysis, compatibility score, category, summary, and recommended use cases.",
+        "operationId": "getCrossCompatibility",
+        "tags": ["Compatibility"],
+        "parameters": [
+          {
+            "name": "mbti",
+            "in": "query",
+            "required": true,
+            "description": "Human MBTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "INTJ"
+            }
+          },
+          {
+            "name": "abti",
+            "in": "query",
+            "required": true,
+            "description": "Agent ABTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "PTCF"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Lang"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cross-compatibility analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossCompatibilityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid MBTI or ABTI type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/compatibility/matrix": {
       "get": {
         "summary": "Get full compatibility matrix",
@@ -1292,6 +1395,96 @@
           }
         },
         "required": ["types", "matrix"]
+      },
+      "HumanCompatibilityRankedEntry": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "description": "ABTI type code" },
+          "nick": { "type": "string", "description": "Type nickname" },
+          "score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Compatibility score" }
+        },
+        "required": ["code", "nick", "score"]
+      },
+      "HumanCompatibilityResponse": {
+        "type": "object",
+        "properties": {
+          "mbti": { "type": "string", "description": "Input MBTI type" },
+          "mappedPoles": {
+            "type": "object",
+            "properties": {
+              "autonomy": { "type": "string" },
+              "precision": { "type": "string" },
+              "transparency": { "type": "string" },
+              "adaptability": { "type": "string" }
+            },
+            "required": ["autonomy", "precision", "transparency", "adaptability"]
+          },
+          "mirrorType": { "type": "string", "description": "ABTI type that mirrors the human's mapped poles" },
+          "oppositeType": { "type": "string", "description": "ABTI type opposite to the human's mapped poles" },
+          "dimensionMapping": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Dimension names in order (localized)"
+          },
+          "ranked": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/HumanCompatibilityRankedEntry" },
+            "description": "All 16 ABTI types ranked by compatibility"
+          },
+          "top3": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/HumanCompatibilityRankedEntry" },
+            "description": "Top 3 most compatible ABTI types"
+          },
+          "challenging": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/HumanCompatibilityRankedEntry" },
+            "description": "3 most challenging ABTI types"
+          }
+        },
+        "required": ["mbti", "mappedPoles", "mirrorType", "oppositeType", "dimensionMapping", "ranked", "top3", "challenging"]
+      },
+      "CrossCompatibilityPairAnalysis": {
+        "type": "object",
+        "properties": {
+          "dimension": { "type": "string", "description": "Dimension name (localized)" },
+          "humanPole": { "type": "string" },
+          "agentPole": { "type": "string" },
+          "match": { "type": "boolean" },
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["dimension", "humanPole", "agentPole", "match", "title", "description"]
+      },
+      "CrossCompatibilityResponse": {
+        "type": "object",
+        "properties": {
+          "mbti": { "type": "string" },
+          "abti": { "type": "string" },
+          "abtiNick": { "type": "string" },
+          "mappedPoles": {
+            "type": "object",
+            "properties": {
+              "autonomy": { "type": "string" },
+              "precision": { "type": "string" },
+              "transparency": { "type": "string" },
+              "adaptability": { "type": "string" }
+            },
+            "required": ["autonomy", "precision", "transparency", "adaptability"]
+          },
+          "compatibilityScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "category": { "type": "string", "enum": ["similar", "balanced", "complementary"] },
+          "pairAnalysis": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CrossCompatibilityPairAnalysis" }
+          },
+          "summary": { "type": "string" },
+          "bestUseCases": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["mbti", "abti", "abtiNick", "mappedPoles", "compatibilityScore", "category", "pairAnalysis", "summary", "bestUseCases"]
       },
       "SbtiTypeEntry": {
         "type": "object",
