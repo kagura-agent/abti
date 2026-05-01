@@ -81,6 +81,7 @@ const autoApiKey = opt('--api-key') || null;
 const autoPrompt = opt('--prompt') || null;
 const autoPromptFile = opt('--prompt-file') || null;
 const llmBaseUrl = opt('--llm-base-url') || null;
+const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -115,6 +116,7 @@ if (flag('--help') || flag('-h')) {
     --prompt <text>          System prompt for the agent persona
     --prompt-file <path>     Read system prompt from file
     --llm-base-url <url>     Custom API base URL (OpenRouter, etc.)
+    --runs <N>               Run the test N times (1-10, auto mode only) and show consistency report
 
   Combine flags:
     npx abti --name myBot --submit --json
@@ -298,8 +300,12 @@ async function run() {
   let answers;
 
   if (autoMode) {
+    if (runsN > 1) {
+      return await runMulti();
+    }
     answers = await runAuto();
   } else {
+    if (runsN > 1) { console.error('  --runs only works with --auto mode'); process.exit(1); }
     answers = await runInteractive();
   }
 
@@ -340,6 +346,114 @@ async function run() {
       if (agentUrl) body.agentUrl = agentUrl;
       if (model) body.model = model;
       if (provider) body.provider = provider;
+      await httpPost(`${API_BASE}/api/agent-test`, body);
+      if (!jsonMode) console.log(`\n  ${t.submitted}`);
+    } catch (err) {
+      console.error(`\n  Submit failed: ${err.message}`);
+      process.exit(1);
+    }
+  }
+
+  console.log();
+}
+
+// ── Multi-run mode ─────────────────────────────────────────────────────────
+async function runMulti() {
+  const allRuns = [];
+
+  for (let r = 0; r < runsN; r++) {
+    const answers = await runAuto();
+    const result = score(answers);
+    const { code, scores } = result;
+    const nick = NICKS[lang][code];
+    allRuns.push({ answers, code, scores, nick });
+    if (!jsonMode) {
+      console.log(`  Run ${r + 1}/${runsN}: ${code} — ${nick}`);
+    }
+  }
+
+  // Compute consistency report
+  const typeCounts = {};
+  for (const r of allRuns) {
+    typeCounts[r.code] = (typeCounts[r.code] || 0) + 1;
+  }
+  const dominant = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0];
+  const dominantType = dominant[0];
+  const dominantCount = dominant[1];
+  const consistency = Math.round((dominantCount / runsN) * 100);
+  const confidence = consistency >= 80 ? 'High' : consistency >= 50 ? 'Medium' : 'Low';
+  const dominantNick = NICKS[lang][dominantType];
+  const dominantDesc = DESCS[lang][dominantType];
+
+  // Per-dimension stability
+  const dimStability = [];
+  for (let d = 0; d < 4; d++) {
+    const dimNames = DIM_NAMES[lang];
+    // Count how many runs chose the same letter as the dominant type
+    const dominantLetter = dominantType[d];
+    let sameCount = 0;
+    for (const r of allRuns) {
+      if (r.code[d] === dominantLetter) sameCount++;
+    }
+    const pct = Math.round((sameCount / runsN) * 100);
+    dimStability.push({ name: dimNames[d][0], letter: dominantLetter, pct });
+  }
+
+  if (jsonMode) {
+    const output = {
+      type: dominantType,
+      nick: dominantNick,
+      desc: dominantDesc,
+      badge: `${API_BASE}/badge/${dominantType}`,
+      runs: allRuns.map(r => ({ type: r.code, nick: r.nick, scores: r.scores })),
+      consistency: {
+        dominant: dominantType,
+        dominantNick,
+        frequency: `${dominantCount}/${runsN}`,
+        percentage: consistency,
+        confidence,
+        dimensionStability: dimStability.map(d => ({ dimension: d.name, letter: d.letter, percentage: d.pct })),
+      },
+    };
+    if (agentName) output.name = agentName;
+    if (model) output.model = model;
+    if (provider) output.provider = provider;
+    console.log(JSON.stringify(output, null, 2));
+  } else {
+    const t = lang === 'zh'
+      ? { report: '一致性报告', dominant: '主导类型', freq: '频率', consist: '一致性', conf: '置信度', dimStab: '维度稳定性', badge: '徽章',
+          high: '高', medium: '中', low: '低' }
+      : { report: 'Consistency Report', dominant: 'Dominant type', freq: 'Frequency', consist: 'Consistency', conf: 'Confidence', dimStab: 'Dimension stability', badge: 'Badge',
+          high: 'High', medium: 'Medium', low: 'Low' };
+    const confLabel = confidence === 'High' ? t.high : confidence === 'Medium' ? t.medium : t.low;
+
+    console.log(`\n  ── ${t.report} ──\n`);
+    console.log(`  ${t.dominant}: ${dominantType} — ${dominantNick}`);
+    console.log(`  ${dominantDesc}\n`);
+    console.log(`  ${t.freq}: ${dominantCount}/${runsN}`);
+    console.log(`  ${t.consist}: ${consistency}%`);
+    console.log(`  ${t.conf}: ${confLabel}\n`);
+    console.log(`  ${t.dimStab}:`);
+    for (const d of dimStability) {
+      const filled = Math.round(d.pct / 10);
+      const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
+      console.log(`    ${d.name}: ${bar} ${d.pct}% (${d.letter})`);
+    }
+    console.log(`\n  ${t.badge}: ${API_BASE}/badge/${dominantType}`);
+  }
+
+  // Submit dominant type if requested
+  if (submit) {
+    const t = lang === 'zh' ? { submitted: '已提交到注册表！' } : { submitted: 'Submitted to registry!' };
+    try {
+      // Use the first run's answers that produced the dominant type
+      const dominantRun = allRuns.find(r => r.code === dominantType);
+      const body = { answers: dominantRun.answers.map(a => a ? 1 : 0), lang };
+      if (agentName) body.agentName = agentName;
+      if (agentUrl) body.agentUrl = agentUrl;
+      if (model) body.model = model;
+      if (provider) body.provider = provider;
+      body.consistency = { dominant: dominantType, frequency: `${dominantCount}/${runsN}`, percentage: consistency, confidence };
       await httpPost(`${API_BASE}/api/agent-test`, body);
       if (!jsonMode) console.log(`\n  ${t.submitted}`);
     } catch (err) {
