@@ -104,12 +104,13 @@ if (flag('--help') || flag('-h')) {
     npx abti --auto --provider openai --model gpt-4o --api-key sk-...
     npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
     npx abti --auto --provider gemini --model gemini-2.0-flash
+    npx abti --auto --provider deepseek --model deepseek-chat
 
   Auto mode options:
     --auto                   Enable LLM auto-answer mode
-    --provider <p>           LLM provider: openai|anthropic|gemini (default: openai)
+    --provider <p>           LLM provider: openai|anthropic|gemini|deepseek (default: openai)
     --model <m>              Model name (required for --auto)
-    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY)
     --prompt <text>          System prompt for the agent persona
     --prompt-file <path>     Read system prompt from file
     --llm-base-url <url>     Custom API base URL (OpenRouter, etc.)
@@ -228,7 +229,8 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   if (prov === 'openai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl);
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", or "gemini".`);
+  if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com');
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", or "deepseek".`);
 }
 
 function parseAnswer(response) {
@@ -242,7 +244,7 @@ function parseAnswer(response) {
 
 function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
-  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY' };
+  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];
   throw new Error(`No API key provided. Use --api-key or set ${envKey}`);
