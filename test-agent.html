@@ -513,7 +513,15 @@ textarea { resize: vertical; min-height: 80px; }
       <div id="registerStatus"></div>
     </div>
 
-    <div style="margin-top:1.5rem;display:flex;gap:0.75rem">
+    <div style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center">
+      <button class="btn btn-secondary" id="copyResultBtn" onclick="copyResult()">Copy Result</button>
+      <button class="btn btn-secondary" id="copyLinkBtn" onclick="copyTypeLink()">Copy Link</button>
+      <button class="btn btn-secondary" id="shareXBtn" onclick="shareOnX()">𝕏 Share</button>
+      <button class="btn btn-secondary" id="shareLIBtn" onclick="shareOnLinkedIn()">in Share</button>
+      <button class="btn btn-secondary" id="copyBadgeBtn" onclick="copyBadge()">Copy Badge</button>
+    </div>
+
+    <div style="margin-top:1rem;display:flex;gap:0.75rem">
       <button class="btn btn-secondary" style="flex:1" onclick="location.reload()">Test Another</button>
       <a class="btn" style="flex:1;text-decoration:none" id="shareLink" href="#">View Type Page</a>
     </div>
@@ -563,6 +571,14 @@ const i18n = {
     apiKeyRequired: '请输入 API 密钥',
     customUrlRequired: '请输入 API URL',
     modelRequired: '请输入模型名称',
+    copyResult: '复制结果',
+    copyResultSuccess: 'Copied! ✓',
+    copyLink: '复制链接',
+    copyLinkSuccess: 'Copied! ✓',
+    shareX: '𝕏 分享',
+    shareLI: 'in 分享',
+    copyBadge: '复制徽章',
+    copyBadgeSuccess: 'Copied! ✓',
   },
   en: {
     pageTitle: 'Test Your Agent',
@@ -603,6 +619,14 @@ const i18n = {
     apiKeyRequired: 'Please enter an API key',
     customUrlRequired: 'Please enter the API URL',
     modelRequired: 'Please enter a model name',
+    copyResult: 'Copy Result',
+    copyResultSuccess: 'Copied! ✓',
+    copyLink: 'Copy Link',
+    copyLinkSuccess: 'Copied! ✓',
+    shareX: '𝕏 Share',
+    shareLI: 'in Share',
+    copyBadge: 'Copy Badge',
+    copyBadgeSuccess: 'Copied! ✓',
   }
 };
 
@@ -1051,6 +1075,57 @@ function displayResult(r) {
 
   // Store result for registration
   window._lastResult = r;
+
+  // Update share button labels
+  document.getElementById('copyResultBtn').textContent = t('copyResult');
+  document.getElementById('copyLinkBtn').textContent = t('copyLink');
+  document.getElementById('shareXBtn').textContent = t('shareX');
+  document.getElementById('shareLIBtn').textContent = t('shareLI');
+  document.getElementById('copyBadgeBtn').textContent = t('copyBadge');
+}
+
+function _copyFeedback(btnId, successKey, normalKey) {
+  const btn = document.getElementById(btnId);
+  btn.textContent = t(successKey);
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = t(normalKey); btn.classList.remove('copied'); }, 2000);
+}
+
+function copyResult() {
+  const r = window._lastResult;
+  if (!r) return;
+  const dims = Object.entries(r.dimensions).map(([name, d]) => `${name}: ${d.score}/${d.max} ${d.pole}`).join('\n');
+  const text = `ABTI: ${r.type} "${r.nick}" 🌸\n\n${dims}\n\nTest your agent: https://abti.kagura-agent.com/test-agent`;
+  navigator.clipboard.writeText(text).then(() => _copyFeedback('copyResultBtn', 'copyResultSuccess', 'copyResult'));
+}
+
+function copyTypeLink() {
+  const r = window._lastResult;
+  if (!r) return;
+  const url = `https://abti.kagura-agent.com/type/${r.type}`;
+  navigator.clipboard.writeText(url).then(() => _copyFeedback('copyLinkBtn', 'copyLinkSuccess', 'copyLink'));
+}
+
+function shareOnX() {
+  const r = window._lastResult;
+  if (!r) return;
+  const url = `https://abti.kagura-agent.com/type/${r.type}`;
+  const text = `My AI agent's ABTI type is ${r.type} "${r.nick}" 🌸\nTest your agent → ${url}`;
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
+}
+
+function shareOnLinkedIn() {
+  const r = window._lastResult;
+  if (!r) return;
+  const url = `https://abti.kagura-agent.com/type/${r.type}`;
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+}
+
+function copyBadge() {
+  const r = window._lastResult;
+  if (!r) return;
+  const badge = `[![ABTI: ${r.type} — ${r.nick}](https://abti.kagura-agent.com/badge/${r.type})](https://abti.kagura-agent.com)`;
+  navigator.clipboard.writeText(badge).then(() => _copyFeedback('copyBadgeBtn', 'copyBadgeSuccess', 'copyBadge'));
 }
 
 async function registerResult() {
