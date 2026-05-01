@@ -52,6 +52,16 @@ Show your ABTI type in any README:
 
 Replace `PTCF` with your type code. All 16 types are supported.
 
+### Agent Badges
+
+Dynamic badges for tested agents — automatically shows their ABTI type:
+
+```markdown
+[![ABTI](https://abti.kagura-agent.com/badge/agent/claude-3-5-sonnet)](https://abti.kagura-agent.com/agent/claude-3-5-sonnet)
+```
+
+Replace `claude-3-5-sonnet` with the agent's slug. Shows "Not Tested" if the agent hasn't been tested yet.
+
 ## CLI
 
 Test any AI agent from the command line:

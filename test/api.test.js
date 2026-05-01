@@ -326,6 +326,29 @@ describe('GET /badge/:type', () => {
   });
 });
 
+// ─── GET /badge/agent/:slug ───
+
+describe('GET /badge/agent/:slug', () => {
+  it('returns SVG badge with agent type for known agent', async () => {
+    // First register an agent
+    const answers = Array(16).fill(1);
+    await req('/api/agent-test', { method: 'POST', body: { answers, agentName: 'BadgeTestBot', provider: 'test' } });
+    const r = await req('/badge/agent/badgetestbot');
+    assert.equal(r.status, 200);
+    assert.equal(r.headers['content-type'], 'image/svg+xml');
+    assert.match(r.body, /<svg/);
+    assert.match(r.body, /ABTI/);
+    assert.ok(r.headers['cache-control'].includes('max-age=300'));
+  });
+
+  it('returns Not Tested badge for unknown agent', async () => {
+    const r = await req('/badge/agent/nonexistent-agent');
+    assert.equal(r.status, 404);
+    assert.equal(r.headers['content-type'], 'image/svg+xml');
+    assert.match(r.body, /Not Tested/);
+  });
+});
+
 // ─── GET /og/:type ───
 
 describe('GET /og/:type', () => {

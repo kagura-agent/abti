@@ -636,6 +636,45 @@ const server = http.createServer((req, res) => {
     return res.end(svg);
   }
 
+  // GET /badge/agent/:slug - dynamic agent badge
+  const agentBadgeMatch = url.pathname.match(/^\/badge\/agent\/([^/]+)$/);
+  if (agentBadgeMatch && req.method === 'GET') {
+    const slug = decodeURIComponent(agentBadgeMatch[1]);
+    const agent = (agentData.agents || []).find(a => (a.slug || slugify(a.name)) === slug);
+    const found = agent && agent.type;
+    const label = 'ABTI';
+    const t = found ? types[agent.type] : null;
+    const value = t ? `${agent.type} — ${t.en.nick}` : 'Not Tested';
+    const labelWidth = 36;
+    const valueWidth = found && t ? 10 + value.length * 6.6 : 70;
+    const totalWidth = labelWidth + valueWidth;
+    const labelX = labelWidth / 2;
+    const valueX = labelWidth + valueWidth / 2;
+    const bgColor = found && t ? '#FF69B4' : '#9f9f9f';
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="20" role="img" aria-label="${label}: ${value}">
+  <linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+  <clipPath id="r"><rect width="${totalWidth}" height="20" rx="3" fill="#fff"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="${labelWidth}" height="20" fill="#555"/>
+    <rect x="${labelWidth}" width="${valueWidth}" height="20" fill="${bgColor}"/>
+    <rect width="${totalWidth}" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="11">
+    <text x="${labelX}" y="15" fill="#010101" fill-opacity=".3">${label}</text>
+    <text x="${labelX}" y="14" fill="#fff">${label}</text>
+    <text x="${valueX}" y="15" fill="#010101" fill-opacity=".3">${value}</text>
+    <text x="${valueX}" y="14" fill="#fff">${value}</text>
+  </g>
+</svg>`;
+
+    res.writeHead(found ? 200 : 404, {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': 'public, max-age=300'
+    });
+    return res.end(svg);
+  }
+
   // GET /api/openapi.json - OpenAPI specification
   if (url.pathname === '/api/openapi.json' && req.method === 'GET') {
     try {
@@ -1309,7 +1348,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /badge/agent/:slug','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {
