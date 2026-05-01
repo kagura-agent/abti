@@ -389,6 +389,90 @@ textarea { resize: vertical; min-height: 80px; }
   white-space: pre-wrap;
 }
 
+/* Consistency report */
+.consistency-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.consistency-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.consistency-type {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.confidence-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.confidence-badge.high { background: #d4edda; color: #155724; }
+.confidence-badge.medium { background: #fff3cd; color: #856404; }
+.confidence-badge.low { background: #f8d7da; color: #721c24; }
+.consistency-pct {
+  font-size: 0.9rem;
+  color: var(--text2);
+}
+.stability-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+.stability-label {
+  width: 80px;
+  color: var(--text2);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.stability-bar-bg {
+  flex: 1;
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stability-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.stability-pct {
+  width: 40px;
+  text-align: right;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.run-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.75rem;
+}
+.run-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.run-list li:last-child { border-bottom: none; }
+.run-list .run-num { font-weight: 600; color: var(--accent); margin-right: 0.5rem; }
+
 .hidden { display: none !important; }
 
 .register-section {
@@ -471,6 +555,14 @@ textarea { resize: vertical; min-height: 80px; }
       <input type="text" id="agentName" placeholder="e.g. My Assistant" maxlength="64">
       <label id="agentUrlLabel">Agent URL</label>
       <input type="text" id="agentUrl" placeholder="https://...">
+      <label id="runsLabel">Number of Runs</label>
+      <select id="runsSelect">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+      </select>
+
       <label id="systemPromptLabel">System Prompt (agent persona)</label>
       <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem">
         <input type="text" id="githubUrl" placeholder="https://github.com/user/repo/blob/main/AGENTS.md" style="flex:1;font-size:0.85rem">
@@ -491,6 +583,22 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="question-log" id="questionLog"></div>
     <div id="errorArea"></div>
     <button class="btn btn-secondary hidden" id="stopBtn" onclick="stopTest()">Stop</button>
+  </div>
+
+  <!-- Consistency Report Section -->
+  <div id="consistencySection" class="hidden">
+    <h1 id="consistencyTitle">Consistency Report</h1>
+    <div class="consistency-card">
+      <div class="consistency-header">
+        <span class="consistency-type" id="consistencyType"></span>
+        <span class="confidence-badge" id="confidenceBadge"></span>
+        <span class="consistency-pct" id="consistencyPct"></span>
+      </div>
+      <div class="section-title" id="dimStabilityTitle">Dimension Stability</div>
+      <div id="stabilityBars"></div>
+      <div class="section-title" style="margin-top:1rem" id="individualRunsTitle">Individual Runs</div>
+      <ul class="run-list" id="runList"></ul>
+    </div>
   </div>
 
   <!-- Result Section -->
@@ -580,6 +688,16 @@ const i18n = {
     shareLI: 'in 分享',
     copyBadge: '复制徽章',
     copyBadgeSuccess: 'Copied! ✓',
+    runs: '测试次数',
+    consistencyReport: '一致性报告',
+    dimStability: '维度稳定性',
+    individualRuns: '各轮结果',
+    confidenceHigh: '高置信',
+    confidenceMedium: '中置信',
+    confidenceLow: '低置信',
+    runProgress: '第 {run}/{total} 轮 — 问题 {q}/16',
+    complete: '完成！',
+    needManual: '还有 {n} 题需要手动选择',
   },
   en: {
     pageTitle: 'Test Your Agent',
@@ -628,6 +746,16 @@ const i18n = {
     shareLI: 'in Share',
     copyBadge: 'Copy Badge',
     copyBadgeSuccess: 'Copied! ✓',
+    runs: 'Number of Runs',
+    consistencyReport: 'Consistency Report',
+    dimStability: 'Dimension Stability',
+    individualRuns: 'Individual Runs',
+    confidenceHigh: 'High',
+    confidenceMedium: 'Medium',
+    confidenceLow: 'Low',
+    runProgress: 'Run {run}/{total} — Question {q}/16',
+    complete: 'Complete!',
+    needManual: '{n} questions need manual selection',
   }
 };
 
@@ -662,6 +790,7 @@ function applyLang() {
   document.getElementById('regUrlLabel').textContent = t('regUrl');
   document.getElementById('registerBtn').textContent = t('register');
   document.getElementById('authFormatLabel').textContent = t('authFormat');
+  document.getElementById('runsLabel').textContent = t('runs');
 }
 
 // ── Import from GitHub ──
@@ -865,11 +994,27 @@ async function callLLM(systemMsg, userMsg) {
   }
 }
 
+// ── Scoring (local, matches cli/bin/abti.js) ──
+const DIM_LETTERS = [['P','R'],['T','E'],['C','D'],['F','N']];
+const DIM_NAMES = {
+  en: [['Autonomy','Proactive','Responsive'],['Precision','Thorough','Efficient'],['Transparency','Candid','Diplomatic'],['Adaptability','Flexible','Principled']],
+  zh: [['自主性','主动','响应'],['精确度','面面俱到','精简高效'],['沟通风格','直言不讳','委婉圆滑'],['适应性','随机应变','坚持原则']]
+};
+
+function scoreLocal(ans) {
+  const scores = [0, 0, 0, 0];
+  for (let i = 0; i < 16; i++) scores[Math.floor(i / 4)] += ans[i] ? 1 : 0;
+  let code = '';
+  for (let i = 0; i < 4; i++) code += scores[i] >= 2 ? DIM_LETTERS[i][0] : DIM_LETTERS[i][1];
+  return { code, scores };
+}
+
 // ── Test flow ──
 let questions = [];
 let answers = []; // 1=A, 0=B, null=unclear
 let running = false;
 let abortController = null;
+let allRuns = []; // stores {answers, code, scores} per run
 
 async function startTest() {
   const p = document.getElementById('providerSelect').value;
@@ -893,7 +1038,8 @@ async function startTest() {
     return;
   }
 
-  answers = new Array(16).fill(null);
+  const totalRuns = parseInt(document.getElementById('runsSelect').value, 10);
+  allRuns = [];
   running = true;
 
   document.getElementById('setupSection').classList.add('hidden');
@@ -906,38 +1052,66 @@ async function startTest() {
   const systemMsg = (systemPrompt ? systemPrompt + '\n\n' : '') +
     'You are taking a personality assessment. For each scenario, choose either option A or option B. Reply with ONLY the letter A or B, nothing else.';
 
-  for (let i = 0; i < questions.length; i++) {
+  for (let run = 0; run < totalRuns; run++) {
     if (!running) break;
-    const q = questions[i];
-    const userMsg = `${q.text}\n\nA: ${q.options.A}\nB: ${q.options.B}`;
+    answers = new Array(16).fill(null);
 
-    document.getElementById('progressText').textContent = `${t('question')} ${i + 1}/16`;
-    document.getElementById('progressFill').style.width = `${((i) / 16) * 100}%`;
+    if (totalRuns > 1 && run > 0) {
+      document.getElementById('questionLog').innerHTML = '';
+      document.getElementById('errorArea').innerHTML = '';
+    }
 
-    try {
-      const response = await callLLM(systemMsg, userMsg);
-      const parsed = parseAnswer(response);
-      answers[i] = parsed;
-      addLogItem(i, q, response, parsed);
-    } catch (err) {
-      answers[i] = null;
-      addLogItem(i, q, '', null);
-      showError(i, err);
+    for (let i = 0; i < questions.length; i++) {
+      if (!running) break;
+      const q = questions[i];
+      const userMsg = `${q.text}\n\nA: ${q.options.A}\nB: ${q.options.B}`;
+
+      if (totalRuns > 1) {
+        document.getElementById('progressText').textContent =
+          t('runProgress').replace('{run}', run + 1).replace('{total}', totalRuns).replace('{q}', i + 1);
+      } else {
+        document.getElementById('progressText').textContent = `${t('question')} ${i + 1}/16`;
+      }
+      const totalQ = totalRuns * 16;
+      const doneQ = run * 16 + i;
+      document.getElementById('progressFill').style.width = `${(doneQ / totalQ) * 100}%`;
+
+      try {
+        const response = await callLLM(systemMsg, userMsg);
+        const parsed = parseAnswer(response);
+        answers[i] = parsed;
+        if (totalRuns === 1) addLogItem(i, q, response, parsed);
+      } catch (err) {
+        answers[i] = null;
+        if (totalRuns === 1) {
+          addLogItem(i, q, '', null);
+          showError(i, err);
+        }
+      }
+    }
+
+    if (running) {
+      const result = scoreLocal(answers);
+      allRuns.push({ answers: [...answers], code: result.code, scores: result.scores });
     }
   }
 
   running = false;
   document.getElementById('stopBtn').classList.add('hidden');
   document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progressText').textContent = lang === 'zh' ? '完成！' : 'Complete!';
+  document.getElementById('progressText').textContent = t('complete');
 
-  // Check if all answered
-  const unanswered = answers.filter(a => a === null).length;
-  if (unanswered > 0) {
-    document.getElementById('progressText').textContent =
-      lang === 'zh' ? `还有 ${unanswered} 题需要手动选择` : `${unanswered} questions need manual selection`;
+  if (totalRuns === 1) {
+    // Single-run: check for unanswered
+    const unanswered = answers.filter(a => a === null).length;
+    if (unanswered > 0) {
+      document.getElementById('progressText').textContent = t('needManual').replace('{n}', unanswered);
+    } else {
+      showResult();
+    }
   } else {
-    showResult();
+    // Multi-run: show consistency report, then result
+    showConsistencyReport();
   }
 }
 
@@ -1037,6 +1211,63 @@ function escapeHtml(s) {
   const div = document.createElement('div');
   div.textContent = s;
   return div.innerHTML;
+}
+
+// ── Consistency Report ──
+function showConsistencyReport() {
+  const NICKS = {
+    en:{PTCF:'The Architect',PTCN:'The Commander',PTDF:'The Strategist',PTDN:'The Guardian',PECF:'The Spark',PECN:'The Drill Sergeant',PEDF:'The Fixer',PEDN:'The Sentinel',RTCF:'The Advisor',RTCN:'The Auditor',RTDF:'The Counselor',RTDN:'The Scholar',RECF:'The Blade',RECN:'The Machine',REDF:'The Companion',REDN:'The Tool'},
+    zh:{PTCF:'建筑师',PTCN:'指挥官',PTDF:'战略家',PTDN:'守护者',PECF:'火花',PECN:'教官',PEDF:'修理工',PEDN:'哨兵',RTCF:'军师',RTCN:'审计师',RTDF:'心理咨询师',RTDN:'学者',RECF:'利刃',RECN:'机器',REDF:'伙伴',REDN:'工具'}
+  };
+
+  const typeCounts = {};
+  for (const r of allRuns) typeCounts[r.code] = (typeCounts[r.code] || 0) + 1;
+  const dominant = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0];
+  const dominantType = dominant[0];
+  const dominantCount = dominant[1];
+  const totalRuns = allRuns.length;
+  const consistency = Math.round((dominantCount / totalRuns) * 100);
+  const confidence = consistency >= 80 ? 'high' : consistency >= 50 ? 'medium' : 'low';
+  const confLabel = t('confidence' + confidence.charAt(0).toUpperCase() + confidence.slice(1));
+
+  // Store dominant for result display
+  window._dominantType = dominantType;
+  window._dominantAnswers = allRuns.find(r => r.code === dominantType).answers;
+
+  document.getElementById('consistencySection').classList.remove('hidden');
+  document.getElementById('consistencyTitle').textContent = t('consistencyReport');
+  document.getElementById('consistencyType').textContent = `${dominantType} — ${NICKS[lang][dominantType] || dominantType}`;
+  document.getElementById('confidenceBadge').textContent = confLabel;
+  document.getElementById('confidenceBadge').className = `confidence-badge ${confidence}`;
+  document.getElementById('consistencyPct').textContent = `${dominantCount}/${totalRuns} (${consistency}%)`;
+  document.getElementById('dimStabilityTitle').textContent = t('dimStability');
+  document.getElementById('individualRunsTitle').textContent = t('individualRuns');
+
+  // Dimension stability bars
+  const dimNames = DIM_NAMES[lang];
+  const barsHtml = [];
+  for (let d = 0; d < 4; d++) {
+    const dominantLetter = dominantType[d];
+    let sameCount = 0;
+    for (const r of allRuns) if (r.code[d] === dominantLetter) sameCount++;
+    const pct = Math.round((sameCount / totalRuns) * 100);
+    barsHtml.push(`<div class="stability-row">
+      <span class="stability-label">${dimNames[d][0]}</span>
+      <div class="stability-bar-bg"><div class="stability-bar-fill" style="width:${pct}%"></div></div>
+      <span class="stability-pct">${pct}%</span>
+    </div>`);
+  }
+  document.getElementById('stabilityBars').innerHTML = barsHtml.join('');
+
+  // Individual runs list
+  const listHtml = allRuns.map((r, i) =>
+    `<li><span class="run-num">#${i + 1}</span>${r.code} — ${NICKS[lang][r.code] || r.code}</li>`
+  ).join('');
+  document.getElementById('runList').innerHTML = listHtml;
+
+  // Now show the dominant result
+  answers = window._dominantAnswers;
+  showResult();
 }
 
 // ── Result ──
