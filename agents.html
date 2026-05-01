@@ -101,6 +101,17 @@ nav a:hover, nav a.active { color: var(--accent); }
 .cta.subtle .cta-sub { font-size: .8rem; margin-bottom: 1rem; }
 .cta.subtle .cta-card { padding: .9rem; }
 
+.notable-section { margin-bottom: 2.5rem; }
+.notable-heading { font-family: 'Instrument Serif', serif; font-size: 1.6rem; font-weight: 400; color: var(--text); margin-bottom: .2rem; }
+.notable-heading span { color: var(--accent); }
+.notable-note { color: var(--text3); font-size: .78rem; margin-bottom: 1.2rem; font-style: italic; }
+.notable-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+.notable-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.notable-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.notable-agent { font-weight: 600; font-size: .92rem; color: var(--text); margin-bottom: .3rem; }
+.notable-meta { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.community-label { font-size: .75rem; font-weight: 600; letter-spacing: .1em; color: var(--text2); text-transform: uppercase; margin-bottom: 1rem; }
+
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
 
 @media (max-width: 500px) {
@@ -108,8 +119,10 @@ nav a:hover, nav a.active { color: var(--accent); }
   .dim-seg { font-size: .65rem; min-width: 28px; }
 }
 
+@media (max-width: 768px) { .notable-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 500px) {
   .grid { grid-template-columns: 1fr; }
+  .notable-grid { grid-template-columns: 1fr; }
   .cta-grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 1.8rem; }
   .wrap { padding: 4rem 1rem 1.5rem; }
@@ -132,12 +145,18 @@ nav a:hover, nav a.active { color: var(--accent); }
     <h1>Tested <span>Agents</span></h1>
     <div class="total" id="total">Loading...</div>
   </div>
+  <div class="notable-section" id="notable" style="display:none">
+    <h2 class="notable-heading">Notable <span>Agents</span></h2>
+    <p class="notable-note">Based on behavioral analysis, not automated testing</p>
+    <div class="notable-grid" id="notable-grid"></div>
+  </div>
   <div class="dist" id="dist" style="display:none">
     <div class="dist-title">Dimension Breakdown</div>
     <div class="dim-bars" id="dim-bars"></div>
     <div class="dist-title">Type Frequency</div>
     <div class="type-freq" id="type-freq"></div>
   </div>
+  <div class="community-label" id="community-label" style="display:none">Community Registry</div>
   <div class="toolbar" id="toolbar" style="display:none">
     <input type="text" id="search" placeholder="Search by name…">
     <select id="filter-type"><option value="">All Types</option></select>
@@ -181,6 +200,35 @@ nav a:hover, nav a.active { color: var(--accent); }
 (async () => {
   const grid = document.getElementById('grid');
   const totalEl = document.getElementById('total');
+
+  // Load Notable Agents from types.json
+  try {
+    const typesRes = await fetch('/api/v1/types.json');
+    const typesData = await typesRes.json();
+    const abti = typesData.abti;
+    const famous = abti.famous_agents;
+    const typeInfo = abti.types;
+    const emojis = abti.type_emojis;
+    const agentEmojis = { 'Devin': '🛠️', 'Kagura 🌸': '🌸', 'Claude Code': '🤖', 'GitHub Copilot (Agent mode)': '🤖', 'GitHub Copilot (Chat/inline)': '💬', 'Windsurf': '🏄', 'Codex (OpenAI)': '📦', 'Manus': '✋', 'Codex CLI': '⌨️', 'Cursor': '🖱️', 'Claude (conversation)': '💬', 'Notion AI': '📝', 'ChatGPT': '💬', 'Gemini': '✨', 'Jasper AI': '✍️', 'Midjourney': '🎨', 'Perplexity': '🔍', 'Kagi': '🔎', 'Google Translate': '🌐', 'DeepL': '🌐' };
+    const cards = [];
+    for (const [type, agents] of Object.entries(famous)) {
+      const nick = typeInfo[type] ? typeInfo[type].en.nick : '';
+      for (const name of agents) {
+        const emoji = agentEmojis[name] || '🤖';
+        cards.push('<div class="notable-card">'
+          + '<div class="notable-agent">' + emoji + ' ' + esc(name) + '</div>'
+          + '<div class="notable-meta">'
+          + '<a class="pill" href="/type/' + esc(type) + '" style="text-decoration:none">' + esc(type) + '</a>'
+          + ' <span class="card-nick">' + esc(nick) + '</span>'
+          + '</div></div>');
+      }
+    }
+    if (cards.length) {
+      document.getElementById('notable-grid').innerHTML = cards.join('');
+      document.getElementById('notable').style.display = '';
+    }
+  } catch (e) { /* notable agents section stays hidden */ }
+
   try {
     const res = await fetch('/api/agents');
     const data = await res.json();
@@ -200,6 +248,7 @@ nav a:hover, nav a.active { color: var(--accent); }
     const types = [...new Set(data.agents.map(a => a.type).filter(Boolean))].sort();
     types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; filterEl.appendChild(o); });
     document.getElementById('toolbar').style.display = '';
+    document.getElementById('community-label').style.display = '';
 
     function renderCards() {
       const q = searchEl.value.toLowerCase();
