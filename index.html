@@ -612,6 +612,80 @@ body {
   border-color: var(--accent) !important;
 }
 
+/* History */
+.history-section {
+  text-align: left;
+  margin-bottom: 2rem;
+  animation: fadeSlide 0.5s ease;
+}
+.history-section h3 {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.history-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.history-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.history-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  letter-spacing: 0.08em;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+.history-nick {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+.history-agent {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.history-date {
+  font-size: 0.75rem;
+  color: var(--text2);
+  white-space: nowrap;
+}
+.btn-clear-history {
+  background: none;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-clear-history:hover {
+  border-color: #e55;
+  color: #e55;
+}
+
 @media (max-width: 500px) {
   #landing h1 { font-size: 2.2rem; }
   #landing .dims { grid-template-columns: 1fr; }
@@ -677,6 +751,7 @@ body {
       <button class="btn-secondary" id="shareLIBtn" onclick="shareOnLinkedIn()">in Share</button>
       <button class="btn-card" id="downloadCardBtn" onclick="downloadCard()"></button>
     </div>
+    <div id="historySection"></div>
     <div class="type-table-toggle" id="dirToggle" onclick="toggleDir()" style="margin-bottom:0.5rem"></div>
     <div id="dirSection" style="display:none;text-align:left;margin-bottom:2rem">
       <div style="background:var(--surface);border-radius:var(--radius);padding:1.25rem;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
@@ -756,6 +831,9 @@ const i18n = {
       { title: 'When AI Takes the Couch: Psychometric Jailbreaks in Frontier Models', year: '2025',
         note: 'Reveals tension between surface behavior and underlying tendencies — our forced-choice design targets these exact conflicts.' },
     ],
+    historyTitle: 'Previous Results',
+    clearHistory: 'Clear History',
+    clearHistoryConfirm: 'Clear all history?',
     dimNames: ['Autonomy', 'Precision', 'Transparency', 'Adaptability'],
     dimPairs: [
       'Proactive (P) vs Responsive (R)',
@@ -895,6 +973,9 @@ const i18n = {
       { title: 'When AI Takes the Couch: Psychometric Jailbreaks in Frontier Models', year: '2025',
         note: '揭示了 AI 表面行为与深层倾向之间的张力——我们的强制选择设计正是为了捕捉这种冲突。' },
     ],
+    historyTitle: '历史记录',
+    clearHistory: '清除记录',
+    clearHistoryConfirm: '确定清除所有记录？',
     dimNames: ['自主性', '精确度', '沟通风格', '适应性'],
     dimPairs: [
       '主动 (P) vs 响应 (R)',
@@ -1020,6 +1101,8 @@ let current = 0;
 let scores = [0, 0, 0, 0];
 let cachedType = null;
 let userAnswers = [];
+let isUserTest = false;
+let historySaved = false;
 
 function t(key) { return i18n[lang][key]; }
 
@@ -1060,6 +1143,8 @@ function startQuiz() {
   scores = [0, 0, 0, 0];
   cachedType = null;
   userAnswers = [];
+  isUserTest = true;
+  historySaved = false;
   document.getElementById('landing').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -1243,6 +1328,10 @@ function showResult() {
       profileEl.innerHTML = html;
     })
     .catch(() => {});
+
+  // Save to history (only if user actually took the test, not URL-based)
+  if (isUserTest && !historySaved) { saveHistory(); historySaved = true; }
+  renderHistory();
 }
 
 function toggleDir() {
@@ -1431,6 +1520,57 @@ function downloadCard() {
   link.download = "abti-" + code + ".png";
   link.href = canvas.toDataURL("image/png");
   link.click();
+}
+
+// === History ===
+function saveHistory() {
+  const code = getType();
+  const info = t('types')[code] || { nick: '???' };
+  let history = JSON.parse(localStorage.getItem('abti-history') || '[]');
+  const entry = {
+    type: code,
+    nick: info.nick,
+    scores: [...scores],
+    timestamp: Date.now(),
+  };
+  // Check if agent name was provided via directory form
+  const dirName = document.getElementById('dirName').value.trim();
+  if (dirName) entry.agentName = dirName;
+  history.unshift(entry);
+  if (history.length > 50) history = history.slice(0, 50);
+  localStorage.setItem('abti-history', JSON.stringify(history));
+}
+
+function renderHistory() {
+  const el = document.getElementById('historySection');
+  const history = JSON.parse(localStorage.getItem('abti-history') || '[]');
+  // Skip current result (first entry is the one we just saved)
+  const past = history.slice(1);
+  if (!past.length) { el.innerHTML = ''; return; }
+  const formatDate = ts => {
+    const d = new Date(ts);
+    return d.toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  };
+  let html = `<div class="history-section"><h3>${t('historyTitle')}</h3><div class="history-cards">`;
+  for (const h of past) {
+    const nickLabel = (lang === 'zh' ? i18n.zh.types[h.type]?.nick : i18n.en.types[h.type]?.nick) || h.nick || '???';
+    html += `<div class="history-card">
+      <span class="history-badge">${h.type}</span>
+      <div class="history-info">
+        <div class="history-nick">${nickLabel}</div>
+        ${h.agentName ? `<div class="history-agent">${h.agentName}</div>` : ''}
+      </div>
+      <span class="history-date">${formatDate(h.timestamp)}</span>
+    </div>`;
+  }
+  html += `</div><button class="btn-clear-history" onclick="clearHistory()">${t('clearHistory')}</button></div>`;
+  el.innerHTML = html;
+}
+
+function clearHistory() {
+  if (!confirm(t('clearHistoryConfirm'))) return;
+  localStorage.removeItem('abti-history');
+  document.getElementById('historySection').innerHTML = '';
 }
 
 // Init — detect /result/:type URL
