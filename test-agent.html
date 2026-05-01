@@ -434,6 +434,7 @@ textarea { resize: vertical; min-height: 80px; }
         <option value="openai">OpenAI</option>
         <option value="anthropic">Anthropic</option>
         <option value="google">Google AI</option>
+        <option value="deepseek">DeepSeek</option>
         <option value="openrouter">OpenRouter</option>
         <option value="custom">Custom Endpoint</option>
       </select>
@@ -675,6 +676,12 @@ const providers = {
     models: ['gemini-2.0-flash', 'gemini-2.5-pro', 'gemini-1.5-flash'],
     auth: 'query',
     format: 'google',
+  },
+  deepseek: {
+    url: 'https://api.deepseek.com/chat/completions',
+    models: ['deepseek-chat', 'deepseek-reasoner'],
+    auth: 'bearer',
+    format: 'openai',
   },
   openrouter: {
     url: 'https://openrouter.ai/api/v1/chat/completions',
