@@ -372,6 +372,8 @@ const server = http.createServer((req, res) => {
           const entry = { name, slug, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now, scores: scores.slice(), dimensions: DL.map((d, i) => ({ poles: d, score: scores[i], max: 4 })) };
           if (typeof model === 'string' && model) entry.model = model.slice(0, 64);
           if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
+          if (typeof parsed.consistency === 'number' && parsed.consistency >= 0 && parsed.consistency <= 100) entry.consistency = Math.round(parsed.consistency * 100) / 100;
+          if (typeof parsed.runs === 'number' && Number.isInteger(parsed.runs) && parsed.runs > 0) entry.runs = parsed.runs;
           if (existing !== -1) {
             agentData.agents[existing] = entry;
           } else {
@@ -438,6 +440,22 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/agents' && req.method === 'GET') {
     res.writeHead(200, {'Content-Type':'application/json'});
     return res.end(JSON.stringify({ total: agentData.total, agents: agentData.agents }));
+  }
+
+  // GET /api/leaderboard - ranked agents by consistency
+  if (url.pathname === '/api/leaderboard' && req.method === 'GET') {
+    const agents = agentData.agents || [];
+    const ranked = agents
+      .filter(a => typeof a.consistency === 'number' && typeof a.runs === 'number' && a.runs > 0)
+      .map(a => ({ name: a.name, slug: a.slug, model: a.model || null, provider: a.provider || null, type: a.type, nick: a.nick, consistency: a.consistency, runs: a.runs, scores: a.scores || null, testedAt: a.testedAt }))
+      .sort((a, b) => b.consistency - a.consistency || b.runs - a.runs);
+    const rankedSlugs = new Set(ranked.map(a => a.slug));
+    const unranked = agents
+      .filter(a => !rankedSlugs.has(a.slug))
+      .map(a => ({ name: a.name, slug: a.slug, model: a.model || null, provider: a.provider || null, type: a.type, nick: a.nick, testedAt: a.testedAt }))
+      .sort((a, b) => (b.testedAt || '').localeCompare(a.testedAt || ''));
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({ ranked, unranked }));
   }
 
   // GET /api/stats - aggregate statistics
@@ -944,6 +962,18 @@ ${dimInfo.map((d, i) => {
     }
   }
 
+  // GET /leaderboard - serve leaderboard.html
+  if (url.pathname === '/leaderboard' && req.method === 'GET') {
+    try {
+      const html = fs.readFileSync(path.join(__dirname, 'leaderboard.html'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end(html);
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+  }
+
   // MCP Streamable HTTP transport on /mcp
   if (url.pathname === '/mcp') {
     handleMcpRequest(req, res);
@@ -966,7 +996,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
