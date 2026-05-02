@@ -815,3 +815,31 @@ describe('GET /agent/:slug', () => {
     assert.match(r.body, /og:image.*og\/PTCF/);
   });
 });
+
+describe('POST /api/agent-test consistency fields', () => {
+  it('stores flat consistency and runs numbers', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'ConsistBot', consistency: 87.5, runs: 4 }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'ConsistBot');
+    assert.equal(agent.consistency, 87.5);
+    assert.equal(agent.runs, 4);
+  });
+
+  it('ignores consistency when it is an object (old format)', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'OldFormatBot', consistency: { dominant: 'PTCF', frequency: '3/4', percentage: 75, confidence: 'high' }, runs: 3 }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'OldFormatBot');
+    assert.equal(agent.consistency, undefined);
+    assert.equal(agent.runs, 3);
+  });
+});
