@@ -331,7 +331,9 @@
         }
       ],
       "model": "gemma3:4b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Phi-4 Mini",
@@ -381,7 +383,9 @@
         }
       ],
       "model": "phi4-mini",
-      "provider": "ollama"
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Mistral 7B",
@@ -432,12 +436,8 @@
       ],
       "model": "mistral:7b",
       "provider": "ollama",
-      "consistency": {
-        "dominant": "PTCF",
-        "frequency": "3/3",
-        "percentage": 100,
-        "confidence": "High"
-      }
+      "consistency": 100,
+      "runs": 3
     }
   ]
 }
