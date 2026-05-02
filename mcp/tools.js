@@ -243,7 +243,7 @@ function registerTools(mcpServer, opts) {
         ...(a.model ? { model: a.model } : {}),
         ...(a.provider ? { provider: a.provider } : {})
       }));
-      return { content: [{ type: 'text', text: JSON.stringify({ total: data.total, agents }, null, 2) }] };
+      return { content: [{ type: 'text', text: JSON.stringify({ total: agents.length, agents }, null, 2) }] };
     }
   );
 
