@@ -382,6 +382,62 @@
       ],
       "model": "phi4-mini",
       "provider": "ollama"
+    },
+    {
+      "name": "Mistral 7B",
+      "slug": "mistral-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T09:40:41.761166+00:00",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "mistral:7b",
+      "provider": "ollama",
+      "consistency": {
+        "dominant": "PTCF",
+        "frequency": "3/3",
+        "percentage": 100,
+        "confidence": "High"
+      }
     }
   ]
 }
