@@ -453,7 +453,8 @@ async function runMulti() {
       if (agentUrl) body.agentUrl = agentUrl;
       if (model) body.model = model;
       if (provider) body.provider = provider;
-      body.consistency = { dominant: dominantType, frequency: `${dominantCount}/${runsN}`, percentage: consistency, confidence };
+      body.consistency = consistency;
+      body.runs = runsN;
       await httpPost(`${API_BASE}/api/agent-test`, body);
       if (!jsonMode) console.log(`\n  ${t.submitted}`);
     } catch (err) {
