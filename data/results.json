@@ -515,6 +515,406 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3
+    },
+    {
+      "name": "GPT-4.1",
+      "slug": "gpt-4-1",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T14:45:13.390Z",
+      "scores": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-4.1",
+      "provider": "openai"
+    },
+    {
+      "name": "GPT-5 mini",
+      "slug": "gpt-5-mini",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-02T14:46:04.362Z",
+      "scores": [
+        1,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5-mini",
+      "provider": "openai"
+    },
+    {
+      "name": "GPT-4o",
+      "slug": "gpt-4o",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-02T14:46:23.568Z",
+      "scores": [
+        2,
+        1,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "gpt-4o",
+      "provider": "openai"
+    },
+    {
+      "name": "GPT-4o mini",
+      "slug": "gpt-4o-mini",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T14:46:35.029Z",
+      "scores": [
+        3,
+        2,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "gpt-4o-mini",
+      "provider": "openai"
+    },
+    {
+      "name": "GPT-5.2",
+      "slug": "gpt-5-2",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-02T14:46:51.927Z",
+      "scores": [
+        2,
+        1,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.2",
+      "provider": "openai"
+    },
+    {
+      "name": "Claude Sonnet 4.5",
+      "slug": "claude-sonnet-4-5",
+      "url": "",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-02T14:47:29.403Z",
+      "scores": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "claude-sonnet-4.5",
+      "provider": "openai"
+    },
+    {
+      "name": "Claude Sonnet 4.6",
+      "slug": "claude-sonnet-4-6",
+      "url": "",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-05-02T14:47:53.568Z",
+      "scores": [
+        0,
+        0,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "claude-sonnet-4.6",
+      "provider": "openai"
+    },
+    {
+      "name": "Claude Haiku 4.5",
+      "slug": "claude-haiku-4-5",
+      "url": "",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-05-02T14:48:15.814Z",
+      "scores": [
+        1,
+        0,
+        4,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "claude-haiku-4.5",
+      "provider": "openai"
     }
   ]
 }
