@@ -210,7 +210,8 @@ function llmRequest(options, payload) {
 
 function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions') : new URL('https://api.openai.com/v1/chat/completions');
-  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: 4, temperature: 0 });
+  const maxTok = isReasoningModel(mdl) ? 2048 : 4;
+  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0 });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => json.choices[0].message.content.trim());
 }
@@ -237,8 +238,16 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", or "ollama".`);
 }
 
+function isReasoningModel(modelName) {
+  if (!modelName) return false;
+  const lower = modelName.toLowerCase();
+  return /\b(r1|o1|o3|o4|qwq|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
+}
+
 function parseAnswer(response) {
-  const cleaned = response.toUpperCase().trim();
+  // Strip <think>...</think> blocks from reasoning models
+  const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
+  const cleaned = stripped.toUpperCase().trim();
   if (cleaned.startsWith('A')) return true;
   if (cleaned.startsWith('B')) return false;
   if (/\bA\b/.test(cleaned)) return true;
