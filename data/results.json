@@ -257,33 +257,6 @@
       "provider": "anthropic"
     },
     {
-      "name": "Generic Assistant",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-04-25T11:41:01.646Z",
-      "model": "claude-opus-4.6",
-      "provider": "anthropic"
-    },
-    {
-      "name": "Kagura",
-      "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-04-25T11:40:20.818Z",
-      "model": "claude-opus-4.6",
-      "provider": "anthropic"
-    },
-    {
-      "name": "Claude (Anthropic)",
-      "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-04-25T11:38:50.253Z",
-      "model": "claude-opus-4.6",
-      "provider": "anthropic"
-    },
-    {
       "name": "Gemma 3 4B",
       "slug": "gemma-3-4b",
       "url": "",
@@ -441,53 +414,107 @@
     },
     {
       "name": "DeepSeek R1 7B",
+      "slug": "deepseek-r1-7b",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-02T13:45:00.000Z",
+      "scores": [
+        3,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
       "model": "deepseek-r1:7b",
       "provider": "ollama",
-      "type": "PTCF",
-      "answers": [
-        true,
-        false,
-        true,
-        false,
-        true,
-        true,
-        false,
-        false,
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        true,
-        false
+      "consistency": 100,
+      "runs": 1
+    },
+    {
+      "name": "Llama 3.1 8B",
+      "slug": "llama-3-1-8b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T13:30:00.000Z",
+      "scores": [
+        3,
+        2,
+        3,
+        1
       ],
-      "dimensions": {
-        "Autonomy": {
-          "score": 2,
-          "max": 4,
-          "pole": "Proactive",
-          "letter": "P"
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
         },
-        "Precision": {
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
           "score": 2,
-          "max": 4,
-          "pole": "Thorough",
-          "letter": "T"
+          "max": 4
         },
-        "Transparency": {
-          "score": 2,
-          "max": 4,
-          "pole": "Candid",
-          "letter": "C"
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
         },
-        "Adaptability": {
-          "score": 2,
-          "max": 4,
-          "pole": "Flexible",
-          "letter": "F"
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
         }
-      }
+      ],
+      "model": "llama3.1:8b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3
     }
   ]
 }
