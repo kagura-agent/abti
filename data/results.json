@@ -282,6 +282,56 @@
       "testedAt": "2026-04-25T11:38:50.253Z",
       "model": "claude-opus-4.6",
       "provider": "anthropic"
+    },
+    {
+      "name": "Gemma 3 4B",
+      "slug": "gemma-3-4b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T09:17:26.462Z",
+      "scores": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "gemma3:4b",
+      "provider": "ollama"
     }
   ]
 }
