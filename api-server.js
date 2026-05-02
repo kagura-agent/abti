@@ -18,7 +18,7 @@ function loadData() {
   try {
     return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   } catch {
-    return { total: 0, agents: [] };
+    return { agents: [] };
   }
 }
 
@@ -180,7 +180,6 @@ function registerAgent(entry) {
   if (entry.name && !entry.slug) {
     entry.slug = slugify(entry.name);
   }
-  agentData.total++;
   const oneHourAgo = Date.now() - 3600000;
   const existing = agentData.agents.findIndex(a => a.name === entry.name && new Date(a.testedAt).getTime() > oneHourAgo);
   if (existing !== -1) {
@@ -361,7 +360,6 @@ const server = http.createServer((req, res) => {
           dims[dn] = { score: scores[i], max: 4, pole, letter };
         }
         // Persist result
-        agentData.total++;
         if (agentName && typeof agentName === 'string') {
           const name = agentName.slice(0, 64);
           const urlStr = (typeof agentUrl === 'string') ? agentUrl : '';
@@ -439,7 +437,7 @@ const server = http.createServer((req, res) => {
   // GET /api/agents - list tested agents
   if (url.pathname === '/api/agents' && req.method === 'GET') {
     res.writeHead(200, {'Content-Type':'application/json'});
-    return res.end(JSON.stringify({ total: agentData.total, agents: agentData.agents }));
+    return res.end(JSON.stringify({ total: agentData.agents.length, agents: agentData.agents }));
   }
 
   // GET /api/leaderboard - ranked agents by consistency
