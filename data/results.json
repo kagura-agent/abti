@@ -438,6 +438,56 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3
+    },
+    {
+      "name": "DeepSeek R1 7B",
+      "model": "deepseek-r1:7b",
+      "provider": "ollama",
+      "type": "PTCF",
+      "answers": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ],
+      "dimensions": {
+        "Autonomy": {
+          "score": 2,
+          "max": 4,
+          "pole": "Proactive",
+          "letter": "P"
+        },
+        "Precision": {
+          "score": 2,
+          "max": 4,
+          "pole": "Thorough",
+          "letter": "T"
+        },
+        "Transparency": {
+          "score": 2,
+          "max": 4,
+          "pole": "Candid",
+          "letter": "C"
+        },
+        "Adaptability": {
+          "score": 2,
+          "max": 4,
+          "pole": "Flexible",
+          "letter": "F"
+        }
+      }
     }
   ]
 }
