@@ -1565,6 +1565,156 @@
       ],
       "model": "Llama-3.2-90B-Vision-Instruct",
       "provider": "openai"
+    },
+    {
+      "name": "Llama 3.2 11B Vision",
+      "slug": "llama-3-2-11b-vision",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-03T14:49:56.570Z",
+      "scores": [
+        4,
+        2,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-3.2-11B-Vision-Instruct",
+      "provider": "openai"
+    },
+    {
+      "name": "Codestral (Mistral)",
+      "slug": "codestral-mistral",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T15:06:19.806Z",
+      "scores": [
+        4,
+        3,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "Codestral-2501",
+      "provider": "openai"
+    },
+    {
+      "name": "Cohere Command R",
+      "slug": "cohere-command-r",
+      "url": "",
+      "type": "PTDN",
+      "nick": "The Guardian",
+      "testedAt": "2026-05-03T15:07:29.541Z",
+      "scores": [
+        3,
+        2,
+        1,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Cohere-command-r-08-2024",
+      "provider": "openai"
     }
   ]
 }
