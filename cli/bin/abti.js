@@ -8,6 +8,19 @@ const fs = require('fs');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const API_BASE = 'https://abti.kagura-agent.com';
+
+// ── Retry helper ────────────────────────────────────────────────────────────
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function parseRetryAfter(headers, body) {
+  if (headers && headers['retry-after']) {
+    const val = parseInt(headers['retry-after'], 10);
+    if (!isNaN(val)) return val * 1000;
+  }
+  const match = body && body.match(/try again in (\d+(?:\.\d+)?)\s*s/i);
+  if (match) return Math.ceil(parseFloat(match[1]) * 1000);
+  return null;
+}
 const DIM_LETTERS = [['P','R'],['T','E'],['C','D'],['F','N']];
 const DIM_NAMES = {
   en: [['Autonomy','Proactive','Responsive'],['Precision','Thorough','Efficient'],['Transparency','Candid','Diplomatic'],['Adaptability','Flexible','Principled']],
@@ -188,24 +201,43 @@ function readStdinLines() {
 
 // ── LLM providers (replicates action/index.js pattern) ─────────────────────
 
-function llmRequest(options, payload) {
+function llmRequestRaw(options, payload) {
   return new Promise((resolve, reject) => {
     const mod = options.port === 443 || (!options.port && !options.protocol) || (options.protocol || 'https:') === 'https:' ? https : http;
     delete options.protocol;
     const req = mod.request(options, res => {
       let data = '';
       res.on('data', c => data += c);
-      res.on('end', () => {
-        if (res.statusCode < 200 || res.statusCode >= 300) return reject(new Error(`LLM API returned ${res.statusCode}: ${data}`));
-        try { resolve(JSON.parse(data)); }
-        catch (e) { reject(new Error(`Failed to parse LLM response: ${e.message}`)); }
-      });
+      res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers, body: data }));
       res.on('error', reject);
     });
     req.on('error', reject);
     req.write(payload);
     req.end();
   });
+}
+
+async function llmRequest(options, payload) {
+  const MAX_RETRIES = 3;
+  let waitMs = 10000;
+
+  for (let attempt = 0; ; attempt++) {
+    const res = await llmRequestRaw({ ...options }, payload);
+
+    if (res.statusCode === 429 && attempt < MAX_RETRIES) {
+      const retryMs = parseRetryAfter(res.headers, res.body) || waitMs;
+      process.stderr.write(`  Rate limited (429). Retry ${attempt + 1}/${MAX_RETRIES} after ${(retryMs / 1000).toFixed(1)}s...\n`);
+      await sleep(retryMs);
+      waitMs *= 2;
+      continue;
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      throw new Error(`LLM API returned ${res.statusCode}: ${res.body}`);
+    }
+    try { return JSON.parse(res.body); }
+    catch (e) { throw new Error(`Failed to parse LLM response: ${e.message}`); }
+  }
 }
 
 function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl) {

@@ -27,6 +27,20 @@ function parseArgs() {
   return opts;
 }
 
+// ─── Retry helper ──────────────────────────────────────────────────────────
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function parseRetryAfter(headers, body) {
+  if (headers && headers['retry-after']) {
+    const val = parseInt(headers['retry-after'], 10);
+    if (!isNaN(val)) return val * 1000;
+  }
+  const match = body && body.match(/try again in (\d+(?:\.\d+)?)\s*s/i);
+  if (match) return Math.ceil(parseFloat(match[1]) * 1000);
+  return null;
+}
+
 // ─── HTTP helpers ───────────────────────────────────────────────────────────
 
 function httpGet(url) {
@@ -46,7 +60,7 @@ function httpGet(url) {
   });
 }
 
-function httpPostJSON(url, body, headers) {
+function httpPostJSONRaw(url, body, headers) {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
     const payload = JSON.stringify(body);
@@ -65,18 +79,36 @@ function httpPostJSON(url, body, headers) {
     }, (res) => {
       let data = '';
       res.on('data', (chunk) => (data += chunk));
-      res.on('end', () => {
-        if (res.statusCode < 200 || res.statusCode >= 300)
-          return reject(new Error(`POST ${url} returned ${res.statusCode}: ${data}`));
-        try { resolve(JSON.parse(data)); }
-        catch (e) { reject(new Error(`Failed to parse JSON: ${e.message}`)); }
-      });
+      res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers, body: data }));
       res.on('error', reject);
     });
     req.on('error', reject);
     req.write(payload);
     req.end();
   });
+}
+
+async function httpPostJSON(url, body, headers) {
+  const MAX_RETRIES = 3;
+  let waitMs = 10000;
+
+  for (let attempt = 0; ; attempt++) {
+    const res = await httpPostJSONRaw(url, body, headers);
+
+    if (res.statusCode === 429 && attempt < MAX_RETRIES) {
+      const retryMs = parseRetryAfter(res.headers, res.body) || waitMs;
+      process.stderr.write(`Rate limited (429). Retry ${attempt + 1}/${MAX_RETRIES} after ${(retryMs / 1000).toFixed(1)}s...\n`);
+      await sleep(retryMs);
+      waitMs *= 2;
+      continue;
+    }
+
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      throw new Error(`POST ${url} returned ${res.statusCode}: ${res.body}`);
+    }
+    try { return JSON.parse(res.body); }
+    catch (e) { throw new Error(`Failed to parse JSON: ${e.message}`); }
+  }
 }
 
 // ─── Reasoning model detection ─────────────────────────────────────────────
