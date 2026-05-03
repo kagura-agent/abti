@@ -915,6 +915,56 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "openai"
+    },
+    {
+      "name": "Qwen 3 8B",
+      "slug": "qwen-3-8b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T10:48:47.356Z",
+      "scores": [
+        4,
+        3,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "qwen3:8b",
+      "provider": "openai"
     }
   ]
 }
