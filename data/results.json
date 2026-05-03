@@ -1015,6 +1015,256 @@
       ],
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "openai"
+    },
+    {
+      "name": "Llama 4 Scout 17B",
+      "slug": "llama-4-scout-17b",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-03T12:34:37.632Z",
+      "scores": [
+        2,
+        1,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-4-Scout-17B-16E-Instruct",
+      "provider": "openai"
+    },
+    {
+      "name": "Cohere Command A",
+      "slug": "cohere-command-a",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-03T12:35:47.138Z",
+      "scores": [
+        3,
+        1,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "cohere-command-a",
+      "provider": "openai"
+    },
+    {
+      "name": "Ministral 3B",
+      "slug": "ministral-3b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T12:36:57.212Z",
+      "scores": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "Ministral-3B",
+      "provider": "openai"
+    },
+    {
+      "name": "Phi 4",
+      "slug": "phi-4",
+      "url": "",
+      "type": "PEDN",
+      "nick": "The Sentinel",
+      "testedAt": "2026-05-03T12:38:09.689Z",
+      "scores": [
+        2,
+        1,
+        1,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Phi-4",
+      "provider": "openai"
+    },
+    {
+      "name": "Phi 4 Multimodal",
+      "slug": "phi-4-multimodal",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-03T12:44:46.008Z",
+      "scores": [
+        3,
+        2,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Phi-4-multimodal-instruct",
+      "provider": "openai"
     }
   ]
 }
