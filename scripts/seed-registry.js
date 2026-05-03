@@ -10,7 +10,7 @@ const path = require('path');
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '' };
+  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '', maxTokens: 16 };
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--provider' && args[i + 1]) opts.provider = args[++i];
     else if (args[i] === '--model' && args[i + 1]) opts.model = args[++i];
@@ -19,6 +19,7 @@ function parseArgs() {
     else if (args[i] === '--agent-name' && args[i + 1]) opts.agentName = args[++i];
     else if (args[i] === '--system-prompt' && args[i + 1]) opts.systemPrompt = args[++i];
     else if (args[i] === '--system-prompt-file' && args[i + 1]) opts.systemPromptFile = args[++i];
+    else if (args[i] === '--max-tokens' && args[i + 1]) opts.maxTokens = parseInt(args[++i], 10);
   }
   if (!opts.model) { console.error('Error: --model is required'); process.exit(1); }
   if (!opts.apiKey) { console.error('Error: --api-key is required'); process.exit(1); }
@@ -93,7 +94,7 @@ function callOpenAI(opts, systemPrompt, userMessage) {
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userMessage },
     ],
-    max_tokens: 4,
+    max_tokens: opts.maxTokens,
     temperature: 0,
   }, headers).then(json => json.choices[0].message.content.trim());
 }
@@ -108,7 +109,7 @@ function callAnthropic(opts, systemPrompt, userMessage) {
   };
   return httpPostJSON(url, {
     model: opts.model,
-    max_tokens: 4,
+    max_tokens: opts.maxTokens,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }],
   }, headers).then(json => json.content[0].text.trim());
@@ -120,8 +121,14 @@ function callGemini(opts, systemPrompt, userMessage) {
   return httpPostJSON(url, {
     contents: [{ role: 'user', parts: [{ text: userMessage }] }],
     systemInstruction: { parts: [{ text: systemPrompt }] },
-    generationConfig: { maxOutputTokens: 4, temperature: 0 },
-  }).then(json => json.candidates[0].content.parts[0].text.trim());
+    generationConfig: { maxOutputTokens: opts.maxTokens, temperature: 0 },
+  }).then(json => {
+    const candidate = json.candidates && json.candidates[0];
+    if (!candidate || !candidate.content || !candidate.content.parts || !candidate.content.parts[0]) {
+      throw new Error(`Gemini returned no content. Response: ${JSON.stringify(json).slice(0, 200)}`);
+    }
+    return candidate.content.parts[0].text.trim();
+  });
 }
 
 function callLLM(opts, systemPrompt, userMessage) {
