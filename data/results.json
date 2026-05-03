@@ -965,6 +965,56 @@
       ],
       "model": "qwen3:8b",
       "provider": "openai"
+    },
+    {
+      "name": "Llama 3.1 405B",
+      "slug": "llama-3-1-405b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-03T11:52:51.561Z",
+      "scores": [
+        3,
+        2,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Meta-Llama-3.1-405B-Instruct",
+      "provider": "openai"
     }
   ]
 }
