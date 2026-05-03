@@ -1265,6 +1265,306 @@
       ],
       "model": "Phi-4-multimodal-instruct",
       "provider": "openai"
+    },
+    {
+      "name": "Llama 3.3 70B",
+      "slug": "llama-3-3-70b",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-03T13:41:39.404Z",
+      "scores": [
+        2,
+        0,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-3.3-70B-Instruct",
+      "provider": "openai"
+    },
+    {
+      "name": "Llama 4 Maverick 17B",
+      "slug": "llama-4-maverick-17b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-03T13:42:52.968Z",
+      "scores": [
+        3,
+        3,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "provider": "openai"
+    },
+    {
+      "name": "Mistral Small 3.1",
+      "slug": "mistral-small-3-1",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T13:44:18.673Z",
+      "scores": [
+        4,
+        3,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "mistral-small-2503",
+      "provider": "openai"
+    },
+    {
+      "name": "Cohere Command R+",
+      "slug": "cohere-command-r",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T13:46:20.487Z",
+      "scores": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "Cohere-command-r-plus-08-2024",
+      "provider": "openai"
+    },
+    {
+      "name": "Mistral Medium 3",
+      "slug": "mistral-medium-3",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-03T13:47:33.339Z",
+      "scores": [
+        3,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "mistral-medium-2505",
+      "provider": "openai"
+    },
+    {
+      "name": "Llama 3.2 90B Vision",
+      "slug": "llama-3-2-90b-vision",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T13:49:21.726Z",
+      "scores": [
+        3,
+        2,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Llama-3.2-90B-Vision-Instruct",
+      "provider": "openai"
     }
   ]
 }
