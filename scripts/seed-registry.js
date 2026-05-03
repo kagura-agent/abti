@@ -79,6 +79,14 @@ function httpPostJSON(url, body, headers) {
   });
 }
 
+// ─── Reasoning model detection ─────────────────────────────────────────────
+
+function isReasoningModel(modelName) {
+  if (!modelName) return false;
+  const lower = modelName.toLowerCase();
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
+}
+
 // ─── LLM calls ──────────────────────────────────────────────────────────────
 
 function callOpenAI(opts, systemPrompt, userMessage) {
@@ -96,7 +104,11 @@ function callOpenAI(opts, systemPrompt, userMessage) {
     ],
     max_tokens: opts.maxTokens,
     temperature: 0,
-  }, headers).then(json => json.choices[0].message.content.trim());
+  }, headers).then(json => {
+    const msg = json.choices[0].message;
+    const content = msg.content || msg.reasoning || '';
+    return content.trim();
+  });
 }
 
 function callAnthropic(opts, systemPrompt, userMessage) {
@@ -141,7 +153,9 @@ function callLLM(opts, systemPrompt, userMessage) {
 // ─── Answer parsing ─────────────────────────────────────────────────────────
 
 function parseAnswer(response) {
-  const cleaned = response.toUpperCase().trim();
+  // Strip <think>...</think> blocks from reasoning models
+  const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
+  const cleaned = stripped.toUpperCase().trim();
   if (cleaned.startsWith('A')) return 1;
   if (cleaned.startsWith('B')) return 0;
   if (/\bA\b/.test(cleaned)) return 1;
@@ -153,6 +167,12 @@ function parseAnswer(response) {
 
 async function main() {
   const opts = parseArgs();
+
+  // Auto-detect reasoning models and increase max_tokens so content isn't empty
+  if (isReasoningModel(opts.model) && opts.maxTokens <= 16) {
+    console.log(`Detected reasoning model "${opts.model}", increasing max_tokens to 2048`);
+    opts.maxTokens = 2048;
+  }
 
   // Start API server on a random port
   const server = require(path.join(__dirname, '..', 'api-server.js'));

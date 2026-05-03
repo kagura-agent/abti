@@ -213,7 +213,11 @@ function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   const maxTok = isReasoningModel(mdl) ? 2048 : 4;
   const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0 });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
-    .then(json => json.choices[0].message.content.trim());
+    .then(json => {
+      const msg = json.choices[0].message;
+      const content = msg.content || msg.reasoning || '';
+      return content.trim();
+    });
 }
 
 function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
@@ -241,7 +245,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
 function isReasoningModel(modelName) {
   if (!modelName) return false;
   const lower = modelName.toLowerCase();
-  return /\b(r1|o1|o3|o4|qwq|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
 }
 
 function parseAnswer(response) {
