@@ -105,21 +105,21 @@ if (flag('--help') || flag('-h')) {
   abti — Agent Behavioral Type Indicator
 
   Usage:
-    npx abti                 Interactive test
-    npx abti --json          Output result as JSON
-    npx abti --lang zh       Chinese questions
-    npx abti --name myAgent  Set agent name
-    npx abti --url URL       Set agent URL
-    npx abti --model MODEL   Set model name
-    npx abti --provider PRV  Set provider name
-    npx abti --submit        Submit result to registry
+    npx @kagura-agent/abti                 Interactive test
+    npx @kagura-agent/abti --json          Output result as JSON
+    npx @kagura-agent/abti --lang zh       Chinese questions
+    npx @kagura-agent/abti --name myAgent  Set agent name
+    npx @kagura-agent/abti --url URL       Set agent URL
+    npx @kagura-agent/abti --model MODEL   Set model name
+    npx @kagura-agent/abti --provider PRV  Set provider name
+    npx @kagura-agent/abti --submit        Submit result to registry
 
   Auto mode (LLM answers all questions):
-    npx abti --auto --provider openai --model gpt-4o --api-key sk-...
-    npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
-    npx abti --auto --provider gemini --model gemini-2.0-flash
-    npx abti --auto --provider deepseek --model deepseek-chat
-    npx abti --auto --provider ollama --model llama3.1
+    npx @kagura-agent/abti --auto --provider openai --model gpt-4o --api-key sk-...
+    npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514
+    npx @kagura-agent/abti --auto --provider gemini --model gemini-2.0-flash
+    npx @kagura-agent/abti --auto --provider deepseek --model deepseek-chat
+    npx @kagura-agent/abti --auto --provider ollama --model llama3.1
 
   Auto mode options:
     --auto                   Enable LLM auto-answer mode
@@ -132,8 +132,8 @@ if (flag('--help') || flag('-h')) {
     --runs <N>               Run the test N times (1-10, auto mode only) and show consistency report
 
   Combine flags:
-    npx abti --name myBot --submit --json
-    npx abti --auto --provider openai --model gpt-4o --json --submit
+    npx @kagura-agent/abti --name myBot --submit --json
+    npx @kagura-agent/abti --auto --provider openai --model gpt-4o --json --submit
 `);
   process.exit(0);
 }
