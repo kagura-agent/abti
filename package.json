@@ -2,7 +2,7 @@
   "name": "abti",
   "private": true,
   "scripts": {
-    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js",
+    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js test/auto-reload.test.js",
     "generate-og": "node scripts/generate-og-images.js"
   },
   "devDependencies": {

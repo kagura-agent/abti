@@ -32,9 +32,46 @@ function resetData() {
   DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
   DATA_FILE = path.join(DATA_DIR, 'results.json');
   agentData = loadData();
+  startWatching();
 }
 
 let agentData = loadData();
+
+// File watcher: auto-reload data when DATA_FILE changes
+let _fileWatcher = null;
+let _debounceTimer = null;
+
+function startWatching() {
+  stopWatching();
+  try {
+    _fileWatcher = fs.watch(DATA_FILE, () => {
+      clearTimeout(_debounceTimer);
+      _debounceTimer = setTimeout(() => {
+        try {
+          agentData = loadData();
+          console.log(`Data reloaded: ${agentData.agents.length} agents`);
+        } catch (err) {
+          console.error('Failed to reload data:', err.message);
+        }
+      }, 500);
+    });
+    _fileWatcher.on('error', (err) => {
+      console.error('File watch error:', err.message);
+    });
+  } catch (err) {
+    console.error('Failed to start file watcher:', err.message);
+  }
+}
+
+function stopWatching() {
+  clearTimeout(_debounceTimer);
+  if (_fileWatcher) {
+    _fileWatcher.close();
+    _fileWatcher = null;
+  }
+}
+
+startWatching();
 
 // Rate limiter for POST /api/agent-test: max 5 per IP per hour
 const rateLimitMap = new Map();
@@ -1384,5 +1421,6 @@ if (require.main === module) {
 }
 module.exports = server;
 module.exports.resetData = resetData;
+module.exports.stopWatching = stopWatching;
 module.exports.rateLimitMap = rateLimitMap;
 module.exports.slugify = slugify;
