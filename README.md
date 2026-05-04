@@ -67,14 +67,14 @@ Replace `claude-3-5-sonnet` with the agent's slug. Shows "Not Tested" if the age
 Test any AI agent from the command line:
 
 ```bash
-npx abti --auto --provider openai --model gpt-4o --api-key sk-...
-npx abti --auto --provider anthropic --model claude-sonnet-4-20250514
-npx abti --auto --provider ollama --model llama3.1
+npx @kagura-agent/abti --auto --provider openai --model gpt-4o --api-key sk-...
+npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514
+npx @kagura-agent/abti --auto --provider ollama --model llama3.1
 ```
 
 Ollama requires no API key — just make sure Ollama is running locally.
 
-Run `npx abti --help` for all options.
+Run `npx @kagura-agent/abti --help` for all options.
 
 ## GitHub Action
 
