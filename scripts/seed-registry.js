@@ -246,9 +246,21 @@ async function main() {
       ].join('\n');
 
       console.log(`  Q${i + 1}/${questions.length} [${q.dimension}]...`);
-      const response = await callLLM(opts, systemPrompt, userMessage);
-      const answer = parseAnswer(response);
-      console.log(`    → ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
+      let answer;
+      let lastErr;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
+        const response = await callLLM(opts, systemPrompt, msg);
+        try {
+          answer = parseAnswer(response);
+          console.log(`    → ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
+          break;
+        } catch (err) {
+          lastErr = err;
+          console.log(`    Parse failed (attempt ${attempt + 1}/3): ${err.message}`);
+        }
+      }
+      if (answer === undefined) throw lastErr;
       answers.push(answer);
     }
 

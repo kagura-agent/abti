@@ -331,8 +331,20 @@ async function runAuto() {
       `B: ${optB}`,
     ].join('\n');
 
-    const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, userMessage, llmBaseUrl || undefined);
-    const answer = parseAnswer(response);
+    let answer;
+    let lastErr;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
+      const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, msg, llmBaseUrl || undefined);
+      try {
+        answer = parseAnswer(response);
+        break;
+      } catch (err) {
+        lastErr = err;
+        process.stderr.write(`  Parse failed (attempt ${attempt + 1}/3): ${err.message}\n`);
+      }
+    }
+    if (answer === undefined) throw lastErr;
     answers.push(answer);
     process.stderr.write(`  Question ${i + 1}/${questions.length}... ${answer ? 'A' : 'B'}\n`);
   }
