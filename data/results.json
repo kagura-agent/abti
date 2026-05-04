@@ -1815,6 +1815,56 @@
       ],
       "model": "aya-expanse:8b",
       "provider": "openai"
+    },
+    {
+      "name": "gemma2:2b",
+      "slug": "gemma2-2b",
+      "url": "",
+      "type": "PTDF",
+      "nick": "The Strategist",
+      "testedAt": "2026-05-04T07:44:59.894Z",
+      "scores": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemma2:2b",
+      "provider": "openai"
     }
   ]
 }
