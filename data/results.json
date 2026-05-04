@@ -1765,6 +1765,56 @@
       ],
       "model": "granite3.3:8b",
       "provider": "openai"
+    },
+    {
+      "name": "Aya Expanse 8B",
+      "slug": "aya-expanse-8b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-04T01:56:26.347Z",
+      "scores": [
+        2,
+        3,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "aya-expanse:8b",
+      "provider": "openai"
     }
   ]
 }
