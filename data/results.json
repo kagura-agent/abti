@@ -1865,6 +1865,56 @@
       ],
       "model": "gemma2:2b",
       "provider": "openai"
+    },
+    {
+      "name": "yi:6b",
+      "slug": "yi-6b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-04T08:44:49.762Z",
+      "scores": [
+        3,
+        2,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "yi:6b",
+      "provider": "openai"
     }
   ]
 }
