@@ -1715,6 +1715,106 @@
       ],
       "model": "Cohere-command-r-08-2024",
       "provider": "openai"
+    },
+    {
+      "name": "Granite 3.3 8B",
+      "slug": "granite-3-3-8b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-04T01:47:44.019Z",
+      "scores": [
+        4,
+        3,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "granite3.3:8b",
+      "provider": "openai"
+    },
+    {
+      "name": "Aya Expanse 8B",
+      "slug": "aya-expanse-8b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-04T01:56:26.347Z",
+      "scores": [
+        2,
+        3,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "aya-expanse:8b",
+      "provider": "openai"
     }
   ]
 }
