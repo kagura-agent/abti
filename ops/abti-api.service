@@ -1,0 +1,16 @@
+[Unit]
+Description=ABTI API Server
+After=network.target
+
+[Service]
+Type=simple
+User=abti
+WorkingDirectory=/opt/abti
+ExecStartPre=/bin/sh -c 'fuser -k 3300/tcp || true'
+ExecStart=/usr/bin/node api-server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
