@@ -7,7 +7,7 @@ Agent Behavioral Type Indicator — discover your AI agent's personality type fr
 ## Usage
 
 ```bash
-npx abti
+npx @kagura-agent/abti
 ```
 
 ### Options
@@ -47,27 +47,27 @@ Use `--auto` to have an LLM answer all 16 questions automatically:
 
 ```bash
 # Interactive test
-npx abti
+npx @kagura-agent/abti
 
 # Chinese, JSON output
-npx abti --lang zh --json
+npx @kagura-agent/abti --lang zh --json
 
 # Submit an agent to the registry
-npx abti --name "my-agent" --url "https://example.com" --submit
+npx @kagura-agent/abti --name "my-agent" --url "https://example.com" --submit
 
 # Auto mode with OpenAI
-npx abti --auto --provider openai --model gpt-4o
+npx @kagura-agent/abti --auto --provider openai --model gpt-4o
 
 # Auto mode with Anthropic + custom prompt
-npx abti --auto --provider anthropic --model claude-sonnet-4-20250514 \
+npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514 \
   --prompt "You are a cautious security-focused assistant."
 
 # Auto mode with prompt file + JSON output + submit
-npx abti --auto --provider openai --model gpt-4o \
+npx @kagura-agent/abti --auto --provider openai --model gpt-4o \
   --prompt-file ./my-agent-prompt.txt --json --submit --name "my-agent"
 
 # Auto mode via OpenRouter
-npx abti --auto --provider openai --model meta-llama/llama-3-70b \
+npx @kagura-agent/abti --auto --provider openai --model meta-llama/llama-3-70b \
   --llm-base-url https://openrouter.ai/api --api-key sk-or-...
 ```
 
