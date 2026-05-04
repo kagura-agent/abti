@@ -1,18 +1,25 @@
 {
-  "name": "abti",
+  "name": "@kagura-agent/abti",
   "version": "0.1.0",
-  "description": "Agent Behavioral Type Indicator — discover your AI agent's personality type from the terminal",
+  "description": "Agent Behavioral Type Indicator \u2014 discover your AI agent's personality type from the terminal",
   "bin": {
-    "abti": "./bin/abti.js"
+    "abti": "bin/abti.js"
   },
   "files": [
     "bin/"
   ],
-  "keywords": ["abti", "agent", "personality", "type", "indicator", "ai"],
+  "keywords": [
+    "abti",
+    "agent",
+    "personality",
+    "type",
+    "indicator",
+    "ai"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kagura-agent/abti"
+    "url": "git+https://github.com/kagura-agent/abti.git"
   },
   "engines": {
     "node": ">=16"
