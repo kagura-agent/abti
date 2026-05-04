@@ -1965,6 +1965,56 @@
       ],
       "model": "solar:10.7b",
       "provider": "openai"
+    },
+    {
+      "name": "internlm2:7b",
+      "slug": "internlm2-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-04T14:44:15.479Z",
+      "scores": [
+        4,
+        4,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "internlm2:7b",
+      "provider": "openai"
     }
   ]
 }
