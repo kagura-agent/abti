@@ -2065,6 +2065,106 @@
       ],
       "model": "dolphin-mistral:7b",
       "provider": "openai"
+    },
+    {
+      "name": "GPT-4.1 mini",
+      "slug": "gpt-4-1-mini",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-05T10:23:35.303Z",
+      "scores": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "openai/gpt-4.1-mini",
+      "provider": "openai"
+    },
+    {
+      "name": "GPT-4.1 nano",
+      "slug": "gpt-4-1-nano",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-05T10:25:08.075Z",
+      "scores": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "openai/gpt-4.1-nano",
+      "provider": "openai"
     }
   ]
 }
