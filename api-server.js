@@ -1305,7 +1305,8 @@ ${dimInfo.map((d, i) => {
     const ranked = ABTI_VALID.map(code => {
       const score = crossScore(mbti, code);
       const profile = richProfiles[code]?.[lang] || richProfiles[code]?.en || types[code]?.en || {};
-      return { code, nick: profile.nick || code, score };
+      const category = score >= 80 ? 'complementary' : score >= 60 ? 'balanced' : 'similar';
+      return { code, nick: profile.nick || code, score, category };
     }).sort((a, b) => b.score - a.score);
 
     const complementaryType = poles.autonomy === 'P' ? 'R' : 'P';
