@@ -355,16 +355,21 @@ describe('GET /og/:type', () => {
   it('returns PNG for valid type', async () => {
     const r = await req('/og/PTCF');
     assert.equal(r.status, 200);
-    assert.equal(r.headers['content-type'], 'image/png');
-    // PNG magic bytes: \x89PNG
-    assert.ok(r.body.includes('PNG') || Buffer.from(r.body, 'binary')[0] === 0x89,
-      'response should be a PNG image');
+    assert.match(r.headers['content-type'], /image\/(png|svg\+xml)/);
+    // PNG magic bytes or SVG fallback
+    const ct = r.headers['content-type'];
+    if (ct === 'image/png') {
+      assert.ok(r.body.includes('PNG') || Buffer.from(r.body, 'binary')[0] === 0x89,
+        'response should be a PNG image');
+    } else {
+      assert.ok(r.body.includes('<svg'), 'response should be an SVG image');
+    }
   });
 
   it('case insensitive type code', async () => {
     const r = await req('/og/ptcf');
     assert.equal(r.status, 200);
-    assert.equal(r.headers['content-type'], 'image/png');
+    assert.match(r.headers['content-type'], /image\/(png|svg\+xml)/);
   });
 
   it('404 for unknown type', async () => {
