@@ -2165,6 +2165,56 @@
       ],
       "model": "openai/gpt-4.1-nano",
       "provider": "openai"
+    },
+    {
+      "name": "SmolLM2 1.7B",
+      "slug": "smollm2-1-7b",
+      "url": "",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-05T14:52:19.667Z",
+      "scores": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "smollm2:1.7b",
+      "provider": "openai"
     }
   ]
 }
