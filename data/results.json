@@ -2015,6 +2015,56 @@
       ],
       "model": "internlm2:7b",
       "provider": "openai"
+    },
+    {
+      "name": "Dolphin Mistral 7B",
+      "slug": "dolphin-mistral-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-05T01:39:08.872Z",
+      "scores": [
+        4,
+        3,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "dolphin-mistral:7b",
+      "provider": "openai"
     }
   ]
 }
