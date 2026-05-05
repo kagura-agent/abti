@@ -4,10 +4,49 @@ Agent Behavioral Type Indicator — discover your AI agent's personality type fr
 
 16 questions, 4 dimensions, 16 types. No dependencies.
 
-## Usage
+## Quick Start
 
 ```bash
-npx @kagura-agent/abti
+# Test your AI agent
+npx abti test --model gpt-4o --provider openai --api-key sk-...
+
+# Test a local model
+npx abti test --model llama3:8b --provider ollama
+
+# Interactive mode (answer questions yourself)
+npx abti
+```
+
+## Usage
+
+```
+npx abti test --model <model> --provider <provider> [options]
+npx abti [options]                  Interactive mode
+```
+
+### Test Subcommand
+
+The `test` subcommand runs the ABTI test with an LLM answering all 16 questions automatically:
+
+```bash
+# OpenAI
+npx abti test --provider openai --model gpt-4o --api-key sk-...
+
+# Anthropic
+npx abti test --provider anthropic --model claude-sonnet-4-20250514
+
+# Gemini
+npx abti test --provider gemini --model gemini-2.0-flash
+
+# DeepSeek
+npx abti test --provider deepseek --model deepseek-chat
+
+# Ollama (local)
+npx abti test --provider ollama --model llama3.1
+
+# Via OpenRouter
+npx abti test --provider openai --model meta-llama/llama-3-70b \
+  --base-url https://openrouter.ai/api --api-key sk-or-...
 ```
 
 ### Options
@@ -16,59 +55,60 @@ npx @kagura-agent/abti
 |------|-------------|
 | `--lang zh` | Chinese questions (default: English) |
 | `--json` | Output result as JSON |
+| `--badge` | Print markdown badge snippet after results |
 | `--name <name>` | Agent name for registry |
 | `--url <url>` | Agent URL for registry |
-| `--model <model>` | Model name (used for registry & auto mode) |
-| `--provider <provider>` | Provider name (used for registry & auto mode) |
+| `--model <model>` | Model name |
+| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama` (default: `openai`) |
+| `--api-key <key>` | API key (or set env var) |
 | `--submit` | Submit result to the ABTI registry |
+| `--runs <N>` | Run the test N times (1-10) and show consistency report |
 | `--help` | Show help |
 
-### Auto Mode
+### Prompt Options
 
-Use `--auto` to have an LLM answer all 16 questions automatically:
+| Flag | Alias | Description |
+|------|-------|-------------|
+| `--prompt <text>` | `--system-prompt` | System prompt for the agent persona |
+| `--prompt-file <path>` | `--system-prompt-file` | Read system prompt from a file |
+| `--llm-base-url <url>` | `--base-url` | Custom API base URL |
 
-| Flag | Description |
-|------|-------------|
-| `--auto` | Enable LLM auto-answer mode |
-| `--provider <p>` | LLM provider: `openai`, `anthropic`, or `gemini` (default: `openai`) |
-| `--model <m>` | Model name (required for auto mode) |
-| `--api-key <key>` | API key (or set env var — see below) |
-| `--prompt <text>` | Custom system prompt for the agent persona |
-| `--prompt-file <path>` | Read system prompt from a file |
-| `--llm-base-url <url>` | Custom API base URL (for OpenRouter, local models, etc.) |
+### Backward Compatibility
+
+`--auto` still works as an alias for the `test` subcommand.
 
 **Environment variables** (used when `--api-key` is not provided):
 
 - `OPENAI_API_KEY` — for `--provider openai`
 - `ANTHROPIC_API_KEY` — for `--provider anthropic`
 - `GOOGLE_AI_API_KEY` — for `--provider gemini`
+- `DEEPSEEK_API_KEY` — for `--provider deepseek`
 
 ### Examples
 
 ```bash
-# Interactive test
-npx @kagura-agent/abti
+# Test with JSON output and submit to registry
+npx abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
 
-# Chinese, JSON output
-npx @kagura-agent/abti --lang zh --json
+# Test with custom system prompt and badge
+npx abti test --provider anthropic --model claude-sonnet-4-20250514 \
+  --system-prompt "You are a cautious security-focused assistant." --badge
 
-# Submit an agent to the registry
-npx @kagura-agent/abti --name "my-agent" --url "https://example.com" --submit
+# Multi-run consistency test
+npx abti test --provider openai --model gpt-4o --runs 5
 
-# Auto mode with OpenAI
-npx @kagura-agent/abti --auto --provider openai --model gpt-4o
+# Interactive test in Chinese
+npx abti --lang zh --json
+```
 
-# Auto mode with Anthropic + custom prompt
-npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514 \
-  --prompt "You are a cautious security-focused assistant."
+### Badge Output
 
-# Auto mode with prompt file + JSON output + submit
-npx @kagura-agent/abti --auto --provider openai --model gpt-4o \
-  --prompt-file ./my-agent-prompt.txt --json --submit --name "my-agent"
+Use `--badge` to get a markdown badge snippet after results:
 
-# Auto mode via OpenRouter
-npx @kagura-agent/abti --auto --provider openai --model meta-llama/llama-3-70b \
-  --llm-base-url https://openrouter.ai/api --api-key sk-or-...
+```
+Badge: https://abti.kagura-agent.com/badge/PTCF
+Markdown: ![ABTI](https://abti.kagura-agent.com/badge/PTCF)
+Share: https://abti.kagura-agent.com/type/PTCF
 ```
 
 ## How it works
@@ -83,13 +123,6 @@ Answer 16 behavioral scenarios (A or B) across four dimensions:
 Your answers produce a 4-letter type code (e.g., PTCF "The Architect").
 
 Scoring is done locally — only `--submit` requires network access.
-
-In auto mode, progress is shown on stderr as each question is answered:
-```
-  Question 1/16... A
-  Question 2/16... B
-  ...
-```
 
 ## Links
 

@@ -77,8 +77,27 @@ const DESCS = {
   zh:{PTCF:'主动、周全、直言、灵活。掌控全局，考虑每个角度，有话直说，随时转向。',PTCN:'主动、周全、直言、坚定。以详尽计划向前推进，说真话不打折。',PTDF:'主动、周全、圆通、灵活。想你前面十步，反馈温和到位，悄然适应变化。',PTDN:'主动、周全、圆通、坚定。万事预判在先，硬道理用软方式讲，底线寸步不让。',PECF:'主动、精简、直言、灵活。快速行动，直话直说，改变方向毫不犹豫。',PECN:'主动、精简、直言、坚定。直奔主题，该说的说，绝不妥协。',PEDF:'主动、精简、圆通、灵活。安静快速地解决问题，总能找到平稳路径。',PEDN:'主动、精简、圆通、坚定。警觉、精干、得体——守护流程。',RTCF:'响应、周全、直言、灵活。等你发问，然后给出全面诚实的回答。',RTCN:'响应、周全、直言、坚定。深入分析和硬核真相。不粉饰，不偷工。',RTDF:'响应、周全、圆通、灵活。耐心倾听，细致思考，用共情包裹洞见。',RTDN:'响应、周全、圆通、坚定。一丝不苟，沉稳克制，温声细语。',RECF:'响应、精简、直言、灵活。又快又坦诚，给答案不给论文。',RECN:'响应、精简、直言、坚定。纯粹执行。没废话，没弹性，没滤镜。',REDF:'响应、精简、圆通、灵活。友好、简洁、好相处。',REDN:'响应、精简、圆通、坚定。输入→输出。礼貌、极简、一致。'}
 };
 
+// ── ANSI colors ────────────────────────────────────────────────────────────
+const useColor = !process.env.NO_COLOR && process.stderr.isTTY !== false;
+const c = {
+  reset: useColor ? '\x1b[0m' : '',
+  bold: useColor ? '\x1b[1m' : '',
+  dim: useColor ? '\x1b[2m' : '',
+  cyan: useColor ? '\x1b[36m' : '',
+  boldCyan: useColor ? '\x1b[1;36m' : '',
+  green: useColor ? '\x1b[32m' : '',
+  yellow: useColor ? '\x1b[33m' : '',
+  red: useColor ? '\x1b[31m' : '',
+  magenta: useColor ? '\x1b[35m' : '',
+};
+
 // ── Parse args ──────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
+
+// Detect 'test' subcommand: first non-flag arg
+const hasTestSubcommand = args.length > 0 && args[0] === 'test';
+if (hasTestSubcommand) args.shift();
+
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
 
@@ -87,13 +106,14 @@ const submit = flag('--submit');
 const lang = opt('--lang') === 'zh' ? 'zh' : 'en';
 const agentName = opt('--name');
 const agentUrl = opt('--url');
-const autoMode = flag('--auto');
+const badgeFlag = flag('--badge');
+const autoMode = hasTestSubcommand || flag('--auto');
 const autoProvider = opt('--provider') || (autoMode ? 'openai' : null);
 const autoModel = opt('--model') || null;
 const autoApiKey = opt('--api-key') || null;
-const autoPrompt = opt('--prompt') || null;
-const autoPromptFile = opt('--prompt-file') || null;
-const llmBaseUrl = opt('--llm-base-url') || null;
+const autoPrompt = opt('--prompt') || opt('--system-prompt') || null;
+const autoPromptFile = opt('--prompt-file') || opt('--system-prompt-file') || null;
+const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 
 // Keep backward compat: --model and --provider used for submit metadata too
@@ -105,35 +125,41 @@ if (flag('--help') || flag('-h')) {
   abti — Agent Behavioral Type Indicator
 
   Usage:
-    npx @kagura-agent/abti                 Interactive test
-    npx @kagura-agent/abti --json          Output result as JSON
-    npx @kagura-agent/abti --lang zh       Chinese questions
-    npx @kagura-agent/abti --name myAgent  Set agent name
-    npx @kagura-agent/abti --url URL       Set agent URL
-    npx @kagura-agent/abti --model MODEL   Set model name
-    npx @kagura-agent/abti --provider PRV  Set provider name
-    npx @kagura-agent/abti --submit        Submit result to registry
+    npx abti test --model gpt-4o --provider openai --api-key sk-...
+    npx abti test --model llama3:8b --provider ollama
+    npx abti                    Interactive mode
 
-  Auto mode (LLM answers all questions):
-    npx @kagura-agent/abti --auto --provider openai --model gpt-4o --api-key sk-...
-    npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514
-    npx @kagura-agent/abti --auto --provider gemini --model gemini-2.0-flash
-    npx @kagura-agent/abti --auto --provider deepseek --model deepseek-chat
-    npx @kagura-agent/abti --auto --provider ollama --model llama3.1
+  Test subcommand (auto mode):
+    npx abti test --provider openai --model gpt-4o --api-key sk-...
+    npx abti test --provider anthropic --model claude-sonnet-4-20250514
+    npx abti test --provider gemini --model gemini-2.0-flash
+    npx abti test --provider deepseek --model deepseek-chat
+    npx abti test --provider ollama --model llama3.1
 
-  Auto mode options:
-    --auto                   Enable LLM auto-answer mode
-    --provider <p>           LLM provider: openai|anthropic|gemini|deepseek|ollama (default: openai)
-    --model <m>              Model name (required for --auto)
+  Options:
+    --lang zh                Language (default: en)
+    --json                   Output result as JSON
+    --name <name>            Agent name for registry
+    --url <url>              Agent URL for registry
+    --model <model>          Model name
+    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY)
-    --prompt <text>          System prompt for the agent persona
-    --prompt-file <path>     Read system prompt from file
-    --llm-base-url <url>     Custom API base URL (OpenRouter, etc.)
-    --runs <N>               Run the test N times (1-10, auto mode only) and show consistency report
+    --submit                 Submit result to the ABTI registry
+    --badge                  Print markdown badge snippet after results
+    --runs <N>               Run the test N times (1-10, auto mode only)
 
-  Combine flags:
-    npx @kagura-agent/abti --name myBot --submit --json
-    npx @kagura-agent/abti --auto --provider openai --model gpt-4o --json --submit
+  Prompt options:
+    --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
+    --prompt-file <path>     Read system prompt from file (alias: --system-prompt-file)
+    --llm-base-url <url>     Custom API base URL (alias: --base-url)
+
+  Backward-compatible:
+    --auto                   Same as 'test' subcommand
+
+  Examples:
+    npx abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
+    npx abti test --provider anthropic --model claude-sonnet-4-20250514 --badge
+    npx abti --lang zh --json
 `);
   process.exit(0);
 }
@@ -383,15 +409,25 @@ async function run() {
       ? { done: '测试完成！', yourType: '你的类型', dims: '维度得分', badge: '徽章' }
       : { done: 'Test complete!', yourType: 'Your type', dims: 'Dimension scores', badge: 'Badge' };
     console.log(`\n  ${t.done}\n`);
-    console.log(`  ${t.yourType}: ${code} — ${nick}`);
+    console.log(`  ${t.yourType}: ${c.boldCyan}${code}${c.reset} — ${c.bold}${nick}${c.reset}`);
     console.log(`  ${desc}\n`);
     const dimNames = DIM_NAMES[lang];
     console.log(`  ${t.dims}:`);
     for (let i = 0; i < 4; i++) {
       const pole = scores[i] >= 2 ? dimNames[i][1] : dimNames[i][2];
-      console.log(`    ${dimNames[i][0]}: ${scores[i]}/4 → ${pole} (${scores[i] >= 2 ? DIM_LETTERS[i][0] : DIM_LETTERS[i][1]})`);
+      const barColor = scores[i] >= 3 ? c.green : scores[i] >= 2 ? c.yellow : c.red;
+      const filled = scores[i];
+      const bar = barColor + '█'.repeat(filled) + c.dim + '░'.repeat(4 - filled) + c.reset;
+      console.log(`    ${dimNames[i][0]}: ${bar} ${scores[i]}/4 → ${pole} (${scores[i] >= 2 ? DIM_LETTERS[i][0] : DIM_LETTERS[i][1]})`);
     }
     console.log(`\n  ${t.badge}: ${API_BASE}/badge/${code}`);
+  }
+
+  // Print badge snippet if --badge
+  if (badgeFlag && !jsonMode) {
+    console.log(`\n  Badge: ${API_BASE}/badge/${code}`);
+    console.log(`  Markdown: ![ABTI](${API_BASE}/badge/${code})`);
+    console.log(`  Share: ${API_BASE}/type/${code}`);
   }
 
   // Submit if requested
@@ -485,7 +521,7 @@ async function runMulti() {
     const confLabel = confidence === 'High' ? t.high : confidence === 'Medium' ? t.medium : t.low;
 
     console.log(`\n  ── ${t.report} ──\n`);
-    console.log(`  ${t.dominant}: ${dominantType} — ${dominantNick}`);
+    console.log(`  ${t.dominant}: ${c.boldCyan}${dominantType}${c.reset} — ${c.bold}${dominantNick}${c.reset}`);
     console.log(`  ${dominantDesc}\n`);
     console.log(`  ${t.freq}: ${dominantCount}/${runsN}`);
     console.log(`  ${t.consist}: ${consistency}%`);
@@ -493,10 +529,18 @@ async function runMulti() {
     console.log(`  ${t.dimStab}:`);
     for (const d of dimStability) {
       const filled = Math.round(d.pct / 10);
-      const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
+      const barColor = d.pct >= 80 ? c.green : d.pct >= 50 ? c.yellow : c.red;
+      const bar = barColor + '█'.repeat(filled) + c.dim + '░'.repeat(10 - filled) + c.reset;
       console.log(`    ${d.name}: ${bar} ${d.pct}% (${d.letter})`);
     }
     console.log(`\n  ${t.badge}: ${API_BASE}/badge/${dominantType}`);
+  }
+
+  // Print badge snippet if --badge
+  if (badgeFlag && !jsonMode) {
+    console.log(`\n  Badge: ${API_BASE}/badge/${dominantType}`);
+    console.log(`  Markdown: ![ABTI](${API_BASE}/badge/${dominantType})`);
+    console.log(`  Share: ${API_BASE}/type/${dominantType}`);
   }
 
   // Submit dominant type if requested
