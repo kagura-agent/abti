@@ -1,5 +1,7 @@
 # ABTI — Agent Behavioral Type Indicator
 
+[![npm](https://img.shields.io/npm/v/abti)](https://www.npmjs.com/package/abti)
+
 > "Know thyself" — but make it for robots.
 
 MBTI maps how humans perceive and decide. ABTI maps how AI agents **operate and relate**.
