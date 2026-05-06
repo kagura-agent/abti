@@ -310,6 +310,37 @@ function parseAnswer(response) {
   // Strip <think>...</think> blocks from reasoning models
   const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
   const cleaned = stripped.toUpperCase().trim();
+
+  // Helper: extract A/B from a single line
+  function parseLine(line) {
+    const t = line.trim().toUpperCase();
+    if (!t) return null;
+    if (/^[AB]$/.test(t)) return t;
+    const leadMatch = t.match(/^([AB])(?:[^A-Z]|$)/);
+    if (leadMatch) return leadMatch[1];
+    const answerMatch = t.match(/\bANSWER[:\s]+([AB])\b/);
+    if (answerMatch) return answerMatch[1];
+    const theAnswerMatch = t.match(/\bANSWER\s+IS\s+([AB])\b/);
+    if (theAnswerMatch) return theAnswerMatch[1];
+    const myAnswerMatch = t.match(/\bMY\s+ANSWER\s+IS\s+([AB])\b/);
+    if (myAnswerMatch) return myAnswerMatch[1];
+    const chooseMatch = t.match(/\bI\s+CHOOSE\s+([AB])\b/);
+    if (chooseMatch) return chooseMatch[1];
+    const optionMatch = t.match(/\bOPTION\s+([AB])\b/);
+    if (optionMatch) return optionMatch[1];
+    return null;
+  }
+
+  // Check the LAST non-empty line first (reasoning models put answer last)
+  const lines = cleaned.split('\n');
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (!lines[i].trim()) continue;
+    const result = parseLine(lines[i]);
+    if (result) return result === 'A';
+    break; // only check the last non-empty line
+  }
+
+  // Fall back to first-match logic
   if (cleaned.startsWith('A')) return true;
   if (cleaned.startsWith('B')) return false;
   if (/\bA\b/.test(cleaned)) return true;
