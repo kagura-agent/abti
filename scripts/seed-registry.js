@@ -176,10 +176,11 @@ function callGemini(opts, systemPrompt, userMessage) {
 }
 
 function callLLM(opts, systemPrompt, userMessage) {
-  if (opts.provider === 'openai') return callOpenAI(opts, systemPrompt, userMessage);
+  // ollama and github use OpenAI-compatible API (with custom base-url)
+  if (['openai', 'ollama', 'github'].includes(opts.provider)) return callOpenAI(opts, systemPrompt, userMessage);
   if (opts.provider === 'anthropic') return callAnthropic(opts, systemPrompt, userMessage);
   if (opts.provider === 'gemini') return callGemini(opts, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${opts.provider}. Must be "openai", "anthropic", or "gemini".`);
+  throw new Error(`Unknown provider: ${opts.provider}. Supported: openai, ollama, github, anthropic, gemini.`);
 }
 
 // ─── Answer parsing ─────────────────────────────────────────────────────────
