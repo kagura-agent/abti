@@ -2215,6 +2215,56 @@
       ],
       "model": "smollm2:1.7b",
       "provider": "ollama"
+    },
+    {
+      "name": "EXAONE 3.5 2.4B",
+      "slug": "exaone-3-5-2-4b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-06T05:19:13.655Z",
+      "scores": [
+        3,
+        2,
+        2,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "exaone3.5:2.4b",
+      "provider": "ollama"
     }
   ]
 }
