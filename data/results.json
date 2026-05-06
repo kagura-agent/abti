@@ -2265,6 +2265,106 @@
       ],
       "model": "exaone3.5:2.4b",
       "provider": "ollama"
+    },
+    {
+      "name": "Falcon 3 3B",
+      "slug": "falcon-3-3b",
+      "url": "",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-06T07:42:53.839Z",
+      "scores": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "falcon3:3b",
+      "provider": "ollama"
+    },
+    {
+      "name": "StableLM 2 1.6B",
+      "slug": "stablelm-2-1-6b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-06T07:57:58.801Z",
+      "scores": [
+        4,
+        3,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "stablelm2:1.6b",
+      "provider": "ollama"
     }
   ]
 }

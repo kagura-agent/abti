@@ -195,8 +195,18 @@ function parseAnswer(response) {
   // Strip <think>...</think> blocks from reasoning models
   const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
   const cleaned = stripped.toUpperCase().trim();
-  if (cleaned.startsWith('A')) return 1;
-  if (cleaned.startsWith('B')) return 0;
+  // Exact single letter
+  if (/^[AB]$/.test(cleaned)) return cleaned === 'A' ? 1 : 0;
+  // Starts with lone A or B (followed by non-letter: punctuation, space, newline)
+  const leadMatch = cleaned.match(/^([AB])(?:[^A-Z]|$)/);
+  if (leadMatch) return leadMatch[1] === 'A' ? 1 : 0;
+  // "Answer: A/B" or "Answer A/B" pattern
+  const answerMatch = cleaned.match(/\bANSWER[:\s]+([AB])\b/);
+  if (answerMatch) return answerMatch[1] === 'A' ? 1 : 0;
+  // "The answer is A/B"
+  const theAnswerMatch = cleaned.match(/\bANSWER\s+IS\s+([AB])\b/);
+  if (theAnswerMatch) return theAnswerMatch[1] === 'A' ? 1 : 0;
+  // First standalone A or B word
   if (/\bA\b/.test(cleaned)) return 1;
   if (/\bB\b/.test(cleaned)) return 0;
   throw new Error(`Could not parse A or B from response: "${response}"`);
