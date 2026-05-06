@@ -266,10 +266,10 @@ async function llmRequest(options, payload) {
   }
 }
 
-function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
+function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions') : new URL('https://api.openai.com/v1/chat/completions');
   const maxTok = isReasoningModel(mdl) ? 2048 : 4;
-  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0 });
+  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0, ...options });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => {
       const msg = json.choices[0].message;
@@ -296,7 +296,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com');
-  if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434');
+  if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined);
   throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", or "ollama".`);
 }
 
@@ -310,6 +310,22 @@ function parseAnswer(response) {
   // Strip <think>...</think> blocks from reasoning models
   const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
   const cleaned = stripped.toUpperCase().trim();
+
+  // Check the last non-empty line for a standalone A or B (optionally with punctuation)
+  const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  if (lines.length > 0) {
+    const lastLine = lines[lines.length - 1];
+    if (/^A[.\s]*$/.test(lastLine)) return true;
+    if (/^B[.\s]*$/.test(lastLine)) return false;
+  }
+
+  // Check last few lines for "Answer: A/B" or "The answer is A/B" patterns
+  const tail = lines.slice(-3).join('\n');
+  const answerPattern = /\b(?:ANSWER\s*[:=]\s*|(?:THE|MY)\s+ANSWER\s+IS\s+)([AB])\b/;
+  const answerMatch = tail.match(answerPattern);
+  if (answerMatch) return answerMatch[1] === 'A';
+
+  // Fall back to original logic
   if (cleaned.startsWith('A')) return true;
   if (cleaned.startsWith('B')) return false;
   if (/\bA\b/.test(cleaned)) return true;
@@ -614,3 +630,8 @@ async function runInteractive() {
 }
 
 run().catch(err => { console.error(err.message); process.exit(1); });
+
+// Export for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { parseAnswer };
+}
