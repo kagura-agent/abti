@@ -1418,7 +1418,7 @@
     },
     {
       "name": "Cohere Command R+",
-      "slug": "cohere-command-r",
+      "slug": "cohere-command-r-plus",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
@@ -1817,7 +1817,7 @@
       "provider": "openai"
     },
     {
-      "name": "gemma2:2b",
+      "name": "Gemma 2 2B",
       "slug": "gemma2-2b",
       "url": "",
       "type": "PTDF",
@@ -1867,7 +1867,7 @@
       "provider": "openai"
     },
     {
-      "name": "yi:6b",
+      "name": "Yi 6B",
       "slug": "yi-6b",
       "url": "",
       "type": "PTCF",
@@ -1967,7 +1967,7 @@
       "provider": "openai"
     },
     {
-      "name": "internlm2:7b",
+      "name": "InternLM2 7B",
       "slug": "internlm2-7b",
       "url": "",
       "type": "PTCF",
