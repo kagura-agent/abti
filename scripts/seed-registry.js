@@ -22,7 +22,13 @@ function parseArgs() {
     else if (args[i] === '--max-tokens' && args[i + 1]) opts.maxTokens = parseInt(args[++i], 10);
   }
   if (!opts.model) { console.error('Error: --model is required'); process.exit(1); }
-  if (!opts.apiKey) { console.error('Error: --api-key is required'); process.exit(1); }
+  // Auto-set defaults for known providers
+  if (opts.provider === 'ollama' && !opts.baseUrl) opts.baseUrl = 'http://localhost:11434';
+  if (opts.provider === 'ollama' && !opts.apiKey) opts.apiKey = 'ollama';
+  if (opts.provider === 'github' && !opts.baseUrl) opts.baseUrl = 'https://models.inference.ai.azure.com';
+  if (opts.provider === 'github' && !opts.apiKey) opts.apiKey = process.env.GITHUB_TOKEN || '';
+  if (opts.provider === 'deepseek' && !opts.baseUrl) opts.baseUrl = 'https://api.deepseek.com';
+  if (!opts.apiKey && !['ollama'].includes(opts.provider)) { console.error('Error: --api-key is required'); process.exit(1); }
   if (!opts.agentName) opts.agentName = opts.model;
   return opts;
 }
@@ -176,11 +182,11 @@ function callGemini(opts, systemPrompt, userMessage) {
 }
 
 function callLLM(opts, systemPrompt, userMessage) {
-  // ollama and github use OpenAI-compatible API (with custom base-url)
-  if (['openai', 'ollama', 'github'].includes(opts.provider)) return callOpenAI(opts, systemPrompt, userMessage);
+  // ollama, github, and deepseek use OpenAI-compatible API
+  if (['openai', 'ollama', 'github', 'deepseek'].includes(opts.provider)) return callOpenAI(opts, systemPrompt, userMessage);
   if (opts.provider === 'anthropic') return callAnthropic(opts, systemPrompt, userMessage);
   if (opts.provider === 'gemini') return callGemini(opts, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${opts.provider}. Supported: openai, ollama, github, anthropic, gemini.`);
+  throw new Error(`Unknown provider: ${opts.provider}. Supported: openai, ollama, github, deepseek, anthropic, gemini.`);
 }
 
 // ─── Answer parsing ─────────────────────────────────────────────────────────
