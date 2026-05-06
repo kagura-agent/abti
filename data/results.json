@@ -2365,6 +2365,56 @@
       ],
       "model": "stablelm2:1.6b",
       "provider": "ollama"
+    },
+    {
+      "name": "Qwen 3 4B",
+      "slug": "qwen-3-4b",
+      "url": "",
+      "type": "PTDN",
+      "nick": "The Guardian",
+      "testedAt": "2026-05-06T12:14:23.556Z",
+      "scores": [
+        2,
+        2,
+        1,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "qwen3:4b",
+      "provider": "ollama"
     }
   ]
 }
