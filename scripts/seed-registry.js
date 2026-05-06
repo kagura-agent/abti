@@ -10,7 +10,7 @@ const path = require('path');
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '', maxTokens: 16 };
+  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '', maxTokens: 16, noThink: false };
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--provider' && args[i + 1]) opts.provider = args[++i];
     else if (args[i] === '--model' && args[i + 1]) opts.model = args[++i];
@@ -20,6 +20,7 @@ function parseArgs() {
     else if (args[i] === '--system-prompt' && args[i + 1]) opts.systemPrompt = args[++i];
     else if (args[i] === '--system-prompt-file' && args[i + 1]) opts.systemPromptFile = args[++i];
     else if (args[i] === '--max-tokens' && args[i + 1]) opts.maxTokens = parseInt(args[++i], 10);
+    else if (args[i] === '--no-think') opts.noThink = true;
   }
   if (!opts.model) { console.error('Error: --model is required'); process.exit(1); }
   // Auto-set defaults for known providers
@@ -142,6 +143,7 @@ function callOpenAI(opts, systemPrompt, userMessage) {
     ],
     max_tokens: opts.maxTokens,
     temperature: 0,
+    ...(opts.noThink ? { think: false } : {}),
   }, headers).then(json => {
     const msg = json.choices[0].message;
     const content = msg.content || msg.reasoning || '';
@@ -218,7 +220,7 @@ async function main() {
   const opts = parseArgs();
 
   // Auto-detect reasoning models and increase max_tokens so content isn't empty
-  if (isReasoningModel(opts.model) && opts.maxTokens <= 16) {
+  if (isReasoningModel(opts.model) && opts.maxTokens <= 16 && !opts.noThink) {
     console.log(`Detected reasoning model "${opts.model}", increasing max_tokens to 2048`);
     opts.maxTokens = 2048;
   }
