@@ -2469,6 +2469,56 @@
       ],
       "model": "glm4:9b",
       "provider": "ollama"
+    },
+    {
+      "name": "Qwen 3 1.7B",
+      "slug": "qwen-3-1-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-07T11:34:46.166Z",
+      "scores": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "qwen3:1.7b",
+      "provider": "ollama"
     }
   ]
 }
