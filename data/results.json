@@ -410,7 +410,8 @@
       "model": "mistral:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1
     },
     {
       "name": "DeepSeek R1 7B",
@@ -462,7 +463,8 @@
       "model": "deepseek-r1:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 1
+      "runs": 1,
+      "reliability": 1
     },
     {
       "name": "Llama 3.1 8B",
@@ -514,7 +516,8 @@
       "model": "llama3.1:8b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1
     },
     {
       "name": "GPT-4.1",
@@ -1864,7 +1867,8 @@
         }
       ],
       "model": "gemma2:2b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "Yi 6B",
