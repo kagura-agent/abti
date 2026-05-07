@@ -1,0 +1,30 @@
+{
+  "model": "falcon3:3b",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B"
+  ],
+  "type": "REDN",
+  "dimensions": [
+    0,
+    0,
+    1,
+    0
+  ]
+}

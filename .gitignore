@@ -7,4 +7,5 @@ node_modules/
 .venv
 data/*
 !data/results.json
+!data/reliability/
 mcp/node_modules/
