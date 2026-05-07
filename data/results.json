@@ -2415,6 +2415,56 @@
       ],
       "model": "qwen3:4b",
       "provider": "ollama"
+    },
+    {
+      "name": "glm4:9b",
+      "slug": "glm4-9b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-07T00:45:58.705Z",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "glm4:9b",
+      "provider": "ollama"
     }
   ]
 }
