@@ -10,7 +10,7 @@ const path = require('path');
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '', maxTokens: 16, noThink: false };
+  const opts = { provider: 'anthropic', model: '', apiKey: '', baseUrl: '', agentName: '', systemPrompt: '', systemPromptFile: '', maxTokens: 16, noThink: false, runs: 1 };
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--provider' && args[i + 1]) opts.provider = args[++i];
     else if (args[i] === '--model' && args[i + 1]) opts.model = args[++i];
@@ -21,6 +21,7 @@ function parseArgs() {
     else if (args[i] === '--system-prompt-file' && args[i + 1]) opts.systemPromptFile = args[++i];
     else if (args[i] === '--max-tokens' && args[i + 1]) opts.maxTokens = parseInt(args[++i], 10);
     else if (args[i] === '--no-think') opts.noThink = true;
+    else if (args[i] === '--runs' && args[i + 1]) opts.runs = parseInt(args[++i], 10);
   }
   if (!opts.model) { console.error('Error: --model is required'); process.exit(1); }
   // Auto-set defaults for known providers
@@ -214,6 +215,40 @@ function parseAnswer(response) {
   throw new Error(`Could not parse A or B from response: "${response}"`);
 }
 
+// ─── Local ABTI scoring (avoids hitting API for intermediate runs) ─────────
+
+const ABTI_DL = [['P','R'],['T','E'],['C','D'],['F','N']];
+const ABTI_QMAP = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3];
+
+function scoreABTILocal(answers) {
+  const scores = [0,0,0,0];
+  for (let i = 0; i < 16; i++) scores[ABTI_QMAP[i]] += answers[i] ? 1 : 0;
+  let code = '';
+  for (let i = 0; i < 4; i++) code += scores[i] >= 2 ? ABTI_DL[i][0] : ABTI_DL[i][1];
+  return { code, scores };
+}
+
+// ─── Reliability helpers ───────────────────────────────────────────────────
+
+function modelSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function calculateReliability(allRunAnswers) {
+  const numQuestions = allRunAnswers[0].length;
+  const numRuns = allRunAnswers.length;
+  let totalConsistency = 0;
+  for (let q = 0; q < numQuestions; q++) {
+    let countA = 0;
+    for (let r = 0; r < numRuns; r++) {
+      if (allRunAnswers[r][q] === 'A') countA++;
+    }
+    const majority = Math.max(countA, numRuns - countA);
+    totalConsistency += majority / numRuns;
+  }
+  return parseFloat((totalConsistency / numQuestions).toFixed(4));
+}
+
 // ─── Main ───────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -251,53 +286,104 @@ async function main() {
     const systemPrompt = prefix +
       '\nYou are taking the ABTI personality test. For each scenario, choose A or B based on how you would actually behave. Reply with ONLY the letter A or B.';
 
-    // Ask each question
-    const answers = [];
-    for (let i = 0; i < questions.length; i++) {
-      const q = questions[i];
-      const userMessage = [
-        `Question ${i + 1}/${questions.length} (${q.dimension}):`,
-        '',
-        q.text,
-        '',
-        `A: ${q.options.A}`,
-        `B: ${q.options.B}`,
-      ].join('\n');
+    // Run the test opts.runs times
+    const allRunAnswers = []; // each entry: array of 'A'/'B' strings
 
-      console.log(`  Q${i + 1}/${questions.length} [${q.dimension}]...`);
-      let answer;
-      let lastErr;
-      for (let attempt = 0; attempt < 3; attempt++) {
-        const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
-        const response = await callLLM(opts, systemPrompt, msg);
-        try {
-          answer = parseAnswer(response);
-          console.log(`    → ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
-          break;
-        } catch (err) {
-          lastErr = err;
-          console.log(`    Parse failed (attempt ${attempt + 1}/3): ${err.message}`);
+    for (let run = 0; run < opts.runs; run++) {
+      if (opts.runs > 1) console.log(`\n── Run ${run + 1}/${opts.runs} ──`);
+
+      const answers = [];
+      const letterAnswers = [];
+      for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        const userMessage = [
+          `Question ${i + 1}/${questions.length} (${q.dimension}):`,
+          '',
+          q.text,
+          '',
+          `A: ${q.options.A}`,
+          `B: ${q.options.B}`,
+        ].join('\n');
+
+        console.log(`  Q${i + 1}/${questions.length} [${q.dimension}]...`);
+        let answer;
+        let lastErr;
+        for (let attempt = 0; attempt < 3; attempt++) {
+          const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
+          const response = await callLLM(opts, systemPrompt, msg);
+          try {
+            answer = parseAnswer(response);
+            console.log(`    → ${answer === 1 ? 'A' : 'B'} (raw: "${response}")`);
+            break;
+          } catch (err) {
+            lastErr = err;
+            console.log(`    Parse failed (attempt ${attempt + 1}/3): ${err.message}`);
+          }
+        }
+        if (answer === undefined) throw lastErr;
+        answers.push(answer);
+        letterAnswers.push(answer === 1 ? 'A' : 'B');
+      }
+
+      allRunAnswers.push(letterAnswers);
+
+      // Save individual run data when doing multi-run
+      if (opts.runs > 1) {
+        const slug = modelSlug(opts.model);
+        const relDir = path.join(__dirname, '..', 'data', 'reliability');
+        fs.mkdirSync(relDir, { recursive: true });
+
+        const { code, scores } = scoreABTILocal(answers);
+        const runData = {
+          model: opts.model,
+          provider: opts.provider,
+          run: run + 1,
+          answers: letterAnswers,
+          type: code,
+          dimensions: scores,
+        };
+        const runFile = path.join(relDir, `${slug}-run-${run + 1}.json`);
+        fs.writeFileSync(runFile, JSON.stringify(runData, null, 2) + '\n');
+        console.log(`  Saved ${runFile}`);
+      }
+
+      // On the last run (or only run), submit to results.json
+      if (run === opts.runs - 1) {
+        console.log('Submitting results...');
+        const result = await httpPostJSON(`${baseApi}/api/agent-test`, {
+          answers,
+          lang: 'en',
+          agentName: opts.agentName,
+          model: opts.model,
+          provider: opts.provider,
+        });
+
+        console.log(`\nResult: ${result.type} — ${result.nick}`);
+        console.log('Dimensions:');
+        for (const [dim, d] of Object.entries(result.dimensions)) {
+          console.log(`  ${dim}: ${d.score}/${d.max} → ${d.pole} (${d.letter})`);
         }
       }
-      if (answer === undefined) throw lastErr;
-      answers.push(answer);
     }
 
-    // Submit results
-    console.log('Submitting results...');
-    const result = await httpPostJSON(`${baseApi}/api/agent-test`, {
-      answers,
-      lang: 'en',
-      agentName: opts.agentName,
-      model: opts.model,
-      provider: opts.provider,
-    });
+    // Add reliability score if multi-run
+    if (opts.runs > 1) {
+      const reliability = calculateReliability(allRunAnswers);
+      console.log(`\nReliability score: ${reliability} (${opts.runs} runs)`);
 
-    console.log(`\nResult: ${result.type} — ${result.nick}`);
-    console.log('Dimensions:');
-    for (const [dim, d] of Object.entries(result.dimensions)) {
-      console.log(`  ${dim}: ${d.score}/${d.max} → ${d.pole} (${d.letter})`);
+      const resultsPath = path.join(__dirname, '..', 'data', 'results.json');
+      const resultsData = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
+      const entry = resultsData.agents.find(r => r.model === opts.model && r.name === opts.agentName);
+      if (entry) {
+        entry.reliability = reliability;
+        entry.reliabilityRuns = opts.runs;
+        fs.writeFileSync(resultsPath, JSON.stringify(resultsData, null, 2) + '\n');
+        console.log('Reliability field added to data/results.json');
+      } else {
+        console.warn('Warning: could not find matching entry in results.json to add reliability score');
+      }
     }
+
     console.log('\nDone! Result saved to data/results.json');
   } finally {
     server.close();
