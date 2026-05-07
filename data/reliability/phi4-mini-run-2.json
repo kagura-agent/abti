@@ -1,0 +1,30 @@
+{
+  "model": "phi4-mini",
+  "provider": "ollama",
+  "run": 2,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    2,
+    3,
+    4,
+    2
+  ]
+}

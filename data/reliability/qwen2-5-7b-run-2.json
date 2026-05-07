@@ -1,0 +1,30 @@
+{
+  "model": "qwen2.5:7b",
+  "provider": "ollama",
+  "run": 2,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    4,
+    3,
+    4,
+    4
+  ]
+}

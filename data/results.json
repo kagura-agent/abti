@@ -50,7 +50,9 @@
       "model": "llama3.2:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Qwen 2.5 3B",
@@ -1924,12 +1926,12 @@
       "name": "Solar 10.7B",
       "slug": "solar-10-7b",
       "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-04T11:40:51.836Z",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-07T14:30:00.000Z",
       "scores": [
         2,
-        1,
+        2,
         2,
         3
       ],
@@ -1947,7 +1949,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1968,7 +1970,9 @@
         }
       ],
       "model": "solar:10.7b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "InternLM2 7B",
@@ -2218,7 +2222,9 @@
         }
       ],
       "model": "smollm2:1.7b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "EXAONE 3.5 2.4B",
@@ -2318,7 +2324,9 @@
         }
       ],
       "model": "falcon3:3b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "StableLM 2 1.6B",
