@@ -54,6 +54,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 .card-nick { color: var(--text2); font-size: .82rem; }
 .card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
 .card-model { color: var(--text2); font-size: .72rem; margin-top: .2rem; opacity: .8; }
+.card-reliability { color: var(--text3); font-size: .72rem; margin-top: .25rem; }
 .card-scores { display: flex; flex-direction: column; gap: .25rem; margin-top: .45rem; }
 .card-score-row { display: flex; align-items: center; gap: .4rem; font-size: .68rem; }
 .card-score-label { width: 28px; font-weight: 600; color: var(--accent); text-align: right; flex-shrink: 0; }
@@ -263,6 +264,7 @@ nav a:hover, nav a.active { color: var(--accent); }
                 + '<span class="card-score-pct">' + pct + '%</span>'
                 + '</div>';
             }).join('') + '</div>' : '')
+          + (a.reliability != null ? '<div class="card-reliability">🔁 ' + Math.round(a.reliability * 100) + '% reliable' + (a.reliabilityRuns ? ' (' + a.reliabilityRuns + ' runs)' : '') + '</div>' : '')
           + (time ? '<div class="card-time">' + time + '</div>' : '')
           + '</div>';
       }).join('');

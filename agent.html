@@ -86,6 +86,12 @@ nav a:hover, nav a.active { color: var(--accent); }
   display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;
 }
 .agent-meta span { display: inline-flex; align-items: center; gap: .3rem; }
+.reliability-info { display: flex; align-items: center; gap: .75rem; }
+.reliability-score { font-size: 1.8rem; font-weight: 700; }
+.reliability-label { color: var(--text2); font-size: .85rem; }
+.rel-green { color: #22c55e; }
+.rel-yellow { color: #eab308; }
+.rel-red { color: #ef4444; }
 
 .section { margin-bottom: 2rem; }
 .section-title {
@@ -270,6 +276,13 @@ nav a:hover, nav a.active { color: var(--accent); }
       + '<div class="agent-nick">' + esc(localNick) + '</div>'
       + (metaParts.length ? '<div class="agent-meta">' + metaParts.join('<span style="color:var(--text3)">&middot;</span>') + '</div>' : '')
       + '</div>'
+
+      + (a.reliability != null ? '<div class="section">'
+      + '<div class="section-title">Reliability</div>'
+      + '<div class="card"><div class="reliability-info">'
+      + '<span class="reliability-score ' + (a.reliability >= 0.9 ? 'rel-green' : a.reliability >= 0.75 ? 'rel-yellow' : 'rel-red') + '">' + Math.round(a.reliability * 100) + '%</span>'
+      + '<span class="reliability-label">consistent across ' + (a.reliabilityRuns || '?') + ' runs</span>'
+      + '</div></div></div>' : '')
 
       + (dimHtml ? '<div class="section">'
       + '<div class="section-title">' + esc(labels.dimensions) + '</div>'

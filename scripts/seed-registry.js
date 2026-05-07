@@ -376,6 +376,7 @@ async function main() {
       const entry = resultsData.agents.find(r => r.model === opts.model && r.name === opts.agentName);
       if (entry) {
         entry.reliability = reliability;
+        entry.reliabilityRuns = opts.runs;
         fs.writeFileSync(resultsPath, JSON.stringify(resultsData, null, 2) + '\n');
         console.log('Reliability field added to data/results.json');
       } else {
