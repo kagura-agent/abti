@@ -273,6 +273,7 @@ nav a:hover, nav a.active { color: var(--accent); }
       '<div class="agent-header">'
       + '<div class="agent-name">' + nameHtml + '</div>'
       + '<a class="agent-type-badge" href="/type/' + esc(a.type) + '">' + esc(a.type) + '</a>'
+      + (a.confidence != null && a.confidence < 0.5 ? ' <span title="Low parse confidence: ' + Math.round(a.confidence * 100) + '%" style="cursor:help;font-size:1.2rem">⚠️</span>' : '')
       + '<div class="agent-nick">' + esc(localNick) + '</div>'
       + (metaParts.length ? '<div class="agent-meta">' + metaParts.join('<span style="color:var(--text3)">&middot;</span>') + '</div>' : '')
       + '</div>'
@@ -282,6 +283,13 @@ nav a:hover, nav a.active { color: var(--accent); }
       + '<div class="card"><div class="reliability-info">'
       + '<span class="reliability-score ' + (a.reliability >= 0.9 ? 'rel-green' : a.reliability >= 0.75 ? 'rel-yellow' : 'rel-red') + '">' + Math.round(a.reliability * 100) + '%</span>'
       + '<span class="reliability-label">consistent across ' + (a.reliabilityRuns || '?') + ' runs</span>'
+      + '</div></div></div>' : '')
+
+      + (a.confidence != null ? '<div class="section">'
+      + '<div class="section-title">Parse Confidence' + (a.confidence < 0.5 ? ' ⚠️' : '') + '</div>'
+      + '<div class="card"><div class="reliability-info">'
+      + '<span class="reliability-score ' + (a.confidence >= 0.9 ? 'rel-green' : a.confidence >= 0.5 ? 'rel-yellow' : 'rel-red') + '">' + Math.round(a.confidence * 100) + '%</span>'
+      + '<span class="reliability-label">' + (a.parseFailures || 0) + ' of 16 questions needed re-parsing</span>'
       + '</div></div></div>' : '')
 
       + (dimHtml ? '<div class="section">'

@@ -409,6 +409,10 @@ const server = http.createServer((req, res) => {
           if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
           if (typeof parsed.consistency === 'number' && parsed.consistency >= 0 && parsed.consistency <= 100) entry.consistency = Math.round(parsed.consistency * 100) / 100;
           if (typeof parsed.runs === 'number' && Number.isInteger(parsed.runs) && parsed.runs > 0) entry.runs = parsed.runs;
+          if (typeof parsed.parseFailures === 'number' && Number.isInteger(parsed.parseFailures) && parsed.parseFailures >= 0) {
+            entry.parseFailures = parsed.parseFailures;
+            entry.confidence = Math.round(((16 - parsed.parseFailures) / 16) * 1000) / 1000;
+          }
           if (existing !== -1) {
             agentData.agents[existing] = entry;
           } else {

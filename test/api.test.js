@@ -848,3 +848,44 @@ describe('POST /api/agent-test consistency fields', () => {
     assert.equal(agent.runs, 3);
   });
 });
+
+describe('POST /api/agent-test parseFailures/confidence', () => {
+  it('stores parseFailures and computes confidence', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'ParseFailBot', parseFailures: 10 }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'ParseFailBot');
+    assert.equal(agent.parseFailures, 10);
+    assert.equal(agent.confidence, 0.375);
+  });
+
+  it('stores confidence 1.0 for zero parseFailures', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'PerfectBot', parseFailures: 0 }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'PerfectBot');
+    assert.equal(agent.parseFailures, 0);
+    assert.equal(agent.confidence, 1);
+  });
+
+  it('omits parseFailures/confidence when not provided', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'NoParseBot' }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'NoParseBot');
+    assert.equal(agent.parseFailures, undefined);
+    assert.equal(agent.confidence, undefined);
+  });
+});

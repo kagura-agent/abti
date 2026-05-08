@@ -358,6 +358,7 @@ async function runAuto() {
 
   const questions = await getQuestions();
   const answers = [];
+  let parseFailures = 0;
 
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
@@ -383,6 +384,7 @@ async function runAuto() {
         break;
       } catch (err) {
         lastErr = err;
+        parseFailures++;
         process.stderr.write(`  Parse failed (attempt ${attempt + 1}/3): ${err.message}\n`);
       }
     }
@@ -391,18 +393,21 @@ async function runAuto() {
     process.stderr.write(`  Question ${i + 1}/${questions.length}... ${answer ? 'A' : 'B'}\n`);
   }
 
-  return answers;
+  return { answers, parseFailures };
 }
 
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
 
+  let parseFailures = 0;
   if (autoMode) {
     if (runsN > 1) {
       return await runMulti();
     }
-    answers = await runAuto();
+    const autoResult = await runAuto();
+    answers = autoResult.answers;
+    parseFailures = autoResult.parseFailures;
   } else {
     if (runsN > 1) { console.error('  --runs only works with --auto mode'); process.exit(1); }
     answers = await runInteractive();
@@ -455,6 +460,7 @@ async function run() {
       if (agentUrl) body.agentUrl = agentUrl;
       if (model) body.model = model;
       if (provider) body.provider = provider;
+      if (parseFailures > 0) body.parseFailures = parseFailures;
       await httpPost(`${API_BASE}/api/agent-test`, body);
       if (!jsonMode) console.log(`\n  ${t.submitted}`);
     } catch (err) {
@@ -469,9 +475,12 @@ async function run() {
 // ── Multi-run mode ─────────────────────────────────────────────────────────
 async function runMulti() {
   const allRuns = [];
+  let totalParseFailures = 0;
 
   for (let r = 0; r < runsN; r++) {
-    const answers = await runAuto();
+    const autoResult = await runAuto();
+    const answers = autoResult.answers;
+    totalParseFailures += autoResult.parseFailures;
     const result = score(answers);
     const { code, scores } = result;
     const nick = NICKS[lang][code];
@@ -572,6 +581,7 @@ async function runMulti() {
       if (provider) body.provider = provider;
       body.consistency = consistency;
       body.runs = runsN;
+      if (totalParseFailures > 0) body.parseFailures = totalParseFailures;
       await httpPost(`${API_BASE}/api/agent-test`, body);
       if (!jsonMode) console.log(`\n  ${t.submitted}`);
     } catch (err) {
