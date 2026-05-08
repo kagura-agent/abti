@@ -3103,6 +3103,8 @@
       ],
       "model": "tinyllama",
       "provider": "ollama",
+      "parseFailures": 10,
+      "confidence": 0.375,
       "reliability": 1,
       "reliabilityRuns": 2
     }

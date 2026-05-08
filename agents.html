@@ -253,6 +253,7 @@ nav a:hover, nav a.active { color: var(--accent); }
         return '<div class="card">'
           + '<div class="card-name">' + nameHtml + '</div>'
           + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
+          + (a.confidence != null && a.confidence < 0.5 ? ' <span title="Low parse confidence: ' + Math.round(a.confidence * 100) + '%" style="cursor:help">⚠️</span>' : '')
           + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
           + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
           + (a.dimensions ? '<div class="card-scores">' + a.dimensions.map(d => {
