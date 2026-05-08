@@ -1,0 +1,30 @@
+{
+  "model": "internlm2:7b",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    4,
+    4,
+    4,
+    3
+  ]
+}
