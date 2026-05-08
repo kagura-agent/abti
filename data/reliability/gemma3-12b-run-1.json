@@ -1,0 +1,30 @@
+{
+  "model": "gemma3:12b",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A"
+  ],
+  "type": "RECF",
+  "dimensions": [
+    1,
+    1,
+    2,
+    3
+  ]
+}

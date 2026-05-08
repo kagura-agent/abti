@@ -1,0 +1,30 @@
+{
+  "model": "tinyllama",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    3,
+    4,
+    4,
+    4
+  ]
+}
