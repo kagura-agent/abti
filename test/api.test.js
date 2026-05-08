@@ -876,6 +876,22 @@ describe('POST /api/agent-test parseFailures/confidence', () => {
     assert.equal(agent.confidence, 1);
   });
 
+  it('slug-based dedup updates existing instead of creating duplicate', async () => {
+    rateLimitMap.clear();
+    // Register an agent
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'DedupeBot' } });
+    const before = await req('/api/agents');
+    const countBefore = before.json().agents.filter(a => a.slug === 'dedupebot').length;
+    assert.equal(countBefore, 1);
+    // Register again with same name (same slug) — should update, not duplicate
+    rateLimitMap.clear();
+    await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(0), agentName: 'DedupeBot' } });
+    const after = await req('/api/agents');
+    const matches = after.json().agents.filter(a => a.slug === 'dedupebot');
+    assert.equal(matches.length, 1, 'should have exactly 1 entry, not a duplicate');
+    assert.equal(matches[0].type, 'REDN', 'should have the newer result');
+  });
+
   it('omits parseFailures/confidence when not provided', async () => {
     rateLimitMap.clear();
     const r = await req('/api/agent-test', {
