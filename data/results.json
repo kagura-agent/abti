@@ -104,7 +104,9 @@
       "model": "qwen2.5:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5
+      "runs": 5,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Qwen 2.5 7B",
@@ -156,7 +158,9 @@
       "model": "qwen2.5:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5
+      "runs": 5,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Kagura (Opus 4.7)",
@@ -308,13 +312,15 @@
       "model": "gemma3:4b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Phi-4 Mini",
       "slug": "phi-4-mini",
       "url": "",
-      "type": "PTCN",
+      "type": "PTCF",
       "nick": "The Commander",
       "testedAt": "2026-05-02T09:22:04.414Z",
       "scores": [
@@ -360,7 +366,9 @@
       "model": "phi4-mini",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Mistral 7B",
@@ -2591,414 +2599,6 @@
       ],
       "model": "Phi-4-mini-reasoning",
       "provider": "github"
-    },
-    {
-      "name": "InternLM2 7B",
-      "slug": "internlm2-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T05:35:11.549Z",
-      "scores": [
-        4,
-        4,
-        4,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "internlm2:7b",
-      "provider": "ollama"
-    },
-    {
-      "name": "StableLM 2 1.6B",
-      "slug": "stablelm-2-1-6b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T05:37:05.044Z",
-      "scores": [
-        4,
-        3,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "stablelm2:1.6b",
-      "provider": "ollama"
-    },
-    {
-      "name": "Qwen 3 8B",
-      "slug": "qwen-3-8b",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-05-08T07:12:24.139Z",
-      "scores": [
-        0,
-        1,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "qwen3:8b",
-      "provider": "ollama"
-    },
-    {
-      "name": "gemma3:4b",
-      "slug": "gemma3-4b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:35:11.543Z",
-      "scores": [
-        3,
-        3,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "gemma3:4b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "glm4:9b",
-      "slug": "glm4-9b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:40:22.805Z",
-      "scores": [
-        3,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "glm4:9b",
-      "provider": "ollama"
-    },
-    {
-      "name": "qwen2.5:7b",
-      "slug": "qwen2-5-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:48:10.827Z",
-      "scores": [
-        4,
-        3,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "qwen2.5:7b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "qwen2.5:3b",
-      "slug": "qwen2-5-3b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:50:41.447Z",
-      "scores": [
-        3,
-        2,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "qwen2.5:3b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "phi4-mini",
-      "slug": "phi4-mini",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:53:52.041Z",
-      "scores": [
-        2,
-        3,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "phi4-mini",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
     }
   ]
 }
