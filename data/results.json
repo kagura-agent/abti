@@ -3001,6 +3001,110 @@
       "provider": "ollama",
       "reliability": 1,
       "reliabilityRuns": 3
+    },
+    {
+      "name": "gemma3:12b",
+      "slug": "gemma3-12b",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-08T10:34:14.249Z",
+      "scores": [
+        1,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gemma3:12b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 2
+    },
+    {
+      "name": "tinyllama",
+      "slug": "tinyllama",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-08T10:35:22.531Z",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "tinyllama",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 2
     }
   ]
 }
