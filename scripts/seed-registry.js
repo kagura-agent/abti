@@ -130,8 +130,9 @@ function isReasoningModel(modelName) {
 // ─── LLM calls ──────────────────────────────────────────────────────────────
 
 function callOpenAI(opts, systemPrompt, userMessage) {
+  const suffix = opts.provider === 'github' ? '/chat/completions' : '/v1/chat/completions';
   const url = opts.baseUrl
-    ? opts.baseUrl.replace(/\/+$/, '') + '/v1/chat/completions'
+    ? opts.baseUrl.replace(/\/+$/, '') + suffix
     : 'https://api.openai.com/v1/chat/completions';
   const headers = {
     'Authorization': `Bearer ${opts.apiKey}`,

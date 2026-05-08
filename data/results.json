@@ -669,7 +669,9 @@
         }
       ],
       "model": "gpt-4o",
-      "provider": "openai"
+      "provider": "openai",
+      "reliability": 1,
+      "reliabilityRuns": 2
     },
     {
       "name": "GPT-4o mini",
