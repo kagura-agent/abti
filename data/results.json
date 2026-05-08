@@ -1920,7 +1920,9 @@
         }
       ],
       "model": "yi:6b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Solar 10.7B",
@@ -2072,7 +2074,9 @@
         }
       ],
       "model": "dolphin-mistral:7b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "GPT-4.1 mini",
@@ -2274,7 +2278,9 @@
         }
       ],
       "model": "exaone3.5:2.4b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Falcon 3 3B",

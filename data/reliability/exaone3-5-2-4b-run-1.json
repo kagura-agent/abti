@@ -1,0 +1,30 @@
+{
+  "model": "exaone3.5:2.4b",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B"
+  ],
+  "type": "PTCN",
+  "dimensions": [
+    3,
+    2,
+    2,
+    0
+  ]
+}
