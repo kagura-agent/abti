@@ -1,0 +1,30 @@
+{
+  "model": "glm4:9b",
+  "provider": "ollama",
+  "run": 2,
+  "answers": [
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    3,
+    4,
+    4,
+    4
+  ]
+}
