@@ -2527,6 +2527,56 @@
       ],
       "model": "qwen3:1.7b",
       "provider": "ollama"
+    },
+    {
+      "name": "Phi-4 Mini Reasoning",
+      "slug": "phi-4-mini-reasoning",
+      "url": "",
+      "type": "RTCF",
+      "nick": "The Advisor",
+      "testedAt": "2026-05-08T04:01:00.822Z",
+      "scores": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Phi-4-mini-reasoning",
+      "provider": "github"
     }
   ]
 }

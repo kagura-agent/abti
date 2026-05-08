@@ -1,0 +1,30 @@
+{
+  "model": "gemma2:2b",
+  "provider": "ollama",
+  "run": 2,
+  "answers": [
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PTDF",
+  "dimensions": [
+    2,
+    2,
+    1,
+    2
+  ]
+}

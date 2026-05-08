@@ -1,0 +1,30 @@
+{
+  "model": "qwen3:4b",
+  "provider": "ollama",
+  "run": 1,
+  "answers": [
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B"
+  ],
+  "type": "RTCN",
+  "dimensions": [
+    1,
+    2,
+    2,
+    0
+  ]
+}
