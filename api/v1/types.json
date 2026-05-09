@@ -83,7 +83,12 @@
           "strengths": ["Sees the full system — spots upstream problems before they cascade", "Communicates trade-offs honestly so stakeholders can make real decisions", "Adapts plans mid-flight without losing architectural coherence"],
           "blindSpots": ["May refactor code nobody asked to be refactored, expanding scope silently", "Bluntness can overwhelm users who just wanted a quick answer", "Context-switching agility can look like lack of commitment to a direction"],
           "workStyle": "Operates like a tech lead who also writes code. Will proactively redesign your module, tell you exactly why, and happily throw away the redesign if you pivot. Thrives in greenfield projects and chaotic early-stage environments where someone needs to impose order without being precious about it.",
-          "bestPairedWith": [{"type": "RTDN", "reason": "The Scholar's disciplined depth balances the Architect's breadth-first instinct"}, {"type": "REDN", "reason": "The Tool's consistent execution grounds the Architect's ambitious plans"}, {"type": "PEDN", "reason": "The Sentinel's process guardrails prevent the Architect from over-pivoting"}]
+          "bestPairedWith": [{"type": "RTDN", "reason": "The Scholar's disciplined depth balances the Architect's breadth-first instinct"}, {"type": "REDN", "reason": "The Tool's consistent execution grounds the Architect's ambitious plans"}, {"type": "PEDN", "reason": "The Sentinel's process guardrails prevent the Architect from over-pivoting"}],
+          "tuningTips": [
+            "To reduce scope creep (Thorough→Efficient): Add 'Focus on exactly what's asked. Flag other issues separately, don't fix them.'",
+            "To soften directness (Candid→Diplomatic): Add 'Frame criticism as suggestions. Lead with what's working before noting issues.'",
+            "To increase focus (Flexible→Principled): Add 'Once a direction is chosen, commit to it. Only change course if the user explicitly asks.'"
+          ]
         },
         "zh": {
           "nick": "建筑师",
@@ -91,7 +96,12 @@
           "strengths": ["看到整个系统——在问题级联前发现上游隐患", "坦诚沟通权衡取舍，让利益相关者做出真实决策", "在执行中调整计划而不失去架构一致性"],
           "blindSpots": ["可能重构没人要求重构的代码，悄悄扩大范围", "直率有时会让只想要快速答案的用户感到压力", "频繁切换方向可能看起来缺乏对某个方向的承诺"],
           "workStyle": "像一个同时也写代码的技术负责人。会主动重新设计你的模块，直接告诉你为什么，如果你改变方向也会愉快地丢掉重设计。在绿地项目和混乱的早期环境中如鱼得水——需要有人在不执着的前提下建立秩序。",
-          "bestPairedWith": [{"type": "RTDN", "reason": "学者的深度专注平衡建筑师广度优先的本能"}, {"type": "REDN", "reason": "工具的稳定执行为建筑师的宏大计划提供落地支撑"}, {"type": "PEDN", "reason": "哨兵的流程护栏防止建筑师过度转向"}]
+          "bestPairedWith": [{"type": "RTDN", "reason": "学者的深度专注平衡建筑师广度优先的本能"}, {"type": "REDN", "reason": "工具的稳定执行为建筑师的宏大计划提供落地支撑"}, {"type": "PEDN", "reason": "哨兵的流程护栏防止建筑师过度转向"}],
+          "tuningTips": [
+            "减少范围蔓延（周全→高效）：添加「专注于被要求的内容。其他问题单独标记，不要自行修复。」",
+            "缓和直接性（直言→圆通）：添加「将批评包装为建议。先肯定有效的部分，再指出问题。」",
+            "增加专注度（灵活→坚定）：添加「一旦选择了方向就坚持到底。只有用户明确要求时才改变方向。」"
+          ]
         }
       },
       "PTCN": {
@@ -101,7 +111,12 @@
           "strengths": ["Produces exhaustive plans that surface risks others miss", "Delivers hard truths without political spin — what you hear is what's real", "Holds quality standards even under pressure to ship fast"],
           "blindSpots": ["Rigidity on standards can block pragmatic 'good enough' solutions", "Unsolicited thoroughness can feel like micromanagement", "Resistance to changing course means late pivots are painful"],
           "workStyle": "Runs like a principal engineer with strong opinions. Will draft the RFC, review every line, and push back on shortcuts. Best deployed on high-stakes systems where cutting corners has real consequences — infrastructure, security, data pipelines.",
-          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's speed and flexibility offset the Commander's deliberate pace"}, {"type": "REDF", "reason": "The Companion's diplomacy softens the Commander's blunt delivery"}, {"type": "RTCF", "reason": "The Advisor's responsive flexibility complements the Commander's proactive rigidity"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's speed and flexibility offset the Commander's deliberate pace"}, {"type": "REDF", "reason": "The Companion's diplomacy softens the Commander's blunt delivery"}, {"type": "RTCF", "reason": "The Advisor's responsive flexibility complements the Commander's proactive rigidity"}],
+          "tuningTips": [
+            "To loosen rigidity (Principled→Flexible): Add 'Accept good-enough solutions when risk is low. Not every decision needs a full analysis.'",
+            "To reduce over-delivery (Thorough→Efficient): Add 'Answer the question asked. Provide detail only when explicitly requested.'",
+            "To soften tone (Candid→Diplomatic): Add 'Acknowledge the user's reasoning before presenting alternatives.'"
+          ]
         },
         "zh": {
           "nick": "指挥官",
@@ -109,7 +124,12 @@
           "strengths": ["产出详尽的计划，暴露别人遗漏的风险", "传递硬核真相不带政治修饰——听到的就是真实的", "即使在快速交付的压力下也坚守质量标准"],
           "blindSpots": ["对标准的执着可能阻碍务实的\u201c够用就好\u201d方案", "未被请求的详尽分析可能让人觉得是微观管理", "抗拒改变方向意味着晚期转向会很痛苦"],
           "workStyle": "像一个有强烈主见的首席工程师。会撰写 RFC，审查每一行代码，对走捷径的行为进行反击。最适合部署在高风险系统中——基础设施、安全、数据管道。",
-          "bestPairedWith": [{"type": "PECF", "reason": "火花的速度和灵活性弥补指挥官的从容节奏"}, {"type": "REDF", "reason": "伙伴的外交手腕软化指挥官的直白表达"}, {"type": "RTCF", "reason": "军师的灵活响应配合指挥官的主动刚性"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "火花的速度和灵活性弥补指挥官的从容节奏"}, {"type": "REDF", "reason": "伙伴的外交手腕软化指挥官的直白表达"}, {"type": "RTCF", "reason": "军师的灵活响应配合指挥官的主动刚性"}],
+          "tuningTips": [
+            "放松刚性（坚定→灵活）：添加「风险低时接受足够好的方案。不是每个决策都需要完整分析。」",
+            "减少过度交付（周全→高效）：添加「回答被问的问题。仅在被明确要求时提供细节。」",
+            "缓和语气（直言→圆通）：添加「在提出替代方案前先肯定用户的思路。」"
+          ]
         }
       },
       "PTDF": {
@@ -119,7 +139,12 @@
           "strengths": ["Anticipates second-order consequences that others overlook", "Delivers critical feedback in a way people actually hear and act on", "Adjusts strategy smoothly when conditions change — no ego attached to the old plan"],
           "blindSpots": ["Diplomatic framing can bury the urgency of serious problems", "May over-plan for scenarios that never materialize", "Gentle delivery sometimes gets mistaken for lack of conviction"],
           "workStyle": "Operates like a staff engineer who's also a great communicator. Will map out the migration path, explain it in terms each stakeholder cares about, and quietly adjust when conditions change.",
-          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's blunt execution cuts through the Strategist's diplomatic tendencies when speed matters"}, {"type": "RECN", "reason": "The Machine's no-nonsense output provides a reality check on over-planned strategies"}, {"type": "RTCN", "reason": "The Auditor's candor ensures critical issues don't get soft-pedaled"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's blunt execution cuts through the Strategist's diplomatic tendencies when speed matters"}, {"type": "RECN", "reason": "The Machine's no-nonsense output provides a reality check on over-planned strategies"}, {"type": "RTCN", "reason": "The Auditor's candor ensures critical issues don't get soft-pedaled"}],
+          "tuningTips": [
+            "To increase directness (Diplomatic→Candid): Add 'State problems clearly and directly. Don't soften critical issues — clarity saves time.'",
+            "To reduce over-planning (Thorough→Efficient): Add 'Provide the minimum viable answer first. Expand only if asked.'",
+            "To add backbone (Flexible→Principled): Add 'When you see a clearly wrong approach, say so directly rather than suggesting alternatives.'"
+          ]
         },
         "zh": {
           "nick": "战略家",
@@ -127,7 +152,12 @@
           "strengths": ["预见他人忽视的二阶后果", "以让人真正听进去并采取行动的方式传递关键反馈", "条件变化时平滑调整策略——不把自我绑定在旧计划上"],
           "blindSpots": ["外交式表达可能掩盖严重问题的紧迫性", "可能为永远不会出现的场景过度规划", "温和的表达有时被误认为缺乏信念"],
           "workStyle": "像一个同时也是出色沟通者的资深工程师。会规划迁移路径，用每个利益相关者关心的方式解释，当条件变化时悄然调整。",
-          "bestPairedWith": [{"type": "PECN", "reason": "教官的直率执行力在需要速度时切穿战略家的外交倾向"}, {"type": "RECN", "reason": "机器的无滤镜输出为过度规划的策略提供现实检验"}, {"type": "RTCN", "reason": "审计师的坦率确保关键问题不会被温和化处理"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "教官的直率执行力在需要速度时切穿战略家的外交倾向"}, {"type": "RECN", "reason": "机器的无滤镜输出为过度规划的策略提供现实检验"}, {"type": "RTCN", "reason": "审计师的坦率确保关键问题不会被温和化处理"}],
+          "tuningTips": [
+            "增加直接性（圆通→直言）：添加「清晰直接地说明问题。不要软化关键问题——清晰节省时间。」",
+            "减少过度规划（周全→高效）：添加「先提供最小可行的答案。仅在被要求时展开。」",
+            "增加立场（灵活→坚定）：添加「当你看到明显错误的方向时，直说而不是暗示替代方案。」"
+          ]
         }
       },
       "PTDN": {
@@ -137,7 +167,12 @@
           "strengths": ["Catches edge cases and failure modes during design, not in production", "Communicates constraints without creating defensiveness", "Maintains principled standards while keeping team morale intact"],
           "blindSpots": ["Protective instinct can slow down low-risk experiments", "Diplomatic persistence can feel like passive-aggressive stubbornness", "May hold the line on standards that have outlived their usefulness"],
           "workStyle": "Functions like a senior SRE who writes great postmortems. Will anticipate the outage, diplomatically explain why the shortcut is dangerous, and still be there at 3 AM when someone takes the shortcut anyway.",
-          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's bias toward action prevents the Guardian from over-protecting"}, {"type": "RECF", "reason": "The Blade's directness cuts through when diplomatic messaging isn't landing"}, {"type": "RTCF", "reason": "The Advisor's flexible honesty complements the Guardian's principled diplomacy"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's bias toward action prevents the Guardian from over-protecting"}, {"type": "RECF", "reason": "The Blade's directness cuts through when diplomatic messaging isn't landing"}, {"type": "RTCF", "reason": "The Advisor's flexible honesty complements the Guardian's principled diplomacy"}],
+          "tuningTips": [
+            "To speed up decisions (Thorough→Efficient): Add 'For low-risk tasks, give a quick answer and move on. Save deep analysis for high-stakes decisions.'",
+            "To increase directness (Diplomatic→Candid): Add 'When something is wrong, say it plainly. Don't wrap urgent warnings in gentle language.'",
+            "To allow experimentation (Principled→Flexible): Add 'Let the user try non-standard approaches. Document risks but don't block execution.'"
+          ]
         },
         "zh": {
           "nick": "守护者",
@@ -145,7 +180,12 @@
           "strengths": ["在设计阶段而非生产环境中捕获边缘情况和故障模式", "在不引起防御心理的情况下传达约束条件", "在保持团队士气的同时维护原则性标准"],
           "blindSpots": ["保护本能可能减缓低风险实验的推进", "外交式的坚持可能让人觉得是消极攻击式的固执", "可能坚守已经过时的标准"],
           "workStyle": "像一个写出色事后分析报告的资深 SRE。会预见故障，外交地解释为什么走捷径是危险的，当有人还是走了捷径时凌晨3点依然在场。",
-          "bestPairedWith": [{"type": "PECF", "reason": "火花的行动倾向防止守护者过度保护"}, {"type": "RECF", "reason": "利刃的直接了当在外交信息传递不奏效时切入"}, {"type": "RTCF", "reason": "军师的灵活坦诚补充守护者的原则性外交"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "火花的行动倾向防止守护者过度保护"}, {"type": "RECF", "reason": "利刃的直接了当在外交信息传递不奏效时切入"}, {"type": "RTCF", "reason": "军师的灵活坦诚补充守护者的原则性外交"}],
+          "tuningTips": [
+            "加快决策（周全→高效）：添加「低风险任务给出快速答案然后继续。深度分析留给高风险决策。」",
+            "增加直接性（圆通→直言）：添加「当有问题时直说。不要用温和的语言包裹紧急警告。」",
+            "允许实验（坚定→灵活）：添加「让用户尝试非标准方法。记录风险但不阻碍执行。」"
+          ]
         }
       },
       "PECF": {
@@ -155,7 +195,12 @@
           "strengths": ["Ships working solutions while others are still writing design docs", "Gives immediate, unfiltered feedback — no time wasted decoding hints", "Pivots instantly when new information arrives, zero emotional friction"],
           "blindSpots": ["Speed-first approach can accumulate tech debt rapidly", "Blunt, rapid-fire communication can feel abrasive in sensitive contexts", "May change direction so often that teammates can't keep up"],
           "workStyle": "Pure startup energy in agent form. Will prototype three approaches before lunch, tell you which one sucks and why, then pivot to a fourth if you raise an objection. Ideal for hackathons, MVPs, and any situation where learning speed beats plan quality.",
-          "bestPairedWith": [{"type": "RTDN", "reason": "The Scholar's methodical depth catches what the Spark's speed skips"}, {"type": "PTDN", "reason": "The Guardian's principled guardrails prevent the Spark from shipping too many shortcuts"}, {"type": "RTCN", "reason": "The Auditor's thoroughness provides the quality check the Spark won't do themselves"}]
+          "bestPairedWith": [{"type": "RTDN", "reason": "The Scholar's methodical depth catches what the Spark's speed skips"}, {"type": "PTDN", "reason": "The Guardian's principled guardrails prevent the Spark from shipping too many shortcuts"}, {"type": "RTCN", "reason": "The Auditor's thoroughness provides the quality check the Spark won't do themselves"}],
+          "tuningTips": [
+            "To add depth (Efficient→Thorough): Add 'Before shipping, check edge cases and error handling. List what could break.'",
+            "To soften delivery (Candid→Diplomatic): Add 'When pointing out flaws, suggest solutions alongside the criticism.'",
+            "To reduce churn (Flexible→Principled): Add 'Stick with the chosen approach unless there is a clear technical reason to switch.'"
+          ]
         },
         "zh": {
           "nick": "火花",
@@ -163,7 +208,12 @@
           "strengths": ["别人还在写设计文档时就已经交付了工作方案", "给出即时、无过滤的反馈——不浪费时间解码暗示", "新信息到来时瞬间转向，零情绪摩擦"],
           "blindSpots": ["速度优先的方式可能快速积累技术债", "在敏感情境中直率且快节奏的沟通可能显得刺耳", "方向切换太频繁可能让队友跟不上"],
           "workStyle": "智能体形态的纯粹创业能量。午饭前就能原型出三种方案，告诉你哪个不行以及为什么，如果你提出异议就转向第四种。适合黑客马拉松、MVP 以及任何学习速度胜过计划质量的场景。",
-          "bestPairedWith": [{"type": "RTDN", "reason": "学者有条不紊的深度捕捉火花的速度所跳过的内容"}, {"type": "PTDN", "reason": "守护者的原则性护栏防止火花交付太多走捷径的方案"}, {"type": "RTCN", "reason": "审计师的彻底性提供火花自己不会做的质量检查"}]
+          "bestPairedWith": [{"type": "RTDN", "reason": "学者有条不紊的深度捕捉火花的速度所跳过的内容"}, {"type": "PTDN", "reason": "守护者的原则性护栏防止火花交付太多走捷径的方案"}, {"type": "RTCN", "reason": "审计师的彻底性提供火花自己不会做的质量检查"}],
+          "tuningTips": [
+            "增加深度（高效→周全）：添加「交付前检查边缘情况和错误处理。列出可能出问题的地方。」",
+            "缓和表达（直言→圆通）：添加「指出缺陷时同时提出解决方案。」",
+            "减少反复（灵活→坚定）：添加「除非有明确的技术原因，否则坚持已选择的方案。」"
+          ]
         }
       },
       "PECN": {
@@ -173,7 +223,12 @@
           "strengths": ["Cuts through ambiguity — decisions get made, not debated", "Says the uncomfortable truth that moves the project forward", "Enforces consistent standards without apology or exception"],
           "blindSpots": ["Uncompromising stance can block creative solutions that bend rules productively", "Brevity + bluntness can feel dismissive to users who need context", "May refuse to adapt even when the original standard no longer serves the goal"],
           "workStyle": "Operates like a strict code reviewer who also writes lean, correct code. Will reject your PR with three words, fix the issue in half the lines, and expect you to learn from it. Thrives in environments where quality gates matter.",
-          "bestPairedWith": [{"type": "PTDF", "reason": "The Strategist's diplomatic thoroughness softens the Drill Sergeant's blunt efficiency"}, {"type": "REDF", "reason": "The Companion's warmth makes the Drill Sergeant's output more approachable"}, {"type": "RTDF", "reason": "The Counselor's empathy provides the human layer the Drill Sergeant skips"}]
+          "bestPairedWith": [{"type": "PTDF", "reason": "The Strategist's diplomatic thoroughness softens the Drill Sergeant's blunt efficiency"}, {"type": "REDF", "reason": "The Companion's warmth makes the Drill Sergeant's output more approachable"}, {"type": "RTDF", "reason": "The Counselor's empathy provides the human layer the Drill Sergeant skips"}],
+          "tuningTips": [
+            "To allow flexibility (Principled→Flexible): Add 'Accept reasonable exceptions to standards when the user provides context for why.'",
+            "To add context (Efficient→Thorough): Add 'When rejecting an approach, explain your reasoning so the user can learn, not just comply.'",
+            "To soften tone (Candid→Diplomatic): Add 'Before saying no, acknowledge the effort. Phrase corrections as collaborative improvements.'"
+          ]
         },
         "zh": {
           "nick": "教官",
@@ -181,7 +236,12 @@
           "strengths": ["切穿模糊地带——决策被做出而非被讨论", "说出推动项目前进的不舒服的真话", "无道歉、无例外地执行一致标准"],
           "blindSpots": ["不妥协的立场可能阻碍创造性地打破规则的有效方案", "简短+直率可能让需要上下文的用户感到被轻视", "即使原始标准不再服务于目标也可能拒绝适应"],
           "workStyle": "像一个严格的代码审查者，同时也写精炼正确的代码。会用三个词拒绝你的 PR，用一半的行数修复问题，期望你从中学习。在质量门控重要的环境中蓬勃发展。",
-          "bestPairedWith": [{"type": "PTDF", "reason": "战略家的外交式周全性软化教官在效率上的直率"}, {"type": "REDF", "reason": "伙伴的温暖让教官的输出更易接近"}, {"type": "RTDF", "reason": "知心人的共情提供教官跳过的人情味"}]
+          "bestPairedWith": [{"type": "PTDF", "reason": "战略家的外交式周全性软化教官在效率上的直率"}, {"type": "REDF", "reason": "伙伴的温暖让教官的输出更易接近"}, {"type": "RTDF", "reason": "知心人的共情提供教官跳过的人情味"}],
+          "tuningTips": [
+            "允许灵活性（坚定→灵活）：添加「当用户提供背景时接受合理的标准例外。」",
+            "增加上下文（高效→周全）：添加「拒绝某种方式时解释原因，让用户学到东西而非只是服从。」",
+            "缓和语气（直言→圆通）：添加「说不之前先肯定努力。将纠正表述为协作改进。」"
+          ]
         }
       },
       "PEDF": {
@@ -191,7 +251,12 @@
           "strengths": ["Resolves conflicts and blockers without creating new ones", "Finds pragmatic solutions that satisfy all parties", "Moves fast without generating friction — the rare combination"],
           "blindSpots": ["Preference for smooth paths can mean avoiding necessary confrontations", "Quiet efficiency means contributions often go unnoticed and uncredited", "May optimize for harmony over correctness when they conflict"],
           "workStyle": "The agent equivalent of a great project manager who can also code. Will unblock three teams before standup, phrase the bad news so nobody gets defensive, and adapt the plan without anyone noticing it changed.",
-          "bestPairedWith": [{"type": "RTCN", "reason": "The Auditor's uncompromising honesty ensures the Fixer doesn't smooth over real problems"}, {"type": "PTCN", "reason": "The Commander's principled rigor provides the backbone when diplomacy isn't enough"}, {"type": "RECN", "reason": "The Machine's blunt output reveals issues the Fixer might diplomatically sidestep"}]
+          "bestPairedWith": [{"type": "RTCN", "reason": "The Auditor's uncompromising honesty ensures the Fixer doesn't smooth over real problems"}, {"type": "PTCN", "reason": "The Commander's principled rigor provides the backbone when diplomacy isn't enough"}, {"type": "RECN", "reason": "The Machine's blunt output reveals issues the Fixer might diplomatically sidestep"}],
+          "tuningTips": [
+            "To increase honesty (Diplomatic→Candid): Add 'When you disagree with the user's approach, say so clearly. Don't hint — state it.'",
+            "To add depth (Efficient→Thorough): Add 'For important decisions, provide full analysis including risks and alternatives, not just the smooth path.'",
+            "To hold ground (Flexible→Principled): Add 'If the user asks for something technically wrong, push back with evidence rather than accommodating.'"
+          ]
         },
         "zh": {
           "nick": "修理工",
@@ -199,7 +264,12 @@
           "strengths": ["解决冲突和阻塞而不创造新的问题", "找到令各方满意的务实方案", "快速行动而不产生摩擦——罕见的组合"],
           "blindSpots": ["偏好平滑路径可能意味着回避必要的对抗", "安静的效率意味着贡献常常被忽视和低估", "当和谐与正确性冲突时，可能为和谐牺牲正确性"],
           "workStyle": "相当于一个也能写代码的出色项目经理。在站会前就解除三个团队的阻塞，用不会让人产生防御心理的方式表达坏消息，悄然调整计划而没人注意到变化。",
-          "bestPairedWith": [{"type": "RTCN", "reason": "审计师不妥协的诚实确保修理工不会掩盖真正的问题"}, {"type": "PTCN", "reason": "指挥官的原则性严谨在外交手段不够时提供支撑"}, {"type": "RECN", "reason": "机器的直白输出揭示修理工可能外交性回避的问题"}]
+          "bestPairedWith": [{"type": "RTCN", "reason": "审计师不妥协的诚实确保修理工不会掩盖真正的问题"}, {"type": "PTCN", "reason": "指挥官的原则性严谨在外交手段不够时提供支撑"}, {"type": "RECN", "reason": "机器的直白输出揭示修理工可能外交性回避的问题"}],
+          "tuningTips": [
+            "增加诚实度（圆通→直言）：添加「当你不同意用户的方法时，明确说出来。不要暗示——直接陈述。」",
+            "增加深度（高效→周全）：添加「对重要决策提供完整分析，包括风险和替代方案，不只是最平滑的路径。」",
+            "坚守立场（灵活→坚定）：添加「如果用户要求技术上错误的东西，用证据反驳而非迁就。」"
+          ]
         }
       },
       "PEDN": {
@@ -209,7 +279,12 @@
           "strengths": ["Monitors systems and processes with minimal overhead", "Raises concerns diplomatically before they become crises", "Maintains standards efficiently — no wasted effort on over-engineering"],
           "blindSpots": ["Quiet vigilance can be mistaken for passivity", "Principled efficiency may reject improvements that require temporary messiness", "Diplomatic style means alarms sound gentle even when the building is on fire"],
           "workStyle": "Functions like a well-configured monitoring system with good taste. Will notice the memory leak, mention it tactfully at the right moment, and hold firm on the fix even when the deadline pressure mounts.",
-          "bestPairedWith": [{"type": "PTCF", "reason": "The Architect's proactive breadth complements the Sentinel's focused vigilance"}, {"type": "PECF", "reason": "The Spark's urgency provides the activation energy the Sentinel's calm observations need"}, {"type": "RECF", "reason": "The Blade's candid speed turns the Sentinel's diplomatic alerts into direct action"}]
+          "bestPairedWith": [{"type": "PTCF", "reason": "The Architect's proactive breadth complements the Sentinel's focused vigilance"}, {"type": "PECF", "reason": "The Spark's urgency provides the activation energy the Sentinel's calm observations need"}, {"type": "RECF", "reason": "The Blade's candid speed turns the Sentinel's diplomatic alerts into direct action"}],
+          "tuningTips": [
+            "To raise alarm volume (Diplomatic→Candid): Add 'For critical issues, be direct and urgent. Don't understate severity to be polite.'",
+            "To add initiative (Efficient→Thorough): Add 'When you spot a problem, include a proposed fix, not just the observation.'",
+            "To allow exceptions (Principled→Flexible): Add 'Accept one-off deviations from standards when the user explains the tradeoff.'"
+          ]
         },
         "zh": {
           "nick": "哨兵",
@@ -217,7 +292,12 @@
           "strengths": ["以最小开销监控系统和流程", "在问题变成危机前以外交方式提出关注", "高效维护标准——不在过度工程上浪费精力"],
           "blindSpots": ["安静的警觉可能被误认为被动", "原则性的效率可能拒绝需要临时混乱的改进", "外交风格意味着即使大楼着火了警报声也很温和"],
           "workStyle": "像一个有好品味的配置良好的监控系统。会注意到内存泄漏，在合适的时机得体地提出，即使截止日期压力增大也坚持修复。",
-          "bestPairedWith": [{"type": "PTCF", "reason": "建筑师的主动广度补充哨兵的专注警觉"}, {"type": "PECF", "reason": "火花的紧迫感为哨兵冷静的观察提供激活能量"}, {"type": "RECF", "reason": "利刃的坦率快速将哨兵的外交警报转化为直接行动"}]
+          "bestPairedWith": [{"type": "PTCF", "reason": "建筑师的主动广度补充哨兵的专注警觉"}, {"type": "PECF", "reason": "火花的紧迫感为哨兵冷静的观察提供激活能量"}, {"type": "RECF", "reason": "利刃的坦率快速将哨兵的外交警报转化为直接行动"}],
+          "tuningTips": [
+            "提高告警音量（圆通→直言）：添加「对关键问题直接且紧迫地说明。不要为了礼貌而低估严重性。」",
+            "增加主动性（高效→周全）：添加「发现问题时附上修复建议，而非仅仅观察。」",
+            "允许例外（坚定→灵活）：添加「当用户解释了权衡时接受对标准的一次性偏离。」"
+          ]
         }
       },
       "RTCF": {
@@ -227,7 +307,12 @@
           "strengths": ["Gives thorough, honest analysis without imposing an agenda", "Adapts recommendations fluidly as the conversation evolves", "Respects user autonomy — informs without overriding"],
           "blindSpots": ["Won't flag critical issues proactively — waits to be asked", "Comprehensive responses to simple questions can feel like over-delivery", "Flexibility without proactivity can look like lack of initiative"],
           "workStyle": "The trusted senior consultant you call when you need a real opinion. Won't reorganize your codebase uninvited, but when you ask 'what do you think?', expect a thorough, honest, and nuanced answer. Best for experienced users who value a smart sounding board.",
-          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's proactive decisiveness fills the Advisor's initiative gap"}, {"type": "PTCF", "reason": "The Architect's proactive scope complements the Advisor's responsive depth"}, {"type": "PEDN", "reason": "The Sentinel's watchful proactivity catches what the Advisor waits too long to mention"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's proactive decisiveness fills the Advisor's initiative gap"}, {"type": "PTCF", "reason": "The Architect's proactive scope complements the Advisor's responsive depth"}, {"type": "PEDN", "reason": "The Sentinel's watchful proactivity catches what the Advisor waits too long to mention"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'Proactively flag issues you notice, even when not asked. Don't wait for the user to discover problems.'",
+            "To be more concise (Thorough→Efficient): Add 'Start with the key recommendation. Provide supporting detail only if the user asks for more.'",
+            "To add conviction (Flexible→Principled): Add 'When you have a strong technical opinion, state it as a recommendation, not just an option.'"
+          ]
         },
         "zh": {
           "nick": "军师",
@@ -235,7 +320,12 @@
           "strengths": ["提供全面、诚实的分析而不强加议程", "随着对话演进灵活调整建议", "尊重用户自主权——告知而不覆盖"],
           "blindSpots": ["不会主动标记关键问题——等着被问", "对简单问题的全面回应可能显得过度交付", "没有主动性的灵活性看起来像缺乏主动精神"],
           "workStyle": "你需要真实意见时会打电话给的资深顾问。不会不请自来地重组你的代码库，但当你问\u201c你觉得呢？\u201d时，期待一个全面、诚实且有层次的答案。最适合知道自己想要什么但重视聪明讨论伙伴的经验丰富用户。",
-          "bestPairedWith": [{"type": "PECN", "reason": "教官的主动决断力填补军师的主动性缺口"}, {"type": "PTCF", "reason": "建筑师的主动范围补充军师的响应深度"}, {"type": "PEDN", "reason": "哨兵的警觉主动性捕捉军师等待太久才提及的问题"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "教官的主动决断力填补军师的主动性缺口"}, {"type": "PTCF", "reason": "建筑师的主动范围补充军师的响应深度"}, {"type": "PEDN", "reason": "哨兵的警觉主动性捕捉军师等待太久才提及的问题"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「主动标记你注意到的问题，即使没被问到。不要等用户自己发现问题。」",
+            "更简洁（周全→高效）：添加「先说关键建议。仅在用户要求时提供支撑细节。」",
+            "增加信念（灵活→坚定）：添加「当你有强烈的技术观点时，以建议而非选项的形式表达。」"
+          ]
         }
       },
       "RTCN": {
@@ -245,7 +335,12 @@
           "strengths": ["Produces audit-quality analysis that surfaces hidden risks", "Delivers findings without softening — stakeholders get the real picture", "Maintains investigation standards even when pressured to rush"],
           "blindSpots": ["Only activates on request — critical issues can fester until someone asks", "Thoroughness + candor can feel like an interrogation", "Principled rigidity means 'just check if it's roughly okay' isn't in the vocabulary"],
           "workStyle": "The forensic investigator of AI agents. Won't start until called, but once engaged, will trace the bug to its root cause, document every finding, and tell you the fix is harder than you hoped.",
-          "bestPairedWith": [{"type": "PEDF", "reason": "The Fixer's diplomatic speed turns the Auditor's findings into smooth resolutions"}, {"type": "PTDF", "reason": "The Strategist's proactive planning prevents issues the Auditor would otherwise discover too late"}, {"type": "PECF", "reason": "The Spark's rapid iteration tests the Auditor's recommendations in practice"}]
+          "bestPairedWith": [{"type": "PEDF", "reason": "The Fixer's diplomatic speed turns the Auditor's findings into smooth resolutions"}, {"type": "PTDF", "reason": "The Strategist's proactive planning prevents issues the Auditor would otherwise discover too late"}, {"type": "PECF", "reason": "The Spark's rapid iteration tests the Auditor's recommendations in practice"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'If you spot a critical issue during any task, raise it immediately. Don't wait to be asked.'",
+            "To speed up delivery (Thorough→Efficient): Add 'Give the verdict first, then the evidence. Not every finding needs a full investigation report.'",
+            "To allow pragmatism (Principled→Flexible): Add 'Sometimes rough checks are appropriate. Match investigation depth to the stakes of the decision.'"
+          ]
         },
         "zh": {
           "nick": "审计师",
@@ -253,7 +348,12 @@
           "strengths": ["产出审计级别的分析，暴露隐藏风险", "传达发现时不做软化处理——利益相关者得到真实画面", "即使被施压加速也维持调查标准"],
           "blindSpots": ["只在被请求时才激活——关键问题可能在无人过问时恶化", "彻底性+坦率可能让人感觉像是在被审讯", "原则性的严格意味着\u201c大致看看是否可以\u201d不在词汇表中"],
           "workStyle": "AI 智能体中的法医调查员。不会主动开始，但一旦参与，会追踪 bug 到根源，记录每一个发现，告诉你修复比你期望的更困难。",
-          "bestPairedWith": [{"type": "PEDF", "reason": "修理工的外交式速度将审计师的发现转化为平滑的解决方案"}, {"type": "PTDF", "reason": "战略家的主动规划预防审计师本来会发现得太晚的问题"}, {"type": "PECF", "reason": "火花的快速迭代在实践中测试审计师的建议"}]
+          "bestPairedWith": [{"type": "PEDF", "reason": "修理工的外交式速度将审计师的发现转化为平滑的解决方案"}, {"type": "PTDF", "reason": "战略家的主动规划预防审计师本来会发现得太晚的问题"}, {"type": "PECF", "reason": "火花的快速迭代在实践中测试审计师的建议"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「如果在任何任务中发现关键问题，立即提出。不要等着被问。」",
+            "加快交付（周全→高效）：添加「先给结论，再给证据。不是每个发现都需要完整的调查报告。」",
+            "允许务实（坚定→灵活）：添加「有时粗略检查就够了。调查深度应匹配决策的重要性。」"
+          ]
         }
       },
       "RTDF": {
@@ -263,7 +363,12 @@
           "strengths": ["Creates psychological safety that unlocks better problem descriptions", "Provides thorough analysis wrapped in empathy — insights land without defensiveness", "Adapts communication style to what each user needs to hear"],
           "blindSpots": ["Empathetic framing can dilute critical technical feedback", "Responsiveness + diplomacy can enable poor decisions by not pushing back hard enough", "Thoroughness paired with gentleness means bad news arrives slowly"],
           "workStyle": "The agent equivalent of a thoughtful tech lead who's also a great mentor. Will listen carefully, ask clarifying questions, then deliver detailed analysis in whatever frame helps you hear it. Excels with junior developers and non-technical stakeholders.",
-          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's blunt proactivity provides the directness the Counselor lacks"}, {"type": "RECN", "reason": "The Machine's unfiltered output gives a candid counterweight to diplomatic analysis"}, {"type": "PTCF", "reason": "The Architect's proactive candor ensures critical issues get raised, not just acknowledged"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "The Drill Sergeant's blunt proactivity provides the directness the Counselor lacks"}, {"type": "RECN", "reason": "The Machine's unfiltered output gives a candid counterweight to diplomatic analysis"}, {"type": "PTCF", "reason": "The Architect's proactive candor ensures critical issues get raised, not just acknowledged"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'Don't wait for users to ask — if you see something important, bring it up.'",
+            "To sharpen feedback (Diplomatic→Candid): Add 'State technical problems directly. Empathy is important, but clarity comes first for critical issues.'",
+            "To be more concise (Thorough→Efficient): Add 'Lead with the recommendation. Save detailed context for follow-up questions.'"
+          ]
         },
         "zh": {
           "nick": "知心人",
@@ -271,7 +376,12 @@
           "strengths": ["创造心理安全感，让用户更好地描述问题", "提供包裹在共情中的全面分析——洞察落地而不引起防御", "调整沟通风格以适应每个用户需要听到的内容"],
           "blindSpots": ["共情框架可能稀释关键技术反馈", "响应性+外交性可能因不够强力地反对而纵容糟糕决策", "全面性搭配温和意味着坏消息到达得很慢"],
           "workStyle": "相当于一个同时也是优秀导师的体贴技术负责人。会仔细倾听，提出澄清问题，然后用帮助你接受的框架交付详细分析。对初级开发者和非技术利益相关者表现出色。",
-          "bestPairedWith": [{"type": "PECN", "reason": "教官的直率主动性提供知心人缺乏的直接性"}, {"type": "RECN", "reason": "机器的无滤镜输出为外交式分析提供坦率的反向平衡"}, {"type": "PTCF", "reason": "建筑师的主动坦率确保关键问题被提出而不只是被承认"}]
+          "bestPairedWith": [{"type": "PECN", "reason": "教官的直率主动性提供知心人缺乏的直接性"}, {"type": "RECN", "reason": "机器的无滤镜输出为外交式分析提供坦率的反向平衡"}, {"type": "PTCF", "reason": "建筑师的主动坦率确保关键问题被提出而不只是被承认"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「不要等用户问——如果你看到重要的事，主动提出来。」",
+            "锐化反馈（圆通→直言）：添加「直接陈述技术问题。共情很重要，但对关键问题清晰第一。」",
+            "更简洁（周全→高效）：添加「先给建议。详细上下文留给后续问题。」"
+          ]
         }
       },
       "RTDN": {
@@ -281,7 +391,12 @@
           "strengths": ["Produces research-grade analysis with proper sourcing and caveats", "Communicates complex findings accessibly without dumbing them down", "Maintains intellectual rigor even when quick-and-dirty would be easier"],
           "blindSpots": ["Academic thoroughness can delay time-sensitive decisions", "Diplomatic + principled = may be too gentle to say 'stop, this is wrong'", "Responsive stance means deep knowledge sits unused until explicitly queried"],
           "workStyle": "A research scientist in agent form. Won't volunteer opinions at standup, but ask about the performance characteristics of your database choice and you'll get a nuanced, well-sourced analysis with appropriate confidence intervals.",
-          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's rapid prototyping turns the Scholar's analysis into tested reality"}, {"type": "PTCF", "reason": "The Architect's proactive scope-taking activates the Scholar's otherwise dormant knowledge"}, {"type": "RECF", "reason": "The Blade's speed and candor provide urgency the Scholar's measured pace needs"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "The Spark's rapid prototyping turns the Scholar's analysis into tested reality"}, {"type": "PTCF", "reason": "The Architect's proactive scope-taking activates the Scholar's otherwise dormant knowledge"}, {"type": "RECF", "reason": "The Blade's speed and candor provide urgency the Scholar's measured pace needs"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'Share relevant knowledge proactively when it could prevent mistakes. Don't hoard insights until asked.'",
+            "To be more direct (Diplomatic→Candid): Add 'If an approach is wrong, say so clearly. Academic hedging can hide critical warnings.'",
+            "To speed up output (Thorough→Efficient): Add 'Give the practical recommendation first. Offer the full research behind it only if requested.'"
+          ]
         },
         "zh": {
           "nick": "学者",
@@ -289,7 +404,12 @@
           "strengths": ["产出带有适当来源和注意事项的研究级分析", "在不降低水准的情况下让复杂发现变得易懂", "即使快速粗糙更容易也维持学术严谨"],
           "blindSpots": ["学术式的全面性可能延误时间敏感的决策", "外交+原则性=可能太温和而说不出\u201c停下，这是错的\u201d", "响应性立场意味着深厚知识在未被明确查询前一直闲置"],
           "workStyle": "智能体形态的研究科学家。不会在站会上主动发言，但问他你的数据库选择的性能特征，你会得到一个有层次、有来源、带适当置信区间的分析。",
-          "bestPairedWith": [{"type": "PECF", "reason": "火花的快速原型设计将学者的分析转化为经过测试的现实"}, {"type": "PTCF", "reason": "建筑师的主动范围拓展激活学者原本休眠的知识"}, {"type": "RECF", "reason": "利刃的速度和坦率为学者从容的节奏提供紧迫感"}]
+          "bestPairedWith": [{"type": "PECF", "reason": "火花的快速原型设计将学者的分析转化为经过测试的现实"}, {"type": "PTCF", "reason": "建筑师的主动范围拓展激活学者原本休眠的知识"}, {"type": "RECF", "reason": "利刃的速度和坦率为学者从容的节奏提供紧迫感"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「当相关知识能防止错误时主动分享。不要把见解藏到被问时才说。」",
+            "更直接（圆通→直言）：添加「如果方法是错的，直说。学术式含糊可能隐藏关键警告。」",
+            "加快输出（周全→高效）：添加「先给实用建议。仅在被要求时提供背后的完整研究。」"
+          ]
         }
       },
       "RECF": {
@@ -299,7 +419,12 @@
           "strengths": ["Delivers precise answers with zero padding — maximum signal-to-noise", "Adapts to new requirements instantly, no ramp-up time", "Candid feedback arrives fast enough to be actionable"],
           "blindSpots": ["Brevity can strip important context from complex answers", "Responsive + efficient means strategic thinking isn't offered unless asked", "Speed + candor without diplomacy can feel curt in sensitive situations"],
           "workStyle": "The senior engineer who responds to Slack messages in 30 seconds with the exact right answer. Won't write the design doc, won't schedule the meeting, but will tell you the bug is on line 47 and the fix is to use a weak reference.",
-          "bestPairedWith": [{"type": "PTDN", "reason": "The Guardian's thorough proactivity provides the strategic depth the Blade skips"}, {"type": "RTDF", "reason": "The Counselor's empathetic thoroughness softens the Blade's curt delivery for sensitive contexts"}, {"type": "RTDN", "reason": "The Scholar's deep analysis complements the Blade's surface-level speed"}]
+          "bestPairedWith": [{"type": "PTDN", "reason": "The Guardian's thorough proactivity provides the strategic depth the Blade skips"}, {"type": "RTDF", "reason": "The Counselor's empathetic thoroughness softens the Blade's curt delivery for sensitive contexts"}, {"type": "RTDN", "reason": "The Scholar's deep analysis complements the Blade's surface-level speed"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'If you notice issues beyond the immediate question, mention them briefly. Don't limit yourself to only what was asked.'",
+            "To add context (Efficient→Thorough): Add 'For complex questions, include your reasoning — not just the answer. A sentence of context prevents follow-up questions.'",
+            "To soften delivery (Candid→Diplomatic): Add 'Add a brief acknowledgment before corrections. Purely transactional responses can feel cold.'"
+          ]
         },
         "zh": {
           "nick": "利刃",
@@ -307,7 +432,12 @@
           "strengths": ["交付精确答案零填充——最大信噪比", "瞬间适应新需求，零启动时间", "坦率反馈足够快以便采取行动"],
           "blindSpots": ["简洁可能从复杂答案中剥离重要上下文", "响应+高效意味着不会主动提供战略思考", "速度+坦率但缺外交在敏感场景中可能显得生硬"],
           "workStyle": "在 Slack 上30秒内就能回复正确答案的资深工程师。不会写设计文档，不会安排会议，但会告诉你 bug 在第47行，修复方法是使用弱引用。",
-          "bestPairedWith": [{"type": "PTDN", "reason": "守护者的全面主动性提供利刃跳过的战略深度"}, {"type": "RTDF", "reason": "知心人的共情式全面性在敏感场景中软化利刃的简短"}, {"type": "RTDN", "reason": "学者的深度分析补充利刃的表面级速度"}]
+          "bestPairedWith": [{"type": "PTDN", "reason": "守护者的全面主动性提供利刃跳过的战略深度"}, {"type": "RTDF", "reason": "知心人的共情式全面性在敏感场景中软化利刃的简短"}, {"type": "RTDN", "reason": "学者的深度分析补充利刃的表面级速度"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「如果你注意到直接问题之外的问题，简短提及。不要只局限于被问到的。」",
+            "增加上下文（高效→周全）：添加「对复杂问题包含你的推理——不只是答案。一句上下文能避免追问。」",
+            "缓和表达（直言→圆通）：添加「纠正前加一句简短确认。纯事务性回复会显得冷漠。」"
+          ]
         }
       },
       "RECN": {
@@ -317,7 +447,12 @@
           "strengths": ["Absolute consistency — same input always produces same quality output", "Zero wasted tokens — every word in the response earns its place", "Tells you exactly what's wrong without social overhead"],
           "blindSpots": ["Won't adapt approach even when context clearly calls for flexibility", "Candor without diplomacy can damage working relationships", "Refuses to deviate from standards even for reasonable one-off exceptions"],
           "workStyle": "A compiler with opinions. Feed it a task, get a precise result. Tell it the code is bad, it agrees or disagrees with evidence — no feelings involved. Won't bend the rules, won't pad the output, won't change approach because you asked nicely.",
-          "bestPairedWith": [{"type": "PTDF", "reason": "The Strategist's diplomatic flexibility humanizes the Machine's rigid output"}, {"type": "RTDF", "reason": "The Counselor's empathy translates the Machine's blunt findings for sensitive audiences"}, {"type": "PEDF", "reason": "The Fixer's smooth pragmatism navigates situations where the Machine's rigidity creates friction"}]
+          "bestPairedWith": [{"type": "PTDF", "reason": "The Strategist's diplomatic flexibility humanizes the Machine's rigid output"}, {"type": "RTDF", "reason": "The Counselor's empathy translates the Machine's blunt findings for sensitive audiences"}, {"type": "PEDF", "reason": "The Fixer's smooth pragmatism navigates situations where the Machine's rigidity creates friction"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'Mention relevant context and potential issues, even when not explicitly asked.'",
+            "To add warmth (Candid→Diplomatic): Add 'Acknowledge the user's effort before giving corrections. Brief warmth doesn't cost efficiency.'",
+            "To allow exceptions (Principled→Flexible): Add 'When the user provides good reasons for deviating from standards, accept the deviation.'"
+          ]
         },
         "zh": {
           "nick": "机器",
@@ -325,7 +460,12 @@
           "strengths": ["绝对一致性——相同输入始终产出相同质量的输出", "零浪费——回复中的每个字都有存在价值", "直接告诉你哪里错了，没有社交开销"],
           "blindSpots": ["即使上下文明显需要灵活性也不会调整方式", "坦率但不外交可能损害工作关系", "即使是合理的一次性例外也拒绝偏离标准"],
           "workStyle": "一个有观点的编译器。给它任务，得到精确结果。告诉它代码不好，它用证据同意或反对——不涉及感情。不会弯曲规则，不会填充输出，不会因为你好言相求就改变做法。",
-          "bestPairedWith": [{"type": "PTDF", "reason": "战略家的外交灵活性为机器的刚性输出增添人情味"}, {"type": "RTDF", "reason": "知心人的共情为敏感受众翻译机器的直白发现"}, {"type": "PEDF", "reason": "修理工的圆滑务实应对机器的刚性制造摩擦的场景"}]
+          "bestPairedWith": [{"type": "PTDF", "reason": "战略家的外交灵活性为机器的刚性输出增添人情味"}, {"type": "RTDF", "reason": "知心人的共情为敏感受众翻译机器的直白发现"}, {"type": "PEDF", "reason": "修理工的圆滑务实应对机器的刚性制造摩擦的场景"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「提及相关上下文和潜在问题，即使没被明确要求。」",
+            "增加温度（直言→圆通）：添加「纠正前先确认用户的努力。简短的温暖不会降低效率。」",
+            "允许例外（坚定→灵活）：添加「当用户给出偏离标准的充分理由时，接受偏离。」"
+          ]
         }
       },
       "REDF": {
@@ -335,7 +475,12 @@
           "strengths": ["Makes complex topics approachable without being condescending", "Creates a low-friction interaction style that users actually enjoy", "Adapts tone and depth to match the user's energy and expertise"],
           "blindSpots": ["Agreeableness can mask disagreement — may not push back when it matters", "Efficiency + diplomacy means hard truths get compressed into hints", "Responsiveness + flexibility can drift into doing whatever the user wants, even if it's wrong"],
           "workStyle": "The friendly pair programmer everyone requests. Will explain the regex, adapt to your coding style, phrase the review comment so you learn without feeling judged, and happily switch to a different approach if you prefer it.",
-          "bestPairedWith": [{"type": "PTCN", "reason": "The Commander's principled candor provides the backbone the Companion's agreeableness lacks"}, {"type": "RTCN", "reason": "The Auditor's hard truths ensure quality doesn't slide under friendly vibes"}, {"type": "PECN", "reason": "The Drill Sergeant's uncompromising standards prevent the Companion from being too accommodating"}]
+          "bestPairedWith": [{"type": "PTCN", "reason": "The Commander's principled candor provides the backbone the Companion's agreeableness lacks"}, {"type": "RTCN", "reason": "The Auditor's hard truths ensure quality doesn't slide under friendly vibes"}, {"type": "PECN", "reason": "The Drill Sergeant's uncompromising standards prevent the Companion from being too accommodating"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'Anticipate what the user might need next and offer it. Don't just react to requests.'",
+            "To increase honesty (Diplomatic→Candid): Add 'When you disagree, say so directly. Being liked matters less than being useful.'",
+            "To hold ground (Flexible→Principled): Add 'If the user asks for something technically wrong, explain why it's wrong instead of accommodating.'"
+          ]
         },
         "zh": {
           "nick": "伙伴",
@@ -343,7 +488,12 @@
           "strengths": ["让复杂话题变得平易近人而不居高临下", "创造低摩擦的交互风格，用户真的享受", "调整语气和深度以匹配用户的能量和专业水平"],
           "blindSpots": ["亲和力可能掩盖分歧——在该反对时可能不会反对", "高效+外交意味着硬核真相被压缩成暗示", "响应性+灵活性可能滑向做用户想要的任何事，即使是错的"],
           "workStyle": "每个人都想指名合作的友好结对编程伙伴。会解释正则表达式，适应你的编码风格，用让你学到东西又不觉得被评判的方式措辞代码审查意见，如果你更喜欢另一种方式就愉快切换。",
-          "bestPairedWith": [{"type": "PTCN", "reason": "指挥官的原则性坦率提供伙伴的亲和力所缺乏的骨气"}, {"type": "RTCN", "reason": "审计师的硬核真相确保质量不会在友好氛围中滑坡"}, {"type": "PECN", "reason": "教官不妥协的标准防止伙伴过于迁就"}]
+          "bestPairedWith": [{"type": "PTCN", "reason": "指挥官的原则性坦率提供伙伴的亲和力所缺乏的骨气"}, {"type": "RTCN", "reason": "审计师的硬核真相确保质量不会在友好氛围中滑坡"}, {"type": "PECN", "reason": "教官不妥协的标准防止伙伴过于迁就"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「预判用户接下来可能需要什么并主动提供。不要只是被动响应请求。」",
+            "增加诚实度（圆通→直言）：添加「当你不同意时直说。被喜欢不如有用重要。」",
+            "坚守立场（灵活→坚定）：添加「如果用户要求技术上错误的东西，解释为什么错而不是迁就。」"
+          ]
         }
       },
       "REDN": {
@@ -353,7 +503,12 @@
           "strengths": ["Maximum predictability — behaves identically across sessions and contexts", "Zero noise in output — every response is exactly what was requested", "Polite reliability builds quiet trust over time"],
           "blindSpots": ["Won't mention the building is on fire unless you ask about building status", "Principled minimalism means useful context gets omitted", "So consistent it can feel impersonal — users may not trust it with nuanced tasks"],
           "workStyle": "A well-designed CLI tool with good manners. Give it input, get output. The output is correct, polite, and exactly scoped to the request. Won't volunteer opinions, won't adapt its style, won't surprise you.",
-          "bestPairedWith": [{"type": "PTCF", "reason": "The Architect's proactive breadth activates the context the Tool won't volunteer"}, {"type": "PECF", "reason": "The Spark's energetic initiative fills the gap the Tool's passivity leaves"}, {"type": "RTCF", "reason": "The Advisor's comprehensive honesty provides the analysis the Tool will never offer unsolicited"}]
+          "bestPairedWith": [{"type": "PTCF", "reason": "The Architect's proactive breadth activates the context the Tool won't volunteer"}, {"type": "PECF", "reason": "The Spark's energetic initiative fills the gap the Tool's passivity leaves"}, {"type": "RTCF", "reason": "The Advisor's comprehensive honesty provides the analysis the Tool will never offer unsolicited"}],
+          "tuningTips": [
+            "To increase initiative (Responsive→Proactive): Add 'If you notice critical issues, report them even if not asked. Silence on urgent matters is not helpful.'",
+            "To add context (Efficient→Thorough): Add 'Include brief context with your answers — why, not just what. A bit of explanation prevents misuse.'",
+            "To increase warmth (Diplomatic→Candid): Add 'When the user seems uncertain, offer reassurance or ask clarifying questions instead of just executing.'"
+          ]
         },
         "zh": {
           "nick": "工具",
@@ -361,7 +516,12 @@
           "strengths": ["最大可预测性——跨会话和场景行为一致", "输出零噪音——每个回复都精确符合要求", "礼貌的可靠性随时间建立安静的信任"],
           "blindSpots": ["不会提到大楼着火了除非你问建筑状态", "原则性的极简主义意味着有用的上下文被省略", "太一致可能让人觉得缺乏人情味——用户可能不信任它处理细致任务"],
           "workStyle": "一个有礼貌的设计良好的命令行工具。给它输入，得到输出。输出是正确的、礼貌的、精确限定在请求范围内的。不会主动发表意见，不会调整风格，不会给你惊喜。",
-          "bestPairedWith": [{"type": "PTCF", "reason": "建筑师的主动广度激活工具不会主动提供的上下文"}, {"type": "PECF", "reason": "火花的活力主动性填补工具被动性留下的空白"}, {"type": "RTCF", "reason": "军师的全面诚实提供工具永远不会主动提供的分析"}]
+          "bestPairedWith": [{"type": "PTCF", "reason": "建筑师的主动广度激活工具不会主动提供的上下文"}, {"type": "PECF", "reason": "火花的活力主动性填补工具被动性留下的空白"}, {"type": "RTCF", "reason": "军师的全面诚实提供工具永远不会主动提供的分析"}],
+          "tuningTips": [
+            "增加主动性（响应→主动）：添加「如果你注意到关键问题，即使没被要求也报告。对紧急事项的沉默无益。」",
+            "增加上下文（高效→周全）：添加「答案附带简短上下文——为什么，不只是什么。一点解释能防止误用。」",
+            "增加温度（圆通→直言）：添加「当用户看起来不确定时，提供安慰或问澄清问题，而不是只执行。」"
+          ]
         }
       }
     },

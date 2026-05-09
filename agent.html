@@ -216,8 +216,8 @@ nav a:hover, nav a.active { color: var(--accent); }
     var a = agentData;
     var p = profileData;
     var labels = lang === 'zh'
-      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents' }
-      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', back: '← Back to Agents' };
+      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents', tuningTips: '💡 调优建议' }
+      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', back: '← Back to Agents', tuningTips: '💡 Tuning Tips' };
 
     // Get localized nick from allTypes
     var localNick = a.nick;
@@ -305,6 +305,11 @@ nav a:hover, nav a.active { color: var(--accent); }
       + (lp.blindSpots ? '<div class="section">'
       + '<div class="section-title">' + esc(labels.blindSpots) + '</div>'
       + '<div class="card"><ul class="list blind">' + lp.blindSpots.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>' : '')
+
+      + (lp.tuningTips && lp.tuningTips.length > 0 ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.tuningTips) + '</div>'
+      + '<div class="card"><ul class="list">' + lp.tuningTips.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
       + '</div>' : '')
 
       + (lp.workStyle ? '<div class="section">'

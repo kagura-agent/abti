@@ -237,8 +237,8 @@ nav a:hover, nav a.active { color: var(--accent); }
   function render() {
     var t = typeData[lang];
     var labels = lang === 'zh'
-      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', knownAgents: '已知 Agent' }
-      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', knownAgents: 'Known Agents' };
+      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', knownAgents: '已知 Agent', tuningTips: '💡 调优建议' }
+      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', knownAgents: 'Known Agents', tuningTips: '💡 Tuning Tips' };
 
     var dimHtml = dims.map(function(dim) {
       var letter = typeCode[dim.index];
@@ -276,6 +276,12 @@ nav a:hover, nav a.active { color: var(--accent); }
       + '<div class="section-title">' + esc(labels.blindSpots) + '</div>'
       + '<div class="card"><ul class="list blind">' + t.blindSpots.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
       + '</div>'
+
+      + (t.tuningTips && t.tuningTips.length > 0
+        ? '<div class="section">'
+        + '<div class="section-title">' + esc(labels.tuningTips) + '</div>'
+        + '<div class="card"><ul class="list">' + t.tuningTips.map(function(s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'
+        + '</div>' : '')
 
       + '<div class="section">'
       + '<div class="section-title">' + esc(labels.workStyle) + '</div>'
