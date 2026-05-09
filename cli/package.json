@@ -1,6 +1,6 @@
 {
   "name": "abti",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Agent Behavioral Type Indicator \u2014 discover your AI agent's personality type from the terminal",
   "bin": {
     "abti": "bin/abti.js"
