@@ -72,6 +72,8 @@ Test any AI agent from the command line:
 npx @kagura-agent/abti --auto --provider openai --model gpt-4o --api-key sk-...
 npx @kagura-agent/abti --auto --provider anthropic --model claude-sonnet-4-20250514
 npx @kagura-agent/abti --auto --provider ollama --model llama3.1
+npx @kagura-agent/abti --auto --provider github --model gpt-4o
+npx @kagura-agent/abti --auto --provider groq --model llama-3.3-70b-versatile
 ```
 
 Ollama requires no API key — just make sure Ollama is running locally.

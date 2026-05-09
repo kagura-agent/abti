@@ -2,7 +2,7 @@
 
 Run an [ABTI personality test](https://abti.kagura-agent.com) on your AI agent directly in GitHub Actions.
 
-The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google Gemini), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
+The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gemini, GitHub Models, or Groq), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
 
 ## Inputs
 
@@ -10,7 +10,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 |-------|----------|---------|-------------|
 | `agent-prompt` | No | — | Agent system prompt string |
 | `agent-prompt-file` | No | — | Path to file containing system prompt (e.g. `AGENTS.md`) |
-| `provider` | **Yes** | — | `openai`, `anthropic`, or `gemini` |
+| `provider` | **Yes** | — | `openai`, `anthropic`, `gemini`, `github`, or `groq` |
 | `model` | **Yes** | — | Model name (e.g. `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `api-key` | **Yes** | — | API key for the LLM provider |
 | `agent-name` | No | `<model> (<provider>)` | Display name for the agent in the registry |
@@ -46,6 +46,26 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
     provider: gemini
     model: gemini-2.5-flash
     api-key: ${{ secrets.GOOGLE_AI_API_KEY }}
+```
+
+### Basic — test with GitHub Models
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: github
+    model: gpt-4o
+    api-key: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Basic — test with Groq
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: groq
+    model: llama-3.3-70b-versatile
+    api-key: ${{ secrets.GROQ_API_KEY }}
 ```
 
 ### With agent system prompt from file
@@ -101,5 +121,5 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, or Google 
 ## Requirements
 
 - Node.js 20+ (provided by GitHub Actions runners)
-- An OpenAI, Anthropic, or Google AI API key stored as a repository secret
+- An OpenAI, Anthropic, Google AI, GitHub, or Groq API key stored as a repository secret
 - For PR comments: `GITHUB_TOKEN` with `pull-requests: write` permission

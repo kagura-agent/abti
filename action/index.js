@@ -250,7 +250,9 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'gemini') return callGemini(apiKey, model, systemPrompt, userMessage);
-  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", or "gemini".`);
+  if (provider === 'github') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com');
+  if (provider === 'groq') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "github", or "groq".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────
