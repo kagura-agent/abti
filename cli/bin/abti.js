@@ -134,6 +134,8 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider anthropic --model claude-sonnet-4-20250514
     npx abti test --provider gemini --model gemini-2.0-flash
     npx abti test --provider deepseek --model deepseek-chat
+    npx abti test --provider github --model gpt-4o
+    npx abti test --provider groq --model llama-3.3-70b-versatile
     npx abti test --provider ollama --model llama3.1
 
   Options:
@@ -142,8 +144,8 @@ if (flag('--help') || flag('-h')) {
     --name <name>            Agent name for registry
     --url <url>              Agent URL for registry
     --model <model>          Model name
-    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|ollama (default: openai)
-    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY)
+    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|ollama (default: openai)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / GITHUB_TOKEN)
     --submit                 Submit result to the ABTI registry
     --badge                  Print markdown badge snippet after results
     --runs <N>               Run the test N times (1-10, auto mode only)
@@ -160,6 +162,8 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
     npx abti test --provider anthropic --model claude-sonnet-4-20250514 --badge
     npx abti --lang zh --json
+    npx abti test --provider github --model gpt-4o --api-key ghp_...
+    npx abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
 `);
   process.exit(0);
 }
@@ -296,8 +300,10 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com');
+  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com');
+  if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
   if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", or "ollama".`);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", or "ollama".`);
 }
 
 function isReasoningModel(modelName) {
@@ -336,7 +342,8 @@ function parseAnswer(response) {
 function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
   if (prov === 'ollama') return 'ollama';
-  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY' };
+  if (prov === 'github') return process.env.GITHUB_TOKEN || (() => { throw new Error('No API key provided. Use --api-key or set GITHUB_TOKEN'); })();
+  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];
   throw new Error(`No API key provided. Use --api-key or set ${envKey}`);
