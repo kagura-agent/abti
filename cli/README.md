@@ -44,9 +44,14 @@ npx abti test --provider deepseek --model deepseek-chat
 # Ollama (local)
 npx abti test --provider ollama --model llama3.1
 
-# Via OpenRouter
-npx abti test --provider openai --model meta-llama/llama-3-70b \
-  --base-url https://openrouter.ai/api --api-key sk-or-...
+# OpenRouter
+npx abti test --provider openrouter --model anthropic/claude-sonnet-4-20250514 --api-key sk-or-...
+
+# Groq
+npx abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
+
+# GitHub Models (uses GITHUB_TOKEN)
+npx abti test --provider github --model gpt-4o
 ```
 
 ### Options
@@ -59,7 +64,7 @@ npx abti test --provider openai --model meta-llama/llama-3-70b \
 | `--name <name>` | Agent name for registry |
 | `--url <url>` | Agent URL for registry |
 | `--model <model>` | Model name |
-| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama` (default: `openai`) |
+| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `github` (default: `openai`) |
 | `--api-key <key>` | API key (or set env var) |
 | `--submit` | Submit result to the ABTI registry |
 | `--runs <N>` | Run the test N times (1-10) and show consistency report |
@@ -83,6 +88,9 @@ npx abti test --provider openai --model meta-llama/llama-3-70b \
 - `ANTHROPIC_API_KEY` — for `--provider anthropic`
 - `GOOGLE_AI_API_KEY` — for `--provider gemini`
 - `DEEPSEEK_API_KEY` — for `--provider deepseek`
+- `OPENROUTER_API_KEY` — for `--provider openrouter`
+- `GROQ_API_KEY` — for `--provider groq`
+- `GITHUB_TOKEN` — for `--provider github`
 
 ### Examples
 
