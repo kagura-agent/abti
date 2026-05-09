@@ -451,6 +451,23 @@ async function run() {
     console.log(`\n  ${t.badge}: ${API_BASE}/badge/${code}`);
   }
 
+  // Print tuning tips
+  if (!jsonMode) {
+    try {
+      const typesData = JSON.parse(await httpGet(`${API_BASE}/api/types?lang=${lang}`));
+      const tips = typesData.types?.[code]?.tuningTips;
+      if (tips && tips.length > 0) {
+        const tLabel = lang === 'zh' ? '调优建议' : 'Tuning Tips';
+        console.log(`\n  💡 ${tLabel}:`);
+        for (const tip of tips) {
+          console.log(`    • ${tip}`);
+        }
+      }
+    } catch (_) {
+      // Offline or API unavailable — skip tips
+    }
+  }
+
   // Print badge snippet if --badge
   if (badgeFlag && !jsonMode) {
     console.log(`\n  Badge: ${API_BASE}/badge/${code}`);
@@ -566,6 +583,23 @@ async function runMulti() {
       console.log(`    ${d.name}: ${bar} ${d.pct}% (${d.letter})`);
     }
     console.log(`\n  ${t.badge}: ${API_BASE}/badge/${dominantType}`);
+  }
+
+  // Print tuning tips for dominant type
+  if (!jsonMode) {
+    try {
+      const typesData = JSON.parse(await httpGet(`${API_BASE}/api/types?lang=${lang}`));
+      const tips = typesData.types?.[dominantType]?.tuningTips;
+      if (tips && tips.length > 0) {
+        const tLabel = lang === 'zh' ? '调优建议' : 'Tuning Tips';
+        console.log(`\n  💡 ${tLabel}:`);
+        for (const tip of tips) {
+          console.log(`    • ${tip}`);
+        }
+      }
+    } catch (_) {
+      // Offline or API unavailable — skip tips
+    }
   }
 
   // Print badge snippet if --badge
