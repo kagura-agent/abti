@@ -104,7 +104,8 @@
       "model": "qwen2.5:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5
+      "runs": 5,
+      "reliability": 1
     },
     {
       "name": "Qwen 2.5 7B",
@@ -156,7 +157,8 @@
       "model": "qwen2.5:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5
+      "runs": 5,
+      "reliability": 1
     },
     {
       "name": "Kagura (Opus 4.7)",
@@ -308,7 +310,8 @@
       "model": "gemma3:4b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1
     },
     {
       "name": "Phi-4 Mini",
@@ -360,7 +363,8 @@
       "model": "phi4-mini",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3
+      "runs": 3,
+      "reliability": 1
     },
     {
       "name": "Mistral 7B",
@@ -2284,7 +2288,8 @@
         }
       ],
       "model": "qwen3:4b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "Qwen 3 1.7B",
@@ -2434,7 +2439,8 @@
         }
       ],
       "model": "internlm2:7b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "StableLM 2 1.6B",
@@ -2484,7 +2490,8 @@
         }
       ],
       "model": "stablelm2:1.6b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "Qwen 3 8B",
@@ -2534,7 +2541,8 @@
         }
       ],
       "model": "qwen3:8b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "glm4:9b",
@@ -2584,7 +2592,8 @@
         }
       ],
       "model": "glm4:9b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1
     },
     {
       "name": "Gemma 3 12B",
