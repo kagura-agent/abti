@@ -1683,10 +1683,10 @@
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-04T01:47:44.019Z",
+      "testedAt": "2026-05-10T04:47:17.506Z",
       "scores": [
         4,
-        3,
+        2,
         4,
         2
       ],
@@ -1704,7 +1704,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         },
         {
@@ -1725,7 +1725,9 @@
         }
       ],
       "model": "granite3.3:8b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Aya Expanse 8B",
@@ -2297,12 +2299,12 @@
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-07T12:43:34.438Z",
+      "testedAt": "2026-05-10T05:05:14.764Z",
       "scores": [
         4,
-        4,
-        4,
-        4
+        3,
+        2,
+        3
       ],
       "dimensions": [
         {
@@ -2318,7 +2320,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 3,
           "max": 4
         },
         {
@@ -2326,7 +2328,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -2334,12 +2336,14 @@
             "F",
             "N"
           ],
-          "score": 4,
+          "score": 3,
           "max": 4
         }
       ],
       "model": "qwen3:1.7b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Phi-4 Mini Reasoning",
