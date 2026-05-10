@@ -2648,8 +2648,8 @@
       ],
       "model": "gemma3:12b",
       "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 2
+      "reliability": 0.96,
+      "reliabilityRuns": 3
     },
     {
       "name": "tinyllama",
@@ -2702,8 +2702,8 @@
       "provider": "ollama",
       "parseFailures": 10,
       "confidence": 0.375,
-      "reliability": 1,
-      "reliabilityRuns": 2
+      "reliability": 0.92,
+      "reliabilityRuns": 3
     }
   ]
 }
