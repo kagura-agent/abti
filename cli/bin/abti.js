@@ -115,6 +115,7 @@ const autoPrompt = opt('--prompt') || opt('--system-prompt') || null;
 const autoPromptFile = opt('--prompt-file') || opt('--system-prompt-file') || null;
 const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
+const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10) : null;
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -151,6 +152,7 @@ if (flag('--help') || flag('-h')) {
     --submit                 Submit result to the ABTI registry
     --badge                  Print markdown badge snippet after results
     --runs <N>               Run the test N times (1-10, auto mode only)
+    --max-tokens <N>         Override max_tokens for API calls (default: 2048 reasoning, 4 others)
 
   Prompt options:
     --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
@@ -273,9 +275,9 @@ async function llmRequest(options, payload) {
   }
 }
 
-function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options) {
+function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options, maxTokens) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions') : new URL('https://api.openai.com/v1/chat/completions');
-  const maxTok = isReasoningModel(mdl) ? 2048 : 4;
+  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 4);
   const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0, ...options });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => {
@@ -285,29 +287,29 @@ function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options) {
     });
 }
 
-function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl) {
+function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/messages') : new URL('https://api.anthropic.com/v1/messages');
-  const payload = JSON.stringify({ model: mdl, max_tokens: 4, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
+  const payload = JSON.stringify({ model: mdl, max_tokens: maxTokens || 4, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => json.content[0].text.trim());
 }
 
-function callGemini(apiKey, mdl, systemPrompt, userMessage) {
-  const payload = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: userMessage }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { maxOutputTokens: 4, temperature: 0 } });
+function callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens) {
+  const payload = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: userMessage }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { maxOutputTokens: maxTokens || 4, temperature: 0 } });
   return llmRequest({ hostname: 'generativelanguage.googleapis.com', path: `/v1beta/models/${mdl}:generateContent?key=${apiKey}`, method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => json.candidates[0].content.parts[0].text.trim());
 }
 
-function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl) {
-  if (prov === 'openai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl);
-  if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl);
-  if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage);
-  if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com');
-  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com');
-  if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
-  if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
-  if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
-  if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined);
+function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens) {
+  if (prov === 'openai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, undefined, maxTokens);
+  if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens);
+  if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens);
+  if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com', undefined, maxTokens);
+  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com', undefined, maxTokens);
+  if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai', undefined, maxTokens);
+  if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
+  if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
+  if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined, maxTokens);
   throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", or "ollama".`);
 }
 
@@ -390,7 +392,7 @@ async function runAuto() {
     let lastErr;
     for (let attempt = 0; attempt < 3; attempt++) {
       const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
-      const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, msg, llmBaseUrl || undefined);
+      const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
       try {
         answer = parseAnswer(response);
         break;
