@@ -1,0 +1,30 @@
+{
+  "model": "Qwen3-32B",
+  "provider": "github",
+  "run": 2,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "type": "PECF",
+  "dimensions": [
+    4,
+    1,
+    2,
+    2
+  ]
+}
