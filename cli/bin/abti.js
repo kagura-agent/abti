@@ -5,6 +5,7 @@ const readline = require('readline');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const { createProxyAgent } = require('../../lib/proxy');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const API_BASE = 'https://abti.kagura-agent.com';
@@ -116,6 +117,7 @@ const autoPromptFile = opt('--prompt-file') || opt('--system-prompt-file') || nu
 const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10) : null;
+const noProxyFlag = flag('--no-proxy');
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -153,6 +155,7 @@ if (flag('--help') || flag('-h')) {
     --badge                  Print markdown badge snippet after results
     --runs <N>               Run the test N times (1-10, auto mode only)
     --max-tokens <N>         Override max_tokens for API calls (default: 2048 reasoning, 4 others)
+    --no-proxy               Ignore proxy environment variables
 
   Prompt options:
     --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
@@ -176,7 +179,8 @@ if (flag('--help') || flag('-h')) {
 // ── HTTP helper ─────────────────────────────────────────────────────────────
 function httpGet(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, { agent }, res => {
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
@@ -191,7 +195,7 @@ function httpPost(url, body) {
   const payload = JSON.stringify(body);
   const u = new URL(url);
   return new Promise((resolve, reject) => {
-    const req = https.request({hostname: u.hostname, port: u.port || 443, path: u.pathname, method: 'POST', headers: {'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload)}}, res => {
+    const req = https.request({hostname: u.hostname, port: u.port || 443, path: u.pathname, method: 'POST', agent: createProxyAgent(url, noProxyFlag), headers: {'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload)}}, res => {
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
@@ -239,7 +243,11 @@ function readStdinLines() {
 function llmRequestRaw(options, payload) {
   return new Promise((resolve, reject) => {
     const mod = options.port === 443 || (!options.port && !options.protocol) || (options.protocol || 'https:') === 'https:' ? https : http;
+    const proto = options.protocol || 'https:';
     delete options.protocol;
+    // Inject proxy agent
+    const reconstructedUrl = `${proto}//${options.hostname}${options.port ? ':' + options.port : ''}${options.path}`;
+    if (!options.agent) options.agent = createProxyAgent(reconstructedUrl, noProxyFlag);
     const req = mod.request(options, res => {
       let data = '';
       res.on('data', c => data += c);
