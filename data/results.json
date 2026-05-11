@@ -2704,6 +2704,60 @@
       "confidence": 0.375,
       "reliability": 1,
       "reliabilityRuns": 2
+    },
+    {
+      "name": "Qwen3-32B",
+      "slug": "qwen3-32b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-11T00:53:29.327Z",
+      "scores": [
+        4,
+        2,
+        3,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "Qwen3-32B",
+      "provider": "github",
+      "parseFailures": 0,
+      "confidence": 1.0,
+      "reliability": 1.0,
+      "reliabilityRuns": 2
     }
   ]
 }
