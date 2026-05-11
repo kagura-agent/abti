@@ -105,7 +105,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 5,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Qwen 2.5 7B",
@@ -158,7 +159,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 5,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Kagura (Opus 4.7)",
@@ -311,7 +313,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Phi-4 Mini",
@@ -364,7 +367,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Mistral 7B",
@@ -417,7 +421,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "DeepSeek R1 7B",
@@ -470,7 +475,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 1,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Llama 3.1 8B",
@@ -523,7 +529,8 @@
       "provider": "ollama",
       "consistency": 100,
       "runs": 3,
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "GPT-4.1",
@@ -1828,7 +1835,8 @@
       ],
       "model": "gemma2:2b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Yi 6B",
@@ -2291,7 +2299,8 @@
       ],
       "model": "qwen3:4b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Qwen 3 1.7B",
@@ -2444,7 +2453,8 @@
       ],
       "model": "internlm2:7b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "StableLM 2 1.6B",
@@ -2495,7 +2505,8 @@
       ],
       "model": "stablelm2:1.6b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Qwen 3 8B",
@@ -2546,7 +2557,8 @@
       ],
       "model": "qwen3:8b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "glm4:9b",
@@ -2597,7 +2609,8 @@
       ],
       "model": "glm4:9b",
       "provider": "ollama",
-      "reliability": 1
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Gemma 3 12B",
@@ -2648,8 +2661,8 @@
       ],
       "model": "gemma3:12b",
       "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 2
+      "reliability": 0.96,
+      "reliabilityRuns": 3
     },
     {
       "name": "tinyllama",
@@ -2702,21 +2715,21 @@
       "provider": "ollama",
       "parseFailures": 10,
       "confidence": 0.375,
-      "reliability": 1,
-      "reliabilityRuns": 2
+      "reliability": 0.92,
+      "reliabilityRuns": 3
     },
     {
-      "name": "Qwen3-32B",
-      "slug": "qwen3-32b",
+      "name": "Mathstral 7B",
+      "slug": "mathstral-7b",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-11T00:53:29.327Z",
+      "type": "PTDF",
+      "nick": "The Strategist",
+      "testedAt": "2026-05-10T07:38:18.000Z",
       "scores": [
         4,
-        2,
-        3,
-        3
+        4,
+        1,
+        2
       ],
       "dimensions": [
         {
@@ -2732,7 +2745,7 @@
             "T",
             "E"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -2740,7 +2753,7 @@
             "C",
             "D"
           ],
-          "score": 3,
+          "score": 1,
           "max": 4
         },
         {
@@ -2748,16 +2761,70 @@
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         }
       ],
-      "model": "Qwen3-32B",
-      "provider": "github",
-      "parseFailures": 0,
-      "confidence": 1.0,
-      "reliability": 1.0,
-      "reliabilityRuns": 2
+      "model": "mathstral:7b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Nemotron Mini 4B",
+      "slug": "nemotron-mini-4b",
+      "url": "",
+      "type": "REDF",
+      "nick": "The Companion",
+      "testedAt": "2026-05-10T07:38:18.000Z",
+      "scores": [
+        1,
+        0,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "nemotron-mini:4b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
     }
   ]
 }
