@@ -2825,6 +2825,60 @@
       "runs": 3,
       "reliability": 1,
       "reliabilityRuns": 3
+    },
+    {
+      "name": "Qwen3 32B",
+      "slug": "qwen3-32b",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-11T08:45:09.851Z",
+      "scores": [
+        4,
+        1,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Qwen3-32B",
+      "provider": "github",
+      "consistency": 100,
+      "runs": 2,
+      "reliability": 1,
+      "reliabilityRuns": 2
     }
   ]
 }
