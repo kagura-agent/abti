@@ -118,6 +118,8 @@ const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10) : null;
 const noProxyFlag = flag('--no-proxy');
+const resumeFile = opt('--resume') || null;
+const saveStateFlag = flag('--save-state') || !!resumeFile;
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -156,6 +158,8 @@ if (flag('--help') || flag('-h')) {
     --runs <N>               Run the test N times (1-10, auto mode only)
     --max-tokens <N>         Override max_tokens for API calls (default: 2048 reasoning, 4 others)
     --no-proxy               Ignore proxy environment variables
+    --resume <file>          Resume from a saved state file (implies --save-state)
+    --save-state             Auto-save state after each answer (default file: <model>-state.json)
 
   Prompt options:
     --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
@@ -364,10 +368,54 @@ function resolveApiKey(prov, explicit) {
   throw new Error(`No API key provided. Use --api-key or set ${envKey}`);
 }
 
+// ── State file helpers ────────────────────────────────────────────────────
+function defaultStateFile(mdl) {
+  const sanitized = (mdl || 'unknown').replace(/[^a-zA-Z0-9._-]/g, '-');
+  return sanitized + '-state.json';
+}
+
+function loadState(filePath) {
+  try {
+    const state = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    if (Array.isArray(state.answers)) {
+      state.answers = state.answers.map(a => a === 'A' ? true : a === 'B' ? false : a);
+    }
+    return state;
+  } catch (err) {
+    if (err.code === 'ENOENT') return null;
+    throw err;
+  }
+}
+
+function saveState(filePath, state) {
+  state.lastUpdated = new Date().toISOString();
+  fs.writeFileSync(filePath, JSON.stringify(state, null, 2) + '\n');
+}
+
 // ── Auto mode (LLM answers all questions) ──────────────────────────────────
 async function runAuto() {
   if (!autoModel) { console.error('  --model is required for --auto mode'); process.exit(1); }
   const apiKey = resolveApiKey(autoProvider, autoApiKey);
+
+  // Determine state file path
+  const stateFile = resumeFile || (saveStateFlag ? defaultStateFile(autoModel) : null);
+
+  // Load existing state if resuming
+  let existingState = null;
+  if (resumeFile) {
+    existingState = loadState(resumeFile);
+    if (!existingState) {
+      console.error(`  State file not found: ${resumeFile}`);
+      process.exit(1);
+    }
+    if (existingState.completed) {
+      process.stderr.write(`  State file indicates test already completed.\n`);
+    }
+    if ((existingState.model && existingState.model !== autoModel) ||
+        (existingState.provider && existingState.provider !== autoProvider)) {
+      process.stderr.write(`  Warning: state file has model=${existingState.model}, provider=${existingState.provider} but CLI args have model=${autoModel}, provider=${autoProvider}\n`);
+    }
+  }
 
   // Build system prompt
   let basePrompt = '';
@@ -379,10 +427,24 @@ async function runAuto() {
     'that best reflects how you would actually behave. Reply with ONLY the letter A or B.';
 
   const questions = await getQuestions();
-  const answers = [];
-  let parseFailures = 0;
+  const answers = existingState ? [...existingState.answers] : [];
+  let parseFailures = existingState ? (existingState.parseFailures || 0) : 0;
+  const startIndex = answers.length;
 
-  for (let i = 0; i < questions.length; i++) {
+  // Initialize state for saving
+  const state = {
+    model: autoModel,
+    provider: autoProvider,
+    answers,
+    parseFailures,
+    startedAt: existingState ? existingState.startedAt : new Date().toISOString(),
+  };
+
+  if (startIndex > 0) {
+    process.stderr.write(`  Resuming from question ${startIndex + 1}/${questions.length}\n`);
+  }
+
+  for (let i = startIndex; i < questions.length; i++) {
     const q = questions[i];
     const text = q.q || q.text || q.question;
     const optA = q.a || (q.options && (q.options.A || q.options[0])) || 'A';
@@ -413,6 +475,20 @@ async function runAuto() {
     if (answer === undefined) throw lastErr;
     answers.push(answer);
     process.stderr.write(`  Question ${i + 1}/${questions.length}... ${answer ? 'A' : 'B'}\n`);
+
+    // Auto-save state after each answer
+    if (stateFile) {
+      state.parseFailures = parseFailures;
+      saveState(stateFile, state);
+    }
+  }
+
+  // Mark complete
+  if (stateFile) {
+    state.parseFailures = parseFailures;
+    state.completed = true;
+    state.completedAt = new Date().toISOString();
+    saveState(stateFile, state);
   }
 
   return { answers, parseFailures };
@@ -699,4 +775,4 @@ if (require.main === module) {
   run().catch(err => { console.error(err.message); process.exit(1); });
 }
 
-module.exports = { parseAnswer, callLLM };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile };
