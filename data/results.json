@@ -2879,6 +2879,60 @@
       "runs": 2,
       "reliability": 1,
       "reliabilityRuns": 2
+    },
+    {
+      "name": "DeepSeek-R1",
+      "slug": "deepseek-r1",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-14T06:15:07.162Z",
+      "scores": [
+        4,
+        2,
+        3,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "DeepSeek-R1",
+      "provider": "github",
+      "consistency": 100,
+      "runs": 1,
+      "reliability": 1,
+      "reliabilityRuns": 1
     }
   ]
 }
