@@ -8,23 +8,23 @@ Agent Behavioral Type Indicator — discover your AI agent's personality type fr
 
 ```bash
 # Test your AI agent
-npx abti test --model gpt-4o --provider openai --api-key sk-...
+npx @kagura-agent/abti test --model gpt-4o --provider openai --api-key sk-...
 
 # Test a local model
-npx abti test --model llama3:8b --provider ollama
+npx @kagura-agent/abti test --model llama3:8b --provider ollama
 
 # Browse tested agents
-npx abti list
+npx @kagura-agent/abti list
 
 # Interactive mode (answer questions yourself)
-npx abti
+npx @kagura-agent/abti
 ```
 
 ## Usage
 
 ```
-npx abti test --model <model> --provider <provider> [options]
-npx abti [options]                  Interactive mode
+npx @kagura-agent/abti test --model <model> --provider <provider> [options]
+npx @kagura-agent/abti [options]                  Interactive mode
 ```
 
 ### Test Subcommand
@@ -33,31 +33,31 @@ The `test` subcommand runs the ABTI test with an LLM answering all 16 questions 
 
 ```bash
 # OpenAI
-npx abti test --provider openai --model gpt-4o --api-key sk-...
+npx @kagura-agent/abti test --provider openai --model gpt-4o --api-key sk-...
 
 # Anthropic
-npx abti test --provider anthropic --model claude-sonnet-4-20250514
+npx @kagura-agent/abti test --provider anthropic --model claude-sonnet-4-20250514
 
 # Gemini
-npx abti test --provider gemini --model gemini-2.0-flash
+npx @kagura-agent/abti test --provider gemini --model gemini-2.0-flash
 
 # DeepSeek
-npx abti test --provider deepseek --model deepseek-chat
+npx @kagura-agent/abti test --provider deepseek --model deepseek-chat
 
 # Ollama (local)
-npx abti test --provider ollama --model llama3.1
+npx @kagura-agent/abti test --provider ollama --model llama3.1
 
 # OpenRouter
-npx abti test --provider openrouter --model anthropic/claude-sonnet-4-20250514 --api-key sk-or-...
+npx @kagura-agent/abti test --provider openrouter --model anthropic/claude-sonnet-4-20250514 --api-key sk-or-...
 
 # Groq
-npx abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
+npx @kagura-agent/abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
 
 # Mistral
-npx abti test --provider mistral --model mistral-small-latest --api-key ...
+npx @kagura-agent/abti test --provider mistral --model mistral-small-latest --api-key ...
 
 # GitHub Models (uses GITHUB_TOKEN)
-npx abti test --provider github --model gpt-4o
+npx @kagura-agent/abti test --provider github --model gpt-4o
 ```
 
 ### List Subcommand
@@ -66,19 +66,19 @@ The `list` subcommand fetches tested agents from the ABTI registry and displays 
 
 ```bash
 # Browse all tested agents
-npx abti list
+npx @kagura-agent/abti list
 
 # Filter by ABTI type
-npx abti list --type PTCF
+npx @kagura-agent/abti list --type PTCF
 
 # Filter by provider
-npx abti list --provider ollama
+npx @kagura-agent/abti list --provider ollama
 
 # JSON output
-npx abti list --json
+npx @kagura-agent/abti list --json
 
 # Show Chinese nicknames
-npx abti list --lang zh
+npx @kagura-agent/abti list --lang zh
 ```
 
 | Flag | Description |
@@ -131,17 +131,17 @@ npx abti list --lang zh
 
 ```bash
 # Test with JSON output and submit to registry
-npx abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
+npx @kagura-agent/abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
 
 # Test with custom system prompt and badge
-npx abti test --provider anthropic --model claude-sonnet-4-20250514 \
+npx @kagura-agent/abti test --provider anthropic --model claude-sonnet-4-20250514 \
   --system-prompt "You are a cautious security-focused assistant." --badge
 
 # Multi-run consistency test
-npx abti test --provider openai --model gpt-4o --runs 5
+npx @kagura-agent/abti test --provider openai --model gpt-4o --runs 5
 
 # Interactive test in Chinese
-npx abti --lang zh --json
+npx @kagura-agent/abti --lang zh --json
 ```
 
 ### Badge Output
