@@ -105,10 +105,11 @@ function httpPostJSON(url, body) {
 /**
  * Call OpenAI chat completions API.
  */
-function callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl) {
+function callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl, chatPath) {
   return new Promise((resolve, reject) => {
+    const suffix = chatPath || '/v1/chat/completions';
     const parsed = baseUrl
-      ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/chat/completions')
+      ? new URL(baseUrl.replace(/\/+$/, '') + suffix)
       : new URL('https://api.openai.com/v1/chat/completions');
     const mod = parsed.protocol === 'https:' ? https : http;
     const payload = JSON.stringify({
@@ -250,7 +251,7 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'gemini') return callGemini(apiKey, model, systemPrompt, userMessage);
-  if (provider === 'github') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com');
+  if (provider === 'github') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com', '/chat/completions');
   if (provider === 'groq') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
   if (provider === 'openrouter') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
   if (provider === 'mistral') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
