@@ -1,0 +1,14 @@
+{
+  "type": "RTDN",
+  "nick": "The Scholar",
+  "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
+  "scores": [
+    1,
+    2,
+    1,
+    1
+  ],
+  "badge": "https://abti.kagura-agent.com/badge/RTDN",
+  "model": "Phi-4",
+  "provider": "github"
+}
