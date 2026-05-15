@@ -95,9 +95,11 @@ const c = {
 // ── Parse args ──────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
 
-// Detect 'test' subcommand: first non-flag arg
+// Detect subcommands: first non-flag arg
 const hasTestSubcommand = args.length > 0 && args[0] === 'test';
 if (hasTestSubcommand) args.shift();
+const hasListSubcommand = args.length > 0 && args[0] === 'list';
+if (hasListSubcommand) args.shift();
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -125,6 +127,9 @@ const saveStateFlag = flag('--save-state') || !!resumeFile;
 const model = autoModel;
 const provider = autoProvider;
 
+const listType = hasListSubcommand ? (opt('--type') || null) : null;
+const listProvider = hasListSubcommand ? (opt('--provider') || null) : null;
+
 if (flag('--help') || flag('-h')) {
   console.log(`
   abti — Agent Behavioral Type Indicator
@@ -132,6 +137,11 @@ if (flag('--help') || flag('-h')) {
   Usage:
     npx abti test --model gpt-4o --provider openai --api-key sk-...
     npx abti test --model llama3:8b --provider ollama
+    npx abti list                           List all tested agents
+    npx abti list --type PTCF               Filter by type
+    npx abti list --provider ollama         Filter by provider
+    npx abti list --json                    Output as JSON
+    npx abti list --lang zh                 Show Chinese nicknames
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -494,6 +504,66 @@ async function runAuto() {
   return { answers, parseFailures };
 }
 
+// ── List subcommand ───────────────────────────────────────────────────────
+const RESULTS_URL = 'https://raw.githubusercontent.com/kagura-agent/abti/master/data/results.json';
+
+function formatListTable(agents, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const sorted = [...agents].sort((a, b) => a.name.localeCompare(b.name));
+  const header = lang === 'zh'
+    ? { title: 'ABTI 已测试 Agents', model: '模型', provider: '提供商', type: '类型', nick: '昵称', rel: '可靠性' }
+    : { title: 'ABTI Tested Agents', model: 'Model', provider: 'Provider', type: 'Type', nick: 'Nickname', rel: 'Reliability' };
+
+  // Compute column widths
+  const rows = sorted.map(a => {
+    const nick = (lang === 'zh' ? NICKS.zh[a.type] : NICKS.en[a.type]) || a.nick || '';
+    const rel = a.reliability != null ? Math.round(a.reliability * 100) + '%' : '-';
+    return { name: a.name, provider: a.provider || '-', type: a.type, nick, rel };
+  });
+
+  const w = {
+    name: Math.max(header.model.length, ...rows.map(r => r.name.length)),
+    provider: Math.max(header.provider.length, ...rows.map(r => r.provider.length)),
+    type: Math.max(header.type.length, 4),
+    nick: Math.max(header.nick.length, ...rows.map(r => r.nick.length)),
+    rel: Math.max(header.rel.length, 4),
+  };
+
+  const pad = (s, n) => s + ' '.repeat(Math.max(0, n - s.length));
+  const lines = [];
+  lines.push('');
+  lines.push(`  ${header.title} (${agents.length} total)`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${pad(header.model, w.name)}  ${pad(header.provider, w.provider)}  ${pad(header.type, w.type)}  ${pad(header.nick, w.nick)}  ${header.rel}${cc.reset}`);
+  lines.push(`  ${'─'.repeat(w.name + w.provider + w.type + w.nick + w.rel + 8)}`);
+  for (const r of rows) {
+    lines.push(`  ${pad(r.name, w.name)}  ${cc.dim}${pad(r.provider, w.provider)}${cc.reset}  ${cc.cyan}${pad(r.type, w.type)}${cc.reset}  ${pad(r.nick, w.nick)}  ${r.rel}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+async function runList() {
+  let data;
+  try {
+    data = await httpGet(RESULTS_URL);
+  } catch (err) {
+    console.error(`  Failed to fetch results: ${err.message}`);
+    process.exit(1);
+  }
+  let agents = data.agents || data;
+
+  // Apply filters
+  if (listType) agents = agents.filter(a => a.type && a.type.toUpperCase() === listType.toUpperCase());
+  if (listProvider) agents = agents.filter(a => a.provider && a.provider.toLowerCase() === listProvider.toLowerCase());
+
+  if (jsonMode) {
+    console.log(JSON.stringify(agents, null, 2));
+  } else {
+    console.log(formatListTable(agents, lang, useColor));
+  }
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
@@ -772,7 +842,11 @@ async function runInteractive() {
 }
 
 if (require.main === module) {
-  run().catch(err => { console.error(err.message); process.exit(1); });
+  if (hasListSubcommand) {
+    runList().catch(err => { console.error(err.message); process.exit(1); });
+  } else {
+    run().catch(err => { console.error(err.message); process.exit(1); });
+  }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable };
