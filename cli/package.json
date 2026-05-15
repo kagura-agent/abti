@@ -1,5 +1,5 @@
 {
-  "name": "abti",
+  "name": "@kagura-agent/abti",
   "version": "0.2.1",
   "description": "Agent Behavioral Type Indicator \u2014 discover your AI agent's personality type from the terminal",
   "bin": {
