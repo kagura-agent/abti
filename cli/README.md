@@ -21,6 +21,7 @@ npx abti
 
 ```
 npx abti test --model <model> --provider <provider> [options]
+npx abti list [options]                  Browse tested agents
 npx abti [options]                  Interactive mode
 ```
 
@@ -56,6 +57,34 @@ npx abti test --provider mistral --model mistral-small-latest --api-key ...
 # GitHub Models (uses GITHUB_TOKEN)
 npx abti test --provider github --model gpt-4o
 ```
+
+### List Subcommand
+
+The `list` subcommand browses all tested agents from the ABTI registry:
+
+```bash
+# List all tested agents
+npx abti list
+
+# Filter by type
+npx abti list --type PTCF
+
+# Filter by provider
+npx abti list --provider ollama
+
+# JSON output with Chinese nicknames
+npx abti list --json --lang zh
+
+# Combine filters
+npx abti list --type PTCF --provider openai --json
+```
+
+| Flag | Description |
+|------|-------------|
+| `--type <type>` | Filter agents by ABTI type (e.g. PTCF) |
+| `--provider <provider>` | Filter agents by provider |
+| `--json` | Output as JSON |
+| `--lang zh` | Show Chinese nicknames |
 
 ### Options
 
