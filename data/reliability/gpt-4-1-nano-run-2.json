@@ -1,0 +1,14 @@
+{
+  "type": "PECN",
+  "nick": "The Drill Sergeant",
+  "desc": "Proactive, efficient, candid, principled. Gets straight to the point, says what needs saying, never compromises.",
+  "scores": [
+    3,
+    1,
+    2,
+    1
+  ],
+  "badge": "https://abti.kagura-agent.com/badge/PECN",
+  "model": "gpt-4.1-nano",
+  "provider": "github"
+}

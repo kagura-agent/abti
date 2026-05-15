@@ -1,0 +1,14 @@
+{
+  "type": "PECF",
+  "nick": "The Spark",
+  "desc": "Proactive, efficient, candid, flexible. Moves fast, speaks bluntly, changes course without breaking stride.",
+  "scores": [
+    2,
+    0,
+    2,
+    2
+  ],
+  "badge": "https://abti.kagura-agent.com/badge/PECF",
+  "model": "gpt-4.1-mini",
+  "provider": "github"
+}

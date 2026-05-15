@@ -1138,12 +1138,12 @@
       "name": "Phi 4",
       "slug": "phi-4",
       "url": "",
-      "type": "PEDN",
-      "nick": "The Sentinel",
+      "type": "RTDN",
+      "nick": "The Scholar",
       "testedAt": "2026-05-03T12:38:09.689Z",
       "scores": [
-        2,
         1,
+        2,
         1,
         1
       ],
@@ -1182,7 +1182,9 @@
         }
       ],
       "model": "Phi-4",
-      "provider": "github"
+      "provider": "github",
+      "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
+      "reliability": 100
     },
     {
       "name": "Phi 4 Multimodal",
@@ -1998,14 +2000,14 @@
       "name": "GPT-4.1 mini",
       "slug": "gpt-4-1-mini",
       "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
+      "type": "PECF",
+      "nick": "The Spark",
       "testedAt": "2026-05-05T10:23:35.303Z",
       "scores": [
         2,
-        0,
-        3,
-        1
+        1,
+        2,
+        2
       ],
       "dimensions": [
         {
@@ -2042,20 +2044,22 @@
         }
       ],
       "model": "openai/gpt-4.1-mini",
-      "provider": "github"
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
+      "reliability": 100
     },
     {
       "name": "GPT-4.1 nano",
       "slug": "gpt-4-1-nano",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
       "testedAt": "2026-05-05T10:25:08.075Z",
       "scores": [
-        3,
         2,
+        1,
         2,
-        2
+        1
       ],
       "dimensions": [
         {
@@ -2092,7 +2096,9 @@
         }
       ],
       "model": "openai/gpt-4.1-nano",
-      "provider": "github"
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
+      "reliability": 100
     },
     {
       "name": "SmolLM2 1.7B",
@@ -2983,7 +2989,24 @@
       ],
       "model": "DeepSeek-R1-0528",
       "provider": "github",
-      "rawAnswers": [false,false,true,true,false,false,true,false,false,true,true,true,false,true,true,true],
+      "rawAnswers": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
       "parseFailures": 0,
       "consistency": 100,
       "runs": 1,

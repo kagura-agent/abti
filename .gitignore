@@ -9,3 +9,4 @@ data/*
 !data/results.json
 !data/reliability/
 mcp/node_modules/
+data/reliability/.fuse_hidden*
