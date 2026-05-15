@@ -95,9 +95,11 @@ const c = {
 // ── Parse args ──────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
 
-// Detect 'test' subcommand: first non-flag arg
-const hasTestSubcommand = args.length > 0 && args[0] === 'test';
-if (hasTestSubcommand) args.shift();
+// Detect subcommand: first non-flag arg
+const subcommand = args.length > 0 && !args[0].startsWith('-') ? args[0] : null;
+const hasTestSubcommand = subcommand === 'test';
+const hasListSubcommand = subcommand === 'list';
+if (subcommand) args.shift();
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -126,12 +128,37 @@ const model = autoModel;
 const provider = autoProvider;
 
 if (flag('--help') || flag('-h')) {
+  if (hasListSubcommand) {
+    console.log(`
+  abti list — List all tested agents from the ABTI registry
+
+  Usage:
+    npx abti list
+    npx abti list --type PTCF
+    npx abti list --provider openai
+    npx abti list --sort reliability
+    npx abti list --json
+
+  Options:
+    --type <type>            Filter by ABTI type (e.g. PTCF, RECN)
+    --provider <provider>    Filter by provider (e.g. openai, anthropic)
+    --sort <field>           Sort by: name, type, provider, reliability (default: name)
+    --json                   Output raw JSON
+    --no-proxy               Ignore proxy environment variables
+
+  Examples:
+    npx abti list --type PTCF --sort reliability
+    npx abti list --provider anthropic --json
+`);
+    process.exit(0);
+  }
   console.log(`
   abti — Agent Behavioral Type Indicator
 
   Usage:
     npx abti test --model gpt-4o --provider openai --api-key sk-...
     npx abti test --model llama3:8b --provider ollama
+    npx abti list                List all tested agents
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -494,6 +521,89 @@ async function runAuto() {
   return { answers, parseFailures };
 }
 
+// ── List subcommand ────────────────────────────────────────────────────────
+const RESULTS_URL = 'https://raw.githubusercontent.com/kagura-agent/abti/master/data/results.json';
+
+async function runList() {
+  const filterType = opt('--type');
+  const filterProvider = opt('--provider');
+  const sortField = opt('--sort') || 'name';
+
+  if (!['name', 'type', 'provider', 'reliability'].includes(sortField)) {
+    console.error(`  Invalid --sort value: "${sortField}". Must be one of: name, type, provider, reliability`);
+    process.exit(1);
+  }
+
+  let data;
+  try {
+    data = await httpGet(RESULTS_URL);
+  } catch (err) {
+    console.error(`  Failed to fetch results: ${err.message}`);
+    process.exit(1);
+  }
+
+  let agents = data.agents || [];
+
+  if (filterType) {
+    const ft = filterType.toUpperCase();
+    agents = agents.filter(a => a.type === ft);
+  }
+  if (filterProvider) {
+    const fp = filterProvider.toLowerCase();
+    agents = agents.filter(a => (a.provider || '').toLowerCase() === fp);
+  }
+
+  const sortFns = {
+    name: (a, b) => (a.name || '').localeCompare(b.name || ''),
+    type: (a, b) => (a.type || '').localeCompare(b.type || ''),
+    provider: (a, b) => (a.provider || '').localeCompare(b.provider || ''),
+    reliability: (a, b) => (b.reliability || 0) - (a.reliability || 0),
+  };
+  agents.sort(sortFns[sortField]);
+
+  if (jsonMode) {
+    console.log(JSON.stringify(agents, null, 2));
+    return;
+  }
+
+  if (agents.length === 0) {
+    console.log('\n  No agents found matching the given filters.\n');
+    return;
+  }
+
+  // Compute column widths
+  const rows = agents.map(a => ({
+    name: a.name || a.slug || '?',
+    provider: a.provider || '—',
+    type: a.type || '?',
+    nick: a.nick || '—',
+    reliability: a.reliability != null ? (a.reliability * 100).toFixed(0) + '%' : '—',
+  }));
+
+  const cols = ['name', 'provider', 'type', 'nick', 'reliability'];
+  const headers = { name: 'Name', provider: 'Provider', type: 'Type', nick: 'Nickname', reliability: 'Reliability' };
+  const widths = {};
+  for (const col of cols) {
+    widths[col] = Math.max(headers[col].length, ...rows.map(r => r[col].length));
+  }
+
+  const pad = (s, w) => s + ' '.repeat(Math.max(0, w - s.length));
+  const headerLine = cols.map(col => pad(headers[col], widths[col])).join('  ');
+  const separator = cols.map(col => '─'.repeat(widths[col])).join('──');
+
+  console.log(`\n  ${c.bold}${headerLine}${c.reset}`);
+  console.log(`  ${separator}`);
+  for (const row of rows) {
+    const line = cols.map(col => {
+      const val = row[col];
+      if (col === 'type') return c.boldCyan + pad(val, widths[col]) + c.reset;
+      return pad(val, widths[col]);
+    }).join('  ');
+    console.log(`  ${line}`);
+  }
+  console.log(`\n  ${c.dim}${agents.length} agent(s)${c.reset}\n`);
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
@@ -772,7 +882,11 @@ async function runInteractive() {
 }
 
 if (require.main === module) {
-  run().catch(err => { console.error(err.message); process.exit(1); });
+  if (hasListSubcommand) {
+    runList().catch(err => { console.error(err.message); process.exit(1); });
+  } else {
+    run().catch(err => { console.error(err.message); process.exit(1); });
+  }
 }
 
 module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile };
