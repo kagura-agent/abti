@@ -734,7 +734,35 @@
       "model": "gpt-4o-mini",
       "provider": "openai",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "GPT-5.2",
@@ -1034,7 +1062,37 @@
         }
       ],
       "model": "Llama-4-Scout-17B-16E-Instruct",
-      "provider": "github"
+      "provider": "github",
+      "reliability": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        }
+      ]
     },
     {
       "name": "Cohere Command A",
@@ -1336,7 +1394,37 @@
         }
       ],
       "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "provider": "github"
+      "provider": "github",
+      "reliability": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        }
+      ]
     },
     {
       "name": "Mistral Small 3.1",
@@ -2366,8 +2454,8 @@
       "name": "Phi-4 Mini Reasoning",
       "slug": "phi-4-mini-reasoning",
       "url": "",
-      "type": "RTCF",
-      "nick": "The Advisor",
+      "type": "PTDF",
+      "nick": "The Strategist",
       "testedAt": "2026-05-08T04:01:00.822Z",
       "scores": [
         1,
@@ -2410,7 +2498,37 @@
         }
       ],
       "model": "Phi-4-mini-reasoning",
-      "provider": "github"
+      "provider": "github",
+      "reliability": 0.67,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "InternLM2 7B",
