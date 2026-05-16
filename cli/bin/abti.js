@@ -339,12 +339,12 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
 function isReasoningModel(modelName) {
   if (!modelName) return false;
   const lower = modelName.toLowerCase();
-  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner') || lower.includes('reasoning');
 }
 
 function parseAnswer(response) {
-  // Strip <think>...</think> blocks from reasoning models
-  const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '');
+  // Strip <think>...</think> blocks from reasoning models (also handle unclosed tags)
+  const stripped = response.replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/<think>[\s\S]*$/gi, '');
   const cleaned = stripped.toUpperCase().trim();
 
   // Check the last non-empty line for a standalone A or B (optionally with punctuation)

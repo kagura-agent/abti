@@ -688,14 +688,14 @@
       "name": "GPT-4o mini",
       "slug": "gpt-4o-mini",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-02T14:46:35.029Z",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-16T04:45:15.000Z",
       "scores": [
         3,
-        2,
-        3,
-        1
+        4,
+        4,
+        2
       ],
       "dimensions": [
         {
@@ -711,7 +711,7 @@
             "T",
             "E"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -719,7 +719,7 @@
             "C",
             "D"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         },
         {
@@ -727,12 +727,14 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         }
       ],
       "model": "gpt-4o-mini",
-      "provider": "openai"
+      "provider": "openai",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "GPT-5.2",

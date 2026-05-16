@@ -46,4 +46,15 @@ describe('parseAnswer', () => {
     const response = 'I need to carefully consider both options.\nOption A has merit because of X.\nHowever, option B is better because of Y.\nAfter weighing both sides, I think A is correct.\n\nB';
     assert.strictEqual(parseAnswer(response), false);
   });
+
+  it('should handle unclosed <think> tag (truncated reasoning)', () => {
+    const response = '<think>\nOkay, let me think about this...\nOption A seems';
+    assert.throws(() => parseAnswer(response), /Could not parse/);
+  });
+
+  it('should handle unclosed <think> tag with answer after', () => {
+    // Shouldn't happen in practice, but if there's text after unclosed think
+    const response = '<think>\nOkay reasoning here';
+    assert.throws(() => parseAnswer(response), /Could not parse/);
+  });
 });
