@@ -732,7 +732,8 @@
         }
       ],
       "model": "gpt-4o-mini",
-      "provider": "openai"
+      "provider": "openai",
+      "reliability": 100
     },
     {
       "name": "GPT-5.2",
@@ -2408,7 +2409,8 @@
         }
       ],
       "model": "Phi-4-mini-reasoning",
-      "provider": "github"
+      "provider": "github",
+      "reliability": 0
     },
     {
       "name": "InternLM2 7B",

@@ -1,0 +1,15 @@
+{
+  "type": "PTCF",
+  "nick": "The Architect",
+  "desc": "Proactive, thorough, candid, flexible. Takes charge, covers every angle, tells it straight, and pivots on a dime.",
+  "scores": [
+    3,
+    4,
+    3,
+    2
+  ],
+  "badge": "https://abti.kagura-agent.com/badge/PTCF",
+  "model": "gpt-4o-mini",
+  "provider": "github"
+}
+
