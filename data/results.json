@@ -1832,12 +1832,12 @@
       "name": "Aya Expanse 8B",
       "slug": "aya-expanse-8b",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
       "testedAt": "2026-05-04T01:56:26.347Z",
       "scores": [
         2,
-        3,
+        1,
         3,
         1
       ],
@@ -1855,7 +1855,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 1,
           "max": 4
         },
         {
@@ -1876,7 +1876,9 @@
         }
       ],
       "model": "aya-expanse:8b",
-      "provider": "ollama"
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Gemma 2 2B",
