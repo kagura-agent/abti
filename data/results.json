@@ -1532,7 +1532,9 @@
         }
       ],
       "model": "Cohere-command-r-plus-08-2024",
-      "provider": "github"
+      "provider": "github",
+      "deprecated": true,
+      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
     },
     {
       "name": "Mistral Medium 3",
@@ -1788,7 +1790,9 @@
         }
       ],
       "model": "Cohere-command-r-08-2024",
-      "provider": "github"
+      "provider": "github",
+      "deprecated": true,
+      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
     },
     {
       "name": "Granite 3.3 8B",
