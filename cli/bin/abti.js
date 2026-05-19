@@ -549,6 +549,8 @@ async function runAuto() {
 const RESULTS_URL = 'https://raw.githubusercontent.com/kagura-agent/abti/master/data/results.json';
 
 function formatListTable(agents, lang, useCol) {
+  // Auto-normalize reliability values > 1 (percentage → decimal)
+  agents.forEach(a => { if (a.reliability != null && a.reliability > 1) a.reliability = a.reliability / 100; });
   const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
   const sorted = [...agents].sort((a, b) => a.name.localeCompare(b.name));
   const header = lang === 'zh'
