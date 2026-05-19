@@ -214,6 +214,8 @@ nav a:hover, nav a.active { color: var(--accent); }
 
   function render() {
     var a = agentData;
+    // Auto-normalize reliability values > 1 (percentage → decimal)
+    if (a.reliability != null && a.reliability > 1) a.reliability = a.reliability / 100;
     var p = profileData;
     var labels = lang === 'zh'
       ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents', tuningTips: '💡 调优建议' }

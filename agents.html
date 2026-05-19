@@ -278,6 +278,8 @@ nav a:hover, nav a.active { color: var(--accent); }
 
     // Distribution visualization
     const agents = data.agents;
+    // Auto-normalize reliability values > 1 (percentage → decimal)
+    agents.forEach(a => { if (a.reliability != null && a.reliability > 1) a.reliability = a.reliability / 100; });
     const n = agents.length;
     if (n > 0) {
       const dims = [
