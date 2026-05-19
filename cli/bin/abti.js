@@ -122,6 +122,7 @@ const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10
 const noProxyFlag = flag('--no-proxy');
 const resumeFile = opt('--resume') || null;
 const saveStateFlag = flag('--save-state') || !!resumeFile;
+const interQuestionDelay = parseInt(opt('--delay') || '0', 10);
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -170,6 +171,7 @@ if (flag('--help') || flag('-h')) {
     --no-proxy               Ignore proxy environment variables
     --resume <file>          Resume from a saved state file (implies --save-state)
     --save-state             Auto-save state after each answer (default file: <model>-state.json)
+    --delay <ms>             Inter-question delay in ms for rate limit pacing (default: 0)
 
   Prompt options:
     --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
@@ -274,8 +276,18 @@ function llmRequestRaw(options, payload) {
   });
 }
 
+const RATE_LIMIT_BAIL_THRESHOLD = 3600000; // 1 hour in ms
+
+class RateLimitBailError extends Error {
+  constructor(retryAfterMs) {
+    super(`Rate limit retry-after (${Math.round(retryAfterMs / 1000)}s) exceeds threshold. Bailing out to save state.`);
+    this.name = 'RateLimitBailError';
+    this.retryAfterMs = retryAfterMs;
+  }
+}
+
 async function llmRequest(options, payload) {
-  const MAX_RETRIES = 3;
+  const MAX_RETRIES = 10;
   let waitMs = 10000;
 
   for (let attempt = 0; ; attempt++) {
@@ -283,6 +295,10 @@ async function llmRequest(options, payload) {
 
     if (res.statusCode === 429 && attempt < MAX_RETRIES) {
       const retryMs = parseRetryAfter(res.headers, res.body) || waitMs;
+      // Bail out early if retry-after exceeds threshold (e.g. daily quota)
+      if (retryMs > RATE_LIMIT_BAIL_THRESHOLD) {
+        throw new RateLimitBailError(retryMs);
+      }
       process.stderr.write(`  Rate limited (429). Retry ${attempt + 1}/${MAX_RETRIES} after ${(retryMs / 1000).toFixed(1)}s...\n`);
       await sleep(retryMs);
       waitMs *= 2;
@@ -473,7 +489,26 @@ async function runAuto() {
     let lastErr;
     for (let attempt = 0; attempt < 3; attempt++) {
       const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
-      const response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
+      let response;
+      try {
+        response = await callLLM(autoProvider, apiKey, autoModel, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
+      } catch (err) {
+        if (err.name === 'RateLimitBailError') {
+          process.stderr.write(`\n  \u26A0 Daily rate limit hit (retry-after ${Math.round(err.retryAfterMs / 3600000)}h). Saving state and exiting.\n`);
+          if (stateFile) {
+            state.parseFailures = parseFailures;
+            saveState(stateFile, state);
+            process.stderr.write(`  State saved to ${stateFile}. Resume with --resume ${stateFile}\n`);
+          } else {
+            const emergencyFile = defaultStateFile(autoModel);
+            state.parseFailures = parseFailures;
+            saveState(emergencyFile, state);
+            process.stderr.write(`  State saved to ${emergencyFile}. Resume with --resume ${emergencyFile}\n`);
+          }
+          process.exit(2);
+        }
+        throw err;
+      }
       try {
         answer = parseAnswer(response);
         break;
@@ -491,6 +526,11 @@ async function runAuto() {
     if (stateFile) {
       state.parseFailures = parseFailures;
       saveState(stateFile, state);
+    }
+
+    // Inter-question delay for rate limit pacing
+    if (interQuestionDelay > 0 && i < questions.length - 1) {
+      await sleep(interQuestionDelay);
     }
   }
 
@@ -850,4 +890,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError };
