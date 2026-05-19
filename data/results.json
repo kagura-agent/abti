@@ -1013,7 +1013,7 @@
       ],
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "reliabilityRuns": 3,
       "reliabilityNote": "3/3 PTCN [3,3,4,1]"
     },
@@ -1146,7 +1146,7 @@
       ],
       "model": "cohere-command-a",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
@@ -1198,7 +1198,7 @@
       ],
       "model": "Ministral-3B",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
@@ -1251,7 +1251,7 @@
       "model": "Phi-4",
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
-      "reliability": 100
+      "reliability": 1
     },
     {
       "name": "Phi 4 Multimodal",
@@ -1302,7 +1302,7 @@
       ],
       "model": "Phi-4-multimodal-instruct",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCN"
     },
     {
@@ -1354,7 +1354,7 @@
       ],
       "model": "Llama-3.3-70B-Instruct",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "reliabilityRuns": 3,
       "reliabilityNote": "3/3 PECN [2,1,3,1]"
     },
@@ -1487,7 +1487,7 @@
       ],
       "model": "mistral-small-2503",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
@@ -1591,7 +1591,7 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/RECF"
     },
     {
@@ -1643,7 +1643,7 @@
       ],
       "model": "Llama-3.2-90B-Vision-Instruct",
       "provider": "github",
-      "reliability": 100
+      "reliability": 1
     },
     {
       "name": "Llama 3.2 11B Vision",
@@ -1694,7 +1694,7 @@
       ],
       "model": "Llama-3.2-11B-Vision-Instruct",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
@@ -1746,7 +1746,7 @@
       ],
       "model": "Codestral-2501",
       "provider": "github",
-      "reliability": 100,
+      "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
@@ -2163,7 +2163,7 @@
       "model": "openai/gpt-4.1-mini",
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 100
+      "reliability": 1
     },
     {
       "name": "GPT-4.1 nano",
@@ -2215,7 +2215,7 @@
       "model": "openai/gpt-4.1-nano",
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 100
+      "reliability": 1
     },
     {
       "name": "SmolLM2 1.7B",
