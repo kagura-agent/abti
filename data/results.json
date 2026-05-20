@@ -2714,7 +2714,7 @@
       "reliabilityRuns": 3
     },
     {
-      "name": "glm4:9b",
+      "name": "GLM-4 9B",
       "slug": "glm4-9b",
       "url": "",
       "type": "PTCF",
@@ -2818,7 +2818,7 @@
       "reliabilityRuns": 3
     },
     {
-      "name": "tinyllama",
+      "name": "TinyLlama",
       "slug": "tinyllama",
       "url": "",
       "type": "PTCF",
@@ -3034,7 +3034,7 @@
       "reliabilityRuns": 2
     },
     {
-      "name": "DeepSeek-R1",
+      "name": "DeepSeek R1",
       "slug": "deepseek-r1",
       "url": "",
       "type": "PTCF",
@@ -3088,7 +3088,7 @@
       "reliabilityRuns": 1
     },
     {
-      "name": "DeepSeek-R1-0528",
+      "name": "DeepSeek R1 0528",
       "slug": "deepseek-r1-0528",
       "url": "",
       "type": "PECF",
