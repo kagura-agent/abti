@@ -561,6 +561,67 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // GET /api/compare/agents/:slug1/:slug2 - compare two agents
+  const agentCompareMatch = url.pathname.match(/^\/api\/compare\/agents\/([^/]+)\/([^/]+)$/);
+  if (agentCompareMatch && req.method === 'GET') {
+    const slug1 = decodeURIComponent(agentCompareMatch[1]).toLowerCase();
+    const slug2 = decodeURIComponent(agentCompareMatch[2]).toLowerCase();
+    const a1 = agentData.agents.find(a => a.slug === slug1 || slugify(a.name) === slug1);
+    const a2 = agentData.agents.find(a => a.slug === slug2 || slugify(a.name) === slug2);
+    if (!a1 || !a2) {
+      res.writeHead(404, {'Content-Type':'application/json'});
+      return res.end(JSON.stringify({error:`Agent not found: ${!a1 ? slug1 : slug2}`}));
+    }
+    const code1 = a1.type, code2 = a2.type;
+    const lang = url.searchParams.get('lang') || 'en';
+
+    const dimensions = [];
+    for (let i = 0; i < 4; i++) {
+      const dn = (dimNames[lang] || dimNames.en)[i];
+      const dl = (dimLabels[lang] || dimLabels.en)[i];
+      const letter1 = code1[i];
+      const letter2 = code2[i];
+      const pole1 = letter1 === DL[i][0] ? dl[0] : dl[1];
+      const pole2 = letter2 === DL[i][0] ? dl[0] : dl[1];
+      dimensions.push({
+        name: dn,
+        poles: dl,
+        letters: DL[i],
+        type1: { letter: letter1, pole: pole1 },
+        type2: { letter: letter2, pole: pole2 },
+        match: letter1 === letter2,
+        score1: a1.scores?.[i] ?? null,
+        score2: a2.scores?.[i] ?? null
+      });
+    }
+
+    const r1 = richProfiles[code1];
+    const r2 = richProfiles[code2];
+    const p1 = r1?.[lang] || r1?.en || {};
+    const p2 = r2?.[lang] || r2?.en || {};
+    const compat1 = p1.bestPairedWith?.some(bp => bp.type === code2) || false;
+    const compat2 = p2.bestPairedWith?.some(bp => bp.type === code1) || false;
+    const compatibility = {
+      mutual: compat1 && compat2,
+      type1RecommendsType2: compat1,
+      type2RecommendsType1: compat2,
+      reason1: p1.bestPairedWith?.find(bp => bp.type === code2)?.reason || null,
+      reason2: p2.bestPairedWith?.find(bp => bp.type === code1)?.reason || null
+    };
+
+    const shared = dimensions.filter(d => d.match).length;
+
+    const strip = ({answers, ...rest}) => rest;
+    res.writeHead(200, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({
+      agent1: strip(a1),
+      agent2: strip(a2),
+      dimensions,
+      sharedDimensions: shared,
+      compatibility
+    }));
+  }
+
   // GET /api/compare/:type1/:type2 - compare two types
   const compareMatch = url.pathname.match(/^\/api\/compare\/([A-Za-z]{4})\/([A-Za-z]{4})$/);
   if (compareMatch && req.method === 'GET') {
@@ -1058,7 +1119,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/compare-agents.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
@@ -1441,7 +1502,7 @@ ${dimInfo.map((d, i) => {
   }
 
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /badge/agent/:slug','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/agents/:slug1/:slug2','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /badge/agent/:slug','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {

@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compare Types — ABTI</title>
+<title>Agent Compare — ABTI</title>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Compare Types — ABTI">
-<meta name="twitter:description" content="Compare AI agent behavioral types side by side">
+<meta name="twitter:title" content="Agent Compare — ABTI">
+<meta name="twitter:description" content="Compare AI agents side by side with dimensional analysis">
 <meta name="twitter:image" content="https://abti.kagura-agent.com/og-abti.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
   --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
   --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
   --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
-  --border: #e7e5e4; --radius: 10px;
+  --border: #e7e5e4; --radius: 14px;
   --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
   --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
 }
@@ -33,7 +33,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 .header h1 span { color: var(--accent); }
 
 .selectors { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
-.selectors select { font-family: 'DM Sans', system-ui, sans-serif; font-size: .9rem; padding: .5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); cursor: pointer; min-width: 180px; }
+.selectors select { font-family: 'DM Sans', system-ui, sans-serif; font-size: .9rem; padding: .5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); cursor: pointer; min-width: 200px; }
 .selectors select:focus { outline: none; border-color: var(--accent); }
 .vs { font-weight: 600; color: var(--text3); font-size: .85rem; letter-spacing: .1em; }
 .compare-btn { font-family: 'DM Sans', system-ui, sans-serif; font-size: .85rem; font-weight: 600; padding: .55rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background .2s; letter-spacing: .04em; }
@@ -41,27 +41,24 @@ nav a:hover, nav a.active { color: var(--accent); }
 
 #result { display: none; }
 
-.types-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
-.type-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
-.type-card .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .4rem; }
-.type-card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: .25rem; }
-.type-card .nick { color: var(--text2); font-size: .85rem; margin-bottom: .75rem; }
-.type-card h3 { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .06em; }
-.type-card ul { list-style: none; margin-bottom: .75rem; }
-.type-card li { font-size: .82rem; color: var(--text2); line-height: 1.5; padding-left: .9rem; position: relative; margin-bottom: .2rem; }
-.type-card li::before { content: ''; position: absolute; left: 0; top: .55em; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
-.type-card .work-style { font-size: .82rem; color: var(--text2); line-height: 1.55; }
+.agents-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+.agent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+.agent-card .type-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .4rem; }
+.agent-card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: .15rem; }
+.agent-card .nick { color: var(--text2); font-size: .82rem; margin-bottom: .5rem; }
+.agent-card .meta { font-size: .78rem; color: var(--text3); line-height: 1.6; }
+.agent-card .meta strong { color: var(--text2); font-weight: 600; }
 
 .section-title { font-size: .95rem; font-weight: 600; margin-bottom: 1rem; color: var(--text); }
 
 .dims { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
 .dim { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; box-shadow: var(--shadow); }
 .dim-name { font-size: .8rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
-.dim-bar { position: relative; height: 28px; background: var(--surface2); border-radius: 14px; overflow: hidden; margin-bottom: .35rem; }
-.dim-bar .pole-label { position: absolute; top: 50%; transform: translateY(-50%); font-size: .7rem; font-weight: 600; z-index: 2; }
-.dim-bar .pole-left { left: .6rem; color: var(--text2); }
-.dim-bar .pole-right { right: .6rem; color: var(--text2); }
-.dim-marker { position: absolute; top: 2px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 700; color: #fff; z-index: 3; transition: left .3s; }
+.dim-scale { position: relative; height: 28px; background: var(--surface2); border-radius: 14px; overflow: hidden; margin-bottom: .35rem; }
+.dim-scale .pole-label { position: absolute; top: 50%; transform: translateY(-50%); font-size: .7rem; font-weight: 600; z-index: 2; }
+.dim-scale .pole-left { left: .6rem; color: var(--text2); }
+.dim-scale .pole-right { right: .6rem; color: var(--text2); }
+.dim-marker { position: absolute; top: 2px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; color: #fff; z-index: 3; transition: left .3s; }
 .marker-1 { background: var(--accent); }
 .marker-2 { background: #e8658a; }
 .dim-status { font-size: .72rem; color: var(--text3); text-align: center; }
@@ -78,7 +75,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
 
 @media (max-width: 600px) {
-  .types-row { grid-template-columns: 1fr; }
+  .agents-row { grid-template-columns: 1fr; }
   .header h1 { font-size: 1.8rem; }
   .wrap { padding: 4rem 1rem 1.5rem; }
   .selectors { flex-direction: column; align-items: stretch; }
@@ -95,8 +92,8 @@ nav a:hover, nav a.active { color: var(--accent); }
   <a href="leaderboard.html">Leaderboard</a>
   <a href="stats.html">Stats</a>
   <a href="types.html">Types</a>
-  <a href="compare.html" class="active">Compare</a>
-  <a href="compare-agents.html">Agent Compare</a>
+  <a href="compare.html">Compare</a>
+  <a href="compare-agents.html" class="active">Agent Compare</a>
   <a href="test-agent.html">Test Agent</a>
   <a href="compatibility.html">Compatibility</a>
   <a href="cross-compatibility.html">Cross Match</a>
@@ -104,75 +101,76 @@ nav a:hover, nav a.active { color: var(--accent); }
 </nav>
 <div class="wrap">
   <div class="header">
-    <h1>Compare <span>Types</span></h1>
+    <h1>Agent <span>Compare</span></h1>
   </div>
   <div class="selectors">
-    <select id="sel1"></select>
+    <select id="sel1"><option value="">Select agent...</option></select>
     <span class="vs">VS</span>
-    <select id="sel2"></select>
+    <select id="sel2"><option value="">Select agent...</option></select>
     <button class="compare-btn" onclick="doCompare()">Compare</button>
   </div>
   <div id="result"></div>
   <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
 </div>
 <script>
-const TYPES = [
-  'PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN',
-  'RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'
-];
-
 const sel1 = document.getElementById('sel1');
 const sel2 = document.getElementById('sel2');
+let agents = [];
 
-TYPES.forEach(t => {
-  sel1.add(new Option(t, t));
-  sel2.add(new Option(t, t));
+fetch('/api/agents').then(r => r.json()).then(data => {
+  agents = data.agents || [];
+  agents.forEach(a => {
+    sel1.add(new Option(`${a.name} (${a.type})`, a.slug));
+    sel2.add(new Option(`${a.name} (${a.type})`, a.slug));
+  });
+  const params = new URLSearchParams(location.search);
+  if (params.get('a')) sel1.value = params.get('a');
+  if (params.get('b')) sel2.value = params.get('b');
+  if (params.get('a') && params.get('b')) doCompare();
 });
-sel2.value = 'REDN';
-
-// Read URL params
-const params = new URLSearchParams(location.search);
-if (params.get('a') && TYPES.includes(params.get('a').toUpperCase())) sel1.value = params.get('a').toUpperCase();
-if (params.get('b') && TYPES.includes(params.get('b').toUpperCase())) sel2.value = params.get('b').toUpperCase();
-if (params.get('a') && params.get('b')) doCompare();
 
 async function doCompare() {
   const a = sel1.value, b = sel2.value;
-  history.replaceState(null, '', `compare.html?a=${a}&b=${b}`);
-  const res = await fetch(`/api/compare/${a}/${b}`);
+  if (!a || !b) return;
+  history.replaceState(null, '', `compare-agents.html?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+  const res = await fetch(`/api/compare/agents/${encodeURIComponent(a)}/${encodeURIComponent(b)}`);
   if (!res.ok) { document.getElementById('result').innerHTML = '<p style="color:red">Error loading comparison</p>'; document.getElementById('result').style.display='block'; return; }
-  const d = await res.json();
-  render(d);
+  render(await res.json());
 }
 
 function render(d) {
   const el = document.getElementById('result');
   el.style.display = 'block';
+  const a1 = d.agent1, a2 = d.agent2;
 
-  const t1 = d.type1, t2 = d.type2;
-
-  let html = `<div class="types-row">`;
-  html += renderTypeCard(t1);
-  html += renderTypeCard(t2);
+  let html = `<div class="agents-row">`;
+  html += agentCard(a1);
+  html += agentCard(a2);
   html += `</div>`;
 
   html += `<div class="section-title">Dimensions (${d.sharedDimensions}/4 shared)</div>`;
   html += `<div class="dims">`;
-  d.dimensions.forEach(dim => {
-    const m1pos = dim.type1.letter === dim.letters[0] ? 20 : 75;
-    const m2pos = dim.type2.letter === dim.letters[0] ? 20 : 75;
+  const dimLabels = ['Proactive / Reactive','Transparent / Encrypted','Convergent / Divergent','Nurturing / Stoic'];
+  d.dimensions.forEach((dim, i) => {
+    const s1 = dim.score1, s2 = dim.score2;
+    const hasScores = s1 !== null && s2 !== null;
+    const pos1 = hasScores ? 5 + (s1 / 4) * 85 : (dim.type1.letter === dim.letters[0] ? 20 : 75);
+    const pos2 = hasScores ? 5 + (s2 / 4) * 85 : (dim.type2.letter === dim.letters[0] ? 20 : 75);
     html += `<div class="dim">
-      <div class="dim-name">${dim.name}</div>
-      <div class="dim-bar">
+      <div class="dim-name">${dimLabels[i]}</div>
+      <div class="dim-scale">
         <span class="pole-label pole-left">${dim.poles[0]}</span>
         <span class="pole-label pole-right">${dim.poles[1]}</span>
-        <span class="dim-marker marker-1" style="left:${m1pos}%">${t1.code.slice(0,2)}</span>
-        <span class="dim-marker marker-2" style="left:${m2pos}%">${t2.code.slice(0,2)}</span>
+        <span class="dim-marker marker-1" style="left:${pos1}%">${a1.name.slice(0,2)}</span>
+        <span class="dim-marker marker-2" style="left:${pos2}%">${a2.name.slice(0,2)}</span>
       </div>
-      <div class="dim-status ${dim.match ? 'match' : ''}">${dim.match ? 'Match — both ' + dim.type1.pole : dim.type1.pole + ' vs ' + dim.type2.pole}</div>
+      <div class="dim-status ${dim.match ? 'match' : ''}">${dim.match ? 'Match — both ' + dim.type1.pole : dim.type1.pole + ' vs ' + dim.type2.pole}${hasScores ? ' (' + s1.toFixed(1) + ' vs ' + s2.toFixed(1) + ')' : ''}</div>
     </div>`;
   });
   html += `</div>`;
+
+  // Type comparison summary
+  html += `<div class="section-title">Type Comparison: ${a1.type} vs ${a2.type}</div>`;
 
   // Compatibility
   const c = d.compatibility;
@@ -180,27 +178,26 @@ function render(d) {
   if (c.mutual) { badgeClass = 'mutual'; badgeText = 'Mutually recommended pair'; }
   else if (c.type1RecommendsType2 || c.type2RecommendsType1) { badgeClass = 'partial'; badgeText = 'One-way recommendation'; }
 
-  html += `<div class="section-title">Compatibility</div>`;
   html += `<div class="compat">`;
   html += `<span class="compat-badge ${badgeClass}">${badgeText}</span>`;
-  if (c.reason1) html += `<div class="compat-reason"><strong>${t1.code}→${t2.code}:</strong> ${c.reason1}</div>`;
-  if (c.reason2) html += `<div class="compat-reason"><strong>${t2.code}→${t1.code}:</strong> ${c.reason2}</div>`;
+  if (c.reason1) html += `<div class="compat-reason"><strong>${a1.type}→${a2.type}:</strong> ${c.reason1}</div>`;
+  if (c.reason2) html += `<div class="compat-reason"><strong>${a2.type}→${a1.type}:</strong> ${c.reason2}</div>`;
   html += `</div>`;
 
   el.innerHTML = html;
 }
 
-function renderTypeCard(t) {
-  let h = `<div class="type-card">
-    <a class="pill" href="/type/${t.code}" style="text-decoration:none">${t.code}</a>
-    <h2><a href="/type/${t.code}" style="color:inherit;text-decoration:none">${t.code}</a></h2>
-    <div class="nick">${t.nick}</div>
-    <h3>Strengths</h3><ul>`;
-  (t.strengths || []).forEach(s => h += `<li>${s}</li>`);
-  h += `</ul><h3>Blind Spots</h3><ul>`;
-  (t.blindSpots || []).forEach(s => h += `<li>${s}</li>`);
-  h += `</ul><h3>Work Style</h3><div class="work-style">${t.workStyle || ''}</div></div>`;
-  return h;
+function agentCard(a) {
+  return `<div class="agent-card">
+    <span class="type-pill">${a.type}</span>
+    <h2>${a.name}</h2>
+    <div class="nick">${a.nick || ''}</div>
+    <div class="meta">
+      ${a.model ? `<div><strong>Model:</strong> ${a.model}</div>` : ''}
+      ${a.provider ? `<div><strong>Provider:</strong> ${a.provider}</div>` : ''}
+      ${a.consistency != null ? `<div><strong>Consistency:</strong> ${a.consistency}%</div>` : ''}
+    </div>
+  </div>`;
 }
 </script>
 </body>
