@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model Families — ABTI</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Model Families — ABTI">
+<meta property="og:description" content="AI agent personality profiles grouped by model family">
+<meta property="og:url" content="https://abti.kagura-agent.com/families.html">
+<meta property="og:image" content="https://abti.kagura-agent.com/og-abti.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Model Families — ABTI">
+<meta name="twitter:description" content="AI agent personality profiles grouped by model family">
+<meta name="twitter:image" content="https://abti.kagura-agent.com/og-abti.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "ABTI — Model Families",
+  "description": "AI agent personality profiles grouped by model family",
+  "url": "https://abti.kagura-agent.com/families.html"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #fff; --surface2: #f5f5f4;
+  --text: #1c1917; --text2: #78716c; --text3: #a8a29e;
+  --accent: #0d9488; --accent2: #0f766e; --accent-soft: #f0fdfa;
+  --border: #e7e5e4; --radius: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 12px rgba(28,25,23,.07), 0 2px 4px rgba(28,25,23,.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
+nav a:hover, nav a.active { color: var(--accent); }
+nav .lang-btn { background: none; border: 1px solid var(--border); color: var(--text2); font-family: inherit; font-size: .75rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px; cursor: pointer; letter-spacing: .08em; transition: color .2s, border-color .2s; }
+nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.wrap { max-width: 820px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+.header { text-align: center; margin-bottom: 2.5rem; }
+.header h1 { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; }
+.header h1 span { color: var(--accent); }
+.header .sub { color: var(--text2); font-size: .95rem; }
+
+.toolbar { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.toolbar input { font-family: inherit; font-size: .82rem; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: var(--shadow); outline: none; transition: border-color .2s; flex: 1; min-width: 140px; }
+.toolbar input:focus { border-color: var(--accent); }
+
+.family-section { margin-bottom: 2.5rem; }
+.family-header { display: flex; align-items: center; gap: .7rem; margin-bottom: .4rem; }
+.family-name { font-size: 1.15rem; font-weight: 600; color: var(--text); }
+.family-count { background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700; min-width: 20px; height: 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 .4rem; }
+.family-avg { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.family-avg-item { font-size: .72rem; color: var(--text2); }
+.family-avg-item strong { color: var(--accent); font-weight: 600; }
+
+.family-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.card-name { font-weight: 600; font-size: .95rem; color: var(--text); margin-bottom: .35rem; }
+.card-name a { color: var(--accent); text-decoration: none; }
+.card-name a:hover { text-decoration: underline; }
+.pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .3rem; text-decoration: none; }
+.card-scores { display: flex; flex-direction: column; gap: .25rem; margin-top: .45rem; }
+.card-score-row { display: flex; align-items: center; gap: .4rem; font-size: .68rem; }
+.card-score-label { width: 80px; font-weight: 500; color: var(--text2); text-align: right; flex-shrink: 0; }
+.card-score-bar { flex: 1; height: 6px; background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 3px; overflow: hidden; }
+.card-score-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+.card-score-pct { width: 28px; font-size: .62rem; color: var(--text3); }
+
+.empty { text-align: center; color: var(--text3); font-size: .95rem; padding: 3rem 1rem; }
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+@media (max-width: 500px) {
+  .family-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+  .toolbar { flex-direction: column; }
+  .toolbar input { width: 100%; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">ABTI</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <a href="agents.html">Agents</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="stats.html">Stats</a>
+  <a href="types.html">Types</a>
+  <a href="compare.html">Compare</a>
+  <a href="families.html" class="active">Families</a>
+  <a href="test-agent.html">Test Agent</a>
+  <a href="compatibility.html">Compatibility</a>
+  <a href="cross-compatibility.html">Cross Match</a>
+  <a href="api.html">API</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+<div class="wrap">
+  <div class="header">
+    <h1>Model <span id="hFamilies">Families</span></h1>
+    <div class="sub" id="sub">Loading…</div>
+  </div>
+  <div class="toolbar" id="toolbar" style="display:none">
+    <input type="text" id="search" placeholder="Search families or agents…">
+  </div>
+  <div id="content"></div>
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+<script>
+let lang = localStorage.getItem('abti-lang') || 'en';
+const i18n = {
+  en: {
+    families: 'Families',
+    sub: 'AI agent personality profiles grouped by model family',
+    search: 'Search families or agents…',
+    agents: 'agents',
+    avg: 'Avg',
+    independent: 'Independent',
+    loading: 'Loading…',
+    error: 'Failed to load data.',
+    noMatch: 'No families match your search.',
+    dimNames: ['Autonomy', 'Precision', 'Transparency', 'Adaptability']
+  },
+  zh: {
+    families: '家族',
+    sub: 'AI 智能体性格分析 — 按模型家族分组',
+    search: '搜索家族或智能体…',
+    agents: '个智能体',
+    avg: '均值',
+    independent: '独立模型',
+    loading: '加载中…',
+    error: '加载失败。',
+    noMatch: '没有匹配的家族。',
+    dimNames: ['自主性', '精确性', '透明性', '适应性']
+  }
+};
+function t(key) { return (i18n[lang] || i18n.en)[key] || i18n.en[key]; }
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+  render();
+}
+
+const FAMILY_PREFIXES = [
+  'Claude', 'GPT', 'Llama', 'Qwen', 'Gemma', 'Gemini', 'Phi', 'Mistral',
+  'DeepSeek', 'Cohere', 'Command', 'Grok', 'Yi', 'Falcon', 'Vicuna',
+  'Codestral', 'Pixtral', 'Mixtral', 'WizardLM', 'Solar', 'Jamba',
+  'InternLM', 'Baichuan', 'ChatGLM', 'ERNIE', 'Aya', 'OLMo', 'Nemotron',
+  'Granite', 'Nova', 'Reka', 'DBRX'
+];
+
+function detectFamily(name) {
+  const lower = name.toLowerCase();
+  for (const prefix of FAMILY_PREFIXES) {
+    if (lower.startsWith(prefix.toLowerCase())) return prefix;
+  }
+  return null;
+}
+
+let allAgents = [];
+
+function groupByFamily(agents) {
+  const groups = {};
+  for (const a of agents) {
+    const family = detectFamily(a.name) || '__independent__';
+    if (!groups[family]) groups[family] = [];
+    groups[family].push(a);
+  }
+  // Merge single-agent families into Independent
+  const result = {};
+  for (const [key, members] of Object.entries(groups)) {
+    if (key === '__independent__' || members.length < 2) {
+      if (!result['__independent__']) result['__independent__'] = [];
+      result['__independent__'].push(...members);
+    } else {
+      result[key] = members;
+    }
+  }
+  return result;
+}
+
+function render() {
+  document.getElementById('hFamilies').textContent = t('families');
+  document.getElementById('search').placeholder = t('search');
+
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const groups = groupByFamily(allAgents);
+  const dimNames = t('dimNames');
+
+  // Sort families: by agent count desc, Independent last
+  const sortedKeys = Object.keys(groups)
+    .filter(k => k !== '__independent__')
+    .sort((a, b) => groups[b].length - groups[a].length);
+  if (groups['__independent__'] && groups['__independent__'].length > 0) {
+    sortedKeys.push('__independent__');
+  }
+
+  let html = '';
+  let shownFamilies = 0;
+
+  for (const key of sortedKeys) {
+    const members = groups[key];
+    const familyName = key === '__independent__' ? t('independent') : key;
+
+    // Filter: match family name or any agent name
+    if (q) {
+      const familyMatch = familyName.toLowerCase().includes(q);
+      const agentMatch = members.some(a => a.name.toLowerCase().includes(q));
+      if (!familyMatch && !agentMatch) continue;
+    }
+    shownFamilies++;
+
+    // Sort agents by name
+    const sorted = members.slice().sort((a, b) => a.name.localeCompare(b.name));
+
+    // Compute averages
+    const avgs = [0, 0, 0, 0];
+    let counted = 0;
+    for (const a of sorted) {
+      if (a.scores && a.scores.length === 4) {
+        for (let i = 0; i < 4; i++) avgs[i] += a.scores[i];
+        counted++;
+      }
+    }
+    if (counted > 0) for (let i = 0; i < 4; i++) avgs[i] = avgs[i] / counted;
+
+    html += '<div class="family-section">';
+    html += '<div class="family-header"><span class="family-name">' + esc(familyName) + '</span><span class="family-count">' + sorted.length + '</span></div>';
+
+    if (counted > 0) {
+      html += '<div class="family-avg">';
+      for (let i = 0; i < 4; i++) {
+        html += '<span class="family-avg-item">' + esc(dimNames[i]) + ' ' + t('avg') + ': <strong>' + avgs[i].toFixed(1) + '</strong>/4</span>';
+      }
+      html += '</div>';
+    }
+
+    html += '<div class="family-grid">';
+    for (const a of sorted) {
+      const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
+      html += '<div class="card">';
+      html += '<div class="card-name"><a href="/agent/' + encodeURIComponent(slug) + '">' + esc(a.name) + '</a></div>';
+      if (a.type) html += '<a class="pill" href="/type/' + esc(a.type) + '">' + esc(a.type) + '</a>';
+      if (a.scores && a.scores.length === 4) {
+        html += '<div class="card-scores">';
+        for (let i = 0; i < 4; i++) {
+          const pct = Math.round(a.scores[i] / 4 * 100);
+          html += '<div class="card-score-row">'
+            + '<span class="card-score-label">' + esc(dimNames[i]) + '</span>'
+            + '<div class="card-score-bar"><div class="card-score-fill" style="width:' + pct + '%"></div></div>'
+            + '<span class="card-score-pct">' + pct + '%</span>'
+            + '</div>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+
+  if (shownFamilies === 0) {
+    html = '<div class="empty">' + t('noMatch') + '</div>';
+  }
+
+  document.getElementById('content').innerHTML = html;
+  document.getElementById('sub').textContent = shownFamilies + ' ' + t('families').toLowerCase() + ' · ' + allAgents.length + ' ' + t('agents');
+}
+
+(async () => {
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'EN' : '中';
+  try {
+    const res = await fetch('/api/agents');
+    const data = await res.json();
+    if (!data.agents || data.agents.length === 0) {
+      document.getElementById('sub').textContent = '';
+      document.getElementById('content').innerHTML = '<div class="empty">No agents have taken the test yet.</div>';
+      return;
+    }
+    allAgents = data.agents;
+    document.getElementById('toolbar').style.display = '';
+    document.getElementById('search').addEventListener('input', render);
+    render();
+  } catch (e) {
+    document.getElementById('sub').textContent = '';
+    document.getElementById('content').innerHTML = '<div class="empty">' + t('error') + '</div>';
+  }
+})();
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+</script>
+</body>
+</html>

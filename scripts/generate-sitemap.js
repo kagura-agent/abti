@@ -19,6 +19,7 @@ const PRIORITIES = {
   'test-agent.html': '0.9',
   'types.html': '0.8',
   'agents.html': '0.8',
+  'families.html': '0.7',
 };
 const DEFAULT_PRIORITY = '0.7';
 
