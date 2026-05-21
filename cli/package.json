@@ -6,7 +6,8 @@
     "abti": "bin/abti.js"
   },
   "files": [
-    "bin/"
+    "bin/",
+    "lib/"
   ],
   "keywords": [
     "abti",
