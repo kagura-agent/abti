@@ -159,6 +159,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 .pair-reason { color: var(--text2); font-size: .82rem; line-height: 1.7; }
 
 .footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+.deprecated-notice { background: hsla(30 100% 50% / 0.1); border: 1px solid hsla(30 100% 50% / 0.3); color: #ffa726; border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; font-size: .88rem; }
 
 @media (max-width: 500px) {
   .wrap { padding: 4rem 1rem 2rem; }
@@ -279,6 +280,8 @@ nav a:hover, nav a.active { color: var(--accent); }
       + '<div class="agent-nick">' + esc(localNick) + '</div>'
       + (metaParts.length ? '<div class="agent-meta">' + metaParts.join('<span style="color:var(--text3)">&middot;</span>') + '</div>' : '')
       + '</div>'
+
+      + (a.deprecated ? '<div class="deprecated-notice"><strong>Deprecated</strong> — This agent has been deprecated.' + (a.deprecatedReason ? ' ' + esc(a.deprecatedReason) : '') + '</div>' : '')
 
       + (a.reliability != null ? '<div class="section">'
       + '<div class="section-title">Reliability</div>'

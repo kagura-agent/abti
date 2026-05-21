@@ -51,6 +51,8 @@ nav a:hover, nav a.active { color: var(--accent); }
 .card-name a { color: var(--accent); text-decoration: none; }
 .card-name a:hover { text-decoration: underline; }
 .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .3rem; }
+.badge-deprecated { display: inline-block; background: #fff3e0; color: #e65100; font-size: .65rem; font-weight: 600; padding: .1rem .45rem; border-radius: 999px; letter-spacing: .04em; vertical-align: middle; }
+.card-deprecated { opacity: 0.65; }
 .card-nick { color: var(--text2); font-size: .82rem; }
 .card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
 .card-model { color: var(--text2); font-size: .72rem; margin-top: .2rem; opacity: .8; }
@@ -164,6 +166,7 @@ nav a:hover, nav a.active { color: var(--accent); }
   <div class="toolbar" id="toolbar" style="display:none">
     <input type="text" id="search" placeholder="Search by name…">
     <select id="filter-type"><option value="">All Types</option></select>
+    <select id="filter-provider"><option value="">All Providers</option></select>
     <select id="sort">
       <option value="newest">Newest first</option>
       <option value="oldest">Oldest first</option>
@@ -217,21 +220,28 @@ nav a:hover, nav a.active { color: var(--accent); }
     const allAgents = data.agents.slice().reverse();
     const searchEl = document.getElementById('search');
     const filterEl = document.getElementById('filter-type');
+    const providerFilterEl = document.getElementById('filter-provider');
     const sortEl = document.getElementById('sort');
 
     // Populate type filter
     const types = [...new Set(data.agents.map(a => a.type).filter(Boolean))].sort();
     types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; filterEl.appendChild(o); });
+
+    // Populate provider filter
+    const providers = [...new Set(data.agents.map(a => a.provider).filter(Boolean))].sort();
+    providers.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; providerFilterEl.appendChild(o); });
     document.getElementById('toolbar').style.display = '';
 
     function renderCards() {
       const q = searchEl.value.toLowerCase();
       const typeFilter = filterEl.value;
+      const providerFilter = providerFilterEl.value;
       const sortMode = sortEl.value;
 
       let list = allAgents.filter(a => {
         if (q && !a.name.toLowerCase().includes(q)) return false;
         if (typeFilter && a.type !== typeFilter) return false;
+        if (providerFilter && a.provider !== providerFilter) return false;
         return true;
       });
 
@@ -250,9 +260,10 @@ nav a:hover, nav a.active { color: var(--accent); }
         const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
         const nameHtml = '<a href="/agent/' + encodeURIComponent(slug) + '">' + esc(a.name) + '</a>';
         const time = a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '';
-        return '<div class="card">'
+        return '<div class="card' + (a.deprecated ? ' card-deprecated' : '') + '">'
           + '<div class="card-name">' + nameHtml + '</div>'
           + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
+          + (a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">Deprecated</span>' : '')
           + (a.confidence != null && a.confidence < 0.5 ? ' <span title="Low parse confidence: ' + Math.round(a.confidence * 100) + '%" style="cursor:help">⚠️</span>' : '')
           + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
           + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
@@ -273,6 +284,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 
     searchEl.addEventListener('input', renderCards);
     filterEl.addEventListener('change', renderCards);
+    providerFilterEl.addEventListener('change', renderCards);
     sortEl.addEventListener('change', renderCards);
     renderCards();
 
