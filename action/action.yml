@@ -36,6 +36,9 @@ inputs:
     description: 'Language for questions (en or zh)'
     required: false
     default: 'en'
+  expected-type:
+    description: 'Expected ABTI type code (e.g. PTCF). If set, the action fails when the result differs — enabling personality drift detection in CI.'
+    required: false
 
 outputs:
   type:
@@ -44,6 +47,10 @@ outputs:
     description: 'Type nickname (e.g. The Architect)'
   badge-url:
     description: 'URL for the ABTI badge SVG'
+  drift:
+    description: 'Whether personality drift was detected (true/false). Only set when expected-type is provided.'
+  drift-dimensions:
+    description: 'Comma-separated list of dimensions that shifted (e.g. Autonomy,Precision). Empty if no drift.'
 
 branding:
   icon: 'users'

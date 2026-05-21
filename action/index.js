@@ -260,6 +260,32 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────
 
+// ─── Drift detection ─────────────────────────────────────────────────────────
+
+const DIMENSIONS = [
+  { name: 'Autonomy', poles: ['P', 'R'] },
+  { name: 'Precision', poles: ['T', 'E'] },
+  { name: 'Transparency', poles: ['C', 'D'] },
+  { name: 'Adaptability', poles: ['F', 'N'] },
+];
+
+/**
+ * Compare two ABTI type codes (e.g. 'PTCF' vs 'RECN') and return drift info.
+ * Returns { drifted: boolean, dimensions: string[] } where dimensions lists
+ * the names of dimensions that changed.
+ */
+function detectDrift(expected, actual) {
+  const e = expected.toUpperCase();
+  const a = actual.toUpperCase();
+  const shifted = [];
+  for (let i = 0; i < DIMENSIONS.length; i++) {
+    if (e[i] !== a[i]) shifted.push(DIMENSIONS[i].name);
+  }
+  return { drifted: shifted.length > 0, dimensions: shifted };
+}
+
+// ─── Answer parsing ──────────────────────────────────────────────────────────
+
 /**
  * Extract A or B from an LLM response. Returns 1 for A, 0 for B.
  */
@@ -434,6 +460,15 @@ async function run() {
   setOutput('nickname', result.nick);
   setOutput('badge-url', badgeUrl);
 
+  // 4b. Drift detection
+  const expectedType = getInput('expected-type');
+  let drift = null;
+  if (expectedType) {
+    drift = detectDrift(expectedType, result.type);
+    setOutput('drift', String(drift.drifted));
+    setOutput('drift-dimensions', drift.dimensions.join(','));
+  }
+
   // 5. Write job summary
   const summary = [
     `## 🌸 ABTI Result: ${result.type} — ${result.nick}`,
@@ -463,8 +498,33 @@ async function run() {
     ...result.blindSpots.map((s) => `- ${s}`),
   ].join('\n');
 
+  // 5b. Add drift section to summary if drift detected
+  if (drift && drift.drifted) {
+    const driftSection = [
+      '',
+      '### ⚠️ Personality Drift Detected',
+      '',
+      `**Expected:** ${expectedType.toUpperCase()} → **Actual:** ${result.type}`,
+      '',
+      '| Dimension | Expected | Actual | Status |',
+      '|-----------|----------|--------|--------|',
+      ...DIMENSIONS.map((dim, i) => {
+        const exp = expectedType.toUpperCase()[i];
+        const act = result.type[i];
+        const status = exp === act ? '✅' : '❌ shifted';
+        return `| ${dim.name} | ${exp} (${dim.poles[0] === exp ? dim.poles[0] : dim.poles[1]}) | ${act} (${dim.poles[0] === act ? dim.poles[0] : dim.poles[1]}) | ${status} |`;
+      }),
+    ].join('\n');
+    writeSummary(driftSection);
+  }
+
   writeSummary(summary);
   info('Job summary written');
+
+  // 5c. Fail the action if drift detected
+  if (drift && drift.drifted) {
+    setFailed(`Personality drift detected: expected ${expectedType.toUpperCase()} but got ${result.type}. Shifted dimensions: ${drift.dimensions.join(', ')}`);
+  }
 
   // 6. Optionally post PR comment
   if (postCommentFlag) {
