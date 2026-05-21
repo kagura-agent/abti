@@ -5,7 +5,7 @@ const readline = require('readline');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const { createProxyAgent } = require('../../lib/proxy');
+const { createProxyAgent } = require('../lib/proxy');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const API_BASE = 'https://abti.kagura-agent.com';
