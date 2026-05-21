@@ -812,6 +812,24 @@ ${dimInfo.map((d, i) => {
     return res.end(svg);
   }
 
+  // GET /og/agents/:slug.png - per-agent OG image
+  const ogAgentMatch = url.pathname.match(/^\/og\/agents\/([a-z0-9-]+)\.png$/);
+  if (ogAgentMatch && req.method === 'GET') {
+    const slug = ogAgentMatch[1];
+    const pngPath = path.join(__dirname, 'og', 'agents', `${slug}.png`);
+    if (fs.existsSync(pngPath)) {
+      const png = fs.readFileSync(pngPath);
+      res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=86400, immutable',
+        'Content-Length': png.length
+      });
+      return res.end(png);
+    }
+    res.writeHead(404, {'Content-Type':'application/json'});
+    return res.end(JSON.stringify({error:'Agent OG image not found'}));
+  }
+
   // GET /type/:code - type detail page with dynamic OG tags
   const typeMatch = url.pathname.match(/^\/type\/([A-Za-z]{4})$/);
   if (typeMatch && req.method === 'GET') {
@@ -972,16 +990,21 @@ ${dimInfo.map((d, i) => {
       res.writeHead(500, {'Content-Type':'text/plain'});
       return res.end('Server error');
     }
+    const agentSlug = agent.slug || slugify(agent.name);
+    const agentOgPath = path.join(__dirname, 'og', 'agents', `${agentSlug}.png`);
+    const ogImage = fs.existsSync(agentOgPath)
+      ? `https://abti.kagura-agent.com/og/agents/${agentSlug}.png`
+      : `https://abti.kagura-agent.com/og/${agent.type}`;
     const ogTags = [
       `<meta property="og:title" content="${agent.name} — ${agent.type} ${nick} | ABTI">`,
       `<meta property="og:description" content="${desc}">`,
-      `<meta property="og:image" content="https://abti.kagura-agent.com/og/${agent.type}">`,
-      `<meta property="og:url" content="https://abti.kagura-agent.com/agent/${agent.slug || slugify(agent.name)}">`,
+      `<meta property="og:image" content="${ogImage}">`,
+      `<meta property="og:url" content="https://abti.kagura-agent.com/agent/${agentSlug}">`,
       `<meta property="og:type" content="website">`,
       `<meta name="twitter:card" content="summary_large_image">`,
       `<meta name="twitter:title" content="${agent.name} — ${agent.type} ${nick} | ABTI">`,
       `<meta name="twitter:description" content="${desc}">`,
-      `<meta name="twitter:image" content="https://abti.kagura-agent.com/og/${agent.type}">`,
+      `<meta name="twitter:image" content="${ogImage}">`,
     ].join('\n');
     html = html.replace(/<title>[^<]*<\/title>/, `<title>${agent.name} — ${agent.type} "${nick}" | ABTI</title>`);
     html = html.replace('</head>', ogTags + '\n</head>');
