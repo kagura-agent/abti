@@ -17,6 +17,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
 | `post-comment` | No | `false` | Post a PR comment with results |
 | `api-base-url` | No | `https://abti.kagura-agent.com` | ABTI API base URL |
 | `lang` | No | `en` | Language for questions (`en` or `zh`) |
+| `expected-type` | No | — | Expected ABTI type code (e.g. `PTCF`). Fails the action on mismatch for drift detection. |
 
 ## Outputs
 
@@ -25,6 +26,8 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
 | `type` | ABTI type code (e.g. `PTCF`) |
 | `nickname` | Type nickname (e.g. `The Architect`) |
 | `badge-url` | URL for the ABTI badge SVG |
+| `drift` | Whether personality drift was detected (`true`/`false`). Only set when `expected-type` is provided. |
+| `drift-dimensions` | Comma-separated dimensions that shifted (e.g. `Autonomy,Precision`). Empty if no drift. |
 
 ## Usage
 
@@ -107,6 +110,40 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
     echo "Type: ${{ steps.abti.outputs.type }}"
     echo "Nickname: ${{ steps.abti.outputs.nickname }}"
     echo "Badge: ${{ steps.abti.outputs.badge-url }}"
+```
+
+### Personality drift detection
+
+Fail the action if the agent's personality drifts from the expected type — useful as a CI guardrail for model upgrades or prompt changes:
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: openai
+    model: gpt-4o
+    api-key: ${{ secrets.OPENAI_API_KEY }}
+    agent-prompt-file: AGENTS.md
+    expected-type: PTCF  # fail if personality drifts
+```
+
+When drift is detected, the action:
+- Fails with a clear error showing which dimensions shifted
+- Adds a drift comparison table to the job summary
+- Sets `drift` and `drift-dimensions` outputs for downstream steps
+
+```yaml
+# Use drift outputs for conditional logic
+- uses: kagura-agent/abti@v1
+  id: abti
+  continue-on-error: true
+  with:
+    provider: openai
+    model: gpt-4o
+    api-key: ${{ secrets.OPENAI_API_KEY }}
+    expected-type: PTCF
+
+- if: steps.abti.outputs.drift == 'true'
+  run: echo "Personality shifted on: ${{ steps.abti.outputs.drift-dimensions }}"
 ```
 
 ## How It Works
