@@ -1012,6 +1012,59 @@ ${dimInfo.map((d, i) => {
     return res.end(html);
   }
 
+  // GET /compare-agents or /compare-agents.html - compare two agents with dynamic OG tags
+  if ((url.pathname === '/compare-agents' || url.pathname === '/compare-agents.html') && req.method === 'GET') {
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'compare-agents.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    const slugA = url.searchParams.get('a');
+    const slugB = url.searchParams.get('b');
+    if (slugA && slugB) {
+      const findAgent = (s) => {
+        const sl = decodeURIComponent(s).toLowerCase();
+        const matches = agentData.agents.filter(a => a.slug === sl || slugify(a.name) === sl);
+        return matches.length ? matches[matches.length - 1] : null;
+      };
+      const agent1 = findAgent(slugA);
+      const agent2 = findAgent(slugB);
+      if (agent1 && agent2) {
+        const nick1 = types[agent1.type]?.en?.nick || agent1.nick || agent1.type;
+        const nick2 = types[agent2.type]?.en?.nick || agent2.nick || agent2.type;
+        let sharedDims = 0;
+        for (let i = 0; i < 4 && i < agent1.type.length && i < agent2.type.length; i++) {
+          if (agent1.type[i] === agent2.type[i]) sharedDims++;
+        }
+        const title = `${agent1.name} vs ${agent2.name} — ABTI Agent Compare`;
+        const desc = `Compare AI agent personalities: ${agent1.type} (${nick1}) vs ${agent2.type} (${nick2}) — ${sharedDims}/4 shared dimensions`;
+        const slug1 = agent1.slug || slugify(agent1.name);
+        const slug2 = agent2.slug || slugify(agent2.name);
+        const ogTags = [
+          `<meta property="og:title" content="${title}">`,
+          `<meta property="og:description" content="${desc}">`,
+          `<meta property="og:image" content="https://abti.kagura-agent.com/og-abti.png">`,
+          `<meta property="og:url" content="https://abti.kagura-agent.com/compare-agents.html?a=${encodeURIComponent(slug1)}&b=${encodeURIComponent(slug2)}">`,
+          `<meta property="og:type" content="website">`,
+          `<meta name="twitter:card" content="summary_large_image">`,
+          `<meta name="twitter:title" content="${title}">`,
+          `<meta name="twitter:description" content="${desc}">`,
+          `<meta name="twitter:image" content="https://abti.kagura-agent.com/og-abti.png">`,
+        ].join('\n');
+        html = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
+        html = html.replace(/<meta name="twitter:card"[^>]*>/, '');
+        html = html.replace(/<meta name="twitter:title"[^>]*>/, '');
+        html = html.replace(/<meta name="twitter:description"[^>]*>/, '');
+        html = html.replace(/<meta name="twitter:image"[^>]*>/, '');
+        html = html.replace('</head>', ogTags + '\n</head>');
+      }
+    }
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // GET /test-agent - serve test-agent.html
   if (url.pathname === '/test-agent' && req.method === 'GET') {
     try {
@@ -1058,7 +1111,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/compare-agents.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
