@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js test/cross-compatibility.test.js test/auto-reload.test.js test/parseAnswer.test.js test/provider.test.js test/resume.test.js test/list.test.js",
-    "generate-og": "node scripts/generate-og-images.js"
+    "generate-og": "node scripts/generate-og-images.js",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2"
