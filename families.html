@@ -101,6 +101,8 @@ nav a:hover, nav a.active { color: var(--accent); }
     { name: 'Mistral', test: n => /mistral|codestral|mathstral|ministral/i.test(n) },
     { name: 'DeepSeek', test: n => /deepseek/i.test(n) },
     { name: 'Cohere', test: n => /cohere|command[\s-]?r|command[\s-]?a/i.test(n) },
+    { name: 'Gemini', test: n => /gemini/i.test(n) },
+    { name: 'Grok', test: n => /\bgrok\b/i.test(n) },
   ];
 
   function detectFamily(agent) {
