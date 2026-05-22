@@ -1111,7 +1111,7 @@ ${dimInfo.map((d, i) => {
   if (url.pathname === '/sitemap.xml' && req.method === 'GET') {
     const BASE = 'https://abti.kagura-agent.com';
     const VALID_TYPES = ['PTCF','PTCN','PTDF','PTDN','PECF','PECN','PEDF','PEDN','RTCF','RTCN','RTDF','RTDN','RECF','RECN','REDF','REDN'];
-    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/compare-agents.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html'];
+    const staticPages = ['/', '/types.html', '/agents.html', '/compare.html', '/compare-agents.html', '/api.html', '/sbti.html', '/test-agent.html', '/cross-compatibility.html', '/leaderboard.html', '/families.html', '/compatibility.html', '/stats.html'];
     const urls = staticPages.map(p => `  <url><loc>${BASE}${p}</loc></url>`);
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/type/${code}</loc></url>`));
     VALID_TYPES.forEach(code => urls.push(`  <url><loc>${BASE}/result/${code}</loc></url>`));
