@@ -119,6 +119,7 @@ const autoPromptFile = opt('--prompt-file') || opt('--system-prompt-file') || nu
 const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10) : null;
+const allModels = flag('--all');
 const noProxyFlag = flag('--no-proxy');
 const resumeFile = opt('--resume') || null;
 const saveStateFlag = flag('--save-state') || !!resumeFile;
@@ -155,6 +156,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider openrouter --model meta-llama/llama-3.3-70b-instruct
     npx abti test --provider mistral --model mistral-small-latest
     npx abti test --provider ollama --model llama3.1
+    npx abti test --provider ollama --all
 
   Options:
     --lang zh                Language (default: en)
@@ -164,6 +166,7 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
+    --all                    Test all installed models (ollama only)
     --submit                 Submit result to the ABTI registry
     --badge                  Print markdown badge snippet after results
     --runs <N>               Run the test N times (1-10, auto mode only)
@@ -545,6 +548,232 @@ async function runAuto() {
   return { answers, parseFailures };
 }
 
+// ── Fetch all Ollama models ──────────────────────────────────────────────
+function fetchOllamaModels() {
+  return new Promise((resolve, reject) => {
+    http.get('http://localhost:11434/api/tags', res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`Ollama API returned ${res.statusCode}`));
+        try { resolve(JSON.parse(data)); }
+        catch (e) { reject(new Error(`Failed to parse Ollama response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to Ollama at localhost:11434. Is it running? (${err.message})`));
+    });
+  });
+}
+
+function displayName(modelName) {
+  return modelName.replace(/:latest$/, '');
+}
+
+// ── Batch --all mode ────────────────────────────────────────────────────
+async function runAll() {
+  if (autoProvider !== 'ollama') {
+    console.error('  --all is currently only supported with --provider ollama');
+    process.exit(1);
+  }
+
+  process.stderr.write(`  Discovering Ollama models...\n`);
+  let modelList;
+  try {
+    const data = await fetchOllamaModels();
+    modelList = (data.models || []).map(m => m.name);
+  } catch (err) {
+    console.error(`  ${err.message}`);
+    process.exit(1);
+  }
+
+  if (modelList.length === 0) {
+    console.error('  No models found in Ollama.');
+    process.exit(1);
+  }
+
+  process.stderr.write(`  Found ${modelList.length} model(s): ${modelList.map(displayName).join(', ')}\n\n`);
+
+  const results = [];
+  const failures = [];
+
+  for (let idx = 0; idx < modelList.length; idx++) {
+    const fullName = modelList[idx];
+    const display = displayName(fullName);
+    process.stderr.write(`  [${idx + 1}/${modelList.length}] Testing ${display}...\n`);
+
+    // Override autoModel for this iteration (runAuto reads the module-level var)
+    const savedModel = autoModel;
+    // We can't reassign const, so we call the LLM directly via a local runAuto-like flow
+    // Instead, build a self-contained single-model test
+    try {
+      const singleResult = await runSingleModel(fullName);
+      const { code, scores } = score(singleResult.answers);
+      const nick = NICKS[lang][code];
+      const desc = DESCS[lang][code];
+      results.push({
+        model: fullName,
+        displayName: display,
+        type: code,
+        nick,
+        desc,
+        scores,
+        parseFailures: singleResult.parseFailures,
+        runs: runsN > 1 ? singleResult.runs : undefined,
+        consistency: singleResult.consistency,
+      });
+      process.stderr.write(`  [${idx + 1}/${modelList.length}] ${display} → ${c.boldCyan}${code}${c.reset} (${nick})\n`);
+    } catch (err) {
+      failures.push({ model: fullName, displayName: display, error: err.message });
+      process.stderr.write(`  [${idx + 1}/${modelList.length}] ${display} → ${c.red}FAILED${c.reset}: ${err.message}\n`);
+    }
+  }
+
+  // Submit results if requested
+  if (submit) {
+    for (const r of results) {
+      try {
+        const body = { answers: r._answers ? r._answers.map(a => a ? 1 : 0) : undefined, lang };
+        if (agentName) body.agentName = agentName;
+        body.model = r.model;
+        body.provider = autoProvider;
+        if (r.parseFailures > 0) body.parseFailures = r.parseFailures;
+        if (r.consistency != null) { body.consistency = r.consistency; body.runs = runsN; }
+        // We need answers for submit — stored in _answers
+        if (!r._answers) {
+          process.stderr.write(`  Skipping submit for ${r.displayName} (no answer data)\n`);
+          continue;
+        }
+        body.answers = r._answers.map(a => a ? 1 : 0);
+        await httpPost(`${API_BASE}/api/agent-test`, body);
+        process.stderr.write(`  Submitted ${r.displayName}\n`);
+      } catch (err) {
+        process.stderr.write(`  Submit failed for ${r.displayName}: ${err.message}\n`);
+      }
+    }
+  }
+
+  // Output
+  if (jsonMode) {
+    const output = results.map(r => {
+      const o = { model: r.model, displayName: r.displayName, type: r.type, nick: r.nick, scores: r.scores };
+      if (r.parseFailures > 0) o.parseFailures = r.parseFailures;
+      if (r.runs) o.runs = r.runs;
+      if (r.consistency != null) o.consistency = r.consistency;
+      return o;
+    });
+    if (failures.length > 0) {
+      console.log(JSON.stringify({ results: output, failures: failures.map(f => ({ model: f.model, error: f.error })) }, null, 2));
+    } else {
+      console.log(JSON.stringify({ results: output }, null, 2));
+    }
+  } else {
+    // Summary table
+    console.log(`\n  ── Batch Results (${results.length} passed, ${failures.length} failed) ──\n`);
+    if (results.length > 0) {
+      const w = {
+        model: Math.max(5, ...results.map(r => r.displayName.length)),
+        type: 4,
+        nick: Math.max(8, ...results.map(r => r.nick.length)),
+      };
+      const pad = (s, n) => s + ' '.repeat(Math.max(0, n - s.length));
+      console.log(`  ${c.bold}${pad('Model', w.model)}  ${pad('Type', w.type)}  Nickname${c.reset}`);
+      console.log(`  ${'─'.repeat(w.model + w.type + w.nick + 4)}`);
+      for (const r of results) {
+        console.log(`  ${pad(r.displayName, w.model)}  ${c.cyan}${pad(r.type, w.type)}${c.reset}  ${r.nick}`);
+      }
+    }
+    if (failures.length > 0) {
+      console.log(`\n  ${c.red}Failed:${c.reset}`);
+      for (const f of failures) {
+        console.log(`    ${f.displayName}: ${f.error}`);
+      }
+    }
+    console.log();
+  }
+}
+
+// Run a single model test (used by runAll)
+async function runSingleModel(modelName) {
+  const apiKey = resolveApiKey('ollama', autoApiKey);
+  let basePrompt = '';
+  if (autoPromptFile) basePrompt = fs.readFileSync(autoPromptFile, 'utf-8');
+  if (autoPrompt) basePrompt = autoPrompt;
+  if (!basePrompt) basePrompt = 'You are a helpful AI assistant.';
+  const systemPrompt = basePrompt + '\n\n' +
+    'You are taking a personality test. For each scenario, choose the option (A or B) ' +
+    'that best reflects how you would actually behave. Reply with ONLY the letter A or B.';
+
+  const questions = await getQuestions();
+
+  if (runsN > 1) {
+    // Multi-run per model
+    const allRuns = [];
+    let totalParseFailures = 0;
+    for (let r = 0; r < runsN; r++) {
+      const { answers, parseFailures } = await runSinglePass(modelName, apiKey, systemPrompt, questions);
+      totalParseFailures += parseFailures;
+      const result = score(answers);
+      allRuns.push({ answers, code: result.code, scores: result.scores });
+    }
+    const typeCounts = {};
+    for (const r of allRuns) typeCounts[r.code] = (typeCounts[r.code] || 0) + 1;
+    const dominant = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0];
+    const dominantRun = allRuns.find(r => r.code === dominant[0]);
+    return {
+      answers: dominantRun.answers,
+      _answers: dominantRun.answers,
+      parseFailures: totalParseFailures,
+      runs: allRuns.map(r => ({ type: r.code, scores: r.scores })),
+      consistency: Math.round((dominant[1] / runsN) * 100),
+    };
+  }
+
+  const { answers, parseFailures } = await runSinglePass(modelName, apiKey, systemPrompt, questions);
+  return { answers, _answers: answers, parseFailures };
+}
+
+async function runSinglePass(modelName, apiKey, systemPrompt, questions) {
+  const answers = [];
+  let parseFailures = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const text = q.q || q.text || q.question;
+    const optA = q.a || (q.options && (q.options.A || q.options[0])) || 'A';
+    const optB = q.b || (q.options && (q.options.B || q.options[1])) || 'B';
+    const dim = q.dimension || '';
+
+    const userMessage = [
+      `Question ${i + 1}/${questions.length}${dim ? ` (${dim})` : ''}:`,
+      '', text, '',
+      `A: ${optA}`,
+      `B: ${optB}`,
+    ].join('\n');
+
+    let answer;
+    let lastErr;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
+      const response = await callLLM('ollama', apiKey, modelName, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
+      try {
+        answer = parseAnswer(response);
+        break;
+      } catch (err) {
+        lastErr = err;
+        parseFailures++;
+      }
+    }
+    if (answer === undefined) throw lastErr;
+    answers.push(answer);
+
+    if (interQuestionDelay > 0 && i < questions.length - 1) {
+      await sleep(interQuestionDelay);
+    }
+  }
+
+  return { answers, parseFailures };
+}
+
 // ── List subcommand ───────────────────────────────────────────────────────
 const RESULTS_URL = 'https://raw.githubusercontent.com/kagura-agent/abti/master/data/results.json';
 
@@ -612,7 +841,9 @@ async function run() {
   let answers;
 
   let parseFailures = 0;
-  if (autoMode) {
+  if (allModels) {
+    return await runAll();
+  } else if (autoMode) {
     if (runsN > 1) {
       return await runMulti();
     }
@@ -892,4 +1123,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, displayName };
