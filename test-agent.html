@@ -534,6 +534,9 @@ textarea { resize: vertical; min-height: 80px; }
         <option value="deepseek">DeepSeek</option>
         <option value="ollama">Ollama (Local)</option>
         <option value="openrouter">OpenRouter</option>
+        <option value="groq">Groq</option>
+        <option value="mistral">Mistral</option>
+        <option value="github">GitHub Models</option>
         <option value="custom">Custom Endpoint</option>
       </select>
 
@@ -828,13 +831,13 @@ async function importFromGithub() {
 const providers = {
   openai: {
     url: 'https://api.openai.com/v1/chat/completions',
-    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'o3', 'o3-mini'],
+    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'o3', 'o3-mini', 'gpt-5', 'gpt-5-mini', 'gpt-5.2'],
     auth: 'bearer',
     format: 'openai',
   },
   anthropic: {
     url: 'https://api.anthropic.com/v1/messages',
-    models: ['claude-sonnet-4-20250514', 'claude-haiku-4-20250414', 'claude-opus-4-20250514'],
+    models: ['claude-sonnet-4-20250514', 'claude-haiku-4-20250414', 'claude-opus-4-20250514', 'claude-opus-4-20250714'],
     auth: 'anthropic',
     format: 'anthropic',
   },
@@ -852,13 +855,31 @@ const providers = {
   },
   ollama: {
     url: 'http://localhost:11434/v1/chat/completions',
-    models: ['llama3.1', 'llama3.2', 'gemma2', 'mistral', 'phi3', 'qwen2.5', 'deepseek-r1', 'custom'],
+    models: ['llama3.1', 'llama3.2', 'gemma2', 'mistral', 'phi3', 'qwen2.5', 'deepseek-r1', 'qwen3', 'llama4', 'gemma3', 'phi4', 'custom'],
     auth: null,
     format: 'openai',
   },
   openrouter: {
     url: 'https://openrouter.ai/api/v1/chat/completions',
     models: ['openai/gpt-oss-120b:free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free', 'qwen/qwen3-coder:free', 'qwen/qwen3-next-80b-a3b-instruct:free', 'nvidia/nemotron-3-super-120b-a12b:free', 'nvidia/nemotron-3-nano-30b-a3b:free', 'minimax/minimax-m2.5:free', 'custom'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  groq: {
+    url: 'https://api.groq.com/openai/v1/chat/completions',
+    models: ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'gemma2-9b-it', 'mixtral-8x7b-32768', 'custom'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  mistral: {
+    url: 'https://api.mistral.ai/v1/chat/completions',
+    models: ['mistral-small-latest', 'mistral-medium-latest', 'mistral-large-latest', 'codestral-latest', 'custom'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  github: {
+    url: 'https://models.inference.ai.azure.com/chat/completions',
+    models: ['gpt-4o', 'gpt-4o-mini', 'Phi-4', 'Llama-3.3-70B-Instruct', 'custom'],
     auth: 'bearer',
     format: 'openai',
   },
