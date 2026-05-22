@@ -26,6 +26,13 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
 nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
 nav a:hover, nav a.active { color: var(--accent); }
+.hamburger { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); padding: .2rem .5rem; position: absolute; right: 1rem; }
+@media (max-width: 600px) {
+  nav { flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: .7rem 1rem; }
+  nav a { display: none; width: 100%; padding: .5rem 0; }
+  nav.open a { display: block; }
+  .hamburger { display: block; }
+}
 
 .wrap { max-width: 900px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
 .header { text-align: center; margin-bottom: 2rem; }
@@ -88,6 +95,7 @@ nav a:hover, nav a.active { color: var(--accent); }
 </head>
 <body>
 <nav>
+  <button class="hamburger" aria-label="Menu">☰</button>
   <a href="index.html">ABTI</a>
   <a href="sbti.html">SBTI-AI</a>
   <a href="agents.html">Agents</a>
@@ -219,6 +227,14 @@ function renderAgentCard(a) {
 }
 
 init();
+</script>
+<script>
+(function(){
+  const nav = document.querySelector('nav');
+  const btn = nav.querySelector('.hamburger');
+  btn.addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+})();
 </script>
 </body>
 </html>
