@@ -23,15 +23,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: .7rem 1rem; background: rgba(250,250,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
-nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; }
-nav a:hover, nav a.active { color: var(--accent); }
-.hamburger { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); padding: .2rem .5rem; position: absolute; right: 1rem; }
 @media (max-width: 600px) {
-  nav { flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: .7rem 1rem; }
-  nav a { display: none; width: 100%; padding: .5rem 0; }
-  nav.open a { display: block; }
-  .hamburger { display: block; }
 }
 
 .wrap { max-width: 800px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
@@ -92,24 +84,69 @@ nav a:hover, nav a.active { color: var(--accent); }
   .selectors select { min-width: auto; }
   .vs { display: none; }
 }
+
+/* — Nav with dropdowns — */
+nav, .nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 1.5rem; padding: .7rem 1rem; background: rgba(250,249,247,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a, .nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; font-family: 'DM Sans', sans-serif; }
+nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
+.nav a.active { font-weight: 600; }
+.hamburger { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); padding: .2rem .5rem; position: absolute; right: 1rem; }
+.nav-dropdown { position: relative; }
+.nav-dropdown-btn { background: none; border: none; color: var(--text2); font-size: .82rem; font-weight: 500; font-family: 'DM Sans', sans-serif; letter-spacing: .08em; cursor: pointer; padding: .2rem 0; transition: color .2s; }
+.nav-dropdown-btn:hover, .nav-dropdown-btn.active { color: var(--accent); }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 160px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.08); padding: .4rem 0; margin-top: .4rem; z-index: 200; }
+.nav-dropdown-menu a { display: block; padding: .45rem 1rem; white-space: nowrap; font-size: .8rem; }
+.nav-dropdown-menu a:hover { background: rgba(232,101,138,.06); }
+.nav-dropdown-menu a.active { color: var(--accent); font-weight: 600; }
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.lang-btn { position: absolute; right: 1rem; background: var(--surface, #fff); color: var(--text2); border: 1px solid var(--border); padding: .3rem .7rem; font-size: .72rem; border-radius: 20px; cursor: pointer; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .2s; letter-spacing: .05em; }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 600px) {
+  nav, .nav { flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: .7rem 1rem; }
+  nav > a, .nav > a, .nav > .nav-dropdown { display: none; width: 100%; padding: 0; }
+  nav.open > a, .nav.open > a, nav.open > .nav-dropdown, .nav.open > .nav-dropdown { display: block; width: 100%; }
+  nav > a, .nav > a { padding: .5rem 0; }
+  .nav-dropdown-btn { width: 100%; text-align: left; padding: .5rem 0; }
+  .nav-dropdown-menu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0 0 0 1rem; margin: 0; display: block; }
+  .nav-dropdown-menu a { padding: .35rem 0; }
+  .lang-btn { position: absolute; right: 3rem; top: .55rem; }
+  .hamburger { display: block; }
+}
+/* — End nav — */
 </style>
 </head>
 <body>
-<nav>
-  <button class="hamburger" aria-label="Menu">☰</button>
+<nav class="nav">
+  <button class="hamburger" aria-label="Menu">&#9776;</button>
   <a href="index.html">ABTI</a>
-  <a href="sbti.html">SBTI-AI</a>
-  <a href="agents.html">Agents</a>
-  <a href="leaderboard.html">Leaderboard</a>
-  <a href="stats.html">Stats</a>
-  <a href="types.html">Types</a>
-  <a href="compare.html" class="active">Compare</a>
-  <a href="compare-agents.html">Compare Agents</a>
-  <a href="families.html">Families</a>
-  <a href="test-agent.html">Test Agent</a>
-  <a href="compatibility.html">Compatibility</a>
-  <a href="cross-compatibility.html">Cross Match</a>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn" aria-expanded="false"><span data-en="Explore" data-zh="探索">Explore</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="agents.html"><span data-en="Agents" data-zh="智能体">Agents</span></a>
+      <a href="leaderboard.html"><span data-en="Leaderboard" data-zh="排行榜">Leaderboard</span></a>
+      <a href="stats.html"><span data-en="Stats" data-zh="统计">Stats</span></a>
+      <a href="families.html"><span data-en="Families" data-zh="家族">Families</span></a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn active" aria-expanded="false"><span data-en="Types" data-zh="类型">Types</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="types.html"><span data-en="Types" data-zh="类型">Types</span></a>
+      <a href="compare.html" class="active"><span data-en="Compare" data-zh="对比">Compare</span></a>
+      <a href="compare-agents.html"><span data-en="Compare Agents" data-zh="对比智能体">Compare Agents</span></a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn" aria-expanded="false"><span data-en="Test" data-zh="测试">Test</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="test-agent.html"><span data-en="Test Agent" data-zh="测试智能体">Test Agent</span></a>
+      <a href="compatibility.html"><span data-en="Compatibility" data-zh="兼容性">Compatibility</span></a>
+      <a href="cross-compatibility.html"><span data-en="Cross Match" data-zh="交叉匹配">Cross Match</span></a>
+    </div>
+  </div>
   <a href="api.html">API</a>
+  <a href="sbti.html">SBTI-AI</a>
 </nav>
 <div class="wrap">
   <div class="header">
@@ -213,11 +250,35 @@ function renderTypeCard(t) {
 }
 </script>
 <script>
+
+</script>
+
+<script>
 (function(){
-  const nav = document.querySelector('nav');
+  const nav = document.querySelector('nav, .nav');
+  if (!nav) return;
   const btn = nav.querySelector('.hamburger');
   btn.addEventListener('click', () => nav.classList.toggle('open'));
+  // Close menu when clicking a link
   nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  // Keyboard accessibility for dropdown buttons
+  nav.querySelectorAll('.nav-dropdown-btn').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      const dd = b.closest('.nav-dropdown');
+      const isOpen = dd.classList.contains('open');
+      // Close all
+      nav.querySelectorAll('.nav-dropdown').forEach(d => { d.classList.remove('open'); d.querySelector('.nav-dropdown-btn').setAttribute('aria-expanded','false'); });
+      if (!isOpen) { dd.classList.add('open'); b.setAttribute('aria-expanded','true'); }
+    });
+    b.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); }
+    });
+  });
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', () => {
+    nav.querySelectorAll('.nav-dropdown').forEach(d => { d.classList.remove('open'); d.querySelector('.nav-dropdown-btn').setAttribute('aria-expanded','false'); });
+  });
 })();
 </script>
 </body>
