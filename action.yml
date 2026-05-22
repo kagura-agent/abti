@@ -10,7 +10,7 @@ inputs:
     description: 'Path to file containing the agent system prompt (e.g. AGENTS.md)'
     required: false
   provider:
-    description: 'LLM provider: openai, anthropic, or gemini'
+    description: 'LLM provider: openai, anthropic, gemini, deepseek, github, groq, openrouter, mistral, or ollama'
     required: true
   model:
     description: 'Model name (e.g. gpt-4o, claude-sonnet-4-20250514)'
@@ -31,6 +31,9 @@ inputs:
     default: 'https://abti.kagura-agent.com'
   agent-name:
     description: 'Display name for the agent in the registry (defaults to "<model> (<provider>)")'
+    required: false
+  expected-type:
+    description: 'Expected ABTI type code (e.g. PTCF). Fails the action on mismatch for personality drift detection.'
     required: false
   lang:
     description: 'Language for questions (en or zh)'
