@@ -168,7 +168,7 @@ if (flag('--help') || flag('-h')) {
     --name <name>            Agent name for registry
     --url <url>              Agent URL for registry
     --model <model>          Model name
-    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|ollama (default: openai)
+    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
     --all                    Test all installed models (ollama, openrouter)
     --max-models <N>         Limit number of models to test in --all mode
@@ -357,8 +357,9 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai', undefined, maxTokens);
   if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
   if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
+  if (prov === 'xai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1', undefined, maxTokens);
   if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined, maxTokens);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", or "ollama".`);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", or "ollama".`);
 }
 
 function isReasoningModel(modelName) {

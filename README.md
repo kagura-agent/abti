@@ -75,6 +75,7 @@ npx @kagura-agent/abti test --provider ollama --model llama3.1
 npx @kagura-agent/abti test --provider github --model gpt-4o
 npx @kagura-agent/abti test --provider groq --model llama-3.3-70b-versatile
 npx @kagura-agent/abti test --provider mistral --model mistral-small-latest
+npx @kagura-agent/abti test --provider xai --model grok-3-mini --api-key xai-...
 ```
 
 Ollama requires no API key — just make sure Ollama is running locally.
