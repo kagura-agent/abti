@@ -553,6 +553,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
         <option value="groq">Groq</option>
         <option value="mistral">Mistral</option>
         <option value="github">GitHub Models</option>
+        <option value="xai">xAI (Grok)</option>
         <option value="custom">Custom Endpoint</option>
       </select>
 
@@ -896,6 +897,12 @@ const providers = {
   github: {
     url: 'https://models.inference.ai.azure.com/chat/completions',
     models: ['gpt-4o', 'gpt-4o-mini', 'Phi-4', 'Llama-3.3-70B-Instruct', 'custom'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  xai: {
+    url: 'https://api.x.ai/v1/chat/completions',
+    models: ['grok-3', 'grok-3-mini', 'grok-2', 'custom'],
     auth: 'bearer',
     format: 'openai',
   },
