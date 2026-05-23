@@ -74,6 +74,14 @@ nav, .nav { background: hsla(240 25% 5% / .88); }
 .rel-green { color: #22c55e; }
 .rel-yellow { color: #eab308; }
 .rel-red { color: #ef4444; }
+.rel-metrics { display: flex; flex-direction: column; gap: .6rem; }
+.rel-metric-row { display: flex; align-items: center; justify-content: space-between; font-size: .88rem; }
+.rel-metric-label { color: var(--text2); }
+.rel-metric-value { font-weight: 600; }
+.rel-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .4rem; }
+.rel-dot-green { background: #22c55e; }
+.rel-dot-yellow { background: #eab308; }
+.rel-dot-red { background: #ef4444; }
 
 .section { margin-bottom: 2rem; }
 .section-title {
@@ -271,8 +279,8 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
     if (a.reliability != null && a.reliability > 1) a.reliability = a.reliability / 100;
     var p = profileData;
     var labels = lang === 'zh'
-      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents', tuningTips: '💡 调优建议', shareX: '分享到 X', shareLI: '分享到 LinkedIn', copyLink: '复制链接', copied: '已复制！' }
-      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', back: '← Back to Agents', tuningTips: '💡 Tuning Tips', shareX: 'Share on X', shareLI: 'Share on LinkedIn', copyLink: 'Copy Link', copied: 'Copied!' };
+      ? { strengths: '优势', blindSpots: '盲区', workStyle: '工作风格', dimensions: '维度分析', bestPaired: '最佳搭档', back: '← 返回 Agents', tuningTips: '💡 调优建议', shareX: '分享到 X', shareLI: '分享到 LinkedIn', copyLink: '复制链接', copied: '已复制！', reliability: '可靠性', consistency: '一致性', testRuns: '测试次数', reliabilityLabel: '可靠性' }
+      : { strengths: 'Strengths', blindSpots: 'Blind Spots', workStyle: 'Work Style', dimensions: 'Dimension Breakdown', bestPaired: 'Best Paired With', back: '← Back to Agents', tuningTips: '💡 Tuning Tips', shareX: 'Share on X', shareLI: 'Share on LinkedIn', copyLink: 'Copy Link', copied: 'Copied!', reliability: 'Reliability', consistency: 'Consistency', testRuns: 'Test Runs', reliabilityLabel: 'Reliability' };
 
     // Get localized nick from allTypes
     var localNick = a.nick;
@@ -340,11 +348,12 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
 
       + (a.deprecated ? '<div class="deprecated-notice"><strong>Deprecated</strong> — This agent has been deprecated.' + (a.deprecatedReason ? ' ' + esc(a.deprecatedReason) : '') + '</div>' : '')
 
-      + (a.reliability != null ? '<div class="section">'
-      + '<div class="section-title">Reliability</div>'
-      + '<div class="card"><div class="reliability-info">'
-      + '<span class="reliability-score ' + (a.reliability >= 0.9 ? 'rel-green' : a.reliability >= 0.75 ? 'rel-yellow' : 'rel-red') + '">' + Math.round(a.reliability * 100) + '%</span>'
-      + '<span class="reliability-label">consistent across ' + (a.reliabilityRuns || '?') + ' runs</span>'
+      + (a.runs && a.runs > 1 ? '<div class="section">'
+      + '<div class="section-title">' + esc(labels.reliability) + '</div>'
+      + '<div class="card"><div class="rel-metrics">'
+      + '<div class="rel-metric-row"><span class="rel-metric-label">' + esc(labels.consistency) + '</span><span class="rel-metric-value">' + (a.consistency != null ? a.consistency + '%' : '—') + '</span></div>'
+      + '<div class="rel-metric-row"><span class="rel-metric-label">' + esc(labels.testRuns) + '</span><span class="rel-metric-value">' + a.runs + '</span></div>'
+      + (a.reliability != null ? '<div class="rel-metric-row"><span class="rel-metric-label">' + esc(labels.reliabilityLabel) + '</span><span class="rel-metric-value"><span class="rel-dot ' + (Math.round(a.reliability * 100) >= 80 ? 'rel-dot-green' : Math.round(a.reliability * 100) >= 50 ? 'rel-dot-yellow' : 'rel-dot-red') + '"></span>' + Math.round(a.reliability * 100) + '%</span></div>' : '')
       + '</div></div></div>' : '')
 
       + (a.confidence != null ? '<div class="section">'
