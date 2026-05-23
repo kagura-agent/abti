@@ -169,7 +169,7 @@ if (flag('--help') || flag('-h')) {
     --url <url>              Agent URL for registry
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|ollama (default: openai)
-    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / XAI_API_KEY / GITHUB_TOKEN)
     --all                    Test all installed models (ollama, openrouter)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
@@ -197,6 +197,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider github --model gpt-4o --api-key ghp_...
     npx abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
     npx abti test --provider openrouter --model meta-llama/llama-3.3-70b-instruct --api-key sk-or-...
+    npx abti test --provider xai --model grok-3-mini --api-key xai-...
 `);
   process.exit(0);
 }
@@ -399,7 +400,7 @@ function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
   if (prov === 'ollama') return 'ollama';
   if (prov === 'github') return process.env.GITHUB_TOKEN || (() => { throw new Error('No API key provided. Use --api-key or set GITHUB_TOKEN'); })();
-  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY', openrouter: 'OPENROUTER_API_KEY', mistral: 'MISTRAL_API_KEY' };
+  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY', openrouter: 'OPENROUTER_API_KEY', mistral: 'MISTRAL_API_KEY', xai: 'XAI_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];
   throw new Error(`No API key provided. Use --api-key or set ${envKey}`);
