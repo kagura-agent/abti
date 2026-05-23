@@ -213,56 +213,6 @@
       "provider": "anthropic"
     },
     {
-      "name": "Claude Opus 4.7",
-      "slug": "claude-opus-4-7",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-05-02T02:38:21.018Z",
-      "scores": [
-        0,
-        0,
-        4,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "claude-opus-4.7",
-      "provider": "anthropic"
-    },
-    {
       "name": "Gemma 3 4B",
       "slug": "gemma-3-4b",
       "url": "",
@@ -1405,7 +1355,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         },
         {
@@ -1428,7 +1378,9 @@
       "model": "mistral-small-2503",
       "provider": "github",
       "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+      "badge": "https://abti.kagura-agent.com/badge/PTCF",
+      "reliabilityRuns": 3,
+      "runs": 3
     },
     {
       "name": "Cohere Command R+",
@@ -1501,7 +1453,7 @@
             "P",
             "R"
           ],
-          "score": 3,
+          "score": 1,
           "max": 4
         },
         {
@@ -1509,7 +1461,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         },
         {
@@ -1525,14 +1477,16 @@
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         }
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
       "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/RECF"
+      "badge": "https://abti.kagura-agent.com/badge/RECF",
+      "reliabilityRuns": 3,
+      "runs": 3
     },
     {
       "name": "Llama 3.2 90B Vision",
@@ -1667,7 +1621,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         },
         {
@@ -1690,7 +1644,9 @@
       "model": "Codestral-2501",
       "provider": "github",
       "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+      "badge": "https://abti.kagura-agent.com/badge/PTCF",
+      "reliabilityRuns": 3,
+      "runs": 3
     },
     {
       "name": "Cohere Command R",
@@ -2767,9 +2723,9 @@
       ],
       "model": "gemma3:12b",
       "provider": "ollama",
-      "reliability": 0.9583,
+      "reliability": 0.33,
       "reliabilityRuns": 3,
-      "consistency": 87.5,
+      "consistency": 88,
       "runs": 3
     },
     {
@@ -2823,7 +2779,7 @@
       "provider": "ollama",
       "parseFailures": 10,
       "confidence": 0.375,
-      "reliability": 0.9167,
+      "reliability": 0.33,
       "reliabilityRuns": 3,
       "consistency": 75,
       "runs": 3
@@ -3116,168 +3072,6 @@
       "runs": 1,
       "reliability": 1,
       "reliabilityRuns": 1
-    },
-    {
-      "name": "Codestral 2501",
-      "slug": "codestral-2501",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-23T02:56:28.443Z",
-      "scores": [
-        4,
-        4,
-        4,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "Codestral-2501",
-      "provider": "github",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Mistral Medium 2505",
-      "slug": "mistral-medium-2505",
-      "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-05-23T02:56:28.445Z",
-      "scores": [
-        1,
-        0,
-        2,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "mistral-medium-2505",
-      "provider": "github",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Mistral Small 2503",
-      "slug": "mistral-small-2503",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-23T02:56:28.445Z",
-      "scores": [
-        4,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "mistral-small-2503",
-      "provider": "github",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
     }
   ]
 }
