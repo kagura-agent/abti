@@ -255,7 +255,8 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'groq') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
   if (provider === 'openrouter') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
   if (provider === 'mistral') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
-  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "github", "groq", "openrouter", or "mistral".`);
+  if (provider === 'xai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1');
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "github", "groq", "openrouter", "mistral", or "xai".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────
