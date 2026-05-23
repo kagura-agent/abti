@@ -2818,7 +2818,7 @@
       ],
       "model": "gemma3:12b",
       "provider": "ollama",
-      "reliability": 0.96,
+      "reliability": 0.9583,
       "reliabilityRuns": 3
     },
     {
@@ -2872,7 +2872,7 @@
       "provider": "ollama",
       "parseFailures": 10,
       "confidence": 0.375,
-      "reliability": 0.92,
+      "reliability": 0.9167,
       "reliabilityRuns": 3
     },
     {
@@ -3163,6 +3163,150 @@
       "runs": 1,
       "reliability": 1,
       "reliabilityRuns": 1
+    },
+    {
+      "name": "Codestral-2501",
+      "slug": "codestral-2501",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-19T01:34:53.705Z",
+      "scores": [
+        4,
+        4,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "name": "mistral-medium-2505",
+      "slug": "mistral-medium-2505",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-19T01:34:53.708Z",
+      "scores": [
+        1,
+        0,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "name": "mistral-small-2503",
+      "slug": "mistral-small-2503",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-19T01:34:53.709Z",
+      "scores": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ]
     }
   ]
 }
