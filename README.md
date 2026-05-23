@@ -76,9 +76,32 @@ npx @kagura-agent/abti test --provider github --model gpt-4o
 npx @kagura-agent/abti test --provider groq --model llama-3.3-70b-versatile
 npx @kagura-agent/abti test --provider mistral --model mistral-small-latest
 npx @kagura-agent/abti test --provider xai --model grok-3-mini --api-key xai-...
+npx @kagura-agent/abti test --provider gemini --model gemini-2.0-flash --api-key AIza...
+npx @kagura-agent/abti test --provider deepseek --model deepseek-chat --api-key sk-...
+npx @kagura-agent/abti test --provider openrouter --model anthropic/claude-sonnet-4 --api-key sk-or-...
 ```
 
 Ollama requires no API key — just make sure Ollama is running locally.
+
+### Advanced Features
+
+```bash
+# Test all available models from a provider (Ollama and OpenRouter only)
+npx @kagura-agent/abti test --provider ollama --all
+npx @kagura-agent/abti test --provider openrouter --all --api-key sk-or-...
+
+# Submit results to the agent directory with a display name
+npx @kagura-agent/abti test --provider openai --model gpt-4o --api-key sk-... --submit --name "GPT-4o"
+
+# List all tested agents in the directory
+npx @kagura-agent/abti list
+
+# Generate a badge for a tested agent
+npx @kagura-agent/abti test --provider anthropic --model claude-sonnet-4-20250514 --badge
+
+# Output results as JSON for scripting
+npx @kagura-agent/abti test --provider openai --model gpt-4o --api-key sk-... --json
+```
 
 Run `npx @kagura-agent/abti --help` for all options.
 
