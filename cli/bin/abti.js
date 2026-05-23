@@ -120,6 +120,8 @@ const llmBaseUrl = opt('--llm-base-url') || opt('--base-url') || null;
 const runsN = Math.min(Math.max(parseInt(opt('--runs') || '1', 10) || 1, 1), 10);
 const maxTokensOverride = opt('--max-tokens') ? parseInt(opt('--max-tokens'), 10) : null;
 const allModels = flag('--all');
+const maxModels = opt('--max-models') ? parseInt(opt('--max-models'), 10) : null;
+const filterPattern = opt('--filter') || null;
 const noProxyFlag = flag('--no-proxy');
 const resumeFile = opt('--resume') || null;
 const saveStateFlag = flag('--save-state') || !!resumeFile;
@@ -157,6 +159,8 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider mistral --model mistral-small-latest
     npx abti test --provider ollama --model llama3.1
     npx abti test --provider ollama --all
+    npx abti test --provider openrouter --all --api-key sk-or-...
+    npx abti test --provider openrouter --all --filter llama --max-models 5
 
   Options:
     --lang zh                Language (default: en)
@@ -166,7 +170,9 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
-    --all                    Test all installed models (ollama only)
+    --all                    Test all installed models (ollama, openrouter)
+    --max-models <N>         Limit number of models to test in --all mode
+    --filter <pattern>       Filter models by substring match in --all mode
     --submit                 Submit result to the ABTI registry
     --badge                  Print markdown badge snippet after results
     --runs <N>               Run the test N times (1-10, auto mode only)
@@ -565,25 +571,72 @@ function fetchOllamaModels() {
   });
 }
 
+function fetchOpenRouterModels(apiKey) {
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent('https://openrouter.ai/api/v1/models', noProxyFlag);
+    https.get('https://openrouter.ai/api/v1/models', {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`OpenRouter API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.data || [])
+            .filter(m => m.context_length > 0)
+            .map(m => m.id)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse OpenRouter response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to OpenRouter API: ${err.message}`));
+    });
+  });
+}
+
 function displayName(modelName) {
   return modelName.replace(/:latest$/, '');
 }
 
 // ── Batch --all mode ────────────────────────────────────────────────────
 async function runAll() {
-  if (autoProvider !== 'ollama') {
-    console.error('  --all is currently only supported with --provider ollama');
+  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter') {
+    console.error('  --all is currently only supported with --provider ollama or --provider openrouter');
     process.exit(1);
   }
 
-  process.stderr.write(`  Discovering Ollama models...\n`);
   let modelList;
-  try {
-    const data = await fetchOllamaModels();
-    modelList = (data.models || []).map(m => m.name);
-  } catch (err) {
-    console.error(`  ${err.message}`);
-    process.exit(1);
+
+  if (autoProvider === 'openrouter') {
+    const apiKey = resolveApiKey('openrouter', autoApiKey);
+    process.stderr.write(`  Discovering OpenRouter models...\n`);
+    try {
+      modelList = await fetchOpenRouterModels(apiKey);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else {
+    process.stderr.write(`  Discovering Ollama models...\n`);
+    try {
+      const data = await fetchOllamaModels();
+      modelList = (data.models || []).map(m => m.name);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  }
+
+  if (filterPattern) {
+    const pat = filterPattern.toLowerCase();
+    modelList = modelList.filter(m => m.toLowerCase().includes(pat));
+  }
+
+  if (maxModels && maxModels > 0) {
+    modelList = modelList.slice(0, maxModels);
   }
 
   if (modelList.length === 0) {
@@ -694,7 +747,8 @@ async function runAll() {
 
 // Run a single model test (used by runAll)
 async function runSingleModel(modelName) {
-  const apiKey = resolveApiKey('ollama', autoApiKey);
+  const prov = autoProvider || 'ollama';
+  const apiKey = resolveApiKey(prov, autoApiKey);
   let basePrompt = '';
   if (autoPromptFile) basePrompt = fs.readFileSync(autoPromptFile, 'utf-8');
   if (autoPrompt) basePrompt = autoPrompt;
@@ -754,7 +808,7 @@ async function runSinglePass(modelName, apiKey, systemPrompt, questions) {
     let lastErr;
     for (let attempt = 0; attempt < 3; attempt++) {
       const msg = attempt === 0 ? userMessage : 'Your previous response was not clear. Reply with ONLY the single letter A or B. Nothing else.';
-      const response = await callLLM('ollama', apiKey, modelName, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
+      const response = await callLLM(prov, apiKey, modelName, systemPrompt, msg, llmBaseUrl || undefined, maxTokensOverride);
       try {
         answer = parseAnswer(response);
         break;
@@ -1123,4 +1177,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, displayName };

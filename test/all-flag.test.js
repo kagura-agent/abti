@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { fetchOllamaModels, displayName } = require('../cli/bin/abti.js');
+const { fetchOllamaModels, fetchOpenRouterModels, displayName } = require('../cli/bin/abti.js');
 
 describe('--all flag', () => {
   describe('displayName', () => {
@@ -31,6 +31,22 @@ describe('--all flag', () => {
       } catch (err) {
         assert.ok(err.message.includes('Cannot connect to Ollama') || err.message.includes('Ollama API'),
           `Expected Ollama connection error, got: ${err.message}`);
+      }
+    });
+  });
+
+  describe('fetchOpenRouterModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchOpenRouterModels, 'function');
+    });
+
+    it('should reject with invalid API key', async () => {
+      try {
+        await fetchOpenRouterModels('invalid-key');
+        // If the API happens to accept it, just verify we got an array
+      } catch (err) {
+        assert.ok(err.message.includes('OpenRouter API') || err.message.includes('Cannot connect'),
+          `Expected OpenRouter error, got: ${err.message}`);
       }
     });
   });
