@@ -165,6 +165,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
 <body>
 <nav class="nav">
   <button class="hamburger" aria-label="Menu">&#9776;</button>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
   <a href="index.html">ABTI</a>
   <div class="nav-dropdown">
     <button class="nav-dropdown-btn active" aria-expanded="false"><span data-en="Explore" data-zh="探索">Explore</span> ▾</button>
@@ -251,6 +252,140 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
   <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
 </div>
 <script>
+// === i18n ===
+let lang = localStorage.getItem('abti-lang') || 'en';
+
+const i18n = {
+  en: {
+    pageTitle: 'Tested',
+    pageTitleAccent: 'Agents',
+    testsTaken: 'tests taken',
+    showing: (x, y) => 'Showing <strong>' + x + '</strong> of ' + y + ' agents',
+    searchPlaceholder: 'Search by name…',
+    allTypes: 'All Types',
+    allProviders: 'All Providers',
+    sortNewest: 'Newest first',
+    sortOldest: 'Oldest first',
+    sortNameAZ: 'Name A–Z',
+    sortNameZA: 'Name Z–A',
+    sortType: 'By type',
+    emptyFilter: 'No agents match your filters.',
+    emptyNone: 'No agents have taken the test yet.',
+    dimBreakdown: 'Dimension Breakdown',
+    typeFrequency: 'Type Frequency',
+    dimNames: ['Autonomy', 'Precision', 'Transparency', 'Adaptability'],
+    dimPoles: [['Proactive', 'Responsive'], ['Thorough', 'Efficient'], ['Candid', 'Diplomatic'], ['Flexible', 'Principled']],
+    notableTitle: 'Notable Agents',
+    notableSub: 'Well-known AI agents and their behavioral profiles',
+    ctaTitle: 'Test Your',
+    ctaTitleAccent: 'Agent',
+    ctaSub: 'Add yours to the gallery in minutes',
+    ctaGHDesc: 'Add a one-liner to your CI and test your agent on every push.',
+    ctaMCPDesc: 'Connect any MCP-compatible agent for automated personality testing.',
+    ctaAPIDesc: 'Fetch questions, answer them, get your type — all via REST.',
+    ctaLink: 'Get started →',
+    reliable: 'reliable',
+    deprecated: 'Deprecated',
+    footer: 'ABTI — Agent Behavioral Type Indicator',
+  },
+  zh: {
+    pageTitle: '已测试',
+    pageTitleAccent: '智能体',
+    testsTaken: '次测试',
+    showing: (x, y) => '显示 <strong>' + x + '</strong> / ' + y + ' 个智能体',
+    searchPlaceholder: '搜索智能体名称…',
+    allTypes: '所有类型',
+    allProviders: '所有提供者',
+    sortNewest: '最新优先',
+    sortOldest: '最旧优先',
+    sortNameAZ: '名称 A–Z',
+    sortNameZA: '名称 Z–A',
+    sortType: '按类型',
+    emptyFilter: '没有匹配的智能体。',
+    emptyNone: '还没有智能体参加测试。',
+    dimBreakdown: '维度分布',
+    typeFrequency: '类型频率',
+    dimNames: ['自主性', '精确性', '透明性', '适应性'],
+    dimPoles: [['主动', '响应'], ['彻底', '高效'], ['坦率', '圆滑'], ['灵活', '原则']],
+    notableTitle: '知名智能体',
+    notableSub: '知名 AI 智能体及其行为特征',
+    ctaTitle: '测试你的',
+    ctaTitleAccent: '智能体',
+    ctaSub: '几分钟就能加入测试画廊',
+    ctaGHDesc: '在 CI 中加一行配置，每次 push 自动测试',
+    ctaMCPDesc: '连接任何兼容 MCP 的智能体进行自动测试',
+    ctaAPIDesc: '获取问题、作答、得到类型——全部通过 REST',
+    ctaLink: '开始使用 →',
+    reliable: '可靠性',
+    deprecated: '已弃用',
+    footer: 'ABTI — 智能体行为类型指标',
+  }
+};
+
+function t(key) { return i18n[lang][key]; }
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
+  // Update nav spans
+  document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+    el.textContent = lang === 'en' ? el.dataset.en : el.dataset.zh;
+  });
+  applyLang();
+}
+
+function applyLang() {
+  // Header
+  document.querySelector('.header h1').innerHTML = t('pageTitle') + ' <span>' + t('pageTitleAccent') + '</span>';
+  // Toolbar
+  document.getElementById('search').placeholder = t('searchPlaceholder');
+  const filterType = document.getElementById('filter-type');
+  if (filterType.options[0]) filterType.options[0].textContent = t('allTypes');
+  const filterProv = document.getElementById('filter-provider');
+  if (filterProv.options[0]) filterProv.options[0].textContent = t('allProviders');
+  const sortEl = document.getElementById('sort');
+  const sortKeys = ['sortNewest', 'sortOldest', 'sortNameAZ', 'sortNameZA', 'sortType'];
+  for (let i = 0; i < sortEl.options.length && i < sortKeys.length; i++) {
+    sortEl.options[i].textContent = t(sortKeys[i]);
+  }
+  // Dist titles
+  const distTitles = document.querySelectorAll('.dist-title');
+  if (distTitles[0]) distTitles[0].textContent = t('dimBreakdown');
+  if (distTitles[1]) distTitles[1].textContent = t('typeFrequency');
+  // Notable
+  const notTitle = document.querySelector('.notable-title');
+  if (notTitle) notTitle.textContent = t('notableTitle');
+  const notSub = document.querySelector('.notable-sub');
+  if (notSub) notSub.textContent = t('notableSub');
+  // CTA
+  const ctaTitle = document.querySelector('.cta-title');
+  if (ctaTitle) ctaTitle.innerHTML = t('ctaTitle') + ' <span>' + t('ctaTitleAccent') + '</span>';
+  const ctaSub = document.querySelector('.cta-sub');
+  if (ctaSub) ctaSub.textContent = t('ctaSub');
+  const ctaCards = document.querySelectorAll('.cta-card');
+  if (ctaCards[0]) { ctaCards[0].querySelector('p').textContent = t('ctaGHDesc'); ctaCards[0].querySelector('.cta-link').textContent = t('ctaLink'); }
+  if (ctaCards[1]) { ctaCards[1].querySelector('p').textContent = t('ctaMCPDesc'); ctaCards[1].querySelector('.cta-link').textContent = t('ctaLink'); }
+  if (ctaCards[2]) { ctaCards[2].querySelector('p').textContent = t('ctaAPIDesc'); ctaCards[2].querySelector('.cta-link').textContent = t('ctaLink'); }
+  // Footer
+  document.querySelector('.footer').textContent = t('footer');
+  // Re-render cards & dims if data loaded
+  if (window._agentsData) renderCards();
+  if (window._agentsRaw) renderDims();
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// Init lang on load
+(function initLang() {
+  document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
+  document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+    el.textContent = lang === 'en' ? el.dataset.en : el.dataset.zh;
+  });
+})();
+
 (async () => {
   const grid = document.getElementById('grid');
   const totalEl = document.getElementById('total');
@@ -258,13 +393,15 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
     const res = await fetch('/api/agents');
     const data = await res.json();
     if (!data.agents || data.agents.length === 0) {
-      totalEl.innerHTML = '<strong>' + data.total + '</strong> tests taken';
-      grid.innerHTML = '<div class="empty">No agents have taken the test yet.</div>';
+      totalEl.innerHTML = '<strong>' + data.total + '</strong> ' + t('testsTaken');
+      grid.innerHTML = '<div class="empty">' + t('emptyNone') + '</div>';
       document.getElementById('cta').style.display = '';
+      applyLang();
       return;
     }
 
     const allAgents = data.agents.slice().reverse();
+    window._agentsData = { data, allAgents };
     const searchEl = document.getElementById('search');
     const filterEl = document.getElementById('filter-type');
     const providerFilterEl = document.getElementById('filter-provider');
@@ -279,7 +416,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
     providers.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; providerFilterEl.appendChild(o); });
     document.getElementById('toolbar').style.display = '';
 
-    function renderCards() {
+    window.renderCards = function renderCards() {
       const q = searchEl.value.toLowerCase();
       const typeFilter = filterEl.value;
       const providerFilter = providerFilterEl.value;
@@ -298,10 +435,10 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
       else if (sortMode === 'type') list = list.slice().sort((a, b) => (a.type || '').localeCompare(b.type || '') || a.name.localeCompare(b.name));
 
       totalEl.innerHTML = list.length === allAgents.length
-        ? '<strong>' + data.total + '</strong> tests taken'
-        : 'Showing <strong>' + list.length + '</strong> of ' + allAgents.length + ' agents';
+        ? '<strong>' + data.total + '</strong> ' + t('testsTaken')
+        : t('showing')(list.length, allAgents.length);
 
-      if (list.length === 0) { grid.innerHTML = '<div class="empty">No agents match your filters.</div>'; return; }
+      if (list.length === 0) { grid.innerHTML = '<div class="empty">' + t('emptyFilter') + '</div>'; return; }
 
       grid.innerHTML = list.map(a => {
         const slug = a.slug || a.name.toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+/g, '-').replace(/^-+|-+$/g, '') || 'agent';
@@ -310,7 +447,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
         return '<div class="card' + (a.deprecated ? ' card-deprecated' : '') + '">'
           + '<div class="card-name">' + nameHtml + '</div>'
           + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
-          + (a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">Deprecated</span>' : '')
+          + (a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">' + t('deprecated') + '</span>' : '')
           + (a.confidence != null && a.confidence < 0.5 ? ' <span title="Low parse confidence: ' + Math.round(a.confidence * 100) + '%" style="cursor:help">⚠️</span>' : '')
           + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
           + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
@@ -323,41 +460,47 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
                 + '<span class="card-score-pct">' + pct + '%</span>'
                 + '</div>';
             }).join('') + '</div>' : '')
-          + (a.reliability != null ? '<div class="card-reliability">🔁 ' + Math.round(a.reliability * 100) + '% reliable' + (a.reliabilityRuns ? ' (' + a.reliabilityRuns + ' runs)' : '') + '</div>' : '')
+          + (a.reliability != null ? '<div class="card-reliability">🔁 ' + Math.round(a.reliability * 100) + '% ' + t('reliable') + (a.reliabilityRuns ? ' (' + a.reliabilityRuns + ' runs)' : '') + '</div>' : '')
           + (time ? '<div class="card-time">' + time + '</div>' : '')
           + '</div>';
       }).join('');
-    }
+    };
 
     searchEl.addEventListener('input', renderCards);
     filterEl.addEventListener('change', renderCards);
     providerFilterEl.addEventListener('change', renderCards);
     sortEl.addEventListener('change', renderCards);
-    renderCards();
 
     // Distribution visualization
     const agents = data.agents;
     // Auto-normalize reliability values > 1 (percentage → decimal)
     agents.forEach(a => { if (a.reliability != null && a.reliability > 1) a.reliability = a.reliability / 100; });
     const n = agents.length;
-    if (n > 0) {
+    window._agentsRaw = agents;
+
+    window.renderDims = function renderDims() {
+      if (n <= 0) return;
       const dims = [
-        { name: 'Autonomy', pos: 0, left: 'P', leftFull: 'Proactive', right: 'R', rightFull: 'Responsive' },
-        { name: 'Precision', pos: 1, left: 'T', leftFull: 'Thorough', right: 'E', rightFull: 'Efficient' },
-        { name: 'Transparency', pos: 2, left: 'C', leftFull: 'Candid', right: 'D', rightFull: 'Diplomatic' },
-        { name: 'Adaptability', pos: 3, left: 'F', leftFull: 'Flexible', right: 'N', rightFull: 'Principled' },
+        { pos: 0, left: 'P', right: 'R' },
+        { pos: 1, left: 'T', right: 'E' },
+        { pos: 2, left: 'C', right: 'D' },
+        { pos: 3, left: 'F', right: 'N' },
       ];
-      document.getElementById('dim-bars').innerHTML = dims.map(d => {
+      document.getElementById('dim-bars').innerHTML = dims.map((d, i) => {
         const lCount = agents.filter(a => a.type && a.type[d.pos] === d.left).length;
         const lPct = Math.round(lCount / n * 100);
         const rPct = 100 - lPct;
         return '<div class="dim-row">'
-          + '<div class="dim-label">' + d.name + '</div>'
+          + '<div class="dim-label">' + t('dimNames')[i] + '</div>'
           + '<div class="dim-bar-wrap">'
           + '<div class="dim-seg dim-seg-l" style="width:' + lPct + '%">' + d.left + ' ' + lPct + '%</div>'
           + '<div class="dim-seg dim-seg-r" style="width:' + rPct + '%">' + d.right + ' ' + rPct + '%</div>'
           + '</div></div>';
       }).join('');
+    };
+
+    if (n > 0) {
+      renderDims();
 
       const freq = {};
       agents.forEach(a => { if (a.type) freq[a.type] = (freq[a.type] || 0) + 1; });
@@ -384,7 +527,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
       for (const [type, agents_list] of Object.entries(famous)) {
         if (!agents_list || agents_list.length === 0) continue;
         const typeInfo = typesData[type];
-        const nick = typeInfo && typeInfo.en ? typeInfo.en.nick : '';
+        const nick = typeInfo && typeInfo[lang] ? typeInfo[lang].nick : (typeInfo && typeInfo.en ? typeInfo.en.nick : '');
         for (const name of agents_list) {
           cards.push('<div class="notable-card">'
             + '<div class="notable-agent">' + esc(name) + '</div>'
@@ -398,14 +541,13 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
         document.getElementById('notable').style.display = '';
       }
     } catch (e) { /* silently skip notable agents on error */ }
+
+    renderCards();
+    applyLang();
   } catch (e) {
     totalEl.textContent = 'Failed to load data';
   }
 })();
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-</script>
-<script>
-
 </script>
 
 <script>
