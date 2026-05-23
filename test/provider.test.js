@@ -27,6 +27,30 @@ describe('callLLM provider routing', () => {
     });
   });
 
+  it('should route xai to callOpenAI (rejects with network error, not unknown provider)', async () => {
+    const promise = callLLM('xai', 'test-key', 'grok-3-mini', 'system', 'user');
+    await assert.rejects(promise, (err) => {
+      assert.ok(!err.message.includes('Unknown provider'), 'should not throw Unknown provider for xai');
+      return true;
+    });
+  });
+
+  it('should route mistral to callOpenAI (rejects with network error, not unknown provider)', async () => {
+    const promise = callLLM('mistral', 'test-key', 'mistral-small-latest', 'system', 'user');
+    await assert.rejects(promise, (err) => {
+      assert.ok(!err.message.includes('Unknown provider'), 'should not throw Unknown provider for mistral');
+      return true;
+    });
+  });
+
+  it('should include xai in error message for unknown providers', () => {
+    try {
+      callLLM('bad', 'key', 'model', 'sys', 'usr');
+    } catch (e) {
+      assert.ok(e.message.includes('xai'), 'error message should list xai as valid provider');
+    }
+  });
+
   it('should include openrouter in error message for unknown providers', () => {
     try {
       callLLM('bad', 'key', 'model', 'sys', 'usr');
