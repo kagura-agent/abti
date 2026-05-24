@@ -881,6 +881,7 @@ const providers = {
     models: ['openai/gpt-oss-120b:free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free', 'qwen/qwen3-coder:free', 'qwen/qwen3-next-80b-a3b-instruct:free', 'nvidia/nemotron-3-super-120b-a12b:free', 'nvidia/nemotron-3-nano-30b-a3b:free', 'minimax/minimax-m2.5:free', 'custom'],
     auth: 'bearer',
     format: 'openai',
+    dynamicModels: true,
   },
   groq: {
     url: 'https://api.groq.com/openai/v1/chat/completions',
@@ -914,6 +915,47 @@ const providers = {
   }
 };
 
+// Cache for dynamically fetched model lists
+const dynamicModelCache = {};
+
+async function fetchOpenRouterModels() {
+  const cacheKey = 'openrouter-models';
+  // Check sessionStorage first
+  try {
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      const { models, ts } = JSON.parse(cached);
+      if (Date.now() - ts < 3600000) { // 1 hour TTL
+        return models;
+      }
+    }
+  } catch {}
+  try {
+    const resp = await fetch('https://openrouter.ai/api/v1/models');
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    const free = (data.data || [])
+      .filter(m => m.id.endsWith(':free'))
+      .map(m => m.id)
+      .sort();
+    if (free.length > 0) {
+      try { sessionStorage.setItem(cacheKey, JSON.stringify({ models: free, ts: Date.now() })); } catch {}
+      return free;
+    }
+  } catch {}
+  return null;
+}
+
+function populateModelSelect(models, modelSelect, modelInput) {
+  modelSelect.innerHTML = models.map(m => {
+    const label = m === 'custom' ? 'Other (enter model ID)' : m;
+    return `<option value="${m}">${label}</option>`;
+  }).join('');
+  modelSelect.classList.remove('hidden');
+  const showCustomInput = modelSelect.value === 'custom';
+  modelInput.classList.toggle('hidden', !showCustomInput);
+}
+
 function onProviderChange() {
   const p = document.getElementById('providerSelect').value;
   const cfg = providers[p];
@@ -921,15 +963,24 @@ function onProviderChange() {
   const modelInput = document.getElementById('modelInput');
   const customFields = document.getElementById('customFields');
 
-  if (cfg.models) {
-    modelSelect.innerHTML = cfg.models.map(m => {
-      const label = m === 'custom' ? 'Other (enter model ID)' : m;
-      return `<option value="${m}">${label}</option>`;
-    }).join('');
-    modelSelect.classList.remove('hidden');
-    // Show text input only if 'custom' option is selected in the dropdown
-    const showCustomInput = modelSelect.value === 'custom';
-    modelInput.classList.toggle('hidden', !showCustomInput);
+  if (cfg.dynamicModels && !dynamicModelCache[p]) {
+    // Show static list immediately, then fetch dynamic list
+    if (cfg.models) {
+      populateModelSelect(cfg.models, modelSelect, modelInput);
+    }
+    // Fetch dynamic models in background
+    if (p === 'openrouter') {
+      fetchOpenRouterModels().then(models => {
+        if (models && document.getElementById('providerSelect').value === 'openrouter') {
+          dynamicModelCache[p] = [...models, 'custom'];
+          populateModelSelect(dynamicModelCache[p], modelSelect, modelInput);
+        }
+      });
+    }
+  } else if (dynamicModelCache[p]) {
+    populateModelSelect(dynamicModelCache[p], modelSelect, modelInput);
+  } else if (cfg.models) {
+    populateModelSelect(cfg.models, modelSelect, modelInput);
   } else {
     modelSelect.classList.add('hidden');
     modelInput.classList.remove('hidden');
