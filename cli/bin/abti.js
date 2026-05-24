@@ -161,6 +161,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider ollama --all
     npx abti test --provider openrouter --all --api-key sk-or-...
     npx abti test --provider openrouter --all --filter llama --max-models 5
+    npx abti test --provider github --all
 
   Options:
     --lang zh                Language (default: en)
@@ -170,7 +171,7 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
-    --all                    Test all installed models (ollama, openrouter)
+    --all                    Test all installed models (ollama, openrouter, github)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
     --submit                 Submit result to the ABTI registry
@@ -598,14 +599,40 @@ function fetchOpenRouterModels(apiKey) {
   });
 }
 
+function fetchGitHubModels(apiKey) {
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent('https://models.github.ai/catalog/models', noProxyFlag);
+    https.get('https://models.github.ai/catalog/models', {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`GitHub Models API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (Array.isArray(json) ? json : json.data || json.models || [])
+            .filter(m => m.supported_output_modalities && m.supported_output_modalities.includes('text'))
+            .map(m => m.id)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse GitHub Models response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to GitHub Models API: ${err.message}`));
+    });
+  });
+}
+
 function displayName(modelName) {
   return modelName.replace(/:latest$/, '');
 }
 
 // ── Batch --all mode ────────────────────────────────────────────────────
 async function runAll() {
-  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter') {
-    console.error('  --all is currently only supported with --provider ollama or --provider openrouter');
+  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter' && autoProvider !== 'github') {
+    console.error('  --all is currently only supported with --provider ollama, openrouter, or github');
     process.exit(1);
   }
 
@@ -616,6 +643,15 @@ async function runAll() {
     process.stderr.write(`  Discovering OpenRouter models...\n`);
     try {
       modelList = await fetchOpenRouterModels(apiKey);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'github') {
+    const apiKey = resolveApiKey('github', autoApiKey);
+    process.stderr.write(`  Discovering GitHub Models...\n`);
+    try {
+      modelList = await fetchGitHubModels(apiKey);
     } catch (err) {
       console.error(`  ${err.message}`);
       process.exit(1);
@@ -641,7 +677,7 @@ async function runAll() {
   }
 
   if (modelList.length === 0) {
-    console.error('  No models found in Ollama.');
+    console.error('  No models found.');
     process.exit(1);
   }
 
@@ -1178,4 +1214,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, displayName };

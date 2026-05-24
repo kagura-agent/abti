@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { fetchOllamaModels, fetchOpenRouterModels, displayName } = require('../cli/bin/abti.js');
+const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, displayName } = require('../cli/bin/abti.js');
 
 describe('--all flag', () => {
   describe('displayName', () => {
@@ -47,6 +47,21 @@ describe('--all flag', () => {
       } catch (err) {
         assert.ok(err.message.includes('OpenRouter API') || err.message.includes('Cannot connect'),
           `Expected OpenRouter error, got: ${err.message}`);
+      }
+    });
+  });
+
+  describe('fetchGitHubModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchGitHubModels, 'function');
+    });
+
+    it('should reject with invalid API key', async () => {
+      try {
+        await fetchGitHubModels('invalid-key');
+      } catch (err) {
+        assert.ok(err.message.includes('GitHub Models API') || err.message.includes('Cannot connect'),
+          `Expected GitHub Models error, got: ${err.message}`);
       }
     });
   });
