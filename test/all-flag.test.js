@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, displayName } = require('../cli/bin/abti.js');
+const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName } = require('../cli/bin/abti.js');
 
 describe('--all flag', () => {
   describe('displayName', () => {
@@ -62,6 +62,42 @@ describe('--all flag', () => {
       } catch (err) {
         assert.ok(err.message.includes('Anthropic API') || err.message.includes('Cannot connect'),
           `Expected Anthropic error, got: ${err.message}`);
+      }
+    });
+  });
+
+  describe('fetchOpenAICompatModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchOpenAICompatModels, 'function');
+    });
+  });
+
+  describe('fetchGeminiModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchGeminiModels, 'function');
+    });
+
+    it('should reject with invalid API key', async () => {
+      try {
+        await fetchGeminiModels('invalid-key');
+      } catch (err) {
+        assert.ok(err.message.includes('Gemini API') || err.message.includes('Cannot connect'),
+          `Expected Gemini error, got: ${err.message}`);
+      }
+    });
+  });
+
+  describe('fetchCohereModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchCohereModels, 'function');
+    });
+
+    it('should reject with invalid API key', async () => {
+      try {
+        await fetchCohereModels('invalid-key');
+      } catch (err) {
+        assert.ok(err.message.includes('Cohere API') || err.message.includes('Cannot connect'),
+          `Expected Cohere error, got: ${err.message}`);
       }
     });
   });

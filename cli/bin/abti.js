@@ -173,7 +173,7 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN / CO_API_KEY)
-    --all                    Test all installed models (ollama, openrouter, github, anthropic)
+    --all                    Test all installed models (ollama, openrouter, github, anthropic, openai, gemini, deepseek, groq, mistral, xai, cohere)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
     --submit                 Submit result to the ABTI registry
@@ -663,17 +663,86 @@ function fetchGitHubModels(apiKey) {
   });
 }
 
+function fetchOpenAICompatModels(baseUrl, apiKey, providerName) {
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent(baseUrl, noProxyFlag);
+    https.get(baseUrl, {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`${providerName} API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.data || [])
+            .map(m => m.id)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse ${providerName} response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to ${providerName} API: ${err.message}`));
+    });
+  });
+}
+
+function fetchGeminiModels(apiKey) {
+  return new Promise((resolve, reject) => {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, { agent }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`Gemini API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.models || [])
+            .map(m => m.name.replace(/^models\//, ''))
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse Gemini response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to Gemini API: ${err.message}`));
+    });
+  });
+}
+
+function fetchCohereModels(apiKey) {
+  return new Promise((resolve, reject) => {
+    const url = 'https://api.cohere.com/v2/models';
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`Cohere API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.models || [])
+            .map(m => m.name)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse Cohere response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to Cohere API: ${err.message}`));
+    });
+  });
+}
+
 function displayName(modelName) {
   return modelName.replace(/:latest$/, '');
 }
 
 // ── Batch --all mode ────────────────────────────────────────────────────
 async function runAll() {
-  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter' && autoProvider !== 'github' && autoProvider !== 'anthropic') {
-    console.error('  --all is currently only supported with --provider ollama, openrouter, github, or anthropic');
-    process.exit(1);
-  }
-
   let modelList;
 
   if (autoProvider === 'anthropic') {
@@ -699,6 +768,69 @@ async function runAll() {
     process.stderr.write(`  Discovering GitHub Models...\n`);
     try {
       modelList = await fetchGitHubModels(apiKey);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'groq') {
+    const apiKey = resolveApiKey('groq', autoApiKey);
+    process.stderr.write(`  Discovering Groq models...\n`);
+    try {
+      modelList = await fetchOpenAICompatModels('https://api.groq.com/openai/v1/models', apiKey, 'Groq');
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'mistral') {
+    const apiKey = resolveApiKey('mistral', autoApiKey);
+    process.stderr.write(`  Discovering Mistral models...\n`);
+    try {
+      modelList = await fetchOpenAICompatModels('https://api.mistral.ai/v1/models', apiKey, 'Mistral');
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'openai') {
+    const apiKey = resolveApiKey('openai', autoApiKey);
+    process.stderr.write(`  Discovering OpenAI models...\n`);
+    try {
+      modelList = await fetchOpenAICompatModels('https://api.openai.com/v1/models', apiKey, 'OpenAI');
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'deepseek') {
+    const apiKey = resolveApiKey('deepseek', autoApiKey);
+    process.stderr.write(`  Discovering DeepSeek models...\n`);
+    try {
+      modelList = await fetchOpenAICompatModels('https://api.deepseek.com/v1/models', apiKey, 'DeepSeek');
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'xai') {
+    const apiKey = resolveApiKey('xai', autoApiKey);
+    process.stderr.write(`  Discovering xAI models...\n`);
+    try {
+      modelList = await fetchOpenAICompatModels('https://api.x.ai/v1/models', apiKey, 'xAI');
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'gemini') {
+    const apiKey = resolveApiKey('gemini', autoApiKey);
+    process.stderr.write(`  Discovering Gemini models...\n`);
+    try {
+      modelList = await fetchGeminiModels(apiKey);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'cohere') {
+    const apiKey = resolveApiKey('cohere', autoApiKey);
+    process.stderr.write(`  Discovering Cohere models...\n`);
+    try {
+      modelList = await fetchCohereModels(apiKey);
     } catch (err) {
       console.error(`  ${err.message}`);
       process.exit(1);
@@ -1261,4 +1393,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
