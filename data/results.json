@@ -218,7 +218,7 @@
       "url": "",
       "type": "RECN",
       "nick": "The Machine",
-      "testedAt": "2026-05-02T02:38:21.018Z",
+      "testedAt": "2026-05-24T05:47:40.808129+00:00",
       "scores": [
         0,
         0,
@@ -260,7 +260,9 @@
         }
       ],
       "model": "claude-opus-4.7",
-      "provider": "anthropic"
+      "provider": "anthropic",
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Gemma 3 4B",
@@ -3307,6 +3309,58 @@
           "max": 4
         }
       ]
+    },
+    {
+      "name": "Claude Opus 4.6",
+      "slug": "claude-opus-4-6",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-24T05:47:40.808129+00:00",
+      "scores": [
+        1,
+        0,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "claude-opus-4.6",
+      "provider": "anthropic",
+      "consistency": 100,
+      "runs": 3
     }
   ]
 }
