@@ -100,7 +100,7 @@ npx @kagura-agent/abti list --lang zh
 | `--model <model>` | Model name |
 | `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `mistral`, `github` (default: `openai`) |
 | `--api-key <key>` | API key (or set env var) |
-| `--submit` | Submit result to the ABTI registry |
+| `--submit` | Submit result to the ABTI registry (persisted server-side in `data/results.json`) |
 | `--runs <N>` | Run the test N times (1-10) and show consistency report |
 | `--help` | Show help |
 
