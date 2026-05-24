@@ -157,6 +157,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider groq --model llama-3.3-70b-versatile
     npx abti test --provider openrouter --model meta-llama/llama-3.3-70b-instruct
     npx abti test --provider mistral --model mistral-small-latest
+    npx abti test --provider cohere --model command-a-08-2025
     npx abti test --provider ollama --model llama3.1
     npx abti test --provider ollama --all
     npx abti test --provider openrouter --all --api-key sk-or-...
@@ -169,8 +170,8 @@ if (flag('--help') || flag('-h')) {
     --name <name>            Agent name for registry
     --url <url>              Agent URL for registry
     --model <model>          Model name
-    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|ollama (default: openai)
-    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN)
+    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN / CO_API_KEY)
     --all                    Test all installed models (ollama, openrouter, github)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
@@ -359,8 +360,9 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
   if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
   if (prov === 'xai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1', undefined, maxTokens);
+  if (prov === 'cohere') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/v2', undefined, maxTokens);
   if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined, maxTokens);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", or "ollama".`);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", "cohere", or "ollama".`);
 }
 
 function isReasoningModel(modelName) {
@@ -400,7 +402,7 @@ function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
   if (prov === 'ollama') return 'ollama';
   if (prov === 'github') return process.env.GITHUB_TOKEN || (() => { throw new Error('No API key provided. Use --api-key or set GITHUB_TOKEN'); })();
-  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY', openrouter: 'OPENROUTER_API_KEY', mistral: 'MISTRAL_API_KEY', xai: 'XAI_API_KEY' };
+  const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY', openrouter: 'OPENROUTER_API_KEY', mistral: 'MISTRAL_API_KEY', xai: 'XAI_API_KEY', cohere: 'CO_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];
   throw new Error(`No API key provided. Use --api-key or set ${envKey}`);

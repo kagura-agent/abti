@@ -554,6 +554,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
         <option value="mistral">Mistral</option>
         <option value="github">GitHub Models</option>
         <option value="xai">xAI (Grok)</option>
+        <option value="cohere">Cohere</option>
         <option value="custom">Custom Endpoint</option>
       </select>
 
@@ -904,6 +905,12 @@ const providers = {
   xai: {
     url: 'https://api.x.ai/v1/chat/completions',
     models: ['grok-3', 'grok-3-mini', 'grok-2', 'custom'],
+    auth: 'bearer',
+    format: 'openai',
+  },
+  cohere: {
+    url: 'https://api.cohere.com/v2/chat/completions',
+    models: ['command-a-08-2025', 'command-r-plus', 'command-r', 'command-r7b-12-2024', 'custom'],
     auth: 'bearer',
     format: 'openai',
   },
