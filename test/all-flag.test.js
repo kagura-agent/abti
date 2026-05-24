@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, displayName } = require('../cli/bin/abti.js');
+const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, displayName } = require('../cli/bin/abti.js');
 
 describe('--all flag', () => {
   describe('displayName', () => {
@@ -51,17 +51,17 @@ describe('--all flag', () => {
     });
   });
 
-  describe('fetchGitHubModels', () => {
+  describe('fetchAnthropicModels', () => {
     it('should be a function', () => {
-      assert.strictEqual(typeof fetchGitHubModels, 'function');
+      assert.strictEqual(typeof fetchAnthropicModels, 'function');
     });
 
     it('should reject with invalid API key', async () => {
       try {
-        await fetchGitHubModels('invalid-key');
+        await fetchAnthropicModels('invalid-key');
       } catch (err) {
-        assert.ok(err.message.includes('GitHub Models API') || err.message.includes('Cannot connect'),
-          `Expected GitHub Models error, got: ${err.message}`);
+        assert.ok(err.message.includes('Anthropic API') || err.message.includes('Cannot connect'),
+          `Expected Anthropic error, got: ${err.message}`);
       }
     });
   });
