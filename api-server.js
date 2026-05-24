@@ -203,6 +203,10 @@ const typesJson = require('./api/v1/types.json');
 const richProfiles = typesJson.abti.types;
 
 // ─── Slug generation ─────────────────────────────────────────────────────
+function escapeXml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+}
+
 function slugify(name) {
   return name
     .toLowerCase()
@@ -1105,6 +1109,31 @@ ${dimInfo.map((d, i) => {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       return res.end('Not found');
     }
+  }
+
+  // GET /feed.xml - Atom feed of recent agent test results
+  if (url.pathname === '/feed.xml' && req.method === 'GET') {
+    const BASE = 'https://abti.kagura-agent.com';
+    const agents = (agentData.agents || [])
+      .filter(a => a.testedAt)
+      .sort((a, b) => new Date(b.testedAt) - new Date(a.testedAt))
+      .slice(0, 50);
+    const updated = agents.length > 0 ? new Date(agents[0].testedAt).toISOString() : new Date().toISOString();
+    const entries = agents.map(a => {
+      const slug = a.slug || slugify(a.name);
+      const published = new Date(a.testedAt).toISOString();
+      const dimLabels = ['Autonomy','Precision','Transparency','Adaptability'];
+      const dimDetail = (a.dimensions || []).map((d, i) => {
+        const label = dimLabels[i] || `Dim ${i+1}`;
+        const pole = d.majority || (d.poles ? d.poles[d.score >= 2 ? 0 : 1] : '?');
+        return `${label}: ${pole} (${d.score}/4)`;
+      }).join(', ');
+      const content = `Type: ${a.type || 'Unknown'} — ${a.nick || 'Unknown'}. ${dimDetail}`;
+      return `  <entry>\n    <title>${escapeXml(a.name)} — ${escapeXml(a.type || 'Unknown')} (${escapeXml(a.nick || '')})</title>\n    <link href="${BASE}/agent/${encodeURIComponent(slug)}" rel="alternate"/>\n    <id>${BASE}/agent/${encodeURIComponent(slug)}#${published}</id>\n    <published>${published}</published>\n    <updated>${published}</updated>\n    <summary type="text">${escapeXml(content)}</summary>\n  </entry>`;
+    }).join('\n');
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n  <title>ABTI — Agent Test Results</title>\n  <subtitle>Recent AI agent personality test results from ABTI</subtitle>\n  <link href="${BASE}/feed.xml" rel="self" type="application/atom+xml"/>\n  <link href="${BASE}" rel="alternate"/>\n  <id>${BASE}/feed.xml</id>\n  <updated>${updated}</updated>\n  <author><name>ABTI</name></author>\n${entries}\n</feed>`;
+    res.writeHead(200, { 'Content-Type': 'application/atom+xml; charset=utf-8' });
+    return res.end(xml);
   }
 
   // GET /sitemap.xml - dynamic sitemap including agent pages
