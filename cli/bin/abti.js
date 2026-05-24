@@ -163,6 +163,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider openrouter --all --api-key sk-or-...
     npx abti test --provider openrouter --all --filter llama --max-models 5
     npx abti test --provider github --all
+    npx abti test --provider anthropic --all --api-key sk-ant-...
 
   Options:
     --lang zh                Language (default: en)
@@ -172,7 +173,7 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN / CO_API_KEY)
-    --all                    Test all installed models (ollama, openrouter, github)
+    --all                    Test all installed models (ollama, openrouter, github, anthropic)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
     --submit                 Submit result to the ABTI registry
@@ -601,6 +602,41 @@ function fetchOpenRouterModels(apiKey) {
   });
 }
 
+function fetchAnthropicModels(apiKey) {
+  return new Promise((resolve, reject) => {
+    const allModels = [];
+    function fetchPage(afterId) {
+      const baseUrl = 'https://api.anthropic.com/v1/models?limit=100' + (afterId ? `&after_id=${encodeURIComponent(afterId)}` : '');
+      const agent = createProxyAgent(baseUrl, noProxyFlag);
+      https.get(baseUrl, {
+        agent,
+        headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+      }, res => {
+        let data = '';
+        res.on('data', c => data += c);
+        res.on('end', () => {
+          if (res.statusCode !== 200) return reject(new Error(`Anthropic API returned ${res.statusCode}: ${data}`));
+          try {
+            const json = JSON.parse(data);
+            const models = (json.data || [])
+              .filter(m => m.type === 'model')
+              .map(m => m.id);
+            allModels.push(...models);
+            if (json.has_more && json.last_id) {
+              fetchPage(json.last_id);
+            } else {
+              resolve(allModels.sort((a, b) => a.localeCompare(b)));
+            }
+          } catch (e) { reject(new Error(`Failed to parse Anthropic response: ${e.message}`)); }
+        });
+      }).on('error', err => {
+        reject(new Error(`Cannot connect to Anthropic API: ${err.message}`));
+      });
+    }
+    fetchPage(null);
+  });
+}
+
 function fetchGitHubModels(apiKey) {
   return new Promise((resolve, reject) => {
     const agent = createProxyAgent('https://models.github.ai/catalog/models', noProxyFlag);
@@ -633,14 +669,23 @@ function displayName(modelName) {
 
 // ── Batch --all mode ────────────────────────────────────────────────────
 async function runAll() {
-  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter' && autoProvider !== 'github') {
-    console.error('  --all is currently only supported with --provider ollama, openrouter, or github');
+  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter' && autoProvider !== 'github' && autoProvider !== 'anthropic') {
+    console.error('  --all is currently only supported with --provider ollama, openrouter, github, or anthropic');
     process.exit(1);
   }
 
   let modelList;
 
-  if (autoProvider === 'openrouter') {
+  if (autoProvider === 'anthropic') {
+    const apiKey = resolveApiKey('anthropic', autoApiKey);
+    process.stderr.write(`  Discovering Anthropic models...\n`);
+    try {
+      modelList = await fetchAnthropicModels(apiKey);
+    } catch (err) {
+      console.error(`  ${err.message}`);
+      process.exit(1);
+    }
+  } else if (autoProvider === 'openrouter') {
     const apiKey = resolveApiKey('openrouter', autoApiKey);
     process.stderr.write(`  Discovering OpenRouter models...\n`);
     try {
@@ -1216,4 +1261,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, displayName };
