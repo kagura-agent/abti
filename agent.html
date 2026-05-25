@@ -363,6 +363,37 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
       + '<span class="reliability-label">' + (a.parseFailures || 0) + ' of 16 questions needed re-parsing</span>'
       + '</div></div></div>' : '')
 
+      + (a.history && a.history.length > 0 ? (function() {
+        var tlLabel = lang === 'zh' ? '人格时间线' : 'Personality Timeline';
+        var tlDateLabel = lang === 'zh' ? '日期' : 'Date';
+        var tlTypeLabel = lang === 'zh' ? '类型' : 'Type';
+        var tlScoresLabel = lang === 'zh' ? '分数' : 'Scores';
+        var tlCurrent = lang === 'zh' ? '当前' : 'Current';
+        var rows = a.history.map(function(h) {
+          var d = h.testedAt ? new Date(h.testedAt).toLocaleDateString() : '—';
+          var sc = h.scores ? h.scores.join(', ') : '—';
+          var changed = h.type !== a.type;
+          return '<tr>'
+            + '<td style="padding:.4rem .6rem;font-size:.82rem;color:var(--text2)">' + esc(d) + '</td>'
+            + '<td style="padding:.4rem .6rem;font-size:.82rem;font-weight:600;color:' + (changed ? 'var(--accent)' : 'var(--text)') + '">' + esc(h.type || '—') + '</td>'
+            + '<td style="padding:.4rem .6rem;font-size:.82rem;color:var(--text2)">' + esc(sc) + '</td>'
+            + '</tr>';
+        });
+        rows.push('<tr style="background:var(--accent-soft)">'
+          + '<td style="padding:.4rem .6rem;font-size:.82rem;font-weight:600;color:var(--accent)">' + (a.testedAt ? new Date(a.testedAt).toLocaleDateString() : '—') + ' (' + tlCurrent + ')</td>'
+          + '<td style="padding:.4rem .6rem;font-size:.82rem;font-weight:700;color:var(--accent)">' + esc(a.type) + '</td>'
+          + '<td style="padding:.4rem .6rem;font-size:.82rem;color:var(--text)">' + (a.scores ? a.scores.join(', ') : '—') + '</td>'
+          + '</tr>');
+        return '<div class="section">'
+          + '<div class="section-title">' + esc(tlLabel) + '</div>'
+          + '<div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'
+          + '<thead><tr style="border-bottom:1px solid var(--border)">'
+          + '<th style="padding:.4rem .6rem;text-align:left;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">' + esc(tlDateLabel) + '</th>'
+          + '<th style="padding:.4rem .6rem;text-align:left;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">' + esc(tlTypeLabel) + '</th>'
+          + '<th style="padding:.4rem .6rem;text-align:left;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">' + esc(tlScoresLabel) + '</th>'
+          + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div></div>';
+      })() : '')
+
       + (dimHtml ? '<div class="section">'
       + '<div class="section-title">' + esc(labels.dimensions) + '</div>'
       + '<div class="card"><div class="dim-rows">' + dimHtml + '</div></div>'
