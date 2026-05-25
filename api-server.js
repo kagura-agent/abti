@@ -217,12 +217,31 @@ function slugify(name) {
 }
 
 // ─── Agent registration (shared between REST API and MCP) ─────────────────
+const HISTORY_SNAPSHOT_FIELDS = ['type', 'testedAt', 'scores', 'dimensions', 'model', 'provider', 'consistency', 'runs', 'parseFailures', 'confidence'];
+const HISTORY_CAP = 50;
+
+function snapshotAgent(agent) {
+  const snap = {};
+  for (const k of HISTORY_SNAPSHOT_FIELDS) {
+    if (agent[k] !== undefined) snap[k] = agent[k];
+  }
+  return snap;
+}
+
+function preserveHistory(existingAgent, newEntry) {
+  const history = Array.isArray(existingAgent.history) ? existingAgent.history.slice() : [];
+  history.push(snapshotAgent(existingAgent));
+  if (history.length > HISTORY_CAP) history.splice(0, history.length - HISTORY_CAP);
+  newEntry.history = history;
+}
+
 function registerAgent(entry) {
   if (entry.name && !entry.slug) {
     entry.slug = slugify(entry.name);
   }
   const existing = agentData.agents.findIndex(a => a.slug === entry.slug);
   if (existing !== -1) {
+    preserveHistory(agentData.agents[existing], entry);
     agentData.agents[existing] = entry;
   } else {
     agentData.agents.push(entry);
@@ -417,6 +436,7 @@ const server = http.createServer((req, res) => {
             entry.confidence = Math.round(((16 - parsed.parseFailures) / 16) * 1000) / 1000;
           }
           if (existing !== -1) {
+            preserveHistory(agentData.agents[existing], entry);
             agentData.agents[existing] = entry;
           } else {
             agentData.agents.push(entry);
@@ -962,7 +982,8 @@ ${dimInfo.map((d, i) => {
         provider: agent.provider,
         testedAt: agent.testedAt,
         scores: agent.scores,
-        dimensions: agent.dimensions
+        dimensions: agent.dimensions,
+        history: agent.history || []
       },
       profile: {
         strengths: profile.strengths,
