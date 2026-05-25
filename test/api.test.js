@@ -813,11 +813,11 @@ describe('GET /agent/:slug', () => {
     assert.equal(r.headers.location, '/agents.html');
   });
 
-  it('includes OG image pointing to type OG', async () => {
+  it('includes OG image pointing to agent OG', async () => {
     rateLimitMap.clear();
     await req('/api/agent-test', { method: 'POST', body: { answers: Array(16).fill(1), agentName: 'OGBot' } });
     const r = await req('/agent/ogbot');
-    assert.match(r.body, /og:image.*og\/PTCF/);
+    assert.match(r.body, /og:image.*og\/agents\/ogbot\.png/);
   });
 });
 
