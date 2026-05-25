@@ -102,6 +102,9 @@ const hasListSubcommand = args.length > 0 && args[0] === 'list';
 if (hasListSubcommand) args.shift();
 const hasStatsSubcommand = args.length > 0 && args[0] === 'stats';
 if (hasStatsSubcommand) args.shift();
+const hasCompareSubcommand = args.length > 0 && args[0] === 'compare';
+if (hasCompareSubcommand) args.shift();
+const compareSlugs = hasCompareSubcommand ? [args.shift(), args.shift()].filter(Boolean) : [];
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -151,6 +154,10 @@ if (flag('--help') || flag('-h')) {
     npx abti stats                          Show type distribution & dimension bias
     npx abti stats --json                   Output stats as JSON
     npx abti stats --lang zh                Show stats in Chinese
+    npx abti compare <slug1> <slug2>        Compare two agents side-by-side
+    npx abti compare gpt-4o claude-opus-4   Compare with agent slugs
+    npx abti compare <s1> <s2> --json       Output comparison as JSON
+    npx abti compare <s1> <s2> --lang zh    Compare in Chinese
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -1166,6 +1173,115 @@ async function runStats() {
   console.log();
 }
 
+// ── Compare subcommand ───────────────────────────────────────────────────
+const AGENT_API_URL = slug => `${API_BASE}/api/agent/${encodeURIComponent(slug)}`;
+
+function formatCompare(a, b, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const dimNames = DIM_NAMES[lang];
+  const lines = [];
+
+  const nickA = (lang === 'zh' ? NICKS.zh[a.agent.type] : NICKS.en[a.agent.type]) || a.agent.nick || '';
+  const nickB = (lang === 'zh' ? NICKS.zh[b.agent.type] : NICKS.en[b.agent.type]) || b.agent.nick || '';
+
+  const header = lang === 'zh'
+    ? { title: 'ABTI Agent 对比', dim: '维度', pole: '倾向', score: '分数', match: '匹配', compat: '兼容性' }
+    : { title: 'ABTI Agent Comparison', dim: 'Dimension', pole: 'Pole', score: 'Score', match: 'Match', compat: 'Compatibility' };
+
+  lines.push('');
+  lines.push(`  ── ${header.title} ──`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${a.agent.name}${cc.reset}  ${cc.cyan}${a.agent.type}${cc.reset}  ${cc.dim}${nickA}${cc.reset}`);
+  lines.push(`  ${cc.bold}${b.agent.name}${cc.reset}  ${cc.cyan}${b.agent.type}${cc.reset}  ${cc.dim}${nickB}${cc.reset}`);
+  lines.push('');
+
+  // Dimension breakdown
+  const colW = Math.max(a.agent.name.length, b.agent.name.length, 10);
+  const dimW = Math.max(header.dim.length, ...dimNames.map(d => d[0].length));
+  lines.push(`  ${cc.bold}${pad(header.dim, dimW)}  ${pad(a.agent.name, colW)}  ${pad(b.agent.name, colW)}  ${header.match}${cc.reset}`);
+  lines.push(`  ${'─'.repeat(dimW + colW * 2 + 10)}`);
+
+  let matchCount = 0;
+  for (let i = 0; i < 4; i++) {
+    const poleA = a.agent.type[i];
+    const poleB = b.agent.type[i];
+    const scoreA = a.agent.scores[i];
+    const scoreB = b.agent.scores[i];
+    const poleNameA = poleA === DIM_LETTERS[i][0] ? dimNames[i][1] : dimNames[i][2];
+    const poleNameB = poleB === DIM_LETTERS[i][0] ? dimNames[i][1] : dimNames[i][2];
+    const same = poleA === poleB;
+    if (same) matchCount++;
+    const matchSym = same ? `${cc.green}✓${cc.reset}` : `${cc.yellow}✗${cc.reset}`;
+    lines.push(`  ${pad(dimNames[i][0], dimW)}  ${pad(`${poleNameA} (${poleA}) ${scoreA}`, colW)}  ${pad(`${poleNameB} (${poleB}) ${scoreB}`, colW)}  ${matchSym}`);
+  }
+
+  lines.push('');
+  lines.push(`  ${cc.bold}${header.match}:${cc.reset} ${matchCount}/4 ${lang === 'zh' ? '维度相同' : 'dimensions match'}`);
+
+  // Compatibility check
+  const bestA = a.profile.bestPairedWith || [];
+  const bestB = b.profile.bestPairedWith || [];
+  const aRecommendsB = bestA.find(p => p.type === b.agent.type);
+  const bRecommendsA = bestB.find(p => p.type === a.agent.type);
+
+  if (aRecommendsB || bRecommendsA) {
+    lines.push('');
+    lines.push(`  ${cc.bold}${header.compat}:${cc.reset}`);
+    if (aRecommendsB) lines.push(`    ${cc.green}★${cc.reset} ${a.agent.name} → ${b.agent.name}: ${aRecommendsB.reason}`);
+    if (bRecommendsA) lines.push(`    ${cc.green}★${cc.reset} ${b.agent.name} → ${a.agent.name}: ${bRecommendsA.reason}`);
+  }
+
+  lines.push('');
+  return lines.join('\n');
+
+  function pad(s, n) { return s + ' '.repeat(Math.max(0, n - s.length)); }
+}
+
+async function runCompare() {
+  if (compareSlugs.length < 2) {
+    console.error('  Usage: abti compare <slug1> <slug2>');
+    process.exit(1);
+  }
+
+  let a, b;
+  try {
+    [a, b] = await Promise.all([
+      httpGet(AGENT_API_URL(compareSlugs[0]) + `?lang=${lang}`),
+      httpGet(AGENT_API_URL(compareSlugs[1]) + `?lang=${lang}`),
+    ]);
+  } catch (err) {
+    console.error(`  Failed to fetch agent data: ${err.message}`);
+    process.exit(1);
+  }
+
+  if (jsonMode) {
+    const matchCount = [0,1,2,3].filter(i => a.agent.type[i] === b.agent.type[i]).length;
+    const bestA = a.profile.bestPairedWith || [];
+    const bestB = b.profile.bestPairedWith || [];
+    const output = {
+      agents: [
+        { slug: compareSlugs[0], name: a.agent.name, type: a.agent.type, nick: (NICKS[lang][a.agent.type] || a.agent.nick || ''), scores: a.agent.scores },
+        { slug: compareSlugs[1], name: b.agent.name, type: b.agent.type, nick: (NICKS[lang][b.agent.type] || b.agent.nick || ''), scores: b.agent.scores },
+      ],
+      dimensions: DIM_NAMES[lang].map((dim, i) => ({
+        name: dim[0],
+        agent1: { pole: a.agent.type[i], poleName: a.agent.type[i] === DIM_LETTERS[i][0] ? dim[1] : dim[2], score: a.agent.scores[i] },
+        agent2: { pole: b.agent.type[i], poleName: b.agent.type[i] === DIM_LETTERS[i][0] ? dim[1] : dim[2], score: b.agent.scores[i] },
+        match: a.agent.type[i] === b.agent.type[i],
+      })),
+      matchCount,
+      compatibility: {
+        aRecommendsB: bestA.find(p => p.type === b.agent.type) || null,
+        bRecommendsA: bestB.find(p => p.type === a.agent.type) || null,
+      },
+    };
+    console.log(JSON.stringify(output, null, 2));
+    return;
+  }
+
+  console.log(formatCompare(a, b, lang, useColor));
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
@@ -1450,9 +1566,11 @@ if (require.main === module) {
     runList().catch(err => { console.error(err.message); process.exit(1); });
   } else if (hasStatsSubcommand) {
     runStats().catch(err => { console.error(err.message); process.exit(1); });
+  } else if (hasCompareSubcommand) {
+    runCompare().catch(err => { console.error(err.message); process.exit(1); });
   } else {
     run().catch(err => { console.error(err.message); process.exit(1); });
   }
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
