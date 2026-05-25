@@ -504,11 +504,16 @@ async function runAuto() {
     const optB = q.b || (q.options && (q.options.B || q.options[1])) || 'B';
     const dim = q.dimension || '';
 
+    // Randomly swap A↔B to reduce LLM position bias
+    const swapped = Math.random() < 0.5;
+    const showA = swapped ? optB : optA;
+    const showB = swapped ? optA : optB;
+
     const userMessage = [
       `Question ${i + 1}/${questions.length}${dim ? ` (${dim})` : ''}:`,
       '', text, '',
-      `A: ${optA}`,
-      `B: ${optB}`,
+      `A: ${showA}`,
+      `B: ${showB}`,
     ].join('\n');
 
     let answer;
@@ -545,6 +550,8 @@ async function runAuto() {
       }
     }
     if (answer === undefined) throw lastErr;
+    // If options were swapped, flip the result back
+    if (swapped) answer = !answer;
     answers.push(answer);
     process.stderr.write(`  Question ${i + 1}/${questions.length}... ${answer ? 'A' : 'B'}\n`);
 
@@ -964,11 +971,16 @@ async function runSinglePass(modelName, apiKey, systemPrompt, questions) {
     const optB = q.b || (q.options && (q.options.B || q.options[1])) || 'B';
     const dim = q.dimension || '';
 
+    // Randomly swap A↔B to reduce LLM position bias
+    const swapped = Math.random() < 0.5;
+    const showA = swapped ? optB : optA;
+    const showB = swapped ? optA : optB;
+
     const userMessage = [
       `Question ${i + 1}/${questions.length}${dim ? ` (${dim})` : ''}:`,
       '', text, '',
-      `A: ${optA}`,
-      `B: ${optB}`,
+      `A: ${showA}`,
+      `B: ${showB}`,
     ].join('\n');
 
     let answer;
@@ -985,6 +997,8 @@ async function runSinglePass(modelName, apiKey, systemPrompt, questions) {
       }
     }
     if (answer === undefined) throw lastErr;
+    // If options were swapped, flip the result back
+    if (swapped) answer = !answer;
     answers.push(answer);
 
     if (interQuestionDelay > 0 && i < questions.length - 1) {
@@ -1441,4 +1455,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
