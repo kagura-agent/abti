@@ -100,6 +100,8 @@ const hasTestSubcommand = args.length > 0 && args[0] === 'test';
 if (hasTestSubcommand) args.shift();
 const hasListSubcommand = args.length > 0 && args[0] === 'list';
 if (hasListSubcommand) args.shift();
+const hasStatsSubcommand = args.length > 0 && args[0] === 'stats';
+if (hasStatsSubcommand) args.shift();
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -146,6 +148,9 @@ if (flag('--help') || flag('-h')) {
     npx abti list --provider ollama         Filter by provider
     npx abti list --json                    Output as JSON
     npx abti list --lang zh                 Show Chinese nicknames
+    npx abti stats                          Show type distribution stats
+    npx abti stats --json                   Output stats as JSON
+    npx abti stats --lang zh                Show stats in Chinese
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -1052,6 +1057,132 @@ async function runList() {
   }
 }
 
+// ── Stats subcommand ──────────────────────────────────────────────────────
+const ALL_TYPES = (() => {
+  const types = [];
+  for (const a of DIM_LETTERS[0]) for (const b of DIM_LETTERS[1]) for (const cc of DIM_LETTERS[2]) for (const d of DIM_LETTERS[3]) types.push(a + b + cc + d);
+  return types;
+})();
+
+function formatStatsTable(agents, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const total = agents.length;
+
+  const typeCounts = {};
+  for (const t of ALL_TYPES) typeCounts[t] = 0;
+  for (const a of agents) {
+    if (a.type && typeCounts.hasOwnProperty(a.type.toUpperCase())) typeCounts[a.type.toUpperCase()]++;
+  }
+
+  const dimCounts = DIM_LETTERS.map(() => [0, 0]);
+  for (const a of agents) {
+    if (!a.type || a.type.length !== 4) continue;
+    const t = a.type.toUpperCase();
+    for (let i = 0; i < 4; i++) {
+      if (t[i] === DIM_LETTERS[i][0]) dimCounts[i][0]++;
+      else dimCounts[i][1]++;
+    }
+  }
+
+  const maxCount = Math.max(1, ...Object.values(typeCounts));
+  const barWidth = 20;
+  const typesRepresented = Object.values(typeCounts).filter(n => n > 0).length;
+  const sorted = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+  const mostCommon = sorted[0];
+
+  const dimNames = DIM_NAMES[lang];
+  const lines = [];
+  const header = lang === 'zh'
+    ? { title: 'ABTI 类型分布统计', typeDist: '类型分布', dimBias: '维度倾向', summary: '总结', totalAgents: '总 Agents', typesRep: '已覆盖类型', mostCommon: '最常见类型' }
+    : { title: 'ABTI Type Distribution Stats', typeDist: 'Type Distribution', dimBias: 'Dimension Bias', summary: 'Summary', totalAgents: 'Total agents', typesRep: 'Types represented', mostCommon: 'Most common type' };
+
+  lines.push('');
+  lines.push(`  ── ${header.title} ──`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${header.typeDist}:${cc.reset}`);
+
+  for (const [type, count] of sorted) {
+    const pct = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+    const nick = (lang === 'zh' ? NICKS.zh[type] : NICKS.en[type]) || '';
+    const filled = Math.round((count / maxCount) * barWidth);
+    const barColor = count > 0 ? cc.cyan : cc.dim;
+    const bar = barColor + '█'.repeat(filled) + cc.dim + '░'.repeat(barWidth - filled) + cc.reset;
+    lines.push(`    ${cc.boldCyan}${type}${cc.reset} ${bar} ${count} (${pct}%)${count > 0 ? ` ${cc.dim}${nick}${cc.reset}` : ''}`);
+  }
+
+  lines.push('');
+  lines.push(`  ${cc.bold}${header.dimBias}:${cc.reset}`);
+  for (let i = 0; i < 4; i++) {
+    const left = DIM_LETTERS[i][0];
+    const right = DIM_LETTERS[i][1];
+    const leftName = dimNames[i][1];
+    const rightName = dimNames[i][2];
+    lines.push(`    ${dimNames[i][0]}: ${left} ${leftName} ${cc.bold}${dimCounts[i][0]}${cc.reset} vs ${right} ${rightName} ${cc.bold}${dimCounts[i][1]}${cc.reset}`);
+  }
+
+  lines.push('');
+  lines.push(`  ${cc.bold}${header.summary}:${cc.reset}`);
+  lines.push(`    ${header.totalAgents}: ${total}`);
+  lines.push(`    ${header.typesRep}: ${typesRepresented}/16`);
+  const mostNick = (lang === 'zh' ? NICKS.zh[mostCommon[0]] : NICKS.en[mostCommon[0]]) || '';
+  lines.push(`    ${header.mostCommon}: ${cc.boldCyan}${mostCommon[0]}${cc.reset} (${mostCommon[1]}) — ${mostNick}`);
+  lines.push('');
+
+  return lines.join('\n');
+}
+
+function formatStatsJson(agents) {
+  const total = agents.length;
+  const typeCounts = {};
+  for (const t of ALL_TYPES) typeCounts[t] = 0;
+  for (const a of agents) {
+    if (a.type && typeCounts.hasOwnProperty(a.type.toUpperCase())) typeCounts[a.type.toUpperCase()]++;
+  }
+
+  const dimCounts = DIM_LETTERS.map(() => [0, 0]);
+  for (const a of agents) {
+    if (!a.type || a.type.length !== 4) continue;
+    const t = a.type.toUpperCase();
+    for (let i = 0; i < 4; i++) {
+      if (t[i] === DIM_LETTERS[i][0]) dimCounts[i][0]++;
+      else dimCounts[i][1]++;
+    }
+  }
+
+  const typesRepresented = Object.values(typeCounts).filter(n => n > 0).length;
+  const sorted = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+  const mostCommon = sorted[0];
+
+  return {
+    total,
+    typesRepresented,
+    mostCommonType: { type: mostCommon[0], count: mostCommon[1] },
+    typeDistribution: Object.fromEntries(sorted),
+    dimensionBias: DIM_LETTERS.map((pair, i) => ({
+      dimension: DIM_NAMES.en[i][0],
+      [pair[0]]: dimCounts[i][0],
+      [pair[1]]: dimCounts[i][1],
+    })),
+  };
+}
+
+async function runStats() {
+  let data;
+  try {
+    data = await httpGet(RESULTS_URL);
+  } catch (err) {
+    console.error(`  Failed to fetch results: ${err.message}`);
+    process.exit(1);
+  }
+  const agents = data.agents || data;
+
+  if (jsonMode) {
+    console.log(JSON.stringify(formatStatsJson(agents), null, 2));
+  } else {
+    console.log(formatStatsTable(agents, lang, useColor));
+  }
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
@@ -1334,9 +1465,11 @@ async function runInteractive() {
 if (require.main === module) {
   if (hasListSubcommand) {
     runList().catch(err => { console.error(err.message); process.exit(1); });
+  } else if (hasStatsSubcommand) {
+    runStats().catch(err => { console.error(err.message); process.exit(1); });
   } else {
     run().catch(err => { console.error(err.message); process.exit(1); });
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatStatsTable, formatStatsJson, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
