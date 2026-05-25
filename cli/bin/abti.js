@@ -100,6 +100,8 @@ const hasTestSubcommand = args.length > 0 && args[0] === 'test';
 if (hasTestSubcommand) args.shift();
 const hasListSubcommand = args.length > 0 && args[0] === 'list';
 if (hasListSubcommand) args.shift();
+const hasStatsSubcommand = args.length > 0 && args[0] === 'stats';
+if (hasStatsSubcommand) args.shift();
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -146,6 +148,9 @@ if (flag('--help') || flag('-h')) {
     npx abti list --provider ollama         Filter by provider
     npx abti list --json                    Output as JSON
     npx abti list --lang zh                 Show Chinese nicknames
+    npx abti stats                          Show type distribution & dimension bias
+    npx abti stats --json                   Output stats as JSON
+    npx abti stats --lang zh                Show stats in Chinese
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -1052,6 +1057,101 @@ async function runList() {
   }
 }
 
+// ── Stats subcommand ─────────────────────────────────────────────────────
+function generateAllTypes() {
+  const types = [];
+  for (const a of DIM_LETTERS[0]) for (const b of DIM_LETTERS[1]) for (const cc of DIM_LETTERS[2]) for (const d of DIM_LETTERS[3]) types.push(a + b + cc + d);
+  return types;
+}
+
+async function runStats() {
+  let data;
+  try {
+    data = await httpGet(RESULTS_URL);
+  } catch (err) {
+    console.error(`  Failed to fetch results: ${err.message}`);
+    process.exit(1);
+  }
+  const agents = data.agents || data;
+  const allTypes = generateAllTypes();
+
+  // Type distribution
+  const typeCounts = {};
+  for (const t of allTypes) typeCounts[t] = 0;
+  for (const a of agents) if (a.type && typeCounts[a.type] !== undefined) typeCounts[a.type]++;
+
+  const sorted = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+  const maxCount = sorted[0][1] || 1;
+  const representedTypes = sorted.filter(([, n]) => n > 0);
+  const mostCommon = representedTypes.slice(0, 3);
+  const leastCommon = representedTypes.length > 0 ? representedTypes.slice(-3).reverse() : [];
+
+  // Dimension bias
+  const dimBias = DIM_LETTERS.map((pair, i) => {
+    let left = 0, right = 0;
+    for (const a of agents) { if (a.type && a.type[i] === pair[0]) left++; else if (a.type && a.type[i] === pair[1]) right++; }
+    return { dim: i, left: pair[0], right: pair[1], leftCount: left, rightCount: right };
+  });
+
+  if (jsonMode) {
+    const output = {
+      total: agents.length,
+      coverage: { represented: representedTypes.length, total: allTypes.length },
+      typeDistribution: Object.fromEntries(sorted),
+      mostCommon: mostCommon.map(([t, n]) => ({ type: t, count: n, nick: NICKS[lang][t] })),
+      leastCommon: leastCommon.map(([t, n]) => ({ type: t, count: n, nick: NICKS[lang][t] })),
+      dimensionBias: dimBias.map(d => ({
+        dimension: DIM_NAMES[lang][d.dim][0],
+        [DIM_NAMES[lang][d.dim][1]]: d.leftCount,
+        [DIM_NAMES[lang][d.dim][2]]: d.rightCount,
+      })),
+    };
+    console.log(JSON.stringify(output, null, 2));
+    return;
+  }
+
+  const t = lang === 'zh'
+    ? { title: 'ABTI 统计', dist: '类型分布', most: '最常见类型', least: '最少见类型', cov: '覆盖率', bias: '维度偏好', agents: '个 Agent' }
+    : { title: 'ABTI Stats', dist: 'Type Distribution', most: 'Most Common', least: 'Least Common', cov: 'Coverage', bias: 'Dimension Bias', agents: 'agents' };
+
+  console.log(`\n  ── ${t.title} (${agents.length} ${t.agents}) ──\n`);
+
+  // Type distribution with bar chart
+  console.log(`  ${c.bold}${t.dist}:${c.reset}\n`);
+  const barMax = 30;
+  for (const [type, count] of sorted) {
+    if (count === 0) continue;
+    const nick = NICKS[lang][type] || '';
+    const barLen = Math.max(1, Math.round((count / maxCount) * barMax));
+    const bar = c.magenta + '█'.repeat(barLen) + c.reset;
+    const padType = type + ' '.repeat(Math.max(0, 5 - type.length));
+    const padCount = String(count).padStart(3);
+    console.log(`    ${c.cyan}${padType}${c.reset} ${bar} ${padCount}  ${c.dim}${nick}${c.reset}`);
+  }
+
+  // Most / least common
+  console.log(`\n  ${c.bold}${t.most}:${c.reset}  ${mostCommon.map(([tp, n]) => `${c.cyan}${tp}${c.reset} (${n})`).join(', ')}`);
+  console.log(`  ${c.bold}${t.least}:${c.reset} ${leastCommon.map(([tp, n]) => `${c.cyan}${tp}${c.reset} (${n})`).join(', ')}`);
+
+  // Coverage
+  console.log(`\n  ${c.bold}${t.cov}:${c.reset} ${representedTypes.length}/${allTypes.length} types`);
+
+  // Dimension bias
+  console.log(`\n  ${c.bold}${t.bias}:${c.reset}\n`);
+  const dimNames = DIM_NAMES[lang];
+  for (const d of dimBias) {
+    const total = d.leftCount + d.rightCount || 1;
+    const leftPct = Math.round((d.leftCount / total) * 100);
+    const rightPct = 100 - leftPct;
+    const leftBar = Math.round((d.leftCount / total) * 20);
+    const rightBar = 20 - leftBar;
+    console.log(`    ${dimNames[d.dim][0]}:`);
+    console.log(`      ${dimNames[d.dim][1]} (${d.left}): ${c.green}${'█'.repeat(leftBar)}${c.reset} ${d.leftCount} (${leftPct}%)`);
+    console.log(`      ${dimNames[d.dim][2]} (${d.right}): ${c.yellow}${'█'.repeat(rightBar)}${c.reset} ${d.rightCount} (${rightPct}%)`);
+  }
+  console.log();
+}
+
 // ── Interactive quiz ────────────────────────────────────────────────────────
 async function run() {
   let answers;
@@ -1334,9 +1434,11 @@ async function runInteractive() {
 if (require.main === module) {
   if (hasListSubcommand) {
     runList().catch(err => { console.error(err.message); process.exit(1); });
+  } else if (hasStatsSubcommand) {
+    runStats().catch(err => { console.error(err.message); process.exit(1); });
   } else {
     run().catch(err => { console.error(err.message); process.exit(1); });
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
