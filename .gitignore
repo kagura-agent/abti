@@ -10,3 +10,4 @@ data/*
 !data/reliability/
 mcp/node_modules/
 data/reliability/.fuse_hidden*
+*-state.json
