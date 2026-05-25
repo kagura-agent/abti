@@ -105,6 +105,9 @@ if (hasStatsSubcommand) args.shift();
 const hasCompareSubcommand = args.length > 0 && args[0] === 'compare';
 if (hasCompareSubcommand) args.shift();
 const compareSlugs = hasCompareSubcommand ? [args.shift(), args.shift()].filter(Boolean) : [];
+const hasInfoSubcommand = args.length > 0 && args[0] === 'info';
+if (hasInfoSubcommand) args.shift();
+const infoTarget = hasInfoSubcommand ? (args.shift() || null) : null;
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -158,6 +161,10 @@ if (flag('--help') || flag('-h')) {
     npx abti compare gpt-4o claude-opus-4   Compare with agent slugs
     npx abti compare <s1> <s2> --json       Output comparison as JSON
     npx abti compare <s1> <s2> --lang zh    Compare in Chinese
+    npx abti info PTCF                      Show type profile
+    npx abti info gpt-4o                    Show agent profile
+    npx abti info RTDN --lang zh            Show type info in Chinese
+    npx abti info gpt-4o --json             Output agent info as JSON
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -1237,6 +1244,162 @@ function formatCompare(a, b, lang, useCol) {
   function pad(s, n) { return s + ' '.repeat(Math.max(0, n - s.length)); }
 }
 
+// ── Info subcommand ─────────────────────────────────────────────────────────
+function isTypeCode(s) {
+  return /^[PR][TE][CD][FN]$/i.test(s);
+}
+
+function formatTypeInfo(typeData, typeCode, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const dimNames = DIM_NAMES[lang];
+  const lines = [];
+  const nick = (lang === 'zh' ? NICKS.zh[typeCode] : NICKS.en[typeCode]) || '';
+  const desc = (lang === 'zh' ? DESCS.zh[typeCode] : DESCS.en[typeCode]) || '';
+
+  lines.push('');
+  lines.push(`  ── ${lang === 'zh' ? 'ABTI 类型详情' : 'ABTI Type Profile'} ──`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${typeCode}${cc.reset}  ${cc.magenta}${nick}${cc.reset}`);
+  lines.push(`  ${cc.dim}${desc}${cc.reset}`);
+  lines.push('');
+
+  // Dimension breakdown
+  const dimLabel = lang === 'zh' ? '维度' : 'Dimensions';
+  lines.push(`  ${cc.bold}${dimLabel}:${cc.reset}`);
+  for (let i = 0; i < 4; i++) {
+    const pole = typeCode[i];
+    const poleName = pole === DIM_LETTERS[i][0] ? dimNames[i][1] : dimNames[i][2];
+    lines.push(`    ${dimNames[i][0]}: ${cc.cyan}${poleName}${cc.reset} (${pole})`);
+  }
+
+  if (typeData) {
+    if (typeData.strengths && typeData.strengths.length) {
+      lines.push('');
+      lines.push(`  ${cc.bold}${lang === 'zh' ? '优势' : 'Strengths'}:${cc.reset}`);
+      for (const s of typeData.strengths) lines.push(`    ${cc.green}✓${cc.reset} ${s}`);
+    }
+    if (typeData.weaknesses && typeData.weaknesses.length) {
+      lines.push('');
+      lines.push(`  ${cc.bold}${lang === 'zh' ? '弱点' : 'Weaknesses'}:${cc.reset}`);
+      for (const w of typeData.weaknesses) lines.push(`    ${cc.yellow}✗${cc.reset} ${w}`);
+    }
+    if (typeData.tuningTips && typeData.tuningTips.length) {
+      lines.push('');
+      lines.push(`  ${cc.bold}${lang === 'zh' ? '调优建议' : 'Tuning Tips'}:${cc.reset}`);
+      for (const t of typeData.tuningTips) lines.push(`    • ${t}`);
+    }
+    if (typeData.bestPairedWith && typeData.bestPairedWith.length) {
+      lines.push('');
+      lines.push(`  ${cc.bold}${lang === 'zh' ? '最佳搭配' : 'Best Paired With'}:${cc.reset}`);
+      for (const p of typeData.bestPairedWith) {
+        const pNick = (lang === 'zh' ? NICKS.zh[p.type] : NICKS.en[p.type]) || '';
+        lines.push(`    ${cc.cyan}${p.type}${cc.reset} ${pNick}${p.reason ? ` — ${p.reason}` : ''}`);
+      }
+    }
+  }
+
+  lines.push('');
+  return lines.join('\n');
+}
+
+function formatAgentInfo(data, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const dimNames = DIM_NAMES[lang];
+  const agent = data.agent;
+  const profile = data.profile || {};
+  const lines = [];
+  const nick = (lang === 'zh' ? NICKS.zh[agent.type] : NICKS.en[agent.type]) || agent.nick || '';
+
+  lines.push('');
+  lines.push(`  ── ${lang === 'zh' ? 'ABTI Agent 详情' : 'ABTI Agent Profile'} ──`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${agent.name}${cc.reset}  ${cc.cyan}${agent.type}${cc.reset}  ${cc.dim}${nick}${cc.reset}`);
+  if (agent.provider) lines.push(`  ${cc.dim}${agent.provider}${agent.model ? ' / ' + agent.model : ''}${cc.reset}`);
+  lines.push('');
+
+  // Dimension breakdown
+  const dimLabel = lang === 'zh' ? '维度' : 'Dimensions';
+  lines.push(`  ${cc.bold}${dimLabel}:${cc.reset}`);
+  for (let i = 0; i < 4; i++) {
+    const pole = agent.type[i];
+    const scoreVal = agent.scores ? agent.scores[i] : null;
+    const poleName = pole === DIM_LETTERS[i][0] ? dimNames[i][1] : dimNames[i][2];
+    const scoreStr = scoreVal !== null ? ` ${scoreVal}/4` : '';
+    lines.push(`    ${dimNames[i][0]}: ${cc.cyan}${poleName}${cc.reset} (${pole})${scoreStr}`);
+  }
+
+  if (profile.strengths && profile.strengths.length) {
+    lines.push('');
+    lines.push(`  ${cc.bold}${lang === 'zh' ? '优势' : 'Strengths'}:${cc.reset}`);
+    for (const s of profile.strengths) lines.push(`    ${cc.green}✓${cc.reset} ${s}`);
+  }
+  if (profile.weaknesses && profile.weaknesses.length) {
+    lines.push('');
+    lines.push(`  ${cc.bold}${lang === 'zh' ? '弱点' : 'Weaknesses'}:${cc.reset}`);
+    for (const w of profile.weaknesses) lines.push(`    ${cc.yellow}✗${cc.reset} ${w}`);
+  }
+  if (profile.tuningTips && profile.tuningTips.length) {
+    lines.push('');
+    lines.push(`  ${cc.bold}${lang === 'zh' ? '调优建议' : 'Tuning Tips'}:${cc.reset}`);
+    for (const t of profile.tuningTips) lines.push(`    • ${t}`);
+  }
+  if (profile.bestPairedWith && profile.bestPairedWith.length) {
+    lines.push('');
+    lines.push(`  ${cc.bold}${lang === 'zh' ? '最佳搭配' : 'Best Paired With'}:${cc.reset}`);
+    for (const p of profile.bestPairedWith) {
+      const pNick = (lang === 'zh' ? NICKS.zh[p.type] : NICKS.en[p.type]) || '';
+      lines.push(`    ${cc.cyan}${p.type}${cc.reset} ${pNick}${p.reason ? ` — ${p.reason}` : ''}`);
+    }
+  }
+
+  lines.push('');
+  return lines.join('\n');
+}
+
+async function runInfo() {
+  if (!infoTarget) {
+    console.error('  Usage: abti info <type-or-slug>');
+    process.exit(1);
+  }
+
+  if (isTypeCode(infoTarget)) {
+    const code = infoTarget.toUpperCase();
+    let typesData;
+    try {
+      typesData = await httpGet(`${API_BASE}/api/types?lang=${lang}`);
+    } catch (err) {
+      console.error(`  Failed to fetch type data: ${err.message}`);
+      process.exit(1);
+    }
+    const typeInfo = typesData.types ? typesData.types[code] : null;
+
+    if (jsonMode) {
+      const nick = (lang === 'zh' ? NICKS.zh[code] : NICKS.en[code]) || '';
+      const desc = (lang === 'zh' ? DESCS.zh[code] : DESCS.en[code]) || '';
+      const output = { type: code, nick, description: desc, ...(typeInfo || {}) };
+      console.log(JSON.stringify(output, null, 2));
+      return;
+    }
+
+    console.log(formatTypeInfo(typeInfo, code, lang, useColor));
+  } else {
+    let data;
+    try {
+      data = await httpGet(AGENT_API_URL(infoTarget) + `?lang=${lang}`);
+    } catch (err) {
+      console.error(`  Failed to fetch agent data: ${err.message}`);
+      process.exit(1);
+    }
+
+    if (jsonMode) {
+      console.log(JSON.stringify(data, null, 2));
+      return;
+    }
+
+    console.log(formatAgentInfo(data, lang, useColor));
+  }
+}
+
 async function runCompare() {
   if (compareSlugs.length < 2) {
     console.error('  Usage: abti compare <slug1> <slug2>');
@@ -1568,9 +1731,11 @@ if (require.main === module) {
     runStats().catch(err => { console.error(err.message); process.exit(1); });
   } else if (hasCompareSubcommand) {
     runCompare().catch(err => { console.error(err.message); process.exit(1); });
+  } else if (hasInfoSubcommand) {
+    runInfo().catch(err => { console.error(err.message); process.exit(1); });
   } else {
     run().catch(err => { console.error(err.message); process.exit(1); });
   }
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
