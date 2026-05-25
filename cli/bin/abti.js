@@ -164,6 +164,13 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider openrouter --all --filter llama --max-models 5
     npx abti test --provider github --all
     npx abti test --provider anthropic --all --api-key sk-ant-...
+    npx abti test --provider groq --all --api-key gsk_...
+    npx abti test --provider mistral --all --api-key ...
+    npx abti test --provider openai --all --api-key sk-...
+    npx abti test --provider gemini --all --api-key ...
+    npx abti test --provider deepseek --all --api-key ...
+    npx abti test --provider xai --all --api-key ...
+    npx abti test --provider cohere --all --api-key ...
 
   Options:
     --lang zh                Language (default: en)
@@ -173,7 +180,7 @@ if (flag('--help') || flag('-h')) {
     --model <model>          Model name
     --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
     --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN / CO_API_KEY)
-    --all                    Test all installed models (ollama, openrouter, github, anthropic)
+    --all                    Test all available models (all providers supported)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
     --submit                 Submit result to the ABTI registry
@@ -663,55 +670,126 @@ function fetchGitHubModels(apiKey) {
   });
 }
 
+function fetchOpenAICompatModels(baseUrl, apiKey, providerName) {
+  const url = baseUrl.replace(/\/+$/, '') + '/models';
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`${providerName} API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.data || [])
+            .map(m => m.id)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse ${providerName} response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to ${providerName} API: ${err.message}`));
+    });
+  });
+}
+
+function fetchGeminiModels(apiKey) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}&pageSize=1000`;
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, { agent }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`Gemini API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.models || [])
+            .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
+            .map(m => m.name.replace(/^models\//, ''))
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse Gemini response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to Gemini API: ${err.message}`));
+    });
+  });
+}
+
+function fetchCohereModels(apiKey) {
+  const url = 'https://api.cohere.com/v2/models';
+  return new Promise((resolve, reject) => {
+    const agent = createProxyAgent(url, noProxyFlag);
+    https.get(url, {
+      agent,
+      headers: { 'Authorization': `Bearer ${apiKey}` },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`Cohere API returned ${res.statusCode}: ${data}`));
+        try {
+          const json = JSON.parse(data);
+          const models = (json.models || [])
+            .map(m => m.name)
+            .sort((a, b) => a.localeCompare(b));
+          resolve(models);
+        } catch (e) { reject(new Error(`Failed to parse Cohere response: ${e.message}`)); }
+      });
+    }).on('error', err => {
+      reject(new Error(`Cannot connect to Cohere API: ${err.message}`));
+    });
+  });
+}
+
 function displayName(modelName) {
   return modelName.replace(/:latest$/, '');
 }
 
 // ── Batch --all mode ────────────────────────────────────────────────────
 async function runAll() {
-  if (autoProvider !== 'ollama' && autoProvider !== 'openrouter' && autoProvider !== 'github' && autoProvider !== 'anthropic') {
-    console.error('  --all is currently only supported with --provider ollama, openrouter, github, or anthropic');
-    process.exit(1);
-  }
+  const openaiCompatProviders = {
+    groq: { baseUrl: 'https://api.groq.com/openai/v1', name: 'Groq' },
+    mistral: { baseUrl: 'https://api.mistral.ai/v1', name: 'Mistral' },
+    openai: { baseUrl: 'https://api.openai.com/v1', name: 'OpenAI' },
+    deepseek: { baseUrl: 'https://api.deepseek.com/v1', name: 'DeepSeek' },
+    xai: { baseUrl: 'https://api.x.ai/v1', name: 'xAI' },
+  };
 
   let modelList;
 
-  if (autoProvider === 'anthropic') {
-    const apiKey = resolveApiKey('anthropic', autoApiKey);
-    process.stderr.write(`  Discovering Anthropic models...\n`);
-    try {
-      modelList = await fetchAnthropicModels(apiKey);
-    } catch (err) {
-      console.error(`  ${err.message}`);
-      process.exit(1);
-    }
-  } else if (autoProvider === 'openrouter') {
-    const apiKey = resolveApiKey('openrouter', autoApiKey);
-    process.stderr.write(`  Discovering OpenRouter models...\n`);
-    try {
-      modelList = await fetchOpenRouterModels(apiKey);
-    } catch (err) {
-      console.error(`  ${err.message}`);
-      process.exit(1);
-    }
-  } else if (autoProvider === 'github') {
-    const apiKey = resolveApiKey('github', autoApiKey);
-    process.stderr.write(`  Discovering GitHub Models...\n`);
-    try {
-      modelList = await fetchGitHubModels(apiKey);
-    } catch (err) {
-      console.error(`  ${err.message}`);
-      process.exit(1);
-    }
-  } else {
-    process.stderr.write(`  Discovering Ollama models...\n`);
-    try {
+  const apiKey = resolveApiKey(autoProvider, autoApiKey);
+  const providerLabel = autoProvider.charAt(0).toUpperCase() + autoProvider.slice(1);
+  process.stderr.write(`  Discovering ${providerLabel} models...\n`);
+
+  try {
+    if (autoProvider === 'ollama') {
       const data = await fetchOllamaModels();
       modelList = (data.models || []).map(m => m.name);
-    } catch (err) {
-      console.error(`  ${err.message}`);
+    } else if (autoProvider === 'anthropic') {
+      modelList = await fetchAnthropicModels(apiKey);
+    } else if (autoProvider === 'openrouter') {
+      modelList = await fetchOpenRouterModels(apiKey);
+    } else if (autoProvider === 'github') {
+      modelList = await fetchGitHubModels(apiKey);
+    } else if (autoProvider === 'gemini') {
+      modelList = await fetchGeminiModels(apiKey);
+    } else if (autoProvider === 'cohere') {
+      modelList = await fetchCohereModels(apiKey);
+    } else if (openaiCompatProviders[autoProvider]) {
+      const cfg = openaiCompatProviders[autoProvider];
+      modelList = await fetchOpenAICompatModels(cfg.baseUrl, apiKey, cfg.name);
+    } else {
+      console.error(`  --all is not supported for provider "${autoProvider}"`);
       process.exit(1);
     }
+  } catch (err) {
+    console.error(`  ${err.message}`);
+    process.exit(1);
   }
 
   if (filterPattern) {
@@ -1261,4 +1339,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, displayName };
+module.exports = { parseAnswer, callLLM, loadState, saveState, defaultStateFile, formatListTable, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
