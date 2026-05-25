@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { generateAgentOG } = require('./lib/og-gen');
 
 // MCP HTTP transport
 const mcpModules = path.join(__dirname, 'mcp', 'node_modules', '@modelcontextprotocol', 'sdk', 'dist', 'cjs');
@@ -247,6 +248,15 @@ function registerAgent(entry) {
     agentData.agents.push(entry);
   }
   saveData(agentData);
+  if (entry.slug && entry.scores) {
+    setImmediate(() => {
+      try {
+        generateAgentOG(entry, path.join(__dirname, 'og', 'agents'));
+      } catch (e) {
+        console.error(`OG generation failed for ${entry.slug}:`, e.message);
+      }
+    });
+  }
 }
 
 // ─── MCP HTTP handler ─────────────────────────────────────────────────────
@@ -441,6 +451,14 @@ const server = http.createServer((req, res) => {
           } else {
             agentData.agents.push(entry);
           }
+          // Async OG image generation (non-blocking)
+          setImmediate(() => {
+            try {
+              generateAgentOG(entry, path.join(__dirname, 'og', 'agents'));
+            } catch (e) {
+              console.error(`OG generation failed for ${entry.slug}:`, e.message);
+            }
+          });
         }
         saveData(agentData);
 
