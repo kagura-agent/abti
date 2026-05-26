@@ -43,13 +43,13 @@ for (const file of htmlFiles) {
 const results = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'results.json'), 'utf8'));
 for (const agent of results.agents) {
   if (agent.slug) {
-    entries.push(urlEntry(`${BASE_URL}/agent.html?slug=${agent.slug}`, '0.6'));
+    entries.push(urlEntry(`${BASE_URL}/agent/${agent.slug}`, '0.6'));
   }
 }
 
 // 3. Type pages
 for (const t of TYPES) {
-  entries.push(urlEntry(`${BASE_URL}/type.html?type=${t}`, '0.6'));
+  entries.push(urlEntry(`${BASE_URL}/type/${t}`, '0.6'));
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
