@@ -108,6 +108,9 @@ const compareSlugs = hasCompareSubcommand ? [args.shift(), args.shift()].filter(
 const hasInfoSubcommand = args.length > 0 && args[0] === 'info';
 if (hasInfoSubcommand) args.shift();
 const infoTarget = hasInfoSubcommand ? (args.shift() || null) : null;
+const hasHistorySubcommand = args.length > 0 && args[0] === 'history';
+if (hasHistorySubcommand) args.shift();
+const historySlug = hasHistorySubcommand ? (args.shift() || null) : null;
 
 function flag(name) { return args.includes(name); }
 function opt(name) { const i = args.indexOf(name); return i >= 0 && i + 1 < args.length ? args[i + 1] : null; }
@@ -165,6 +168,9 @@ if (flag('--help') || flag('-h')) {
     npx abti info gpt-4o                    Show agent profile
     npx abti info RTDN --lang zh            Show type info in Chinese
     npx abti info gpt-4o --json             Output agent info as JSON
+    npx abti history gpt-4o                 Show agent personality drift timeline
+    npx abti history gpt-4o --json          Output history as JSON
+    npx abti history gpt-4o --lang zh       Show history in Chinese
     npx abti                    Interactive mode
 
   Test subcommand (auto mode):
@@ -1400,6 +1406,92 @@ async function runInfo() {
   }
 }
 
+function formatHistoryTable(data, lang, useCol) {
+  const cc = useCol ? c : { reset: '', bold: '', dim: '', cyan: '', boldCyan: '', green: '', yellow: '', red: '', magenta: '' };
+  const dimNames = DIM_NAMES[lang];
+  const agent = data.agent;
+  const history = agent.history || [];
+  const nick = (lang === 'zh' ? NICKS.zh[agent.type] : NICKS.en[agent.type]) || agent.nick || '';
+  const lines = [];
+
+  lines.push('');
+  lines.push(`  ── ${lang === 'zh' ? 'ABTI 人格变迁时间线' : 'ABTI Personality Drift Timeline'} ──`);
+  lines.push('');
+  lines.push(`  ${cc.bold}${agent.name}${cc.reset}  ${lang === 'zh' ? '当前类型' : 'Current'}: ${cc.cyan}${agent.type}${cc.reset}  ${cc.dim}${nick}${cc.reset}`);
+  lines.push('');
+
+  // Header
+  const dateH = lang === 'zh' ? '日期' : 'Date';
+  const typeH = lang === 'zh' ? '类型' : 'Type';
+  const nickH = lang === 'zh' ? '昵称' : 'Nickname';
+  const dimH = dimNames.map(d => d[0]);
+  const header = `  ${dateH.padEnd(12)} ${typeH.padEnd(6)} ${nickH.padEnd(20)} ${dimH.map(d => d.padEnd(6)).join(' ')}`;
+  lines.push(`  ${cc.bold}${header.trim()}${cc.reset}`);
+  lines.push(`  ${'─'.repeat(header.trim().length)}`);
+
+  for (const h of history) {
+    const date = h.testedAt ? h.testedAt.slice(0, 10) : '—';
+    const hNick = (lang === 'zh' ? NICKS.zh[h.type] : NICKS.en[h.type]) || '';
+    const scores = h.scores ? h.scores.map(s => String(s).padEnd(6)).join(' ') : '';
+    lines.push(`  ${date.padEnd(12)} ${cc.cyan}${h.type}${cc.reset}${''.padEnd(6 - h.type.length)} ${cc.dim}${hNick}${cc.reset}${''.padEnd(Math.max(0, 20 - hNick.length))} ${scores}`);
+  }
+
+  // Current as last row
+  const curDate = agent.testedAt ? agent.testedAt.slice(0, 10) : '—';
+  const curScores = agent.scores ? agent.scores.map(s => String(s).padEnd(6)).join(' ') : '';
+  lines.push(`  ${curDate.padEnd(12)} ${cc.bold}${cc.cyan}${agent.type}${cc.reset}${''.padEnd(6 - agent.type.length)} ${cc.bold}${nick}${cc.reset}${''.padEnd(Math.max(0, 20 - nick.length))} ${curScores}  ${cc.green}← ${lang === 'zh' ? '当前' : 'current'}${cc.reset}`);
+
+  // Drift summary
+  const allTypes = [...history.map(h => h.type), agent.type];
+  let changes = 0;
+  for (let i = 1; i < allTypes.length; i++) {
+    if (allTypes[i] !== allTypes[i - 1]) changes++;
+  }
+  lines.push('');
+  if (lang === 'zh') {
+    lines.push(`  ${cc.bold}变迁摘要:${cc.reset} ${allTypes.length} 次测试, ${changes} 次类型变化`);
+  } else {
+    lines.push(`  ${cc.bold}Drift summary:${cc.reset} ${allTypes.length} test(s), ${changes} type change(s)`);
+  }
+  lines.push('');
+
+  return lines.join('\n');
+}
+
+async function runHistory() {
+  if (!historySlug) {
+    console.error('  Usage: abti history <slug>');
+    process.exit(1);
+  }
+
+  let data;
+  try {
+    data = await httpGet(AGENT_API_URL(historySlug) + `?lang=${lang}`);
+  } catch (err) {
+    console.error(`  Failed to fetch agent data: ${err.message}`);
+    process.exit(1);
+  }
+
+  if (jsonMode) {
+    const agent = data.agent;
+    const history = agent.history || [];
+    const allTypes = [...history.map(h => h.type), agent.type];
+    let changes = 0;
+    for (let i = 1; i < allTypes.length; i++) {
+      if (allTypes[i] !== allTypes[i - 1]) changes++;
+    }
+    const output = {
+      agent: { name: agent.name, slug: agent.slug, type: agent.type, nick: (NICKS[lang][agent.type] || agent.nick || ''), scores: agent.scores, testedAt: agent.testedAt },
+      history: history.map(h => ({ date: h.testedAt, type: h.type, nick: (NICKS[lang][h.type] || ''), scores: h.scores })),
+      drift: { totalTests: allTypes.length, typeChanges: changes },
+    };
+    console.log(JSON.stringify(output, null, 2));
+    return;
+  }
+
+  console.log(formatHistoryTable(data, lang, useColor));
+}
+
 async function runCompare() {
   if (compareSlugs.length < 2) {
     console.error('  Usage: abti compare <slug1> <slug2>');
@@ -1733,9 +1825,11 @@ if (require.main === module) {
     runCompare().catch(err => { console.error(err.message); process.exit(1); });
   } else if (hasInfoSubcommand) {
     runInfo().catch(err => { console.error(err.message); process.exit(1); });
+  } else if (hasHistorySubcommand) {
+    runHistory().catch(err => { console.error(err.message); process.exit(1); });
   } else {
     run().catch(err => { console.error(err.message); process.exit(1); });
   }
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
