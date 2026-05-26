@@ -952,7 +952,7 @@ async function runSingleModel(modelName) {
     const allRuns = [];
     let totalParseFailures = 0;
     for (let r = 0; r < runsN; r++) {
-      const { answers, parseFailures } = await runSinglePass(modelName, apiKey, systemPrompt, questions);
+      const { answers, parseFailures } = await runSinglePass(prov, modelName, apiKey, systemPrompt, questions);
       totalParseFailures += parseFailures;
       const result = score(answers);
       allRuns.push({ answers, code: result.code, scores: result.scores });
@@ -970,11 +970,11 @@ async function runSingleModel(modelName) {
     };
   }
 
-  const { answers, parseFailures } = await runSinglePass(modelName, apiKey, systemPrompt, questions);
+  const { answers, parseFailures } = await runSinglePass(prov, modelName, apiKey, systemPrompt, questions);
   return { answers, _answers: answers, parseFailures };
 }
 
-async function runSinglePass(modelName, apiKey, systemPrompt, questions) {
+async function runSinglePass(prov, modelName, apiKey, systemPrompt, questions) {
   const answers = [];
   let parseFailures = 0;
 
