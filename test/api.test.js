@@ -892,6 +892,42 @@ describe('POST /api/agent-test parseFailures/confidence', () => {
     assert.equal(matches[0].type, 'REDN', 'should have the newer result');
   });
 
+  it('deduplicates by model when slug differs', async () => {
+    rateLimitMap.clear();
+    // First submit with display name
+    await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'Model Dedup Bot', model: 'model-dedup-v1' }
+    });
+    rateLimitMap.clear();
+    // Second submit with different name but same model
+    await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: [1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0], agentName: 'model-dedup-v1', model: 'model-dedup-v1' }
+    });
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const matches = data.agents.filter(a => a.model === 'model-dedup-v1');
+    assert.equal(matches.length, 1, 'should have exactly 1 entry with that model');
+    assert.ok(Array.isArray(matches[0].history), 'should have history from update');
+  });
+
+  it('prefers slug match over model match', async () => {
+    rateLimitMap.clear();
+    await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'SlugPriorityBot', model: 'slug-priority-model' }
+    });
+    rateLimitMap.clear();
+    // Same slug (same name), different model
+    await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(0), agentName: 'SlugPriorityBot', model: 'different-model' }
+    });
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const matches = data.agents.filter(a => a.slug === 'slugprioritybot');
+    assert.equal(matches.length, 1, 'slug match should update existing');
+  });
+
   it('omits parseFailures/confidence when not provided', async () => {
     rateLimitMap.clear();
     const r = await req('/api/agent-test', {

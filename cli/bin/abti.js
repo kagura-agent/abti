@@ -881,6 +881,7 @@ async function runAll() {
       try {
         const body = { answers: r._answers ? r._answers.map(a => a ? 1 : 0) : undefined, lang };
         if (agentName) body.agentName = agentName;
+        else if (r.displayName) body.agentName = r.displayName;
         body.model = r.model;
         body.provider = autoProvider;
         if (r.parseFailures > 0) body.parseFailures = r.parseFailures;

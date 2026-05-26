@@ -240,7 +240,10 @@ function registerAgent(entry) {
   if (entry.name && !entry.slug) {
     entry.slug = slugify(entry.name);
   }
-  const existing = agentData.agents.findIndex(a => a.slug === entry.slug);
+  let existing = agentData.agents.findIndex(a => a.slug === entry.slug);
+  if (existing === -1 && entry.model) {
+    existing = agentData.agents.findIndex(a => a.model && a.model === entry.model);
+  }
   if (existing !== -1) {
     preserveHistory(agentData.agents[existing], entry);
     agentData.agents[existing] = entry;
@@ -434,8 +437,6 @@ const server = http.createServer((req, res) => {
           const urlStr = (typeof agentUrl === 'string') ? agentUrl : '';
           const now = new Date().toISOString();
           const slug = slugify(name);
-          // Upsert by slug — always update existing entry with same slug
-          const existing = agentData.agents.findIndex(a => a.slug === slug);
           const entry = { name, slug, url: urlStr, type: code, nick: t?.en?.nick || 'Unknown', testedAt: now, scores: scores.slice(), dimensions: DL.map((d, i) => ({ poles: d, score: scores[i], max: 4 })) };
           if (typeof model === 'string' && model) entry.model = model.slice(0, 64);
           if (typeof provider === 'string' && provider) entry.provider = provider.slice(0, 32);
@@ -444,6 +445,10 @@ const server = http.createServer((req, res) => {
           if (typeof parsed.parseFailures === 'number' && Number.isInteger(parsed.parseFailures) && parsed.parseFailures >= 0) {
             entry.parseFailures = parsed.parseFailures;
             entry.confidence = Math.round(((16 - parsed.parseFailures) / 16) * 1000) / 1000;
+          }
+          let existing = agentData.agents.findIndex(a => a.slug === slug);
+          if (existing === -1 && entry.model) {
+            existing = agentData.agents.findIndex(a => a.model && a.model === entry.model);
           }
           if (existing !== -1) {
             preserveHistory(agentData.agents[existing], entry);
