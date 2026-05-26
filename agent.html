@@ -316,6 +316,69 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
           + '<div class="dim-score">' + d.score + '/' + d.max + '</div>'
           + '</div>';
       }).join('');
+
+      // Radar/spider chart SVG
+      var radarSvg = (function() {
+        var size = 300, cx = 150, cy = 150, r = 110;
+        var n = a.dimensions.length;
+        if (n < 3) return '';
+        var angleStep = 2 * Math.PI / n;
+        var startAngle = -Math.PI / 2; // top
+
+        function polar(frac, idx) {
+          var angle = startAngle + idx * angleStep;
+          return [cx + r * frac * Math.cos(angle), cy + r * frac * Math.sin(angle)];
+        }
+
+        // Gridlines at 25%, 50%, 75%, 100%
+        var gridLines = [0.25, 0.5, 0.75, 1].map(function(g) {
+          var pts = [];
+          for (var i = 0; i < n; i++) pts.push(polar(g, i).join(','));
+          return '<polygon points="' + pts.join(' ') + '" fill="none" stroke="var(--text3, hsl(240 10% 30%))" stroke-width="0.5" opacity="0.4"/>';
+        }).join('');
+
+        // Axis lines
+        var axisLines = '';
+        for (var i = 0; i < n; i++) {
+          var tip = polar(1, i);
+          axisLines += '<line x1="' + cx + '" y1="' + cy + '" x2="' + tip[0] + '" y2="' + tip[1] + '" stroke="var(--text3, hsl(240 10% 30%))" stroke-width="0.5" opacity="0.4"/>';
+        }
+
+        // Data polygon
+        var dataPts = a.dimensions.map(function(d, i) {
+          var pct = d.max > 0 ? d.score / d.max : 0;
+          return polar(pct, i).join(',');
+        }).join(' ');
+
+        var dataPolygon = '<polygon points="' + dataPts + '" fill="rgba(255,107,157,0.2)" stroke="#ff6b9d" stroke-width="2"/>';
+
+        // Data dots
+        var dataDots = a.dimensions.map(function(d, i) {
+          var pct = d.max > 0 ? d.score / d.max : 0;
+          var p = polar(pct, i);
+          return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4" fill="#ff6b9d"/>';
+        }).join('');
+
+        // Axis labels
+        var labelEls = a.dimensions.map(function(d, i) {
+          var dimInfo = dims[i];
+          if (!dimInfo) return '';
+          var pole1 = dimInfo[lang] ? dimInfo[lang].pole1 : dimInfo.en.pole1;
+          var label = d.poles[0] + ' ' + pole1;
+          var p = polar(1.22, i);
+          var anchor = 'middle';
+          if (p[0] < cx - 10) anchor = 'end';
+          else if (p[0] > cx + 10) anchor = 'start';
+          return '<text x="' + p[0] + '" y="' + p[1] + '" text-anchor="' + anchor + '" dominant-baseline="central" fill="var(--text2, hsl(240 10% 65%))" font-size="11" font-family="\'DM Sans\',sans-serif">' + esc(label) + '</text>';
+        }).join('');
+
+        return '<div style="text-align:center;margin-bottom:1.2rem">'
+          + '<svg viewBox="0 0 300 300" style="max-width:300px;width:100%">'
+          + gridLines + axisLines + dataPolygon + dataDots + labelEls
+          + '</svg></div>';
+      })();
+
+      dimHtml = radarSvg + dimHtml;
     }
 
     var pairHtml = '';
