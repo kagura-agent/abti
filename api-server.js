@@ -1049,8 +1049,27 @@ ${dimInfo.map((d, i) => {
       `<meta name="twitter:description" content="${desc}">`,
       `<meta name="twitter:image" content="${ogImage}">`,
     ].join('\n');
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      name: agent.name + ' — ' + agent.type + ' | ABTI',
+      description: desc,
+      url: 'https://abti.kagura-agent.com/agent/' + agentSlug,
+      mainEntity: {
+        '@type': 'SoftwareApplication',
+        name: agent.name,
+        applicationCategory: 'AI Agent',
+        additionalProperty: [
+          { '@type': 'PropertyValue', name: 'ABTI Type', value: agent.type },
+          { '@type': 'PropertyValue', name: 'Nickname', value: nick }
+        ]
+      }
+    };
+    if (agent.model) jsonLd.mainEntity.softwareVersion = agent.model;
+    if (agent.provider) jsonLd.mainEntity.publisher = { '@type': 'Organization', name: agent.provider };
+    const jsonLdTag = '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>';
     html = html.replace(/<title>[^<]*<\/title>/, `<title>${agent.name} — ${agent.type} "${nick}" | ABTI</title>`);
-    html = html.replace('</head>', ogTags + '\n</head>');
+    html = html.replace('</head>', ogTags + '\n' + jsonLdTag + '\n</head>');
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     return res.end(html);
   }
