@@ -1585,8 +1585,45 @@ ${dimInfo.map((d, i) => {
     }));
   }
 
+  // GET /embed/:type - serve embed card for a type
+  const embedTypeMatch = url.pathname.match(/^\/embed\/([A-Za-z]{4})$/);
+  if (embedTypeMatch && req.method === 'GET') {
+    try {
+      let html = fs.readFileSync(path.join(__dirname, 'embed.html'), 'utf8');
+      const code = embedTypeMatch[1].toUpperCase();
+      const lang = url.searchParams.get('lang') || 'en';
+      const theme = url.searchParams.get('theme') || 'light';
+      // Inject query params so the page renders the right type without client-side URL parsing
+      const inject = `<script>window.__EMBED_PARAMS__=${JSON.stringify({type:code,lang,theme})};</script>`;
+      html = html.replace('</head>', inject + '\n</head>');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end(html);
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+  }
+
+  // GET /embed/agent/:slug - serve embed card for an agent
+  const embedAgentMatch = url.pathname.match(/^\/embed\/agent\/([^/]+)$/);
+  if (embedAgentMatch && req.method === 'GET') {
+    try {
+      let html = fs.readFileSync(path.join(__dirname, 'embed.html'), 'utf8');
+      const slug = decodeURIComponent(embedAgentMatch[1]);
+      const lang = url.searchParams.get('lang') || 'en';
+      const theme = url.searchParams.get('theme') || 'light';
+      const inject = `<script>window.__EMBED_PARAMS__=${JSON.stringify({agent:slug,lang,theme})};</script>`;
+      html = html.replace('</head>', inject + '\n</head>');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end(html);
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+  }
+
   res.writeHead(404, {'Content-Type':'application/json'});
-  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /badge/agent/:slug','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
+  res.end(JSON.stringify({error:'not found',endpoints:['GET /api/test','GET /api/sbti/test','GET /api/types','GET /api/sbti/types','POST /api/agent-test','POST /api/sbti/agent-test','GET /api/agents','GET /api/agent/:slug','GET /api/stats','GET /api/compare/:type1/:type2','GET /api/compatibility','GET /api/compatibility/matrix','GET /api/compatibility/human','GET /api/compatibility/cross','GET /badge/:type','GET /badge/agent/:slug','GET /sbti/badge/:type','GET /type/:code','GET /agent/:slug','GET /result/:type','GET /sbti/result/:type','GET /test-agent','GET /embed/:type','GET /embed/agent/:slug','GET /api/openapi.json','POST /mcp','GET /mcp','DELETE /mcp']}));
 });
 
 if (require.main === module) {

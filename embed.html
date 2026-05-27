@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTI Embed Card</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #666;
+    --accent: #e8658a;
+    --bar-bg: #f0eded;
+    --border: #e8e5e1;
+    --footer-bg: #faf9f7;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1a2e;
+    --text: #f0f0f0;
+    --text-secondary: #a0a0b8;
+    --accent: #ff6b9d;
+    --bar-bg: #2a2a40;
+    --border: #333355;
+    --footer-bg: #15152a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card {
+    padding: 16px 20px 8px;
+    flex: 1;
+  }
+  .header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .type-code {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+  .nickname {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .dimensions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+  }
+  .dim {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .dim-label {
+    width: 70px;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+  .dim-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--bar-bg);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .dim-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+  .dim-pole {
+    width: 18px;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--accent);
+  }
+  .footer {
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+    background: var(--footer-bg);
+    border-top: 1px solid var(--border);
+  }
+  .footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .footer a:hover { text-decoration: underline; }
+  .error {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TYPES = {
+  PTCF:{en:'The Architect',zh:'建筑师'},PTCN:{en:'The Commander',zh:'指挥官'},
+  PTDF:{en:'The Strategist',zh:'战略家'},PTDN:{en:'The Guardian',zh:'守护者'},
+  PECF:{en:'The Spark',zh:'火花'},PECN:{en:'The Drill Sergeant',zh:'教官'},
+  PEDF:{en:'The Fixer',zh:'修理工'},PEDN:{en:'The Sentinel',zh:'哨兵'},
+  RTCF:{en:'The Advisor',zh:'军师'},RTCN:{en:'The Auditor',zh:'审计师'},
+  RTDF:{en:'The Counselor',zh:'知心人'},RTDN:{en:'The Scholar',zh:'学者'},
+  RECF:{en:'The Blade',zh:'利刃'},RECN:{en:'The Machine',zh:'机器'},
+  REDF:{en:'The Companion',zh:'伙伴'},REDN:{en:'The Tool',zh:'工具'}
+};
+const DL = [['P','R'],['T','E'],['C','D'],['F','N']];
+const DIM_NAMES = {
+  en: ['Autonomy','Precision','Transparency','Adaptability'],
+  zh: ['自主性','精确度','沟通风格','适应性']
+};
+const DIM_LABELS = {
+  en: [['Proactive','Responsive'],['Thorough','Efficient'],['Candid','Diplomatic'],['Flexible','Principled']],
+  zh: [['主动','响应'],['面面俱到','精简高效'],['直言不讳','委婉圆滑'],['随机应变','坚持原则']]
+};
+
+const params = new URLSearchParams(location.search);
+const ep = window.__EMBED_PARAMS__ || {};
+const lang = ep.lang || params.get('lang') || 'en';
+const theme = ep.theme || params.get('theme') || 'light';
+const typeParam = (ep.type || params.get('type') || '').toUpperCase();
+const agentParam = ep.agent || params.get('agent');
+
+if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+function render(code, nick, scores) {
+  const app = document.getElementById('app');
+  if (!code || !TYPES[code]) {
+    app.innerHTML = '<div class="error">Unknown ABTI type</div>';
+    return;
+  }
+  const nickname = nick || TYPES[code][lang] || TYPES[code].en;
+  const dims = DIM_NAMES[lang] || DIM_NAMES.en;
+  const labels = DIM_LABELS[lang] || DIM_LABELS.en;
+
+  let dimHtml = '';
+  for (let i = 0; i < 4; i++) {
+    const letter = code[i];
+    const poleIdx = DL[i].indexOf(letter);
+    const score = scores ? scores[i] : (poleIdx === 0 ? 3 : 1);
+    const pct = (score / 4) * 100;
+    const poleName = labels[i][poleIdx];
+    dimHtml += `<div class="dim">
+      <span class="dim-label">${dims[i]}</span>
+      <div class="dim-bar"><div class="dim-fill" style="width:${pct}%"></div></div>
+      <span class="dim-pole" title="${poleName}">${letter}</span>
+    </div>`;
+  }
+
+  app.innerHTML = `<div class="card">
+    <div class="header">
+      <span class="type-code">${code}</span>
+      <span class="nickname">${nickname}</span>
+    </div>
+    <div class="dimensions">${dimHtml}</div>
+  </div>
+  <div class="footer">
+    <a href="https://abti.kagura-agent.com" target="_blank" rel="noopener">Powered by ABTI</a>
+  </div>`;
+}
+
+if (agentParam) {
+  const base = location.origin;
+  fetch(base + '/api/agent/' + encodeURIComponent(agentParam))
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      const code = data.type || data.agent?.type;
+      const nick = data.nick || data.agent?.nick;
+      const scores = data.scores || data.agent?.scores;
+      render(code, nick, scores);
+    })
+    .catch(() => render(typeParam || null));
+} else {
+  render(typeParam);
+}
+</script>
+</body>
+</html>
