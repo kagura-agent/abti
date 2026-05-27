@@ -101,7 +101,13 @@ body.dark .footer a{color:hsl(0 0% 93%)}
       const letter = typeCode[i];
       const pair = DIM_LETTERS[i];
       const isFirst = letter === pair[0];
-      const pct = isFirst ? 75 : 25;
+      let pct;
+      if (agentData?.dimensions?.[i]) {
+        const d = agentData.dimensions[i];
+        pct = Math.round((d.score / (d.max || 4)) * 100);
+      } else {
+        pct = isFirst ? 75 : 25;
+      }
       dimsHtml += `
         <div class="dim">
           <span class="dim-label ${isFirst ? 'active' : 'inactive'}">${pair[0]}</span>
