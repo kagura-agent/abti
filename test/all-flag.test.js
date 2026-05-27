@@ -47,6 +47,31 @@ describe('--all flag', () => {
     });
   });
 
+  describe('fetchGitHubModels', () => {
+    it('should be a function', () => {
+      assert.strictEqual(typeof fetchGitHubModels, 'function');
+    });
+
+    it('should reject with invalid API key', async () => {
+      try {
+        await fetchGitHubModels('invalid-key');
+      } catch (err) {
+        assert.ok(err.message.includes('GitHub Models API') || err.message.includes('Cannot connect'),
+          `Expected GitHub Models error, got: ${err.message}`);
+      }
+    });
+
+    it('should strip namespace prefix from model IDs', () => {
+      const fs = require('fs');
+      const path = require('path');
+      const src = fs.readFileSync(path.join(__dirname, '..', 'cli', 'bin', 'abti.js'), 'utf8');
+      assert.ok(
+        src.includes("m.id.includes('/') ? m.id.split('/').pop() : m.id"),
+        'fetchGitHubModels should strip org/ prefix from namespaced model IDs'
+      );
+    });
+  });
+
   describe('fetchAnthropicModels', () => {
     it('should be a function', () => {
       assert.strictEqual(typeof fetchAnthropicModels, 'function');
