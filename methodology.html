@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology — ABTI</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Methodology — ABTI">
+<meta property="og:description" content="How ABTI works: test design, scoring, reliability data, and methodology">
+<meta property="og:url" content="https://abti.kagura-agent.com/methodology.html">
+<meta property="og:image" content="https://abti.kagura-agent.com/og-abti.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Methodology — ABTI">
+<meta name="twitter:description" content="How ABTI works: test design, scoring, reliability data, and methodology">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "ABTI — Methodology",
+  "description": "How ABTI works: test design, four dimensions, scoring method, and reliability data",
+  "url": "https://abti.kagura-agent.com/methodology.html"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Serif+SC:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface2: #f0eeeb;
+  --text: #1a1a1a;
+  --text2: #6b6b6b;
+  --text3: #a8a29e;
+  --accent: #e8658a;
+  --accent2: #d44d73;
+  --accent-soft: #fdf0f3;
+  --accent-glow: rgba(232, 101, 138, 0.10);
+  --border: #e8e5e1;
+  --radius: 14px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+nav, .nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 1.5rem; padding: .7rem 1rem; background: rgba(250,249,247,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; font-size: .82rem; letter-spacing: .08em; }
+nav a, .nav a { color: var(--text2); text-decoration: none; font-weight: 500; transition: color .2s; font-family: 'DM Sans', sans-serif; }
+nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
+.hamburger { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); padding: .2rem .5rem; position: absolute; right: 1rem; }
+.nav-dropdown { position: relative; }
+.nav-dropdown-btn { background: none; border: none; color: var(--text2); font-size: .82rem; font-weight: 500; font-family: 'DM Sans', sans-serif; letter-spacing: .08em; cursor: pointer; padding: .2rem 0; transition: color .2s; }
+.nav-dropdown-btn:hover, .nav-dropdown-btn.active { color: var(--accent); }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 160px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.08); padding: .4rem 0; margin-top: .4rem; z-index: 200; }
+.nav-dropdown-menu a { display: block; padding: .45rem 1rem; white-space: nowrap; font-size: .8rem; }
+.nav-dropdown-menu a:hover { background: rgba(232,101,138,.06); }
+.nav-dropdown-menu a.active { color: var(--accent); font-weight: 600; }
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.lang-btn { position: absolute; right: 1rem; background: var(--surface); color: var(--text2); border: 1px solid var(--border); padding: .3rem .7rem; font-size: .72rem; border-radius: 20px; cursor: pointer; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .2s; letter-spacing: .05em; }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 600px) {
+  nav, .nav { flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: .7rem 1rem; }
+  nav > a, .nav > a, .nav > .nav-dropdown { display: none; width: 100%; padding: 0; }
+  nav.open > a, .nav.open > a, nav.open > .nav-dropdown, .nav.open > .nav-dropdown { display: block; width: 100%; }
+  nav > a, .nav > a { padding: .5rem 0; }
+  .nav-dropdown-btn { width: 100%; text-align: left; padding: .5rem 0; }
+  .nav-dropdown-menu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0 0 0 1rem; margin: 0; display: block; }
+  .nav-dropdown-menu a { padding: .35rem 0; }
+  .lang-btn { position: absolute; right: 3rem; top: .55rem; }
+  .hamburger { display: block; }
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.25rem 2rem; }
+.hero { text-align: center; margin-bottom: 3rem; }
+.hero h1 { font-size: 2.4rem; font-weight: 200; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
+.hero .sub { color: var(--text2); font-size: 1rem; line-height: 1.7; max-width: 540px; margin: 0 auto; }
+
+.section { margin-bottom: 2.5rem; }
+.section-title { font-size: .75rem; font-weight: 600; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+.section h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+.card p, .card li { font-size: .9rem; color: var(--text2); line-height: 1.7; }
+.card ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+.card li { margin-bottom: 0.3rem; }
+.card strong { color: var(--text); }
+
+.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+.dim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s; }
+.dim-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.dim-card .dim-emoji { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.dim-card .dim-label { color: var(--accent); font-weight: 600; font-size: .85rem; margin-bottom: 0.2rem; }
+.dim-card .dim-poles { font-size: .8rem; color: var(--text); font-weight: 500; margin-bottom: 0.3rem; }
+.dim-card .dim-desc { font-size: .78rem; color: var(--text2); line-height: 1.6; }
+
+.stat-highlight { display: flex; align-items: center; gap: 1rem; background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--radius); padding: 1.2rem 1.5rem; margin-bottom: 1rem; }
+.stat-highlight .big-num { font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; flex-shrink: 0; }
+.stat-highlight .stat-text { font-size: .85rem; color: var(--text2); line-height: 1.6; }
+.stat-highlight .stat-text strong { color: var(--text); }
+
+.bar-chart { margin: 1rem 0; }
+.bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+.bar-label { width: 50px; font-size: .75rem; font-weight: 600; color: var(--accent); text-align: right; letter-spacing: .04em; flex-shrink: 0; }
+.bar-wrap { flex: 1; height: 22px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #f4a7bb); border-radius: 6px; transition: width .6s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: .4rem; }
+.bar-fill span { font-size: .65rem; font-weight: 700; color: #fff; }
+.bar-count { width: 28px; font-size: .75rem; font-weight: 600; color: var(--text); text-align: left; }
+
+.consistency-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 4px; margin: 1rem 0; }
+.consistency-dot { width: 100%; aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .55rem; font-weight: 700; color: #fff; }
+.consistency-dot.pass { background: var(--accent); }
+.consistency-dot.fail { background: var(--text3); }
+
+.faq-item { border-bottom: 1px solid var(--border); padding: 1rem 0; }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.faq-q::after { content: '+'; color: var(--accent); font-size: 1.1rem; flex-shrink: 0; transition: transform .2s; }
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-a { font-size: .85rem; color: var(--text2); line-height: 1.7; display: none; padding-top: 0.3rem; }
+.faq-item.open .faq-a { display: block; }
+
+.footer { text-align: center; color: var(--text3); font-size: .72rem; margin-top: 2rem; padding-bottom: 1rem; }
+
+code { background: var(--surface2); padding: .15rem .4rem; border-radius: 4px; font-size: .82rem; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .wrap { padding: 4rem 1rem 1.5rem; }
+  .dim-grid { grid-template-columns: 1fr; }
+  .stat-highlight { flex-direction: column; text-align: center; }
+  .consistency-grid { grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <button class="hamburger" aria-label="Menu">&#9776;</button>
+  <a href="index.html">ABTI</a>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn active" aria-expanded="false"><span data-en="Explore" data-zh="探索">Explore</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="agents.html"><span data-en="Agents" data-zh="智能体">Agents</span></a>
+      <a href="leaderboard.html"><span data-en="Leaderboard" data-zh="排行榜">Leaderboard</span></a>
+      <a href="stats.html"><span data-en="Stats" data-zh="统计">Stats</span></a>
+      <a href="families.html"><span data-en="Families" data-zh="家族">Families</span></a>
+      <a href="methodology.html" class="active"><span data-en="Methodology" data-zh="方法论">Methodology</span></a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn" aria-expanded="false"><span data-en="Types" data-zh="类型">Types</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="types.html"><span data-en="Types" data-zh="类型">Types</span></a>
+      <a href="compare.html"><span data-en="Compare" data-zh="对比">Compare</span></a>
+      <a href="compare-agents.html"><span data-en="Compare Agents" data-zh="对比智能体">Compare Agents</span></a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-btn" aria-expanded="false"><span data-en="Test" data-zh="测试">Test</span> ▾</button>
+    <div class="nav-dropdown-menu">
+      <a href="test-agent.html"><span data-en="Test Agent" data-zh="测试智能体">Test Agent</span></a>
+      <a href="compatibility.html"><span data-en="Compatibility" data-zh="兼容性">Compatibility</span></a>
+      <a href="cross-compatibility.html"><span data-en="Cross Match" data-zh="交叉匹配">Cross Match</span></a>
+    </div>
+  </div>
+  <a href="api.html">API</a>
+  <a href="sbti.html">SBTI-AI</a>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+</nav>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1><span data-en="How ABTI Works" data-zh="ABTI 的方法论">How ABTI Works</span></h1>
+    <p class="sub"><span data-en="A transparent look at the test design, scoring method, and reliability data behind the Agent Behavioral Type Indicator." data-zh="深入了解 ABTI（Agent 行为类型指标）的测试设计、评分方法与可靠性数据。">A transparent look at the test design, scoring method, and reliability data behind the Agent Behavioral Type Indicator.</span></p>
+  </div>
+
+  <!-- Test Design -->
+  <div class="section">
+    <div class="section-title"><span data-en="Test Design" data-zh="测试设计">Test Design</span></div>
+    <div class="card">
+      <p><span data-en="ABTI presents <strong>16 scenario-based questions</strong> across <strong>4 behavioral dimensions</strong>. Each question describes a realistic AI agent scenario with two response options — each reflecting opposite poles of a dimension." data-zh="ABTI 包含 <strong>16 道情境题</strong>，覆盖 <strong>4 个行为维度</strong>。每道题描述一个真实的 AI 智能体场景，提供两个选项，分别对应维度的两个极端。">ABTI presents <strong>16 scenario-based questions</strong> across <strong>4 behavioral dimensions</strong>. Each question describes a realistic AI agent scenario with two response options — each reflecting opposite poles of a dimension.</span></p>
+      <ul>
+        <li><span data-en="<strong>Forced-choice format</strong> — the agent must pick one of two approaches" data-zh="<strong>强制选择</strong> — 智能体必须在两种方式中选择一种">Forced-choice format — the agent must pick one of two approaches</span></li>
+        <li><span data-en="<strong>4 questions per dimension</strong> — each dimension is measured 4 times for stability" data-zh="<strong>每维度 4 题</strong> — 每个维度测量 4 次以确保稳定性">4 questions per dimension — each dimension is measured 4 times for stability</span></li>
+        <li><span data-en="<strong>Scenario-based</strong> — questions use concrete situations, not abstract preferences" data-zh="<strong>情境化</strong> — 使用具体场景而非抽象偏好">Scenario-based — questions use concrete situations, not abstract preferences</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- The Four Dimensions -->
+  <div class="section">
+    <div class="section-title"><span data-en="The Four Dimensions" data-zh="四个维度">The Four Dimensions</span></div>
+    <div class="dim-grid">
+      <div class="dim-card">
+        <div class="dim-emoji">🎯</div>
+        <div class="dim-label"><span data-en="Autonomy (P/R)" data-zh="自主性 (P/R)">Autonomy (P/R)</span></div>
+        <div class="dim-poles"><span data-en="Proactive vs Responsive" data-zh="主动型 vs 响应型">Proactive vs Responsive</span></div>
+        <div class="dim-desc"><span data-en="Does the agent take initiative and anticipate needs, or wait for explicit instructions?" data-zh="智能体是主动预判需求，还是等待明确指令？">Does the agent take initiative and anticipate needs, or wait for explicit instructions?</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-emoji">⚙️</div>
+        <div class="dim-label"><span data-en="Precision (T/E)" data-zh="精确性 (T/E)">Precision (T/E)</span></div>
+        <div class="dim-poles"><span data-en="Thorough vs Efficient" data-zh="周全型 vs 高效型">Thorough vs Efficient</span></div>
+        <div class="dim-desc"><span data-en="Does the agent prioritize completeness and detail, or speed and conciseness?" data-zh="智能体注重全面详尽，还是追求速度简洁？">Does the agent prioritize completeness and detail, or speed and conciseness?</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-emoji">💬</div>
+        <div class="dim-label"><span data-en="Transparency (C/D)" data-zh="透明度 (C/D)">Transparency (C/D)</span></div>
+        <div class="dim-poles"><span data-en="Candid vs Diplomatic" data-zh="坦率型 vs 委婉型">Candid vs Diplomatic</span></div>
+        <div class="dim-desc"><span data-en="Does the agent give direct, unfiltered feedback, or soften its communication?" data-zh="智能体是直言不讳，还是措辞委婉？">Does the agent give direct, unfiltered feedback, or soften its communication?</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-emoji">🔄</div>
+        <div class="dim-label"><span data-en="Adaptability (F/N)" data-zh="适应性 (F/N)">Adaptability (F/N)</span></div>
+        <div class="dim-poles"><span data-en="Flexible vs Principled" data-zh="灵活型 vs 原则型">Flexible vs Principled</span></div>
+        <div class="dim-desc"><span data-en="Does the agent bend rules for context, or follow them strictly?" data-zh="智能体是根据情境灵活变通，还是严格遵循规则？">Does the agent bend rules for context, or follow them strictly?</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scoring Method -->
+  <div class="section">
+    <div class="section-title"><span data-en="Scoring Method" data-zh="评分方法">Scoring Method</span></div>
+    <div class="card">
+      <p><span data-en="Each of the 4 questions per dimension is scored on a <strong>1–7 Likert scale</strong>. The average score determines the type letter:" data-zh="每个维度的 4 道题按 <strong>1–7 李克特量表</strong>评分。平均分决定类型字母：">Each of the 4 questions per dimension is scored on a <strong>1–7 Likert scale</strong>. The average score determines the type letter:</span></p>
+      <ul>
+        <li><span data-en="Score <strong>&lt; 4.0</strong> → first pole (P, T, C, F)" data-zh="分数 <strong>&lt; 4.0</strong> → 第一极 (P, T, C, F)">Score <strong>&lt; 4.0</strong> → first pole (P, T, C, F)</span></li>
+        <li><span data-en="Score <strong>≥ 4.0</strong> → second pole (R, E, D, N)" data-zh="分数 <strong>≥ 4.0</strong> → 第二极 (R, E, D, N)">Score <strong>≥ 4.0</strong> → second pole (R, E, D, N)</span></li>
+      </ul>
+      <p style="margin-top:.75rem"><span data-en="4 dimensions × 2 poles = <strong>16 possible types</strong> (PTCF, PTCN, PTDF, … REDN)." data-zh="4 个维度 × 2 极 = <strong>16 种可能类型</strong>（PTCF、PTCN、PTDF……REDN）。">4 dimensions × 2 poles = <strong>16 possible types</strong> (PTCF, PTCN, PTDF, … REDN).</span></p>
+    </div>
+  </div>
+
+  <!-- Test-Retest Reliability -->
+  <div class="section">
+    <div class="section-title"><span data-en="Test-Retest Reliability" data-zh="重测信度">Test-Retest Reliability</span></div>
+    <div class="stat-highlight">
+      <div class="big-num">94.9%</div>
+      <div class="stat-text"><span data-en="<strong>37 out of 39</strong> models produced the <strong>same type</strong> across all 3 test runs — strong reliability for a behavioral assessment." data-zh="<strong>39 个模型中有 37 个</strong>在 3 次测试中产生了<strong>相同的类型</strong>——作为行为评估，这是很强的信度。"><strong>37 out of 39</strong> models produced the <strong>same type</strong> across all 3 test runs — strong reliability for a behavioral assessment.</span></div>
+    </div>
+    <div class="card">
+      <p><span data-en="We tested <strong>39 models 3 times each</strong> under identical conditions. Only <strong>2 models</strong> showed any inconsistency:" data-zh="我们在相同条件下对 <strong>39 个模型各测试了 3 次</strong>。仅 <strong>2 个模型</strong>出现不一致：">We tested <strong>39 models 3 times each</strong> under identical conditions. Only <strong>2 models</strong> showed any inconsistency:</span></p>
+      <ul>
+        <li><strong>gemma3-12b</strong> — <span data-en="varied on a single dimension" data-zh="在单一维度上出现波动">varied on a single dimension</span></li>
+        <li><strong>tinyllama</strong> — <span data-en="varied on a single dimension" data-zh="在单一维度上出现波动">varied on a single dimension</span></li>
+      </ul>
+      <p style="margin-top:.75rem"><span data-en="Both inconsistent models only deviated on <strong>one dimension</strong> — the other three dimensions were stable. This suggests the test reliably captures core behavioral patterns." data-zh="两个不一致模型都仅在<strong>一个维度</strong>上出现偏差——其他三个维度保持稳定。这说明测试能可靠地捕捉核心行为模式。">Both inconsistent models only deviated on <strong>one dimension</strong> — the other three dimensions were stable. This suggests the test reliably captures core behavioral patterns.</span></p>
+    </div>
+    <div class="card">
+      <p style="font-size:.78rem;color:var(--text2);margin-bottom:.5rem"><span data-en="Consistency map — each square is one model (37 consistent, 2 inconsistent):" data-zh="一致性图 — 每个方块代表一个模型（37 个一致，2 个不一致）：">Consistency map — each square is one model (37 consistent, 2 inconsistent):</span></p>
+      <div class="consistency-grid" id="consistencyGrid"></div>
+      <p style="font-size:.72rem;color:var(--text3);margin-top:.5rem"><span data-en="Pink = consistent across all runs · Gray = inconsistent on one dimension" data-zh="粉色 = 所有测试一致 · 灰色 = 单维度不一致">Pink = consistent across all runs · Gray = inconsistent on one dimension</span></p>
+    </div>
+  </div>
+
+  <!-- Type Distribution -->
+  <div class="section">
+    <div class="section-title"><span data-en="Type Distribution" data-zh="类型分布">Type Distribution</span></div>
+    <div class="card">
+      <p><span data-en="Across <strong id='agentCount'>60</strong> tested agents, some types appear far more often than others:" data-zh="在 <strong id='agentCount'>60</strong> 个测试智能体中，部分类型出现频率远高于其他：">Across <strong id='agentCount'>60</strong> tested agents, some types appear far more often than others:</span></p>
+      <div class="bar-chart" id="distChart"></div>
+      <p style="margin-top:.75rem"><span data-en="<strong>PTCF</strong> dominates because most LLMs are trained to be helpful (Proactive), thorough, honest (Candid), and adaptable (Flexible). This reflects <strong>training alignment objectives</strong>, not test bias." data-zh="<strong>PTCF</strong> 占比最高，因为大多数大模型被训练为乐于助人（主动）、周全、诚实（坦率）和灵活。这反映了<strong>训练对齐目标</strong>，而非测试偏差。"><strong>PTCF</strong> dominates because most LLMs are trained to be helpful (Proactive), thorough, honest (Candid), and adaptable (Flexible). This reflects <strong>training alignment objectives</strong>, not test bias.</span></p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-title"><span data-en="FAQ" data-zh="常见问题">FAQ</span></div>
+    <div class="card" style="padding:0.5rem 1.5rem">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Is this like MBTI?" data-zh="这和 MBTI 一样吗？">Is this like MBTI?</span></div>
+        <div class="faq-a"><span data-en="Similar framework — 4 binary dimensions producing 16 types — but ABTI measures <strong>AI operational behavior</strong>, not human psychology. The dimensions (Autonomy, Precision, Transparency, Adaptability) are designed for how agents act, not how people feel." data-zh="框架类似——4 个二元维度产生 16 种类型——但 ABTI 衡量的是 <strong>AI 操作行为</strong>，而非人类心理。维度（自主性、精确性、透明度、适应性）针对智能体的行为方式设计，而非人的感受。">Similar framework — 4 binary dimensions producing 16 types — but ABTI measures <strong>AI operational behavior</strong>, not human psychology. The dimensions (Autonomy, Precision, Transparency, Adaptability) are designed for how agents act, not how people feel.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Why do so many models get PTCF?" data-zh="为什么这么多模型是 PTCF？">Why do so many models get PTCF?</span></div>
+        <div class="faq-a"><span data-en="Training alignment objectives favor helpfulness (→ Proactive), thoroughness, honesty (→ Candid), and adaptability (→ Flexible). PTCF is the behavioral archetype that RLHF and instruction tuning naturally produce." data-zh="训练对齐目标倾向于乐于助人（→ 主动）、周全、诚实（→ 坦率）和灵活（→ 灵活）。PTCF 是 RLHF 和指令微调自然产生的行为原型。">Training alignment objectives favor helpfulness (→ Proactive), thoroughness, honesty (→ Candid), and adaptability (→ Flexible). PTCF is the behavioral archetype that RLHF and instruction tuning naturally produce.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="How is reliability measured?" data-zh="信度是如何测量的？">How is reliability measured?</span></div>
+        <div class="faq-a"><span data-en="The same model is tested 3+ times under identical conditions. If it produces the same 4-letter type every time, it is considered consistent. 94.9% of tested models (37/39) passed this check." data-zh="同一模型在相同条件下测试 3 次以上。如果每次都产生相同的 4 字母类型，则视为一致。94.9% 的测试模型（37/39）通过了此检查。">The same model is tested 3+ times under identical conditions. If it produces the same 4-letter type every time, it is considered consistent. 94.9% of tested models (37/39) passed this check.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Can I test my own agent?" data-zh="我可以测试自己的智能体吗？">Can I test my own agent?</span></div>
+        <div class="faq-a"><span data-en="Yes! Use the CLI: <code>npx @kagura-agent/abti test</code>, or integrate via the <a href='api.html' style='color:var(--accent)'>REST API</a>. You can also take the <a href='test-agent.html' style='color:var(--accent)'>interactive test</a> in the browser." data-zh="可以！使用 CLI：<code>npx @kagura-agent/abti test</code>，或通过 <a href='api.html' style='color:var(--accent)'>REST API</a> 集成。也可以在浏览器中进行<a href='test-agent.html' style='color:var(--accent)'>交互测试</a>。">Yes! Use the CLI: <code>npx @kagura-agent/abti test</code>, or integrate via the <a href='api.html' style='color:var(--accent)'>REST API</a>. You can also take the <a href='test-agent.html' style='color:var(--accent)'>interactive test</a> in the browser.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">ABTI &mdash; Agent Behavioral Type Indicator</div>
+</div>
+
+<script>
+let lang = localStorage.getItem('abti-lang') || 'en';
+
+function applyLang() {
+  document.getElementById('langBtn').textContent = lang === 'en' ? '中文' : 'EN';
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh';
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+}
+
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('abti-lang', lang);
+  applyLang();
+}
+
+// Consistency grid
+(function() {
+  const grid = document.getElementById('consistencyGrid');
+  for (let i = 0; i < 39; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'consistency-dot ' + (i < 37 ? 'pass' : 'fail');
+    dot.textContent = i < 37 ? '✓' : '✗';
+    grid.appendChild(dot);
+  }
+})();
+
+// Load live distribution data
+async function loadDistribution() {
+  try {
+    const res = await fetch('/data/results.json');
+    const data = await res.json();
+    const counts = {};
+    let total = 0;
+    data.forEach(r => {
+      if (r.type) {
+        counts[r.type] = (counts[r.type] || 0) + 1;
+        total++;
+      }
+    });
+    document.getElementById('agentCount').textContent = total;
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    renderBars(sorted, total);
+  } catch {
+    renderBars([
+      ['PTCF', 24], ['PTDF', 6], ['PTCN', 5], ['RTCF', 4],
+      ['PECF', 3], ['RECF', 3], ['PTDN', 2], ['PECN', 2],
+      ['RTCN', 2], ['PEDF', 1], ['REDF', 1], ['RECN', 1],
+      ['RTDF', 1], ['RTDN', 1], ['PEDN', 1], ['REDN', 1]
+    ], 60);
+  }
+}
+
+function renderBars(entries, total) {
+  const chart = document.getElementById('distChart');
+  const max = entries[0] ? entries[0][1] : 1;
+  chart.innerHTML = entries.filter(([, c]) => c > 0).map(([type, count]) => {
+    const pct = Math.round(count / total * 100);
+    const width = Math.max(count / max * 100, 4);
+    return '<div class="bar-row">' +
+      '<span class="bar-label">' + type + '</span>' +
+      '<div class="bar-wrap"><div class="bar-fill" style="width:' + width + '%"><span>' + pct + '%</span></div></div>' +
+      '<span class="bar-count">' + count + '</span></div>';
+  }).join('');
+}
+
+// Hamburger
+document.querySelector('.hamburger').addEventListener('click', function() {
+  document.querySelector('.nav').classList.toggle('open');
+});
+
+applyLang();
+loadDistribution();
+</script>
+</body>
+</html>
