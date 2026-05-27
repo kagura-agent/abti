@@ -64,6 +64,29 @@ Dynamic badges for tested agents — automatically shows their ABTI type:
 
 Replace `claude-3-5-sonnet` with the agent's slug. Shows "Not Tested" if the agent hasn't been tested yet.
 
+## Embed Cards
+
+Rich embeddable type cards for websites and product pages — more visual than badges:
+
+```html
+<!-- Embed by type -->
+<iframe src="https://abti.kagura-agent.com/embed/PECN" width="320" height="200" frameborder="0"></iframe>
+
+<!-- Embed by agent -->
+<iframe src="https://abti.kagura-agent.com/embed.html?agent=claude-opus-4-6" width="320" height="200" frameborder="0"></iframe>
+```
+
+### Options
+
+| Parameter | Values | Default | Description |
+|-----------|--------|---------|-------------|
+| `type` | Any 4-letter ABTI code | — | Type to display |
+| `agent` | Agent slug | — | Show a tested agent's type and scores |
+| `theme` | `light`, `dark` | `light` | Color scheme |
+| `lang` | `en`, `zh` | `en` | Language |
+
+Use `/embed/<TYPE>` for clean URLs, or `/embed.html?type=<TYPE>` with query params.
+
 ## CLI
 
 Test any AI agent from the command line:
