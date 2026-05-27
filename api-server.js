@@ -877,6 +877,26 @@ ${dimInfo.map((d, i) => {
     return res.end(JSON.stringify({error:'Agent OG image not found'}));
   }
 
+  // GET /embed/:type - embeddable type card
+  const embedMatch = url.pathname.match(/^\/embed\/([A-Za-z]{4})$/);
+  if (embedMatch && req.method === 'GET') {
+    const code = embedMatch[1].toUpperCase();
+    if (!types[code]) {
+      res.writeHead(302, { 'Location': '/' });
+      return res.end();
+    }
+    let html;
+    try {
+      html = fs.readFileSync(path.join(__dirname, 'embed.html'), 'utf8');
+    } catch {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      return res.end('Server error');
+    }
+    html = html.replace('</head>', `<meta name="abti-type" content="${code}">\n</head>`);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
+
   // GET /type/:code - type detail page with dynamic OG tags
   const typeMatch = url.pathname.match(/^\/type\/([A-Za-z]{4})$/);
   if (typeMatch && req.method === 'GET') {

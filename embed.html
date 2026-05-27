@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=320,initial-scale=1">
+<title>ABTI Embed</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',system-ui,sans-serif;overflow:hidden}
+body.light{background:#faf9f7;color:#1a1a1a}
+body.dark{background:#0a0a0f;color:hsl(0 0% 93%)}
+.card{border-radius:12px;padding:16px 18px 12px;height:100vh;display:flex;flex-direction:column;justify-content:space-between}
+body.light .card{background:#fff;border:1px solid #e8e5e1}
+body.dark .card{background:hsl(240 20% 10%);border:1px solid hsl(240 15% 20%)}
+.header{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.type-code{font-size:22px;font-weight:700;letter-spacing:1px}
+body.light .type-code{color:#e8658a}
+body.dark .type-code{color:#ff6b9d}
+.nick{font-size:13px;font-weight:500;opacity:.75}
+.agent-info{font-size:11px;opacity:.55;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dims{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-bottom:auto}
+.dim{display:flex;align-items:center;gap:6px;font-size:11px}
+.dim-label{width:12px;text-align:center;font-weight:700;font-size:12px}
+.dim-label.active{opacity:1}
+body.light .dim-label.active{color:#e8658a}
+body.dark .dim-label.active{color:#ff6b9d}
+.dim-label.inactive{opacity:.3}
+.dim-bar{flex:1;height:6px;border-radius:3px;position:relative}
+body.light .dim-bar{background:#e8e5e1}
+body.dark .dim-bar{background:hsl(240 15% 20%)}
+.dim-fill{height:100%;border-radius:3px;min-width:8px}
+body.light .dim-fill{background:#e8658a}
+body.dark .dim-fill{background:#ff6b9d}
+.footer{display:flex;justify-content:flex-end;align-items:center;margin-top:8px}
+.footer a{font-size:10px;text-decoration:none;opacity:.4;transition:opacity .2s}
+.footer a:hover{opacity:.7}
+body.light .footer a{color:#1a1a1a}
+body.dark .footer a{color:hsl(0 0% 93%)}
+.loading{display:flex;align-items:center;justify-content:center;height:100vh;font-size:13px;opacity:.4}
+</style>
+</head>
+<body class="light">
+<div class="loading" id="loading">Loading…</div>
+<div class="card" id="card" style="display:none"></div>
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  let typeCode = params.get('type');
+  const agentSlug = params.get('agent');
+  const lang = params.get('lang') === 'zh' ? 'zh' : 'en';
+  const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+
+  if (!typeCode && !agentSlug) {
+    const meta = document.querySelector('meta[name="abti-type"]');
+    if (meta) typeCode = meta.content;
+    else {
+      const m = location.pathname.match(/^\/embed\/([A-Za-z]{4})$/);
+      if (m) typeCode = m[1].toUpperCase();
+    }
+  }
+
+  document.body.className = theme;
+  if (lang === 'zh') document.documentElement.lang = 'zh';
+
+  const DIM_LETTERS = [['P','R'],['T','E'],['C','D'],['F','N']];
+
+  async function load() {
+    let typesData, agentData;
+    try {
+      const r = await fetch('/api/v1/types.json');
+      typesData = await r.json();
+    } catch { return showError('Failed to load data'); }
+
+    if (agentSlug) {
+      try {
+        const r = await fetch('/api/agents');
+        const agents = await r.json();
+        agentData = agents.find(a => a.slug === agentSlug);
+        if (!agentData) return showError('Agent not found');
+        typeCode = agentData.type;
+      } catch { return showError('Failed to load agents'); }
+    }
+
+    if (!typeCode || typeCode.length !== 4) return showError('Invalid type');
+    typeCode = typeCode.toUpperCase();
+
+    const t = typesData.abti?.types?.[typeCode];
+    if (!t) return showError('Type not found');
+
+    const dims = typesData.abti?.dimensions || [];
+    const loc = t[lang] || t.en;
+    const nick = loc.nick || typeCode;
+
+    let agentLine = '';
+    if (agentData) {
+      agentLine = `<div class="agent-info">${agentData.name || agentData.slug}${agentData.model ? ' · ' + agentData.model : ''}</div>`;
+    }
+
+    let dimsHtml = '';
+    for (let i = 0; i < 4; i++) {
+      const letter = typeCode[i];
+      const pair = DIM_LETTERS[i];
+      const isFirst = letter === pair[0];
+      let pct;
+      if (agentData?.dimensions?.[i]) {
+        const d = agentData.dimensions[i];
+        pct = Math.round((d.score / (d.max || 4)) * 100);
+      } else {
+        pct = isFirst ? 75 : 25;
+      }
+      dimsHtml += `
+        <div class="dim">
+          <span class="dim-label ${isFirst ? 'active' : 'inactive'}">${pair[0]}</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:${pct}%"></div></div>
+          <span class="dim-label ${!isFirst ? 'active' : 'inactive'}">${pair[1]}</span>
+        </div>`;
+    }
+
+    const siteLabel = lang === 'zh' ? 'abti.kagura-agent.com' : 'abti.kagura-agent.com';
+    const card = document.getElementById('card');
+    card.innerHTML = `
+      <div>
+        <div class="header">
+          <span class="type-code">${typeCode}</span>
+          <span class="nick">${nick}</span>
+        </div>
+        ${agentLine}
+        <div class="dims">${dimsHtml}</div>
+      </div>
+      <div class="footer">
+        <a href="https://abti.kagura-agent.com/type/${typeCode}" target="_blank" rel="noopener">ABTI ↗</a>
+      </div>`;
+    document.getElementById('loading').style.display = 'none';
+    card.style.display = 'flex';
+  }
+
+  function showError(msg) {
+    document.getElementById('loading').textContent = msg;
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
