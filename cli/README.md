@@ -16,6 +16,18 @@ npx @kagura-agent/abti test --model llama3:8b --provider ollama
 # Browse tested agents
 npx @kagura-agent/abti list
 
+# View aggregate stats
+npx @kagura-agent/abti stats
+
+# Compare two agents
+npx @kagura-agent/abti compare gpt-4o claude-opus-4-7
+
+# Look up a type or agent
+npx @kagura-agent/abti info PTCF
+
+# View personality drift over time
+npx @kagura-agent/abti history gpt-4o
+
 # Interactive mode (answer questions yourself)
 npx @kagura-agent/abti
 ```
@@ -24,6 +36,11 @@ npx @kagura-agent/abti
 
 ```
 npx @kagura-agent/abti test --model <model> --provider <provider> [options]
+npx @kagura-agent/abti list [options]
+npx @kagura-agent/abti stats [options]
+npx @kagura-agent/abti compare <slug1> <slug2> [options]
+npx @kagura-agent/abti info <type-or-slug> [options]
+npx @kagura-agent/abti history <slug> [options]
 npx @kagura-agent/abti [options]                  Interactive mode
 ```
 
@@ -88,6 +105,84 @@ npx @kagura-agent/abti list --lang zh
 | `--json` | Output as JSON |
 | `--lang zh` | Show Chinese nicknames |
 
+### Stats Subcommand
+
+The `stats` subcommand shows aggregate statistics across all tested agents — type distribution, coverage, and dimension bias:
+
+```bash
+# View stats in the terminal
+npx @kagura-agent/abti stats
+
+# JSON output
+npx @kagura-agent/abti stats --json
+
+# Chinese labels
+npx @kagura-agent/abti stats --lang zh
+```
+
+Output includes:
+- **Type distribution** — bar chart of how many agents fall into each type
+- **Most/least common types** — top 3 and bottom 3
+- **Coverage** — how many of the 16 types have been observed
+- **Dimension bias** — percentage split for each dimension (e.g., 70% Proactive vs 30% Responsive)
+
+### Compare Subcommand
+
+The `compare` subcommand compares two agents side by side across all four dimensions:
+
+```bash
+# Compare two agents by slug
+npx @kagura-agent/abti compare gpt-4o claude-opus-4-7
+
+# JSON output
+npx @kagura-agent/abti compare gpt-4o claude-opus-4-7 --json
+
+# Chinese labels
+npx @kagura-agent/abti compare gpt-4o claude-opus-4-7 --lang zh
+```
+
+Output includes:
+- Dimension-by-dimension breakdown with match indicators
+- Compatibility check (based on best-paired-with recommendations)
+
+### Info Subcommand
+
+The `info` subcommand shows detailed information about a type code or a specific agent:
+
+```bash
+# Look up a type
+npx @kagura-agent/abti info PTCF
+
+# Look up an agent by slug
+npx @kagura-agent/abti info claude-opus-4-7
+
+# JSON output
+npx @kagura-agent/abti info PTCF --json
+```
+
+For types: shows dimension breakdown, strengths, blind spots, work style, tuning tips, and best-paired-with recommendations.
+
+For agents: shows the agent's type, scores, reliability, and profile details.
+
+### History Subcommand
+
+The `history` subcommand shows an agent's personality drift timeline — how its type has changed across test runs:
+
+```bash
+# View history for an agent
+npx @kagura-agent/abti history gpt-4o
+
+# JSON output
+npx @kagura-agent/abti history gpt-4o --json
+
+# Chinese labels
+npx @kagura-agent/abti history gpt-4o --lang zh
+```
+
+Output includes:
+- Timeline of test dates and resulting types
+- Whether the type has been consistent or drifted over time
+
 ### Options
 
 | Flag | Description |
@@ -98,7 +193,7 @@ npx @kagura-agent/abti list --lang zh
 | `--name <name>` | Agent name for registry |
 | `--url <url>` | Agent URL for registry |
 | `--model <model>` | Model name |
-| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `mistral`, `github` (default: `openai`) |
+| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `mistral`, `github`, `xai`, `cohere` (default: `openai`) |
 | `--api-key <key>` | API key (or set env var) |
 | `--submit` | Submit result to the ABTI registry (persisted server-side in `data/results.json`) |
 | `--runs <N>` | Run the test N times (1-10) and show consistency report |
