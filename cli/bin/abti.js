@@ -691,7 +691,7 @@ function fetchGitHubModels(apiKey) {
           const json = JSON.parse(data);
           const models = (Array.isArray(json) ? json : json.data || json.models || [])
             .filter(m => m.supported_output_modalities && m.supported_output_modalities.includes('text'))
-            .map(m => m.id)
+            .map(m => m.id.includes('/') ? m.id.split('/').pop() : m.id)
             .sort((a, b) => a.localeCompare(b));
           resolve(models);
         } catch (e) { reject(new Error(`Failed to parse GitHub Models response: ${e.message}`)); }
