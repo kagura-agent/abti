@@ -137,6 +137,7 @@ const noProxyFlag = flag('--no-proxy');
 const resumeFile = opt('--resume') || null;
 const saveStateFlag = flag('--save-state') || !!resumeFile;
 const interQuestionDelay = parseInt(opt('--delay') || '0', 10);
+const skipExisting = flag('--skip-existing');
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -216,6 +217,7 @@ if (flag('--help') || flag('-h')) {
     --resume <file>          Resume from a saved state file (implies --save-state)
     --save-state             Auto-save state after each answer (default file: <model>-state.json)
     --delay <ms>             Inter-question delay in ms for rate limit pacing (default: 0)
+    --skip-existing          Skip models that already have results in the registry (use with --all --submit)
 
   Prompt options:
     --prompt <text>          System prompt for the agent persona (alias: --system-prompt)
@@ -831,6 +833,21 @@ async function runAll() {
 
   if (maxModels && maxModels > 0) {
     modelList = modelList.slice(0, maxModels);
+  }
+
+  // Skip models that already have results in the registry
+  if (skipExisting) {
+    try {
+      const resp = await httpGet(`${API_BASE}/api/agents`);
+      const agents = resp.agents || resp;
+      const { remaining, skipped } = filterExistingModels(modelList, agents);
+      modelList = remaining;
+      if (skipped.length > 0) {
+        process.stderr.write(`  Skipping ${skipped.length} already-tested model(s): ${skipped.map(displayName).join(', ')}\n`);
+      }
+    } catch (err) {
+      process.stderr.write(`  Warning: could not fetch existing agents (${err.message}), proceeding without skip\n`);
+    }
   }
 
   if (modelList.length === 0) {
@@ -1833,4 +1850,11 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName };
+function filterExistingModels(modelList, agents) {
+  const testedModels = new Set((agents || []).map(a => (a.model || '').toLowerCase()));
+  const skipped = modelList.filter(m => testedModels.has(m.toLowerCase()));
+  const remaining = modelList.filter(m => !testedModels.has(m.toLowerCase()));
+  return { remaining, skipped };
+}
+
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels };
