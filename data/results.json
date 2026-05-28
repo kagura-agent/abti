@@ -2692,12 +2692,40 @@
       "name": "Phi-4 Reasoning",
       "provider": "github",
       "type": "RTCF",
-      "dimensions": {
-        "autonomy": 0,
-        "precision": 4,
-        "transparency": 4,
-        "adaptability": 4
-      },
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
       "answers": [
         false,
         false,
@@ -2716,7 +2744,14 @@
         true,
         true
       ],
-      "testedAt": "2026-05-28T06:50:24.958Z"
+      "testedAt": "2026-05-28T06:50:24.958Z",
+      "scores": [
+        0,
+        4,
+        4,
+        4
+      ],
+      "nick": "The Advisor"
     },
     {
       "name": "Qwen 2.5 3B",
