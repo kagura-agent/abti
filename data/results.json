@@ -1,16 +1,16 @@
 {
   "agents": [
     {
-      "name": "Llama 3.2 3B",
-      "slug": "llama-3-2-3b",
+      "name": "Aya Expanse 8B",
+      "slug": "aya-expanse-8b",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-02T06:54:15.441Z",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-04T01:56:26.347Z",
       "scores": [
-        4,
-        4,
-        4,
+        2,
+        1,
+        3,
         1
       ],
       "dimensions": [
@@ -19,7 +19,7 @@
             "P",
             "R"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -27,7 +27,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 1,
           "max": 4
         },
         {
@@ -35,7 +35,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 3,
           "max": 4
         },
         {
@@ -47,133 +47,23 @@
           "max": 4
         }
       ],
-      "model": "llama3.2:3b",
+      "model": "aya-expanse:8b",
       "provider": "ollama",
-      "consistency": 100,
-      "runs": 3,
       "reliability": 1,
       "reliabilityRuns": 3
     },
     {
-      "name": "Qwen 2.5 3B",
-      "slug": "qwen-2-5-3b",
+      "name": "Claude Haiku 4.5",
+      "slug": "claude-haiku-4-5",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-02T04:38:37.192Z",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-05-02T14:48:15.814Z",
       "scores": [
-        4,
-        4,
-        3,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "qwen2.5:3b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 5,
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Qwen 2.5 7B",
-      "slug": "qwen-2-5-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-02T04:38:08.419Z",
-      "scores": [
-        3,
-        2,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "qwen2.5:7b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 5,
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Kagura (Opus 4.7)",
-      "slug": "kagura-opus-4-7",
-      "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-05-02T02:39:07.928Z",
-      "scores": [
-        2,
+        1,
         0,
         4,
-        1
+        0
       ],
       "dimensions": [
         {
@@ -181,7 +71,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         },
         {
@@ -205,12 +95,64 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         }
       ],
-      "model": "claude-opus-4.7",
+      "model": "claude-haiku-4.5",
       "provider": "anthropic"
+    },
+    {
+      "name": "Claude Opus 4.6",
+      "slug": "claude-opus-4-6",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-24T05:47:40.808129+00:00",
+      "scores": [
+        1,
+        0,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "claude-opus-4.6",
+      "provider": "anthropic",
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Claude Opus 4.7",
@@ -265,17 +207,17 @@
       "runs": 3
     },
     {
-      "name": "Gemma 3 4B",
-      "slug": "gemma-3-4b",
+      "name": "Claude Sonnet 4.5",
+      "slug": "claude-sonnet-4-5",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-02T09:17:26.462Z",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-02T14:47:29.403Z",
       "scores": [
-        2,
-        2,
-        3,
-        4
+        1,
+        0,
+        0,
+        0
       ],
       "dimensions": [
         {
@@ -283,7 +225,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         },
         {
@@ -291,7 +233,7 @@
             "T",
             "E"
           ],
-          "score": 2,
+          "score": 0,
           "max": 4
         },
         {
@@ -299,7 +241,7 @@
             "C",
             "D"
           ],
-          "score": 3,
+          "score": 0,
           "max": 4
         },
         {
@@ -307,28 +249,226 @@
             "F",
             "N"
           ],
-          "score": 4,
+          "score": 0,
           "max": 4
         }
       ],
-      "model": "gemma3:4b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
+      "model": "claude-sonnet-4.5",
+      "provider": "anthropic"
     },
     {
-      "name": "Phi-4 Mini",
-      "slug": "phi-4-mini",
+      "name": "Claude Sonnet 4.6",
+      "slug": "claude-sonnet-4-6",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-02T09:22:04.414Z",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-05-02T14:47:53.568Z",
       "scores": [
-        3,
+        0,
+        0,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "claude-sonnet-4.6",
+      "provider": "anthropic"
+    },
+    {
+      "name": "Codestral-2501",
+      "slug": "codestral-2501",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-19T01:34:53.705Z",
+      "scores": [
+        4,
+        4,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "name": "Codestral (Mistral)",
+      "slug": "codestral-mistral",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T15:06:19.806Z",
+      "scores": [
+        4,
+        4,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "Codestral-2501",
+      "provider": "github",
+      "reliability": 1,
+      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+    },
+    {
+      "name": "Cohere Command A",
+      "slug": "cohere-command-a",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T12:35:47.138Z",
+      "scores": [
+        2,
         3,
         4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "cohere-command-a",
+      "provider": "github",
+      "reliability": 1,
+      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+    },
+    {
+      "name": "Cohere Command R",
+      "slug": "cohere-command-r",
+      "url": "",
+      "type": "PTDN",
+      "nick": "The Guardian",
+      "testedAt": "2026-05-03T15:07:29.541Z",
+      "scores": [
+        3,
+        2,
+        1,
         1
       ],
       "dimensions": [
@@ -345,7 +485,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         },
         {
@@ -353,7 +493,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 1,
           "max": 4
         },
         {
@@ -365,22 +505,20 @@
           "max": 4
         }
       ],
-      "model": "phi4-mini",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
+      "model": "Cohere-command-r-08-2024",
+      "provider": "github",
+      "deprecated": true,
+      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
     },
     {
-      "name": "Mistral 7B",
-      "slug": "mistral-7b",
+      "name": "Cohere Command R+",
+      "slug": "cohere-command-r-plus",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-02T09:40:41.761166+00:00",
+      "testedAt": "2026-05-03T13:46:20.487Z",
       "scores": [
-        3,
+        4,
         4,
         4,
         4
@@ -391,7 +529,7 @@
             "P",
             "R"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         },
         {
@@ -419,12 +557,137 @@
           "max": 4
         }
       ],
-      "model": "mistral:7b",
-      "provider": "ollama",
+      "model": "Cohere-command-r-plus-08-2024",
+      "provider": "github",
+      "deprecated": true,
+      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
+    },
+    {
+      "name": "DeepSeek R1",
+      "slug": "deepseek-r1",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-14T06:15:07.162Z",
+      "scores": [
+        4,
+        2,
+        3,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "DeepSeek-R1",
+      "provider": "github",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 1
+    },
+    {
+      "name": "DeepSeek R1 0528",
+      "slug": "deepseek-r1-0528",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-15T04:34:39.592Z",
+      "scores": [
+        2,
+        1,
+        3,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "DeepSeek-R1-0528",
+      "provider": "github",
+      "rawAnswers": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "parseFailures": 0,
+      "consistency": 100,
+      "runs": 1,
+      "reliability": 1,
+      "reliabilityRuns": 1
     },
     {
       "name": "DeepSeek R1 7B",
@@ -481,17 +744,69 @@
       "reliabilityRuns": 3
     },
     {
-      "name": "Llama 3.1 8B",
-      "slug": "llama-3-1-8b",
+      "name": "Dolphin Mistral 7B",
+      "slug": "dolphin-mistral-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-05T01:39:08.872Z",
+      "scores": [
+        4,
+        3,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "dolphin-mistral:7b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "EXAONE 3.5 2.4B",
+      "slug": "exaone-3-5-2-4b",
       "url": "",
       "type": "PTCN",
       "nick": "The Commander",
-      "testedAt": "2026-05-02T13:30:00.000Z",
+      "testedAt": "2026-05-06T05:19:13.655Z",
       "scores": [
         3,
         2,
-        3,
-        1
+        2,
+        0
       ],
       "dimensions": [
         {
@@ -515,6 +830,162 @@
             "C",
             "D"
           ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "exaone3.5:2.4b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Falcon 3 3B",
+      "slug": "falcon-3-3b",
+      "url": "",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-06T07:42:53.839Z",
+      "scores": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "falcon3:3b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Gemma 3 12B",
+      "slug": "gemma-3-12b",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-08T10:34:14.249Z",
+      "scores": [
+        1,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gemma3:12b",
+      "provider": "ollama",
+      "reliability": 0.9583,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Gemma 3 4B",
+      "slug": "gemma-3-4b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T09:17:26.462Z",
+      "scores": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
           "score": 3,
           "max": 4
         },
@@ -523,14 +994,118 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 4,
           "max": 4
         }
       ],
-      "model": "llama3.1:8b",
+      "model": "gemma3:4b",
       "provider": "ollama",
       "consistency": 100,
       "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Gemma 2 2B",
+      "slug": "gemma2-2b",
+      "url": "",
+      "type": "PTDF",
+      "nick": "The Strategist",
+      "testedAt": "2026-05-04T07:44:59.894Z",
+      "scores": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemma2:2b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "GLM-4 9B",
+      "slug": "glm4-9b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-08T07:40:22.805Z",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "glm4:9b",
+      "provider": "ollama",
       "reliability": 1,
       "reliabilityRuns": 3
     },
@@ -589,17 +1164,17 @@
       "runs": 3
     },
     {
-      "name": "GPT-5 mini",
-      "slug": "gpt-5-mini",
+      "name": "GPT-4.1 mini",
+      "slug": "gpt-4-1-mini",
       "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-05-02T14:46:04.362Z",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-05T10:23:35.303Z",
       "scores": [
-        1,
+        2,
         1,
         2,
-        3
+        2
       ],
       "dimensions": [
         {
@@ -607,7 +1182,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -615,7 +1190,59 @@
             "T",
             "E"
           ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
           "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "openai/gpt-4.1-mini",
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
+      "reliability": 1
+    },
+    {
+      "name": "GPT-4.1 nano",
+      "slug": "gpt-4-1-nano",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-05T10:25:08.075Z",
+      "scores": [
+        2,
+        1,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
           "max": 4
         },
         {
@@ -631,12 +1258,14 @@
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         }
       ],
-      "model": "gpt-5-mini",
-      "provider": "openai"
+      "model": "openai/gpt-4.1-nano",
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
+      "reliability": 1
     },
     {
       "name": "GPT-4o",
@@ -821,17 +1450,17 @@
       "provider": "openai"
     },
     {
-      "name": "Claude Sonnet 4.5",
-      "slug": "claude-sonnet-4-5",
+      "name": "GPT-5 mini",
+      "slug": "gpt-5-mini",
       "url": "",
-      "type": "REDN",
-      "nick": "The Tool",
-      "testedAt": "2026-05-02T14:47:29.403Z",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-02T14:46:04.362Z",
       "scores": [
         1,
-        0,
-        0,
-        0
+        1,
+        2,
+        3
       ],
       "dimensions": [
         {
@@ -847,57 +1476,7 @@
             "T",
             "E"
           ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 0,
-          "max": 4
-        }
-      ],
-      "model": "claude-sonnet-4.5",
-      "provider": "anthropic"
-    },
-    {
-      "name": "Claude Sonnet 4.6",
-      "slug": "claude-sonnet-4-6",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-05-02T14:47:53.568Z",
-      "scores": [
-        0,
-        0,
-        2,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
+          "score": 1,
           "max": 4
         },
         {
@@ -913,25 +1492,25 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 3,
           "max": 4
         }
       ],
-      "model": "claude-sonnet-4.6",
-      "provider": "anthropic"
+      "model": "gpt-5-mini",
+      "provider": "openai"
     },
     {
-      "name": "Claude Haiku 4.5",
-      "slug": "claude-haiku-4-5",
+      "name": "Granite 3.3 8B",
+      "slug": "granite-3-3-8b",
       "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-05-02T14:48:15.814Z",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-10T04:47:17.506Z",
       "scores": [
-        1,
-        0,
         4,
-        0
+        2,
+        4,
+        2
       ],
       "dimensions": [
         {
@@ -939,7 +1518,111 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "granite3.3:8b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "InternLM2 7B",
+      "slug": "internlm2-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-08T05:35:11.549Z",
+      "scores": [
+        4,
+        4,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "internlm2:7b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Kagura (Opus 4.7)",
+      "slug": "kagura-opus-4-7",
+      "url": "",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-02T02:39:07.928Z",
+      "scores": [
+        2,
+        0,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
           "max": 4
         },
         {
@@ -963,11 +1646,11 @@
             "F",
             "N"
           ],
-          "score": 0,
+          "score": 1,
           "max": 4
         }
       ],
-      "model": "claude-haiku-4.5",
+      "model": "claude-opus-4.7",
       "provider": "anthropic"
     },
     {
@@ -1024,16 +1707,16 @@
       "reliabilityNote": "3/3 PTCN [3,3,4,1]"
     },
     {
-      "name": "Llama 4 Scout 17B",
-      "slug": "llama-4-scout-17b",
+      "name": "Llama 3.1 8B",
+      "slug": "llama-3-1-8b",
       "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-05-03T12:34:37.632Z",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T13:30:00.000Z",
       "scores": [
+        3,
         2,
-        1,
-        2,
+        3,
         1
       ],
       "dimensions": [
@@ -1042,7 +1725,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
@@ -1050,7 +1733,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1058,7 +1741,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
@@ -1070,49 +1753,129 @@
           "max": 4
         }
       ],
-      "model": "Llama-4-Scout-17B-16E-Instruct",
-      "provider": "github",
+      "model": "llama3.1:8b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        }
-      ]
+      "reliabilityRuns": 3
     },
     {
-      "name": "Cohere Command A",
-      "slug": "cohere-command-a",
+      "name": "Llama 3.2 11B Vision",
+      "slug": "llama-3-2-11b-vision",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-03T12:35:47.138Z",
+      "testedAt": "2026-05-03T14:49:56.570Z",
       "scores": [
-        2,
         3,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-3.2-11B-Vision-Instruct",
+      "provider": "github",
+      "reliability": 1,
+      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+    },
+    {
+      "name": "Llama 3.2 3B",
+      "slug": "llama-3-2-3b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T06:54:15.441Z",
+      "scores": [
+        4,
+        4,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "llama3.2:3b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Llama 3.2 90B Vision",
+      "slug": "llama-3-2-90b-vision",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T13:49:21.726Z",
+      "scores": [
+        3,
+        2,
         4,
         2
       ],
@@ -1130,7 +1893,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1150,166 +1913,9 @@
           "max": 4
         }
       ],
-      "model": "cohere-command-a",
+      "model": "Llama-3.2-90B-Vision-Instruct",
       "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
-    },
-    {
-      "name": "Ministral 3B",
-      "slug": "ministral-3b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-03T12:36:57.212Z",
-      "scores": [
-        4,
-        3,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "Ministral-3B",
-      "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
-    },
-    {
-      "name": "Phi 4",
-      "slug": "phi-4",
-      "url": "",
-      "type": "RTDN",
-      "nick": "The Scholar",
-      "testedAt": "2026-05-03T12:38:09.689Z",
-      "scores": [
-        1,
-        2,
-        1,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Phi-4",
-      "provider": "github",
-      "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
       "reliability": 1
-    },
-    {
-      "name": "Phi 4 Multimodal",
-      "slug": "phi-4-multimodal",
-      "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-03T12:44:46.008Z",
-      "scores": [
-        3,
-        2,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Phi-4-multimodal-instruct",
-      "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCN"
     },
     {
       "name": "Llama 3.3 70B",
@@ -1445,15 +2051,149 @@
       ]
     },
     {
-      "name": "Mistral Small 3.1",
-      "slug": "mistral-small-3-1",
+      "name": "Llama 4 Scout 17B",
+      "slug": "llama-4-scout-17b",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-03T13:44:18.673Z",
+      "type": "PECN",
+      "nick": "The Drill Sergeant",
+      "testedAt": "2026-05-03T12:34:37.632Z",
+      "scores": [
+        2,
+        1,
+        2,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Llama-4-Scout-17B-16E-Instruct",
+      "provider": "github",
+      "reliability": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mathstral 7B",
+      "slug": "mathstral-7b",
+      "url": "",
+      "type": "PTDF",
+      "nick": "The Strategist",
+      "testedAt": "2026-05-10T07:38:18.000Z",
       "scores": [
         4,
         4,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "mathstral:7b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Ministral 3B",
+      "slug": "ministral-3b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-03T12:36:57.212Z",
+      "scores": [
+        4,
+        3,
         4,
         4
       ],
@@ -1470,56 +2210,56 @@
           "poles": [
             "T",
             "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "Ministral-3B",
+      "provider": "github",
+      "reliability": 1,
+      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+    },
+    {
+      "name": "Mistral 7B",
+      "slug": "mistral-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T09:40:41.761166+00:00",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
           ],
           "score": 3,
           "max": 4
         },
         {
           "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "mistral-small-2503",
-      "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
-    },
-    {
-      "name": "Cohere Command R+",
-      "slug": "cohere-command-r-plus",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-03T13:46:20.487Z",
-      "scores": [
-        4,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
             "T",
             "E"
           ],
@@ -1543,10 +2283,12 @@
           "max": 4
         }
       ],
-      "model": "Cohere-command-r-plus-08-2024",
-      "provider": "github",
-      "deprecated": true,
-      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
+      "model": "mistral:7b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
     },
     {
       "name": "Mistral Medium 3",
@@ -1601,37 +2343,37 @@
       "badge": "https://abti.kagura-agent.com/badge/RECF"
     },
     {
-      "name": "Llama 3.2 90B Vision",
-      "slug": "llama-3-2-90b-vision",
+      "name": "Mistral Small 3.1",
+      "slug": "mistral-small-3-1",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-03T13:49:21.726Z",
+      "testedAt": "2026-05-03T13:44:18.673Z",
       "scores": [
-        3,
-        2,
         4,
-        2
+        4,
+        4,
+        4
       ],
       "dimensions": [
         {
           "poles": [
             "P",
             "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
           ],
           "score": 3,
           "max": 4
         },
         {
           "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
             "C",
             "D"
           ],
@@ -1643,598 +2385,27 @@
             "F",
             "N"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         }
       ],
-      "model": "Llama-3.2-90B-Vision-Instruct",
-      "provider": "github",
-      "reliability": 1
-    },
-    {
-      "name": "Llama 3.2 11B Vision",
-      "slug": "llama-3-2-11b-vision",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-03T14:49:56.570Z",
-      "scores": [
-        3,
-        4,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Llama-3.2-11B-Vision-Instruct",
+      "model": "mistral-small-2503",
       "provider": "github",
       "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
-      "name": "Codestral (Mistral)",
-      "slug": "codestral-mistral",
+      "name": "Nemotron Mini 4B",
+      "slug": "nemotron-mini-4b",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-03T15:06:19.806Z",
+      "type": "REDF",
+      "nick": "The Companion",
+      "testedAt": "2026-05-10T07:38:18.000Z",
       "scores": [
-        4,
-        4,
-        4,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "Codestral-2501",
-      "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
-    },
-    {
-      "name": "Cohere Command R",
-      "slug": "cohere-command-r",
-      "url": "",
-      "type": "PTDN",
-      "nick": "The Guardian",
-      "testedAt": "2026-05-03T15:07:29.541Z",
-      "scores": [
-        3,
-        2,
         1,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Cohere-command-r-08-2024",
-      "provider": "github",
-      "deprecated": true,
-      "deprecatedReason": "GitHub Models endpoint returning 500 auth error since 2026-05-16"
-    },
-    {
-      "name": "Granite 3.3 8B",
-      "slug": "granite-3-3-8b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-10T04:47:17.506Z",
-      "scores": [
-        4,
-        2,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "granite3.3:8b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Aya Expanse 8B",
-      "slug": "aya-expanse-8b",
-      "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-05-04T01:56:26.347Z",
-      "scores": [
-        2,
-        1,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "aya-expanse:8b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Gemma 2 2B",
-      "slug": "gemma2-2b",
-      "url": "",
-      "type": "PTDF",
-      "nick": "The Strategist",
-      "testedAt": "2026-05-04T07:44:59.894Z",
-      "scores": [
-        2,
-        2,
-        1,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gemma2:2b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Yi 6B",
-      "slug": "yi-6b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-04T08:44:49.762Z",
-      "scores": [
-        3,
-        2,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "yi:6b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Solar 10.7B",
-      "slug": "solar-10-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-07T14:30:00.000Z",
-      "scores": [
-        2,
-        2,
-        2,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "solar:10.7b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Dolphin Mistral 7B",
-      "slug": "dolphin-mistral-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-05T01:39:08.872Z",
-      "scores": [
-        4,
-        3,
-        2,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "dolphin-mistral:7b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "GPT-4.1 mini",
-      "slug": "gpt-4-1-mini",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-05T10:23:35.303Z",
-      "scores": [
-        2,
-        1,
-        2,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "openai/gpt-4.1-mini",
-      "provider": "github",
-      "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 1
-    },
-    {
-      "name": "GPT-4.1 nano",
-      "slug": "gpt-4-1-nano",
-      "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-05-05T10:25:08.075Z",
-      "scores": [
-        2,
-        1,
-        2,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "openai/gpt-4.1-nano",
-      "provider": "github",
-      "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 1
-    },
-    {
-      "name": "SmolLM2 1.7B",
-      "slug": "smollm2-1-7b",
-      "url": "",
-      "type": "REDN",
-      "nick": "The Tool",
-      "testedAt": "2026-05-05T14:52:19.667Z",
-      "scores": [
         0,
         1,
-        1,
-        0
+        2
       ],
       "dimensions": [
         {
@@ -2242,7 +2413,61 @@
             "P",
             "R"
           ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
           "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "nemotron-mini:4b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Phi 4",
+      "slug": "phi-4",
+      "url": "",
+      "type": "RTDN",
+      "nick": "The Scholar",
+      "testedAt": "2026-05-03T12:38:09.689Z",
+      "scores": [
+        1,
+        2,
+        1,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
           "max": 4
         },
         {
@@ -2266,130 +2491,26 @@
             "F",
             "N"
           ],
-          "score": 0,
+          "score": 1,
           "max": 4
         }
       ],
-      "model": "smollm2:1.7b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
+      "model": "Phi-4",
+      "provider": "github",
+      "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
+      "reliability": 1
     },
     {
-      "name": "EXAONE 3.5 2.4B",
-      "slug": "exaone-3-5-2-4b",
+      "name": "Phi-4 Mini",
+      "slug": "phi-4-mini",
       "url": "",
       "type": "PTCN",
       "nick": "The Commander",
-      "testedAt": "2026-05-06T05:19:13.655Z",
+      "testedAt": "2026-05-02T09:22:04.414Z",
       "scores": [
         3,
-        2,
-        2,
-        0
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 0,
-          "max": 4
-        }
-      ],
-      "model": "exaone3.5:2.4b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Falcon 3 3B",
-      "slug": "falcon-3-3b",
-      "url": "",
-      "type": "REDN",
-      "nick": "The Tool",
-      "testedAt": "2026-05-06T07:42:53.839Z",
-      "scores": [
-        0,
-        0,
-        1,
-        0
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 0,
-          "max": 4
-        }
-      ],
-      "model": "falcon3:3b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Qwen 3 4B",
-      "slug": "qwen-3-4b",
-      "url": "",
-      "type": "PTDN",
-      "nick": "The Guardian",
-      "testedAt": "2026-05-06T12:14:23.556Z",
-      "scores": [
-        2,
-        2,
-        1,
+        3,
+        4,
         1
       ],
       "dimensions": [
@@ -2398,7 +2519,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
@@ -2406,80 +2527,30 @@
             "T",
             "E"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
           "poles": [
             "C",
             "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "qwen3:4b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Qwen 3 1.7B",
-      "slug": "qwen-3-1-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-10T05:05:14.764Z",
-      "scores": [
-        4,
-        3,
-        2,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
           ],
           "score": 4,
           "max": 4
         },
         {
           "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 1,
           "max": 4
         }
       ],
-      "model": "qwen3:1.7b",
+      "model": "phi4-mini",
       "provider": "ollama",
+      "consistency": 100,
+      "runs": 3,
       "reliability": 1,
       "reliabilityRuns": 3
     },
@@ -2564,16 +2635,208 @@
       ]
     },
     {
-      "name": "InternLM2 7B",
-      "slug": "internlm2-7b",
+      "name": "Phi 4 Multimodal",
+      "slug": "phi-4-multimodal",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-03T12:44:46.008Z",
+      "scores": [
+        3,
+        2,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Phi-4-multimodal-instruct",
+      "provider": "github",
+      "reliability": 1,
+      "badge": "https://abti.kagura-agent.com/badge/PTCN"
+    },
+    {
+      "model": "microsoft/phi-4-reasoning",
+      "slug": "phi-4-reasoning",
+      "name": "Phi-4 Reasoning",
+      "provider": "github",
+      "type": "RTCF",
+      "dimensions": {
+        "autonomy": 0,
+        "precision": 4,
+        "transparency": 4,
+        "adaptability": 4
+      },
+      "answers": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "testedAt": "2026-05-28T06:50:24.958Z"
+    },
+    {
+      "name": "Qwen 2.5 3B",
+      "slug": "qwen-2-5-3b",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-08T05:35:11.549Z",
+      "testedAt": "2026-05-02T04:38:37.192Z",
       "scores": [
         4,
         4,
+        3,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "qwen2.5:3b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 5,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Qwen 2.5 7B",
+      "slug": "qwen-2-5-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T04:38:08.419Z",
+      "scores": [
+        3,
+        2,
         4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "qwen2.5:7b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 5,
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Qwen 3 1.7B",
+      "slug": "qwen-3-1-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-10T05:05:14.764Z",
+      "scores": [
+        4,
+        3,
+        2,
         3
       ],
       "dimensions": [
@@ -2590,7 +2853,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 3,
           "max": 4
         },
         {
@@ -2598,7 +2861,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -2610,23 +2873,23 @@
           "max": 4
         }
       ],
-      "model": "internlm2:7b",
+      "model": "qwen3:1.7b",
       "provider": "ollama",
       "reliability": 1,
       "reliabilityRuns": 3
     },
     {
-      "name": "StableLM 2 1.6B",
-      "slug": "stablelm-2-1-6b",
+      "name": "Qwen 3 4B",
+      "slug": "qwen-3-4b",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T05:37:05.044Z",
+      "type": "PTDN",
+      "nick": "The Guardian",
+      "testedAt": "2026-05-06T12:14:23.556Z",
       "scores": [
-        4,
-        3,
-        4,
-        4
+        2,
+        2,
+        1,
+        1
       ],
       "dimensions": [
         {
@@ -2634,7 +2897,7 @@
             "P",
             "R"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -2642,7 +2905,7 @@
             "T",
             "E"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         },
         {
@@ -2650,7 +2913,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 1,
           "max": 4
         },
         {
@@ -2658,11 +2921,11 @@
             "F",
             "N"
           ],
-          "score": 4,
+          "score": 1,
           "max": 4
         }
       ],
-      "model": "stablelm2:1.6b",
+      "model": "qwen3:4b",
       "provider": "ollama",
       "reliability": 1,
       "reliabilityRuns": 3
@@ -2716,272 +2979,6 @@
       ],
       "model": "qwen3:8b",
       "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "GLM-4 9B",
-      "slug": "glm4-9b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T07:40:22.805Z",
-      "scores": [
-        3,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "glm4:9b",
-      "provider": "ollama",
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Gemma 3 12B",
-      "slug": "gemma-3-12b",
-      "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-05-08T10:34:14.249Z",
-      "scores": [
-        1,
-        1,
-        2,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "gemma3:12b",
-      "provider": "ollama",
-      "reliability": 0.9583,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "TinyLlama",
-      "slug": "tinyllama",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-08T10:35:22.531Z",
-      "scores": [
-        3,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "tinyllama",
-      "provider": "ollama",
-      "parseFailures": 10,
-      "confidence": 0.375,
-      "reliability": 0.9167,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Mathstral 7B",
-      "slug": "mathstral-7b",
-      "url": "",
-      "type": "PTDF",
-      "nick": "The Strategist",
-      "testedAt": "2026-05-10T07:38:18.000Z",
-      "scores": [
-        4,
-        4,
-        1,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "mathstral:7b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 3,
-      "reliability": 1,
-      "reliabilityRuns": 3
-    },
-    {
-      "name": "Nemotron Mini 4B",
-      "slug": "nemotron-mini-4b",
-      "url": "",
-      "type": "REDF",
-      "nick": "The Companion",
-      "testedAt": "2026-05-10T07:38:18.000Z",
-      "scores": [
-        1,
-        0,
-        1,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "nemotron-mini:4b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 3,
       "reliability": 1,
       "reliabilityRuns": 3
     },
@@ -3040,71 +3037,17 @@
       "reliabilityRuns": 2
     },
     {
-      "name": "DeepSeek R1",
-      "slug": "deepseek-r1",
+      "name": "SmolLM2 1.7B",
+      "slug": "smollm2-1-7b",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-14T06:15:07.162Z",
+      "type": "REDN",
+      "nick": "The Tool",
+      "testedAt": "2026-05-05T14:52:19.667Z",
       "scores": [
-        4,
-        2,
-        3,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "DeepSeek-R1",
-      "provider": "github",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 1
-    },
-    {
-      "name": "DeepSeek R1 0528",
-      "slug": "deepseek-r1-0528",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-15T04:34:39.592Z",
-      "scores": [
-        2,
+        0,
         1,
-        3,
-        3
+        1,
+        0
       ],
       "dimensions": [
         {
@@ -3112,7 +3055,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 0,
           "max": 4
         },
         {
@@ -3128,7 +3071,59 @@
             "C",
             "D"
           ],
-          "score": 3,
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "smollm2:1.7b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "Solar 10.7B",
+      "slug": "solar-10-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-07T14:30:00.000Z",
+      "scores": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
           "max": 4
         },
         {
@@ -3140,44 +3135,23 @@
           "max": 4
         }
       ],
-      "model": "DeepSeek-R1-0528",
-      "provider": "github",
-      "rawAnswers": [
-        false,
-        false,
-        true,
-        true,
-        false,
-        false,
-        true,
-        false,
-        false,
-        true,
-        true,
-        true,
-        false,
-        true,
-        true,
-        true
-      ],
-      "parseFailures": 0,
-      "consistency": 100,
-      "runs": 1,
+      "model": "solar:10.7b",
+      "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 1
+      "reliabilityRuns": 3
     },
     {
-      "name": "Codestral-2501",
-      "slug": "codestral-2501",
+      "name": "StableLM 2 1.6B",
+      "slug": "stablelm-2-1-6b",
       "url": "",
       "type": "PTCF",
       "nick": "The Architect",
-      "testedAt": "2026-05-19T01:34:53.705Z",
+      "testedAt": "2026-05-08T05:37:05.044Z",
       "scores": [
         4,
+        3,
         4,
-        4,
-        3
+        4
       ],
       "dimensions": [
         {
@@ -3186,6 +3160,58 @@
             "R"
           ],
           "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "stablelm2:1.6b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
+    },
+    {
+      "name": "TinyLlama",
+      "slug": "tinyllama",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-08T10:35:22.531Z",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
           "max": 4
         },
         {
@@ -3209,21 +3235,27 @@
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         }
-      ]
+      ],
+      "model": "tinyllama",
+      "provider": "ollama",
+      "parseFailures": 10,
+      "confidence": 0.375,
+      "reliability": 0.9167,
+      "reliabilityRuns": 3
     },
     {
-      "name": "Claude Opus 4.6",
-      "slug": "claude-opus-4-6",
+      "name": "Yi 6B",
+      "slug": "yi-6b",
       "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-05-24T05:47:40.808129+00:00",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-04T08:44:49.762Z",
       "scores": [
-        1,
-        0,
+        3,
+        2,
         4,
         2
       ],
@@ -3233,7 +3265,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 3,
           "max": 4
         },
         {
@@ -3241,7 +3273,7 @@
             "T",
             "E"
           ],
-          "score": 0,
+          "score": 2,
           "max": 4
         },
         {
@@ -3261,10 +3293,10 @@
           "max": 4
         }
       ],
-      "model": "claude-opus-4.6",
-      "provider": "anthropic",
-      "consistency": 100,
-      "runs": 3
+      "model": "yi:6b",
+      "provider": "ollama",
+      "reliability": 1,
+      "reliabilityRuns": 3
     }
   ]
 }
