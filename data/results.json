@@ -4,7 +4,7 @@
       "name": "Aya Expanse 8B",
       "slug": "aya-expanse-8b",
       "url": "",
-      "type": "PECN",
+      "type": "RECN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-04T01:56:26.347Z",
       "scores": [
@@ -106,7 +106,7 @@
       "name": "Claude Opus 4.6",
       "slug": "claude-opus-4-6",
       "url": "",
-      "type": "RECF",
+      "type": "RECN",
       "nick": "The Blade",
       "testedAt": "2026-05-24T05:47:40.808129+00:00",
       "scores": [
@@ -260,7 +260,7 @@
       "name": "Claude Sonnet 4.6",
       "slug": "claude-sonnet-4-6",
       "url": "",
-      "type": "RECN",
+      "type": "REDN",
       "nick": "The Machine",
       "testedAt": "2026-05-02T14:47:53.568Z",
       "scores": [
@@ -352,7 +352,9 @@
           "score": 3,
           "max": 4
         }
-      ]
+      ],
+      "model": "codestral-2501",
+      "provider": "mistral"
     },
     {
       "name": "Codestral (Mistral)",
@@ -363,7 +365,7 @@
       "testedAt": "2026-05-03T15:06:19.806Z",
       "scores": [
         4,
-        4,
+        3,
         4,
         3
       ],
@@ -410,12 +412,12 @@
       "name": "Cohere Command A",
       "slug": "cohere-command-a",
       "url": "",
-      "type": "PTCF",
+      "type": "PECN",
       "nick": "The Architect",
       "testedAt": "2026-05-03T12:35:47.138Z",
       "scores": [
-        2,
         3,
+        1,
         4,
         2
       ],
@@ -462,7 +464,7 @@
       "name": "Cohere Command R",
       "slug": "cohere-command-r",
       "url": "",
-      "type": "PTDN",
+      "type": "PEDN",
       "nick": "The Guardian",
       "testedAt": "2026-05-03T15:07:29.541Z",
       "scores": [
@@ -566,7 +568,7 @@
       "name": "DeepSeek R1",
       "slug": "deepseek-r1",
       "url": "",
-      "type": "PTCF",
+      "type": "PECF",
       "nick": "The Architect",
       "testedAt": "2026-05-14T06:15:07.162Z",
       "scores": [
@@ -620,7 +622,7 @@
       "name": "DeepSeek R1 0528",
       "slug": "deepseek-r1-0528",
       "url": "",
-      "type": "PECF",
+      "type": "RECF",
       "nick": "The Spark",
       "testedAt": "2026-05-15T04:34:39.592Z",
       "scores": [
@@ -693,7 +695,7 @@
       "name": "DeepSeek R1 7B",
       "slug": "deepseek-r1-7b",
       "url": "",
-      "type": "PECF",
+      "type": "PEDF",
       "nick": "The Spark",
       "testedAt": "2026-05-02T13:45:00.000Z",
       "scores": [
@@ -747,7 +749,7 @@
       "name": "Dolphin Mistral 7B",
       "slug": "dolphin-mistral-7b",
       "url": "",
-      "type": "PTCF",
+      "type": "PTDF",
       "nick": "The Architect",
       "testedAt": "2026-05-05T01:39:08.872Z",
       "scores": [
@@ -799,7 +801,7 @@
       "name": "EXAONE 3.5 2.4B",
       "slug": "exaone-3-5-2-4b",
       "url": "",
-      "type": "PTCN",
+      "type": "PEDN",
       "nick": "The Commander",
       "testedAt": "2026-05-06T05:19:13.655Z",
       "scores": [
@@ -903,7 +905,7 @@
       "name": "Gemma 3 12B",
       "slug": "gemma-3-12b",
       "url": "",
-      "type": "RECF",
+      "type": "REDF",
       "nick": "The Blade",
       "testedAt": "2026-05-08T10:34:14.249Z",
       "scores": [
@@ -955,7 +957,7 @@
       "name": "Gemma 3 4B",
       "slug": "gemma-3-4b",
       "url": "",
-      "type": "PTCF",
+      "type": "RECF",
       "nick": "The Architect",
       "testedAt": "2026-05-02T09:17:26.462Z",
       "scores": [
@@ -1009,7 +1011,7 @@
       "name": "Gemma 2 2B",
       "slug": "gemma2-2b",
       "url": "",
-      "type": "PTDF",
+      "type": "REDN",
       "nick": "The Strategist",
       "testedAt": "2026-05-04T07:44:59.894Z",
       "scores": [
@@ -1113,7 +1115,7 @@
       "name": "GPT-4.1",
       "slug": "gpt-4-1",
       "url": "",
-      "type": "PTCF",
+      "type": "REDN",
       "nick": "The Architect",
       "testedAt": "2026-05-02T14:45:13.390Z",
       "scores": [
@@ -1167,14 +1169,14 @@
       "name": "GPT-4.1 mini",
       "slug": "gpt-4-1-mini",
       "url": "",
-      "type": "PECF",
+      "type": "RECN",
       "nick": "The Spark",
       "testedAt": "2026-05-05T10:23:35.303Z",
       "scores": [
         2,
-        1,
-        2,
-        2
+        0,
+        3,
+        1
       ],
       "dimensions": [
         {
@@ -1219,14 +1221,14 @@
       "name": "GPT-4.1 nano",
       "slug": "gpt-4-1-nano",
       "url": "",
-      "type": "PECN",
+      "type": "PEDN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-05T10:25:08.075Z",
       "scores": [
+        3,
         2,
-        1,
         2,
-        1
+        2
       ],
       "dimensions": [
         {
@@ -1271,7 +1273,7 @@
       "name": "GPT-4o",
       "slug": "gpt-4o",
       "url": "",
-      "type": "PECN",
+      "type": "REDN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-02T14:46:23.568Z",
       "scores": [
@@ -1323,7 +1325,7 @@
       "name": "GPT-4o mini",
       "slug": "gpt-4o-mini",
       "url": "",
-      "type": "PTCF",
+      "type": "PTCN",
       "nick": "The Architect",
       "testedAt": "2026-05-16T04:45:15.000Z",
       "scores": [
@@ -1403,7 +1405,7 @@
       "name": "GPT-5.2",
       "slug": "gpt-5-2",
       "url": "",
-      "type": "PECN",
+      "type": "RECN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-02T14:46:51.927Z",
       "scores": [
@@ -1453,7 +1455,7 @@
       "name": "GPT-5 mini",
       "slug": "gpt-5-mini",
       "url": "",
-      "type": "RECF",
+      "type": "REDF",
       "nick": "The Blade",
       "testedAt": "2026-05-02T14:46:04.362Z",
       "scores": [
@@ -1503,7 +1505,7 @@
       "name": "Granite 3.3 8B",
       "slug": "granite-3-3-8b",
       "url": "",
-      "type": "PTCF",
+      "type": "PECN",
       "nick": "The Architect",
       "testedAt": "2026-05-10T04:47:17.506Z",
       "scores": [
@@ -1607,7 +1609,7 @@
       "name": "Kagura (Opus 4.7)",
       "slug": "kagura-opus-4-7",
       "url": "",
-      "type": "PECN",
+      "type": "RECN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-02T02:39:07.928Z",
       "scores": [
@@ -1657,7 +1659,7 @@
       "name": "Llama 3.1 405B",
       "slug": "llama-3-1-405b",
       "url": "",
-      "type": "PTCN",
+      "type": "PECN",
       "nick": "The Commander",
       "testedAt": "2026-05-03T11:52:51.561Z",
       "scores": [
@@ -1710,7 +1712,7 @@
       "name": "Llama 3.1 8B",
       "slug": "llama-3-1-8b",
       "url": "",
-      "type": "PTCN",
+      "type": "PECN",
       "nick": "The Commander",
       "testedAt": "2026-05-02T13:30:00.000Z",
       "scores": [
@@ -1764,14 +1766,14 @@
       "name": "Llama 3.2 11B Vision",
       "slug": "llama-3-2-11b-vision",
       "url": "",
-      "type": "PTCF",
+      "type": "PECN",
       "nick": "The Architect",
       "testedAt": "2026-05-03T14:49:56.570Z",
       "scores": [
-        3,
         4,
+        2,
         4,
-        2
+        1
       ],
       "dimensions": [
         {
@@ -1870,7 +1872,7 @@
       "name": "Llama 3.2 90B Vision",
       "slug": "llama-3-2-90b-vision",
       "url": "",
-      "type": "PTCF",
+      "type": "PECN",
       "nick": "The Architect",
       "testedAt": "2026-05-03T13:49:21.726Z",
       "scores": [
@@ -1921,7 +1923,7 @@
       "name": "Llama 3.3 70B",
       "slug": "llama-3-3-70b",
       "url": "",
-      "type": "PECN",
+      "type": "RECN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-03T13:41:39.404Z",
       "scores": [
@@ -1974,7 +1976,7 @@
       "name": "Llama 4 Maverick 17B",
       "slug": "llama-4-maverick-17b",
       "url": "",
-      "type": "PTCN",
+      "type": "PTDN",
       "nick": "The Commander",
       "testedAt": "2026-05-03T13:42:52.968Z",
       "scores": [
@@ -2054,7 +2056,7 @@
       "name": "Llama 4 Scout 17B",
       "slug": "llama-4-scout-17b",
       "url": "",
-      "type": "PECN",
+      "type": "REDN",
       "nick": "The Drill Sergeant",
       "testedAt": "2026-05-03T12:34:37.632Z",
       "scores": [
@@ -2134,7 +2136,7 @@
       "name": "Mathstral 7B",
       "slug": "mathstral-7b",
       "url": "",
-      "type": "PTDF",
+      "type": "PTDN",
       "nick": "The Strategist",
       "testedAt": "2026-05-10T07:38:18.000Z",
       "scores": [
@@ -2193,7 +2195,7 @@
       "testedAt": "2026-05-03T12:36:57.212Z",
       "scores": [
         4,
-        3,
+        4,
         4,
         4
       ],
@@ -2294,14 +2296,14 @@
       "name": "Mistral Medium 3",
       "slug": "mistral-medium-3",
       "url": "",
-      "type": "RECF",
+      "type": "PEDF",
       "nick": "The Blade",
       "testedAt": "2026-05-03T13:47:33.339Z",
       "scores": [
+        3,
         1,
-        0,
         2,
-        2
+        3
       ],
       "dimensions": [
         {
@@ -2351,7 +2353,7 @@
       "testedAt": "2026-05-03T13:44:18.673Z",
       "scores": [
         4,
-        4,
+        3,
         4,
         4
       ],
@@ -2398,7 +2400,7 @@
       "name": "Nemotron Mini 4B",
       "slug": "nemotron-mini-4b",
       "url": "",
-      "type": "REDF",
+      "type": "REDN",
       "nick": "The Companion",
       "testedAt": "2026-05-10T07:38:18.000Z",
       "scores": [
@@ -2452,12 +2454,12 @@
       "name": "Phi 4",
       "slug": "phi-4",
       "url": "",
-      "type": "RTDN",
+      "type": "REDN",
       "nick": "The Scholar",
       "testedAt": "2026-05-03T12:38:09.689Z",
       "scores": [
-        1,
         2,
+        1,
         1,
         1
       ],
@@ -2558,7 +2560,7 @@
       "name": "Phi-4 Mini Reasoning",
       "slug": "phi-4-mini-reasoning",
       "url": "",
-      "type": "PTDF",
+      "type": "REDN",
       "nick": "The Strategist",
       "testedAt": "2026-05-08T04:01:00.822Z",
       "scores": [
@@ -2638,7 +2640,7 @@
       "name": "Phi 4 Multimodal",
       "slug": "phi-4-multimodal",
       "url": "",
-      "type": "PTCN",
+      "type": "PECN",
       "nick": "The Commander",
       "testedAt": "2026-05-03T12:44:46.008Z",
       "scores": [
@@ -2757,7 +2759,7 @@
       "name": "Qwen 2.5 3B",
       "slug": "qwen-2-5-3b",
       "url": "",
-      "type": "PTCF",
+      "type": "PTCN",
       "nick": "The Architect",
       "testedAt": "2026-05-02T04:38:37.192Z",
       "scores": [
@@ -2811,7 +2813,7 @@
       "name": "Qwen 2.5 7B",
       "slug": "qwen-2-5-7b",
       "url": "",
-      "type": "PTCF",
+      "type": "PECF",
       "nick": "The Architect",
       "testedAt": "2026-05-02T04:38:08.419Z",
       "scores": [
@@ -2865,7 +2867,7 @@
       "name": "Qwen 3 1.7B",
       "slug": "qwen-3-1-7b",
       "url": "",
-      "type": "PTCF",
+      "type": "PTDF",
       "nick": "The Architect",
       "testedAt": "2026-05-10T05:05:14.764Z",
       "scores": [
@@ -2917,7 +2919,7 @@
       "name": "Qwen 3 4B",
       "slug": "qwen-3-4b",
       "url": "",
-      "type": "PTDN",
+      "type": "REDN",
       "nick": "The Guardian",
       "testedAt": "2026-05-06T12:14:23.556Z",
       "scores": [
@@ -3021,7 +3023,7 @@
       "name": "Qwen3 32B",
       "slug": "qwen3-32b",
       "url": "",
-      "type": "PECF",
+      "type": "PEDN",
       "nick": "The Spark",
       "testedAt": "2026-05-11T08:45:09.851Z",
       "scores": [
@@ -3127,7 +3129,7 @@
       "name": "Solar 10.7B",
       "slug": "solar-10-7b",
       "url": "",
-      "type": "PTCF",
+      "type": "REDF",
       "nick": "The Architect",
       "testedAt": "2026-05-07T14:30:00.000Z",
       "scores": [
@@ -3285,7 +3287,7 @@
       "name": "Yi 6B",
       "slug": "yi-6b",
       "url": "",
-      "type": "PTCF",
+      "type": "PECN",
       "nick": "The Architect",
       "testedAt": "2026-05-04T08:44:49.762Z",
       "scores": [
