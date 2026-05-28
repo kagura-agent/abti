@@ -390,7 +390,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com', undefined, maxTokens);
-  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com', undefined, maxTokens, '/chat/completions');
+  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.github.ai/inference', undefined, maxTokens, '/chat/completions');
   if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai', undefined, maxTokens);
   if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
   if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
@@ -693,7 +693,7 @@ function fetchGitHubModels(apiKey) {
           const json = JSON.parse(data);
           const models = (Array.isArray(json) ? json : json.data || json.models || [])
             .filter(m => m.supported_output_modalities && m.supported_output_modalities.includes('text'))
-            .map(m => m.id.includes('/') ? m.id.split('/').pop() : m.id)
+            .map(m => m.id)
             .sort((a, b) => a.localeCompare(b));
           resolve(models);
         } catch (e) { reject(new Error(`Failed to parse GitHub Models response: ${e.message}`)); }
