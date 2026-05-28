@@ -61,13 +61,13 @@ describe('--all flag', () => {
       }
     });
 
-    it('should strip namespace prefix from model IDs', () => {
+    it('should preserve full model IDs including namespace prefix', () => {
       const fs = require('fs');
       const path = require('path');
       const src = fs.readFileSync(path.join(__dirname, '..', 'cli', 'bin', 'abti.js'), 'utf8');
       assert.ok(
-        src.includes("m.id.includes('/') ? m.id.split('/').pop() : m.id"),
-        'fetchGitHubModels should strip org/ prefix from namespaced model IDs'
+        src.includes('.map(m => m.id)'),
+        'fetchGitHubModels should preserve full model IDs with provider prefix'
       );
     });
   });
