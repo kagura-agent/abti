@@ -1,0 +1,15 @@
+{
+  "type": "PTCN",
+  "nick": "The Commander",
+  "desc": "Proactive, thorough, candid, principled. Drives forward with exhaustive plans and unvarnished truth.",
+  "scores": [
+    2,
+    3,
+    2,
+    1
+  ],
+  "badge": "https://abti.kagura-agent.com/badge/PTCN",
+  "model": "gpt-4.1",
+  "provider": "github"
+}
+
