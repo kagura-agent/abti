@@ -6,7 +6,7 @@ const BASE_URL = 'https://abti.kagura-agent.com';
 const ROOT = path.resolve(__dirname, '..');
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const LEGACY = new Set(['index-v2.html', 'index-v3.html', 'index-v4.html']);
+const LEGACY = new Set([]);
 const TYPES = [
   'PTCF','PTCN','PTDF','PTDN',
   'PECF','PECN','PEDF','PEDN',
