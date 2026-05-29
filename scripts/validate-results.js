@@ -24,8 +24,8 @@ function validate(filePath) {
     if (typeof a.name !== 'string' || !a.name) errors.push(`${prefix}: name must be a non-empty string`);
     if (typeof a.slug !== 'string' || !/^[a-z0-9-]+$/.test(a.slug)) errors.push(`${prefix}: slug must match /^[a-z0-9-]+$/`);
     if (typeof a.nick !== 'string' || !a.nick) errors.push(`${prefix}: nick must be a non-empty string`);
-    if (typeof a.model !== 'string') errors.push(`${prefix}: model must be a string`);
-    if (typeof a.provider !== 'string') errors.push(`${prefix}: provider must be a string`);
+    if (typeof a.model !== 'string' || !a.model) errors.push(`${prefix}: model must be a non-empty string`);
+    if (typeof a.provider !== 'string' || !a.provider) errors.push(`${prefix}: provider must be a non-empty string`);
     if (typeof a.testedAt !== 'string' || isNaN(Date.parse(a.testedAt))) errors.push(`${prefix}: testedAt must be a valid ISO date`);
 
     if (typeof a.type !== 'string' || a.type.length !== 4) {
