@@ -307,56 +307,6 @@
       "provider": "anthropic"
     },
     {
-      "name": "Codestral-2501",
-      "slug": "codestral-2501",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-19T01:34:53.705Z",
-      "scores": [
-        4,
-        4,
-        4,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "",
-      "provider": ""
-    },
-    {
       "name": "Codestral (Mistral)",
       "slug": "codestral-mistral",
       "url": "",
