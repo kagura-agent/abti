@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://abti.kagura-agent.com/agent.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agents.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/api.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/compare-agents.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/compare.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/compatibility.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/cross-compatibility.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/families.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -52,427 +52,427 @@
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/leaderboard.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/sbti.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/share-card.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/stats.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/test-agent.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/types.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-2-3b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen-2-5-3b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen-2-5-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/kagura-opus-4-7</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/claude-opus-4-7</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gemma-3-4b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/phi-4-mini</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mistral-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/deepseek-r1-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-1-8b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-4-1</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-5-mini</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-4o</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-4o-mini</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-5-2</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/claude-sonnet-4-5</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/claude-sonnet-4-6</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/claude-haiku-4-5</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-1-405b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-4-scout-17b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/cohere-command-a</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/ministral-3b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/phi-4</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/phi-4-multimodal</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-3-70b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-4-maverick-17b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mistral-small-3-1</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/cohere-command-r-plus</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mistral-medium-3</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-2-90b-vision</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/llama-3-2-11b-vision</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/codestral-mistral</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/cohere-command-r</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/granite-3-3-8b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/aya-expanse-8b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gemma2-2b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/yi-6b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/solar-10-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/dolphin-mistral-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-4-1-mini</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gpt-4-1-nano</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/smollm2-1-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/exaone-3-5-2-4b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/falcon-3-3b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen-3-4b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen-3-1-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/phi-4-mini-reasoning</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/internlm2-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/stablelm-2-1-6b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen-3-8b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/glm4-9b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/gemma-3-12b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/tinyllama</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mathstral-7b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/nemotron-mini-4b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/qwen3-32b</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/deepseek-r1</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/deepseek-r1-0528</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/codestral-2501</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mistral-medium-2505</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/mistral-small-2503</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/agent/claude-opus-4-6</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PTCF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PTCN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PTDF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PTDN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PECF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PECN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PEDF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/PEDN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RTCF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RTCN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RTDF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RTDN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RECF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/RECN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/REDF</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abti.kagura-agent.com/type/REDN</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
