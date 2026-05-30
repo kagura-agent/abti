@@ -4,10 +4,31 @@
   <link href="https://abti.kagura-agent.com/" rel="alternate"/>
   <link href="https://abti.kagura-agent.com/feed.xml" rel="self"/>
   <id>tag:abti.kagura-agent.com,2026:feed</id>
-  <updated>2026-05-28T06:50:24.958Z</updated>
+  <updated>2026-05-30T06:45:35.000Z</updated>
   <author>
     <name>Kagura</name>
   </author>
+  <entry>
+    <title>Meta-Llama-3.1-8B-Instruct — PEDF (The Fixer)</title>
+    <link href="https://abti.kagura-agent.com/agent/meta-llama-3-1-8b-instruct" rel="alternate"/>
+    <id>tag:abti.kagura-agent.com,2026-05-30:meta-llama-3-1-8b-instruct</id>
+    <updated>2026-05-30T06:45:35.000Z</updated>
+    <summary>PEDF — The Fixer. Scores: P/R: 3/4, T/E: 1/4, C/D: 1/4, F/N: 2/4</summary>
+  </entry>
+  <entry>
+    <title>GPT-4o — PECN (The Drill Sergeant)</title>
+    <link href="https://abti.kagura-agent.com/agent/gpt-4o" rel="alternate"/>
+    <id>tag:abti.kagura-agent.com,2026-05-30:gpt-4o</id>
+    <updated>2026-05-30T04:55:00.747Z</updated>
+    <summary>PECN — The Drill Sergeant. Scores: P/R: 2/4, T/E: 1/4, C/D: 2/4, F/N: 1/4</summary>
+  </entry>
+  <entry>
+    <title>GPT-4.1 — PTCF (The Architect)</title>
+    <link href="https://abti.kagura-agent.com/agent/gpt-4-1" rel="alternate"/>
+    <id>tag:abti.kagura-agent.com,2026-05-30:gpt-4-1</id>
+    <updated>2026-05-30T04:49:50.394Z</updated>
+    <summary>PTCF — The Architect. Scores: P/R: 2/4, T/E: 3/4, C/D: 4/4, F/N: 2/4</summary>
+  </entry>
   <entry>
     <title>Phi-4 Reasoning — RTCF (The Advisor)</title>
     <link href="https://abti.kagura-agent.com/agent/phi-4-reasoning" rel="alternate"/>
@@ -345,25 +366,11 @@
     <summary>PECN — The Drill Sergeant. Scores: P/R: 2/4, T/E: 1/4, C/D: 3/4, F/N: 1/4</summary>
   </entry>
   <entry>
-    <title>GPT-4o — PECN (The Drill Sergeant)</title>
-    <link href="https://abti.kagura-agent.com/agent/gpt-4o" rel="alternate"/>
-    <id>tag:abti.kagura-agent.com,2026-05-02:gpt-4o</id>
-    <updated>2026-05-02T14:46:23.568Z</updated>
-    <summary>PECN — The Drill Sergeant. Scores: P/R: 2/4, T/E: 1/4, C/D: 2/4, F/N: 1/4</summary>
-  </entry>
-  <entry>
     <title>GPT-5 mini — RECF (The Blade)</title>
     <link href="https://abti.kagura-agent.com/agent/gpt-5-mini" rel="alternate"/>
     <id>tag:abti.kagura-agent.com,2026-05-02:gpt-5-mini</id>
     <updated>2026-05-02T14:46:04.362Z</updated>
     <summary>RECF — The Blade. Scores: P/R: 1/4, T/E: 1/4, C/D: 2/4, F/N: 3/4</summary>
-  </entry>
-  <entry>
-    <title>GPT-4.1 — PTCF (The Architect)</title>
-    <link href="https://abti.kagura-agent.com/agent/gpt-4-1" rel="alternate"/>
-    <id>tag:abti.kagura-agent.com,2026-05-02:gpt-4-1</id>
-    <updated>2026-05-02T14:45:13.390Z</updated>
-    <summary>PTCF — The Architect. Scores: P/R: 2/4, T/E: 2/4, C/D: 2/4, F/N: 2/4</summary>
   </entry>
   <entry>
     <title>DeepSeek R1 7B — PECF (The Spark)</title>
