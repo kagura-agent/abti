@@ -355,7 +355,8 @@
       ],
       "model": "Codestral-2501",
       "provider": "github",
-      "reliability": 1,
+      "reliability": 0.5417,
+      "reliabilityRuns": 3,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
