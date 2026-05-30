@@ -2387,8 +2387,9 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/RECF"
+      "reliability": 0.875,
+      "badge": "https://abti.kagura-agent.com/badge/RECF",
+      "reliabilityRuns": 2
     },
     {
       "name": "Mistral Small 3.1",
@@ -2439,8 +2440,9 @@
       ],
       "model": "mistral-small-2503",
       "provider": "github",
-      "reliability": 1,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+      "reliability": 0.5417,
+      "badge": "https://abti.kagura-agent.com/badge/PTCF",
+      "reliabilityRuns": 3
     },
     {
       "name": "Nemotron Mini 4B",
