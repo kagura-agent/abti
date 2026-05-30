@@ -78,7 +78,9 @@
             1
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Claude Haiku 4.5",
@@ -445,7 +447,9 @@
       "provider": "github",
       "reliability": 0.5417,
       "reliabilityRuns": 3,
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+      "badge": "https://abti.kagura-agent.com/badge/PTCF",
+      "consistency": 54,
+      "runs": 3
     },
     {
       "name": "Cohere Command A",
@@ -526,7 +530,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Cohere Command R",
@@ -919,7 +925,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "EXAONE 3.5 2.4B",
@@ -971,7 +979,9 @@
       "model": "exaone3.5:2.4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Falcon 3 3B",
@@ -1023,7 +1033,9 @@
       "model": "falcon3:3b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Gemma 3 12B",
@@ -1075,7 +1087,9 @@
       "model": "gemma3:12b",
       "provider": "ollama",
       "reliability": 0.9583,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 96,
+      "runs": 3
     },
     {
       "name": "Gemma 3 4B",
@@ -1209,7 +1223,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "GLM-4 9B",
@@ -1289,7 +1305,9 @@
             4
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "GPT-4.1",
@@ -1390,7 +1408,7 @@
           "runs": 3
         }
       ],
-      "reliability": 1,
+      "reliability": 0.9792,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -1419,7 +1437,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 98,
+      "runs": 3
     },
     {
       "name": "GPT-4.1 mini",
@@ -1471,7 +1491,7 @@
       "model": "openai/gpt-4.1-mini",
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 1,
+      "reliability": 0.8958,
       "reliabilityRuns": [
         {
           "type": "PECF",
@@ -1500,7 +1520,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 90,
+      "runs": 3
     },
     {
       "name": "GPT-4.1 nano",
@@ -1552,7 +1574,7 @@
       "model": "openai/gpt-4.1-nano",
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 1,
+      "reliability": 0.9375,
       "reliabilityRuns": [
         {
           "type": "PECF",
@@ -1581,7 +1603,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 94,
+      "runs": 3
     },
     {
       "name": "GPT-4o",
@@ -1709,7 +1733,9 @@
             1
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "GPT-4o mini",
@@ -1941,7 +1967,9 @@
       "model": "granite3.3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "InternLM2 7B",
@@ -2021,7 +2049,9 @@
             3
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Kagura (Opus 4.7)",
@@ -2259,7 +2289,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Llama 3.2 3B",
@@ -2740,7 +2772,9 @@
           ]
         }
       ],
-      "badge": "https://abti.kagura-agent.com/badge/PTCF"
+      "badge": "https://abti.kagura-agent.com/badge/PTCF",
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Mistral 7B",
@@ -2873,9 +2907,11 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 0.875,
+      "reliability": 0.9375,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
-      "reliabilityRuns": 2
+      "reliabilityRuns": 2,
+      "consistency": 94,
+      "runs": 2
     },
     {
       "name": "Mistral Small 3.1",
@@ -2926,9 +2962,11 @@
       ],
       "model": "mistral-small-2503",
       "provider": "github",
-      "reliability": 0.5417,
+      "reliability": 0.7708,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 77,
+      "runs": 3
     },
     {
       "name": "Nemotron Mini 4B",
@@ -3091,7 +3129,9 @@
             1
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Phi-4 Mini",
@@ -3306,7 +3346,9 @@
             1
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "model": "microsoft/phi-4-reasoning",
@@ -3533,7 +3575,9 @@
       "model": "qwen3:1.7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Qwen 3 4B",
@@ -3585,7 +3629,9 @@
       "model": "qwen3:4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Qwen 3 8B",
@@ -3637,7 +3683,9 @@
       "model": "qwen3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Qwen3 32B",
@@ -3790,7 +3838,9 @@
             0
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Solar 10.7B",
@@ -3870,7 +3920,9 @@
             3
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "StableLM 2 1.6B",
@@ -3922,7 +3974,9 @@
       "model": "stablelm2:1.6b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": 3,
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "TinyLlama",
@@ -3975,7 +4029,7 @@
       "provider": "ollama",
       "parseFailures": 10,
       "confidence": 0.375,
-      "reliability": 0.6667,
+      "reliability": 0.9167,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -4004,7 +4058,9 @@
             4
           ]
         }
-      ]
+      ],
+      "consistency": 92,
+      "runs": 3
     },
     {
       "name": "Yi 6B",
@@ -4084,7 +4140,9 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 100,
+      "runs": 3
     },
     {
       "name": "Meta-Llama-3.1-8B-Instruct",
