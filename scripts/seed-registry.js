@@ -364,6 +364,22 @@ async function main() {
         for (const [dim, d] of Object.entries(result.dimensions)) {
           console.log(`  ${dim}: ${d.score}/${d.max} → ${d.pole} (${d.letter})`);
         }
+
+        // Rename reliability files to match the canonical slug from results.json
+        if (opts.runs > 1 && result.slug) {
+          const oldSlug = modelSlug(opts.model);
+          if (result.slug !== oldSlug) {
+            const relDir = path.join(__dirname, '..', 'data', 'reliability');
+            for (let r = 1; r <= opts.runs; r++) {
+              const oldFile = path.join(relDir, `${oldSlug}-run-${r}.json`);
+              const newFile = path.join(relDir, `${result.slug}-run-${r}.json`);
+              if (fs.existsSync(oldFile)) {
+                fs.renameSync(oldFile, newFile);
+                console.log(`  Renamed ${oldSlug}-run-${r}.json → ${result.slug}-run-${r}.json`);
+              }
+            }
+          }
+        }
       }
     }
 
@@ -377,7 +393,8 @@ async function main() {
       const entry = resultsData.agents.find(r => r.model === opts.model && r.name === opts.agentName);
       if (entry) {
         entry.reliability = reliability;
-        entry.reliabilityRuns = opts.runs;
+        entry.consistency = Math.round(reliability * 100);
+        entry.runs = opts.runs;
         fs.writeFileSync(resultsPath, JSON.stringify(resultsData, null, 2) + '\n');
         console.log('Reliability field added to data/results.json');
       } else {
