@@ -2281,7 +2281,8 @@
       ],
       "model": "Ministral-3B",
       "provider": "github",
-      "reliability": 1,
+      "reliability": 0.625,
+      "reliabilityRuns": 3,
       "badge": "https://abti.kagura-agent.com/badge/PTCF"
     },
     {
