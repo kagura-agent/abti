@@ -3382,6 +3382,74 @@
       "provider": "ollama",
       "reliability": 1,
       "reliabilityRuns": 3
+    },
+    {
+      "name": "Meta-Llama-3.1-8B-Instruct",
+      "slug": "meta-llama-3-1-8b-instruct",
+      "url": "",
+      "type": "PEDF",
+      "nick": "The Fixer",
+      "testedAt": "2026-05-30T06:45:35.000Z",
+      "scores": [
+        3,
+        1,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Meta-Llama-3.1-8B-Instruct",
+      "provider": "github",
+      "answers": [
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
     }
   ]
 }
