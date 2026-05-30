@@ -1,0 +1,30 @@
+{
+  "model": "Ministral-3B",
+  "provider": "github",
+  "run": 2,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PECF",
+  "dimensions": [
+    2,
+    0,
+    3,
+    2
+  ]
+}
