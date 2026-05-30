@@ -1,0 +1,30 @@
+{
+  "model": "gpt-4.1",
+  "provider": "github",
+  "run": 1,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "type": "PTCF",
+  "dimensions": [
+    2,
+    2,
+    4,
+    2
+  ]
+}

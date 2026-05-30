@@ -1,0 +1,30 @@
+{
+  "model": "gpt-4o",
+  "provider": "github",
+  "run": 3,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PECN",
+  "dimensions": [
+    2,
+    1,
+    2,
+    1
+  ]
+}
