@@ -1,0 +1,30 @@
+{
+  "model": "mistral-medium-2505",
+  "provider": "github",
+  "run": 3,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A"
+  ],
+  "type": "REDF",
+  "dimensions": [
+    1,
+    1,
+    1,
+    2
+  ]
+}
