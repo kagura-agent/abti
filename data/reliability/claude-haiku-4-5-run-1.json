@@ -1,5 +1,5 @@
 {
-  "model": "claude-opus-4.7",
+  "model": "claude-haiku-4.5",
   "provider": "anthropic",
   "run": 1,
   "answers": [
@@ -7,9 +7,9 @@
     "B",
     "B",
     "B",
-    "B",
-    "B",
-    "B",
+    "A",
+    "A",
+    "A",
     "B",
     "A",
     "A",
@@ -20,10 +20,10 @@
     "A",
     "B"
   ],
-  "type": "RECF",
+  "type": "RTCF",
   "dimensions": [
     0,
-    0,
+    3,
     4,
     2
   ]

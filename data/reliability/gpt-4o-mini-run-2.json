@@ -1,0 +1,30 @@
+{
+  "model": "gpt-4o-mini",
+  "provider": "openai",
+  "run": 2,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PTCN",
+  "dimensions": [
+    2,
+    2,
+    3,
+    1
+  ]
+}

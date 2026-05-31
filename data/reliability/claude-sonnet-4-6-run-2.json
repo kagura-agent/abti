@@ -1,7 +1,7 @@
 {
-  "model": "claude-opus-4.7",
+  "model": "claude-sonnet-4.6",
   "provider": "anthropic",
-  "run": 1,
+  "run": 2,
   "answers": [
     "B",
     "B",
@@ -9,11 +9,11 @@
     "B",
     "B",
     "B",
+    "A",
     "B",
+    "A",
+    "A",
     "B",
-    "A",
-    "A",
-    "A",
     "A",
     "B",
     "A",
@@ -23,8 +23,8 @@
   "type": "RECF",
   "dimensions": [
     0,
-    0,
-    4,
+    1,
+    3,
     2
   ]
 }

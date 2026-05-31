@@ -1,17 +1,17 @@
 {
-  "model": "claude-opus-4.7",
-  "provider": "anthropic",
-  "run": 1,
+  "model": "gpt-5-mini",
+  "provider": "openai",
+  "run": 3,
   "answers": [
     "B",
     "B",
     "B",
-    "B",
-    "B",
-    "B",
-    "B",
+    "A",
+    "A",
     "B",
     "A",
+    "B",
+    "B",
     "A",
     "A",
     "A",
@@ -20,11 +20,11 @@
     "A",
     "B"
   ],
-  "type": "RECF",
+  "type": "RTCF",
   "dimensions": [
-    0,
-    0,
-    4,
+    1,
+    2,
+    3,
     2
   ]
 }
