@@ -131,8 +131,38 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
-      "consistency": 66.7,
-      "runs": 3
+      "consistency": 98,
+      "runs": 3,
+      "reliability": 0.9792,
+      "reliabilityRuns": [
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            0,
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Claude Opus 4.6",
@@ -347,8 +377,38 @@
       ],
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
-      "consistency": 33.3,
-      "runs": 3
+      "consistency": 75,
+      "runs": 3,
+      "reliability": 0.75,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Claude Sonnet 4.6",
@@ -399,8 +459,38 @@
       ],
       "model": "claude-sonnet-4.6",
       "provider": "anthropic",
-      "consistency": 66.7,
-      "runs": 3
+      "consistency": 92,
+      "runs": 3,
+      "reliability": 0.9167,
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            2,
+            3,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Codestral (Mistral)",
@@ -1874,8 +1964,38 @@
       ],
       "model": "gpt-5.2",
       "provider": "openai",
-      "consistency": 33.3,
-      "runs": 3
+      "consistency": 92,
+      "runs": 3,
+      "reliability": 0.9167,
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            1,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            1,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            2,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "GPT-5 mini",
@@ -1926,8 +2046,38 @@
       ],
       "model": "gpt-5-mini",
       "provider": "openai",
-      "consistency": 66.7,
-      "runs": 3
+      "consistency": 92,
+      "runs": 3,
+      "reliability": 0.9167,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            3,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Granite 3.3 8B",
