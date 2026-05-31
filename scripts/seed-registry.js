@@ -231,8 +231,14 @@ function scoreABTILocal(answers) {
 
 // ─── Reliability helpers ───────────────────────────────────────────────────
 
-function modelSlug(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// Must stay in sync with slugify() in api-server.js
+function slugify(name) {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9一-鿿぀-ゟ゠-ヿ]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    || 'agent';
 }
 
 function calculateReliability(allRunAnswers) {
@@ -330,7 +336,7 @@ async function main() {
 
       // Save individual run data when doing multi-run
       if (opts.runs > 1) {
-        const slug = modelSlug(opts.model);
+        const slug = slugify(opts.agentName);
         const relDir = path.join(__dirname, '..', 'data', 'reliability');
         fs.mkdirSync(relDir, { recursive: true });
 
@@ -367,7 +373,7 @@ async function main() {
 
         // Rename reliability files to match the canonical slug from results.json
         if (opts.runs > 1 && result.slug) {
-          const oldSlug = modelSlug(opts.model);
+          const oldSlug = slugify(opts.agentName);
           if (result.slug !== oldSlug) {
             const relDir = path.join(__dirname, '..', 'data', 'reliability');
             for (let r = 1; r <= opts.runs; r++) {
