@@ -541,10 +541,10 @@
       ],
       "model": "Codestral-2501",
       "provider": "github",
-      "reliability": 0.5417,
+      "reliability": 0.7708,
       "reliabilityRuns": 3,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "consistency": 54,
+      "consistency": 50,
       "runs": 3
     },
     {
@@ -2854,7 +2854,7 @@
       ],
       "model": "Ministral-3B",
       "provider": "github",
-      "reliability": 1,
+      "reliability": 0.8125,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -2885,7 +2885,7 @@
         }
       ],
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "consistency": 100,
+      "consistency": 67,
       "runs": 3
     },
     {

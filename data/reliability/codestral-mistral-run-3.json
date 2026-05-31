@@ -1,1 +1,10 @@
-{"type":"PTCF","nick":"The Architect","scores":[4,4,4,3],"model":"Codestral-2501","provider":"github"}
+{
+  "model": "Codestral-2501",
+  "provider": "github",
+  "run": 3,
+  "answers": ["A","B","A","B","B","B","A","A","B","B","B","A","B","B","A","A"],
+  "type": "PTDF",
+  "dimensions": [
+    2,2,1,2
+  ]
+}

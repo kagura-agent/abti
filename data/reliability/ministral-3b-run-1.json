@@ -1,1 +1,30 @@
-{"type":"PTCF","nick":"The Architect","scores":[4,3,4,4],"model":"Ministral-3B","provider":"github"}
+{
+  "model": "Ministral-3B",
+  "provider": "github",
+  "run": 1,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "PEDF",
+  "dimensions": [
+    2,
+    1,
+    0,
+    4
+  ]
+}
