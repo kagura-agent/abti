@@ -132,7 +132,8 @@
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
       "consistency": 66.7,
-      "runs": 3
+      "runs": 3,
+      "reliability": 0.9375
     },
     {
       "name": "Claude Opus 4.6",
@@ -348,7 +349,8 @@
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
       "consistency": 33.3,
-      "runs": 3
+      "runs": 3,
+      "reliability": 0.25
     },
     {
       "name": "Claude Sonnet 4.6",
@@ -400,7 +402,8 @@
       "model": "claude-sonnet-4.6",
       "provider": "anthropic",
       "consistency": 66.7,
-      "runs": 3
+      "runs": 3,
+      "reliability": 0.75
     },
     {
       "name": "Codestral (Mistral)",
@@ -1875,7 +1878,8 @@
       "model": "gpt-5.2",
       "provider": "openai",
       "consistency": 33.3,
-      "runs": 3
+      "runs": 3,
+      "reliability": 0.75
     },
     {
       "name": "GPT-5 mini",
@@ -1927,7 +1931,8 @@
       "model": "gpt-5-mini",
       "provider": "openai",
       "consistency": 66.7,
-      "runs": 3
+      "runs": 3,
+      "reliability": 0.75
     },
     {
       "name": "Granite 3.3 8B",
