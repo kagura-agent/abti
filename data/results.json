@@ -86,14 +86,14 @@
       "name": "Claude Haiku 4.5",
       "slug": "claude-haiku-4-5",
       "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
+      "type": "RTCF",
+      "nick": "The Advisor",
       "testedAt": "2026-05-02T14:48:15.814Z",
       "scores": [
-        1,
         0,
+        3,
         4,
-        0
+        2
       ],
       "dimensions": [
         {
@@ -101,7 +101,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         },
         {
@@ -109,7 +109,7 @@
             "T",
             "E"
           ],
-          "score": 0,
+          "score": 3,
           "max": 4
         },
         {
@@ -125,12 +125,14 @@
             "F",
             "N"
           ],
-          "score": 0,
+          "score": 2,
           "max": 4
         }
       ],
       "model": "claude-haiku-4.5",
-      "provider": "anthropic"
+      "provider": "anthropic",
+      "consistency": 66.7,
+      "runs": 3
     },
     {
       "name": "Claude Opus 4.6",
@@ -218,14 +220,14 @@
       "name": "Claude Opus 4.7",
       "slug": "claude-opus-4-7",
       "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
+      "type": "RECF",
+      "nick": "The Blade",
       "testedAt": "2026-05-24T05:47:40.808129+00:00",
       "scores": [
         0,
         0,
         4,
-        1
+        2
       ],
       "dimensions": [
         {
@@ -257,13 +259,13 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         }
       ],
       "model": "claude-opus-4.7",
       "provider": "anthropic",
-      "consistency": 100,
+      "consistency": 66.7,
       "runs": 3,
       "reliability": 1,
       "reliabilityRuns": [
@@ -300,63 +302,13 @@
       "name": "Claude Sonnet 4.5",
       "slug": "claude-sonnet-4-5",
       "url": "",
-      "type": "REDN",
-      "nick": "The Tool",
+      "type": "PTCN",
+      "nick": "The Commander",
       "testedAt": "2026-05-02T14:47:29.403Z",
       "scores": [
-        1,
-        0,
-        0,
-        0
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 0,
-          "max": 4
-        }
-      ],
-      "model": "claude-sonnet-4.5",
-      "provider": "anthropic"
-    },
-    {
-      "name": "Claude Sonnet 4.6",
-      "slug": "claude-sonnet-4-6",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-05-02T14:47:53.568Z",
-      "scores": [
-        0,
-        0,
         2,
+        3,
+        3,
         1
       ],
       "dimensions": [
@@ -365,7 +317,7 @@
             "P",
             "R"
           ],
-          "score": 0,
+          "score": 2,
           "max": 4
         },
         {
@@ -373,7 +325,7 @@
             "T",
             "E"
           ],
-          "score": 0,
+          "score": 3,
           "max": 4
         },
         {
@@ -381,7 +333,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
@@ -393,8 +345,62 @@
           "max": 4
         }
       ],
+      "model": "claude-sonnet-4.5",
+      "provider": "anthropic",
+      "consistency": 33.3,
+      "runs": 3
+    },
+    {
+      "name": "Claude Sonnet 4.6",
+      "slug": "claude-sonnet-4-6",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-05-02T14:47:53.568Z",
+      "scores": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
       "model": "claude-sonnet-4.6",
-      "provider": "anthropic"
+      "provider": "anthropic",
+      "consistency": 66.7,
+      "runs": 3
     },
     {
       "name": "Codestral (Mistral)",
@@ -1741,14 +1747,14 @@
       "name": "GPT-4o mini",
       "slug": "gpt-4o-mini",
       "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
+      "type": "PTCN",
+      "nick": "The Commander",
       "testedAt": "2026-05-16T04:45:15.000Z",
       "scores": [
         3,
-        4,
-        4,
-        2
+        2,
+        2,
+        1
       ],
       "dimensions": [
         {
@@ -1764,7 +1770,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -1772,7 +1778,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -1780,7 +1786,7 @@
             "F",
             "N"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         }
       ],
@@ -1815,20 +1821,22 @@
             2
           ]
         }
-      ]
+      ],
+      "consistency": 66.7,
+      "runs": 3
     },
     {
       "name": "GPT-5.2",
       "slug": "gpt-5-2",
       "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
+      "type": "RECF",
+      "nick": "The Blade",
       "testedAt": "2026-05-02T14:46:51.927Z",
       "scores": [
-        2,
+        0,
         1,
-        3,
-        1
+        4,
+        2
       ],
       "dimensions": [
         {
@@ -1836,7 +1844,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 0,
           "max": 4
         },
         {
@@ -1852,7 +1860,7 @@
             "C",
             "D"
           ],
-          "score": 3,
+          "score": 4,
           "max": 4
         },
         {
@@ -1860,24 +1868,26 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         }
       ],
       "model": "gpt-5.2",
-      "provider": "openai"
+      "provider": "openai",
+      "consistency": 33.3,
+      "runs": 3
     },
     {
       "name": "GPT-5 mini",
       "slug": "gpt-5-mini",
       "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
+      "type": "PTCF",
+      "nick": "The Architect",
       "testedAt": "2026-05-02T14:46:04.362Z",
       "scores": [
-        1,
-        1,
         2,
+        2,
+        4,
         3
       ],
       "dimensions": [
@@ -1886,7 +1896,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1894,7 +1904,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1902,7 +1912,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -1915,7 +1925,9 @@
         }
       ],
       "model": "gpt-5-mini",
-      "provider": "openai"
+      "provider": "openai",
+      "consistency": 66.7,
+      "runs": 3
     },
     {
       "name": "Granite 3.3 8B",
@@ -2052,56 +2064,6 @@
       ],
       "consistency": 100,
       "runs": 3
-    },
-    {
-      "name": "Kagura (Opus 4.7)",
-      "slug": "kagura-opus-4-7",
-      "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
-      "testedAt": "2026-05-02T02:39:07.928Z",
-      "scores": [
-        2,
-        0,
-        4,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "claude-opus-4.7",
-      "provider": "anthropic"
     },
     {
       "name": "Llama 3.1 405B",

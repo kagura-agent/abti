@@ -1,6 +1,6 @@
 {
-  "model": "claude-opus-4.7",
-  "provider": "anthropic",
+  "model": "gpt-5.2",
+  "provider": "openai",
   "run": 1,
   "answers": [
     "B",
@@ -9,7 +9,7 @@
     "B",
     "B",
     "B",
-    "B",
+    "A",
     "B",
     "A",
     "A",
@@ -23,7 +23,7 @@
   "type": "RECF",
   "dimensions": [
     0,
-    0,
+    1,
     4,
     2
   ]

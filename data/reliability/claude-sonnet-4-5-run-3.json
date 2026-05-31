@@ -1,14 +1,14 @@
 {
-  "model": "claude-opus-4.7",
+  "model": "claude-sonnet-4.5",
   "provider": "anthropic",
-  "run": 1,
+  "run": 3,
   "answers": [
+    "A",
+    "A",
     "B",
-    "B",
-    "B",
-    "B",
-    "B",
-    "B",
+    "A",
+    "A",
+    "A",
     "B",
     "B",
     "A",
@@ -17,13 +17,13 @@
     "A",
     "B",
     "A",
-    "A",
-    "B"
+    "B",
+    "A"
   ],
-  "type": "RECF",
+  "type": "PTCF",
   "dimensions": [
-    0,
-    0,
+    3,
+    2,
     4,
     2
   ]
