@@ -1,0 +1,30 @@
+{
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "provider": "github",
+  "run": 1,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PTCN",
+  "dimensions": [
+    3,
+    2,
+    3,
+    1
+  ]
+}

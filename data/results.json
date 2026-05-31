@@ -3527,7 +3527,8 @@
         4,
         4
       ],
-      "nick": "The Advisor"
+      "nick": "The Advisor",
+      "reliability": 0.375
     },
     {
       "name": "Qwen 2.5 3B",
@@ -4322,7 +4323,8 @@
         false,
         true,
         false
-      ]
+      ],
+      "reliability": 0.75
     }
   ]
 }
