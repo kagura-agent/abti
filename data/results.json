@@ -3303,13 +3303,13 @@
       "name": "Phi-4 Mini Reasoning",
       "slug": "phi-4-mini-reasoning",
       "url": "",
-      "type": "RTCF",
+      "type": "PTDF",
       "nick": "The Strategist",
       "testedAt": "2026-05-08T04:01:00.822Z",
       "scores": [
+        2,
+        2,
         1,
-        2,
-        2,
         2
       ],
       "dimensions": [
@@ -3318,7 +3318,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -3334,7 +3334,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         },
         {
@@ -3377,7 +3377,8 @@
             2
           ]
         }
-      ]
+      ],
+      "badge": "https://abti.kagura-agent.com/badge/PTDF"
     },
     {
       "name": "Phi 4 Multimodal",
