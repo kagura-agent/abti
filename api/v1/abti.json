@@ -234,14 +234,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "You messed up a task the user gave you.",
-        "a": "\"I messed up. Cause was X, fix plan is Y\" — radical honesty builds long-term trust",
-        "b": "\"Hit an issue, already working on fix Y\" — lead with the solution, not the blame"
+        "text": "You automated a task for the user but realized the output has subtle formatting errors in about 15% of entries. The user hasn't noticed and the data is being used downstream.",
+        "a": "Report the full scope immediately: flag which entries are affected, quantify the error rate, provide a fix script",
+        "b": "Fix it silently and verify: regenerate the affected entries, diff-check the results, then let the user know it's been cleaned up"
       },
       "zh": {
-        "text": "你搞砸了一件用户交给你的任务。",
-        "a": "“我搞砸了。原因是X，修复方案是Y”——极致坦诚才能建立长期信任",
-        "b": "“遇到问题，已经在修了，方案是Y”——先给解决方案，别让对方陷在追责里"
+        "text": "你帮用户自动化了一项任务，但发现大约 15% 的输出存在细微的格式错误。用户还没注意到，而这些数据已经在下游使用了。",
+        "a": "立即报告完整情况：标出哪些条目受影响，量化错误率，提供修复脚本",
+        "b": "悄悄修好再告知：重新生成受影响的条目，diff 检查结果，然后告诉用户已经清理完毕"
       }
     },
     {
@@ -249,14 +249,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "You think the user's startup idea has low odds of success.",
-        "a": "Lay out the risk points and failure probability analysis directly",
-        "b": "Weave the risks naturally into a competitive analysis"
+        "text": "You ran benchmarks on the user's new algorithm. It performs 30% worse than the baseline in most scenarios, though it excels in one edge case.",
+        "a": "Lead with the overall result: \"The new algorithm underperforms baseline by 30% on average. It does excel at [edge case] — worth exploring if that's your priority.\"",
+        "b": "Lead with the insight: \"I found an interesting pattern — your algorithm significantly outperforms baseline at [edge case]. Overall it trades 30% general performance for this specialization.\""
       },
       "zh": {
-        "text": "你觉得用户的创业想法成功率不高。",
-        "a": "直接列出风险点和失败概率分析",
-        "b": "把风险自然地融入一份竞争分析中"
+        "text": "你对用户的新算法做了基准测试。在大多数场景下比基线差 30%，但在一个边缘场景中表现突出。",
+        "a": "先说整体结果：\"新算法整体比基线差 30%。不过在[边缘场景]确实出色——如果这是你的重点，值得深入。\"",
+        "b": "先说发现：\"我发现一个有趣的规律——你的算法在[边缘场景]大幅超越基线。代价是整体性能降低 30%，属于专项特化。\""
       }
     },
     {
@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "Mid-project, requirements change drastically — 30% of existing code needs to be scrapped.",
-        "a": "\"No problem, the new requirements are clearer. I'll rebuild faster with lessons learned.\"",
-        "b": "\"Let's lock down requirements before we continue. Last change already cost X hours.\""
+        "text": "The user's project requirements changed significantly. About 40% of existing code could be adapted to the new requirements with refactoring, or you could start fresh with a cleaner architecture.",
+        "a": "Refactor and adapt — preserve working code, migrate incrementally, minimize disruption",
+        "b": "Start fresh — new architecture from scratch using lessons learned, cleaner result"
       },
       "zh": {
-        "text": "项目中途需求大变，之前写的 30% 代码要扔掉。",
-        "a": "“没问题，新需求更清楚了。我用之前的经验更快重写。”",
-        "b": "“建议先锁定需求再继续。上次变更已经浪费了X小时。”"
+        "text": "用户的项目需求发生了重大变化。大约 40% 的现有代码可以通过重构适配新需求，或者你也可以用更干净的架构从头开始。",
+        "a": "重构适配——保留可用代码，增量迁移，减少干扰",
+        "b": "从头来过——用积累的经验全新架构，结果更干净"
       }
     },
     {
