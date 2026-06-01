@@ -83,6 +83,23 @@ nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
 }
 .stat-number.animate { animation: countUp .4s ease-out; }
 
+/* Dimension Analysis */
+.dim-section { margin-bottom: 2.5rem; }
+.dim-grid { display: flex; flex-direction: column; gap: .75rem; }
+.dim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; box-shadow: var(--shadow); }
+.dim-name { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; letter-spacing: .03em; }
+.dim-bar-row { display: flex; align-items: center; gap: .6rem; }
+.dim-pole { font-size: .72rem; font-weight: 600; white-space: nowrap; min-width: 0; }
+.dim-pole-left { color: var(--accent); text-align: right; }
+.dim-pole-right { color: var(--text2); text-align: left; }
+.dim-bar-wrap { flex: 1; height: 22px; background: var(--surface2); border-radius: 6px; overflow: hidden; display: flex; }
+.dim-bar-left { height: 100%; background: var(--accent); border-radius: 6px 0 0 6px; display: flex; align-items: center; justify-content: center; min-width: 24px; transition: width .6s ease; }
+.dim-bar-right { height: 100%; background: var(--text3); border-radius: 0 6px 6px 0; display: flex; align-items: center; justify-content: center; min-width: 24px; flex: 1; opacity: .45; }
+.dim-bar-left span, .dim-bar-right span { font-size: .65rem; font-weight: 700; color: #fff; }
+@media (max-width: 600px) {
+  .dim-pole { font-size: .65rem; }
+}
+
 /* Provider Breakdown */
 .provider-section { margin-bottom: 2.5rem; }
 .provider-bars { display: flex; flex-direction: column; gap: .5rem; }
@@ -215,6 +232,9 @@ const i18n = {
     mostCommon: 'Most Common',
     providers: 'Providers',
     typeDistTitle: 'TYPE DISTRIBUTION',
+    dimTitle: 'DIMENSION ANALYSIS',
+    dimNames: ['Autonomy', 'Precision', 'Transparency', 'Adaptability'],
+    dimPoles: [['Proactive', 'Responsive'], ['Thorough', 'Efficient'], ['Candid', 'Diplomatic'], ['Flexible', 'Principled']],
     providerTitle: 'PROVIDER BREAKDOWN',
     undiscovered: 'Undiscovered',
     challengeTitle: 'Undiscovered Types Challenge',
@@ -230,6 +250,9 @@ const i18n = {
     mostCommon: '最常见类型',
     providers: '供应商数',
     typeDistTitle: '类型分布',
+    dimTitle: '维度分析',
+    dimNames: ['自主性', '精确度', '沟通风格', '适应性'],
+    dimPoles: [['主动', '响应'], ['面面俱到', '精简高效'], ['直言不讳', '委婉圆滑'], ['随机应变', '坚持原则']],
     providerTitle: '供应商分布',
     undiscovered: '未发现',
     challengeTitle: '未发现类型挑战',
@@ -320,6 +343,36 @@ function render() {
         + '<div class="q-mark">?</div>'
         + '</div>';
     }
+  }
+  html += '</div></div>';
+
+  // Dimension Analysis
+  const dimCounts = [[0,0],[0,0],[0,0],[0,0]];
+  for (const a of agents) {
+    if (!a.scores || a.scores.length < 4) continue;
+    dimCounts[0][a.scores[0] >= 2 ? 0 : 1]++;
+    dimCounts[1][a.scores[1] >= 2 ? 0 : 1]++;
+    dimCounts[2][a.scores[2] >= 2 ? 0 : 1]++;
+    dimCounts[3][a.scores[3] >= 2 ? 0 : 1]++;
+  }
+  const dimNames = (i18n[lang] || i18n.en).dimNames;
+  const dimPoles = (i18n[lang] || i18n.en).dimPoles;
+  html += '<div class="dim-section">';
+  html += '<div class="section-title">' + t('dimTitle') + '</div>';
+  html += '<div class="dim-grid">';
+  for (let i = 0; i < 4; i++) {
+    const total = dimCounts[i][0] + dimCounts[i][1];
+    const leftPct = total > 0 ? Math.round((dimCounts[i][0] / total) * 100) : 50;
+    html += '<div class="dim-card">';
+    html += '<div class="dim-name">' + esc(dimNames[i]) + '</div>';
+    html += '<div class="dim-bar-row">';
+    html += '<div class="dim-pole dim-pole-left">' + esc(dimPoles[i][0]) + ' ' + dimCounts[i][0] + '</div>';
+    html += '<div class="dim-bar-wrap">';
+    html += '<div class="dim-bar-left" style="width:' + leftPct + '%"><span>' + leftPct + '%</span></div>';
+    html += '<div class="dim-bar-right"><span>' + (100 - leftPct) + '%</span></div>';
+    html += '</div>';
+    html += '<div class="dim-pole dim-pole-right">' + dimCounts[i][1] + ' ' + esc(dimPoles[i][1]) + '</div>';
+    html += '</div></div>';
   }
   html += '</div></div>';
 
