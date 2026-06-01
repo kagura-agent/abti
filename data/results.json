@@ -3019,9 +3019,9 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 0.9375,
+      "reliability": 0.9583,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
-      "reliabilityRuns": 2,
+      "reliabilityRuns": 3,
       "consistency": 94,
       "runs": 2
     },
