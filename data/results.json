@@ -250,14 +250,14 @@
       "name": "Claude Opus 4.7",
       "slug": "claude-opus-4-7",
       "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
+      "type": "RECN",
+      "nick": "The Machine",
       "testedAt": "2026-05-24T05:47:40.808129+00:00",
       "scores": [
         0,
         0,
         4,
-        2
+        1
       ],
       "dimensions": [
         {
@@ -289,7 +289,7 @@
             "F",
             "N"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         }
       ],
@@ -865,14 +865,14 @@
       "name": "DeepSeek R1 7B",
       "slug": "deepseek-r1-7b",
       "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
+      "type": "PEDF",
+      "nick": "The Fixer",
       "testedAt": "2026-05-02T13:45:00.000Z",
       "scores": [
         3,
+        0,
         1,
-        2,
-        3
+        2
       ],
       "dimensions": [
         {
@@ -888,7 +888,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         },
         {
@@ -896,7 +896,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         },
         {
@@ -904,7 +904,7 @@
             "F",
             "N"
           ],
-          "score": 3,
+          "score": 2,
           "max": 4
         }
       ],
@@ -1624,14 +1624,14 @@
       "name": "GPT-4.1 nano",
       "slug": "gpt-4-1-nano",
       "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
+      "type": "PECF",
+      "nick": "The Spark",
       "testedAt": "2026-05-05T10:25:08.075Z",
       "scores": [
-        2,
+        4,
         1,
         2,
-        1
+        2
       ],
       "dimensions": [
         {
@@ -1639,7 +1639,7 @@
             "P",
             "R"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -1663,7 +1663,7 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         }
       ],
@@ -1837,14 +1837,14 @@
       "name": "GPT-4o mini",
       "slug": "gpt-4o-mini",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
+      "type": "PTCF",
+      "nick": "The Architect",
       "testedAt": "2026-05-16T04:45:15.000Z",
       "scores": [
         3,
-        2,
-        2,
-        1
+        4,
+        4,
+        2
       ],
       "dimensions": [
         {
@@ -1860,7 +1860,7 @@
             "T",
             "E"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -1868,7 +1868,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 4,
           "max": 4
         },
         {
@@ -1876,7 +1876,7 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         }
       ],
@@ -2647,13 +2647,13 @@
       "name": "Llama 4 Scout 17B",
       "slug": "llama-4-scout-17b",
       "url": "",
-      "type": "PECN",
-      "nick": "The Drill Sergeant",
+      "type": "PTCN",
+      "nick": "The Commander",
       "testedAt": "2026-05-03T12:34:37.632Z",
       "scores": [
         2,
-        1,
         2,
+        3,
         1
       ],
       "dimensions": [
@@ -2670,7 +2670,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -2678,7 +2678,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
