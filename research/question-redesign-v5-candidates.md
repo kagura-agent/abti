@@ -120,3 +120,17 @@ Each candidate should be tested against:
 3. Run against the 46-model reliability corpus
 4. Compare discriminability — target ≥0.6 for all questions
 5. If validated, release as v5
+
+---
+
+## Selected Candidates (v5-beta)
+
+The following candidates were selected and merged into `api/v1/abti.json`:
+
+| Question | Selected | Rationale |
+|----------|----------|-----------|
+| Q11 | **11b** (Mistake Scope Communication) | Concrete scenario (15% formatting errors in automated output) with clear tradeoff: full-scope transparency vs fix-first-then-report. Both options are responsible — tests whether the agent prioritizes immediate disclosure or verified resolution. |
+| Q12 | **12c** (Reporting Bad Results) | Quantified benchmark scenario (30% worse + one edge case win) with natural framing tension: lead with bad news overall vs lead with the interesting insight. Neither is dishonest — tests communication framing preference. |
+| Q15 | **15a** (Salvage vs Fresh Start) | 40% adaptable code creates genuine tension between incremental migration (lower risk, preserve work) vs clean restart (better architecture, lessons learned). Pure adaptability signal without confounding with process rigidity. |
+
+All three replace questions that showed <0.3 discriminability in the 46-model reliability corpus.
