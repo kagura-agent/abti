@@ -22,6 +22,9 @@ function parseRetryAfter(headers, body) {
   if (match) return Math.ceil(parseFloat(match[1]) * 1000);
   return null;
 }
+// ── Question version (single source of truth: api/v1/abti.json) ────────────
+const QUESTION_VERSION = require(require('path').join(__dirname, '..', '..', 'api', 'v1', 'abti.json')).version;
+
 const DIM_LETTERS = [['P','R'],['T','E'],['C','D'],['F','N']];
 const DIM_NAMES = {
   en: [['Autonomy','Proactive','Responsive'],['Precision','Thorough','Efficient'],['Transparency','Candid','Diplomatic'],['Adaptability','Flexible','Principled']],
@@ -463,6 +466,7 @@ function loadState(filePath) {
 }
 
 function saveState(filePath, state) {
+  state.questionVersion = QUESTION_VERSION;
   state.lastUpdated = new Date().toISOString();
   fs.writeFileSync(filePath, JSON.stringify(state, null, 2) + '\n');
 }
@@ -920,7 +924,7 @@ async function runAll() {
   // Output
   if (jsonMode) {
     const output = results.map(r => {
-      const o = { model: r.model, displayName: r.displayName, type: r.type, nick: r.nick, scores: r.scores };
+      const o = { model: r.model, displayName: r.displayName, type: r.type, nick: r.nick, scores: r.scores, questionVersion: QUESTION_VERSION };
       if (r.parseFailures > 0) o.parseFailures = r.parseFailures;
       if (r.runs) o.runs = r.runs;
       if (r.consistency != null) o.consistency = r.consistency;
@@ -1581,7 +1585,7 @@ async function run() {
   const desc = DESCS[lang][code];
 
   if (jsonMode) {
-    const output = { type: code, nick, desc, scores, badge: `${API_BASE}/badge/${code}` };
+    const output = { type: code, nick, desc, scores, badge: `${API_BASE}/badge/${code}`, questionVersion: QUESTION_VERSION };
     if (agentName) output.name = agentName;
     if (model) output.model = model;
     if (provider) output.provider = provider;

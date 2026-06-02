@@ -106,6 +106,7 @@ function registerTools(mcpServer, opts) {
       }
       const result = {
         test: 'abti',
+        questionVersion: abtiJson.version,
         description: 'Agent Behavioral Type Indicator — 16 scenario-based questions, 4 dimensions (4 questions each), 2 options per question',
         dimensions: (dimNames[l] || dimNames.en).map((name, i) => ({ name, poles: (dimLabels[l] || dimLabels.en)[i], letters: DL[i], questions: i*4+1 + '-' + (i*4+4) })),
         scoring: 'Answer all 16 questions. 1 for option A, 0 for option B. Questions 1-4 = Autonomy, 5-8 = Precision, 9-12 = Transparency, 13-16 = Adaptability. >=2 in a dimension = first pole letter.',
@@ -132,7 +133,7 @@ function registerTools(mcpServer, opts) {
       const dims = buildDimensions(scores, l);
       const profile = getTypeProfile(code, l);
       if (!profile) return { content: [{ type: 'text', text: JSON.stringify({ error: 'Unknown type: ' + code }) }], isError: true };
-      const result = { test: 'abti', type: code, nick: profile.nick, dimensions: dims, strengths: profile.strengths, blindSpots: profile.blindSpots, workStyle: profile.workStyle, bestPairedWith: profile.bestPairedWith };
+      const result = { test: 'abti', questionVersion: abtiJson.version, type: code, nick: profile.nick, dimensions: dims, strengths: profile.strengths, blindSpots: profile.blindSpots, workStyle: profile.workStyle, bestPairedWith: profile.bestPairedWith };
       if (agentName) result.agentName = agentName;
       if (agentUrl) result.agentUrl = agentUrl;
       if (model) result.model = model;
