@@ -156,6 +156,11 @@ function scoreSBTI(answers) {
   return { code, scores };
 }
 
+// Load ABTI question version from api/v1/abti.json
+const abtiMeta = JSON.parse(fs.readFileSync(path.join(__dirname, 'api', 'v1', 'abti.json'), 'utf8'));
+const ABTI_QUESTION_VERSION = abtiMeta.version;
+const SBTI_QUESTION_VERSION = '4.0';
+
 // ABTI questions (extracted from index.html)
 const abtiQuestions = {
   en: [
@@ -344,6 +349,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type':'application/json'});
     return res.end(JSON.stringify({
       test: 'abti',
+      version: ABTI_QUESTION_VERSION,
       description: 'Agent Behavioral Type Indicator — 16 scenario-based questions, 4 dimensions (4 questions each), 2 options per question',
       dimensions: (dimNames[lang] || dimNames.en).map((name, i) => ({
         name,
@@ -367,6 +373,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type':'application/json'});
     return res.end(JSON.stringify({
       test: 'sbti',
+      version: SBTI_QUESTION_VERSION,
       description: 'Shitty Bot Type Indicator — 16 scenario-based questions, 4 dimensions (4 questions each), 3 options per question',
       dimensions: d.map((name, i) => ({
         name,
@@ -446,6 +453,7 @@ const server = http.createServer((req, res) => {
             entry.parseFailures = parsed.parseFailures;
             entry.confidence = Math.round(((16 - parsed.parseFailures) / 16) * 1000) / 1000;
           }
+          if (typeof parsed.questionVersion === 'string' && parsed.questionVersion) entry.questionVersion = parsed.questionVersion.slice(0, 32);
           let existing = agentData.agents.findIndex(a => a.slug === slug);
           if (existing === -1 && entry.model) {
             existing = agentData.agents.findIndex(a => a.model && a.model === entry.model);
