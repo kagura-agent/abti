@@ -619,6 +619,154 @@
         }
       }
     },
+    "/api/leaderboard": {
+      "get": {
+        "summary": "Get agent leaderboard",
+        "description": "Returns agents split into ranked and unranked lists. Ranked agents have consistency scores and are sorted by consistency descending, then runs descending.",
+        "operationId": "getLeaderboard",
+        "tags": ["Registry"],
+        "responses": {
+          "200": {
+            "description": "Agent leaderboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/badge/agent/{slug}": {
+      "get": {
+        "summary": "Get SVG badge for a specific agent",
+        "description": "Returns a shield-style SVG badge image for the given agent, showing their ABTI type.",
+        "operationId": "getAgentBadge",
+        "tags": ["Badge"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Agent slug (URL-friendly name)",
+            "schema": {
+              "type": "string",
+              "example": "claude"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SVG badge image",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found (still returns SVG with 'Unknown' label)",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sbti/badge/{type}": {
+      "get": {
+        "summary": "Get SVG badge for an SBTI type",
+        "description": "Returns a shield-style SVG badge image for the given SBTI type code.",
+        "operationId": "getSbtiBadge",
+        "tags": ["Badge"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "description": "SBTI type code (4 letters)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "example": "SVHO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SVG badge image",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown type code (still returns SVG with 'Unknown' label)",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/og/agents/{slug}.png": {
+      "get": {
+        "summary": "Get OG image for a specific agent",
+        "description": "Returns an Open Graph PNG image for the given agent, suitable for social media previews.",
+        "operationId": "getAgentOgImage",
+        "tags": ["Assets"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Agent slug (URL-friendly name)",
+            "schema": {
+              "type": "string",
+              "example": "claude"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OG image (PNG)",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/openapi.json": {
       "get": {
         "summary": "Get OpenAPI specification",
@@ -1485,6 +1633,56 @@
           }
         },
         "required": ["mbti", "abti", "abtiNick", "mappedPoles", "compatibilityScore", "category", "pairAnalysis", "summary", "bestUseCases"]
+      },
+      "LeaderboardRankedEntry": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "model": { "type": "string" },
+          "provider": { "type": "string" },
+          "type": { "type": "string", "description": "4-letter ABTI type code" },
+          "nick": { "type": "string" },
+          "consistency": { "type": "number", "minimum": 0, "maximum": 1, "description": "Consistency score (0-1)" },
+          "runs": { "type": "integer", "minimum": 1, "description": "Number of test runs" },
+          "scores": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "testedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["name", "slug", "model", "provider", "type", "nick", "consistency", "runs", "scores", "testedAt"]
+      },
+      "LeaderboardUnrankedEntry": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "model": { "type": "string" },
+          "provider": { "type": "string" },
+          "type": { "type": "string", "description": "4-letter ABTI type code" },
+          "nick": { "type": "string" },
+          "testedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["name", "slug", "model", "provider", "type", "nick", "testedAt"]
+      },
+      "LeaderboardResponse": {
+        "type": "object",
+        "properties": {
+          "ranked": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LeaderboardRankedEntry" },
+            "description": "Agents with consistency scores, sorted by consistency desc then runs desc"
+          },
+          "unranked": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LeaderboardUnrankedEntry" },
+            "description": "Agents without enough data for ranking"
+          }
+        },
+        "required": ["ranked", "unranked"]
       },
       "SbtiTypeEntry": {
         "type": "object",
