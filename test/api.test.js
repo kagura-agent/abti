@@ -76,6 +76,13 @@ describe('GET /api/test', () => {
     const j = r.json();
     assert.equal(j.dimensions[0].name, 'Autonomy');
   });
+
+  it('includes version field', async () => {
+    const r = await req('/api/test');
+    const j = r.json();
+    assert.equal(typeof j.version, 'string');
+    assert.ok(j.version.length > 0);
+  });
 });
 
 // ─── POST /api/agent-test ───
@@ -485,6 +492,13 @@ describe('GET /api/sbti/test', () => {
     const j = r.json();
     assert.equal(j.questions.length, 16);
     assert.match(j.dimensions[0].name, /讨好/);
+  });
+
+  it('includes version field', async () => {
+    const r = await req('/api/sbti/test');
+    const j = r.json();
+    assert.equal(typeof j.version, 'string');
+    assert.ok(j.version.length > 0);
   });
 });
 
@@ -939,5 +953,43 @@ describe('POST /api/agent-test parseFailures/confidence', () => {
     const agent = data.agents.find(a => a.name === 'NoParseBot');
     assert.equal(agent.parseFailures, undefined);
     assert.equal(agent.confidence, undefined);
+  });
+});
+
+describe('POST /api/agent-test questionVersion', () => {
+  it('stores questionVersion when provided', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'VersionBot', questionVersion: '5.0-beta' }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'VersionBot');
+    assert.equal(agent.questionVersion, '5.0-beta');
+  });
+
+  it('omits questionVersion when not provided', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'NoVersionBot' }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'NoVersionBot');
+    assert.equal(agent.questionVersion, undefined);
+  });
+
+  it('truncates questionVersion to 32 chars', async () => {
+    rateLimitMap.clear();
+    const r = await req('/api/agent-test', {
+      method: 'POST',
+      body: { answers: Array(16).fill(1), agentName: 'LongVersionBot', questionVersion: 'x'.repeat(100) }
+    });
+    assert.equal(r.status, 200);
+    const data = JSON.parse(fs.readFileSync(path.join(tmpDir, 'results.json'), 'utf8'));
+    const agent = data.agents.find(a => a.name === 'LongVersionBot');
+    assert.equal(agent.questionVersion.length, 32);
   });
 });
