@@ -4326,6 +4326,75 @@
         false
       ],
       "reliability": 0.75
+    },
+    {
+      "name": "Phi-4 Mini Instruct (GitHub)",
+      "slug": "phi-4-mini-instruct-github",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-06-03T00:38:57.000Z",
+      "scores": [
+        3,
+        2,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "microsoft/phi-4-mini-instruct",
+      "provider": "github",
+      "answers": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false
+      ],
+      "reliability": 0.67
     }
   ]
 }
