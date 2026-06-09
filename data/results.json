@@ -1011,7 +1011,8 @@
         false
       ],
       "parseFailures": 0,
-      "questionVersion": "5.0-beta"
+      "questionVersion": "5.0-beta",
+      "confidence": 1
     },
     {
       "name": "Dolphin Mistral 7B",
