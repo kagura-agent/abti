@@ -1,0 +1,8 @@
+{
+  "model": "meta/llama-4-maverick-17b-128e-instruct-fp8",
+  "provider": "github",
+  "run": 1,
+  "answers": ["A", "B", "B", "A", "A", "B", "A", "B", "B", "B", "A", "A", "B", "B", "B", "B"],
+  "type": "PTCN",
+  "dimensions": [2, 2, 2, 0]
+}
