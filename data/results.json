@@ -4333,14 +4333,14 @@
       "name": "Meta-Llama-3.1-8B-Instruct",
       "slug": "meta-llama-3-1-8b-instruct",
       "url": "",
-      "type": "PEDF",
-      "nick": "The Fixer",
-      "testedAt": "2026-05-30T06:45:35.000Z",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-06-09T01:39:01.000Z",
       "scores": [
         3,
-        1,
-        1,
-        2
+        2,
+        3,
+        1
       ],
       "dimensions": [
         {
@@ -4356,7 +4356,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -4364,7 +4364,7 @@
             "C",
             "D"
           ],
-          "score": 1,
+          "score": 3,
           "max": 4
         },
         {
@@ -4372,7 +4372,7 @@
             "F",
             "N"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         }
       ],
@@ -4386,17 +4386,49 @@
         false,
         false,
         true,
-        false,
-        false,
+        true,
+        true,
+        true,
         true,
         false,
         false,
-        true,
         false,
         true,
         false
       ],
-      "reliability": 0.75
+      "reliability": 1.0,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            3,
+            1
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 1.0,
+      "questionVersion": "5.0-beta"
     },
     {
       "name": "Phi-4 Mini Instruct (GitHub)",
