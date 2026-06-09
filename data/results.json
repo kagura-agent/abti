@@ -2871,11 +2871,39 @@
       ],
       "model": "Llama-3.3-70B-Instruct",
       "provider": "github",
-      "reliability": 1,
-      "reliabilityRuns": 0,
+      "reliability": 0.875,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            3,
+            1
+          ]
+        }
+      ],
       "reliabilityNote": "3/3 PECN [2,1,3,1]",
-      "runs": 1,
-      "consistency": null
+      "runs": 3,
+      "consistency": 88
     },
     {
       "name": "Llama 4 Maverick 17B",
@@ -2926,10 +2954,38 @@
       ],
       "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
       "provider": "github",
-      "reliability": 1,
-      "reliabilityRuns": 0,
-      "runs": 1,
-      "consistency": null
+      "reliability": 0.8958,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            2,
+            1
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 90
     },
     {
       "name": "Llama 4 Scout 17B",
