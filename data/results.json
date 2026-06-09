@@ -131,7 +131,7 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
-      "consistency": 98,
+      "consistency": 67,
       "runs": 3,
       "reliability": 0.9792,
       "reliabilityRuns": [
@@ -295,26 +295,26 @@
       ],
       "model": "claude-opus-4.7",
       "provider": "anthropic",
-      "consistency": 66.7,
+      "consistency": 67,
       "runs": 3,
-      "reliability": 1,
+      "reliability": 0.9792,
       "reliabilityRuns": [
         {
-          "type": "RECN",
+          "type": "RECF",
           "scores": [
             0,
             0,
             4,
-            1
+            2
           ]
         },
         {
-          "type": "RECN",
+          "type": "RECF",
           "scores": [
             0,
             0,
             4,
-            1
+            2
           ]
         },
         {
@@ -377,7 +377,7 @@
       ],
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
-      "consistency": 75,
+      "consistency": 33,
       "runs": 3,
       "reliability": 0.75,
       "reliabilityRuns": [
@@ -459,7 +459,7 @@
       ],
       "model": "claude-sonnet-4.6",
       "provider": "anthropic",
-      "consistency": 92,
+      "consistency": 67,
       "runs": 3,
       "reliability": 0.9167,
       "reliabilityRuns": [
@@ -542,9 +542,37 @@
       "model": "Codestral-2501",
       "provider": "github",
       "reliability": 0.7708,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        }
+      ],
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "consistency": 50,
+      "consistency": 33,
       "runs": 3
     },
     {
@@ -600,31 +628,13 @@
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "reliabilityRuns": [
         {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
+          "type": "PTCF"
         },
         {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
+          "type": "PTCF"
         },
         {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
+          "type": "PTCF"
         }
       ],
       "consistency": 100,
@@ -911,7 +921,7 @@
       "model": "deepseek-r1:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 1,
+      "runs": 3,
       "reliability": 1,
       "reliabilityRuns": [
         {
@@ -1146,7 +1156,35 @@
       "model": "exaone3.5:2.4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            2,
+            0
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -1200,7 +1238,35 @@
       "model": "falcon3:3b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "REDN",
+          "scores": [
+            0,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            0,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            0,
+            0,
+            1,
+            0
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -1254,8 +1320,36 @@
       "model": "gemma3:12b",
       "provider": "ollama",
       "reliability": 0.9583,
-      "reliabilityRuns": 3,
-      "consistency": 96,
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            4
+          ]
+        }
+      ],
+      "consistency": 67,
       "runs": 3
     },
     {
@@ -1310,7 +1404,35 @@
       "consistency": 100,
       "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            4
+          ]
+        }
+      ]
     },
     {
       "name": "Gemma 2 2B",
@@ -1605,7 +1727,7 @@
           ]
         }
       ],
-      "consistency": 98,
+      "consistency": 100,
       "runs": 3
     },
     {
@@ -1688,7 +1810,7 @@
           ]
         }
       ],
-      "consistency": 90,
+      "consistency": 100,
       "runs": 3
     },
     {
@@ -1771,7 +1893,7 @@
           ]
         }
       ],
-      "consistency": 94,
+      "consistency": 100,
       "runs": 3
     },
     {
@@ -1953,37 +2075,37 @@
       ],
       "model": "gpt-4o-mini",
       "provider": "openai",
-      "reliability": 1,
+      "reliability": 0.875,
       "reliabilityRuns": [
         {
-          "type": "PTCF",
+          "type": "PTCN",
           "scores": [
             3,
-            4,
-            4,
-            2
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
           ]
         },
         {
           "type": "PTCF",
           "scores": [
             3,
-            4,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
+            2,
+            2,
             2
           ]
         }
       ],
-      "consistency": 66.7,
+      "consistency": 67,
       "runs": 3
     },
     {
@@ -2035,7 +2157,7 @@
       ],
       "model": "gpt-5.2",
       "provider": "openai",
-      "consistency": 92,
+      "consistency": 33,
       "runs": 3,
       "reliability": 0.9167,
       "reliabilityRuns": [
@@ -2117,7 +2239,7 @@
       ],
       "model": "gpt-5-mini",
       "provider": "openai",
-      "consistency": 92,
+      "consistency": 67,
       "runs": 3,
       "reliability": 0.9167,
       "reliabilityRuns": [
@@ -2200,7 +2322,35 @@
       "model": "granite3.3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            4,
+            2
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -2337,7 +2487,8 @@
       "provider": "github",
       "reliability": 1,
       "reliabilityRuns": 3,
-      "reliabilityNote": "3/3 PTCN [3,3,4,1]"
+      "reliabilityNote": "3/3 PTCN [3,3,4,1]",
+      "runs": 3
     },
     {
       "name": "Llama 3.1 8B",
@@ -2391,7 +2542,35 @@
       "consistency": 100,
       "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        }
+      ]
     },
     {
       "name": "Llama 3.2 11B Vision",
@@ -2446,31 +2625,13 @@
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "reliabilityRuns": [
         {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
+          "type": "PTCF"
         },
         {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
+          "type": "PTCF"
         },
         {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
+          "type": "PTCF"
         }
       ],
       "consistency": 100,
@@ -2528,7 +2689,35 @@
       "consistency": 100,
       "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            4,
+            2,
+            1
+          ]
+        }
+      ]
     },
     {
       "name": "Llama 3.2 90B Vision",
@@ -2632,7 +2821,8 @@
       "provider": "github",
       "reliability": 1,
       "reliabilityRuns": 3,
-      "reliabilityNote": "3/3 PECN [2,1,3,1]"
+      "reliabilityNote": "3/3 PECN [2,1,3,1]",
+      "runs": 3
     },
     {
       "name": "Llama 4 Maverick 17B",
@@ -2712,7 +2902,9 @@
             1
           ]
         }
-      ]
+      ],
+      "runs": 3,
+      "consistency": 100
     },
     {
       "name": "Llama 4 Scout 17B",
@@ -2792,7 +2984,9 @@
             1
           ]
         }
-      ]
+      ],
+      "runs": 3,
+      "consistency": 100
     },
     {
       "name": "Mathstral 7B",
@@ -2928,35 +3122,35 @@
       "reliability": 0.8125,
       "reliabilityRuns": [
         {
-          "type": "PTCF",
+          "type": "PEDF",
           "scores": [
-            4,
-            3,
-            4,
+            2,
+            1,
+            0,
             4
           ]
         },
         {
-          "type": "PTCF",
+          "type": "PECF",
           "scores": [
-            4,
+            2,
+            0,
             3,
-            4,
-            4
+            2
           ]
         },
         {
-          "type": "PTCF",
+          "type": "PTDF",
           "scores": [
-            4,
             3,
-            4,
-            4
+            2,
+            1,
+            3
           ]
         }
       ],
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "consistency": 67,
+      "consistency": 33,
       "runs": 3
     },
     {
@@ -3092,9 +3286,37 @@
       "provider": "github",
       "reliability": 0.9583,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
-      "reliabilityRuns": 3,
-      "consistency": 94,
-      "runs": 2
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            2
+          ]
+        }
+      ],
+      "consistency": 67,
+      "runs": 3
     },
     {
       "name": "Mistral Small 3.1",
@@ -3147,8 +3369,36 @@
       "provider": "github",
       "reliability": 0.7708,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": 3,
-      "consistency": 77,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            3
+          ]
+        }
+      ],
+      "consistency": 67,
       "runs": 3
     },
     {
@@ -3286,31 +3536,13 @@
       "reliability": 1,
       "reliabilityRuns": [
         {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
+          "type": "RTDN"
         },
         {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
+          "type": "RTDN"
         },
         {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
+          "type": "RTDN"
         }
       ],
       "consistency": 100,
@@ -3368,7 +3600,35 @@
       "consistency": 100,
       "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Phi-4 Mini Reasoning",
@@ -3449,7 +3709,9 @@
           ]
         }
       ],
-      "badge": "https://abti.kagura-agent.com/badge/PTDF"
+      "badge": "https://abti.kagura-agent.com/badge/PTDF",
+      "runs": 3,
+      "consistency": 67
     },
     {
       "name": "Phi 4 Multimodal",
@@ -3504,31 +3766,13 @@
       "badge": "https://abti.kagura-agent.com/badge/PTCN",
       "reliabilityRuns": [
         {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
+          "type": "PTCN"
         },
         {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
+          "type": "PTCN"
         },
         {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
+          "type": "PTCN"
         }
       ],
       "consistency": 100,
@@ -3600,7 +3844,38 @@
         4
       ],
       "nick": "The Advisor",
-      "reliability": 0.375
+      "reliability": 0.7917,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 67
     },
     {
       "name": "Qwen 2.5 3B",
@@ -3652,9 +3927,37 @@
       "model": "qwen2.5:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5,
+      "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Qwen 2.5 7B",
@@ -3706,9 +4009,37 @@
       "model": "qwen2.5:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 5,
+      "runs": 3,
       "reliability": 1,
-      "reliabilityRuns": 3
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        }
+      ]
     },
     {
       "name": "Qwen 3 1.7B",
@@ -3760,7 +4091,35 @@
       "model": "qwen3:1.7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            2,
+            3
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -3814,7 +4173,35 @@
       "model": "qwen3:4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            2,
+            0
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -3868,7 +4255,35 @@
       "model": "qwen3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            1,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            1,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            1,
+            3,
+            1
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -4159,7 +4574,35 @@
       "model": "stablelm2:1.6b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            4,
+            4
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 3
     },
@@ -4244,7 +4687,7 @@
           ]
         }
       ],
-      "consistency": 92,
+      "consistency": 67,
       "runs": 3
     },
     {
@@ -4396,7 +4839,7 @@
         true,
         false
       ],
-      "reliability": 1.0,
+      "reliability": 0.9167,
       "reliabilityRuns": [
         {
           "type": "PTCN",
@@ -4412,22 +4855,22 @@
           "scores": [
             3,
             2,
-            3,
-            1
+            2,
+            0
           ]
         },
         {
-          "type": "PTCN",
+          "type": "PECN",
           "scores": [
             3,
-            2,
-            3,
-            1
+            1,
+            4,
+            0
           ]
         }
       ],
       "runs": 3,
-      "consistency": 1.0,
+      "consistency": 67,
       "questionVersion": "5.0-beta"
     },
     {
@@ -4497,21 +4940,38 @@
         true,
         false
       ],
-      "reliability": 0.67,
+      "reliability": 0.9167,
       "reliabilityRuns": [
         {
           "type": "PTCN",
-          "scores": null
+          "scores": [
+            3,
+            2,
+            4,
+            1
+          ]
         },
         {
           "type": "PECF",
-          "scores": null
+          "scores": [
+            2,
+            1,
+            4,
+            2
+          ]
         },
         {
           "type": "PTCN",
-          "scores": null
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
         }
-      ]
+      ],
+      "runs": 3,
+      "consistency": 67
     }
   ]
 }
