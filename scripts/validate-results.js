@@ -63,6 +63,22 @@ function validate(filePath) {
       if (a.type !== derived) errors.push(`${prefix}: type "${a.type}" doesn't match derived "${derived}" from scores`);
     }
 
+    // reliabilityRuns: must be array of {type,scores} objects or integer 0
+    if (a.reliabilityRuns !== undefined && a.reliabilityRuns !== null) {
+      if (Array.isArray(a.reliabilityRuns)) {
+        for (let r = 0; r < a.reliabilityRuns.length; r++) {
+          const run = a.reliabilityRuns[r];
+          const rp = `${prefix}.reliabilityRuns[${r}]`;
+          if (typeof run.type !== 'string' || run.type.length !== 4) errors.push(`${rp}: type must be a 4-char string`);
+          if (!Array.isArray(run.scores) || run.scores.length !== 4 || !run.scores.every(s => Number.isInteger(s) && s >= 0 && s <= 4)) {
+            errors.push(`${rp}: scores must be an array of exactly 4 integers (0-4)`);
+          }
+        }
+      } else if (a.reliabilityRuns !== 0) {
+        errors.push(`${prefix}: reliabilityRuns must be an array of run objects or 0, got ${typeof a.reliabilityRuns} (${a.reliabilityRuns})`);
+      }
+    }
+
     if (slugs.has(a.slug)) errors.push(`${prefix}: duplicate slug "${a.slug}"`);
     slugs.add(a.slug);
   }
