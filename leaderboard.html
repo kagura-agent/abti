@@ -90,6 +90,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 .unranked-name a:hover { color: var(--accent); }
 .unranked-meta { font-size: .78rem; color: var(--text2); display: flex; gap: .5rem; align-items: center; }
 .unranked-left { min-width: 0; flex: 1; }
+.badge-deprecated { display: inline-block; background: #fff3e0; color: #e65100; font-size: .65rem; font-weight: 600; padding: .1rem .45rem; border-radius: 999px; letter-spacing: .04em; vertical-align: middle; margin-left: .35rem; }
+.card-deprecated { opacity: 0.65; }
 
 .empty { text-align: center; padding: 3rem 1rem; color: var(--text2); }
 .empty p { font-size: .95rem; line-height: 1.7; }
@@ -193,6 +195,7 @@ const i18n = {
     bannerAll: 'No agents have consistency data yet. Run <a href="test-agent.html">multi-run tests</a> with the <code>--runs N</code> flag to generate consistency scores.',
     bannerSome: 'Agents are ranked by consistency score from multi-run testing. <a href="test-agent.html">Test your agent</a> with <code>--runs N</code> to get ranked.',
     noModel: 'Unknown model',
+    deprecated: 'Deprecated',
   },
   zh: {
     title: '智能体 <span>排行榜</span>',
@@ -206,6 +209,7 @@ const i18n = {
     bannerAll: '暂无智能体拥有一致性数据。使用 <a href="test-agent.html">多次测试</a> 的 <code>--runs N</code> 参数来生成一致性分数。',
     bannerSome: '智能体按多次测试的一致性分数排名。<a href="test-agent.html">测试你的智能体</a>，使用 <code>--runs N</code> 获得排名。',
     noModel: '未知模型',
+    deprecated: '已弃用',
   }
 };
 
@@ -250,9 +254,9 @@ function render() {
     } else {
       html += '<div class="rank-list">';
       for (const a of unranked) {
-        html += `<div class="unranked-card">
+        html += `<div class="unranked-card${a.deprecated ? ' card-deprecated' : ''}">
           <div class="unranked-left">
-            <div class="unranked-name"><a href="/agent/${a.slug}">${esc(a.name)}</a></div>
+            <div class="unranked-name"><a href="/agent/${a.slug}">${esc(a.name)}</a>${a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">' + t.deprecated + '</span>' : ''}</div>
             <div class="unranked-meta">
               <a class="type-pill" href="/type/${a.type}">${a.type}</a>
               <span>${a.model || t.noModel}</span>
@@ -271,10 +275,10 @@ function render() {
     for (let i = 0; i < ranked.length; i++) {
       const a = ranked[i];
       const runsLabel = a.runs === 1 ? t.run : t.runs;
-      html += `<div class="rank-card">
+      html += `<div class="rank-card${a.deprecated ? ' card-deprecated' : ''}">
         <div class="rank-num ${rankClass(i)}">${i + 1}</div>
         <div class="rank-info">
-          <div class="rank-name"><a href="/agent/${a.slug}">${esc(a.name)}</a></div>
+          <div class="rank-name"><a href="/agent/${a.slug}">${esc(a.name)}</a>${a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">' + t.deprecated + '</span>' : ''}</div>
           <div class="rank-meta">
             <a class="type-pill" href="/type/${a.type}">${a.type}</a>
             <span>${a.nick || ''}</span>
@@ -295,9 +299,9 @@ function render() {
       html += `<div class="section-title">${t.unranked} <span class="badge">${unranked.length}</span></div>`;
       html += '<div class="rank-list">';
       for (const a of unranked) {
-        html += `<div class="unranked-card">
+        html += `<div class="unranked-card${a.deprecated ? ' card-deprecated' : ''}">
           <div class="unranked-left">
-            <div class="unranked-name"><a href="/agent/${a.slug}">${esc(a.name)}</a></div>
+            <div class="unranked-name"><a href="/agent/${a.slug}">${esc(a.name)}</a>${a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">' + t.deprecated + '</span>' : ''}</div>
             <div class="unranked-meta">
               <a class="type-pill" href="/type/${a.type}">${a.type}</a>
               <span>${a.model || t.noModel}</span>

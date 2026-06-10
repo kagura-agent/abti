@@ -63,6 +63,9 @@ function validate(filePath) {
       if (a.type !== derived) errors.push(`${prefix}: type "${a.type}" doesn't match derived "${derived}" from scores`);
     }
 
+    if (a.deprecated !== undefined && typeof a.deprecated !== 'boolean') errors.push(`${prefix}: deprecated must be a boolean`);
+    if (a.deprecatedReason !== undefined && typeof a.deprecatedReason !== 'string') errors.push(`${prefix}: deprecatedReason must be a string`);
+
     // reliabilityRuns: must be array of {type,scores} objects or integer 0
     if (a.reliabilityRuns !== undefined && a.reliabilityRuns !== null) {
       if (Array.isArray(a.reliabilityRuns)) {
