@@ -983,14 +983,14 @@
       "name": "DeepSeek V3 0324",
       "slug": "deepseek-v3-0324",
       "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
+      "type": "PTCN",
+      "nick": "The Commander",
       "testedAt": "2026-06-07T06:44:43.937Z",
       "scores": [
         4,
-        1,
+        2,
         3,
-        2
+        1
       ],
       "dimensions": [
         {
@@ -1006,7 +1006,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 2,
           "max": 4
         },
         {
@@ -1022,7 +1022,7 @@
             "F",
             "N"
           ],
-          "score": 2,
+          "score": 1,
           "max": 4
         }
       ],
@@ -1034,15 +1034,15 @@
         true,
         true,
         false,
-        false,
-        true,
-        false,
-        true,
-        false,
         true,
         true,
         false,
         true,
+        false,
+        true,
+        true,
+        false,
+        false,
         true,
         false
       ],
@@ -1058,11 +1058,20 @@
             3,
             1
           ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            2,
+            3,
+            0
+          ]
         }
       ],
-      "runs": 1,
-      "reliability": 1,
-      "consistency": 100
+      "runs": 3,
+      "reliability": 0.9167,
+      "consistency": 0.6667
     },
     {
       "name": "Dolphin Mistral 7B",
