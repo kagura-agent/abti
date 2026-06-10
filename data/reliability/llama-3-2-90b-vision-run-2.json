@@ -1,0 +1,30 @@
+{
+  "model": "Llama-3.2-90B-Vision-Instruct",
+  "provider": "github",
+  "run": 2,
+  "answers": [
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "PTCN",
+  "dimensions": [
+    2,
+    3,
+    2,
+    1
+  ]
+}

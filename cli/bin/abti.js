@@ -393,7 +393,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com', undefined, maxTokens);
-  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.github.ai/inference', undefined, maxTokens, '/chat/completions');
+  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.inference.ai.azure.com', undefined, maxTokens, '/chat/completions');
   if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai', undefined, maxTokens);
   if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
   if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
