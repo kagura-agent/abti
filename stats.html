@@ -307,8 +307,9 @@ function render() {
 
   // Provider counts from agent data
   const agents = (agentsData && agentsData.agents) || [];
+  const activeAgents = agents.filter(a => !a.deprecated);
   const providerCounts = {};
-  for (const a of agents) {
+  for (const a of activeAgents) {
     const p = a.provider || 'unknown';
     providerCounts[p] = (providerCounts[p] || 0) + 1;
   }
@@ -353,7 +354,7 @@ function render() {
 
   // Dimension Analysis
   const dimCounts = [[0,0],[0,0],[0,0],[0,0]];
-  for (const a of agents) {
+  for (const a of activeAgents) {
     if (!a.scores || a.scores.length < 4) continue;
     dimCounts[0][a.scores[0] >= 2 ? 0 : 1]++;
     dimCounts[1][a.scores[1] >= 2 ? 0 : 1]++;
