@@ -1049,10 +1049,20 @@
       "parseFailures": 0,
       "questionVersion": "5.0-beta",
       "confidence": 1,
-      "reliabilityRuns": 0,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            2,
+            3,
+            1
+          ]
+        }
+      ],
       "runs": 1,
-      "reliability": null,
-      "consistency": null
+      "reliability": 1,
+      "consistency": 100
     },
     {
       "name": "Dolphin Mistral 7B",
