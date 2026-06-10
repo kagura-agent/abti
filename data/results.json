@@ -2817,10 +2817,38 @@
       ],
       "model": "Llama-3.2-90B-Vision-Instruct",
       "provider": "github",
-      "reliability": 1,
-      "reliabilityRuns": 0,
-      "runs": 1,
-      "consistency": null
+      "reliability": 0.8958,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            4,
+            3,
+            1
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 90
     },
     {
       "name": "Llama 3.3 70B",
@@ -4397,9 +4425,9 @@
       ],
       "model": "Qwen3-32B",
       "provider": "github",
-      "consistency": 100,
-      "runs": 2,
-      "reliability": 1,
+      "consistency": 92,
+      "runs": 3,
+      "reliability": 0.9167,
       "reliabilityRuns": [
         {
           "type": "PECF",
@@ -4417,6 +4445,15 @@
             1,
             2,
             2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            3,
+            3
           ]
         }
       ]
