@@ -708,7 +708,8 @@
       "model": "Cohere-command-r-08-2024",
       "provider": "github",
       "deprecated": true,
-      "deprecatedReason": "Removed from GitHub Models catalog",
+      "deprecatedReason": "Removed from GitHub Models; returns unknown_model error (June 2026)",
+>>>>>>> 09ccbf5 (sync llama-4-scout-17b reliability data + update cohere deprecation reasons)
       "reliabilityRuns": 0,
       "runs": 1,
       "reliability": null,
@@ -764,7 +765,7 @@
       "model": "Cohere-command-r-plus-08-2024",
       "provider": "github",
       "deprecated": true,
-      "deprecatedReason": "Removed from GitHub Models catalog",
+"deprecatedReason": "Removed from GitHub Models; returns unknown_model error (June 2026)",
       "reliabilityRuns": 0,
       "runs": 1,
       "reliability": null,
