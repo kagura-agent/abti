@@ -709,7 +709,6 @@
       "provider": "github",
       "deprecated": true,
       "deprecatedReason": "Removed from GitHub Models; returns unknown_model error (June 2026)",
->>>>>>> 09ccbf5 (sync llama-4-scout-17b reliability data + update cohere deprecation reasons)
       "reliabilityRuns": 0,
       "runs": 1,
       "reliability": null,
@@ -765,7 +764,7 @@
       "model": "Cohere-command-r-plus-08-2024",
       "provider": "github",
       "deprecated": true,
-"deprecatedReason": "Removed from GitHub Models; returns unknown_model error (June 2026)",
+      "deprecatedReason": "Removed from GitHub Models; returns unknown_model error (June 2026)",
       "reliabilityRuns": 0,
       "runs": 1,
       "reliability": null,
@@ -2535,11 +2534,39 @@
       ],
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "github",
-      "reliability": 1,
-      "reliabilityRuns": 0,
-      "reliabilityNote": "3/3 PTCN [3,3,4,1]",
-      "runs": 1,
-      "consistency": null
+      "reliability": 0.67,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            3,
+            1
+          ]
+        }
+      ],
+      "reliabilityNote": "PTCF, PTCN, PTCN",
+      "runs": 3,
+      "consistency": 67
     },
     {
       "name": "Llama 3.1 8B",
