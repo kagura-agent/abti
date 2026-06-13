@@ -466,6 +466,17 @@ function loadState(filePath) {
 }
 
 function saveState(filePath, state) {
+  // Safety check: refuse to overwrite a file that has more answers (unless completed)
+  if (!state.completed) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      if (Array.isArray(existing.answers) && Array.isArray(state.answers) &&
+          existing.answers.length > state.answers.length) {
+        process.stderr.write(`  WARNING: refusing to overwrite ${filePath} (has ${existing.answers.length} answers) with fewer answers (${state.answers.length}). Use --resume to continue.\n`);
+        return;
+      }
+    } catch (_) { /* file doesn't exist or invalid — safe to write */ }
+  }
   state.questionVersion = QUESTION_VERSION;
   state.lastUpdated = new Date().toISOString();
   fs.writeFileSync(filePath, JSON.stringify(state, null, 2) + '\n');
@@ -493,6 +504,14 @@ async function runAuto() {
     if ((existingState.model && existingState.model !== autoModel) ||
         (existingState.provider && existingState.provider !== autoProvider)) {
       process.stderr.write(`  Warning: state file has model=${existingState.model}, provider=${existingState.provider} but CLI args have model=${autoModel}, provider=${autoProvider}\n`);
+    }
+  } else if (saveStateFlag && stateFile) {
+    // Auto-resume: if --save-state is used without --resume, check if the default
+    // state file already exists with progress to avoid accidental overwrites
+    const loaded = loadState(stateFile);
+    if (loaded && Array.isArray(loaded.answers) && loaded.answers.length > 0) {
+      existingState = loaded;
+      process.stderr.write(`  Auto-resuming from existing state file (${loaded.answers.length} answers)\n`);
     }
   }
 
