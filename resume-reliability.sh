@@ -162,18 +162,31 @@ payload = {
 print(json.dumps(payload))
 ")
 
+    RESP_FILE=$(mktemp /tmp/abti-resp-XXXXXX.json)
+    trap "rm -f $RESP_FILE" EXIT
+
     MAX_RETRIES=10
     RETRY=0
-    RESPONSE=""
     while true; do
-      HTTP_RESPONSE=$(curl -s -w "\n%{http_code}" \
+      HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 120 \
         -X POST "https://models.inference.ai.azure.com/chat/completions" \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
-        -d "$PAYLOAD" 2>&1)
+        -d "$PAYLOAD" \
+        -o "$RESP_FILE" 2>/dev/null)
 
-      HTTP_CODE=$(echo "$HTTP_RESPONSE" | tail -1)
-      BODY=$(echo "$HTTP_RESPONSE" | sed '$d')
+      CURL_EXIT=$?
+
+      if [ "$CURL_EXIT" -ne 0 ]; then
+        echo "  WARN: curl failed (exit $CURL_EXIT), retrying..."
+        RETRY=$((RETRY + 1))
+        if [ "$RETRY" -gt "$MAX_RETRIES" ]; then
+          echo "ERROR: Too many curl failures. Exiting."
+          exit 2
+        fi
+        sleep 10
+        continue
+      fi
 
       if [ "$HTTP_CODE" = "429" ]; then
         RETRY=$((RETRY + 1))
@@ -181,10 +194,11 @@ print(json.dumps(payload))
           echo "ERROR: Too many retries (429). Exiting."
           exit 2
         fi
-        # Parse retry-after from headers or body
+        # Parse retry-after from response file
         WAIT=$(python3 -c "
 import re, sys
-body = '''$BODY'''
+with open('$RESP_FILE') as f:
+    body = f.read()
 m = re.search(r'try again in (\d+(?:\.\d+)?)\s*s', body, re.I)
 if m:
     print(int(float(m.group(1)) + 1))
@@ -198,7 +212,7 @@ else:
 
       if [ "$HTTP_CODE" != "200" ]; then
         echo "ERROR: API returned HTTP $HTTP_CODE"
-        echo "$BODY"
+        cat "$RESP_FILE" 2>/dev/null
         RETRY=$((RETRY + 1))
         if [ "$RETRY" -gt "$MAX_RETRIES" ]; then
           echo "ERROR: Too many retries. Exiting."
@@ -208,15 +222,15 @@ else:
         continue
       fi
 
-      RESPONSE="$BODY"
       break
     done
 
-    # Parse answer from response
+    # Parse answer from response file
     RAW_ANSWER=$(python3 -c "
 import json, re, sys
 try:
-    data = json.loads('''$RESPONSE''')
+    with open('$RESP_FILE') as f:
+        data = json.load(f)
     content = data['choices'][0]['message']['content'].strip()
     # Strip <think> blocks
     content = re.sub(r'<think>[\s\S]*?</think>', '', content, flags=re.I)
@@ -255,7 +269,8 @@ except Exception as e:
 ")
 
     if [ "$RAW_ANSWER" = "PARSE_ERROR" ]; then
-      echo "  ERROR: Could not parse answer. Response: $RESPONSE"
+      echo "  ERROR: Could not parse answer. Response:"
+      cat "$RESP_FILE" 2>/dev/null
       exit 1
     fi
 
