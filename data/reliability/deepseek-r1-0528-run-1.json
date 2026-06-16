@@ -1,0 +1,30 @@
+{
+    "model": "DeepSeek-R1-0528",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        2,
+        2,
+        2
+    ]
+}

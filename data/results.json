@@ -1067,11 +1067,20 @@
             3,
             0
           ]
+        },
+        {
+          "type": "PEDN",
+          "scores": [
+            3,
+            1,
+            1,
+            1
+          ]
         }
       ],
-      "runs": 2,
-      "reliability": 0.9375,
-      "consistency": 94
+      "runs": 3,
+      "reliability": 0.8958,
+      "consistency": 90
     },
     {
       "name": "Dolphin Mistral 7B",
@@ -2534,7 +2543,7 @@
       ],
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "github",
-      "reliability": 0.67,
+      "reliability": 0.9583,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -2566,7 +2575,7 @@
       ],
       "reliabilityNote": "PTCF, PTCN, PTCN",
       "runs": 3,
-      "consistency": 67
+      "consistency": 96
     },
     {
       "name": "Llama 3.1 8B",
