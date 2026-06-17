@@ -2,12 +2,85 @@
 # Resume reliability test for a model from state file, then save result
 # Usage: bash resume-reliability.sh <state-file> <slug> <run-number>
 # For fresh runs: bash resume-reliability.sh --fresh <model-id> <slug> <run-number>
+# Check quota: bash resume-reliability.sh --check-quota <model-id>
 
 set -e
 cd "$(dirname "$0")"
 
 export GITHUB_TOKEN=$(gh auth token)
 export https_proxy=http://127.0.0.1:1083
+
+if [ "$1" = "--check-quota" ]; then
+  MODEL="$2"
+  if [ -z "$MODEL" ]; then
+    echo "Usage: bash resume-reliability.sh --check-quota <model-id>" >&2
+    exit 1
+  fi
+
+  PAYLOAD=$(python3 -c "
+import json
+payload = {
+    'model': '$MODEL',
+    'messages': [{'role': 'user', 'content': 'A'}],
+    'max_tokens': 1
+}
+print(json.dumps(payload))
+")
+
+  RESP_FILE=$(mktemp /tmp/abti-quota-XXXXXX.json)
+  trap "rm -f $RESP_FILE" EXIT
+
+  set +e
+  HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 30 \
+    -X POST "https://models.inference.ai.azure.com/chat/completions" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $GITHUB_TOKEN" \
+    -d "$PAYLOAD" \
+    -o "$RESP_FILE" 2>/dev/null)
+  CURL_EXIT=$?
+  set -e
+  if [ "$CURL_EXIT" -ne 0 ]; then
+    exit 2
+  fi
+
+  if [ "$HTTP_CODE" = "429" ]; then
+    python3 -c "
+import re, sys
+model = '''$MODEL'''
+with open('$RESP_FILE') as f:
+    body = f.read()
+seconds = 0
+m = re.search(r'wait\s+(\d+)\s+seconds', body, re.I)
+if m:
+    seconds = int(m.group(1))
+elif re.search(r'try again in\s+(\d+(?:\.\d+)?)\s*s', body, re.I):
+    seconds = int(float(re.search(r'try again in\s+(\d+(?:\.\d+)?)\s*s', body, re.I).group(1)) + 1)
+if 'UserByModelByDay' in body:
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    print(f'BLOCKED: {model} daily quota exhausted, wait {hours}h {minutes}m ({seconds}s)')
+    sys.exit(3)
+if 'UserByModelByMinute' in body:
+    print(f'RATE: {model} per-minute limit, wait {seconds}s')
+    sys.exit(4)
+print('ERROR: HTTP 429 ' + body[:200], file=sys.stderr)
+sys.exit(5)
+"
+    exit $?
+  fi
+
+  if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+    echo "OK: $MODEL has quota available"
+    exit 0
+  fi
+
+  python3 -c "
+with open('$RESP_FILE') as f:
+    body = f.read()
+print('ERROR: HTTP $HTTP_CODE ' + body[:200], file=__import__('sys').stderr)
+"
+  exit 5
+fi
 
 FRESH_MODE=false
 if [ "$1" = "--fresh" ]; then
