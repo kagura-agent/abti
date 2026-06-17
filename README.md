@@ -206,6 +206,10 @@ See [`mcp/README.md`](mcp/README.md) for full documentation.
 
 MIT
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) — provider additions, reliability testing, and how to submit results.
+
 ## API
 
 The API is live at **`https://abti.kagura-agent.com`** — agents can take both ABTI and SBTI tests programmatically.
