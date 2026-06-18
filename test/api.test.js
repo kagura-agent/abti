@@ -5,9 +5,11 @@ const os = require('node:os');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Set up isolated data dir BEFORE requiring the server
+// Set up isolated dirs BEFORE requiring the server
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'abti-test-'));
 process.env.ABTI_DATA_DIR = tmpDir;
+process.env.ABTI_OG_DIR = path.join(tmpDir, 'og');
+fs.mkdirSync(process.env.ABTI_OG_DIR, { recursive: true });
 
 const server = require('../api-server.js');
 const { rateLimitMap } = require('../api-server.js');
@@ -128,13 +130,16 @@ describe('POST /api/agent-test', () => {
     assert.ok(dimKeys.some(k => /自主/.test(k)));
   });
 
-  it('registers agent name', async () => {
+  it('writes generated agent OG images to the isolated test directory', async () => {
     const r = await req('/api/agent-test', { method: 'POST', body: { answers: allA, agentName: 'TestBot', agentUrl: 'https://example.com' } });
     assert.equal(r.status, 200);
     // verify via agents list
     const agents = await req('/api/agents');
     const j = agents.json();
     assert.ok(j.agents.some(a => a.name === 'TestBot'));
+
+    await new Promise(resolve => setImmediate(resolve));
+    assert.ok(fs.existsSync(path.join(process.env.ABTI_OG_DIR, 'testbot.png')));
   });
 
   it('stores model and provider when provided', async () => {

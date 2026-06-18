@@ -14,6 +14,7 @@ const mcpSessions = new Map();
 // Data persistence
 let DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
 let DATA_FILE = path.join(DATA_DIR, 'results.json');
+let OG_DIR = process.env.ABTI_OG_DIR || path.join(__dirname, 'og', 'agents');
 
 function loadData() {
   try {
@@ -32,6 +33,7 @@ function saveData(data) {
 function resetData() {
   DATA_DIR = process.env.ABTI_DATA_DIR || path.join(__dirname, 'data');
   DATA_FILE = path.join(DATA_DIR, 'results.json');
+  OG_DIR = process.env.ABTI_OG_DIR || path.join(__dirname, 'og', 'agents');
   agentData = loadData();
   startWatching();
 }
@@ -259,7 +261,7 @@ function registerAgent(entry) {
   if (entry.slug && entry.scores) {
     setImmediate(() => {
       try {
-        generateAgentOG(entry, path.join(__dirname, 'og', 'agents'));
+        generateAgentOG(entry, OG_DIR);
       } catch (e) {
         console.error(`OG generation failed for ${entry.slug}:`, e.message);
       }
@@ -467,7 +469,7 @@ const server = http.createServer((req, res) => {
           // Async OG image generation (non-blocking)
           setImmediate(() => {
             try {
-              generateAgentOG(entry, path.join(__dirname, 'og', 'agents'));
+              generateAgentOG(entry, OG_DIR);
             } catch (e) {
               console.error(`OG generation failed for ${entry.slug}:`, e.message);
             }
