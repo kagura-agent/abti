@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { filterExistingModels } = require('../cli/bin/abti.js');
+const { filterExistingModels, normalizeModelName } = require('../cli/bin/abti.js');
 
 describe('--skip-existing filtering', () => {
   it('should filter out models that already have results', () => {
@@ -58,5 +58,54 @@ describe('--skip-existing filtering', () => {
     const { remaining, skipped } = filterExistingModels(modelList, agents);
     assert.deepStrictEqual(remaining, ['llama-3']);
     assert.deepStrictEqual(skipped, ['gpt-4o']);
+  });
+
+  it('should match vendor-prefixed catalog IDs against plain model names', () => {
+    const modelList = ['openai/gpt-4o', 'anthropic/claude-sonnet-4-20250514'];
+    const agents = [
+      { model: 'gpt-4o' },
+      { model: 'claude-sonnet-4-20250514' },
+    ];
+    const { remaining, skipped } = filterExistingModels(modelList, agents);
+    assert.deepStrictEqual(remaining, []);
+    assert.deepStrictEqual(skipped, ['openai/gpt-4o', 'anthropic/claude-sonnet-4-20250514']);
+  });
+
+  it('should match plain model names against vendor-prefixed agents', () => {
+    const modelList = ['gpt-4o', 'meta-llama-3.1-8b-instruct'];
+    const agents = [
+      { model: 'openai/gpt-4o' },
+      { model: 'meta/meta-llama-3.1-8b-instruct' },
+    ];
+    const { remaining, skipped } = filterExistingModels(modelList, agents);
+    assert.deepStrictEqual(remaining, []);
+    assert.deepStrictEqual(skipped, ['gpt-4o', 'meta-llama-3.1-8b-instruct']);
+  });
+
+  it('should match vendor-prefixed IDs with case differences', () => {
+    const modelList = ['meta/Meta-Llama-3.1-8B-Instruct'];
+    const agents = [{ model: 'Meta-Llama-3.1-8B-Instruct' }];
+    const { remaining, skipped } = filterExistingModels(modelList, agents);
+    assert.deepStrictEqual(remaining, []);
+    assert.deepStrictEqual(skipped, ['meta/Meta-Llama-3.1-8B-Instruct']);
+  });
+});
+
+describe('normalizeModelName', () => {
+  it('should strip vendor prefix and lowercase', () => {
+    assert.strictEqual(normalizeModelName('openai/GPT-4o'), 'gpt-4o');
+  });
+
+  it('should lowercase plain model names', () => {
+    assert.strictEqual(normalizeModelName('GPT-4o'), 'gpt-4o');
+  });
+
+  it('should handle null/undefined', () => {
+    assert.strictEqual(normalizeModelName(null), '');
+    assert.strictEqual(normalizeModelName(undefined), '');
+  });
+
+  it('should only strip the first prefix segment', () => {
+    assert.strictEqual(normalizeModelName('meta/meta-llama/3.1'), 'meta-llama/3.1');
   });
 });
