@@ -819,9 +819,9 @@
       ],
       "model": "DeepSeek-R1",
       "provider": "github",
-      "consistency": 85,
-      "runs": 3,
-      "reliability": 0.8542,
+      "consistency": 84,
+      "runs": 2,
+      "reliability": 0.8438,
       "reliabilityRuns": [
         {
           "type": "PTCN",
@@ -830,15 +830,6 @@
             2,
             2,
             1
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            2,
-            2,
-            2
           ]
         },
         {
@@ -920,9 +911,9 @@
         true
       ],
       "parseFailures": 0,
-      "consistency": 92,
-      "runs": 3,
-      "reliability": 0.9167,
+      "consistency": 97,
+      "runs": 2,
+      "reliability": 0.9688,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -931,15 +922,6 @@
             2,
             2,
             2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            2,
-            2,
-            3
           ]
         },
         {
