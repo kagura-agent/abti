@@ -256,7 +256,9 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'openrouter') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
   if (provider === 'mistral') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
   if (provider === 'xai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1');
-  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "github", "groq", "openrouter", "mistral", or "xai".`);
+  if (provider === 'deepseek') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.deepseek.com');
+  if (provider === 'cohere') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/compatibility');
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", or "cohere".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────
@@ -533,6 +535,11 @@ async function run() {
   }
 }
 
-run().catch((error) => {
-  setFailed(error.message);
-});
+// Allow testing when required as a module (INPUT_PROVIDER won't be set)
+if (!process.env.GITHUB_ACTIONS && !process.env.INPUT_PROVIDER) {
+  module.exports = { callLLM };
+} else {
+  run().catch((error) => {
+    setFailed(error.message);
+  });
+}
