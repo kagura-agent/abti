@@ -256,7 +256,9 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'openrouter') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
   if (provider === 'mistral') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
   if (provider === 'xai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1');
-  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "github", "groq", "openrouter", "mistral", or "xai".`);
+  if (provider === 'deepseek') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.deepseek.com');
+  if (provider === 'cohere') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/compatibility');
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", or "cohere".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────
@@ -533,6 +535,11 @@ async function run() {
   }
 }
 
-run().catch((error) => {
-  setFailed(error.message);
-});
+// Export for testing; run only when executed directly
+module.exports = { callLLM };
+
+if (require.main === module) {
+  run().catch((error) => {
+    setFailed(error.message);
+  });
+}
