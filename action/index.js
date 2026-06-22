@@ -535,10 +535,10 @@ async function run() {
   }
 }
 
-// Allow testing when required as a module (INPUT_PROVIDER won't be set)
-if (!process.env.GITHUB_ACTIONS && !process.env.INPUT_PROVIDER) {
-  module.exports = { callLLM };
-} else {
+// Export for testing; run only when executed directly
+module.exports = { callLLM };
+
+if (require.main === module) {
   run().catch((error) => {
     setFailed(error.message);
   });
