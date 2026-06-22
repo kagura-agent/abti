@@ -819,10 +819,38 @@
       ],
       "model": "DeepSeek-R1",
       "provider": "github",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
+      "consistency": 85,
+      "runs": 3,
+      "reliability": 0.8542,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "DeepSeek R1 0528",
@@ -892,10 +920,38 @@
         true
       ],
       "parseFailures": 0,
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
+      "consistency": 92,
+      "runs": 3,
+      "reliability": 0.9167,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
+        }
+      ]
     },
     {
       "name": "DeepSeek R1 7B",
