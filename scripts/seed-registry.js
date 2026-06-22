@@ -27,7 +27,7 @@ function parseArgs() {
   // Auto-set defaults for known providers
   if (opts.provider === 'ollama' && !opts.baseUrl) opts.baseUrl = 'http://localhost:11434';
   if (opts.provider === 'ollama' && !opts.apiKey) opts.apiKey = 'ollama';
-  if (opts.provider === 'github' && !opts.baseUrl) opts.baseUrl = 'https://models.inference.ai.azure.com';
+  if (opts.provider === 'github' && !opts.baseUrl) opts.baseUrl = 'https://models.github.ai/inference';
   if (opts.provider === 'github' && !opts.apiKey) opts.apiKey = process.env.GITHUB_TOKEN || '';
   if (opts.provider === 'deepseek' && !opts.baseUrl) opts.baseUrl = 'https://api.deepseek.com';
   if (!opts.apiKey && !['ollama'].includes(opts.provider)) { console.error('Error: --api-key is required'); process.exit(1); }
