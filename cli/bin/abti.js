@@ -1873,11 +1873,17 @@ if (require.main === module) {
   }
 }
 
+function normalizeModelName(name) {
+  const s = (name || '').toLowerCase();
+  const idx = s.indexOf('/');
+  return idx >= 0 ? s.slice(idx + 1) : s;
+}
+
 function filterExistingModels(modelList, agents) {
-  const testedModels = new Set((agents || []).map(a => (a.model || '').toLowerCase()));
-  const skipped = modelList.filter(m => testedModels.has(m.toLowerCase()));
-  const remaining = modelList.filter(m => !testedModels.has(m.toLowerCase()));
+  const testedModels = new Set((agents || []).map(a => normalizeModelName(a.model)));
+  const skipped = modelList.filter(m => testedModels.has(normalizeModelName(m)));
+  const remaining = modelList.filter(m => !testedModels.has(normalizeModelName(m)));
   return { remaining, skipped };
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels };
+module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels, normalizeModelName };
