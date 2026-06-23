@@ -5021,6 +5021,89 @@
       "runs": 3
     },
     {
+      "name": "Meta-Llama-3.1-405B-Instruct",
+      "slug": "meta-llama-3-1-405b-instruct",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-06-12T02:44:36.000Z",
+      "scores": [
+        3,
+        3,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Meta-Llama-3.1-405B-Instruct",
+      "provider": "github",
+      "reliability": 0.6667,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            3,
+            1
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 67,
+      "questionVersion": "5.0-beta"
+    },
+    {
       "name": "Meta-Llama-3.1-8B-Instruct",
       "slug": "meta-llama-3-1-8b-instruct",
       "url": "",
