@@ -2,7 +2,7 @@
   "name": "abti",
   "private": true,
   "scripts": {
-    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js test/cross-compatibility.test.js test/auto-reload.test.js test/parseAnswer.test.js test/provider.test.js test/resume.test.js test/list.test.js test/action-drift.test.js test/action-provider.test.js test/all-flag.test.js test/feed.test.js test/dynamic-models.test.js test/history.test.js test/shuffle.test.js test/compare.test.js test/info.test.js test/history-cli.test.js test/skip-existing.test.js test/validate-results.test.js test/proxy-sync.test.js",
+    "test": "node --test test/api.test.js test/mcp.test.js test/mcp-http.test.js test/compatibility.test.js test/cross-compatibility.test.js test/auto-reload.test.js test/parseAnswer.test.js test/provider.test.js test/resume.test.js test/list.test.js test/action-drift.test.js test/action-provider.test.js test/all-flag.test.js test/feed.test.js test/dynamic-models.test.js test/history.test.js test/shuffle.test.js test/compare.test.js test/info.test.js test/history-cli.test.js test/skip-existing.test.js test/validate-results.test.js test/proxy-sync.test.js test/anthropic-response.test.js",
     "generate-og": "node scripts/generate-og-images.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "generate-og-agents": "node scripts/generate-agent-og.js",
