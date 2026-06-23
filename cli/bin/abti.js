@@ -378,9 +378,10 @@ function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options, ma
 
 function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/messages') : new URL('https://api.anthropic.com/v1/messages');
-  const payload = JSON.stringify({ model: mdl, max_tokens: maxTokens || 4, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
+  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 4);
+  const payload = JSON.stringify({ model: mdl, max_tokens: maxTok, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'Content-Length': Buffer.byteLength(payload) } }, payload)
-    .then(json => json.content[0].text.trim());
+    .then(json => ((json.content.find(b => b.type === 'text') || json.content[0]).text).trim());
 }
 
 function callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens) {
