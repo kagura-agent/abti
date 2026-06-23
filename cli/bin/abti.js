@@ -141,6 +141,7 @@ const resumeFile = opt('--resume') || null;
 const saveStateFlag = flag('--save-state') || !!resumeFile;
 const interQuestionDelay = parseInt(opt('--delay') || '0', 10);
 const skipExisting = flag('--skip-existing');
+const includeCustomFlag = flag('--include-custom');
 
 // Keep backward compat: --model and --provider used for submit metadata too
 const model = autoModel;
@@ -716,6 +717,7 @@ function fetchGitHubModels(apiKey) {
           const json = JSON.parse(data);
           const models = (Array.isArray(json) ? json : json.data || json.models || [])
             .filter(m => m.supported_output_modalities && m.supported_output_modalities.includes('text'))
+            .filter(m => includeCustomFlag || m.rate_limit_tier !== 'custom')
             .map(m => m.id)
             .sort((a, b) => a.localeCompare(b));
           resolve(models);
