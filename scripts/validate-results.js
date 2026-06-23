@@ -89,6 +89,29 @@ function validate(filePath) {
   return errors;
 }
 
+function checkOrphanedReliabilityFiles(resultsPath) {
+  const reliabilityDir = path.resolve(path.dirname(resultsPath), 'reliability');
+  if (!fs.existsSync(reliabilityDir)) return [];
+
+  const data = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
+  const knownSlugs = new Set(data.agents.map(a => a.slug));
+
+  const files = fs.readdirSync(reliabilityDir).filter(f => f.endsWith('.json'));
+  const fileSlugs = new Set();
+  for (const f of files) {
+    const slug = f.replace(/-run-\d+\.json$/, '');
+    fileSlugs.add(slug);
+  }
+
+  const orphaned = [];
+  for (const slug of fileSlugs) {
+    if (!knownSlugs.has(slug)) {
+      orphaned.push(slug);
+    }
+  }
+  return orphaned;
+}
+
 if (require.main === module) {
   const filePath = path.resolve(__dirname, '..', 'data', 'results.json');
   const errors = validate(filePath);
@@ -98,6 +121,12 @@ if (require.main === module) {
     process.exit(1);
   }
   console.log(`✅ results.json valid (${JSON.parse(fs.readFileSync(filePath, 'utf8')).agents.length} agents)`);
+
+  const orphaned = checkOrphanedReliabilityFiles(filePath);
+  if (orphaned.length) {
+    console.warn(`⚠️  ${orphaned.length} orphaned reliability slug(s) (files exist but missing from results.json):`);
+    orphaned.forEach(s => console.warn(`  - ${s}`));
+  }
 }
 
-module.exports = { validate };
+module.exports = { validate, checkOrphanedReliabilityFiles };

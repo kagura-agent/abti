@@ -32,7 +32,7 @@ print(json.dumps(payload))
 
   set +e
   HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 30 \
-    -X POST "https://models.inference.ai.azure.com/chat/completions" \
+    -X POST "https://models.github.ai/inference/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
     -d "$PAYLOAD" \
@@ -242,7 +242,7 @@ print(json.dumps(payload))
     RETRY=0
     while true; do
       HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 120 \
-        -X POST "https://models.inference.ai.azure.com/chat/completions" \
+        -X POST "https://models.github.ai/inference/chat/completions" \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
         -d "$PAYLOAD" \
