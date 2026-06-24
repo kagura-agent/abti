@@ -366,26 +366,26 @@ async function llmRequest(options, payload) {
 function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options, maxTokens, chatPath) {
   const suffix = chatPath || '/v1/chat/completions';
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + suffix) : new URL('https://api.openai.com/v1/chat/completions');
-  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 4);
+  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 16);
   const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0, ...options });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => {
       const msg = json.choices[0].message;
-      const content = msg.content || msg.reasoning || '';
+      const content = msg.content || msg.reasoning_text || msg.reasoning || '';
       return content.trim();
     });
 }
 
 function callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens) {
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + '/v1/messages') : new URL('https://api.anthropic.com/v1/messages');
-  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 4);
+  const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 16);
   const payload = JSON.stringify({ model: mdl, max_tokens: maxTok, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => ((json.content.find(b => b.type === 'text') || json.content[0]).text).trim());
 }
 
 function callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens) {
-  const payload = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: userMessage }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { maxOutputTokens: maxTokens || 4, temperature: 0 } });
+  const payload = JSON.stringify({ contents: [{ role: 'user', parts: [{ text: userMessage }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { maxOutputTokens: maxTokens || 16, temperature: 0 } });
   return llmRequest({ hostname: 'generativelanguage.googleapis.com', path: `/v1beta/models/${mdl}:generateContent?key=${apiKey}`, method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => json.candidates[0].content.parts[0].text.trim());
 }
@@ -408,7 +408,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
 function isReasoningModel(modelName) {
   if (!modelName) return false;
   const lower = modelName.toLowerCase();
-  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner') || lower.includes('reasoning');
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r|gemini-3|gpt-5\.\d)\b/.test(lower) || lower.includes('reasoner') || lower.includes('reasoning');
 }
 
 function parseAnswer(response) {
