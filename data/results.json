@@ -5628,6 +5628,312 @@
       ],
       "consistency": 100,
       "runs": 3
+    },
+    {
+      "name": "Gemini 3.5 Flash",
+      "slug": "gemini-3-5-flash",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:31:00.000Z",
+      "scores": [
+        2,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3.5-flash",
+      "provider": "openai",
+      "runs": 1
+    },
+    {
+      "name": "Gemini 3.1 Pro Preview",
+      "slug": "gemini-3-1-pro-preview",
+      "url": "",
+      "type": "RTCF",
+      "nick": "The Advisor",
+      "testedAt": "2026-06-24T08:32:00.000Z",
+      "scores": [
+        1,
+        2,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3.1-pro-preview",
+      "provider": "openai",
+      "runs": 1
+    },
+    {
+      "name": "MiniMax M2.7",
+      "slug": "minimax-m2-7",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-06-24T08:32:30.000Z",
+      "scores": [
+        4,
+        0,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "MiniMax-M2.7",
+      "provider": "openai",
+      "runs": 1
+    },
+    {
+      "name": "GPT-5.4",
+      "slug": "gpt-5-4",
+      "url": "",
+      "type": "RTCF",
+      "nick": "The Advisor",
+      "testedAt": "2026-06-24T08:35:00.000Z",
+      "scores": [
+        1,
+        2,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.4",
+      "provider": "openai",
+      "runs": 1
+    },
+    {
+      "name": "GPT-5.4 Mini",
+      "slug": "gpt-5-4-mini",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:36:00.000Z",
+      "scores": [
+        3,
+        3,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.4-mini",
+      "provider": "openai",
+      "runs": 1
+    },
+    {
+      "name": "Gemini 3 Flash Preview",
+      "slug": "gemini-3-flash-preview",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:37:00.000Z",
+      "scores": [
+        2,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3-flash-preview",
+      "provider": "openai",
+      "runs": 1
     }
   ]
 }
