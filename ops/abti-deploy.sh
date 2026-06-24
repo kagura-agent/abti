@@ -19,6 +19,7 @@ BEFORE=$(git rev-parse HEAD)
 #   1. All test results are committed via PRs (the authoritative source)
 #   2. Runtime API submissions are ephemeral until merged upstream
 git checkout -- . 2>/dev/null || true
+git clean -fd 2>/dev/null || true
 
 git pull origin master --ff-only 2>/dev/null || exit 0
 
