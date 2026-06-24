@@ -367,7 +367,7 @@ function callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl, options, ma
   const suffix = chatPath || '/v1/chat/completions';
   const parsed = baseUrl ? new URL(baseUrl.replace(/\/+$/, '') + suffix) : new URL('https://api.openai.com/v1/chat/completions');
   const maxTok = maxTokens || (isReasoningModel(mdl) ? 2048 : 16);
-  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, temperature: 0, ...options });
+  const payload = JSON.stringify({ model: mdl, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }], max_tokens: maxTok, ...(!isReasoningModel(mdl) && { temperature: 0 }), ...options });
   return llmRequest({ hostname: parsed.hostname, port: parsed.port, path: parsed.pathname + parsed.search, method: 'POST', protocol: parsed.protocol, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'Content-Length': Buffer.byteLength(payload) } }, payload)
     .then(json => {
       const msg = json.choices[0].message;
