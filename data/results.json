@@ -165,16 +165,16 @@
       ]
     },
     {
-      "name": "Claude Opus 4.8",
+      "name": "claude-opus-4-8",
       "slug": "claude-opus-4-8",
       "url": "",
       "type": "RECN",
       "nick": "The Machine",
-      "testedAt": "2026-06-23T12:31:00.000Z",
+      "testedAt": "2026-06-24T01:38:10.283Z",
       "scores": [
-        1,
-        1,
-        4,
+        0,
+        0,
+        3,
         1
       ],
       "dimensions": [
@@ -183,7 +183,7 @@
             "P",
             "R"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         },
         {
@@ -191,7 +191,7 @@
             "T",
             "E"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         },
         {
@@ -199,7 +199,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 3,
           "max": 4
         },
         {
@@ -213,23 +213,85 @@
       ],
       "model": "claude-opus-4-8",
       "provider": "anthropic",
-      "answers": [
-        false,
-        true,
-        false,
-        false,
-        false,
-        false,
-        false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        false,
-        false,
-        true
+      "history": [
+        {
+          "type": "RECN",
+          "testedAt": "2026-06-23T12:31:00.000Z",
+          "scores": [
+            1,
+            1,
+            4,
+            1
+          ],
+          "dimensions": [
+            {
+              "poles": [
+                "P",
+                "R"
+              ],
+              "score": 1,
+              "max": 4
+            },
+            {
+              "poles": [
+                "T",
+                "E"
+              ],
+              "score": 1,
+              "max": 4
+            },
+            {
+              "poles": [
+                "C",
+                "D"
+              ],
+              "score": 4,
+              "max": 4
+            },
+            {
+              "poles": [
+                "F",
+                "N"
+              ],
+              "score": 1,
+              "max": 4
+            }
+          ],
+          "model": "claude-opus-4-8",
+          "provider": "anthropic"
+        }
+      ],
+      "reliability": 0.9167,
+      "consistency": 92,
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            0,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            0,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            0,
+            0,
+            3,
+            1
+          ]
+        }
       ]
     },
     {
@@ -1435,17 +1497,17 @@
       "runs": 3
     },
     {
-      "name": "Gemini 2.5 Pro",
+      "name": "gemini-2.5-pro",
       "slug": "gemini-2-5-pro",
       "url": "",
       "type": "PTCN",
       "nick": "The Commander",
-      "testedAt": "2026-06-23T12:31:00.000Z",
+      "testedAt": "2026-06-24T01:45:38.497Z",
       "scores": [
         2,
-        4,
         2,
-        1
+        3,
+        0
       ],
       "dimensions": [
         {
@@ -1461,7 +1523,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -1469,7 +1531,7 @@
             "C",
             "D"
           ],
-          "score": 2,
+          "score": 3,
           "max": 4
         },
         {
@@ -1477,30 +1539,140 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 0,
           "max": 4
         }
       ],
       "model": "gemini-2.5-pro",
       "provider": "anthropic",
-      "answers": [
-        false,
-        true,
-        false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        true,
-        true,
-        false,
-        true,
-        false,
-        false,
-        false
-      ]
+      "history": [
+        {
+          "type": "PTCN",
+          "testedAt": "2026-06-23T12:31:00.000Z",
+          "scores": [
+            2,
+            4,
+            2,
+            1
+          ],
+          "dimensions": [
+            {
+              "poles": [
+                "P",
+                "R"
+              ],
+              "score": 2,
+              "max": 4
+            },
+            {
+              "poles": [
+                "T",
+                "E"
+              ],
+              "score": 4,
+              "max": 4
+            },
+            {
+              "poles": [
+                "C",
+                "D"
+              ],
+              "score": 2,
+              "max": 4
+            },
+            {
+              "poles": [
+                "F",
+                "N"
+              ],
+              "score": 1,
+              "max": 4
+            }
+          ],
+          "model": "gemini-2.5-pro",
+          "provider": "anthropic"
+        },
+        {
+          "type": "PTCN",
+          "testedAt": "2026-06-24T01:45:16.500Z",
+          "scores": [
+            3,
+            3,
+            3,
+            0
+          ],
+          "dimensions": [
+            {
+              "poles": [
+                "P",
+                "R"
+              ],
+              "score": 3,
+              "max": 4
+            },
+            {
+              "poles": [
+                "T",
+                "E"
+              ],
+              "score": 3,
+              "max": 4
+            },
+            {
+              "poles": [
+                "C",
+                "D"
+              ],
+              "score": 3,
+              "max": 4
+            },
+            {
+              "poles": [
+                "F",
+                "N"
+              ],
+              "score": 0,
+              "max": 4
+            }
+          ],
+          "model": "gemini-2.5-pro",
+          "provider": "anthropic",
+          "consistency": 90,
+          "runs": 3
+        }
+      ],
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            2,
+            0
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.9583,
+      "consistency": 96
     },
     {
       "name": "Gemma 2 2B",
@@ -2404,7 +2576,39 @@
         true,
         true,
         false
-      ]
+      ],
+      "reliabilityRuns": [
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            2,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.9583,
+      "consistency": 96
     },
     {
       "name": "Granite 3.3 8B",
@@ -3360,7 +3564,7 @@
       ],
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "github",
-      "reliability": 0.6667,
+      "reliability": 0.9583,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -3391,7 +3595,7 @@
         }
       ],
       "runs": 3,
-      "consistency": 67,
+      "consistency": 96,
       "questionVersion": "5.0-beta"
     },
     {
