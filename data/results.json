@@ -5678,7 +5678,38 @@
       ],
       "model": "gemini-3.5-flash",
       "provider": "openai",
-      "runs": 1
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            4,
+            4
+          ]
+        }
+      ],
+      "reliability": 0.9375,
+      "consistency": 94
     },
     {
       "name": "Gemini 3.1 Pro Preview",
@@ -5729,7 +5760,10 @@
       ],
       "model": "gemini-3.1-pro-preview",
       "provider": "openai",
-      "runs": 1
+      "runs": 1,
+      "reliabilityRuns": 0,
+      "reliability": null,
+      "consistency": null
     },
     {
       "name": "MiniMax M2.7",
@@ -5780,7 +5814,10 @@
       ],
       "model": "MiniMax-M2.7",
       "provider": "openai",
-      "runs": 1
+      "runs": 1,
+      "reliabilityRuns": 0,
+      "reliability": null,
+      "consistency": null
     },
     {
       "name": "GPT-5.4",
@@ -5831,7 +5868,38 @@
       ],
       "model": "gpt-5.4",
       "provider": "openai",
-      "runs": 1
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            4,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            3,
+            2
+          ]
+        }
+      ],
+      "reliability": 0.875,
+      "consistency": 88
     },
     {
       "name": "GPT-5.4 Mini",
@@ -5882,7 +5950,38 @@
       ],
       "model": "gpt-5.4-mini",
       "provider": "openai",
-      "runs": 1
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            2,
+            1,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            4,
+            3
+          ]
+        }
+      ],
+      "reliability": 0.9375,
+      "consistency": 94
     },
     {
       "name": "Gemini 3 Flash Preview",
@@ -5933,7 +6032,10 @@
       ],
       "model": "gemini-3-flash-preview",
       "provider": "openai",
-      "runs": 1
+      "runs": 1,
+      "reliabilityRuns": 0,
+      "reliability": null,
+      "consistency": null
     }
   ]
 }
