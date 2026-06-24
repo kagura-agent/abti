@@ -124,7 +124,7 @@ async function httpPostJSON(url, body, headers) {
 function isReasoningModel(modelName) {
   if (!modelName) return false;
   const lower = modelName.toLowerCase();
-  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r)\b/.test(lower) || lower.includes('reasoner');
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r|gpt-5)\b/.test(lower) || lower.includes('reasoner') || lower.includes('gemini-2.5');
 }
 
 // ─── LLM calls ──────────────────────────────────────────────────────────────
@@ -166,7 +166,7 @@ function callAnthropic(opts, systemPrompt, userMessage) {
     max_tokens: opts.maxTokens,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }],
-  }, headers).then(json => json.content[0].text.trim());
+  }, headers).then(json => ((json.content.find(b => b.type === 'text') || json.content[0]).text).trim());
 }
 
 function callGemini(opts, systemPrompt, userMessage) {
