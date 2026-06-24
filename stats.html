@@ -115,6 +115,26 @@ nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
 .provider-bar span { font-size: .68rem; font-weight: 700; color: #fff; }
 .provider-count { width: 32px; font-size: .78rem; font-weight: 600; color: var(--text); text-align: left; }
 
+/* Discriminability Section */
+.disc-section { margin-bottom: 2.5rem; }
+.disc-grid { display: flex; flex-direction: column; gap: .5rem; }
+.disc-dim-group { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; box-shadow: var(--shadow); }
+.disc-dim-title { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; letter-spacing: .03em; }
+.disc-dim-avg { font-size: .68rem; color: var(--text2); margin-left: .5rem; font-weight: 400; }
+.disc-questions { display: flex; flex-direction: column; gap: .4rem; }
+.disc-row { display: flex; align-items: center; gap: .5rem; }
+.disc-label { width: 32px; font-size: .72rem; font-weight: 600; color: var(--text2); flex-shrink: 0; }
+.disc-bar-wrap { flex: 1; height: 20px; background: var(--surface2); border-radius: 5px; overflow: hidden; display: flex; }
+.disc-bar-a { height: 100%; background: var(--accent); display: flex; align-items: center; justify-content: center; min-width: 1px; transition: width .6s ease; }
+.disc-bar-b { height: 100%; background: var(--text3); opacity: .45; display: flex; align-items: center; justify-content: center; min-width: 1px; flex: 1; }
+.disc-bar-a span, .disc-bar-b span { font-size: .6rem; font-weight: 700; color: #fff; }
+.disc-score { width: 42px; font-size: .72rem; font-weight: 600; text-align: right; flex-shrink: 0; }
+.disc-score.good { color: var(--accent); }
+.disc-score.warn { color: #d97706; }
+.disc-row.below-threshold .disc-bar-a { background: #d97706; }
+.disc-row.below-threshold .disc-label { color: #d97706; }
+.disc-meta { display: flex; gap: 1rem; margin-top: .8rem; padding-top: .6rem; border-top: 1px solid var(--border); font-size: .72rem; color: var(--text2); }
+
 /* Undiscovered Challenge */
 .challenge-section { margin-bottom: 2.5rem; }
 .challenge-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); text-align: center; }
@@ -245,6 +265,7 @@ const i18n = {
     challengeTitle: 'Undiscovered Types Challenge',
     challengeDesc: 'These types have never been observed in the wild. Think your model has what it takes?',
     ctaText: 'Test Your Agent →',
+    discTitle: 'QUESTION DISCRIMINABILITY',
     loading: 'Loading…',
     error: 'Failed to load stats.'
   },
@@ -263,6 +284,7 @@ const i18n = {
     challengeTitle: '未发现类型挑战',
     challengeDesc: '这些类型从未在测试中出现过。你的模型能成为第一个吗？',
     ctaText: '测试你的智能体 →',
+    discTitle: '题目区分度',
     loading: '加载中…',
     error: '加载失败。'
   }
@@ -270,6 +292,7 @@ const i18n = {
 
 let statsData = null;
 let agentsData = null;
+let discData = null;
 
 function t(key) { return (i18n[lang] || i18n.en)[key] || (i18n.en)[key]; }
 
@@ -289,6 +312,11 @@ async function init() {
     ]);
     statsData = await statsRes.json();
     agentsData = await agentsRes.json();
+    // Load discriminability data (optional, non-blocking)
+    try {
+      const discRes = await fetch('/data/discriminability.json');
+      if (discRes.ok) discData = await discRes.json();
+    } catch(_) {}
     render();
   } catch(e) {
     document.getElementById('content').innerHTML = '<div class="error">' + t('error') + '</div>';
@@ -394,6 +422,38 @@ function render() {
       + '</div>';
   }
   html += '</div></div>';
+
+  // Question Discriminability
+  if (discData && discData.questions) {
+    const discDimNames = lang === 'zh' ? ['自主性', '精确度', '沟通风格', '适应性'] : ['Autonomy', 'Precision', 'Transparency', 'Adaptability'];
+    const discTitle = lang === 'zh' ? '题目区分度' : 'QUESTION DISCRIMINABILITY';
+    const threshold = discData.threshold || 0.6;
+    html += '<div class="disc-section">';
+    html += '<div class="section-title">' + discTitle + '</div>';
+    html += '<div class="disc-grid">';
+    for (let d = 0; d < discData.dimensions.length; d++) {
+      const dim = discData.dimensions[d];
+      html += '<div class="disc-dim-group">';
+      html += '<div class="disc-dim-title">' + esc(discDimNames[d]) + ' <span class="disc-dim-avg">(avg ' + dim.averageDiscriminability.toFixed(2) + ')</span></div>';
+      html += '<div class="disc-questions">';
+      for (const q of dim.questions) {
+        const belowClass = q.discriminability < threshold ? ' below-threshold' : '';
+        const scoreClass = q.discriminability >= threshold ? 'good' : 'warn';
+        html += '<div class="disc-row' + belowClass + '">';
+        html += '<div class="disc-label">Q' + q.question + '</div>';
+        html += '<div class="disc-bar-wrap">';
+        html += '<div class="disc-bar-a" style="width:' + q.aPercent + '%"><span>' + q.aPercent + '%</span></div>';
+        html += '<div class="disc-bar-b"><span>' + q.bPercent + '%</span></div>';
+        html += '</div>';
+        html += '<div class="disc-score ' + scoreClass + '">' + q.discriminability.toFixed(2) + '</div>';
+        html += '</div>';
+      }
+      html += '</div></div>';
+    }
+    html += '</div>';
+    html += '<div class="disc-meta"><span>' + (lang === 'zh' ? '数据来源' : 'Based on') + ': ' + discData.totalRuns + (lang === 'zh' ? ' 次测试' : ' runs') + '</span><span>' + (lang === 'zh' ? '阈值' : 'Threshold') + ': ' + threshold + '</span></div>';
+    html += '</div>';
+  }
 
   // Undiscovered Types Challenge
   if (undiscoveredTypes.length > 0) {

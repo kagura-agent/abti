@@ -8,6 +8,7 @@ node_modules/
 data/*
 !data/results.json
 !data/reliability/
+!data/discriminability.json
 mcp/node_modules/
 data/reliability/.fuse_hidden*
 *-state.json
