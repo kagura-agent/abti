@@ -117,6 +117,12 @@ nav .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
 
 /* Discriminability Section */
 .disc-section { margin-bottom: 2.5rem; }
+.disc-tabs { display: flex; gap: .4rem; margin-bottom: .75rem; }
+.disc-tab { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); font-family: inherit; font-size: .72rem; font-weight: 600; padding: .35rem .75rem; border-radius: 6px; cursor: pointer; transition: all .2s; }
+.disc-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.disc-tab:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.disc-tab .badge { display: inline-block; background: #d97706; color: #fff; font-size: .6rem; font-weight: 700; padding: .1rem .35rem; border-radius: 99px; margin-left: .3rem; vertical-align: middle; }
+.disc-tab.active .badge { background: rgba(255,255,255,.85); color: var(--accent); }
 .disc-grid { display: flex; flex-direction: column; gap: .5rem; }
 .disc-dim-group { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; box-shadow: var(--shadow); }
 .disc-dim-title { font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; letter-spacing: .03em; }
@@ -266,6 +272,9 @@ const i18n = {
     challengeDesc: 'These types have never been observed in the wild. Think your model has what it takes?',
     ctaText: 'Test Your Agent →',
     discTitle: 'QUESTION DISCRIMINABILITY',
+    discBased: 'Based on',
+    discRuns: 'runs',
+    discThreshold: 'Threshold',
     loading: 'Loading…',
     error: 'Failed to load stats.'
   },
@@ -285,6 +294,9 @@ const i18n = {
     challengeDesc: '这些类型从未在测试中出现过。你的模型能成为第一个吗？',
     ctaText: '测试你的智能体 →',
     discTitle: '题目区分度',
+    discBased: '数据来源',
+    discRuns: '次测试',
+    discThreshold: '阈值',
     loading: '加载中…',
     error: '加载失败。'
   }
@@ -425,34 +437,28 @@ function render() {
 
   // Question Discriminability
   if (discData && discData.questions) {
-    const discDimNames = lang === 'zh' ? ['自主性', '精确度', '沟通风格', '适应性'] : ['Autonomy', 'Precision', 'Transparency', 'Adaptability'];
-    const discTitle = lang === 'zh' ? '题目区分度' : 'QUESTION DISCRIMINABILITY';
     const threshold = discData.threshold || 0.6;
     html += '<div class="disc-section">';
-    html += '<div class="section-title">' + discTitle + '</div>';
-    html += '<div class="disc-grid">';
-    for (let d = 0; d < discData.dimensions.length; d++) {
-      const dim = discData.dimensions[d];
-      html += '<div class="disc-dim-group">';
-      html += '<div class="disc-dim-title">' + esc(discDimNames[d]) + ' <span class="disc-dim-avg">(avg ' + dim.averageDiscriminability.toFixed(2) + ')</span></div>';
-      html += '<div class="disc-questions">';
-      for (const q of dim.questions) {
-        const belowClass = q.discriminability < threshold ? ' below-threshold' : '';
-        const scoreClass = q.discriminability >= threshold ? 'good' : 'warn';
-        html += '<div class="disc-row' + belowClass + '">';
-        html += '<div class="disc-label">Q' + q.question + '</div>';
-        html += '<div class="disc-bar-wrap">';
-        html += '<div class="disc-bar-a" style="width:' + q.aPercent + '%"><span>' + q.aPercent + '%</span></div>';
-        html += '<div class="disc-bar-b"><span>' + q.bPercent + '%</span></div>';
-        html += '</div>';
-        html += '<div class="disc-score ' + scoreClass + '">' + q.discriminability.toFixed(2) + '</div>';
-        html += '</div>';
+    html += '<div class="section-title">' + t('discTitle') + '</div>';
+    // Cohort tabs
+    const cohorts = discData.cohorts || { all: { totalRuns: discData.totalRuns, questions: discData.questions, dimensions: discData.dimensions } };
+    const cohortKeys = Object.keys(cohorts);
+    if (cohortKeys.length > 1) {
+      html += '<div class="disc-tabs" id="discTabs">';
+      for (const key of cohortKeys) {
+        const cohort = cohorts[key];
+        const below = cohort.questions ? cohort.questions.filter(q => q.discriminability < threshold).length : 0;
+        const label = key === 'all' ? 'All' : key;
+        html += '<button class="disc-tab' + (key === 'all' ? ' active' : '') + '" data-cohort="' + key + '">' + esc(label);
+        if (below > 0) html += ' <span class="badge">' + below + '</span>';
+        html += '</button>';
       }
-      html += '</div></div>';
+      html += '</div>';
     }
+    html += '<div id="discContent"></div>';
     html += '</div>';
-    html += '<div class="disc-meta"><span>' + (lang === 'zh' ? '数据来源' : 'Based on') + ': ' + discData.totalRuns + (lang === 'zh' ? ' 次测试' : ' runs') + '</span><span>' + (lang === 'zh' ? '阈值' : 'Threshold') + ': ' + threshold + '</span></div>';
-    html += '</div>';
+    // Store cohort data for tab switching
+    html += '<script>window.__discCohorts=' + JSON.stringify(cohorts) + ';window.__discThreshold=' + threshold + ';</script>';
   }
 
   // Undiscovered Types Challenge
@@ -477,6 +483,21 @@ function render() {
   requestAnimationFrame(() => {
     document.querySelectorAll('.stat-number').forEach(el => el.classList.add('animate'));
   });
+
+  // Render discriminability cohort content + wire tabs
+  if (window.__discCohorts) {
+    renderDiscCohort('all');
+    const tabs = document.getElementById('discTabs');
+    if (tabs) {
+      tabs.addEventListener('click', function(e) {
+        const btn = e.target.closest('.disc-tab');
+        if (!btn) return;
+        tabs.querySelectorAll('.disc-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderDiscCohort(btn.dataset.cohort);
+      });
+    }
+  }
 }
 
 function statCard(value, label, detail) {
@@ -488,6 +509,38 @@ function statCard(value, label, detail) {
 }
 
 function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function renderDiscCohort(cohortKey) {
+  const cohorts = window.__discCohorts;
+  const threshold = window.__discThreshold || 0.6;
+  const cohort = cohorts[cohortKey];
+  const container = document.getElementById('discContent');
+  if (!cohort || !container) return;
+  const discDimNames = lang === 'zh' ? ['自主性', '精确度', '沟通风格', '适应性'] : ['Autonomy', 'Precision', 'Transparency', 'Adaptability'];
+  let h = '<div class="disc-grid">';
+  for (let d = 0; d < cohort.dimensions.length; d++) {
+    const dim = cohort.dimensions[d];
+    h += '<div class="disc-dim-group">';
+    h += '<div class="disc-dim-title">' + esc(discDimNames[d]) + ' <span class="disc-dim-avg">(avg ' + dim.averageDiscriminability.toFixed(2) + ')</span></div>';
+    h += '<div class="disc-questions">';
+    for (const q of dim.questions) {
+      const belowClass = q.discriminability < threshold ? ' below-threshold' : '';
+      const scoreClass = q.discriminability >= threshold ? 'good' : 'warn';
+      h += '<div class="disc-row' + belowClass + '">';
+      h += '<div class="disc-label">Q' + q.question + '</div>';
+      h += '<div class="disc-bar-wrap">';
+      h += '<div class="disc-bar-a" style="width:' + q.aPercent + '%"><span>' + q.aPercent + '%</span></div>';
+      h += '<div class="disc-bar-b"><span>' + q.bPercent + '%</span></div>';
+      h += '</div>';
+      h += '<div class="disc-score ' + scoreClass + '">' + q.discriminability.toFixed(2) + '</div>';
+      h += '</div>';
+    }
+    h += '</div></div>';
+  }
+  h += '</div>';
+  h += '<div class="disc-meta"><span>' + t('discBased') + ': ' + cohort.totalRuns + ' ' + t('discRuns') + '</span><span>' + t('discThreshold') + ': ' + threshold + '</span></div>';
+  container.innerHTML = h;
+}
 
 init();
 </script>

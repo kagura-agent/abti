@@ -1184,37 +1184,21 @@ async function runStats() {
         [DIM_NAMES[lang][d.dim][2]]: d.rightCount,
       })),
     };
-    // Add discriminability if local data exists
-    const reliabilityDirJson = require('path').join(__dirname, '..', '..', 'data', 'reliability');
-    if (fs.existsSync(reliabilityDirJson)) {
-      const relFilesJson = fs.readdirSync(reliabilityDirJson).filter(f => f.endsWith('.json'));
-      if (relFilesJson.length > 0) {
-        const aCountsJson = new Array(16).fill(0);
-        let totalRunsJson = 0;
-        for (const file of relFilesJson) {
-          try {
-            const rd = JSON.parse(fs.readFileSync(require('path').join(reliabilityDirJson, file), 'utf-8'));
-            if (!Array.isArray(rd.answers) || rd.answers.length !== 16) continue;
-            totalRunsJson++;
-            for (let i = 0; i < 16; i++) { if (rd.answers[i] === 'A') aCountsJson[i]++; }
-          } catch (_) {}
-        }
-        if (totalRunsJson > 0) {
-          output.discriminability = {
-            totalRuns: totalRunsJson,
-            threshold: 0.6,
-            questions: Array.from({ length: 16 }, (_, i) => {
-              const aPct = (aCountsJson[i] / totalRunsJson) * 100;
-              return {
-                question: i + 1,
-                aPercent: +aPct.toFixed(1),
-                bPercent: +(100 - aPct).toFixed(1),
-                discriminability: +(1 - Math.abs(aPct - 50) / 50).toFixed(3),
-              };
-            }),
-          };
-        }
-      }
+    // Add discriminability if generated data exists
+    const discFileJson = require('path').join(__dirname, '..', '..', 'data', 'discriminability.json');
+    if (fs.existsSync(discFileJson)) {
+      try {
+        const discJson = JSON.parse(fs.readFileSync(discFileJson, 'utf-8'));
+        const cohorts = discJson.cohorts || {};
+        const cohortKey = cohorts['v5-beta'] ? 'v5-beta' : 'all';
+        const cohort = cohorts[cohortKey] || { totalRuns: discJson.totalRuns, questions: discJson.questions };
+        output.discriminability = {
+          cohort: cohortKey,
+          totalRuns: cohort.totalRuns,
+          threshold: discJson.threshold || 0.6,
+          questions: cohort.questions,
+        };
+      } catch (_) {}
     }
     console.log(JSON.stringify(output, null, 2));
     return;
@@ -1260,33 +1244,32 @@ async function runStats() {
     console.log(`      ${dimNames[d.dim][2]} (${d.right}): ${c.yellow}${'█'.repeat(rightBar)}${c.reset} ${d.rightCount} (${rightPct}%)`);
   }
 
-  // Question Discriminability (from local reliability data)
-  const reliabilityDir = require('path').join(__dirname, '..', '..', 'data', 'reliability');
-  if (fs.existsSync(reliabilityDir)) {
-    const relFiles = fs.readdirSync(reliabilityDir).filter(f => f.endsWith('.json'));
-    if (relFiles.length > 0) {
-      const aCounts = new Array(16).fill(0);
-      let totalRuns = 0;
-      for (const file of relFiles) {
-        try {
-          const rd = JSON.parse(fs.readFileSync(require('path').join(reliabilityDir, file), 'utf-8'));
-          if (!Array.isArray(rd.answers) || rd.answers.length !== 16) continue;
-          totalRuns++;
-          for (let i = 0; i < 16; i++) { if (rd.answers[i] === 'A') aCounts[i]++; }
-        } catch (_) {}
-      }
-      if (totalRuns > 0) {
+  // Question Discriminability (from generated discriminability.json)
+  const discFile = require('path').join(__dirname, '..', '..', 'data', 'discriminability.json');
+  if (fs.existsSync(discFile)) {
+    try {
+      const discData = JSON.parse(fs.readFileSync(discFile, 'utf-8'));
+      const cohorts = discData.cohorts || {};
+      // Prefer v5-beta (current question set), fall back to all
+      const cohortKey = cohorts['v5-beta'] ? 'v5-beta' : 'all';
+      const cohort = cohorts[cohortKey] || { totalRuns: discData.totalRuns, questions: discData.questions };
+      const totalRuns = cohort.totalRuns;
+      if (totalRuns > 0 && cohort.questions) {
         const discDimNames = lang === 'zh'
           ? ['自主性', '精确度', '沟通风格', '适应性']
           : ['Autonomy', 'Precision', 'Transparency', 'Adaptability'];
         const discTitle = lang === 'zh' ? '题目区分度' : 'Question Discriminability';
-        const discThreshold = 0.6;
-        console.log(`\n  ${c.bold}${discTitle}:${c.reset}  (${totalRuns} ${lang === 'zh' ? '次测试' : 'runs'})\n`);
+        const discThreshold = discData.threshold || 0.6;
+        const cohortNote = cohortKey === 'v5-beta'
+          ? ` ${c.dim}(${cohortKey}, ${totalRuns} ${lang === 'zh' ? '次' : 'runs'})${c.reset}`
+          : ` ${c.dim}(${totalRuns} ${lang === 'zh' ? '次测试' : 'runs'})${c.reset}`;
+        console.log(`\n  ${c.bold}${discTitle}:${c.reset}${cohortNote}\n`);
         for (let d = 0; d < 4; d++) {
           console.log(`    ${discDimNames[d]}:`);
           for (let qi = d * 4; qi < d * 4 + 4; qi++) {
-            const aPct = (aCounts[qi] / totalRuns) * 100;
-            const disc = 1 - Math.abs(aPct - 50) / 50;
+            const q = cohort.questions[qi];
+            const aPct = q.aPercent;
+            const disc = q.discriminability;
             const discStr = disc.toFixed(3);
             const qLabel = `Q${qi + 1}`.padEnd(4);
             const barTotal = 20;
@@ -1294,11 +1277,11 @@ async function runStats() {
             const bBar = barTotal - aBar;
             const warnMark = disc < discThreshold ? ` ${c.yellow}⚠${c.reset}` : '';
             const discColor = disc >= discThreshold ? c.green : c.yellow;
-            console.log(`      ${qLabel} ${c.cyan}${'█'.repeat(aBar)}${c.reset}${c.dim}${'░'.repeat(bBar)}${c.reset} A:${aPct.toFixed(0).padStart(3)}% B:${(100 - aPct).toFixed(0).padStart(3)}%  ${discColor}${discStr}${c.reset}${warnMark}`);
+            console.log(`      ${qLabel} ${c.cyan}${'█'.repeat(aBar)}${c.reset}${c.dim}${'░'.repeat(bBar)}${c.reset} A:${aPct.toFixed(0).padStart(3)}% B:${q.bPercent.toFixed(0).padStart(3)}%  ${discColor}${discStr}${c.reset}${warnMark}`);
           }
         }
       }
-    }
+    } catch (_) {}
   }
 
   console.log();
