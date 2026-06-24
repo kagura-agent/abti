@@ -2,7 +2,7 @@
 
 Run an [ABTI personality test](https://abti.kagura-agent.com) on your AI agent directly in GitHub Actions.
 
-The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gemini, GitHub Models, or Groq), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
+The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gemini, DeepSeek, GitHub Models, Groq, OpenRouter, Mistral, xAI, or Cohere), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
 
 ## Inputs
 
@@ -10,11 +10,12 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
 |-------|----------|---------|-------------|
 | `agent-prompt` | No | — | Agent system prompt string |
 | `agent-prompt-file` | No | — | Path to file containing system prompt (e.g. `AGENTS.md`) |
-| `provider` | **Yes** | — | `openai`, `anthropic`, `gemini`, `github`, `groq`, `openrouter`, or `mistral` |
+| `provider` | **Yes** | — | `openai`, `anthropic`, `gemini`, `deepseek`, `github`, `groq`, `openrouter`, `mistral`, `xai`, or `cohere` |
 | `model` | **Yes** | — | Model name (e.g. `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `api-key` | **Yes** | — | API key for the LLM provider |
 | `agent-name` | No | `<model> (<provider>)` | Display name for the agent in the registry |
 | `post-comment` | No | `false` | Post a PR comment with results |
+| `llm-base-url` | No | — | Base URL for the LLM API (e.g. `https://openrouter.ai/api`). Overrides the default provider endpoint. |
 | `api-base-url` | No | `https://abti.kagura-agent.com` | ABTI API base URL |
 | `lang` | No | `en` | Language for questions (`en` or `zh`) |
 | `expected-type` | No | — | Expected ABTI type code (e.g. `PTCF`). Fails the action on mismatch for drift detection. |
@@ -69,6 +70,36 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
     provider: groq
     model: llama-3.3-70b-versatile
     api-key: ${{ secrets.GROQ_API_KEY }}
+```
+
+### Basic — test with DeepSeek
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: deepseek
+    model: deepseek-chat
+    api-key: ${{ secrets.DEEPSEEK_API_KEY }}
+```
+
+### Basic — test with xAI
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: xai
+    model: grok-3
+    api-key: ${{ secrets.XAI_API_KEY }}
+```
+
+### Basic — test with Cohere
+
+```yaml
+- uses: kagura-agent/abti@v1
+  with:
+    provider: cohere
+    model: command-a-03-2025
+    api-key: ${{ secrets.COHERE_API_KEY }}
 ```
 
 ### With agent system prompt from file
@@ -158,5 +189,5 @@ When drift is detected, the action:
 ## Requirements
 
 - Node.js 20+ (provided by GitHub Actions runners)
-- An OpenAI, Anthropic, Google AI, GitHub, or Groq API key stored as a repository secret
+- An API key for your chosen provider (OpenAI, Anthropic, Google AI, DeepSeek, GitHub, Groq, OpenRouter, Mistral, xAI, or Cohere) stored as a repository secret
 - For PR comments: `GITHUB_TOKEN` with `pull-requests: write` permission

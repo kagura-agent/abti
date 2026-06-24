@@ -10,7 +10,7 @@ inputs:
     description: 'Path to file containing the agent system prompt (e.g. AGENTS.md)'
     required: false
   provider:
-    description: 'LLM provider: openai, anthropic, gemini, deepseek, github, groq, openrouter, mistral, xai, or ollama'
+    description: 'LLM provider: openai, anthropic, gemini, deepseek, github, groq, openrouter, mistral, xai, or cohere'
     required: true
   model:
     description: 'Model name (e.g. gpt-4o, claude-sonnet-4-20250514)'
@@ -47,6 +47,10 @@ outputs:
     description: 'Type nickname (e.g. The Architect)'
   badge-url:
     description: 'URL for the ABTI badge SVG'
+  drift:
+    description: 'Whether personality drift was detected (true/false). Only set when expected-type is provided.'
+  drift-dimensions:
+    description: 'Comma-separated dimensions that shifted (e.g. Autonomy,Precision). Empty if no drift.'
 
 branding:
   icon: 'users'
