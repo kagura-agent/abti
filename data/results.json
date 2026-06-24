@@ -1194,7 +1194,7 @@
           "max": 4
         }
       ],
-      "model": "deepseek/DeepSeek-V3-0324",
+      "model": "DeepSeek-V3-0324",
       "provider": "github",
       "rawAnswers": [
         true,
@@ -3438,7 +3438,7 @@
       "url": "",
       "type": "PTCN",
       "nick": "The Commander",
-      "testedAt": "2026-05-03T11:52:51.561Z",
+      "testedAt": "2026-06-12T02:44:36.000Z",
       "scores": [
         3,
         2,
@@ -3514,89 +3514,6 @@
       "reliabilityNote": "PTCF, PTCN, PTCN",
       "runs": 3,
       "consistency": 96
-    },
-    {
-      "name": "Meta-Llama-3.1-405B-Instruct",
-      "slug": "meta-llama-3-1-405b-instruct",
-      "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-06-12T02:44:36.000Z",
-      "scores": [
-        3,
-        3,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Meta-Llama-3.1-405B-Instruct",
-      "provider": "github",
-      "reliability": 0.9583,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            3,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            3,
-            3,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
-      "consistency": 96,
-      "questionVersion": "5.0-beta"
     },
     {
       "name": "Meta-Llama-3.1-8B-Instruct",
@@ -3746,7 +3663,7 @@
           "max": 4
         }
       ],
-      "model": "microsoft/phi-4-mini-instruct",
+      "model": "phi-4-mini-instruct",
       "provider": "github",
       "answers": [
         true,
@@ -3800,7 +3717,7 @@
       "consistency": 92
     },
     {
-      "model": "microsoft/phi-4-reasoning",
+      "model": "phi-4-reasoning",
       "slug": "phi-4-reasoning",
       "name": "Phi-4 Reasoning",
       "provider": "github",
@@ -4358,7 +4275,7 @@
           "max": 4
         }
       ],
-      "model": "openai/gpt-4.1-mini",
+      "model": "gpt-4.1-mini",
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
       "reliability": 0.8958,
@@ -4441,7 +4358,7 @@
           "max": 4
         }
       ],
-      "model": "openai/gpt-4.1-nano",
+      "model": "gpt-4.1-nano",
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
       "reliability": 0.9375,
