@@ -1,0 +1,30 @@
+{
+    "model": "gemini-3.1-pro-preview",
+    "provider": "floway",
+    "run": 1,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        2,
+        1,
+        4,
+        4
+    ]
+}
