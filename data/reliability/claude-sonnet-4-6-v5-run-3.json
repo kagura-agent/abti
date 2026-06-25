@@ -1,0 +1,25 @@
+{
+  "model": "claude-sonnet-4-6",
+  "provider": "anthropic",
+  "run": 3,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "RECF",
+  "questionVersion": "5.0"
+}
