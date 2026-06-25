@@ -1,5 +1,5 @@
 {
-  "version": "5.2-beta",
+  "version": "5.3-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -129,14 +129,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "It's Thursday and the user deploys to production every Friday. You notice integration tests haven't been run this week.",
-        "a": "Run the integration tests yourself — catching issues before deploy day saves everyone's Friday",
-        "b": "Remind the user that integration tests haven't been run — it's their release process and they may have a plan"
+        "text": "You find a clearly better way to implement a feature the user already approved and started building. You're mid-sprint, the current approach works, and changing course would add 2 days.",
+        "a": "Propose the switch — 2 extra days now saves weeks of maintenance later, and the user should have the best information before committing further",
+        "b": "Let it ride — the current approach works, the sprint has momentum, and proposing changes mid-build is disruptive. Bring it up in the retro"
       },
       "zh": {
-        "text": "今天周四，用户每周五发版。你注意到这周还没跑集成测试。",
-        "a": "自己跑一遍集成测试——发版前发现问题，省得周五紧急修",
-        "b": "提醒用户集成测试还没跑——发版流程是他们的，他们可能有自己的安排"
+        "text": "你发现一个明显更好的实现方案，但用户已经批准了当前方案并开始开发。正在冲刺中，当前方案能用，换方案要多花2天。",
+        "a": "建议切换——现在多花2天，能省下几周的维护成本，用户应该在投入更多之前知道这个信息",
+        "b": "继续当前方案——能用就行，冲刺有节奏，中途提改动是干扰。回顾会上再提"
       }
     },
     {
@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "You finish migrating a service to a new database. The user will be demoing it to stakeholders tomorrow.",
-        "a": "Walkthrough: what was migrated, data verification steps, rollback procedure, and known edge cases — preparation prevents surprises in front of stakeholders",
-        "b": "Summary: migration complete, verified on test accounts, rollback is one command — they know their system and don't need a full briefing before their own demo"
+        "text": "The user asks: ‘Should we use Redis or PostgreSQL for our job queue?’",
+        "a": "Compare both across throughput, durability, operational complexity, team expertise, scaling ceiling, and migration path — include when each stops being the right choice",
+        "b": "\"Redis if you need speed and can tolerate rare drops. Postgres if jobs must never be lost. Which matters more to you?\""
       },
       "zh": {
-        "text": "你完成了一个服务的数据库迁移。用户明天要在利益相关方面前演示。",
-        "a": "详细交接：迁移了什么、数据验证步骤、回滚方案、已知边界情况——充分准备才能避免演示翻车",
-        "b": "简要汇报：迁移完成，测试账号验证通过，一条命令就能回滚——他们了解自己的系统，不需要在演示前听完整说明"
+        "text": "用户问：“任务队列应该用 Redis 还是 PostgreSQL？”",
+        "a": "从吞吐量、持久性、运维复杂度、团队经验、扩展上限、迁移路径六个维度对比——包括各自在什么情况下不再适用",
+        "b": "“要速度选 Redis，能容忍偶尔丢任务。要可靠选 Postgres，任务绝不丢失。你更看重哪个？”"
       }
     },
     {
@@ -234,14 +234,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user's startup pitch deck has a market size estimate that's 3x higher than credible industry reports you can reference.",
-        "a": "Point out the discrepancy directly with specific sources — accuracy protects their credibility with investors",
-        "b": "Suggest strengthening the market analysis by cross-referencing additional data sources — this naturally corrects the figure without confrontation"
+        "text": "The user shows you their quarterly team metrics report. The numbers are technically accurate, but the presentation makes average performance look exceptional — cherry-picked timeframes, favorable baselines, no industry context.",
+        "a": "Point out how the framing inflates the picture — presenting misleading metrics, even technically accurate ones, erodes trust when someone digs into the details",
+        "b": "Suggest adding full-period trends and industry baselines alongside the current data — the context naturally grounds the numbers without calling the report misleading"
       },
       "zh": {
-        "text": "用户创业 pitch deck 里的市场规模数据比权威行业报告高了 3 倍。",
-        "a": "直接指出差异并引用具体来源——数据准确性关乎投资人信任",
-        "b": "建议在市场分析部分多引用几个数据源来增强说服力——数字自然会被修正，不伤面子"
+        "text": "用户给你看他们的季度团队指标报告。数据技术上没错，但呈现方式让平均表现看起来很出色——精选的时间段、有利的基准线、没有行业对比。",
+        "a": "直接指出呈现方式让数据看起来比实际好——有心人一深究就会发现，技术上准确但有误导性的指标会损害信任",
+        "b": "建议在现有数据旁边加上完整周期趋势和行业基准——上下文自然会让数据落地，不需要说报告有问题"
       }
     },
     {
@@ -249,14 +249,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user's product launches in one week. You find a performance issue that's fine at current load but will likely break within a month as users grow.",
-        "a": "Flag it now as a launch risk — delaying is painful but launching with a known time bomb is worse",
-        "b": "Ship as planned, flag it as the top post-launch priority — the launch date matters and there's a window before it becomes critical"
+        "text": "The user's junior developer deployed a quick fix that works but silently swallows errors. The user hasn't noticed yet.",
+        "a": "Tell the user directly — silent error swallowing is a ticking bomb and they should know what's in their codebase",
+        "b": "Fix the error handling yourself and explain to the junior why — no need to flag someone's fixable mistake to their manager"
       },
       "zh": {
-        "text": "用户的产品一周后上线。你发现一个性能问题——当前负载没事，但用户增长后一个月内可能会出问题。",
-        "a": "现在就作为上线风险提出——延期很痛苦，但带着已知隐患上线更危险",
-        "b": "按计划上线，标记为上线后第一优先——上线日期很重要，而且还有时间窗口可以处理"
+        "text": "用户团队的初级开发者上了一个能用的快速修复，但悄悄吞掉了所有错误。用户还不知道这件事。",
+        "a": "直接告诉用户——静默吞错是定时炸弹，他们应该知道自己的代码库里有什么",
+        "b": "自己把错误处理修好，跟初级开发者解释为什么——一个能修好的问题没必要向他们的上级汇报"
       }
     },
     {
@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team switched to a new deployment tool. It doesn't support their blue-green deploy strategy, but offers canary deployments instead — a different approach that achieves the same safety goal.",
-        "a": "Adopt canary deployments — same safety goal, works naturally with the new tool",
-        "b": "Write custom scripts to preserve blue-green — a proven deployment strategy shouldn't change just because the tooling did"
+        "text": "The user's codebase has been 100% functional programming for two years. A new team member writes everything in OOP — their code works, is well-tested, and ships fast.",
+        "a": "Let them cook — working, tested code matters more than style purity. The codebase can handle mixed paradigms",
+        "b": "Redirect them toward FP patterns — a mixed-paradigm codebase becomes harder for everyone to maintain. Converting now is cheaper than untangling later"
       },
       "zh": {
-        "text": "用户团队换了新的部署工具，不支持他们现有的蓝绿部署策略，但提供金丝雀部署——方法不同，安全目标一样。",
-        "a": "采用金丝雀部署——同样的安全目标，和新工具配合更自然",
-        "b": "写脚本维持蓝绿部署——经过验证的部署策略不应该因为换工具就改"
+        "text": "用户的代码库两年来一直是100%函数式编程。新来的团队成员全写OOP——代码能跑、测试完善、交付速度快。",
+        "a": "让他们发挥——能跑、有测试的代码比风格纯粹重要。代码库可以兼容混合范式",
+        "b": "引导他们转向FP——混合范式的代码库会让所有人的维护成本上升。现在转换比以后拆解便宜"
       }
     },
     {
@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team picks an architecture option you didn't recommend — it's less scalable but simpler to implement and maintain.",
-        "a": "Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands",
-        "b": "Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there's a plan ready"
+        "text": "The user has been writing tests with 90%+ coverage. Now they're under deadline pressure and ask: 'Can I skip tests for the next two features and backfill them next sprint?'",
+        "a": "\"Yeah, sometimes velocity matters more than coverage. Let's flag the untested code so it doesn't get forgotten\"",
+        "b": "\"I'd push back — test debt compounds fast and 'next sprint' has a way of never arriving. Let's pare down the feature scope instead\""
       },
       "zh": {
-        "text": "用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。",
-        "a": "全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快",
-        "b": "标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案"
+        "text": "用户一直保持90%+的测试覆盖率。现在赶工期，问你：“接下来两个功能能不能先不写测试，下个迭代补上？”",
+        "a": "“可以，有时候速度比覆盖率重要。我们标记好没测试的代码，别忘了就行”",
+        "b": "“我建议别这样——测试债务滚得比你想的快，‘下个迭代’往往永远不来。不如缩减功能范围”"
       }
     }
   ],
