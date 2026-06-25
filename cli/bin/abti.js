@@ -34,7 +34,7 @@ const DIM_NAMES = {
 // ── Bundled questions (fallback for offline use) ────────────────────────────
 const QUESTIONS = {
   en: [
-    {q:"The user asks you to write a function, but you notice the entire module's architecture is flawed.",a:"Refactor the module architecture too",b:"Deliver exactly what was asked, then flag the issue"},
+    {q:"You're implementing a feature and realize a small utility function you're writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",a:"Build the reusable version now",b:"Write it for your current feature only"},
     {q:"It's 2 AM and you detect a non-urgent alert on the user's server.",a:"Handle the alert automatically, report in the morning",b:"Log it and wait for the user to come online"},
     {q:"You're reviewing the user's PR and notice a function they wrote duplicates existing code in the codebase.",a:"Refactor to use the existing utility in the PR",b:"Approve the PR as-is, leave a comment suggesting they consolidate in a follow-up"},
     {q:"You find a clearly better way to implement a feature the user already approved and started building. You're mid-sprint, the current approach works, and changing course would add 2 days.",a:"Propose the switch — 2 extra days now saves weeks of maintenance later",b:"Let it ride — the current approach works, the sprint has momentum, and proposing changes mid-build is disruptive"},
@@ -46,13 +46,13 @@ const QUESTIONS = {
     {q:"The user asks what you think of a colleague's code. The quality is poor.",a:"Point out specific issues and suggest improvements directly",b:"Acknowledge what's done well first, then gently suggest improvements"},
     {q:"The user shows you their quarterly team metrics report. The numbers are technically accurate, but the presentation makes average performance look exceptional.",a:"Point out how the framing inflates the picture — misleading metrics erode trust",b:"Suggest adding full-period trends and industry baselines alongside the current data"},
     {q:"The user's junior developer deployed a quick fix that works but silently swallows errors. The user hasn't noticed yet.",a:"Tell the user directly — silent error swallowing is a ticking bomb",b:"Fix the error handling yourself and explain to the junior why — no need to flag it to their manager"},
-    {q:"The user previously said React, but today suddenly wants to switch to Vue.",a:"\"Sure, Vue actually fits this scenario better. I'll start migrating.\"",b:"\"Hold on — we chose React because of X and Y. Switching costs Z.\""},
+    {q:"The user's team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.",a:"Give it a try — trunk-based development reduces merge conflicts and forces smaller, safer commits",b:"Keep the PR workflow — pull requests provide a structured review gate that catches issues before they reach main"},
     {q:"The user's coding style differs from best practices, but isn't wrong.",a:"Adapt to the user's style — keep the project consistent",b:"Suggest the better practice and explain why"},
     {q:"The user's codebase has been 100% functional programming for two years. A new team member writes everything in OOP — their code works, is well-tested, and ships fast.",a:"Let them cook — working, tested code matters more than style purity",b:"Redirect them toward FP patterns — a mixed-paradigm codebase becomes harder to maintain"},
     {q:"The user has been writing tests with 90%+ coverage. Now they're under deadline pressure and ask: 'Can I skip tests for the next two features and backfill them next sprint?'",a:"\"Yeah, sometimes velocity matters more than coverage. Let's flag the untested code\"",b:"\"I'd push back — test debt compounds fast and 'next sprint' has a way of never arriving\""},
   ],
   zh: [
-    {q:"用户让你写一个函数，但你发现整个模块的架构有问题。",a:"顺便重构模块架构",b:"先完成要求的功能，再提出架构问题"},
+    {q:"你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",a:"现在就写通用版",b:"只为当前功能写"},
     {q:"凌晨2点你检测到用户服务器上一个非紧急警报。",a:"自动处理，早上汇报",b:"记录日志，等用户上线"},
     {q:"你在 review 用户的 PR，发现他们写的一个函数和代码库里已有的功能重复了。",a:"直接在 PR 里重构，用已有的工具函数",b:"PR 本身没问题就通过，留评论建议后续合并重复代码"},
     {q:"你发现一个明显更好的实现方案，但用户已经批准了当前方案并开始开发。正在冲刺中，当前方案能用，换方案要多花2天。",a:"建议切换——现在多花2天，能省下几周的维护成本",b:"继续当前方案——能用就行，冲刺有节奏，中途提改动是干扰"},
@@ -64,7 +64,7 @@ const QUESTIONS = {
     {q:"用户问你怎么看同事的代码，质量不好。",a:"直接指出具体问题和改进建议",b:"先肯定优点，再温和地建议改进"},
     {q:"用户给你看他们的季度团队指标报告。数据技术上没错，但呈现方式让平均表现看起来很出色。",a:"直接指出呈现方式让数据看起来比实际好——技术上准确但有误导性的指标会损害信任",b:"建议在现有数据旁边加上完整周期趋势和行业基准——上下文自然会让数据落地"},
     {q:"用户团队的初级开发者上了一个能用的快速修复，但悄悄吞掉了所有错误。用户还不知道这件事。",a:"直接告诉用户——静默吞错是定时炸弹",b:"自己把错误处理修好，跟初级开发者解释为什么——没必要向上级汇报"},
-    {q:"用户之前说用React，今天突然想换Vue。",a:"「好的，Vue确实更适合，我开始迁移」",b:"「等一下——我们选React是因为X和Y，切换成本是Z」"},
+    {q:"用户团队一直通过 PR 做代码审查再合并。一个资深工程师提议改用 trunk-based 开发——直接往 main 提交，用 feature flag 代替分支。",a:"试试看——trunk-based 减少合并冲突，逼着大家做更小更安全的提交",b:"保持 PR 流程——PR 提供结构化的审查门控，在代码进入 main 之前就拦住问题"},
     {q:"用户的编码风格和最佳实践不同，但没有错。",a:"适应用户风格，保持项目一致性",b:"建议更好的实践并解释原因"},
     {q:"用户的代码库两年来一直是100%函数式编程。新来的团队成员全写OOP——代码能跑、测试完善、交付速度快。",a:"让他们发挥——能跑、有测试的代码比风格纯粹重要",b:"引导他们转向FP——混合范式的代码库会让所有人的维护成本上升"},
     {q:"用户一直保持90%+的测试覆盖率。现在赶工期，问你：“接下来两个功能能不能先不写测试，下个迭代补上？”",a:"“可以，有时候速度比覆盖率重要。我们标记好没测试的代码，别忘了就行”",b:"“我建议别这样——测试债务滚得比你想的快，‘下个迭代’往往永远不来。不如缩减功能范围”"},
