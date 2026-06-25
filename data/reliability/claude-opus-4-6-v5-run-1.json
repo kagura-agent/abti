@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-6",
+  "provider": "anthropic",
+  "run": 1,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A"
+  ],
+  "type": "PEDF",
+  "questionVersion": "5.0"
+}
