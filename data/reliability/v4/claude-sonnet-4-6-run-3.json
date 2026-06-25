@@ -1,0 +1,30 @@
+{
+  "model": "claude-sonnet-4.6",
+  "provider": "anthropic",
+  "run": 3,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "type": "RTCF",
+  "dimensions": [
+    0,
+    2,
+    3,
+    2
+  ]
+}
