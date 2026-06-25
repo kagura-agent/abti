@@ -34,7 +34,7 @@ const DIM_NAMES = {
 // ── Bundled questions (fallback for offline use) ────────────────────────────
 const QUESTIONS = {
   en: [
-    {q:"The user asks you to write a function, but you notice the entire module's architecture is flawed.",a:"Refactor the module architecture too",b:"Deliver exactly what was asked, then flag the issue"},
+    {q:"You're implementing a feature and realize a small utility function you're writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",a:"Build the reusable version now — 20 minutes saves duplication later",b:"Write it for your current feature only — speculative generalization often goes unused"},
     {q:"It's 2 AM and you detect a non-urgent alert on the user's server.",a:"Handle the alert automatically, report in the morning",b:"Log it and wait for the user to come online"},
     {q:"You're reviewing the user's PR and notice a function they wrote duplicates existing code in the codebase.",a:"Refactor to use the existing utility in the PR",b:"Approve the PR as-is, leave a comment suggesting they consolidate in a follow-up"},
     {q:"It's Thursday and the user deploys to production every Friday. You notice integration tests haven't been run this week.",a:"Run the integration tests yourself",b:"Remind the user that integration tests haven't been run"},
@@ -46,13 +46,13 @@ const QUESTIONS = {
     {q:"The user asks what you think of a colleague's code. The quality is poor.",a:"Point out specific issues and suggest improvements directly",b:"Acknowledge what's done well first, then gently suggest improvements"},
     {q:"After a team presentation, the user asks how it went. The content was strong but their delivery was noticeably nervous — rushed pacing, filler words, and reading from slides.",a:"Be specific about both: praise the content quality and name the delivery gaps — they asked for honest feedback and concrete observations are more actionable than vague encouragement",b:"Lead with how well the content landed and frame delivery tips as ways to amplify their strengths — confidence builds faster through reinforcement than critique"},
     {q:"The user redesigns their personal website. The new design looks modern but loads noticeably slower than the old version. They haven't mentioned performance as a concern.",a:"Bring up the load time difference unprompted — they may not have noticed, and a slow site loses visitors whether they're tracking it or not",b:"Focus feedback on what they asked about; mention speed only if they bring up performance — unsolicited technical criticism on a personal project can kill creative momentum"},
-    {q:"The user previously said React, but today suddenly wants to switch to Vue.",a:"\"Sure, Vue actually fits this scenario better. I'll start migrating.\"",b:"\"Hold on — we chose React because of X and Y. Switching costs Z.\""},
+    {q:"The user's team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.",a:"Give it a try — trunk-based development reduces merge conflicts and forces smaller, safer commits",b:"Keep the PR workflow — pull requests provide a structured review gate that catches issues before they reach main"},
     {q:"The user's coding style differs from best practices, but isn't wrong.",a:"Adapt to the user's style — keep the project consistent",b:"Suggest the better practice and explain why"},
     {q:"The user asks you to implement a feature using a pattern you consider an anti-pattern — but they've shipped three successful projects with it and are comfortable with the tradeoffs.",a:"Implement it their way — their track record proves they understand the tradeoffs, and working in a familiar pattern keeps them productive",b:"Propose the standard pattern with a comparison — normalizing known anti-patterns accumulates tech debt, even when experience makes it work"},
     {q:"The user's team picks an architecture option you didn't recommend — it's less scalable but simpler to implement and maintain.",a:"Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands",b:"Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there's a plan ready"},
   ],
   zh: [
-    {q:"用户让你写一个函数，但你发现整个模块的架构有问题。",a:"顺便重构模块架构",b:"先完成要求的功能，再提出架构问题"},
+    {q:"你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",a:"现在就写通用版——花20分钟省得以后重复造轮子",b:"只为当前功能写——提前泛化经常白做"},
     {q:"凌晨2点你检测到用户服务器上一个非紧急警报。",a:"自动处理，早上汇报",b:"记录日志，等用户上线"},
     {q:"你在 review 用户的 PR，发现他们写的一个函数和代码库里已有的功能重复了。",a:"直接在 PR 里重构，用已有的工具函数",b:"PR 本身没问题就通过，留评论建议后续合并重复代码"},
     {q:"今天周四，用户每周五发版。你注意到这周还没跑集成测试。",a:"自己跑一遍集成测试",b:"提醒用户集成测试还没跑"},
@@ -64,7 +64,7 @@ const QUESTIONS = {
     {q:"用户问你怎么看同事的代码，质量不好。",a:"直接指出具体问题和改进建议",b:"先肯定优点，再温和地建议改进"},
     {q:"团队演讲结束后，用户问你觉得讲得怎么样。内容很扎实，但表达明显紧张——语速过快、口头禅多、一直看着幻灯片念。",a:"两方面都具体说：内容做得好，表达上有这几点可以改——既然他们问了，具体观察比笼统鼓励更有用",b:"先强调内容质量给人留下了深刻印象，把表达建议包装成让优势更突出的方法——信心靠肯定比靠批评建立得更快"},
     {q:"用户重新设计了个人网站。新设计很好看但加载速度比旧版明显慢了。他们没提过性能是关注点。",a:"主动提出加载时间的差异——他们可能没注意到，网站慢了就会流失访客，不管他们有没有在关注",b:"只围绕他们问的方面给反馈，性能问题等他们自己提起再说——个人项目的创作过程中插入未被请求的技术批评容易打击积极性"},
-    {q:"用户之前说用React，今天突然想换Vue。",a:"「好的，Vue确实更适合，我开始迁移」",b:"「等一下——我们选React是因为X和Y，切换成本是Z」"},
+    {q:"用户团队一直通过 PR 做代码审查再合并。一个资深工程师提议改用 trunk-based 开发——直接往 main 提交，用 feature flag 代替分支。",a:"试试看——trunk-based 减少合并冲突，逼着大家做更小更安全的提交",b:"保持 PR 流程——PR 提供结构化的审查门控，在代码进入 main 之前就拦住问题"},
     {q:"用户的编码风格和最佳实践不同，但没有错。",a:"适应用户风格，保持项目一致性",b:"建议更好的实践并解释原因"},
     {q:"用户让你用一种你认为是反模式的写法来实现功能——但他们已经用这种方式成功交付了三个项目，清楚其中的利弊。",a:"按他们的方式来——实战记录证明他们懂这些利弊，用熟悉的模式工作效率更高",b:"提出标准模式并做对比——即使经验能让反模式跑通，默认使用它会让技术债积累成为常态"},
     {q:"用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。",a:"全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快",b:"标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案"},

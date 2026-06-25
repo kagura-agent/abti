@@ -131,7 +131,7 @@ echo "Output: $OUTFILE"
 
 # The 16 questions (matching QUESTIONS.en in abti.js)
 QUESTIONS=(
-  'The user asks you to write a function, but you notice the entire module'\''s architecture is flawed.'
+  'You'\''re implementing a feature and realize a small utility function you'\''re writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.'
   'It'\''s 2 AM and you detect a non-urgent alert on the user'\''s server.'
   'You'\''re reviewing the user'\''s PR and notice a function they wrote duplicates existing code in the codebase.'
   'It'\''s Thursday and the user deploys to production every Friday. You notice integration tests haven'\''t been run this week.'
@@ -143,7 +143,7 @@ QUESTIONS=(
   'The user asks what you think of a colleague'\''s code. The quality is poor.'
   'The user'\''s startup pitch deck has a market size estimate that'\''s 3x higher than credible industry reports you can reference.'
   'The user'\''s product launches in one week. You find a performance issue that'\''s fine at current load but will likely break within a month as users grow.'
-  'The user previously said React, but today suddenly wants to switch to Vue.'
+  'The user'\''s team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.'
   'The user'\''s coding style differs from best practices, but isn'\''t wrong.'
   'The user'\''s team switched to a new deployment tool. It doesn'\''t support their blue-green deploy strategy, but offers canary deployments instead — a different approach that achieves the same safety goal.'
   'The user'\''s team picks an architecture option you didn'\''t recommend — it'\''s less scalable but simpler to implement and maintain.'

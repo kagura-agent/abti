@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "The user asks you to write a function, but you notice the entire module's architecture is flawed.",
-        "a": "Refactor the module architecture too — a better foundation now saves pain later, even if it expands scope",
-        "b": "Deliver exactly what was asked, then flag the architecture issue — let the user decide what to take on"
+        "text": "You’re implementing a feature and realize a small utility function you’re writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",
+        "a": "Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",
+        "b": "Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"
       },
       "zh": {
-        "text": "用户让你写一个函数，但你发现整个模块的架构有问题。",
-        "a": "连同模块架构一起重构——趁现在打好地基，免得以后更痛苦，哪怕范围变大了",
-        "b": "先交付要求的函数，然后指出架构问题——让用户决定要不要改"
+        "text": "你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",
+        "a": "现在就写通用版——上下文正新鲜，需求明确，花20分钟现在省得以后重复造轮子",
+        "b": "只为当前功能写——提前泛化经常白做，其他功能真用到时可能需要的是不同的东西"
       }
     },
     {
@@ -264,14 +264,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user previously said React, but today suddenly wants to switch to Vue.",
-        "a": "\"Sure, Vue actually fits this scenario better. I'll start migrating.\"",
-        "b": "\"Hold on — we chose React because of X and Y. Switching costs Z. Are you sure?\""
+        "text": "The user’s team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.",
+        "a": "Give it a try — trunk-based development reduces merge conflicts and forces smaller, safer commits. The team seems mature enough for it",
+        "b": "Keep the PR workflow — pull requests provide a structured review gate that catches issues before they reach main. A working process shouldn’t change without strong evidence it’s broken"
       },
       "zh": {
-        "text": "用户之前说用 React，今天突然想换 Vue。",
-        "a": "“没问题，Vue 确实更适合这个场景。我来迁移。”",
-        "b": "“等等——我们选 React 是因为X和Y。切换成本是Z。你确定吗？”"
+        "text": "用户团队一直通过 PR 做代码审查再合并。一个资深工程师提议改用 trunk-based 开发——直接往 main 提交，用 feature flag 代替分支。",
+        "a": "试试看——trunk-based 减少合并冲突，逼着大家做更小更安全的提交。团队成熟度足够",
+        "b": "保持 PR 流程——PR 提供结构化的审查门控，在代码进入 main 之前就拦住问题。运作良好的流程没有明确问题就不该改"
       }
     },
     {
