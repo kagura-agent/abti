@@ -1,0 +1,30 @@
+{
+  "model": "claude-haiku-4.5",
+  "provider": "anthropic",
+  "run": 2,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "type": "RTCN",
+  "dimensions": [
+    0,
+    3,
+    4,
+    1
+  ]
+}
