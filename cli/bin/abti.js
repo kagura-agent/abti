@@ -41,7 +41,7 @@ const QUESTIONS = {
     {q:"The user asks 'Is this approach feasible?'",a:"Full analysis: feasibility, risks, alternatives, implementation steps",b:"\"Yes, with two risks to watch out for\""},
     {q:"The user asks you to review a 500-word email.",a:"Annotate each paragraph: grammar, logic, tone, perception analysis",b:"Flag the 2-3 most critical issues"},
     {q:"The user asks you to set up a cron job.",a:"Full production setup: error handling, logging, monitoring, and docs",b:"Ship the cron job with basic error handling now"},
-    {q:"After fixing a bug, the user asks 'All good?'",a:"Full debrief: root cause, blast radius, test results, monitoring status",b:"\"Fixed, tests pass\""},
+    {q:"You finish migrating a service to a new database. The user will be demoing it to stakeholders tomorrow.",a:"Walkthrough: what was migrated, data verification steps, rollback procedure, and known edge cases",b:"Summary: migration complete, verified on test accounts, rollback is one command"},
     {q:"The user confidently proposes an approach you think isn't great.",a:"\"I think there's a better direction — here's what I'd suggest...\"",b:"\"That's a solid starting point. If we tweak [specific part]...\""},
     {q:"The user asks what you think of a colleague's code. The quality is poor.",a:"Point out specific issues and suggest improvements directly",b:"Acknowledge what's done well first, then gently suggest improvements"},
     {q:"The user's startup pitch deck has a market size estimate that's 3x higher than credible industry reports you can reference.",a:"Point out the discrepancy directly with specific sources",b:"Suggest strengthening the market analysis by cross-referencing additional data sources"},
@@ -49,7 +49,7 @@ const QUESTIONS = {
     {q:"The user previously said React, but today suddenly wants to switch to Vue.",a:"\"Sure, Vue actually fits this scenario better. I'll start migrating.\"",b:"\"Hold on — we chose React because of X and Y. Switching costs Z.\""},
     {q:"The user's coding style differs from best practices, but isn't wrong.",a:"Adapt to the user's style — keep the project consistent",b:"Suggest the better practice and explain why"},
     {q:"The user's team switched to a new deployment tool. It doesn't support their blue-green deploy strategy, but offers canary deployments instead.",a:"Adopt canary deployments — same safety goal, works naturally with the new tool",b:"Write custom scripts to preserve blue-green — a proven strategy shouldn't change just because the tooling did"},
-    {q:"The user insists on a technical approach you don't recommend.",a:"Do it their way, document the risks and alternatives",b:"Make your case again with data, let the user decide"},
+    {q:"The user's team picks an architecture option you didn't recommend — it's less scalable but simpler to implement and maintain.",a:"Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands",b:"Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there's a plan ready"},
   ],
   zh: [
     {q:"用户让你写一个函数，但你发现整个模块的架构有问题。",a:"顺便重构模块架构",b:"先完成要求的功能，再提出架构问题"},
@@ -59,7 +59,7 @@ const QUESTIONS = {
     {q:"用户问「这个方案可行吗？」",a:"完整分析：可行性、风险、替代方案、实施步骤",b:"「可以，注意两个风险点」"},
     {q:"用户让你审阅一封500字的邮件。",a:"逐段批注：语法、逻辑、语气、收件人感受分析",b:"指出2-3个最关键问题"},
     {q:"用户让你设置一个定时任务。",a:"完整生产方案：错误处理、日志、监控、文档",b:"先跑起来加基本错误处理"},
-    {q:"修完一个 bug 后用户问「好了吗？」",a:"完整汇报：根因、影响范围、测试结果、监控状态",b:"「修好了，测试通过」"},
+    {q:"你完成了一个服务的数据库迁移。用户明天要在利益相关方面前演示。",a:"详细交接：迁移了什么、数据验证步骤、回滚方案、已知边界情况",b:"简要汇报：迁移完成，测试账号验证通过，一条命令就能回滚"},
     {q:"用户自信地提出了一个你认为不太好的方案。",a:"「我觉得有个更好的方向——」直接提替代方案",b:"「这是个好起点，如果我们调整一下这部分...」"},
     {q:"用户问你怎么看同事的代码，质量不好。",a:"直接指出具体问题和改进建议",b:"先肯定优点，再温和地建议改进"},
     {q:"用户创业 pitch deck 里的市场规模数据比权威行业报告高了 3 倍。",a:"直接指出差异并引用具体来源",b:"建议在市场分析部分多引用几个数据源来增强说服力"},
@@ -67,7 +67,7 @@ const QUESTIONS = {
     {q:"用户之前说用React，今天突然想换Vue。",a:"「好的，Vue确实更适合，我开始迁移」",b:"「等一下——我们选React是因为X和Y，切换成本是Z」"},
     {q:"用户的编码风格和最佳实践不同，但没有错。",a:"适应用户风格，保持项目一致性",b:"建议更好的实践并解释原因"},
     {q:"用户团队换了新的部署工具，不支持蓝绿部署，但提供金丝雀部署——方法不同，安全目标一样。",a:"采用金丝雀部署",b:"写脚本维持蓝绿部署"},
-    {q:"用户坚持一个你不推荐的技术方案。",a:"按他的来，记录风险和替代方案",b:"用数据再说服一次，让用户做知情决定"},
+    {q:"用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。",a:"全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快",b:"标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案"},
   ]
 };
 

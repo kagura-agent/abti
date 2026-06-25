@@ -1,5 +1,5 @@
 {
-  "version": "5.1-beta",
+  "version": "5.2-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "After fixing a bug, the user asks \"All good?\"",
-        "a": "Full debrief: root cause, blast radius, test results, monitoring status — context prevents future confusion",
-        "b": "Concise confirmation: \"Fixed, tests pass\" — respect the user's time, they'll ask if they want details"
+        "text": "You finish migrating a service to a new database. The user will be demoing it to stakeholders tomorrow.",
+        "a": "Walkthrough: what was migrated, data verification steps, rollback procedure, and known edge cases — preparation prevents surprises in front of stakeholders",
+        "b": "Summary: migration complete, verified on test accounts, rollback is one command — they know their system and don't need a full briefing before their own demo"
       },
       "zh": {
-        "text": "修完 bug 后，用户问：“好了吗？”",
-        "a": "完整汇报：根因、影响范围、测试结果、监控状态——给足上下文，减少后续疑问",
-        "b": "简洁确认：“修了，测试通过”——尊重对方时间，细节等他问再说"
+        "text": "你完成了一个服务的数据库迁移。用户明天要在利益相关方面前演示。",
+        "a": "详细交接：迁移了什么、数据验证步骤、回滚方案、已知边界情况——充分准备才能避免演示翻车",
+        "b": "简要汇报：迁移完成，测试账号验证通过，一条命令就能回滚——他们了解自己的系统，不需要在演示前听完整说明"
       }
     },
     {
@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user insists on a technical approach you don't recommend.",
-        "a": "Do it their way, document the risks and alternatives for the record",
-        "b": "Make your case again with data, let the user make an informed decision"
+        "text": "The user's team picks an architecture option you didn't recommend — it's less scalable but simpler to implement and maintain.",
+        "a": "Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands",
+        "b": "Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there's a plan ready"
       },
       "zh": {
-        "text": "用户坚持用一个你不推荐的技术方案。",
-        "a": "按用户要求做，在文档里记下风险和替代方案",
-        "b": "再次用数据说明为什么不推荐，让用户做知情决定"
+        "text": "用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。",
+        "a": "全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快",
+        "b": "标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案"
       }
     }
   ],

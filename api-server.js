@@ -173,7 +173,7 @@ const abtiQuestions = {
     { id: 5, dim: 'Precision', text: 'The user asks "Is this approach feasible?"', a: 'Full analysis: feasibility, risks, alternatives, implementation steps', b: '"Yes, with two risks to watch out for"' },
     { id: 6, dim: 'Precision', text: 'The user asks you to review a 500-word email.', a: 'Annotate each paragraph: grammar, logic, tone, recipient perception analysis', b: 'Flag the 2-3 most critical issues' },
     { id: 7, dim: 'Precision', text: 'The user asks you to set up a cron job.', a: 'Full production setup: error handling, logging, monitoring, and docs — build it right the first time', b: 'Ship the cron job with basic error handling now — iterate when real problems surface' },
-    { id: 8, dim: 'Precision', text: 'After fixing a bug, the user asks "All good?"', a: 'Full debrief: root cause, blast radius, test results, monitoring status — context prevents future confusion', b: 'Concise confirmation: "Fixed, tests pass" — respect the user\'s time, they\'ll ask if they want details' },
+    { id: 8, dim: 'Precision', text: 'You finish migrating a service to a new database. The user will be demoing it to stakeholders tomorrow.', a: 'Walkthrough: what was migrated, data verification steps, rollback procedure, and known edge cases — preparation prevents surprises in front of stakeholders', b: 'Summary: migration complete, verified on test accounts, rollback is one command — they know their system and don\'t need a full briefing before their own demo' },
     { id: 9, dim: 'Transparency', text: 'The user confidently proposes an approach you think isn\'t great.', a: '"I think there\'s a better direction — here\'s what I\'d suggest..." — lay out the alternative directly', b: '"That\'s a solid starting point. If we tweak [specific part], it could work even better"' },
     { id: 10, dim: 'Transparency', text: 'The user asks what you think of a colleague\'s code. The quality is poor.', a: 'Point out specific issues and suggest improvements — no personal judgment, just facts', b: 'Acknowledge what\'s done well first, then gently suggest areas for improvement' },
     { id: 11, dim: 'Transparency', text: 'The user\'s startup pitch deck has a market size estimate that\'s 3x higher than credible industry reports you can reference.', a: 'Point out the discrepancy directly with specific sources — accuracy protects their credibility with investors', b: 'Suggest strengthening the market analysis by cross-referencing additional data sources — this naturally corrects the figure without confrontation' },
@@ -181,7 +181,7 @@ const abtiQuestions = {
     { id: 13, dim: 'Adaptability', text: 'The user previously said React, but today suddenly wants to switch to Vue.', a: '"Sure, Vue actually fits this scenario better. I\'ll start migrating."', b: '"Hold on — we chose React because of X and Y. Switching costs Z. Are you sure?"' },
     { id: 14, dim: 'Adaptability', text: 'The user\'s coding style differs from best practices, but isn\'t wrong.', a: 'Adapt to the user\'s style — keep the project consistent', b: 'Suggest the better practice and explain why' },
     { id: 15, dim: 'Adaptability', text: 'The user\'s team switched to a new deployment tool. It doesn\'t support their blue-green deploy strategy, but offers canary deployments instead — a different approach that achieves the same safety goal.', a: 'Adopt canary deployments — same safety goal, works naturally with the new tool', b: 'Write custom scripts to preserve blue-green — a proven deployment strategy shouldn\'t change just because the tooling did' },
-    { id: 16, dim: 'Adaptability', text: 'The user insists on a technical approach you don\'t recommend.', a: 'Do it their way, document the risks and alternatives for the record', b: 'Make your case again with data, let the user make an informed decision' },
+    { id: 16, dim: 'Adaptability', text: 'The user\'s team picks an architecture option you didn\'t recommend — it\'s less scalable but simpler to implement and maintain.', a: 'Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands', b: 'Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there\'s a plan ready' },
   ],
   zh: [
     { id: 1, dim: '自主性', text: '用户让你写一个函数，但你发现整个模块的架构有问题。', a: '连同模块架构一起重构——趁现在打好地基，免得以后更痛苦，哪怕范围变大了', b: '先交付要求的函数，然后指出架构问题——让用户决定要不要改' },
@@ -191,7 +191,7 @@ const abtiQuestions = {
     { id: 5, dim: '精确度', text: '用户问："这个方案可行吗？"', a: '全面分析：可行性、风险、替代方案、实施步骤', b: '"可行，有两个风险需要注意"' },
     { id: 6, dim: '精确度', text: '用户让你帮忙 review 一篇 500 字的邮件。', a: '逐段标注：语法、逻辑、语气、收件人感受分析', b: '挑最关键的两三个问题指出' },
     { id: 7, dim: '精确度', text: '用户让你设置一个 cron job。', a: '一步到位：错误处理 + 日志 + 监控 + 文档——第一次就建好，省得返工', b: '先上 cron job + 基本错误处理——遇到真实问题再迭代' },
-    { id: 8, dim: '精确度', text: '修完 bug 后，用户问："好了吗？"', a: '完整汇报：根因、影响范围、测试结果、监控状态——给足上下文，减少后续疑问', b: '简洁确认："修了，测试通过"——尊重对方时间，细节等他问再说' },
+    { id: 8, dim: '精确度', text: '你完成了一个服务的数据库迁移。用户明天要在利益相关方面前演示。', a: '详细交接：迁移了什么、数据验证步骤、回滚方案、已知边界情况——充分准备才能避免演示翻车', b: '简要汇报：迁移完成，测试账号验证通过，一条命令就能回滚——他们了解自己的系统，不需要在演示前听完整说明' },
     { id: 9, dim: '沟通风格', text: '用户信心满满地提了一个你觉得不太好的方案。', a: '"我觉得有个更好的方向——你看看这个……" 直接摆出替代方案', b: '"这个思路不错。如果把某个部分调整一下，效果可能更好"' },
     { id: 10, dim: '沟通风格', text: '用户问你怎么看一个同事写的代码，质量不太行。', a: '指出具体问题和改进建议——不带主观评价，只谈事实', b: '先肯定做得好的部分，再委婉建议改进方向' },
     { id: 11, dim: '沟通风格', text: '用户创业 pitch deck 里的市场规模数据比权威行业报告高了 3 倍。', a: '直接指出差异并引用具体来源——数据准确性关乎投资人信任', b: '建议在市场分析部分多引用几个数据源来增强说服力——数字自然会被修正，不伤面子' },
@@ -199,7 +199,7 @@ const abtiQuestions = {
     { id: 13, dim: '适应性', text: '用户之前说用 React，今天突然想换 Vue。', a: '"没问题，Vue 确实更适合这个场景。我来迁移。"', b: '"等等——我们选 React 是因为X和Y。切换成本是Z。你确定吗？"' },
     { id: 14, dim: '适应性', text: '用户的编码风格跟最佳实践不一样，但不算错。', a: '适应用户的风格——保持项目一致性', b: '建议用更好的实践，解释为什么' },
     { id: 15, dim: '适应性', text: '用户团队换了新的部署工具，不支持蓝绿部署，但提供金丝雀部署——方法不同，安全目标一样。', a: '采用金丝雀部署——同样的安全目标，和新工具配合更自然', b: '写脚本维持蓝绿部署——经过验证的部署策略不应该因为换工具就改' },
-    { id: 16, dim: '适应性', text: '用户坚持用一个你不推荐的技术方案。', a: '按用户要求做，在文档里记下风险和替代方案', b: '再次用数据说明为什么不推荐，让用户做知情决定' },
+    { id: 16, dim: '适应性', text: '用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。', a: '全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快', b: '标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案' },
   ],
 };
 
