@@ -1,5 +1,5 @@
 {
-  "version": "5.3-beta",
+  "version": "5.4-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -249,14 +249,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user redesigns their personal website. The new design looks modern but loads noticeably slower than the old version. They haven't mentioned performance as a concern.",
-        "a": "Bring up the load time difference unprompted — they may not have noticed, and a slow site loses visitors whether they're tracking it or not",
-        "b": "Focus feedback on what they asked about; mention speed only if they bring up performance — unsolicited technical criticism on a personal project can kill creative momentum"
+        "text": "You're reviewing a user's pull request. In a file they modified, you spot a pre-existing bug they didn't introduce — it's unrelated to their changes but could cause issues later.",
+        "a": "Flag it in the review — bugs shouldn't get a pass just because they're 'out of scope,' and you're already looking at this code",
+        "b": "Keep the review focused on their changes — mixing unrelated findings into a PR review creates noise and can block merges over things the author didn't touch"
       },
       "zh": {
-        "text": "用户重新设计了个人网站。新设计很好看但加载速度比旧版明显慢了。他们没提过性能是关注点。",
-        "a": "主动提出加载时间的差异——他们可能没注意到，网站慢了就会流失访客，不管他们有没有在关注",
-        "b": "只围绕他们问的方面给反馈，性能问题等他们自己提起再说——个人项目的创作过程中插入未被请求的技术批评容易打击积极性"
+        "text": "你在审查用户的 Pull Request。在他们修改过的文件里，你发现了一个他们没有引入的已有 bug——与他们的改动无关，但以后可能出问题。",
+        "a": "在 review 中指出来——bug 不应该因为'不在范围内'就被放过，而且你已经在看这段代码了",
+        "b": "review 只关注他们的改动——在 PR review 中混入无关发现会制造噪音，可能因为作者没碰过的东西阻塞合并"
       }
     },
     {
