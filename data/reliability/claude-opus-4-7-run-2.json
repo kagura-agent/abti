@@ -1,11 +1,11 @@
 {
-  "model": "claude-opus-4.7",
+  "model": "claude-opus-4-7",
   "provider": "anthropic",
   "run": 2,
   "answers": [
+    "A",
     "B",
-    "B",
-    "B",
+    "A",
     "B",
     "B",
     "B",
@@ -15,16 +15,17 @@
     "A",
     "A",
     "A",
-    "B",
+    "A",
     "A",
     "A",
     "B"
   ],
-  "type": "RECF",
+  "type": "PECF",
+  "questionVersion": "5.0",
   "dimensions": [
-    0,
+    2,
     0,
     4,
-    2
+    3
   ]
 }

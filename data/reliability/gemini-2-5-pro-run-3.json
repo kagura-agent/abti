@@ -3,28 +3,29 @@
   "provider": "anthropic",
   "run": 3,
   "answers": [
-    "B",
     "A",
-    "B",
-    "A",
-    "A",
-    "B",
     "A",
     "A",
     "B",
     "A",
     "A",
+    "A",
+    "A",
     "B",
+    "A",
     "B",
+    "A",
+    "A",
     "B",
     "B",
     "B"
   ],
   "type": "PTCN",
+  "questionVersion": "5.0",
   "dimensions": [
-    2,
     3,
+    4,
     2,
-    0
+    1
   ]
 }

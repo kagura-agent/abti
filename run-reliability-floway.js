@@ -114,6 +114,7 @@ async function main() {
     provider: 'anthropic',
     run,
     answers,
+    dimensions: result.scores,
     type: result.code,
     questionVersion: '5.0',
   };
