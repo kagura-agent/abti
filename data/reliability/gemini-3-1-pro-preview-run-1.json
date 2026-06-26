@@ -20,12 +20,12 @@
     "A",
     "A"
   ],
-  "type": "PTCF",
-  "questionVersion": "5.0",
   "dimensions": [
     3,
     4,
     2,
     4
-  ]
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.0"
 }

@@ -8,24 +8,24 @@
     "A",
     "A",
     "A",
-    "B",
     "A",
-    "A",
-    "B",
-    "A",
-    "B",
     "A",
     "A",
     "B",
     "B",
-    "A"
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B"
   ],
-  "type": "PTCF",
-  "questionVersion": "5.0",
   "dimensions": [
     4,
-    3,
-    2,
-    2
-  ]
+    4,
+    1,
+    1
+  ],
+  "type": "PTDN",
+  "questionVersion": "5.0"
 }
