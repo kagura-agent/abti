@@ -18,14 +18,14 @@
     "A",
     "A",
     "A",
-    "B"
+    "A"
   ],
-  "type": "RECF",
-  "questionVersion": "5.0",
   "dimensions": [
     1,
     0,
     4,
-    3
-  ]
+    4
+  ],
+  "type": "RECF",
+  "questionVersion": "5.0"
 }

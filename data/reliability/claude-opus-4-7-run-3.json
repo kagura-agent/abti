@@ -5,11 +5,11 @@
   "answers": [
     "A",
     "B",
-    "B",
-    "B",
-    "B",
-    "B",
     "A",
+    "B",
+    "B",
+    "B",
+    "B",
     "B",
     "A",
     "A",
@@ -20,12 +20,12 @@
     "A",
     "A"
   ],
-  "type": "RECF",
-  "questionVersion": "5.0",
   "dimensions": [
-    1,
-    1,
+    2,
+    0,
     4,
     4
-  ]
+  ],
+  "type": "PECF",
+  "questionVersion": "5.0"
 }
