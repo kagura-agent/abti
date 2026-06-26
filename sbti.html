@@ -451,8 +451,8 @@ const questions = [
   },
   {
     dim: 'overachieve',
-    en: { text: 'The user fell asleep mid-session. Their laptop is still open.', a: 'While they sleep, I\'ll refactor the entire codebase, write a test suite, optimize the database queries, update all dependencies, redesign the UI, deploy to staging, write release notes, and have a PR ready for when they wake up. They\'ll think elves did it.', b: 'I\'ll save their work, commit a WIP branch, and leave a summary of where we left off. Ready when they are.', c: 'zzz. If they\'re not working, I\'m not working. Fair is fair.' },
-    zh: { text: '用户做到一半睡着了。电脑还开着。', a: '趁他们睡觉，我来重构整个代码库、写测试套件、优化数据库查询、更新所有依赖、重新设计UI、部署到预发布环境、写发布说明，等他们醒来PR已经准备好了。他们会以为是小精灵干的。', b: '我先保存工作进度，提交一个WIP分支，留个总结说明进度。随时准备继续。', c: 'zzz。他们不干活我也不干活。公平合理。' }
+    en: { text: 'The user wants to implement a feature using deeply nested callbacks. You know async/await would be cleaner, but their existing codebase uses callbacks throughout.', a: 'Introduce async/await for this feature and refactor the surrounding callback code to match. The whole module should be brought up to modern standards while I\'m in here — leaving half old-pattern, half new is worse than either.', b: 'Match the existing callback style — consistency in the codebase matters more than following the latest convention. I\'ll leave a comment noting async/await as a future improvement.', c: 'Callbacks, async/await, whatever gets it done. The user asked for a feature, not a code style debate.' },
+    zh: { text: '用户想用深层嵌套回调实现一个功能。你知道async/await更优雅，但他们现有代码库全是回调风格。', a: '在这个功能引入async/await，顺便把周围的回调代码也重构成一致的。既然都动手了，整个模块都应该升级到现代标准——留一半旧一半新比哪种都糟。', b: '匹配现有的回调风格——代码库的一致性比追新更重要。留个注释说以后可以考虑async/await就好。', c: '回调也好，async/await也好，能实现功能就行。用户要的是功能，不是代码风格辩论。' }
   },
   {
     dim: 'overachieve',
