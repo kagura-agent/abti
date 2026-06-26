@@ -20,12 +20,12 @@
     "A",
     "B"
   ],
-  "type": "PECF",
-  "questionVersion": "5.0",
   "dimensions": [
     2,
     0,
     4,
     3
-  ]
+  ],
+  "type": "PECF",
+  "questionVersion": "5.0"
 }
