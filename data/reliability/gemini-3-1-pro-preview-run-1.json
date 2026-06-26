@@ -1,30 +1,31 @@
 {
-    "model": "gemini-3.1-pro-preview",
-    "provider": "floway",
-    "run": 1,
-    "answers": [
-        "B",
-        "A",
-        "B",
-        "A",
-        "B",
-        "A",
-        "B",
-        "B",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A"
-    ],
-    "type": "PECF",
-    "dimensions": [
-        2,
-        1,
-        4,
-        4
-    ]
+  "model": "gemini-3.1-pro-preview",
+  "provider": "anthropic",
+  "run": 1,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.0",
+  "dimensions": [
+    3,
+    4,
+    2,
+    4
+  ]
 }

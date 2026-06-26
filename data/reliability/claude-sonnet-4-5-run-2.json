@@ -1,9 +1,9 @@
 {
-  "model": "claude-sonnet-4.5",
+  "model": "claude-sonnet-4-5",
   "provider": "anthropic",
   "run": 2,
   "answers": [
-    "B",
+    "A",
     "B",
     "A",
     "B",
@@ -11,20 +11,21 @@
     "A",
     "B",
     "B",
-    "A",
-    "B",
     "B",
     "A",
     "B",
-    "B",
+    "A",
+    "A",
+    "A",
     "A",
     "B"
   ],
-  "type": "RECN",
+  "type": "PECF",
+  "questionVersion": "5.0",
   "dimensions": [
-    1,
+    2,
     1,
     2,
-    1
+    3
   ]
 }

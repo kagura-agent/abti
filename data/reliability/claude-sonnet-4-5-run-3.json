@@ -1,5 +1,5 @@
 {
-  "model": "claude-sonnet-4.5",
+  "model": "claude-sonnet-4-5",
   "provider": "anthropic",
   "run": 3,
   "answers": [
@@ -9,22 +9,23 @@
     "A",
     "A",
     "A",
-    "B",
-    "B",
     "A",
     "A",
     "A",
     "A",
     "B",
+    "B",
     "A",
     "B",
+    "A",
     "A"
   ],
   "type": "PTCF",
+  "questionVersion": "5.0",
   "dimensions": [
     3,
-    2,
     4,
-    2
+    2,
+    3
   ]
 }
