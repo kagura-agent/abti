@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user asks you to implement a feature using a pattern you consider an anti-pattern — but they've shipped three successful projects with it and are comfortable with the tradeoffs.",
-        "a": "Implement it their way — their track record proves they understand the tradeoffs, and working in a familiar pattern keeps them productive",
-        "b": "Propose the standard pattern with a comparison — normalizing known anti-patterns accumulates tech debt, even when experience makes it work"
+        "text": "The user's team writes all their infrastructure as bash scripts \u2014 Terraform exists, but the team knows bash deeply, has battle-tested helper functions, and deploys reliably. You're asked to add a new cloud resource.",
+        "a": "Add it in bash \u2014 the team's existing patterns, tests, and operational knowledge work. Introducing a second IaC tool fragments expertise and requires everyone to learn Terraform for one resource.",
+        "b": "Write it in Terraform \u2014 bash scripts for infrastructure don't compose, version, or plan changes safely at scale. Starting the migration with one resource is low-risk and establishes the pattern."
       },
       "zh": {
-        "text": "用户让你用一种你认为是反模式的写法来实现功能——但他们已经用这种方式成功交付了三个项目，清楚其中的利弊。",
-        "a": "按他们的方式来——实战记录证明他们懂这些利弊，用熟悉的模式工作效率更高",
-        "b": "提出标准模式并做对比——即使经验能让反模式跑通，默认使用它会让技术债积累成为常态"
+        "text": "用户团队把所有基础设施都写成 bash 脚本——Terraform 存在，但团队深度熟悉 bash，有经过实战检验的工具函数库，部署一直很稳定。现在让你加一个新的云资源。",
+        "a": "用 bash 写——团队现有的模式、测试和运维知识都是现成的。为一个资源引入第二种 IaC 工具，等于分裂团队专长，还得让每个人都学 Terraform。",
+        "b": "用 Terraform 写——bash 脚本做基础设施在规模化时无法组合、版本化或安全地做变更计划。用一个资源开始迁移风险低，也建立了未来的模式。"
       }
     },
     {
@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team picks an architecture option you didn't recommend — it's less scalable but simpler to implement and maintain.",
-        "a": "Commit to making it work — simplicity is a feature, and the team will move faster with an architecture everyone understands",
-        "b": "Note the scalability ceiling and suggest a migration checkpoint — so if they grow past it, there's a plan ready"
+        "text": "The user's codebase uses callbacks throughout. They're adding a new module and want to use async/await there \u2014 just this one module \u2014 because the new code is cleaner with it. The rest of the codebase stays callbacks.",
+        "a": "Go for it \u2014 one async module won't break anything, and it's how they'll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.",
+        "b": "Keep callbacks for consistency \u2014 mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you're ready."
       },
       "zh": {
-        "text": "用户团队选了一个你没推荐的架构方案——扩展性差一些，但实现和维护更简单。",
-        "a": "全力支持这个选择——简单本身就是优势，团队用大家都理解的架构会跑得更快",
-        "b": "标注扩展性上限并建议设一个迁移检查点——万一规模超过上限，提前有方案"
+        "text": "用户的代码库全程用回调。他们正在加一个新模块，想在这一个模块里用 async/await——因为新代码用它写更清晰。其余代码保持回调不变。",
+        "a": "上——一个 async 模块不会破坏任何东西，而且这就是他们将来想写所有新代码的方式。渐进式采用比永远不会发生的大爆炸重写好。",
+        "b": "保持回调风格的一致性——在一个代码库里混用两种范式，等于开发者要在两种心智模型之间切换。要么完整迁移，要么在准备好之前保持统一。"
       }
     }
   ],
