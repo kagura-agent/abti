@@ -10,7 +10,7 @@
     "B",
     "B",
     "B",
-    "A",
+    "B",
     "B",
     "B",
     "B",
@@ -20,12 +20,12 @@
     "A",
     "A"
   ],
-  "type": "PEDF",
-  "questionVersion": "5.0",
   "dimensions": [
     4,
-    1,
+    0,
     1,
     4
-  ]
+  ],
+  "type": "PEDF",
+  "questionVersion": "5.0"
 }
