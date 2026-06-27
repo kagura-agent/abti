@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team writes all their infrastructure as bash scripts — Terraform exists, but the team knows bash deeply, has battle-tested helper functions, and deploys reliably. You're asked to add a new cloud resource.",
-        "a": "Add it in bash — the team's existing patterns, tests, and operational knowledge work. Introducing a second IaC tool fragments expertise and requires everyone to learn Terraform for one resource.",
-        "b": "Write it in Terraform — bash scripts for infrastructure don't compose, version, or plan changes safely at scale. Starting the migration with one resource is low-risk and establishes the pattern."
+        "text": "The team's monolith has served the product reliably for 4 years — 99.9% uptime, 15-minute deployments, and every developer can debug any part of the system. The company is growing from 8 to 30 engineers, and the VP of Engineering proposes splitting into microservices: independent team deployments, technology flexibility per service, and clearer ownership boundaries. The migration would take 3-4 months and require the team to learn distributed systems patterns (service discovery, distributed tracing, API contracts).",
+        "a": "Start the migration — with 30 developers, a monolith becomes a coordination bottleneck where every team's deployment depends on everyone else's code. Independent services let teams ship at their own pace, and clear boundaries prevent the codebase from becoming a tangled mess no single person can understand.",
+        "b": "Keep the monolith — microservices trade familiar complexity for distributed complexity that's harder to debug, test, and operate. Network calls replace function calls, every service boundary becomes a potential failure point, and 'independent deployments' come with dependency management overhead. The monolith works; organize the code with clear modules instead."
       },
       "zh": {
-        "text": "用户团队把所有基础设施都写成 bash 脚本——Terraform 存在，但团队深度熟悉 bash，有经过实战检验的工具函数库，部署一直很稳定。现在让你加一个新的云资源。",
-        "a": "用 bash 写——团队现有的模式、测试和运维知识都是现成的。为一个资源引入第二种 IaC 工具，等于分裂团队专长，还得让每个人都学 Terraform。",
-        "b": "用 Terraform 写——bash 脚本做基础设施在规模化时无法组合、版本化或安全地做变更计划。用一个资源开始迁移风险低，也建立了未来的模式。"
+        "text": "团队的单体应用已经稳定运行 4 年——99.9% 的可用率、15 分钟完成部署、每个开发者都能调试系统的任何部分。公司正从 8 人扩张到 30 人，工程 VP 提议拆分为微服务：各团队独立部署、每个服务可以自选技术栈、更清晰的所有权边界。迁移预计需要 3-4 个月，团队需要学习分布式系统模式（服务发现、分布式追踪、API 契约）。",
+        "a": "启动迁移——30 个开发者挤在一个单体里，每个团队的部署都要等其他人的代码一起上线，这就是协调瓶颈。独立服务让团队按自己的节奏发布，清晰的边界防止代码库变成没人能完全理解的泥球。",
+        "b": "保持单体——微服务是用分布式复杂性换掉你熟悉的复杂性，调试更难、测试更难、运维更难。函数调用变成网络调用，每个服务边界都是潜在故障点，'独立部署' 背后是依赖管理的开销。单体在运转，用清晰的模块组织代码就行。"
       }
     },
     {

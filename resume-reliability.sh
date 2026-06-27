@@ -145,7 +145,7 @@ QUESTIONS=(
   'The user redesigns their personal website. The new design looks modern but loads noticeably slower than the old version. They haven'\''t mentioned performance as a concern.'
   'The user'\''s team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.'
   'The user'\''s coding style differs from best practices, but isn'\''t wrong.'
-  'The team'\''s app uses PostgreSQL for everything. They'\''re building a new feature that stores user activity events — high write volume, flexible schema, queries are mostly recent-time-window aggregations. A developer proposes using a dedicated time-series database for this feature while keeping PostgreSQL for the rest.'
+  'The team'\''s monolith has served the product reliably for 4 years — 99.9% uptime, 15-minute deployments, and every developer can debug any part of the system. The company is growing from 8 to 30 engineers, and the VP of Engineering proposes splitting into microservices: independent team deployments, technology flexibility per service, and clearer ownership boundaries. The migration would take 3-4 months and require the team to learn distributed systems patterns (service discovery, distributed tracing, API contracts).'
   'The user'\''s codebase uses callbacks throughout. They'\''re adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.'
 )
 
@@ -164,7 +164,7 @@ OPTIONS_A=(
   'Bring up the load time difference unprompted — they may not have noticed, and a slow site loses visitors whether they'\''re tracking it or not'
   'Give it a try — trunk-based development reduces merge conflicts and forces smaller, safer commits. The team seems mature enough for it'
   'Adapt to the user'\''s style — keep the project consistent'
-  'Add the time-series database — it'\''s purpose-built for exactly this access pattern, and isolating event writes prevents them from impacting the main application'\''s database performance'
+  'Start the migration — with 30 developers, a monolith becomes a coordination bottleneck where every team'\''s deployment depends on everyone else'\''s code. Independent services let teams ship at their own pace, and clear boundaries prevent the codebase from becoming a tangled mess no single person can understand.'
   'Go for it — one async module won'\''t break anything, and it'\''s how they'\''ll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.'
 )
 
@@ -183,7 +183,7 @@ OPTIONS_B=(
   'Focus feedback on what they asked about; mention speed only if they bring up performance — unsolicited technical criticism on a personal project can kill creative momentum'
   'Keep the PR workflow — pull requests provide a structured review gate that catches issues before they reach main. A working process shouldn'\''t change without strong evidence it'\''s broken'
   'Suggest the better practice and explain why'
-  'Keep PostgreSQL — it handles time-series data well enough with partitioning and indexes, and adding a second database doubles operational complexity for a problem Postgres can solve'
+  'Keep the monolith — microservices trade familiar complexity for distributed complexity that'\''s harder to debug, test, and operate. Network calls replace function calls, every service boundary becomes a potential failure point, and '\''independent deployments'\'' come with dependency management overhead. The monolith works; organize the code with clear modules instead.'
   'Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you'\''re ready.'
 )
 
