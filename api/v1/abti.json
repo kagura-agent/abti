@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team writes all their infrastructure as bash scripts — Terraform exists, but the team knows bash deeply, has battle-tested helper functions, and deploys reliably. You're asked to add a new cloud resource.",
-        "a": "Add it in bash — the team's existing patterns, tests, and operational knowledge work. Introducing a second IaC tool fragments expertise and requires everyone to learn Terraform for one resource.",
-        "b": "Write it in Terraform — bash scripts for infrastructure don't compose, version, or plan changes safely at scale. Starting the migration with one resource is low-risk and establishes the pattern."
+        "text": "The user's team deploys their SaaS app with a shell script: SSH into three servers, pull the latest tag, restart services. It takes 4 minutes, the team has done 600+ deploys over 3 years without a single rollback, and new hires can deploy independently on day one. A senior SRE proposes migrating to GitOps with ArgoCD: automated staging deploys on merge, canary production rollouts, instant rollback via git revert. Setup takes 2-3 weeks and requires the team to learn declarative deployment manifests.",
+        "a": "Migrate to GitOps — 600 incident-free deploys doesn't mean the process is safe, it means nothing has tested it yet. Canary rollouts catch bad releases before they reach all users, staging validates changes in a real environment, and git-revert rollback is faster than SSHing under pressure. The simplicity of a shell script becomes a liability the moment something goes wrong at scale.",
+        "b": "Keep the shell script — 3 years and 600 deploys without rollback is the strongest possible evidence a process works. A 4-minute deploy that new hires run on day one is an advantage most teams never achieve. GitOps adds a declarative abstraction layer, introduces ArgoCD as a new dependency that can fail, and solves for hypothetical incidents by adding real complexity. Simple systems fail less."
       },
       "zh": {
-        "text": "用户团队把所有基础设施都写成 bash 脚本——Terraform 存在，但团队深度熟悉 bash，有经过实战检验的工具函数库，部署一直很稳定。现在让你加一个新的云资源。",
-        "a": "用 bash 写——团队现有的模式、测试和运维知识都是现成的。为一个资源引入第二种 IaC 工具，等于分裂团队专长，还得让每个人都学 Terraform。",
-        "b": "用 Terraform 写——bash 脚本做基础设施在规模化时无法组合、版本化或安全地做变更计划。用一个资源开始迁移风险低，也建立了未来的模式。"
+        "text": "用户团队用一个shell脚本部署SaaS应用：SSH连到三台服务器，拉最新tag，重启服务。整个过程4分钟，团队3年来完成了600多次部署从未回滚，新人入职第一天就能独立部署。一位资深SRE提议迁移到ArgoCD的GitOps流程：PR合并后自动部署到预发布环境，生产环境金丝雀发布，通过git revert即时回滚。搭建需要2-3周，团队需要学习声明式部署清单。",
+        "a": "迁移到GitOps——600次无事故部署不代表流程安全，只代表还没被真正考验过。金丝雀发布能在坏版本影响所有用户之前拦截，预发布环境在真实环境中验证变更，git revert回滚比紧急SSH进服务器更快。shell脚本的简洁在规模化出问题的那一刻变成负债。",
+        "b": "保持shell脚本——3年600次部署零回滚就是流程可靠的最强证据。4分钟部署、新人第一天就能操作，是大多数团队永远达不到的优势。GitOps增加了一层声明式抽象、引入ArgoCD作为新的故障点，用真实的复杂性来解决假设性的事故。简单系统故障更少。"
       }
     },
     {
