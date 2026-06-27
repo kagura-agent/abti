@@ -1,8 +1,0 @@
-{
-  "model": "mathstral:7b",
-  "provider": "ollama",
-  "run": 1,
-  "answers": ["A","A","A","A","A","A","A","A","B","B","B","A","A","B","A","B"],
-  "type": "PTDF",
-  "dimensions": [4, 4, 1, 2]
-}
