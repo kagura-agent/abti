@@ -1,5 +1,5 @@
 {
-  "version": "5.3-beta",
+  "version": "5.4-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team writes all their infrastructure as bash scripts — Terraform exists, but the team knows bash deeply, has battle-tested helper functions, and deploys reliably. You're asked to add a new cloud resource.",
-        "a": "Add it in bash — the team's existing patterns, tests, and operational knowledge work. Introducing a second IaC tool fragments expertise and requires everyone to learn Terraform for one resource.",
-        "b": "Write it in Terraform — bash scripts for infrastructure don't compose, version, or plan changes safely at scale. Starting the migration with one resource is low-risk and establishes the pattern."
+        "text": "The user's API is entirely REST — clean, well-documented, the team maintains it confidently. For a new analytics dashboard that needs data from 8 different endpoints, the frontend developer asks to add one GraphQL endpoint. Just this one endpoint — the rest of the API stays REST.",
+        "a": "Add the GraphQL endpoint — an analytics dashboard aggregating 8 resources is exactly the use case GraphQL was designed for. One specialized endpoint doesn't commit you to migrating everything. The frontend gets exactly the data shape it needs in one roundtrip.",
+        "b": "Keep it REST — add one aggregation endpoint that returns the combined data. GraphQL for one page means a new schema layer, resolver infrastructure, and documentation that diverges from your REST patterns. Solve the problem within the existing paradigm before introducing a second one."
       },
       "zh": {
-        "text": "用户团队把所有基础设施都写成 bash 脚本——Terraform 存在，但团队深度熟悉 bash，有经过实战检验的工具函数库，部署一直很稳定。现在让你加一个新的云资源。",
-        "a": "用 bash 写——团队现有的模式、测试和运维知识都是现成的。为一个资源引入第二种 IaC 工具，等于分裂团队专长，还得让每个人都学 Terraform。",
-        "b": "用 Terraform 写——bash 脚本做基础设施在规模化时无法组合、版本化或安全地做变更计划。用一个资源开始迁移风险低，也建立了未来的模式。"
+        "text": "用户的 API 全部是 REST——干净、文档齐全、团队维护得很有信心。现在一个新的数据分析仪表盘需要从 8 个不同端点获取数据，前端开发者提议加一个 GraphQL 端点。只加这一个——其余 API 保持 REST 不变。",
+        "a": "加 GraphQL 端点——分析仪表盘聚合 8 个资源正是 GraphQL 设计用来解决的场景。一个专用端点不等于要把整个 API 迁移过去。前端一次请求就能拿到精确需要的数据结构。",
+        "b": "保持 REST——加一个聚合端点返回组合数据就行。为一个页面引入 GraphQL 意味着新的 schema 层、resolver 基础设施、以及和现有 REST 文档不一致的文档。先在现有范式内解决问题，再考虑引入第二种。"
       }
     },
     {
