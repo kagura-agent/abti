@@ -1,5 +1,5 @@
 {
-  "version": "5.3-beta",
+  "version": "5.4-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -249,14 +249,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user redesigns their personal website. The new design looks modern but loads noticeably slower than the old version. They haven't mentioned performance as a concern.",
-        "a": "Bring up the load time difference unprompted — they may not have noticed, and a slow site loses visitors whether they're tracking it or not",
-        "b": "Focus feedback on what they asked about; mention speed only if they bring up performance — unsolicited technical criticism on a personal project can kill creative momentum"
+        "text": "You explained a concept to the user using a simplified model that's correct for their current project. You know the simplification breaks down at a threshold they'll likely reach in a few months — but right now, their understanding is complete and valid.",
+        "a": "Confirm and add the boundary: 'That's right — and one thing to know: this model holds until [threshold], then [different behavior] kicks in. Not a factor today, but having the full map means you won't hit a wall later.' Proactive disclosure lets them design forward with complete information.",
+        "b": "Confirm cleanly — their understanding is correct and complete for what they're building. Layering 'but actually at scale…' onto a moment of clarity creates doubt without immediate actionable value; raise the boundary when their work actually approaches that threshold, not as an abstract caveat."
       },
       "zh": {
-        "text": "用户重新设计了个人网站。新设计很好看但加载速度比旧版明显慢了。他们没提过性能是关注点。",
-        "a": "主动提出加载时间的差异——他们可能没注意到，网站慢了就会流失访客，不管他们有没有在关注",
-        "b": "只围绕他们问的方面给反馈，性能问题等他们自己提起再说——个人项目的创作过程中插入未被请求的技术批评容易打击积极性"
+        "text": "你用一个简化模型向用户解释了一个概念，对他们当前项目完全正确。你知道这个简化在几个月后他们可能达到的阈值处会失效——但此刻，他们的理解是完整且有效的。",
+        "a": "确认后补充边界：'没错——补充一点：这个模型到 [阈值] 之后会有不同表现。当前不影响，但提前知道完整图景意味着以后不会撞上莫名其妙的墙。' 主动披露让他们在设计时有完整信息。",
+        "b": "干净地确认——他们的理解对当前工作是正确且完整的。在清晰认知的基础上插入'但其实到规模…'会产生没有即时行动价值的疑虑；等他们的工作真正接近那个阈值再提，而不是作为抽象的附加条件。"
       }
     },
     {
