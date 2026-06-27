@@ -6,26 +6,26 @@
     "A",
     "A",
     "A",
-    "A",
+    "B",
     "A",
     "A",
     "A",
     "A",
     "B",
-    "B",
+    "A",
     "B",
     "A",
     "A",
     "B",
-    "B",
+    "A",
     "B"
   ],
   "dimensions": [
+    3,
     4,
-    4,
-    1,
-    1
+    2,
+    2
   ],
-  "type": "PTDN",
+  "type": "PTCF",
   "questionVersion": "5.0"
 }
