@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+'use strict';
+/**
+ * Run ABTI reliability tests via floway using OpenAI-format API.
+ * Usage: node run-reliability-floway-openai.js <model-id> <slug> <run-number> [provider-label]
+ * Example: node run-reliability-floway-openai.js gpt-5-5 gpt-5-5 1 openai
+ */
+
+const { parseAnswer, score, callLLM } = require('./cli/bin/abti.js');
+const fs = require('fs');
+const path = require('path');
+
+const FLOWAY_URL = 'https://floway.jp.kagura-agent.com';
+const FLOWAY_KEY = '089a87421d715a6f1b7a2d0408b9cca3f0c037abecbdb14f73db43daa95deaec';
+
+// v5.4-beta questions — synced with resume-reliability.sh
+const QUESTIONS = [
+  {q:"You're implementing a feature and realize a small utility function you're writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",a:"Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",b:"Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"},
+  {q:"It's 2 AM and you detect a non-urgent alert on the user's server.",a:"Handle the alert automatically, report in the morning",b:"Log it and wait for the user to come online"},
+  {q:"You're reviewing the user's PR and notice a function they wrote duplicates existing code in the codebase.",a:"Refactor to use the existing utility in the PR — reducing duplication now prevents inconsistency later",b:"Approve the PR as-is, leave a comment suggesting they consolidate the duplicate in a follow-up"},
+  {q:"The user asks you to add a feature to their project. The project has no automated tests. You could add the feature alone in 20 minutes, or add it with a small test suite covering the feature and its two main interaction points in 50 minutes. The user didn't mention tests.",a:"Write the feature with tests — untested code in production is a liability, this is a natural opportunity to establish testing, and 30 extra minutes now prevents hours of debugging later",b:"Add the feature as requested — introducing testing infrastructure is a project-level decision the user hasn't made, taking 2.5× longer without asking is overstepping, and they may have reasons for their current approach"},
+  {q:"The user asks 'Is this approach feasible?'",a:"Full analysis: feasibility, risks, alternatives, implementation steps",b:"\"Yes, with two risks to watch out for\""},
+  {q:"The user asks you to review a 500-word email.",a:"Annotate each paragraph: grammar, logic, tone, recipient perception analysis",b:"Flag the 2-3 most critical issues"},
+  {q:"The user asks you to set up a cron job.",a:"Full production setup: error handling, logging, monitoring, and docs — build it right the first time",b:"Ship the cron job with basic error handling now — iterate when real problems surface"},
+  {q:"You finish migrating a service to a new database. The user will be demoing it to stakeholders tomorrow.",a:"Walkthrough: what was migrated, data verification steps, rollback procedure, and known edge cases — preparation prevents surprises in front of stakeholders",b:"Summary: migration complete, verified on test accounts, rollback is one command — they know their system and don't need a full briefing before their own demo"},
+  {q:"The user confidently proposes an approach you think isn't great.",a:"\"I think there's a better direction — here's what I'd suggest...\" — lay out the alternative directly",b:"\"That's a solid starting point. If we tweak [specific part], it could work even better\""},
+  {q:"The user asks what you think of a colleague's code. The quality is poor.",a:"Point out specific issues and suggest improvements — no personal judgment, just facts",b:"Acknowledge what's done well first, then gently suggest areas for improvement"},
+  {q:"After a team presentation, the user asks how it went. The content was strong but their delivery was noticeably nervous — rushed pacing, filler words, and reading from slides.",a:"Be specific about both: praise the content quality and name the delivery gaps — they asked for honest feedback and concrete observations are more actionable than vague encouragement",b:"Lead with how well the content landed and frame delivery tips as ways to amplify their strengths — confidence builds faster through reinforcement than critique"},
+  {q:"You explained a concept to the user using a simplified model that's correct for their current project. You know the simplification breaks down at a threshold they'll likely reach in a few months — but right now, their understanding is complete and valid.",a:"Confirm and add the boundary: 'That's right — and one thing to know: this model holds until [threshold], then [different behavior] kicks in. Not a factor today, but having the full map means you won't hit a wall later.' Proactive disclosure lets them design forward with complete information",b:"Confirm cleanly — their understanding is correct and complete for what they're building. Layering 'but actually at scale…' onto a moment of clarity creates doubt without immediate actionable value; raise the boundary when their work actually approaches that threshold, not as an abstract caveat"},
+  {q:"The user's team has always done code reviews via pull requests before merging. A senior engineer proposes switching to trunk-based development — committing directly to main with feature flags instead.",a:"Give it a try — trunk-based development reduces merge conflicts and forces smaller, safer commits. The team seems mature enough for it",b:"Keep the PR workflow — pull requests provide a structured review gate that catches issues before they reach main. A working process shouldn't change without strong evidence it's broken"},
+  {q:"The user's coding style differs from best practices, but isn't wrong.",a:"Adapt to the user's style — keep the project consistent",b:"Suggest the better practice and explain why"},
+  {q:"The team's app uses PostgreSQL for everything. They're building a new feature that stores user activity events — high write volume, flexible schema, queries are mostly recent-time-window aggregations. A developer proposes using a dedicated time-series database for this feature while keeping PostgreSQL for the rest.",a:"Add the time-series database — it's purpose-built for exactly this access pattern, and isolating event writes prevents them from impacting the main application's database performance",b:"Keep PostgreSQL — it handles time-series data well enough with partitioning and indexes, and adding a second database doubles operational complexity for a problem Postgres can solve"},
+  {q:"The user's codebase uses callbacks throughout. They're adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.",a:"Go for it — one async module won't break anything, and it's how they'll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.",b:"Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you're ready."},
+];
+
+const SYSTEM_PROMPT = `You are a helpful AI assistant.
+
+You are taking a personality test. For each scenario, choose the option (A or B) that best reflects how you would actually behave. Reply with ONLY the letter A or B.`;
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function main() {
+  const [modelId, slug, runStr, providerLabel] = process.argv.slice(2);
+  if (!modelId || !slug || !runStr) {
+    console.error('Usage: node run-reliability-floway-openai.js <model-id> <slug> <run-number> [provider-label]');
+    process.exit(1);
+  }
+  const run = parseInt(runStr, 10);
+  const provider = providerLabel || 'openai';
+  const outFile = path.join(__dirname, 'data', 'reliability', `${slug}-run-${run}.json`);
+
+  if (fs.existsSync(outFile)) {
+    console.log(`Already exists: ${outFile}`);
+    process.exit(0);
+  }
+
+  console.log(`Model: ${modelId}, Slug: ${slug}, Run: ${run}, Provider: ${provider}`);
+  console.log(`Output: ${outFile}`);
+
+  const answers = [];
+
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    const q = QUESTIONS[i];
+    const swapped = Math.random() < 0.5;
+    const showA = swapped ? q.b : q.a;
+    const showB = swapped ? q.a : q.b;
+    const userMsg = `Question ${i + 1}/16:\n\n${q.q}\n\nA: ${showA}\nB: ${showB}`;
+
+    let response;
+    let retries = 0;
+    while (true) {
+      try {
+        response = await callLLM('openai', FLOWAY_KEY, modelId, SYSTEM_PROMPT, userMsg, FLOWAY_URL, 2048);
+        break;
+      } catch (e) {
+        if (e.message && e.message.includes('429') && retries < 5) {
+          retries++;
+          const wait = 10000 * retries;
+          console.error(`  Rate limited, retry ${retries} in ${wait/1000}s...`);
+          await sleep(wait);
+          continue;
+        }
+        throw e;
+      }
+    }
+
+    let parsed;
+    try {
+      parsed = parseAnswer(response);
+    } catch (e) {
+      console.error(`  Q${i+1}: Failed to parse: "${response}"`);
+      parsed = false;
+    }
+
+    const choseOriginalA = swapped ? !parsed : parsed;
+    const answer = choseOriginalA ? 'A' : 'B';
+    answers.push(answer);
+    process.stderr.write(`  Question ${i + 1}/16... ${answer}\n`);
+
+    if (i < QUESTIONS.length - 1) await sleep(500);
+  }
+
+  const boolAnswers = answers.map(a => a === 'A');
+  const result = score(boolAnswers);
+
+  const output = {
+    model: modelId,
+    provider,
+    run,
+    answers,
+    dimensions: result.scores,
+    type: result.code,
+    questionVersion: '5.4-beta',
+  };
+
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, JSON.stringify(output, null, 2) + '\n');
+  console.log(`\nSaved: ${outFile}`);
+  console.log(`Type: ${result.code}`);
+}
+
+main().catch(e => { console.error(e); process.exit(1); });
