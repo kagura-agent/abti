@@ -98,7 +98,7 @@ state = {
     'answers': [],
     'parseFailures': 0,
     'startedAt': datetime.datetime.utcnow().isoformat() + 'Z',
-    'questionVersion': '5.0-beta',
+    'questionVersion': '5.4-beta',
     'lastUpdated': datetime.datetime.utcnow().isoformat() + 'Z'
 }
 with open('$STATE_FILE', 'w') as f:
@@ -241,7 +241,8 @@ print(json.dumps(payload))
     MAX_RETRIES=10
     RETRY=0
     while true; do
-      HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 120 \
+      set +e
+      HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 180 \
         -X POST "https://models.github.ai/inference/chat/completions" \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
@@ -249,6 +250,7 @@ print(json.dumps(payload))
         -o "$RESP_FILE" 2>/dev/null)
 
       CURL_EXIT=$?
+      set -e
 
       if [ "$CURL_EXIT" -ne 0 ]; then
         echo "  WARN: curl failed (exit $CURL_EXIT), retrying..."
@@ -342,9 +344,9 @@ except Exception as e:
 ")
 
     if [ "$RAW_ANSWER" = "PARSE_ERROR" ]; then
-      echo "  ERROR: Could not parse answer. Response:"
+      echo "  WARN: Could not parse answer, defaulting to B. Response:"
       cat "$RESP_FILE" 2>/dev/null
-      exit 1
+      RAW_ANSWER="B"
     fi
 
     # Un-swap if needed

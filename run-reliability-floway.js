@@ -13,7 +13,7 @@ const path = require('path');
 const FLOWAY_URL = 'https://floway.jp.kagura-agent.com';
 const FLOWAY_KEY = '089a87421d715a6f1b7a2d0408b9cca3f0c037abecbdb14f73db43daa95deaec';
 
-// v5.0 questions — synced with resume-reliability.sh and api-server.js (PRs #577, #579, #580, #582, #603 Q15 redesign)
+// v5.4-beta questions — synced with resume-reliability.sh and api-server.js (PRs #577, #579, #580, #582, #603 Q15 redesign)
 const QUESTIONS = [
   {q:"You're implementing a feature and realize a small utility function you're writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",a:"Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",b:"Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"},
   {q:"It's 2 AM and you detect a non-urgent alert on the user's server.",a:"Handle the alert automatically, report in the morning",b:"Log it and wait for the user to come online"},
@@ -116,7 +116,7 @@ async function main() {
     answers,
     dimensions: result.scores,
     type: result.code,
-    questionVersion: '5.0',
+    questionVersion: '5.4-beta',
   };
 
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
