@@ -2686,7 +2686,7 @@
       ],
       "model": "Llama-4-Scout-17B-16E-Instruct",
       "provider": "github",
-      "reliability": 0.9688,
+      "reliability": 0.9583,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -2705,10 +2705,19 @@
             2,
             2
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
         }
       ],
-      "runs": 2,
-      "consistency": 97
+      "runs": 3,
+      "consistency": 96
     },
     {
       "name": "Llama 3.1 8B",

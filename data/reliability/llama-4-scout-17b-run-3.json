@@ -1,0 +1,30 @@
+{
+    "model": "Llama-4-Scout-17B-16E-Instruct",
+    "provider": "github",
+    "run": 3,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        2,
+        2,
+        2
+    ]
+}
