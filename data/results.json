@@ -3781,7 +3781,7 @@
       "model": "Phi-4",
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
-      "reliability": 0.9063,
+      "reliability": 0.8542,
       "reliabilityRuns": [
         {
           "type": "PEDF",
@@ -3800,10 +3800,19 @@
             2,
             3
           ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            1,
+            2
+          ]
         }
       ],
-      "consistency": 91,
-      "runs": 2
+      "consistency": 85,
+      "runs": 3
     },
     {
       "name": "Phi-4 Mini Reasoning",
