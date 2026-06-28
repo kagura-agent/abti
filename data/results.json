@@ -4029,10 +4029,38 @@
       ],
       "model": "phi4-mini",
       "provider": "ollama",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
+      "consistency": 81,
+      "runs": 3,
+      "reliability": 0.8125,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "Qwen 2.5 3B",
