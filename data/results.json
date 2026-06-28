@@ -3067,10 +3067,20 @@
         true,
         false
       ],
-      "reliability": 0.9167,
-      "reliabilityRuns": 0,
+      "reliability": 1,
+      "reliabilityRuns": [
+        {
+          "type": "RTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            2
+          ]
+        }
+      ],
       "runs": 1,
-      "consistency": 92
+      "consistency": 100
     },
     {
       "model": "phi-4-reasoning",
@@ -3745,7 +3755,17 @@
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
       "reliability": 1,
-      "reliabilityRuns": 0,
+      "reliabilityRuns": [
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            2,
+            2,
+            3
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 1
     },
