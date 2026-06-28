@@ -3067,7 +3067,7 @@
         true,
         false
       ],
-      "reliability": 1,
+      "reliability": 0.9167,
       "reliabilityRuns": [
         {
           "type": "RTCN",
@@ -3077,10 +3077,28 @@
             3,
             2
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            2
+          ]
         }
       ],
-      "runs": 1,
-      "consistency": 100
+      "runs": 3,
+      "consistency": 92
     },
     {
       "model": "phi-4-reasoning",
@@ -3754,7 +3772,7 @@
       "model": "Phi-4",
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
-      "reliability": 1,
+      "reliability": 0.9063,
       "reliabilityRuns": [
         {
           "type": "PEDF",
@@ -3764,10 +3782,19 @@
             2,
             3
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
         }
       ],
-      "consistency": 100,
-      "runs": 1
+      "consistency": 91,
+      "runs": 2
     },
     {
       "name": "Phi-4 Mini Reasoning",

@@ -1,0 +1,30 @@
+{
+    "model": "Phi-4-mini-instruct",
+    "provider": "github",
+    "run": 3,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        3,
+        4,
+        4,
+        2
+    ]
+}
