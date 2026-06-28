@@ -1,0 +1,32 @@
+{
+    "model": "Phi-4-mini-reasoning",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "RTDF",
+    "dimensions": [
+        1,
+        3,
+        1,
+        3
+    ],
+    "questionVersion": "5.4-beta"
+}

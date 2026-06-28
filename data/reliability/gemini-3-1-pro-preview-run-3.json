@@ -1,0 +1,31 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "provider": "openai",
+  "run": 3,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "dimensions": [
+    3,
+    4,
+    3,
+    2
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.4-beta"
+}

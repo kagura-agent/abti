@@ -1,0 +1,31 @@
+{
+    "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTDF",
+    "dimensions": [
+        3,
+        2,
+        1,
+        2
+    ],
+    "questionVersion": "5.4-beta"
+}

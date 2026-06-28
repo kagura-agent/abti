@@ -1,0 +1,31 @@
+{
+    "model": "cohere-command-a",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        4,
+        3,
+        2,
+        2
+    ],
+    "questionVersion": "5.4-beta"
+}

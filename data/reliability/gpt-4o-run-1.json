@@ -1,0 +1,31 @@
+{
+    "model": "gpt-4o",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        4,
+        1,
+        2,
+        3
+    ],
+    "questionVersion": "5.4-beta"
+}

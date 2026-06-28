@@ -1,0 +1,31 @@
+{
+  "model": "gpt-5.5",
+  "provider": "openai",
+  "run": 3,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    4,
+    1,
+    4,
+    4
+  ],
+  "type": "PECF",
+  "questionVersion": "5.4-beta"
+}

@@ -1,0 +1,31 @@
+{
+    "model": "Phi-4-mini-reasoning",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        2,
+        1,
+        2,
+        2
+    ],
+    "questionVersion": "5.4-beta"
+}

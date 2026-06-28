@@ -1,0 +1,31 @@
+{
+    "model": "mistral-small-2503",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A"
+    ],
+    "type": "RTDF",
+    "dimensions": [
+        1,
+        2,
+        0,
+        3
+    ],
+    "questionVersion": "5.4-beta"
+}

@@ -1,0 +1,31 @@
+{
+    "model": "Ministral-3B",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        2,
+        1,
+        2,
+        3
+    ],
+    "questionVersion": "5.4-beta"
+}

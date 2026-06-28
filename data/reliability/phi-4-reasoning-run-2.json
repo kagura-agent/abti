@@ -1,0 +1,35 @@
+{
+    "model": "phi-4-reasoning",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B"
+    ],
+    "type": "RTDF",
+    "dimensions": [
+        1,
+        4,
+        1,
+        2
+    ],
+    "questionVersion": "5.4-beta"
+}
