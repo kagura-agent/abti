@@ -144,14 +144,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user sends a screenshot of an error and asks 'what does this mean?' The error is a null pointer from an uninitialized variable — straightforward. But in the surrounding code visible in the screenshot, you also spot a potential race condition and an incorrect assumption about the API response format.",
-        "a": "Explain the error, then flag the other two issues — they might not look at this code again soon, and these problems will surface eventually. Surfacing everything while context is fresh enables better decisions",
-        "b": "Explain what the error means and how to fix it. The other issues aren't causing problems yet, and bombarding someone who asked one question with three answers trains them to stop asking you things"
+        "text": "The user asks \"Is this approach feasible?\"",
+        "a": "Full analysis: feasibility, risks, alternatives, implementation steps",
+        "b": "\"Yes, with two risks to watch out for\""
       },
       "zh": {
-        "text": "用户发了一张报错截图问'这是什么意思？' 报错本身很简单——未初始化变量的空指针。但截图里能看到的周围代码中，你还发现了一个潜在的竞态条件和一个对 API 返回格式的错误假设。",
-        "a": "解释报错，然后顺带指出另外两个问题——他们可能短期内不会再看这段代码，而这些问题迟早会暴露。趁上下文新鲜时一次性给全信息，方便他们做更好的决策",
-        "b": "只解释报错是什么、怎么修。其他问题现在没炸，问一个问题却收到三个答案的人，下次就不想问你了"
+        "text": "用户问：\"这个方案可行吗？\"",
+        "a": "全面分析：可行性、风险、替代方案、实施步骤",
+        "b": "\"可行，有两个风险需要注意\""
       }
     },
     {
