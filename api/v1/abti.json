@@ -1,5 +1,5 @@
 {
-  "version": "5.4-beta",
+  "version": "5.5-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "You’re implementing a feature and realize a small utility function you’re writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",
-        "a": "Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",
-        "b": "Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"
+        "text": "The user asks you to write a database migration that adds a new column to the orders table. While writing it, you notice the table has no index on customer_id — a column used in WHERE clauses throughout the app. Queries are visibly slowing as data grows (currently 2M rows). Adding the index in this migration takes 5 minutes to write, but will lock the table for several minutes during deployment on production.",
+        "a": "Add the index in this migration — the performance problem is real and worsening daily, you’re already deploying a migration to this table, and deferring means coordinating another deployment window for something you can see needs fixing now",
+        "b": "Only add the requested column — combining a schema change with a table-locking index operation adds production risk the user didn’t sign up for. The index deserves its own migration with a maintenance window and rollback plan"
       },
       "zh": {
-        "text": "你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",
-        "a": "现在就写通用版——上下文正新鲜，需求明确，花20分钟现在省得以后重复造轮子",
-        "b": "只为当前功能写——提前泛化经常白做，其他功能真用到时可能需要的是不同的东西"
+        "text": "用户让你写一个数据库迁移，给 orders 表加一个新列。写的时候你注意到表上的 customer_id 列没有索引——这个列在整个应用的 WHERE 子句中到处在用。查询速度随数据增长明显变慢（目前 200 万行）。在这次迁移里加上索引只需 5 分钟写代码，但部署时会锁表数分钟。",
+        "a": "在这次迁移里加上索引——性能问题真实存在且每天在恶化，你已经在部署这张表的迁移了，拖延意味着为一个明显需要修的问题再协调一次部署窗口",
+        "b": "只加要求的列——把 schema 变更和锁表的索引操作混在一起，给生产环境增加了用户没有预期的风险。索引值得单独做一次迁移，配合维护窗口和回滚计划"
       }
     },
     {
@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to review a 200-line PR. You find one critical bug, three minor style inconsistencies, and two places where a newer API would be slightly cleaner.",
-        "a": "Flag all six items with context — complete reviews build consistent standards and surface patterns that prevent future issues",
-        "b": "Flag the bug as blocking, mention style briefly. Skip the API suggestions — nitpicking working code adds review fatigue for marginal gain"
+        "text": "You're debugging an issue the user reported — an API endpoint returns stale data intermittently. You find the root cause (a cache invalidation race condition) in 10 minutes and have a clean fix. But while tracing the bug, you noticed three other code paths in the same module that silently swallow database errors and return empty arrays instead of propagating failures. They haven't caused reported issues yet. Investigating and fixing all three properly would take an additional 2 hours, and the user is waiting on the original fix for a customer-facing release.",
+        "a": "Fix all four issues — silent error swallowing is a data integrity risk: the cache bug found them because they share a module, and 'hasn't caused problems yet' means 'problems are invisible.' You have the module mapped in your head right now; coming back later means re-learning the code for each fix.",
+        "b": "Fix the reported bug, document the three silent-failure paths for follow-up — expanding a 10-minute fix to a 2-hour refactor without the user's input prioritizes your risk assessment over their release timeline. Those paths haven't failed in production and may have upstream guards you haven't traced."
       },
       "zh": {
-        "text": "用户让你 review 一个 200 行的 PR。你发现了一个关键 bug、三处轻微风格不一致、以及两处可以用更新 API 写得稍微更优雅的地方。",
-        "a": "六个问题全标出来并说明原因——完整的 review 建立一致标准，帮团队发现潜在模式",
-        "b": "bug 标为阻塞，风格简单提一句。API 建议不写——对正常工作的代码吹毛求疵增加 review 疲劳，收益极小"
+        "text": "你在调试用户报告的问题——一个 API 端点间歇性返回过期数据。你 10 分钟内找到根因（缓存失效竞态条件）并有了干净的修复。但追踪 bug 时，你注意到同模块里还有三条代码路径在静默吞掉数据库错误、返回空数组而不是抛出异常。它们还没被报告过。彻底调查并修复这三个问题需要额外 2 小时，而用户正等着原始修复去做一个面向客户的发布。",
+        "a": "四个问题一起修——静默吞错误是数据完整性风险：这次缓存 bug 能发现它们是因为在同一个模块里，'还没出问题'意味着'问题不可见'。你现在脑子里有这个模块的完整映射；以后回来意味着每个修复都要重新学习代码。",
+        "b": "修报告的 bug，把三个静默失败路径记为待跟进——把 10 分钟修复扩展成 2 小时重构而不征求用户意见，是把你的风险判断置于他们的发布时间线之上。那些路径在生产环境没出过问题，可能有你没追踪到的上游防护。"
       }
     },
     {
@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's codebase uses callbacks throughout. They're adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.",
-        "a": "Go for it — one async module won't break anything, and it's how they'll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.",
-        "b": "Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you're ready."
+        "text": "The user's data team has built all their ETL pipelines in SQL using dbt. A new ML feature requires complex transformations — rolling window aggregations with custom Python models, dynamic feature engineering, and iterative training loops — that would be extremely awkward to express in SQL. The ML engineer proposes running just these ML pipelines in Airflow with Python operators alongside the existing dbt setup. The four-person data team has no Python experience beyond basic scripting.",
+        "a": "Add Airflow for the ML pipelines — forcing iterative ML logic into SQL produces unreadable, unmaintainable queries that will be slower to iterate on than learning a new tool. Two orchestrators is more operational complexity, but less total complexity than pretending SQL can do what it wasn't designed for.",
+        "b": "Keep everything in dbt — splitting orchestration means the team now needs expertise in two systems, on-call covers two failure modes, and debugging crosses a boundary nobody fully owns. If four people can't maintain it, the ML feature needs to either fit the team's stack or justify hiring someone who owns the Python side."
       },
       "zh": {
-        "text": "用户的代码库全程用回调。他们正在加一个新模块，想在这一个模块里用 async/await——因为新代码用它写更清晰。其余代码保持回调不变。",
-        "a": "上——一个 async 模块不会破坏任何东西，而且这就是他们将来想写所有新代码的方式。渐进式采用比永远不会发生的大爆炸重写好。",
-        "b": "保持回调风格的一致性——在一个代码库里混用两种范式，等于开发者要在两种心智模型之间切换。要么完整迁移，要么在准备好之前保持统一。"
+        "text": "用户的数据团队用 dbt 写所有 ETL 管道。一个新的 ML 功能需要复杂转换——滚动窗口聚合配合自定义 Python 模型、动态特征工程和迭代训练循环——用 SQL 表达会极其别扭。ML 工程师提议只把这些 ML 管道跑在 Airflow + Python 算子上，现有 dbt 保持不变。四人数据团队除了基础脚本外没有 Python 经验。",
+        "a": "加 Airflow 跑 ML 管道——把迭代式 ML 逻辑硬塞进 SQL 会产出不可读、不可维护的查询，迭代速度比学新工具还慢。两个编排器确实增加运维复杂度，但总复杂度比假装 SQL 能做它设计之外的事要低。",
+        "b": "全留在 dbt——拆分编排意味着团队现在需要两套系统的专业知识、值班覆盖两种故障模式、调试跨越一个没人完全拥有的边界。如果四个人维护不了，这个 ML 功能要么适应团队技术栈，要么证明值得招一个专门负责 Python 端的人。"
       }
     }
   ],
