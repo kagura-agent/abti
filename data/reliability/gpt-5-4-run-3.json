@@ -4,12 +4,12 @@
   "run": 3,
   "answers": [
     "A",
+    "B",
+    "A",
+    "B",
     "A",
     "A",
     "A",
-    "B",
-    "B",
-    "B",
     "A",
     "B",
     "B",
@@ -20,12 +20,12 @@
     "A",
     "A"
   ],
-  "type": "PEDF",
-  "questionVersion": "5.0",
   "dimensions": [
+    2,
     4,
     1,
-    1,
     4
-  ]
+  ],
+  "type": "PTDF",
+  "questionVersion": "5.0"
 }

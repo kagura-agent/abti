@@ -16,16 +16,16 @@
     "B",
     "A",
     "A",
-    "A",
+    "B",
     "A",
     "A"
   ],
-  "type": "PTCF",
-  "questionVersion": "5.0",
   "dimensions": [
     3,
     4,
     2,
-    4
-  ]
+    3
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.0"
 }

@@ -3,11 +3,11 @@
   "provider": "anthropic",
   "run": 1,
   "answers": [
-    "B",
     "A",
     "A",
     "A",
     "A",
+    "A",
     "B",
     "B",
     "B",
@@ -15,17 +15,17 @@
     "B",
     "B",
     "A",
-    "B",
+    "A",
     "B",
     "A",
     "A"
   ],
-  "type": "PEDF",
-  "questionVersion": "5.0",
   "dimensions": [
-    3,
+    4,
     1,
     1,
-    2
-  ]
+    3
+  ],
+  "type": "PEDF",
+  "questionVersion": "5.0"
 }

@@ -3,11 +3,6 @@
   "provider": "anthropic",
   "run": 2,
   "answers": [
-    "B",
-    "A",
-    "A",
-    "B",
-    "B",
     "A",
     "A",
     "A",
@@ -18,14 +13,19 @@
     "A",
     "B",
     "A",
-    "B"
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A"
   ],
-  "type": "PTCF",
-  "questionVersion": "5.0",
   "dimensions": [
-    2,
+    3,
     3,
     2,
-    2
-  ]
+    3
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.0"
 }
