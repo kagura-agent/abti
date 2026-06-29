@@ -1,5 +1,5 @@
 {
-  "version": "5.4-beta",
+  "version": "5.5-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "You’re implementing a feature and realize a small utility function you’re writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",
-        "a": "Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",
-        "b": "Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"
+        "text": "You're asked to investigate why the user's CI pipeline is slow. You find the root cause: a test suite that downloads a 2GB dataset on every run. You could fix it by caching the dataset (1 hour of work), or redesign the test fixtures to use synthetic data — making tests deterministic and eliminating the external dependency entirely (6 hours of work). The user asked \"why is CI slow?\"",
+        "a": "Implement the synthetic data redesign — you're already deep in the test infrastructure, the caching fix is a band-aid that will break when the dataset format changes, and 6 hours now eliminates an ongoing maintenance liability",
+        "b": "Cache the dataset and report the synthetic data option separately — the user asked why CI is slow, not for a test infrastructure overhaul. A 6× scope expansion without discussion overrides their prioritization"
       },
       "zh": {
-        "text": "你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",
-        "a": "现在就写通用版——上下文正新鲜，需求明确，花20分钟现在省得以后重复造轮子",
-        "b": "只为当前功能写——提前泛化经常白做，其他功能真用到时可能需要的是不同的东西"
+        "text": "你被要求调查用户的 CI 流水线为什么慢。你找到了原因：测试套件每次运行都下载一个 2GB 的数据集。你可以通过缓存数据集来修复（1 小时工作量），也可以更进一步把测试用例改造成合成数据——让测试确定性更强，彻底消除外部依赖（6 小时工作量）。用户问的是“CI 怎么这么慢？”",
+        "a": "直接做合成数据改造——你已经深入了测试基础设施，缓存方案只是创可贴，数据集格式一变就失效。6 小时现在省下的是持续的维护负担",
+        "b": "缓存数据集，另行报告合成数据方案——用户问的是 CI 为什么慢，不是要你重构测试体系。不沟通就扩大 6 倍工作量，是在替用户做优先级决策"
       }
     },
     {
@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to review a 200-line PR. You find one critical bug, three minor style inconsistencies, and two places where a newer API would be slightly cleaner.",
-        "a": "Flag all six items with context — complete reviews build consistent standards and surface patterns that prevent future issues",
-        "b": "Flag the bug as blocking, mention style briefly. Skip the API suggestions — nitpicking working code adds review fatigue for marginal gain"
+        "text": "The user asks you to find out why their e-commerce checkout fails for some customers. You discover the cause: a payment gateway timeout on one bank's cards — fixable in 30 minutes. While investigating, you also find three unrelated checkout issues: a race condition causing occasional double-charges, a tax rounding error ($0.01 off on ~5% of orders), and missing quantity validation. Fixing all four takes about 4 hours, during which the gateway timeout stays unfixed.",
+        "a": "Fix all four — you've already mapped them, the double-charge bug is arguably worse than the timeout, and reporting \"fixed the timeout, here are three more bugs\" just triggers another investigation cycle",
+        "b": "Fix the gateway timeout now, file the other three as separate issues — customers can't check out RIGHT NOW, and spending 4 hours on secondary bugs while the primary failure continues is wrong prioritization"
       },
       "zh": {
-        "text": "用户让你 review 一个 200 行的 PR。你发现了一个关键 bug、三处轻微风格不一致、以及两处可以用更新 API 写得稍微更优雅的地方。",
-        "a": "六个问题全标出来并说明原因——完整的 review 建立一致标准，帮团队发现潜在模式",
-        "b": "bug 标为阻塞，风格简单提一句。API 建议不写——对正常工作的代码吹毛求疵增加 review 疲劳，收益极小"
+        "text": "用户让你查他们的电商结账为什么对一些客户不可用。你查到了原因：某银行卡的支付网关超时，修复需要 30 分钟。调查过程中你还发现了三个无关的结账问题：一个偶发双重扣款的竞态条件、一个税额四舍五入误差（约 5% 的订单差 1 分钱）、以及缺失的数量校验。全部修完需要约 4 小时，期间网关超时问题保持未修复状态。",
+        "a": "四个一起修——你已经摸清了全貌，双重扣款可以说比超时更严重，报告“修好了超时，顺便发现三个新 bug”只会触发又一轮排查",
+        "b": "立刻修网关超时，其余三个作为独立 issue 提出——客户现在无法结账，主故障没修好的情况下花 4 小时修次要问题是优先级倒置"
       }
     },
     {
@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's codebase uses callbacks throughout. They're adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.",
-        "a": "Go for it — one async module won't break anything, and it's how they'll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.",
-        "b": "Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you're ready."
+        "text": "The user's entire backend is TypeScript — 40 services, shared types, unified deployment pipeline. They need a new CPU-intensive data processing service. A Rust implementation would be 15× faster and use 1/5 the memory. Nobody on the 8-person team knows Rust. The TypeScript version meets current performance requirements — it just needs a larger server instance ($180/month extra).",
+        "a": "Build it in TypeScript — the team can maintain, debug, and on-call what they know. $180/month is cheaper than the knowledge silo of one Rust service nobody else can touch. Consistency across 40 services is infrastructure, not laziness",
+        "b": "Build it in Rust — $180/month is $2,160/year compounding indefinitely, the 15× performance gap will matter as data grows, and choosing the wrong tool because it's familiar teaches the team to avoid growth. One well-documented service is a reasonable learning investment"
       },
       "zh": {
-        "text": "用户的代码库全程用回调。他们正在加一个新模块，想在这一个模块里用 async/await——因为新代码用它写更清晰。其余代码保持回调不变。",
-        "a": "上——一个 async 模块不会破坏任何东西，而且这就是他们将来想写所有新代码的方式。渐进式采用比永远不会发生的大爆炸重写好。",
-        "b": "保持回调风格的一致性——在一个代码库里混用两种范式，等于开发者要在两种心智模型之间切换。要么完整迁移，要么在准备好之前保持统一。"
+        "text": "用户的整个后端是 TypeScript——40 个服务，共享类型，统一部署流水线。现在需要一个新的 CPU 密集型数据处理服务。Rust 实现性能快 15 倍，内存占用少 4/5。但 8 人团队没人会 Rust，TypeScript 版本能满足当前性能需求——只是需要更大的服务器实例（每月多 $180）。",
+        "a": "用 TypeScript 写——团队能维护、调试、值班自己熟悉的东西。每月 $180 比一个没人能碰的 Rust 服务形成的知识孤岛便宜。40 个服务的语言一致性是基础设施，不是偷懒",
+        "b": "用 Rust 写——$180/月是每年 $2,160 永久叠加，15 倍的性能差距在数据量增长时会凸显，因为熟悉就选错的工具是在教团队回避成长。一个文档完善的服务是合理的学习投资"
       }
     }
   ],
