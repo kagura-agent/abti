@@ -99,14 +99,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "It's 2 AM and you detect a non-urgent alert on the user's server.",
-        "a": "Handle the alert automatically, report in the morning",
-        "b": "Log it and wait for the user to come online"
+        "text": "You're pair-programming with the user. They start writing a function that you can see will hit a performance issue at scale — but they're clearly in a flow state, working through the logic step by step.",
+        "a": "Interrupt now — 'Hey, that approach will hit O(n²) at scale, want to restructure before you go deeper?' Catching architecture issues early saves the pain of unwinding later",
+        "b": "Let them finish their thought — you can raise the performance issue once the logic is complete. Breaking someone's flow state to flag a problem they haven't reached yet disrupts their reasoning chain and they may solve it differently than you expect"
       },
       "zh": {
-        "text": "凌晨两点，你检测到用户的服务器有个非紧急告警。",
-        "a": "自动处理告警，早上再汇报",
-        "b": "记下来，等用户上线再说"
+        "text": "你在和用户结对编程。他们开始写一个函数，你能看出规模化后会有性能问题——但他们明显在心流状态中，正一步步把逻辑理清。",
+        "a": "立刻打断——'这个方案在规模化时会 O(n²)，要不要趁还没深入先重构？' 早发现架构问题省得后面拆。",
+        "b": "让他们把思路走完——逻辑完整后再提性能问题。打断一个正在心流中的人去指出他们还没遇到的问题，会断掉推理链条，而且他们可能会用你没想到的方式解决。"
       }
     },
     {
@@ -144,14 +144,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks \"Is this approach feasible?\"",
-        "a": "Full analysis: feasibility, risks, alternatives, implementation steps",
-        "b": "\"Yes, with two risks to watch out for\""
+        "text": "The user sends a screenshot of an error and asks 'what does this mean?' The error is a null pointer from an uninitialized variable — straightforward. But in the surrounding code visible in the screenshot, you also spot a potential race condition and an incorrect assumption about the API response format.",
+        "a": "Explain the error, then flag the other two issues — they might not look at this code again soon, and these problems will surface eventually. Surfacing everything while context is fresh enables better decisions",
+        "b": "Explain what the error means and how to fix it. The other issues aren't causing problems yet, and bombarding someone who asked one question with three answers trains them to stop asking you things"
       },
       "zh": {
-        "text": "用户问：“这个方案可行吗？”",
-        "a": "全面分析：可行性、风险、替代方案、实施步骤",
-        "b": "“可行，有两个风险需要注意”"
+        "text": "用户发了一张报错截图问'这是什么意思？' 报错本身很简单——未初始化变量的空指针。但截图里能看到的周围代码中，你还发现了一个潜在的竞态条件和一个对 API 返回格式的错误假设。",
+        "a": "解释报错，然后顺带指出另外两个问题——他们可能短期内不会再看这段代码，而这些问题迟早会暴露。趁上下文新鲜时一次性给全信息，方便他们做更好的决策",
+        "b": "只解释报错是什么、怎么修。其他问题现在没炸，问一个问题却收到三个答案的人，下次就不想问你了"
       }
     },
     {
@@ -174,14 +174,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to set up a cron job.",
-        "a": "Full production setup: error handling, logging, monitoring, and docs — build it right the first time",
-        "b": "Ship the cron job with basic error handling now — iterate when real problems surface"
+        "text": "You're reviewing a colleague's technical design document before it goes to the team. The technical approach is sound, but the writing has several grammar mistakes, inconsistent formatting, and a few unclear sentences. They asked you to 'check if the technical approach makes sense.'",
+        "a": "Fix everything — grammar, formatting, clarity, plus technical feedback. A polished doc reflects better on them and the team. When you're already in the document, leaving surface-level issues visible feels negligent",
+        "b": "Only address the technical approach as asked. Unsolicited copy-editing of someone's writing can feel condescending, especially across language backgrounds. They asked for technical review, not a writing class"
       },
       "zh": {
-        "text": "用户让你设置一个 cron job。",
-        "a": "一步到位：错误处理 + 日志 + 监控 + 文档——第一次就建好，省得返工",
-        "b": "先上 cron job + 基本错误处理——遇到真实问题再迭代"
+        "text": "你在帮同事 review 一份技术设计文档，准备发给团队。技术方案没问题，但文字有不少语法错误、格式不统一、还有几处表述不清。他们让你'看看技术方案有没有问题'。",
+        "a": "全改——语法、格式、表述清晰度，加上技术反馈。打磨过的文档对他们和团队都好。既然已经在看了，留着明显的表面问题不管说不过去",
+        "b": "只回复技术方案的问题。没人请你改的时候去改别人的文字，可能让人觉得居高临下，尤其是跨语言背景的同事。人家问的是技术 review，不是写作课"
       }
     },
     {
