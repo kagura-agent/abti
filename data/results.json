@@ -50,37 +50,9 @@
       "model": "aya-expanse:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            3,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Claude Haiku 4.5",
@@ -131,35 +103,35 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
-      "consistency": 83,
+      "consistency": 90,
       "runs": 3,
-      "reliability": 0.8333,
+      "reliability": 0.8958,
       "reliabilityRuns": [
         {
           "type": "PTCF",
           "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
             3,
-            1
+            2,
+            2,
+            2
           ]
         },
         {
           "type": "PTCF",
           "scores": [
             2,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
             3,
             2,
-            2
+            2,
+            4
           ]
         }
       ]
@@ -263,36 +235,8 @@
       ],
       "reliability": 0.8542,
       "consistency": 85,
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            1,
-            4,
-            3
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            1,
-            4,
-            3
-          ]
-        }
-      ]
+      "runs": 1,
+      "reliabilityRuns": 0
     },
     {
       "name": "Claude Opus 4.6",
@@ -348,30 +292,30 @@
       "reliability": 0.875,
       "reliabilityRuns": [
         {
-          "type": "PEDF",
+          "type": "RTCF",
           "scores": [
-            4,
-            1,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            3,
             1,
             2,
-            2
+            3,
+            3
           ]
         },
         {
           "type": "PECF",
           "scores": [
-            3,
-            0,
-            3,
+            2,
+            1,
+            2,
             3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            3,
+            4
           ]
         }
       ]
@@ -426,37 +370,9 @@
       "model": "claude-opus-4.7",
       "provider": "anthropic",
       "consistency": 96,
-      "runs": 3,
+      "runs": 1,
       "reliability": 0.9583,
-      "reliabilityRuns": [
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            0,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            0,
-            4,
-            3
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            0,
-            4,
-            4
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Claude Sonnet 4.5",
@@ -507,26 +423,17 @@
       ],
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
-      "consistency": 71,
+      "consistency": 75,
       "runs": 3,
-      "reliability": 0.7083,
+      "reliability": 0.75,
       "reliabilityRuns": [
         {
-          "type": "PTCN",
+          "type": "PEDN",
           "scores": [
             2,
-            2,
-            3,
+            1,
+            0,
             1
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            2,
-            1,
-            1,
-            2
           ]
         },
         {
@@ -534,6 +441,15 @@
           "scores": [
             2,
             1,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            3,
             2,
             1
           ]
@@ -590,37 +506,9 @@
       "model": "claude-sonnet-4.6",
       "provider": "anthropic",
       "consistency": 88,
-      "runs": 3,
+      "runs": 1,
       "reliability": 0.875,
-      "reliabilityRuns": [
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            1,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            2,
-            0,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            3,
-            4
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Codestral (Mistral)",
@@ -672,38 +560,10 @@
       "model": "Codestral-2501",
       "provider": "github",
       "reliability": 0.7708,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            4,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            0,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            1,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "consistency": 77,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Cohere Command A",
@@ -756,37 +616,9 @@
       "provider": "github",
       "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Cohere Command R",
@@ -952,17 +784,7 @@
       "consistency": 100,
       "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            2,
-            1
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "DeepSeek R1 0528",
@@ -1033,28 +855,9 @@
       ],
       "parseFailures": 0,
       "consistency": 97,
-      "runs": 2,
+      "runs": 1,
       "reliability": 0.9688,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "DeepSeek R1 7B",
@@ -1106,37 +909,9 @@
       "model": "deepseek-r1:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PEDF",
-          "scores": [
-            3,
-            0,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            3,
-            0,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            3,
-            0,
-            1,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "DeepSeek V3 0324",
@@ -1208,36 +983,8 @@
       "parseFailures": 0,
       "questionVersion": "5.0-beta",
       "confidence": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            4,
-            2,
-            3,
-            0
-          ]
-        },
-        {
-          "type": "PEDN",
-          "scores": [
-            3,
-            1,
-            1,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "reliability": 0.8958,
       "consistency": 90
     },
@@ -1291,37 +1038,9 @@
       "model": "dolphin-mistral:7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "EXAONE 3.5 2.4B",
@@ -1373,37 +1092,9 @@
       "model": "exaone3.5:2.4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            2,
-            0
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Falcon 3 3B",
@@ -1455,37 +1146,9 @@
       "model": "falcon3:3b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Gemini 2.5 Pro",
@@ -1636,7 +1299,7 @@
         {
           "type": "PTCF",
           "scores": [
-            3,
+            2,
             3,
             2,
             3
@@ -1645,25 +1308,25 @@
         {
           "type": "PTCF",
           "scores": [
-            3,
-            4,
             2,
-            2
+            3,
+            2,
+            3
           ]
         },
         {
           "type": "PTCF",
           "scores": [
-            3,
-            3,
+            2,
+            2,
             2,
             3
           ]
         }
       ],
       "runs": 3,
-      "reliability": 0.9583,
-      "consistency": 96
+      "reliability": 0.9792,
+      "consistency": 98
     },
     {
       "name": "Gemma 2 2B",
@@ -1715,37 +1378,9 @@
       "model": "gemma2:2b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            1,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Gemma 3 12B",
@@ -1797,37 +1432,9 @@
       "model": "gemma3:12b",
       "provider": "ollama",
       "reliability": 0.9583,
-      "reliabilityRuns": [
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            1,
-            2,
-            4
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 96,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Gemma 3 4B",
@@ -1879,37 +1486,9 @@
       "model": "gemma3:4b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            4,
-            4
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "GLM-4 9B",
@@ -1961,37 +1540,9 @@
       "model": "glm4:9b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            4
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "GPT-4.1",
@@ -2097,27 +1648,27 @@
         {
           "type": "PEDF",
           "scores": [
-            3,
+            2,
             1,
-            0,
+            1,
             3
           ]
         },
         {
           "type": "PTDF",
           "scores": [
-            3,
+            2,
             2,
             1,
             3
           ]
         },
         {
-          "type": "PEDF",
+          "type": "PTCF",
           "scores": [
-            4,
-            1,
-            1,
+            2,
+            2,
+            2,
             3
           ]
         }
@@ -2222,37 +1773,37 @@
           "provider": "openai"
         }
       ],
-      "reliability": 0.8958,
+      "reliability": 0.9375,
       "reliabilityRuns": [
         {
-          "type": "PEDF",
+          "type": "PTDF",
           "scores": [
-            4,
+            2,
+            2,
             1,
-            0,
             2
           ]
         },
         {
-          "type": "PEDF",
+          "type": "PTDF",
           "scores": [
-            4,
-            0,
-            0,
+            2,
+            2,
+            1,
             3
           ]
         },
         {
-          "type": "PTDN",
+          "type": "PTDF",
           "scores": [
-            4,
+            2,
             2,
             0,
-            1
+            3
           ]
         }
       ],
-      "consistency": 90,
+      "consistency": 94,
       "runs": 3
     },
     {
@@ -2304,22 +1855,22 @@
       ],
       "model": "gpt-4o-mini",
       "provider": "openai",
-      "reliability": 0.8333,
+      "reliability": 0.8125,
       "reliabilityRuns": [
         {
           "type": "PEDF",
           "scores": [
-            4,
+            2,
             1,
             1,
-            3
+            2
           ]
         },
         {
           "type": "PECF",
           "scores": [
-            4,
-            1,
+            2,
+            0,
             2,
             2
           ]
@@ -2327,14 +1878,14 @@
         {
           "type": "PTDN",
           "scores": [
-            4,
-            3,
+            2,
+            2,
             0,
-            1
+            0
           ]
         }
       ],
-      "consistency": 83,
+      "consistency": 81,
       "runs": 3
     },
     {
@@ -2387,37 +1938,9 @@
       "model": "gpt-5-mini",
       "provider": "openai",
       "consistency": 92,
-      "runs": 3,
+      "runs": 1,
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            4,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            2,
-            3,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "GPT-5.2",
@@ -2469,37 +1992,9 @@
       "model": "gpt-5.2",
       "provider": "openai",
       "consistency": 92,
-      "runs": 3,
+      "runs": 1,
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "RECF",
-          "scores": [
-            0,
-            1,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "RECN",
-          "scores": [
-            0,
-            1,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            0,
-            2,
-            4,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "GPT-5.5",
@@ -2568,36 +2063,8 @@
         true,
         false
       ],
-      "reliabilityRuns": [
-        {
-          "type": "PEDF",
-          "scores": [
-            4,
-            1,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            2,
-            0,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            2,
-            1,
-            3
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "reliability": 0.9167,
       "consistency": 92
     },
@@ -2651,37 +2118,9 @@
       "model": "granite3.3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            2,
-            4,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "InternLM2 7B",
@@ -2733,37 +2172,9 @@
       "model": "internlm2:7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            3
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Llama 3.2 11B Vision",
@@ -2816,37 +2227,9 @@
       "provider": "github",
       "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Llama 3.2 90B Vision",
@@ -2898,36 +2281,8 @@
       "model": "Llama-3.2-90B-Vision-Instruct",
       "provider": "github",
       "reliability": 0.8958,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            3,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            3,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "RTCN",
-          "scores": [
-            1,
-            4,
-            3,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 90
     },
     {
@@ -2980,37 +2335,9 @@
       "model": "Llama-3.3-70B-Instruct",
       "provider": "github",
       "reliability": 0.875,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            3,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "RTCN",
-          "scores": [
-            1,
-            3,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "RECN",
-          "scores": [
-            1,
-            1,
-            3,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "reliabilityNote": "3/3 PECN [2,1,3,1]",
-      "runs": 3,
+      "runs": 1,
       "consistency": 88
     },
     {
@@ -3063,36 +2390,8 @@
       "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
       "provider": "github",
       "reliability": 0.8958,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            3,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            2,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 90
     },
     {
@@ -3145,36 +2444,8 @@
       "model": "Llama-4-Scout-17B-16E-Instruct",
       "provider": "github",
       "reliability": 0.9375,
-      "reliabilityRuns": [
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            3,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 94
     },
     {
@@ -3227,37 +2498,9 @@
       "model": "llama3.1:8b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Llama 3.2 3B",
@@ -3309,37 +2552,9 @@
       "model": "llama3.2:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            4,
-            4,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            4,
-            4,
-            2,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            4,
-            4,
-            2,
-            1
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Mathstral 7B",
@@ -3391,37 +2606,9 @@
       "model": "mathstral:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            4,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            4,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            4,
-            1,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Llama 3.1 405B",
@@ -3473,37 +2660,9 @@
       "model": "Meta-Llama-3.1-405B-Instruct",
       "provider": "github",
       "reliability": 0.9583,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            3,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            3,
-            3,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "reliabilityNote": "PTCF, PTCN, PTCN",
-      "runs": 3,
+      "runs": 1,
       "consistency": 96
     },
     {
@@ -3574,36 +2733,8 @@
         false
       ],
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            3,
-            1,
-            4,
-            0
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 92,
       "questionVersion": "5.0-beta"
     },
@@ -3675,36 +2806,8 @@
         false
       ],
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            1,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            2,
-            2,
-            3,
-            1
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 92
     },
     {
@@ -3774,36 +2877,8 @@
       ],
       "nick": "The Advisor",
       "reliability": 0.7917,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            3,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            2,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            1,
-            3,
-            3
-          ]
-        }
-      ],
-      "runs": 3,
+      "reliabilityRuns": 0,
+      "runs": 1,
       "consistency": 79
     },
     {
@@ -3856,38 +2931,10 @@
       "model": "Ministral-3B",
       "provider": "github",
       "reliability": 0.8125,
-      "reliabilityRuns": [
-        {
-          "type": "PEDF",
-          "scores": [
-            2,
-            1,
-            0,
-            4
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            0,
-            3,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            2,
-            1,
-            3
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "consistency": 81,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Mistral Medium 3",
@@ -3940,37 +2987,9 @@
       "provider": "github",
       "reliability": 0.9583,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
-      "reliabilityRuns": [
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            0,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            0,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "REDF",
-          "scores": [
-            1,
-            1,
-            1,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 96,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Mistral Small 3.1",
@@ -4023,37 +3042,9 @@
       "provider": "github",
       "reliability": 0.7708,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            3,
-            2
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            3,
-            2,
-            3
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 77,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Mistral 7B",
@@ -4105,37 +3096,9 @@
       "model": "mistral:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            4,
-            4
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Nemotron Mini 4B",
@@ -4187,37 +3150,9 @@
       "model": "nemotron-mini:4b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "REDF",
-          "scores": [
-            1,
-            0,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "REDF",
-          "scores": [
-            1,
-            0,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "REDF",
-          "scores": [
-            1,
-            0,
-            1,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "GPT-4.1 mini",
@@ -4270,37 +3205,9 @@
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
       "reliability": 0.8958,
-      "reliabilityRuns": [
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            0,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            0,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            1,
-            2,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 90,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "GPT-4.1 nano",
@@ -4353,37 +3260,9 @@
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
       "reliability": 0.9375,
-      "reliabilityRuns": [
-        {
-          "type": "PECF",
-          "scores": [
-            4,
-            1,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            4,
-            1,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            1,
-            3,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 94,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Phi 4",
@@ -4436,37 +3315,9 @@
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
-        },
-        {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
-        },
-        {
-          "type": "RTDN",
-          "scores": [
-            1,
-            2,
-            1,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Phi-4 Mini Reasoning",
@@ -4518,37 +3369,9 @@
       "model": "Phi-4-mini-reasoning",
       "provider": "github",
       "reliability": 0.7708,
-      "reliabilityRuns": [
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            3,
-            3,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            3,
-            3
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            3,
-            1,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "badge": "https://abti.kagura-agent.com/badge/PTDF",
-      "runs": 3,
+      "runs": 1,
       "consistency": 77
     },
     {
@@ -4602,37 +3425,9 @@
       "provider": "github",
       "reliability": 1,
       "badge": "https://abti.kagura-agent.com/badge/PTCN",
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCN",
-          "scores": [
-            3,
-            2,
-            3,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Phi-4 Mini",
@@ -4684,37 +3479,9 @@
       "model": "phi4-mini",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Qwen 2.5 3B",
@@ -4766,37 +3533,9 @@
       "model": "qwen2.5:3b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            2,
-            4,
-            2
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Qwen 2.5 7B",
@@ -4848,37 +3587,9 @@
       "model": "qwen2.5:7b",
       "provider": "ollama",
       "consistency": 100,
-      "runs": 3,
+      "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Qwen3 32B",
@@ -4930,37 +3641,9 @@
       "model": "Qwen3-32B",
       "provider": "github",
       "consistency": 92,
-      "runs": 3,
+      "runs": 1,
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "PECF",
-          "scores": [
-            4,
-            1,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            4,
-            1,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            2,
-            3,
-            3
-          ]
-        }
-      ]
+      "reliabilityRuns": 0
     },
     {
       "name": "Qwen 3 1.7B",
@@ -5012,37 +3695,9 @@
       "model": "qwen3:1.7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            3
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Qwen 3 4B",
@@ -5094,37 +3749,9 @@
       "model": "qwen3:4b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "RTCN",
-          "scores": [
-            1,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "RTCN",
-          "scores": [
-            1,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "RTCN",
-          "scores": [
-            1,
-            2,
-            2,
-            0
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Qwen 3 8B",
@@ -5176,37 +3803,9 @@
       "model": "qwen3:8b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "RECN",
-          "scores": [
-            0,
-            1,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "RECN",
-          "scores": [
-            0,
-            1,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "RECN",
-          "scores": [
-            0,
-            1,
-            3,
-            1
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "SmolLM2 1.7B",
@@ -5258,37 +3857,9 @@
       "model": "smollm2:1.7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        {
-          "type": "REDN",
-          "scores": [
-            0,
-            0,
-            1,
-            0
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Solar 10.7B",
@@ -5340,37 +3911,9 @@
       "model": "solar:10.7b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "StableLM 2 1.6B",
@@ -5422,37 +3965,9 @@
       "model": "stablelm2:1.6b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            4,
-            4
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "TinyLlama",
@@ -5506,37 +4021,9 @@
       "parseFailures": 10,
       "confidence": 0.375,
       "reliability": 0.9167,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            4,
-            1,
-            4,
-            4
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 92,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Yi 6B",
@@ -5588,37 +4075,9 @@
       "model": "yi:6b",
       "provider": "ollama",
       "reliability": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            4,
-            2
-          ]
-        }
-      ],
+      "reliabilityRuns": 0,
       "consistency": 100,
-      "runs": 3
+      "runs": 1
     },
     {
       "name": "Gemini 3.5 Flash",
@@ -5669,36 +4128,8 @@
       ],
       "model": "gemini-3.5-flash",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            4,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            4,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            4,
-            1,
-            2
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.9583,
       "consistency": 96
     },
@@ -5751,36 +4182,8 @@
       ],
       "model": "gemini-3.1-pro-preview",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            4,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            2,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            2,
-            2
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.9167,
       "consistency": 92
     },
@@ -5833,36 +4236,8 @@
       ],
       "model": "MiniMax-M2.7",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            0,
-            2
-          ]
-        },
-        {
-          "type": "PTDN",
-          "scores": [
-            2,
-            2,
-            1,
-            0
-          ]
-        },
-        {
-          "type": "PEDF",
-          "scores": [
-            2,
-            1,
-            1,
-            2
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.75,
       "consistency": 75
     },
@@ -5915,36 +4290,8 @@
       ],
       "model": "gpt-5.4",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            3,
-            1,
-            4
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            3,
-            1,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            3,
-            2,
-            4
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.9375,
       "consistency": 94
     },
@@ -5997,36 +4344,8 @@
       ],
       "model": "gpt-5.4-mini",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PECF",
-          "scores": [
-            3,
-            1,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "PECF",
-          "scores": [
-            2,
-            1,
-            4,
-            3
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.9375,
       "consistency": 94
     },
@@ -6079,36 +4398,8 @@
       ],
       "model": "gemini-3-flash-preview",
       "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            4,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            4,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            4,
-            3
-          ]
-        }
-      ],
+      "runs": 1,
+      "reliabilityRuns": 0,
       "reliability": 0.9375,
       "consistency": 94
     }
