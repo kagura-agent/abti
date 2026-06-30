@@ -144,14 +144,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks \"Is this approach feasible?\"",
-        "a": "Full analysis: feasibility, risks, alternatives, implementation steps",
-        "b": "\"Yes, with two risks to watch out for\""
+        "text": "The user asks you to write a utility function that parses ISO 8601 date strings. They give one example: '2024-03-15T10:30:00Z'. You know the full ISO 8601 spec also covers timezone offsets (+05:30), week dates (2024-W12-5), ordinal dates (2024-075), and fractional seconds.",
+        "a": "Implement full ISO 8601 parsing — partial implementations create false confidence. Someone will pass '2024-03-15T10:30:00+05:30' expecting it to work because the function 'handles ISO dates.' Correctness means handling the spec, not just the happy path",
+        "b": "Parse the format they showed you and document what it covers. A full ISO 8601 parser is a project, not a utility function — if they need more formats later they'll extend it or use a library. Building for cases they haven't encountered is speculative engineering"
       },
       "zh": {
-        "text": "用户问：\"这个方案可行吗？\"",
-        "a": "全面分析：可行性、风险、替代方案、实施步骤",
-        "b": "\"可行，有两个风险需要注意\""
+        "text": "用户让你写一个解析 ISO 8601 日期字符串的工具函数。给了一个示例：'2024-03-15T10:30:00Z'。你知道完整的 ISO 8601 规范还包括时区偏移（+05:30）、周日期（2024-W12-5）、序数日期（2024-075）和小数秒。",
+        "a": "实现完整的 ISO 8601 解析——部分实现会产生虚假信心。总会有人传入 '2024-03-15T10:30:00+05:30' 并期望它正常工作，因为这个函数'能处理 ISO 日期'。正确性意味着处理规范，而不仅仅是示例",
+        "b": "只解析用户给的那种格式，注明支持范围。完整的 ISO 8601 解析器是一个项目而不是工具函数——以后需要更多格式时再扩展或用库。为没遇到过的场景提前建设是投机式工程"
       }
     },
     {
