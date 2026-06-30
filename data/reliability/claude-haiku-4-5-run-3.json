@@ -4,7 +4,7 @@
   "run": 3,
   "answers": [
     "B",
-    "A",
+    "B",
     "B",
     "B",
     "A",
@@ -21,10 +21,10 @@
     "A"
   ],
   "dimensions": [
-    1,
+    0,
     2,
     2,
-    3
+    2
   ],
   "type": "RTCF",
   "questionVersion": "5.0"

@@ -17,14 +17,14 @@
     "B",
     "A",
     "B",
-    "B",
+    "A",
     "A"
   ],
   "dimensions": [
     0,
     2,
     0,
-    2
+    3
   ],
   "type": "RTDF",
   "questionVersion": "5.0"

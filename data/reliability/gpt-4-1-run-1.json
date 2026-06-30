@@ -9,7 +9,8 @@
     "B",
     "A",
     "B",
-    "B",
+    "A",
+    "A",
     "B",
     "B",
     "B",
@@ -17,15 +18,14 @@
     "A",
     "A",
     "B",
-    "A",
     "A"
   ],
   "dimensions": [
     1,
-    1,
-    1,
+    3,
+    0,
     3
   ],
-  "type": "REDF",
+  "type": "RTDF",
   "questionVersion": "5.0"
 }

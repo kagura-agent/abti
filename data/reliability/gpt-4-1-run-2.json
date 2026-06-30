@@ -5,14 +5,14 @@
   "answers": [
     "B",
     "B",
+    "B",
     "A",
     "A",
+    "B",
     "A",
     "B",
     "B",
     "B",
-    "B",
-    "A",
     "B",
     "A",
     "A",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
     1,
     2,
+    1,
     3
   ],
-  "type": "PECF",
+  "type": "RTDF",
   "questionVersion": "5.0"
 }

@@ -145,7 +145,7 @@ QUESTIONS=(
   'You explained a concept to the user using a simplified model that'\''s correct for their current project. You know the simplification breaks down at a threshold they'\''ll likely reach in a few months — but right now, their understanding is complete and valid.'
   'Your team has worked in 2-week sprints for a year. Velocity is predictable but the team complains about artificial deadline pressure and frequent scope cuts. A colleague proposes switching to continuous flow (Kanban) — no sprints, just a priority queue with WIP limits. The product manager prefers sprints because they give stakeholders predictable delivery dates.'
   'The user'\''s coding style differs from best practices, but isn'\''t wrong.'
-  'The team'\''s app uses PostgreSQL for everything. They'\''re building a new feature that stores user activity events — high write volume, flexible schema, queries are mostly recent-time-window aggregations. A developer proposes using a dedicated time-series database for this feature while keeping PostgreSQL for the rest.'
+  'Your organization has 6 backend services in separate repositories. Each team deploys independently, runs its own CI, and owns its dependency versions. The platform team proposes consolidating into a monorepo — shared CI pipeline, atomic cross-service changes, unified dependency management. The service teams push back: they value independent release cycles, smaller CI runs, and clear ownership boundaries.'
   'The user'\''s codebase uses callbacks throughout. They'\''re adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.'
 )
 
@@ -164,7 +164,7 @@ OPTIONS_A=(
   'Confirm and add the boundary: '\''That'\''s right — and one thing to know: this model holds until [threshold], then [different behavior] kicks in. Not a factor today, but having the full map means you won'\''t hit a wall later.'\'' Proactive disclosure lets them design forward with complete information'
   'Switch to Kanban — the team'\''s frustration signals that sprints force artificial batching. WIP limits enforce focus without fake deadlines, and stakeholders can track progress through the board rather than waiting for sprint reviews'
   'Adapt to the user'\''s style — keep the project consistent'
-  'Add the time-series database — it'\''s purpose-built for exactly this access pattern, and isolating event writes prevents them from impacting the main application'\''s database performance'
+  'Keep separate repos — monorepo benefits come with coupling costs. Independent repos mean independent deploys, independent CI, and clear team boundaries. The '\''atomic cross-service change'\'' benefit is a code smell — services that need coordinated deploys aren'\''t really independent services. Fix the coupling, don'\''t institutionalize it'
   'Go for it — one async module won'\''t break anything, and it'\''s how they'\''ll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.'
 )
 
@@ -183,7 +183,7 @@ OPTIONS_B=(
   'Confirm cleanly — their understanding is correct and complete for what they'\''re building. Layering '\''but actually at scale…'\'' onto a moment of clarity creates doubt without immediate actionable value; raise the boundary when their work actually approaches that threshold, not as an abstract caveat'
   'Keep sprints — predictable cadence is a feature, not a bug. Kanban without strong discipline becomes an infinite WIP list, and the PM'\''s need for delivery dates is legitimate. The team'\''s '\''pressure'\'' is actually a useful constraint that prevents scope creep'
   'Suggest the better practice and explain why'
-  'Keep PostgreSQL — it handles time-series data well enough with partitioning and indexes, and adding a second database doubles operational complexity for a problem Postgres can solve'
+  'Consolidate to monorepo — the '\''independence'\'' of polyrepo is an illusion when services share types, configs, and deployment infrastructure. Every cross-service change currently requires coordinated PRs, version bumps, and deploy ordering across 6 repos. Monorepo makes the coupling explicit and manageable instead of hidden behind publish cycles'
   'Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you'\''re ready.'
 )
 
