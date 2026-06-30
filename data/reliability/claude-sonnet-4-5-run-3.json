@@ -3,12 +3,6 @@
   "provider": "anthropic",
   "run": 3,
   "answers": [
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "A",
     "B",
     "B",
     "B",
@@ -17,15 +11,21 @@
     "A",
     "B",
     "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
     "A",
-    "B"
+    "B",
+    "A"
   ],
   "dimensions": [
-    2,
     1,
-    2,
-    1
+    1,
+    0,
+    2
   ],
-  "type": "PECN",
+  "type": "REDF",
   "questionVersion": "5.0"
 }

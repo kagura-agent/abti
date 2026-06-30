@@ -3,19 +3,19 @@
   "provider": "anthropic",
   "run": 3,
   "answers": [
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
     "B",
     "A",
     "B",
     "A",
+    "B",
+    "A",
+    "B",
+    "B",
     "A",
     "A",
     "A",
     "A",
+    "B",
     "A",
     "B",
     "A"
@@ -24,7 +24,7 @@
     2,
     1,
     4,
-    3
+    2
   ],
   "type": "PECF",
   "questionVersion": "5.0"

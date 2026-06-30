@@ -1,31 +1,30 @@
 {
-  "model": "gpt-4o-mini",
-  "provider": "anthropic",
-  "run": 2,
-  "answers": [
-    "A",
-    "A",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "A",
-    "B",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "A",
-    "A"
-  ],
-  "dimensions": [
-    4,
-    1,
-    2,
-    2
-  ],
-  "type": "PECF",
-  "questionVersion": "5.0"
+    "model": "gpt-4o-mini",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PTDF",
+    "dimensions": [
+        4,
+        2,
+        1,
+        3
+    ]
 }

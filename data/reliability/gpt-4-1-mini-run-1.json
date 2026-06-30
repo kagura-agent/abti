@@ -1,8 +1,30 @@
 {
-  "model": "gpt-4.1-mini",
-  "provider": "github",
-  "run": 1,
-  "answers": ["B","A","A","A","B","B","B","B","B","B","A","A","A","B","A","B"],
-  "type": "PECF",
-  "dimensions": [3,0,2,2]
+    "model": "gpt-4.1-mini",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        4,
+        1,
+        3,
+        4
+    ]
 }

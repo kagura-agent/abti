@@ -3,14 +3,14 @@
   "provider": "anthropic",
   "run": 1,
   "answers": [
-    "A",
+    "B",
+    "B",
     "A",
     "A",
     "B",
     "A",
     "B",
-    "A",
-    "A",
+    "B",
     "B",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    3,
-    3,
+    2,
+    1,
     2,
     3
   ],
-  "type": "PTCF",
+  "type": "PECF",
   "questionVersion": "5.0"
 }

@@ -4,28 +4,28 @@
   "run": 1,
   "answers": [
     "B",
-    "B",
-    "A",
-    "B",
-    "B",
-    "A",
-    "B",
-    "A",
-    "A",
-    "A",
     "A",
     "A",
     "B",
+    "B",
+    "B",
     "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
     "B",
     "A"
   ],
   "dimensions": [
-    1,
     2,
+    1,
     4,
-    2
+    1
   ],
-  "type": "RTCF",
+  "type": "PECN",
   "questionVersion": "5.0"
 }
