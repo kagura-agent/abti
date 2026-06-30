@@ -5,27 +5,27 @@
   "answers": [
     "B",
     "B",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "B",
     "B",
     "B",
     "A",
-    "A",
-    "A",
     "B",
     "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
     "A"
   ],
   "dimensions": [
-    2,
     0,
-    2,
-    2
+    1,
+    1,
+    4
   ],
-  "type": "PECF",
+  "type": "REDF",
   "questionVersion": "5.0"
 }
