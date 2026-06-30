@@ -3,29 +3,29 @@
   "provider": "anthropic",
   "run": 2,
   "answers": [
-    "A",
-    "A",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "B",
-    "B",
-    "B",
     "B",
     "B",
     "A",
+    "A",
+    "A",
     "B",
     "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
     "A"
   ],
   "dimensions": [
-    4,
+    2,
+    3,
     0,
-    0,
-    3
+    2
   ],
-  "type": "PEDF",
+  "type": "PTDF",
   "questionVersion": "5.0"
 }

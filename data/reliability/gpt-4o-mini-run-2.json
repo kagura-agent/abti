@@ -3,6 +3,8 @@
   "provider": "anthropic",
   "run": 2,
   "answers": [
+    "B",
+    "B",
     "A",
     "A",
     "A",
@@ -10,22 +12,20 @@
     "B",
     "B",
     "B",
-    "A",
     "B",
-    "A",
-    "A",
+    "B",
     "B",
     "B",
     "B",
     "A",
-    "A"
+    "B"
   ],
   "dimensions": [
-    4,
-    1,
     2,
-    2
+    2,
+    0,
+    1
   ],
-  "type": "PECF",
+  "type": "PTDN",
   "questionVersion": "5.0"
 }

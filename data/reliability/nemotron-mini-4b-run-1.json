@@ -1,8 +1,0 @@
-{
-  "model": "nemotron-mini:4b",
-  "provider": "ollama",
-  "run": 1,
-  "answers": ["B","B","B","A","B","B","B","B","B","A","B","B","A","B","A","B"],
-  "type": "REDF",
-  "dimensions": [1, 0, 1, 2]
-}

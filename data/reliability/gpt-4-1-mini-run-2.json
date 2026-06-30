@@ -1,8 +1,0 @@
-{
-  "model": "gpt-4.1-mini",
-  "provider": "github",
-  "run": 2,
-  "answers": ["B","A","B","A","B","B","B","B","B","B","A","A","A","A","A","B"],
-  "type": "PECF",
-  "dimensions": [2,0,2,3]
-}

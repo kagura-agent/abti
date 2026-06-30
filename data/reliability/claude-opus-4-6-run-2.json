@@ -3,14 +3,14 @@
   "provider": "anthropic",
   "run": 2,
   "answers": [
-    "A",
+    "B",
+    "B",
     "A",
     "A",
     "B",
     "B",
     "B",
     "B",
-    "A",
     "B",
     "B",
     "A",
@@ -21,8 +21,8 @@
     "A"
   ],
   "dimensions": [
-    3,
-    1,
+    2,
+    0,
     2,
     2
   ],

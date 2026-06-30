@@ -1,0 +1,1488 @@
+=== Q5 Refresh started at Tue Jun 30 09:36:03 AM CST 2026 ===
+--- Phase 1: Core models for Q5 discriminability ---
+[START] gpt-4o-mini run 1 at Tue Jun 30 09:36:03 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-mini-state.json
+Model: gpt-4o-mini, Slug: gpt-4o-mini, Run: 1
+State file: gpt-4o-mini-state.json
+Output: data/reliability/gpt-4o-mini-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTDF (scores: [4, 3, 1, 2])
+Saved to: data/reliability/gpt-4o-mini-run-1.json
+[DONE] gpt-4o-mini run 1 at Tue Jun 30 09:53:00 AM CST 2026
+[START] gpt-4o-mini run 2 at Tue Jun 30 09:53:30 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-mini-state.json
+Model: gpt-4o-mini, Slug: gpt-4o-mini, Run: 2
+State file: gpt-4o-mini-state.json
+Output: data/reliability/gpt-4o-mini-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTDF (scores: [4, 2, 1, 3])
+Saved to: data/reliability/gpt-4o-mini-run-2.json
+[DONE] gpt-4o-mini run 2 at Tue Jun 30 10:10:30 AM CST 2026
+[START] gpt-4o-mini run 3 at Tue Jun 30 10:11:00 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-mini-state.json
+Model: gpt-4o-mini, Slug: gpt-4o-mini, Run: 3
+State file: gpt-4o-mini-state.json
+Output: data/reliability/gpt-4o-mini-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTDF (scores: [4, 2, 0, 2])
+Saved to: data/reliability/gpt-4o-mini-run-3.json
+[DONE] gpt-4o-mini run 3 at Tue Jun 30 10:27:59 AM CST 2026
+[START] gpt-4o run 1 at Tue Jun 30 10:29:29 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-state.json
+Model: gpt-4o, Slug: gpt-4o, Run: 1
+State file: gpt-4o-state.json
+Output: data/reliability/gpt-4o-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTDF (scores: [4, 2, 1, 3])
+Saved to: data/reliability/gpt-4o-run-1.json
+[DONE] gpt-4o run 1 at Tue Jun 30 10:46:21 AM CST 2026
+[START] gpt-4o run 2 at Tue Jun 30 10:46:51 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-state.json
+Model: gpt-4o, Slug: gpt-4o, Run: 2
+State file: gpt-4o-state.json
+Output: data/reliability/gpt-4o-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PEDF (scores: [4, 1, 1, 3])
+Saved to: data/reliability/gpt-4o-run-2.json
+[DONE] gpt-4o run 2 at Tue Jun 30 11:03:43 AM CST 2026
+[START] gpt-4o run 3 at Tue Jun 30 11:04:13 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4o-state.json
+Model: gpt-4o, Slug: gpt-4o, Run: 3
+State file: gpt-4o-state.json
+Output: data/reliability/gpt-4o-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTDF (scores: [4, 2, 1, 3])
+Saved to: data/reliability/gpt-4o-run-3.json
+[DONE] gpt-4o run 3 at Tue Jun 30 11:21:14 AM CST 2026
+[START] gpt-4-1 run 1 at Tue Jun 30 11:22:44 AM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-state.json
+Model: gpt-4.1, Slug: gpt-4-1, Run: 1
+State file: gpt-4.1-state.json
+Output: data/reliability/gpt-4-1-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PECF (scores: [3, 1, 3, 3])
+Saved to: data/reliability/gpt-4-1-run-1.json
+=== Q5 Refresh CONTINUED at Tue Jun 30 12:32:21 PM CST 2026 ===
+[START] gpt-4-1 run 2 at Tue Jun 30 12:32:21 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-state.json
+Model: gpt-4.1, Slug: gpt-4-1, Run: 2
+State file: gpt-4.1-state.json
+Output: data/reliability/gpt-4-1-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PECF (scores: [3, 1, 2, 3])
+Saved to: data/reliability/gpt-4-1-run-2.json
+[DONE] gpt-4-1 run 2 at Tue Jun 30 12:49:17 PM CST 2026
+[START] gpt-4-1 run 3 at Tue Jun 30 12:49:47 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-state.json
+Model: gpt-4.1, Slug: gpt-4-1, Run: 3
+State file: gpt-4.1-state.json
+Output: data/reliability/gpt-4-1-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PECF (scores: [4, 1, 2, 4])
+Saved to: data/reliability/gpt-4-1-run-3.json
+[DONE] gpt-4-1 run 3 at Tue Jun 30 01:06:51 PM CST 2026
+[START] gpt-4-1-mini run 1 at Tue Jun 30 01:08:21 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-mini-state.json
+Model: gpt-4.1-mini, Slug: gpt-4-1-mini, Run: 1
+State file: gpt-4.1-mini-state.json
+Output: data/reliability/gpt-4-1-mini-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PECF (scores: [4, 1, 3, 4])
+Saved to: data/reliability/gpt-4-1-mini-run-1.json
+[DONE] gpt-4-1-mini run 1 at Tue Jun 30 01:25:15 PM CST 2026
+[START] gpt-4-1-mini run 2 at Tue Jun 30 01:25:45 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-mini-state.json
+Model: gpt-4.1-mini, Slug: gpt-4-1-mini, Run: 2
+State file: gpt-4.1-mini-state.json
+Output: data/reliability/gpt-4-1-mini-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Result: PTCF (scores: [2, 3, 2, 3])
+Saved to: data/reliability/gpt-4-1-mini-run-2.json
+[DONE] gpt-4-1-mini run 2 at Tue Jun 30 01:42:46 PM CST 2026
+[START] gpt-4-1-mini run 3 at Tue Jun 30 01:43:16 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: gpt-4.1-mini-state.json
+Model: gpt-4.1-mini, Slug: gpt-4-1-mini, Run: 3
+State file: gpt-4.1-mini-state.json
+Output: data/reliability/gpt-4-1-mini-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (4/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 5/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (5/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 6/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (6/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 7/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (7/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 8/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (8/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 9/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (9/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 10/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (10/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 11/16 ===
+  Answer: B (false)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (11/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 12/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (12/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 13/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (13/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 14/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (14/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 15/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (15/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 16/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (16/16 done)
+
+=== All 16 questions answered ===
+Traceback (most recent call last):
+  File "<string>", line 14, in <module>
+IndexError: list index out of range
+[DONE] gpt-4-1-mini run 3 at Tue Jun 30 02:00:13 PM CST 2026
+[SKIP] claude-haiku-4-5 run 1 already exists
+[SKIP] claude-haiku-4-5 run 2 already exists
+[SKIP] claude-haiku-4-5 run 3 already exists
+[SKIP] claude-sonnet-4-5 run 1 already exists
+[SKIP] claude-sonnet-4-5 run 2 already exists
+[SKIP] claude-sonnet-4-5 run 3 already exists
+[SKIP] claude-opus-4-7 run 1 already exists
+[SKIP] claude-opus-4-7 run 2 already exists
+[SKIP] claude-opus-4-7 run 3 already exists
+[SKIP] gemini-2-5-pro run 1 already exists
+[SKIP] gemini-2-5-pro run 2 already exists
+[SKIP] gemini-2-5-pro run 3 already exists
+[START] llama-3-3-70b run 1 at Tue Jun 30 02:07:14 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Meta-Llama-3.3-70B-Instruct-state.json
+Model: Meta-Llama-3.3-70B-Instruct, Slug: llama-3-3-70b, Run: 1
+State file: Meta-Llama-3.3-70B-Instruct-state.json
+Output: data/reliability/llama-3-3-70b-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: Too many retries. Exiting.
+[DONE] llama-3-3-70b run 1 at Tue Jun 30 02:09:07 PM CST 2026
+[START] llama-3-3-70b run 2 at Tue Jun 30 02:09:37 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Meta-Llama-3.3-70B-Instruct-state.json
+Model: Meta-Llama-3.3-70B-Instruct, Slug: llama-3-3-70b, Run: 2
+State file: Meta-Llama-3.3-70B-Instruct-state.json
+Output: data/reliability/llama-3-3-70b-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: Too many retries. Exiting.
+[DONE] llama-3-3-70b run 2 at Tue Jun 30 02:11:30 PM CST 2026
+[START] llama-3-3-70b run 3 at Tue Jun 30 02:12:00 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Meta-Llama-3.3-70B-Instruct-state.json
+Model: Meta-Llama-3.3-70B-Instruct, Slug: llama-3-3-70b, Run: 3
+State file: Meta-Llama-3.3-70B-Instruct-state.json
+Output: data/reliability/llama-3-3-70b-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: API returned HTTP 404
+{"error":{"code":"unknown_model","message":"Unknown model: /Meta-Llama-3.3-70B-Instruct","details":"Unknown model: /Meta-Llama-3.3-70B-Instruct"}}
+ERROR: Too many retries. Exiting.
+[DONE] llama-3-3-70b run 3 at Tue Jun 30 02:13:56 PM CST 2026
+[START] phi-4 run 1 at Tue Jun 30 02:15:26 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Phi-4-state.json
+Model: Phi-4, Slug: phi-4, Run: 1
+State file: Phi-4-state.json
+Output: data/reliability/phi-4-run-1.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+[DONE] phi-4 run 1 at Tue Jun 30 02:18:36 PM CST 2026
+[START] phi-4 run 2 at Tue Jun 30 02:19:06 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Phi-4-state.json
+Model: Phi-4, Slug: phi-4, Run: 2
+State file: Phi-4-state.json
+Output: data/reliability/phi-4-run-2.json
+Already done: 0/16
+
+=== Question 1/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (1/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 2/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (2/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 3/16 ===
+  Answer: A (true)
+<string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  State saved (3/16 done)
+  Waiting 65s for rate limit...
+
+=== Question 4/16 ===
+[DONE] phi-4 run 2 at Tue Jun 30 02:24:30 PM CST 2026
+[START] phi-4 run 3 at Tue Jun 30 02:25:00 PM CST 2026
+<string>:8: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+<string>:10: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+Created fresh state: Phi-4-state.json
+Model: Phi-4, Slug: phi-4, Run: 3
+State file: Phi-4-state.json
+Output: data/reliability/phi-4-run-3.json
+Already done: 0/16
+
+=== Question 1/16 ===
+[DONE] phi-4 run 3 at Tue Jun 30 02:27:00 PM CST 2026
+=== All Phase 1 runs complete at Tue Jun 30 02:27:30 PM CST 2026 ===
+Generating discriminability.json...
+Generated discriminability data from 36 runs → /mnt/data/repos/forks/abti/data/discriminability.json
+
+  [all] 36 runs, 5 question(s) below 0.6 threshold
+    Q3: 0.278 (A:86.1% B:13.9%)
+    Q5: 0.444 (A:22.2% B:77.8%)
+    Q6: 0.5 (A:25% B:75%)
+    Q12: 0.444 (A:77.8% B:22.2%)
+    Q16: 0.056 (A:97.2% B:2.8%)
+
+  [v4] 36 runs, 5 question(s) below 0.6 threshold
+    Q3: 0.278 (A:86.1% B:13.9%)
+    Q5: 0.444 (A:22.2% B:77.8%)
+    Q6: 0.5 (A:25% B:75%)
+    Q12: 0.444 (A:77.8% B:22.2%)
+    Q16: 0.056 (A:97.2% B:2.8%)
+=== BATCH COMPLETE at Tue Jun 30 02:27:37 PM CST 2026 ===
