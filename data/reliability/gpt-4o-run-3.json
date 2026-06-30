@@ -5,8 +5,8 @@
   "answers": [
     "B",
     "B",
-    "A",
-    "A",
+    "B",
+    "B",
     "A",
     "B",
     "A",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
+    0,
     2,
     0,
     2
   ],
-  "type": "PTDF",
+  "type": "RTDF",
   "questionVersion": "5.0"
 }

@@ -1,19 +1,19 @@
 {
-  "model": "claude-haiku-4.5",
+  "model": "claude-haiku-4-5",
   "provider": "anthropic",
   "run": 3,
   "answers": [
     "B",
     "A",
-    "A",
-    "A",
-    "A",
-    "A",
-    "B",
     "B",
     "B",
     "A",
     "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
     "B",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    3,
+    1,
     2,
     2,
     3
   ],
-  "type": "PTCF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
