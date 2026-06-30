@@ -7,25 +7,25 @@
     "B",
     "A",
     "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
     "B",
     "B",
     "B",
     "B",
     "A",
-    "B",
-    "A",
-    "B",
-    "A",
-    "A",
-    "B",
     "B"
   ],
   "dimensions": [
     2,
-    0,
     2,
-    2
+    0,
+    1
   ],
-  "type": "PECF",
+  "type": "PTDN",
   "questionVersion": "5.0"
 }
