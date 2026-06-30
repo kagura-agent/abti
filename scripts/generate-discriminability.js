@@ -46,12 +46,64 @@ function getFileCohort(filepath) {
   }
 }
 
-function computeCohort(runs) {
-  if (runs.length === 0) return null;
+/**
+ * Parse model name from reliability filename.
+ * Pattern: 'model-name-run-N.json' → model = everything before '-run-N'
+ */
+function parseModelName(filename) {
+  const match = filename.match(/^(.+)-run-\d+\.json$/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Group runs by model name based on filename.
+ * Returns Map<string, data[]>
+ */
+function groupByModel(taggedRuns) {
+  const groups = new Map();
+  for (const { model, data } of taggedRuns) {
+    if (!groups.has(model)) groups.set(model, []);
+    groups.get(model).push(data);
+  }
+  return groups;
+}
+
+/**
+ * Compute SD-based discriminability for a question across models.
+ * 1. For each model, compute p_A = (A answers) / (runs for that model)
+ * 2. Compute population SD of all p_A values
+ * 3. disc = min(2 * SD, 1.0)
+ */
+function computeSDDiscriminability(modelGroups, questionIndex) {
+  const pAValues = [];
+  for (const [, runs] of modelGroups) {
+    let aCount = 0;
+    let validRuns = 0;
+    for (const data of runs) {
+      if (!Array.isArray(data.answers) || data.answers.length !== 16) continue;
+      validRuns++;
+      if (data.answers[questionIndex] === 'A') aCount++;
+    }
+    if (validRuns > 0) {
+      pAValues.push(aCount / validRuns);
+    }
+  }
+  if (pAValues.length < 2) return 0;
+
+  const mean = pAValues.reduce((s, v) => s + v, 0) / pAValues.length;
+  const variance = pAValues.reduce((s, v) => s + (v - mean) ** 2, 0) / pAValues.length;
+  const sd = Math.sqrt(variance);
+  return Math.min(2 * sd, 1.0);
+}
+
+function computeCohort(taggedRuns) {
+  if (taggedRuns.length === 0) return null;
+  const modelGroups = groupByModel(taggedRuns);
+
   const aCounts = new Array(16).fill(0);
   let totalRuns = 0;
 
-  for (const data of runs) {
+  for (const { data } of taggedRuns) {
     if (!Array.isArray(data.answers) || data.answers.length !== 16) continue;
     totalRuns++;
     for (let i = 0; i < 16; i++) {
@@ -65,7 +117,8 @@ function computeCohort(runs) {
   for (let i = 0; i < 16; i++) {
     const aPercent = (aCounts[i] / totalRuns) * 100;
     const bPercent = 100 - aPercent;
-    const disc = +(1 - Math.abs(aPercent - 50) / 50).toFixed(3);
+    const ratioDisc = +(1 - Math.abs(aPercent - 50) / 50).toFixed(3);
+    const disc = +computeSDDiscriminability(modelGroups, i).toFixed(3);
     questions.push({
       question: i + 1,
       aCount: aCounts[i],
@@ -73,6 +126,7 @@ function computeCohort(runs) {
       aPercent: +aPercent.toFixed(1),
       bPercent: +bPercent.toFixed(1),
       discriminability: disc,
+      ratioDiscriminability: ratioDisc,
     });
   }
 
@@ -118,12 +172,17 @@ function main() {
     console.warn('  Git date lookup failed for some files; using "all" cohort only');
   }
 
-  // Load all run data
+  // Load all run data as tagged runs (with model name)
   const allRuns = [];
   const v4Runs = [];
   const v5Runs = [];
 
   for (const file of files) {
+    const model = parseModelName(file);
+    if (!model) {
+      console.warn(`  Skipping ${file}: cannot parse model name`);
+      continue;
+    }
     let data;
     try {
       data = JSON.parse(fs.readFileSync(path.join(RELIABILITY_DIR, file), 'utf-8'));
@@ -131,10 +190,11 @@ function main() {
       console.warn(`  Skipping ${file}: ${e.message}`);
       continue;
     }
-    allRuns.push(data);
+    const tagged = { model, data };
+    allRuns.push(tagged);
     if (gitAvailable && cohortMap[file]) {
-      if (cohortMap[file] === 'v4') v4Runs.push(data);
-      else v5Runs.push(data);
+      if (cohortMap[file] === 'v4') v4Runs.push(tagged);
+      else v5Runs.push(tagged);
     }
   }
 
