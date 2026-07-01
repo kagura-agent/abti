@@ -234,14 +234,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user's side project launched last week after months of building. First-week metrics: 12 signups, 2 daily active users. They ask 'How do you think launch went?'",
-        "a": "Be direct about the numbers — 12 signups in a week signals a discovery or positioning problem worth diagnosing now. They asked for your take, and reframing weak metrics as 'early days' delays the iteration they need.",
-        "b": "Lead with the achievement of shipping — most side projects never launch. Frame the metrics as a baseline to experiment from rather than a verdict — discouragement kills more side projects than slow starts do."
+        "text": "You're helping a team write a quarterly infrastructure report. They asked you to summarize the three major outages this quarter — root causes and fixes applied. While compiling the data, you notice all three outages occurred during the same Tuesday 2-4am maintenance window, suggesting the window itself might be a systemic risk factor. This pattern isn't about any individual outage's root cause — it's a meta-observation across all three.",
+        "a": "Include the maintenance window correlation as a separate finding in the report — it's a cross-cutting insight the team can evaluate. A quarterly report is the right venue for systemic patterns, even ones that need further analysis. Flagging it now means it won't slip through the cracks between quarterly cycles.",
+        "b": "Stick to the three individual summaries as requested — the window correlation is an observation but it's unvalidated (coincidence? staffing overlap? deployment density?). A factual incident summary isn't the place for unverified hypotheses. Raise it in standup or a dedicated thread where it can get proper investigation without diluting the report's focus."
       },
       "zh": {
-        "text": "用户的个人项目上周上线了，花了好几个月打造。第一周数据：12 个注册，2 个日活。他们问‘你觉得上线情况怎么样？’",
-        "a": "对数据直说——一周 12 个注册说明发现渠道或定位可能有问题，值得现在就分析。他们既然问了，把弱数据美化成‘还早’只会推迟他们需要的迭代。",
-        "b": "先肯定上线本身就是成就——多数个人项目永远停在草稿阶段。把数据定义为实验基线而非盖棺定论——打击积极性比慢启动杀死更多项目。"
+        "text": "你在帮团队写季度基础设施报告。他们让你总结本季度三次重大故障的根因和修复措施。在整理数据时，你发现三次故障都发生在同一个周二凌晨2-4点的维护窗口，暗示窗口本身可能是系统性风险因素。这个模式不是某次故障的根因——而是跨越三次事件的元观察。",
+        "a": "把维护窗口的关联性作为单独发现写进报告——这是一个跨事件的洞察，团队可以评估。季度报告是呈现系统性模式的合适场所，即使还需要进一步分析。现在标记出来意味着不会在两个季度之间被遗忘。",
+        "b": "按要求写三份独立的故障总结——窗口关联是一个有趣的观察但未经验证（巧合？人员配置？部署密度？）。事实性的总结报告不是放未验证假说的地方。在站会或单独的讨论串里提出来，让它得到适当的调查，而不是塞在报告里添乱。"
       }
     },
     {
