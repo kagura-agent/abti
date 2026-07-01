@@ -3,14 +3,8 @@
   "provider": "anthropic",
   "run": 3,
   "answers": [
-    "A",
     "B",
     "B",
-    "B",
-    "B",
-    "A",
-    "B",
-    "A",
     "B",
     "B",
     "A",
@@ -18,13 +12,19 @@
     "A",
     "A",
     "B",
-    "A"
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B"
   ],
   "dimensions": [
-    1,
+    0,
+    4,
     2,
-    2,
-    3
+    2
   ],
   "type": "RTCF",
   "questionVersion": "5.0"
