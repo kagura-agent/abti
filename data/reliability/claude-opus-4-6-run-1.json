@@ -7,8 +7,8 @@
     "B",
     "B",
     "A",
-    "B",
-    "B",
+    "A",
+    "A",
     "A",
     "B",
     "B",
@@ -22,10 +22,10 @@
   ],
   "dimensions": [
     1,
-    1,
+    3,
     2,
     1
   ],
-  "type": "RECN",
+  "type": "RTCN",
   "questionVersion": "5.0"
 }

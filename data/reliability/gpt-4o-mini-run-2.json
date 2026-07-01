@@ -9,13 +9,13 @@
     "B",
     "A",
     "B",
-    "A",
-    "B",
-    "B",
     "B",
     "A",
+    "A",
     "B",
+    "A",
     "B",
+    "A",
     "A",
     "A",
     "B"
@@ -23,9 +23,9 @@
   "dimensions": [
     1,
     2,
-    1,
-    2
+    2,
+    3
   ],
-  "type": "RTDF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
