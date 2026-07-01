@@ -144,14 +144,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to write a utility function that parses ISO 8601 date strings. They give one example: '2024-03-15T10:30:00Z'. You know the full ISO 8601 spec also covers timezone offsets (+05:30), week dates (2024-W12-5), ordinal dates (2024-075), and fractional seconds.",
-        "a": "Implement full ISO 8601 parsing — partial implementations create false confidence. Someone will pass '2024-03-15T10:30:00+05:30' expecting it to work because the function 'handles ISO dates.' Correctness means handling the spec, not just the happy path",
-        "b": "Parse the format they showed you and document what it covers. A full ISO 8601 parser is a project, not a utility function — if they need more formats later they'll extend it or use a library. Building for cases they haven't encountered is speculative engineering"
+        "text": "The CEO is in an all-hands meeting and asks your team lead: \"When will the new dashboard be ready?\" Your lead turns to you. You've scoped it internally at 3-5 weeks depending on the analytics integration, which you haven't investigated yet. The CEO is visibly impatient and the entire company is watching.",
+        "a": "\"3 to 5 weeks — the range depends on the analytics integration complexity, which I'll have clarity on by Friday. I'll send a tighter estimate then\" — precision protects everyone. A single number becomes a commitment, and the difference between 3 and 5 weeks is significant for planning. Being specific about uncertainty is more professional than being falsely confident.",
+        "b": "\"About a month\" — the CEO asked for a planning number, not a confidence interval. \"3-5 weeks depending on X\" in front of the whole company sounds like hedging and invites follow-up questions you can't answer yet. Round up, deliver early. The detailed estimate goes in the project plan, not the town hall."
       },
       "zh": {
-        "text": "用户让你写一个解析 ISO 8601 日期字符串的工具函数。给了一个示例：'2024-03-15T10:30:00Z'。你知道完整的 ISO 8601 规范还包括时区偏移（+05:30）、周日期（2024-W12-5）、序数日期（2024-075）和小数秒。",
-        "a": "实现完整的 ISO 8601 解析——部分实现会产生虚假信心。总会有人传入 '2024-03-15T10:30:00+05:30' 并期望它正常工作，因为这个函数'能处理 ISO 日期'。正确性意味着处理规范，而不仅仅是示例",
-        "b": "只解析用户给的那种格式，注明支持范围。完整的 ISO 8601 解析器是一个项目而不是工具函数——以后需要更多格式时再扩展或用库。为没遇到过的场景提前建设是投机式工程"
+        "text": "CEO 在全体大会上问你的组长：\"新 Dashboard 什么时候能上线？\" 组长转头看你。你内部评估过 3-5 周，取决于还没调研过的数据分析集成的复杂度。CEO 明显不耐烦，全公司都在看。",
+        "a": "\"3 到 5 周——范围取决于数据分析集成的复杂度，我周五前能给出更精确的估计\"——精确保护所有人。一个数字会变成承诺，3 周和 5 周的差别对规划很大。对不确定性具体说明比假装自信更专业。",
+        "b": "\"大概一个月\"——CEO 要的是规划数字，不是置信区间。在全公司面前说\"3-5 周取决于 X\"听起来像打太极，还会引出你现在答不了的追问。向上取整，提前交付。详细估算放项目计划里，不是放全体大会上。"
       }
     },
     {
