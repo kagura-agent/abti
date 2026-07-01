@@ -6,8 +6,6 @@
     "B",
     "B",
     "A",
-    "A",
-    "A",
     "B",
     "B",
     "B",
@@ -15,17 +13,19 @@
     "B",
     "A",
     "B",
-    "A",
     "B",
+    "B",
+    "A",
+    "A",
     "A",
     "B"
   ],
   "dimensions": [
-    2,
     1,
+    0,
     1,
-    2
+    3
   ],
-  "type": "PEDF",
+  "type": "REDF",
   "questionVersion": "5.0"
 }

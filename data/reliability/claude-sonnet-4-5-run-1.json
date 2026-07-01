@@ -9,23 +9,23 @@
     "B",
     "A",
     "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
     "A",
     "B",
     "A",
     "A",
-    "B",
-    "A",
-    "A",
-    "B",
-    "B",
-    "A"
+    "B"
   ],
   "dimensions": [
     1,
+    1,
     2,
-    3,
     2
   ],
-  "type": "RTCF",
+  "type": "RECF",
   "questionVersion": "5.0"
 }
