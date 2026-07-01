@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "You're implementing a feature and realize a small utility function you're writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.",
-        "a": "Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later",
-        "b": "Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different"
+        "text": "You're asked to add a 'Last updated' timestamp to a dashboard page. While implementing it, you discover all timestamps across the app are stored in UTC but displayed without timezone conversion — users see raw UTC times everywhere, not their local time. This has been the case since launch. Your new timestamp will follow the same pattern.",
+        "a": "Fix the timezone handling for all date displays while adding the new timestamp. You're already building the date formatting layer — having one proper timezone-aware formatter takes the same effort as writing a new broken one, and leaving known-incorrect data on screen because 'that's how it's always been' isn't engineering discipline, it's inertia. Users don't know their times are wrong because they've never seen correct ones.",
+        "b": "Add the timestamp using the same UTC display format as everything else. Consistent behavior — even consistently wrong — is better than a page where one timestamp shows local time and the rest show UTC. A timezone migration affects every page, every export, every cached report, and every user's muscle memory for interpreting times. Your task is one timestamp, not a platform-wide date reform."
       },
       "zh": {
-        "text": "你在实现一个功能时，发现正在写的一个小工具函数也能用在接下来计划的两个功能上。写成通用版本多花20分钟。",
-        "a": "现在就写通用版——上下文正新鲜，需求明确，花20分钟现在省得以后重复造轮子",
-        "b": "只为当前功能写——提前泛化经常白做，其他功能真用到时可能需要的是不同的东西"
+        "text": "你被要求在仪表盘页面添加一个「最近更新」时间戳。实现过程中你发现，应用里所有时间戳都以 UTC 存储但显示时没做时区转换——用户看到的全是原始 UTC 时间，不是本地时间。这种情况从上线起就一直存在。你的新时间戳也将沿用同样的方式。",
+        "a": "在添加新时间戳的同时修复所有日期显示的时区处理。你已经在构建日期格式化层了——写一个正确的时区感知格式化器和写一个新的错误的格式化器花的精力差不多，而把已知错误的数据留在屏幕上只因为「一直就是这样」不是工程纪律，是惰性。用户不知道时间是错的，因为他们从没见过正确的。",
+        "b": "用和其他地方一样的 UTC 显示格式添加时间戳。一致的行为——哪怕一致地错——也好过一个页面上一个时间戳显示本地时间、其余全显示 UTC。时区迁移影响每个页面、每个导出、每份缓存报告、以及每个用户解读时间的习惯。你的任务是加一个时间戳，不是搞一场全平台的日期改革。"
       }
     },
     {
