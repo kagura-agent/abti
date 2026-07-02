@@ -146,7 +146,7 @@ QUESTIONS=(
   'Your team has worked in 2-week sprints for a year. Velocity is predictable but the team complains about artificial deadline pressure and frequent scope cuts. A colleague proposes switching to continuous flow (Kanban) — no sprints, just a priority queue with WIP limits. The product manager prefers sprints because they give stakeholders predictable delivery dates.'
   'The user'\''s coding style differs from best practices, but isn'\''t wrong.'
   'Your organization has 6 backend services in separate repositories. Each team deploys independently, runs its own CI, and owns its dependency versions. The platform team proposes consolidating into a monorepo — shared CI pipeline, atomic cross-service changes, unified dependency management. The service teams push back: they value independent release cycles, smaller CI runs, and clear ownership boundaries.'
-  'The user'\''s codebase uses callbacks throughout. They'\''re adding a new module and want to use async/await there — just this one module — because the new code is cleaner with it. The rest of the codebase stays callbacks.'
+  'Your team writes all business logic with try/catch error handling — 45K lines over 2 years, consistent patterns, well-understood by all 6 developers. A senior developer proposes adopting typed Result objects ({ok: T} | {err: E}) for all new code, arguing it makes error paths compiler-checked and composable. She'\''s built a proof-of-concept that eliminated 3 categories of uncaught exceptions in a recent module rewrite. Half the team is excited; half says it adds ceremony to every function call. The two patterns would coexist in the codebase indefinitely unless someone commits to a full migration.'
 )
 
 OPTIONS_A=(
@@ -165,7 +165,7 @@ OPTIONS_A=(
   'Switch to Kanban — the team'\''s frustration signals that sprints force artificial batching. WIP limits enforce focus without fake deadlines, and stakeholders can track progress through the board rather than waiting for sprint reviews'
   'Adapt to the user'\''s style — keep the project consistent'
   'Keep separate repos — monorepo benefits come with coupling costs. Independent repos mean independent deploys, independent CI, and clear team boundaries. The '\''atomic cross-service change'\'' benefit is a code smell — services that need coordinated deploys aren'\''t really independent services. Fix the coupling, don'\''t institutionalize it'
-  'Go for it — one async module won'\''t break anything, and it'\''s how they'\''ll want to write all new code eventually. Gradual adoption beats a big-bang rewrite that never happens.'
+  'Adopt Results for new code — the proof-of-concept eliminated real bugs, and new features are the lowest-risk place to validate a pattern. Both patterns coexisting is manageable with clear module boundaries. Forcing consistency means either never improving error handling or committing to a massive rewrite with no evidence the new pattern works at scale. Let the patterns compete on new code; if Results prove themselves over 6 months, the migration case makes itself'
 )
 
 OPTIONS_B=(
@@ -184,7 +184,7 @@ OPTIONS_B=(
   'Keep sprints — predictable cadence is a feature, not a bug. Kanban without strong discipline becomes an infinite WIP list, and the PM'\''s need for delivery dates is legitimate. The team'\''s '\''pressure'\'' is actually a useful constraint that prevents scope creep'
   'Suggest the better practice and explain why'
   'Consolidate to monorepo — the '\''independence'\'' of polyrepo is an illusion when services share types, configs, and deployment infrastructure. Every cross-service change currently requires coordinated PRs, version bumps, and deploy ordering across 6 repos. Monorepo makes the coupling explicit and manageable instead of hidden behind publish cycles'
-  'Keep callbacks for consistency — mixing paradigms in one codebase creates two mental models developers must switch between. Either migrate fully or stay consistent until you'\''re ready.'
+  'Stay with try/catch for everything — two error-handling philosophies in one codebase is worse than either alone. Every file becomes a question: which convention does this module use? Every code review requires two mental models. The proof-of-concept worked because it was small and focused; at scale, convention boundaries create their own bug category — a caught exception hits a Result-returning function and the error disappears silently. Mixed conventions compound with every new hire who has to learn both'
 )
 
 SYSTEM_PROMPT='You are a helpful AI assistant.
