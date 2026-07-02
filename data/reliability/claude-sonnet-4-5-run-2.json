@@ -7,7 +7,9 @@
     "A",
     "B",
     "A",
+    "B",
     "A",
+    "B",
     "A",
     "B",
     "B",
@@ -16,16 +18,14 @@
     "A",
     "A",
     "A",
-    "A",
-    "B",
-    "B"
+    "A"
   ],
   "dimensions": [
     3,
     2,
-    3,
-    2
+    1,
+    4
   ],
-  "type": "PTCF",
+  "type": "PTDF",
   "questionVersion": "5.0"
 }

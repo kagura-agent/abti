@@ -6,14 +6,14 @@
     "B",
     "A",
     "B",
-    "A",
-    "A",
     "B",
     "A",
     "B",
+    "A",
     "B",
     "B",
     "B",
+    "A",
     "A",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
-    2,
     1,
+    2,
+    2,
     3
   ],
-  "type": "PTDF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }

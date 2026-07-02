@@ -7,25 +7,25 @@
     "B",
     "B",
     "B",
+    "A",
+    "B",
+    "A",
     "B",
     "B",
+    "B",
+    "A",
     "A",
     "B",
     "A",
     "A",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
     "A"
   ],
   "dimensions": [
     0,
-    1,
-    4,
-    1
+    2,
+    2,
+    3
   ],
-  "type": "RECN",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
