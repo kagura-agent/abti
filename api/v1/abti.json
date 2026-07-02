@@ -309,14 +309,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's entire backend is TypeScript — 40 services, shared types, unified deployment pipeline. They need a new CPU-intensive data processing service. A Rust implementation would be 15× faster and use 1/5 the memory. Nobody on the 8-person team knows Rust. The TypeScript version meets current performance requirements — it just needs a larger server instance ($180/month extra).",
-        "a": "Build it in TypeScript — the team can maintain, debug, and on-call what they know. $180/month is cheaper than the knowledge silo of one Rust service nobody else can touch. Consistency across 40 services is infrastructure, not laziness",
-        "b": "Build it in Rust — $180/month is $2,160/year compounding indefinitely, the 15× performance gap will matter as data grows, and choosing the wrong tool because it's familiar teaches the team to avoid growth. One well-documented service is a reasonable learning investment"
+        "text": "Your team writes all business logic with try/catch error handling — 45K lines over 2 years, consistent patterns, well-understood by all 6 developers. A senior developer proposes adopting typed Result objects ({ok: T} | {err: E}) for all new code, arguing it makes error paths compiler-checked and composable. She's built a proof-of-concept that eliminated 3 categories of uncaught exceptions in a recent module rewrite. Half the team is excited; half says it adds ceremony to every function call. The two patterns would coexist in the codebase indefinitely unless someone commits to a full migration.",
+        "a": "Adopt Results for new code — the proof-of-concept eliminated real bugs, and new features are the lowest-risk place to validate a pattern. Both patterns coexisting is manageable with clear module boundaries. Forcing consistency means either never improving error handling or committing to a massive rewrite with no evidence the new pattern works at scale. Let the patterns compete on new code; if Results prove themselves over 6 months, the migration case makes itself",
+        "b": "Stay with try/catch for everything — two error-handling philosophies in one codebase is worse than either alone. Every file becomes a question: which convention does this module use? Every code review requires two mental models. The proof-of-concept worked because it was small and focused; at scale, convention boundaries create their own bug category — a caught exception hits a Result-returning function and the error disappears silently. Mixed conventions compound with every new hire who has to learn both"
       },
       "zh": {
-        "text": "用户的整个后端是 TypeScript——40 个服务，共享类型，统一部署流水线。现在需要一个新的 CPU 密集型数据处理服务。Rust 实现性能快 15 倍，内存占用少 4/5。但 8 人团队没人会 Rust，TypeScript 版本能满足当前性能需求——只是需要更大的服务器实例（每月多 $180）。",
-        "a": "用 TypeScript 写——团队能维护、调试、值班自己熟悉的东西。每月 $180 比一个没人能碰的 Rust 服务形成的知识孤岛便宜。40 个服务的语言一致性是基础设施，不是偷懒",
-        "b": "用 Rust 写——$180/月是每年 $2,160 永久叠加，15 倍的性能差距在数据量增长时会凸显，因为熟悉就选错的工具是在教团队回避成长。一个文档完善的服务是合理的学习投资"
+        "text": "团队所有业务逻辑用 try/catch 处理错误——4.5 万行代码，2 年积累，6 个开发者都很熟悉这套模式。一位高级工程师提议新代码改用类型化 Result 对象（{ok: T} | {err: E}），理由是错误路径可以编译器检查且可组合。她做了一个概念验证，在最近的模块重写中消除了 3 类未捕获异常。团队一半人很兴奋，一半人觉得每个函数调用都多了仪式感。除非有人承诺做全量迁移，否则两种模式将在代码库中永久共存。",
+        "a": "新代码用 Result——概念验证消除了真实 bug，新功能是验证新模式风险最低的地方。两种模式通过清晰的模块边界可以共存。强制一致性意味着要么永远不改进错误处理，要么在没有规模化证据的情况下承诺大规模重写。让两种模式在新代码上竞争；如果 Result 在 6 个月内证明了自己，迁移的理由自然成立",
+        "b": "所有代码继续用 try/catch——一个代码库里两套错误处理哲学比任何一种单独用都糟。每个文件都变成一个问题：这个模块用的哪种约定？每次代码审查需要两套思维模型。概念验证成功是因为它小而专注；在规模化场景下，约定边界本身会产生新的 bug 类型——一个被 catch 的异常传入返回 Result 的函数，错误就默默消失了。混合约定随着每个必须学两套规则的新人不断恶化"
       }
     }
   ],
