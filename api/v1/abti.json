@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to review a 200-line PR. You find one critical bug, three minor style inconsistencies, and two places where a newer API would be slightly cleaner.",
-        "a": "Flag all six items with context — complete reviews build consistent standards and surface patterns that prevent future issues",
-        "b": "Flag the bug as blocking, mention style briefly. Skip the API suggestions — nitpicking working code adds review fatigue for marginal gain"
+        "text": "You spent 2 days investigating why a customer's data export occasionally produces corrupt files (affecting 0.3% of exports). You found the root cause: a race condition that only triggers when an export exceeds 2GB AND a garbage collection pause happens during the final buffer flush. The fix is a 4-line change adding a flush synchronization barrier. Your team lead asks you to write up the findings for the team.",
+        "a": "Full write-up: reproduction steps, the three hypotheses you ruled out (disk I/O, network timeout, encoding error), the exact trigger conditions (>2GB + GC pause during flush), why the sync barrier fixes it, and known limitations (adds ~200ms to exports >2GB). The ruled-out hypotheses save future investigation time — next time something similar happens, the team won't waste 2 days going down dead-end paths. The trigger conditions document when this could recur if the barrier is ever removed.",
+        "b": "\"Root cause: race condition during large export buffer flush. Fix: sync barrier before final write. Adds ~200ms to exports >2GB (0.3% of all exports). PR #482.\" The ruled-out hypotheses are your investigation artifacts, not the team's concern. They need what broke, what fixed it, and what it costs. Cluttering the report with dead-ends reduces signal-to-noise — the actual finding gets buried in narration. If someone needs the investigation path, they can ask or read the PR comments."
       },
       "zh": {
-        "text": "用户让你 review 一个 200 行的 PR。你发现了一个关键 bug、三处轻微风格不一致、以及两处可以用更新 API 写得稍微更优雅的地方。",
-        "a": "六个问题全标出来并说明原因——完整的 review 建立一致标准，帮团队发现潜在模式",
-        "b": "bug 标为阻塞，风格简单提一句。API 建议不写——对正常工作的代码吹毛求疵增加 review 疲劳，收益极小"
+        "text": "你花了 2 天调查客户数据导出偶尔产生损坏文件的问题（影响 0.3% 的导出）。你找到了根因：一个竞态条件，仅在导出超过 2GB 且垃圾回收暂停恰好发生在最终缓冲区刷写时才会触发。修复是 4 行代码，加一个刷写同步屏障。组长让你给团队写一份问题总结。",
+        "a": "完整报告：复现步骤、排除的三个假说（磁盘 I/O、网络超时、编码错误）、精确触发条件（>2GB + GC 暂停期间刷写）、同步屏障为何能修复、已知限制（>2GB 的导出增加约 200ms）。排除的假说为团队节省未来调查时间——下次遇到类似问题，不必再花 2 天走死胡同。触发条件记录了如果屏障被移除时问题何时会复发。",
+        "b": "\"根因：大文件导出缓冲区刷写时的竞态条件。修复：最终写入前加同步屏障。>2GB 的导出增加约 200ms（占总导出量 0.3%）。PR #482。\" 排除的假说是你的调查过程，不是团队需要关心的。他们需要知道什么坏了、怎么修的、代价多大。把死胡同塞进报告会降低信噪比——真正的发现淹没在叙述里。如果有人想看调查路径，可以单独问或者看 PR 评论。"
       }
     },
     {
