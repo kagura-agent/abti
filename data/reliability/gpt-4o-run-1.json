@@ -4,13 +4,13 @@
   "run": 1,
   "answers": [
     "B",
-    "A",
+    "B",
     "B",
     "A",
     "A",
     "B",
     "A",
-    "B",
+    "A",
     "B",
     "B",
     "A",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
-    2,
+    1,
+    3,
     1,
     2
   ],
-  "type": "PTDF",
+  "type": "RTDF",
   "questionVersion": "5.0"
 }

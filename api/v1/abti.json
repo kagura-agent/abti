@@ -234,14 +234,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "You're helping a team write a quarterly infrastructure report. They asked you to summarize the three major outages this quarter — root causes and fixes applied. While compiling the data, you notice all three outages occurred during the same Tuesday 2-4am maintenance window, suggesting the window itself might be a systemic risk factor. This pattern isn't about any individual outage's root cause — it's a meta-observation across all three.",
-        "a": "Include the maintenance window correlation as a separate finding in the report — it's a cross-cutting insight the team can evaluate. A quarterly report is the right venue for systemic patterns, even ones that need further analysis. Flagging it now means it won't slip through the cracks between quarterly cycles.",
-        "b": "Stick to the three individual summaries as requested — the window correlation is an observation but it's unvalidated (coincidence? staffing overlap? deployment density?). A factual incident summary isn't the place for unverified hypotheses. Raise it in standup or a dedicated thread where it can get proper investigation without diluting the report's focus."
+        "text": "You found and fixed a 2-month-old bug in the billing service: a timezone conversion error that caused ~200 international users to see invoice timestamps shifted by one hour. The invoices were correct in every other way — amounts, line items, payment status. The fix is a 3-line patch (hardcoded UTC offset → timezone library), and you've written a data migration to correct the stored timestamps.",
+        "a": "Post a brief incident report in the engineering-wide channel — the bug, impact (200 users, display-only timestamp shift, no billing errors), fix, and root cause. Even small bugs deserve visibility: someone else might have the same hardcoded-offset pattern in their service, and normalizing public post-mortems for minor issues makes it easier to disclose major ones later.",
+        "b": "Fix it, run the migration, and include it in the team's sprint summary. A display-only timestamp shift affecting 200 users is a routine bug fix, not an engineering-wide learning event. Broadcasting it to 150 engineers who have no context on the billing service creates noise and trains people to skim the engineering channel. Post-mortem culture works when reserved for incidents that reveal systemic patterns — not every 3-line patch."
       },
       "zh": {
-        "text": "你在帮团队写季度基础设施报告。他们让你总结本季度三次重大故障的根因和修复措施。在整理数据时，你发现三次故障都发生在同一个周二凌晨2-4点的维护窗口，暗示窗口本身可能是系统性风险因素。这个模式不是某次故障的根因——而是跨越三次事件的元观察。",
-        "a": "把维护窗口的关联性作为单独发现写进报告——这是一个跨事件的洞察，团队可以评估。季度报告是呈现系统性模式的合适场所，即使还需要进一步分析。现在标记出来意味着不会在两个季度之间被遗忘。",
-        "b": "按要求写三份独立的故障总结——窗口关联是一个有趣的观察但未经验证（巧合？人员配置？部署密度？）。事实性的总结报告不是放未验证假说的地方。在站会或单独的讨论串里提出来，让它得到适当的调查，而不是塞在报告里添乱。"
+        "text": "你发现并修复了计费服务中一个存在 2 个月的 bug：时区转换错误导致约 200 名国际用户看到的发票时间戳偏移了一小时。发票其他方面完全正确——金额、明细、支付状态都没问题。修复是 3 行代码（硬编码 UTC 偏移 → 时区库），你还写了数据迁移来修正存储的时间戳。",
+        "a": "在工程全员频道发一份简短的事故报告——bug 描述、影响（200 用户、仅显示时间戳偏移、无计费错误）、修复方案和根因。即使是小 bug 也值得可见度：其他人的服务可能有同样的硬编码偏移模式，让小问题的公开复盘成为常态，也更容易在大问题时坦诚披露。",
+        "b": "修完、跑迁移，写进团队 sprint 总结里。一个只影响显示的时间戳偏移、涉及 200 用户，是常规 bug 修复，不是工程全员的学习事件。给 150 个对计费服务毫无上下文的工程师广播这种事只会制造噪音，让人养成跳过工程频道的习惯。复盘文化在用于揭示系统性模式的事故时才有效——不是每个 3 行补丁都需要。"
       }
     },
     {
