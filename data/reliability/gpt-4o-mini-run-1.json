@@ -4,28 +4,28 @@
   "run": 1,
   "answers": [
     "B",
-    "B",
     "A",
     "A",
     "A",
-    "B",
-    "B",
-    "B",
+    "A",
     "B",
     "B",
     "A",
     "B",
     "B",
     "B",
+    "B",
+    "A",
+    "A",
     "A",
     "A"
   ],
   "dimensions": [
+    3,
     2,
-    1,
-    1,
-    2
+    0,
+    4
   ],
-  "type": "PEDF",
+  "type": "PTDF",
   "questionVersion": "5.0"
 }

@@ -4,11 +4,11 @@
   "run": 3,
   "answers": [
     "B",
+    "A",
+    "B",
     "B",
     "A",
-    "A",
-    "A",
-    "A",
+    "B",
     "A",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
-    4,
+    1,
+    3,
     3,
     2
   ],
-  "type": "PTCF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
