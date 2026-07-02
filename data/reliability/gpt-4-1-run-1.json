@@ -5,6 +5,8 @@
   "answers": [
     "B",
     "B",
+    "B",
+    "B",
     "A",
     "B",
     "A",
@@ -14,18 +16,16 @@
     "B",
     "B",
     "A",
+    "B",
     "A",
-    "A",
-    "A",
-    "A",
-    "B"
+    "A"
   ],
   "dimensions": [
-    1,
-    1,
+    0,
     2,
+    0,
     3
   ],
-  "type": "RECF",
+  "type": "RTDF",
   "questionVersion": "5.0"
 }

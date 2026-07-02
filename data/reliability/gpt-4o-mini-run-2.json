@@ -9,22 +9,22 @@
     "A",
     "A",
     "B",
-    "B",
     "A",
     "B",
     "B",
     "B",
     "B",
+    "B",
     "A",
     "B",
     "A",
-    "B"
+    "A"
   ],
   "dimensions": [
     3,
     2,
     0,
-    2
+    3
   ],
   "type": "PTDF",
   "questionVersion": "5.0"
