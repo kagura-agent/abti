@@ -9,23 +9,23 @@
     "A",
     "A",
     "B",
-    "A",
     "B",
     "B",
     "B",
-    "A",
     "B",
     "A",
     "B",
+    "B",
+    "B",
     "A",
-    "B"
+    "A"
   ],
   "dimensions": [
     3,
-    2,
+    1,
     1,
     2
   ],
-  "type": "PTDF",
+  "type": "PEDF",
   "questionVersion": "5.0"
 }

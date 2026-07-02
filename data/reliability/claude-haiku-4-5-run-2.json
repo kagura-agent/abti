@@ -7,24 +7,24 @@
     "B",
     "B",
     "B",
-    "B",
-    "B",
     "A",
     "B",
-    "A",
-    "A",
-    "A",
+    "B",
+    "B",
     "B",
     "A",
     "A",
+    "B",
+    "B",
+    "B",
     "A",
     "A"
   ],
   "dimensions": [
     0,
     1,
-    3,
-    4
+    2,
+    2
   ],
   "type": "RECF",
   "questionVersion": "5.0"
