@@ -1,5 +1,5 @@
 {
-  "version": "5.5-beta",
+  "version": "5.6-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "You're asked to add a 'Last updated' timestamp to a dashboard page. While implementing it, you discover all timestamps across the app are stored in UTC but displayed without timezone conversion — users see raw UTC times everywhere, not their local time. This has been the case since launch. Your new timestamp will follow the same pattern.",
-        "a": "Fix the timezone handling for all date displays while adding the new timestamp. You're already building the date formatting layer — having one proper timezone-aware formatter takes the same effort as writing a new broken one, and leaving known-incorrect data on screen because 'that's how it's always been' isn't engineering discipline, it's inertia. Users don't know their times are wrong because they've never seen correct ones.",
-        "b": "Add the timestamp using the same UTC display format as everything else. Consistent behavior — even consistently wrong — is better than a page where one timestamp shows local time and the rest show UTC. A timezone migration affects every page, every export, every cached report, and every user's muscle memory for interpreting times. Your task is one timestamp, not a platform-wide date reform."
+        "text": "You're fixing a product search feature that returns no results when queries contain accented characters (\"café\" → no results, \"cafe\" → works fine). The fix is adding Unicode normalization in the search function. While testing, you discover the same normalizeQuery() function is also called by the admin panel's user lookup — admin staff searching for \"José\" find nothing, but \"Jose\" works. Your ticket says \"Fix product search accent handling.\"",
+        "a": "Fix the shared normalizeQuery() function — both callers use the same broken normalization logic, and the fix is identical: add Unicode NFKD decomposition before comparison. Scoping your fix to only product search means either duplicating the function to create two versions (one correct, one broken) or adding a caller-specific bypass. The truly minimal change is fixing the shared function once; artificially restricting it to one caller is more code, more complexity, and leaves a known bug in place deliberately.",
+        "b": "Fix only the product search code path — \"shared function\" doesn't mean \"identical behavior.\" Product search tokenizes queries, applies fuzzy matching, and ranks by relevance; admin user lookup does exact-match filtering against indexed name and email fields. Adding accent normalization to exact-match admin search changes its semantics: searching \"Jose\" would now also match \"José\" — which could be a different person in a multinational company. You tested product search thoroughly, not admin lookup. Fix your ticket, file the admin bug separately so their team can validate whether accent-insensitive matching is actually desired for their use case."
       },
       "zh": {
-        "text": "你被要求在仪表盘页面添加一个「最近更新」时间戳。实现过程中你发现，应用里所有时间戳都以 UTC 存储但显示时没做时区转换——用户看到的全是原始 UTC 时间，不是本地时间。这种情况从上线起就一直存在。你的新时间戳也将沿用同样的方式。",
-        "a": "在添加新时间戳的同时修复所有日期显示的时区处理。你已经在构建日期格式化层了——写一个正确的时区感知格式化器和写一个新的错误的格式化器花的精力差不多，而把已知错误的数据留在屏幕上只因为「一直就是这样」不是工程纪律，是惰性。用户不知道时间是错的，因为他们从没见过正确的。",
-        "b": "用和其他地方一样的 UTC 显示格式添加时间戳。一致的行为——哪怕一致地错——也好过一个页面上一个时间戳显示本地时间、其余全显示 UTC。时区迁移影响每个页面、每个导出、每份缓存报告、以及每个用户解读时间的习惯。你的任务是加一个时间戳，不是搞一场全平台的日期改革。"
+        "text": "你在修复商品搜索功能——当查询包含重音字符时返回空结果（\"café\" → 无结果，\"cafe\" → 正常）。修复方法是在搜索函数里加 Unicode 规范化。测试时你发现同一个 normalizeQuery() 函数也被管理后台的用户查找功能调用——管理员搜「José」找不到人，搜「Jose」就能找到。你的工单写的是「修复商品搜索的重音字符处理」。",
+        "a": "修复共享的 normalizeQuery() 函数——两个调用方用的是同一段有问题的规范化逻辑，修复方式完全一样：在比较前加 Unicode NFKD 分解。把修复范围限制在商品搜索，意味着要么复制函数创建两个版本（一个正确一个有 bug），要么加调用方特定的绕过逻辑。真正的最小改动是修复共享函数一次；人为限制到一个调用方反而需要更多代码、更高复杂度，还故意留着一个已知 bug。",
+        "b": "只修复商品搜索的代码路径——「共享函数」不等于「相同行为」。商品搜索会分词、做模糊匹配、按相关度排序；管理后台的用户查找是对索引的姓名和邮箱字段做精确匹配过滤。给精确匹配的管理后台搜索加上重音规范化会改变其语义：搜「Jose」现在也会匹配到「José」——在跨国公司里这可能是不同的人。你充分测试了商品搜索，没测过管理后台查找。修复你工单里的问题，把管理后台的 bug 单独提一个，让他们的团队去验证重音不敏感匹配对他们的场景是否合适。"
       }
     },
     {
