@@ -3,7 +3,7 @@
   "provider": "anthropic",
   "run": 1,
   "answers": [
-    "A",
+    "B",
     "A",
     "A",
     "A",
@@ -13,7 +13,7 @@
     "B",
     "B",
     "A",
-    "B",
+    "A",
     "A",
     "A",
     "B",
@@ -21,9 +21,9 @@
     "A"
   ],
   "dimensions": [
-    4,
+    3,
     2,
-    2,
+    3,
     2
   ],
   "type": "PTCF",

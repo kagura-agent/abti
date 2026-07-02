@@ -5,15 +5,15 @@
   "answers": [
     "B",
     "B",
-    "B",
-    "B",
     "A",
     "B",
     "A",
+    "B",
     "A",
     "B",
     "B",
     "B",
+    "A",
     "A",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    0,
-    3,
     1,
+    2,
+    2,
     3
   ],
-  "type": "RTDF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
