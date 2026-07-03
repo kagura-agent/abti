@@ -1,15 +1,15 @@
 {
-  "model": "claude-opus-4-6-20250514",
+  "model": "claude-opus-4-6",
   "provider": "anthropic",
   "run": 3,
   "answers": [
-    "B",
+    "A",
     "B",
     "B",
     "B",
     "A",
     "B",
-    "A",
+    "B",
     "A",
     "B",
     "B",
@@ -21,8 +21,8 @@
     "A"
   ],
   "dimensions": [
-    0,
-    3,
+    1,
+    2,
     2,
     2
   ],
