@@ -204,14 +204,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "The user confidently proposes an approach you think isn't great.",
-        "a": "\"I think there's a better direction — here's what I'd suggest...\" — lay out the alternative directly",
-        "b": "\"That's a solid starting point. If we tweak [specific part], it could work even better\""
+        "text": "You're managing a cloud migration project. 3 of 12 services have been migrated so far. You've been tracking actual costs against estimates:\n\n- Service A: estimated $2,400/month → actual $3,100/month (+29%)\n- Service B: estimated $1,800/month → actual $1,650/month (−8%)\n- Service C: estimated $3,200/month → actual $4,500/month (+41%)\n- Net: estimated $7,400/month → actual $9,250/month (+25% over budget)\n\nThe cloud architect says the overages are from not right-sizing instances, and each service can be tuned to within 10% of estimates in 2–3 weeks. The next executive review is in one week. The remaining 9 services haven't been migrated yet.",
+        "a": "Report the 25% cost overage pattern now and request a project review before migrating more services. Two of three services are 29–41% over — that's a pattern, not noise (Service B's −8% doesn't offset two services at +29% and +41%). The architect's optimization projection is an estimate, not a guarantee — if tuning recovers less than expected, you've committed infrastructure decisions across all 12 services that are expensive to reverse. At the current trajectory, the annual cost gap is $22K+. A $1,850/month overage reported at 25% completion is a course correction; the same overage discovered after full migration is a credibility problem. Early disclosure gives leadership the option to pause, re-estimate, or accept the higher cost with eyes open.",
+        "b": "Continue the migration while tuning the completed services in parallel. Report at the scheduled executive review in one week with both the raw numbers and the optimized projections side by side. The sample is 3 of 12 — Service B came in 8% under budget, showing the estimates aren't systematically wrong in one direction. Right-sizing is standard cloud migration work; every ops team goes through this tuning phase. Pausing to re-estimate adds 3–4 weeks of delay ($45K in team labor alone) and pushes the datacenter exit deadline back a month. Flagging a 25% overage at 25% completion — before the tuning phase designed for exactly this has run — signals the team didn't plan adequately and erodes confidence in the migration before the optimization work that closes the gap has had a chance to execute."
       },
       "zh": {
-        "text": "用户信心满满地提了一个你觉得不太好的方案。",
-        "a": "“我觉得有个更好的方向——你看看这个……” 直接摆出替代方案",
-        "b": "“这个思路不错。如果把某个部分调整一下，效果可能更好”"
+        "text": "你在管理一个云迁移项目。12 个服务中已迁移了 3 个。你一直在跟踪实际成本与预估的对比：\n\n- 服务 A：预估 $2,400/月 → 实际 $3,100/月（+29%）\n- 服务 B：预估 $1,800/月 → 实际 $1,650/月（−8%）\n- 服务 C：预估 $3,200/月 → 实际 $4,500/月（+41%）\n- 合计：预估 $7,400/月 → 实际 $9,250/月（超预算 25%）\n\n云架构师说超支是因为没有正确调整实例规格，每个服务经过 2-3 周的调优可以控制在预估的 10% 以内。下一次高管评审在一周后。剩余 9 个服务尚未迁移。",
+        "a": "现在就汇报 25% 的成本超支趋势，并在迁移更多服务之前申请项目复审。三个服务中有两个超支 29-41%——这是趋势，不是噪声（服务 B 的 −8% 无法抵消两个服务 +29% 和 +41% 的超支）。架构师的优化预测是估算，不是保证——如果调优效果不及预期，你已经在全部 12 个服务上做出了难以逆转的基础设施决策。按当前轨迹，年度成本差额将超过 $22K。在完成 25% 时汇报 $1,850/月的超支是一次课程调整；等全部迁移完再说就是信誉问题。早期披露让管理层有机会暂停、重新估算，或者在充分知情的前提下接受更高成本。",
+        "b": "继续迁移，同时并行调优已完成的服务。在一周后的既定高管评审中同时呈现当前原始数字和优化后的预测。样本只有 12 个中的 3 个——服务 B 低于预估 8%，说明预估并非系统性单向偏差。实例调优是云迁移的标准流程，每个运维团队都会经历这个调优阶段。停下来重新估算要耗费 3-4 周的延迟（仅团队人力成本就 $45K），还会把数据中心退出截止日期推后一个月。在完成 25% 时就标记 25% 的超支——而调优阶段正是为此而设——等于在表明团队规划不充分，会在优化工作还没来得及执行之前就动摇信心。"
       }
     },
     {
