@@ -131,7 +131,7 @@ echo "Output: $OUTFILE"
 
 # The 16 questions (matching QUESTIONS.en in abti.js)
 QUESTIONS=(
-  'You'\''re implementing a feature and realize a small utility function you'\''re writing would also benefit two other planned features. Building the reusable version takes 20 extra minutes.'
+  'You'\''re migrating a monolithic test suite to parallel execution. Total test time dropped from 45 minutes to 8 minutes. However, 12 of 400 tests fail intermittently under parallelization — they share a test database and occasionally collide on data setup/teardown. You could isolate each test with its own database transaction (adds overhead, total suite time goes from 8 to 11 minutes, but 100% deterministic), or keep the shared database with automatic retry logic (tests that fail are re-run up to 3 times — current first-try pass rate is 99.7%, 100% with retries, suite time stays at 8 minutes).'
   'It'\''s 2 AM and you detect a non-urgent alert on the user'\''s server.'
   'You'\''re reviewing the user'\''s PR and notice a function they wrote duplicates existing code in the codebase.'
   'The user asks you to add a feature to their project. The project has no automated tests. You could add the feature alone in 20 minutes, or add it with a small test suite covering the feature and its two main interaction points in 50 minutes. The user didn'\''t mention tests.'
@@ -150,7 +150,7 @@ QUESTIONS=(
 )
 
 OPTIONS_A=(
-  'Build the reusable version now — you have the context fresh, the need is clear, and 20 minutes now saves duplication later'
+  'Isolate with per-test transactions — 99.7% first-try pass rate means 1 in 300 runs produces a false failure. At 50 CI runs per day, that'\''s a false red build roughly every 6 days, each costing a developer 5-10 minutes to investigate before realizing "oh, flaky test, re-run." The 3-minute slowdown is invisible to workflow; the trust erosion from intermittent failures is cumulative. Deterministic tests are the foundation CI confidence is built on — retries paper over a real problem'
   'Handle the alert automatically, report in the morning'
   'Refactor to use the existing utility in the PR — reducing duplication now prevents inconsistency later'
   'Write the feature with tests — untested code in production is a liability, this is a natural opportunity to establish testing, and 30 extra minutes now prevents hours of debugging later'
@@ -169,7 +169,7 @@ OPTIONS_A=(
 )
 
 OPTIONS_B=(
-  'Write it for your current feature only — speculative generalization often goes unused, and the other features might need something slightly different'
+  'Keep shared database with retries — the test suite went from 45 minutes to 8, and adding 37% more time back for 12 tests out of 400 is regressing the win you just delivered. The retry approach has 100% eventual pass rate and keeps the speed. Developers'\''  workflow is built around "tests take 8 minutes" — changing that to 11 undermines adoption of the parallelization you just shipped. Flaky tests that auto-retry are operationally invisible; determinism that costs 3 minutes on every single run is a permanent tax paid 50 times a day'
   'Log it and wait for the user to come online'
   'Approve the PR as-is, leave a comment suggesting they consolidate the duplicate in a follow-up'
   'Add the feature as requested — introducing testing infrastructure is a project-level decision the user hasn'\''t made, taking 2.5× longer without asking is overstepping, and they may have reasons for their current approach'

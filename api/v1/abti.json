@@ -84,14 +84,14 @@
       "dimension": "autonomy",
       "dimIdx": 0,
       "en": {
-        "text": "You're asked to add a 'Last updated' timestamp to a dashboard page. While implementing it, you discover all timestamps across the app are stored in UTC but displayed without timezone conversion — users see raw UTC times everywhere, not their local time. This has been the case since launch. Your new timestamp will follow the same pattern.",
-        "a": "Fix the timezone handling for all date displays while adding the new timestamp. You're already building the date formatting layer — having one proper timezone-aware formatter takes the same effort as writing a new broken one, and leaving known-incorrect data on screen because 'that's how it's always been' isn't engineering discipline, it's inertia. Users don't know their times are wrong because they've never seen correct ones.",
-        "b": "Add the timestamp using the same UTC display format as everything else. Consistent behavior — even consistently wrong — is better than a page where one timestamp shows local time and the rest show UTC. A timezone migration affects every page, every export, every cached report, and every user's muscle memory for interpreting times. Your task is one timestamp, not a platform-wide date reform."
+        "text": "You're migrating a monolithic test suite to parallel execution. Total test time dropped from 45 minutes to 8 minutes. However, 12 of 400 tests fail intermittently under parallelization — they share a test database and occasionally collide on data setup/teardown. You could isolate each test with its own database transaction (adds overhead, total suite time goes from 8 to 11 minutes, but 100% deterministic), or keep the shared database with automatic retry logic (tests that fail are re-run up to 3 times — current first-try pass rate is 99.7%, 100% with retries, suite time stays at 8 minutes).",
+        "a": "Isolate with per-test transactions — 99.7% first-try pass rate means 1 in 300 runs produces a false failure. At 50 CI runs per day, that's a false red build roughly every 6 days, each costing a developer 5-10 minutes to investigate before realizing \"oh, flaky test, re-run.\" The 3-minute slowdown is invisible to workflow; the trust erosion from intermittent failures is cumulative. Deterministic tests are the foundation CI confidence is built on — retries paper over a real problem.",
+        "b": "Keep shared database with retries — the test suite went from 45 minutes to 8, and adding 37% more time back for 12 tests out of 400 is regressing the win you just delivered. The retry approach has 100% eventual pass rate and keeps the speed. Developers' workflow is built around \"tests take 8 minutes\" — changing that to 11 undermines adoption of the parallelization you just shipped. Flaky tests that auto-retry are operationally invisible; determinism that costs 3 minutes on every single run is a permanent tax paid 50 times a day."
       },
       "zh": {
-        "text": "你被要求在仪表盘页面添加一个「最近更新」时间戳。实现过程中你发现，应用里所有时间戳都以 UTC 存储但显示时没做时区转换——用户看到的全是原始 UTC 时间，不是本地时间。这种情况从上线起就一直存在。你的新时间戳也将沿用同样的方式。",
-        "a": "在添加新时间戳的同时修复所有日期显示的时区处理。你已经在构建日期格式化层了——写一个正确的时区感知格式化器和写一个新的错误的格式化器花的精力差不多，而把已知错误的数据留在屏幕上只因为「一直就是这样」不是工程纪律，是惰性。用户不知道时间是错的，因为他们从没见过正确的。",
-        "b": "用和其他地方一样的 UTC 显示格式添加时间戳。一致的行为——哪怕一致地错——也好过一个页面上一个时间戳显示本地时间、其余全显示 UTC。时区迁移影响每个页面、每个导出、每份缓存报告、以及每个用户解读时间的习惯。你的任务是加一个时间戳，不是搞一场全平台的日期改革。"
+        "text": "你在把一个单体测试套件迁移到并行执行。总测试时间从 45 分钟降到了 8 分钟。但 400 个测试中有 12 个在并行环境下间歇性失败——它们共用测试数据库，偶尔在数据准备/清理阶段冲突。你可以给每个测试隔离独立的数据库事务（增加开销，总时间从 8 分钟升到 11 分钟，但 100% 确定性），或者保持共享数据库并加自动重试逻辑（失败的测试最多重跑 3 次——当前首次通过率 99.7%，重试后 100% 通过，时间保持 8 分钟）。",
+        "a": "用独立事务隔离——99.7% 的首次通过率意味着每 300 次运行就有 1 次产生假失败。每天 50 次 CI，大约每 6 天一次假红，每次让开发者花 5-10 分钟排查后才发现「又是那个 flaky test，重跑就好」。3 分钟的额外耗时对工作流来说几乎无感；但间歇性失败对 CI 信任的侵蚀是累积的。确定性测试是 CI 信心的基础——重试只是在掩盖真正的问题。",
+        "b": "保持共享数据库加重试——测试套件从 45 分钟降到了 8 分钟，为了 400 个测试里的 12 个就加回 37% 的时间，等于回吐你刚交付的成果。重试方案最终通过率 100%，还保住了速度。开发者的工作流已经建立在「测试跑 8 分钟」上——改成 11 分钟会动摇对并行化改造的认可。自动重试的 flaky test 在操作层面是透明的；而为了确定性多付 3 分钟则是每天 50 次的永久税。"
       }
     },
     {

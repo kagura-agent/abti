@@ -11,11 +11,11 @@
     "B",
     "B",
     "B",
-    "B",
-    "B",
-    "B",
+    "A",
     "B",
     "A",
+    "B",
+    "B",
     "B",
     "A",
     "B"
@@ -23,9 +23,9 @@
   "dimensions": [
     3,
     1,
-    0,
-    2
+    2,
+    1
   ],
-  "type": "PEDF",
+  "type": "PECN",
   "questionVersion": "5.0"
 }
