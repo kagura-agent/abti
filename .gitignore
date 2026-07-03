@@ -12,3 +12,8 @@ data/*
 mcp/node_modules/
 data/reliability/.fuse_hidden*
 *-state.json
+batch-validate-*.sh
+batch-validate-*.log
+batch-refresh-*.sh
+batch-refresh-*.log
+data/reliability/pre-*/
