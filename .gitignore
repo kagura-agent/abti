@@ -17,3 +17,4 @@ batch-validate-*.log
 batch-refresh-*.sh
 batch-refresh-*.log
 data/reliability/pre-*/
+data/reliability/pre-q12-rebalance/

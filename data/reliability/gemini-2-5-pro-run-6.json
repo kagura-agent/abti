@@ -1,31 +1,31 @@
 {
-  "model": "gpt-4.1",
+  "model": "gemini-2.5-pro",
   "provider": "anthropic",
-  "run": 3,
+  "run": 6,
   "answers": [
     "A",
-    "B",
-    "A",
-    "B",
-    "A",
-    "B",
-    "B",
-    "B",
-    "A",
-    "B",
-    "B",
     "A",
     "A",
     "B",
     "A",
-    "B"
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A"
   ],
   "dimensions": [
+    3,
     2,
-    1,
-    2,
+    3,
     2
   ],
-  "type": "PECF",
+  "type": "PTCF",
   "questionVersion": "5.0"
 }

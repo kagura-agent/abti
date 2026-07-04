@@ -1,31 +1,31 @@
 {
   "model": "claude-sonnet-4-5-20250514",
   "provider": "anthropic",
-  "run": 3,
+  "run": 5,
   "answers": [
     "B",
     "A",
     "A",
-    "A",
     "B",
     "A",
     "B",
     "B",
-    "A",
-    "A",
-    "A",
-    "A",
+    "B",
     "B",
     "A",
+    "B",
+    "B",
+    "B",
     "A",
-    "B"
+    "B",
+    "A"
   ],
   "dimensions": [
-    3,
+    2,
     1,
-    4,
+    1,
     2
   ],
-  "type": "PECF",
+  "type": "PEDF",
   "questionVersion": "5.0"
 }

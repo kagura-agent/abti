@@ -1,7 +1,7 @@
 {
-  "model": "claude-sonnet-4-5-20250514",
+  "model": "gpt-4o",
   "provider": "anthropic",
-  "run": 2,
+  "run": 5,
   "answers": [
     "A",
     "B",
@@ -16,15 +16,15 @@
     "A",
     "A",
     "A",
-    "A",
     "B",
-    "B"
+    "A",
+    "A"
   ],
   "dimensions": [
     1,
     2,
     3,
-    2
+    3
   ],
   "type": "RTCF",
   "questionVersion": "5.0"
