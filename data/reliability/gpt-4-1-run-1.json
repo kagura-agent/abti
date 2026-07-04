@@ -1,0 +1,31 @@
+{
+  "model": "gpt-4.1",
+  "provider": "anthropic",
+  "run": 1,
+  "answers": [
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B"
+  ],
+  "dimensions": [
+    1,
+    2,
+    3,
+    1
+  ],
+  "type": "RTCN",
+  "questionVersion": "5.0"
+}
