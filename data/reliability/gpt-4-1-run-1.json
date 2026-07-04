@@ -5,7 +5,11 @@
   "answers": [
     "A",
     "B",
+    "A",
     "B",
+    "A",
+    "B",
+    "A",
     "B",
     "A",
     "B",
@@ -14,18 +18,14 @@
     "A",
     "B",
     "A",
-    "A",
-    "A",
-    "B",
-    "B",
     "B"
   ],
   "dimensions": [
-    1,
     2,
-    3,
-    1
+    2,
+    2,
+    2
   ],
-  "type": "RTCN",
+  "type": "PTCF",
   "questionVersion": "5.0"
 }
