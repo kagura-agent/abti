@@ -1,9 +1,11 @@
 {
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-6-20250610",
   "provider": "anthropic",
   "run": 2,
   "answers": [
     "A",
+    "A",
+    "A",
     "B",
     "A",
     "B",
@@ -13,17 +15,15 @@
     "B",
     "A",
     "B",
+    "B",
     "A",
-    "A",
     "B",
-    "B",
-    "B",
-    "A"
+    "B"
   ],
   "dimensions": [
-    2,
-    2,
     3,
+    2,
+    2,
     1
   ],
   "type": "PTCN",

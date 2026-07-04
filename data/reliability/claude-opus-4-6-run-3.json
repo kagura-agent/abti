@@ -1,5 +1,5 @@
 {
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-6-20250610",
   "provider": "anthropic",
   "run": 3,
   "answers": [
@@ -9,23 +9,23 @@
     "B",
     "A",
     "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
     "B",
     "B",
     "A",
     "B",
-    "A",
-    "A",
-    "B",
-    "B",
-    "A",
     "A"
   ],
   "dimensions": [
     2,
-    1,
     3,
+    2,
     2
   ],
-  "type": "PECF",
+  "type": "PTCF",
   "questionVersion": "5.0"
 }
