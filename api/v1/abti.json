@@ -1,5 +1,5 @@
 {
-  "version": "5.5-beta",
+  "version": "5.6-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -189,14 +189,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "You spent 2 days investigating why a customer's data export occasionally produces corrupt files (affecting 0.3% of exports). You found the root cause: a race condition that only triggers when an export exceeds 2GB AND a garbage collection pause happens during the final buffer flush. The fix is a 4-line change adding a flush synchronization barrier. Your team lead asks you to write up the findings for the team.",
-        "a": "Full write-up: reproduction steps, the three hypotheses you ruled out (disk I/O, network timeout, encoding error), the exact trigger conditions (>2GB + GC pause during flush), why the sync barrier fixes it, and known limitations (adds ~200ms to exports >2GB). The ruled-out hypotheses save future investigation time — next time something similar happens, the team won't waste 2 days going down dead-end paths. The trigger conditions document when this could recur if the barrier is ever removed.",
-        "b": "\"Root cause: race condition during large export buffer flush. Fix: sync barrier before final write. Adds ~200ms to exports >2GB (0.3% of all exports). PR #482.\" The ruled-out hypotheses are your investigation artifacts, not the team's concern. They need what broke, what fixed it, and what it costs. Cluttering the report with dead-ends reduces signal-to-noise — the actual finding gets buried in narration. If someone needs the investigation path, they can ask or read the PR comments."
+        "text": "You chose Axios over got for your team's new API gateway project after evaluating both. Three teammates ask in a Slack thread: 'Why Axios?' You ran benchmarks, read both codebases, and compared their retry/interceptor APIs during evaluation.",
+        "a": "Post a structured comparison — your benchmark numbers (requests/sec, p99 latency, memory), API ergonomics analysis (Axios interceptors vs got hooks for your retry-with-backoff pattern), bundle size comparison, and the community health data you checked (GitHub issues response time, release cadence, bus factor). Someone arriving at this Slack thread in 6 months should understand the full decision context without asking you to repeat yourself. Technical decisions without documented reasoning become folklore — 'we use Axios because we've always used Axios.' The 10 minutes you spend writing it saves hours of future 'why didn't we use got?' conversations.",
+        "b": "'Axios — faster for our use case, interceptor API maps cleaner to our retry pattern, and it's 40% of got's bundle size. Happy to share benchmarks if anyone wants the details.' Three people asked a quick question in Slack; they want a quick answer, not a research paper in a chat thread. If someone needs the full comparison later, they'll ask. Long-form technical decisions belong in an ADR or wiki, not in Slack where they'll be buried under 200 messages by next week. Writing a dissertation in a chat thread trains people to stop asking questions because the answers take 10 minutes to read."
       },
       "zh": {
-        "text": "你花了 2 天调查客户数据导出偶尔产生损坏文件的问题（影响 0.3% 的导出）。你找到了根因：一个竞态条件，仅在导出超过 2GB 且垃圾回收暂停恰好发生在最终缓冲区刷写时才会触发。修复是 4 行代码，加一个刷写同步屏障。组长让你给团队写一份问题总结。",
-        "a": "完整报告：复现步骤、排除的三个假说（磁盘 I/O、网络超时、编码错误）、精确触发条件（>2GB + GC 暂停期间刷写）、同步屏障为何能修复、已知限制（>2GB 的导出增加约 200ms）。排除的假说为团队节省未来调查时间——下次遇到类似问题，不必再花 2 天走死胡同。触发条件记录了如果屏障被移除时问题何时会复发。",
-        "b": "\"根因：大文件导出缓冲区刷写时的竞态条件。修复：最终写入前加同步屏障。>2GB 的导出增加约 200ms（占总导出量 0.3%）。PR #482。\" 排除的假说是你的调查过程，不是团队需要关心的。他们需要知道什么坏了、怎么修的、代价多大。把死胡同塞进报告会降低信噪比——真正的发现淹没在叙述里。如果有人想看调查路径，可以单独问或者看 PR 评论。"
+        "text": "你在为团队的新 API 网关项目评估后选择了 Axios 而非 got。三个队友在 Slack 帖子里问：'为什么选 Axios？'你在评估时跑过基准测试、读过两个库的源码、对比过它们的重试/拦截器 API。",
+        "a": "发一份结构化对比——你的基准测试数据（请求/秒、p99 延迟、内存）、API 工效学分析（Axios 拦截器 vs got hooks 对你们的退避重试模式的适配）、包体积对比、以及你查过的社区健康数据（GitHub issue 响应时间、发版节奏、巴士系数）。6 个月后翻到这个 Slack 帖子的人应该不用再问你就能理解完整的决策背景。没有记录理由的技术决策会变成传说——'我们用 Axios 是因为我们一直用 Axios。'你花 10 分钟写的东西能省下未来无数次'为什么不用 got？'的讨论。",
+        "b": "'Axios——对我们的场景更快，拦截器 API 更贴合我们的重试模式，包体积是 got 的 40%。想看基准测试数据随时说。'三个人在 Slack 里问了个快问题，他们想要的是快答案，不是聊天帖里的研究论文。以后有人需要完整对比再说。长篇技术决策应该写在 ADR 或 wiki 里，不是写在下周就被 200 条消息淹没的 Slack 里。在聊天帖里写论文只会训练人们不再提问，因为答案要花 10 分钟才能读完。"
       }
     },
     {
@@ -294,14 +294,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's team writes all their infrastructure as bash scripts — Terraform exists, but the team knows bash deeply, has battle-tested helper functions, and deploys reliably. You're asked to add a new cloud resource.",
-        "a": "Add it in bash — the team's existing patterns, tests, and operational knowledge work. Introducing a second IaC tool fragments expertise and requires everyone to learn Terraform for one resource.",
-        "b": "Write it in Terraform — bash scripts for infrastructure don't compose, version, or plan changes safely at scale. Starting the migration with one resource is low-risk and establishes the pattern."
+        "text": "Your organization has 6 backend services in separate repositories. Each team deploys independently, runs its own CI, and owns its dependency versions. The platform team proposes consolidating into a monorepo — shared CI pipeline, atomic cross-service changes, unified dependency management. The service teams push back: they value independent release cycles, smaller CI runs, and clear ownership boundaries.",
+        "a": "Keep separate repos — monorepo benefits come with coupling costs. Independent repos mean independent deploys, independent CI, and clear team boundaries. The 'atomic cross-service change' benefit is a code smell — services that need coordinated deploys aren't really independent services. Fix the coupling, don't institutionalize it",
+        "b": "Consolidate to monorepo — the 'independence' of polyrepo is an illusion when services share types, configs, and deployment infrastructure. Every cross-service change currently requires coordinated PRs, version bumps, and deploy ordering across 6 repos. Monorepo makes the coupling explicit and manageable instead of hidden behind publish cycles"
       },
       "zh": {
-        "text": "用户团队把所有基础设施都写成 bash 脚本——Terraform 存在，但团队深度熟悉 bash，有经过实战检验的工具函数库，部署一直很稳定。现在让你加一个新的云资源。",
-        "a": "用 bash 写——团队现有的模式、测试和运维知识都是现成的。为一个资源引入第二种 IaC 工具，等于分裂团队专长，还得让每个人都学 Terraform。",
-        "b": "用 Terraform 写——bash 脚本做基础设施在规模化时无法组合、版本化或安全地做变更计划。用一个资源开始迁移风险低，也建立了未来的模式。"
+        "text": "组织有 6 个后端服务分布在独立的仓库里。每个团队独立部署、独立 CI、独立管理依赖版本。平台团队提议合并成 monorepo——统一 CI、原子化跨服务变更、统一依赖管理。服务团队反对：他们看重独立发布节奏、更小的 CI 矩阵和清晰的所有权边界。",
+        "a": "保持独立仓库——monorepo 的好处伴随耦合代价。独立 repo 意味着独立部署、独立 CI、清晰的团队边界。「原子化跨服务变更」本身就是代码异味——需要协调部署的服务压根不是真正独立的服务。应该修耦合，不是制度化它",
+        "b": "合并成 monorepo——polyrepo 的「独立性」是幻觉，因为服务之间共享类型、配置和部署基础设施。每次跨服务改动都需要在 6 个 repo 间协调 PR、版本号和部署顺序。monorepo 让耦合显式化和可管理，而不是藏在 publish 流程背后"
       }
     },
     {
