@@ -5,27 +5,27 @@
   "answers": [
     "A",
     "B",
-    "B",
-    "B",
-    "A",
-    "B",
-    "A",
-    "A",
     "A",
     "B",
     "A",
     "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
     "A",
     "B",
     "B",
     "A"
   ],
   "dimensions": [
-    1,
-    3,
     2,
+    3,
+    3,
     2
   ],
-  "type": "RTCF",
+  "type": "PTCF",
   "questionVersion": "5.0"
 }

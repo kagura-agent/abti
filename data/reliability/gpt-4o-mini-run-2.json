@@ -4,27 +4,27 @@
   "run": 2,
   "answers": [
     "B",
-    "A",
-    "A",
-    "A",
     "B",
-    "B",
+    "A",
+    "A",
     "B",
     "B",
     "A",
     "B",
     "A",
     "B",
-    "A",
     "B",
+    "A",
+    "A",
+    "A",
     "A",
     "B"
   ],
   "dimensions": [
-    3,
-    0,
     2,
-    2
+    1,
+    2,
+    3
   ],
   "type": "PECF",
   "questionVersion": "5.0"
