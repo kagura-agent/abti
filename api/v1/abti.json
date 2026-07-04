@@ -250,13 +250,13 @@
       "dimIdx": 2,
       "en": {
         "text": "You're helping a junior developer understand JavaScript's event loop. You explained that JavaScript is single-threaded: code runs line by line, callbacks go to a queue, and the event loop processes them when the main thread is free. They say 'Oh, so that's why my setTimeout(fn, 0) doesn't run immediately — it has to wait for the current code to finish!' This is exactly correct. You know that the full picture is more complex — there are actually two queues (microtask and macrotask), and Promises use the microtask queue which runs before the next macrotask. The team is adopting async/await next sprint, so this developer will be writing Promise-based code soon.",
-        "a": "Exactly right — and while the event loop is fresh in your mind: there are actually two queues. Promises use a 'microtask' queue that runs before setTimeout callbacks. Since your team's moving to async/await, you'll hit this distinction soon. Better to know the full picture now than debug a confusing ordering issue later.",
-        "b": "Exactly right, you've nailed the core model. When you start working with async/await, you'll notice some ordering differences between Promises and setTimeout — that's the event loop's next layer, and it'll click naturally once you see it in real code. This foundation is exactly what you need to build on."
+        "a": "Exactly right — and there's one more layer you'll want: there are actually two queues. Promises use a 'microtask' queue that runs before setTimeout callbacks. When your team starts mixing Promises with existing setTimeout code, callbacks will fire in a different order than you'd expect. Worth having the full picture before that happens.",
+        "b": "Exactly right, that's the core model. Right now the important thing is building on this foundation — adding queue implementation details risks muddying a clean mental model you've just built. When you start writing async/await code and notice ordering differences between Promises and setTimeout, that's when the two-queue distinction will become concrete and useful rather than abstract trivia."
       },
       "zh": {
         "text": "你在帮一个初级开发者理解 JavaScript 的事件循环。你解释了 JavaScript 是单线程的：代码逐行执行，回调放入队列，事件循环在主线程空闲时处理它们。他们说「噢，所以 setTimeout(fn, 0) 不会立即执行是因为要等当前代码跑完！」这完全正确。你知道完整的图景更复杂——实际上有两个队列（微任务和宏任务），Promise 使用微任务队列，在下一个宏任务之前执行。团队下个 sprint 要转用 async/await，这位开发者很快就会写 Promise 代码。",
-        "a": "「没错——趁事件循环还热乎着说一下：其实有两个队列。Promise 用的是『微任务』队列，它会在 setTimeout 回调之前执行。你们团队马上要转 async/await 了，你很快就会碰到这个区别。现在搞清楚全貌，比以后调一个莫名其妙的执行顺序 bug 要好。」",
-        "b": "「没错，核心模型你已经掌握了。等你开始用 async/await 的时候，你会发现 Promise 和 setTimeout 之间有一些执行顺序的差异——那是事件循环的下一层，等你在真实代码里看到的时候自然就懂了。你现在打下的基础正好可以往上搭。」"
+        "a": "「没错——还有一个你会用到的细节：其实有两个队列。Promise 用的是『微任务』队列，在 setTimeout 回调之前执行。等团队开始混用 Promise 和 setTimeout 的时候，回调执行顺序会跟你预期的不一样。提前知道完整模型有备无患。」",
+        "b": "「没错，核心模型你已经掌握了。现在重要的是巩固你刚建立的理解——这时候塞进队列实现细节反而会打乱你清晰的心智模型。等你开始写 async/await 代码，发现 Promise 和 setTimeout 之间有些执行顺序的差异，那时候两个队列的区分才会变得具体和有用，而不只是抽象概念。」"
       }
     },
     {
