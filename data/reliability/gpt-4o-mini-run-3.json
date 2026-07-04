@@ -15,7 +15,7 @@
     "B",
     "B",
     "B",
-    "B",
+    "A",
     "B",
     "A",
     "B"
@@ -24,8 +24,8 @@
     3,
     1,
     1,
-    1
+    2
   ],
-  "type": "PEDN",
+  "type": "PEDF",
   "questionVersion": "5.0"
 }

@@ -18,14 +18,14 @@
     "B",
     "B",
     "A",
-    "A"
+    "B"
   ],
   "dimensions": [
     2,
     3,
     2,
-    2
+    1
   ],
-  "type": "PTCF",
+  "type": "PTCN",
   "questionVersion": "5.0"
 }

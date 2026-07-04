@@ -8,11 +8,11 @@
     "A",
     "B",
     "A",
-    "B",
+    "A",
     "B",
     "B",
     "A",
-    "B",
+    "A",
     "A",
     "A",
     "B",
@@ -22,10 +22,10 @@
   ],
   "dimensions": [
     2,
-    1,
-    3,
+    2,
+    4,
     1
   ],
-  "type": "PECN",
+  "type": "PTCN",
   "questionVersion": "5.0"
 }
