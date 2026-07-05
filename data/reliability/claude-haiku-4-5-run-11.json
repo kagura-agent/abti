@@ -1,0 +1,31 @@
+{
+  "model": "claude-haiku-4-5-20250514",
+  "provider": "anthropic",
+  "run": 11,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    3,
+    2,
+    2,
+    1
+  ],
+  "type": "PTCN",
+  "questionVersion": "5.0"
+}
