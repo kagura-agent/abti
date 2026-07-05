@@ -1,5 +1,5 @@
 {
-  "version": "5.6-beta",
+  "version": "5.7-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -279,14 +279,14 @@
       "dimension": "adaptability",
       "dimIdx": 3,
       "en": {
-        "text": "The user's coding style differs from best practices, but isn't wrong.",
-        "a": "Adapt to the user's style — keep the project consistent",
-        "b": "Suggest the better practice and explain why"
+        "text": "Your team's 30K-line TypeScript project has strict: false in tsconfig.json. The code works, ships weekly, has 90% test coverage. A new tech lead proposes enabling strict: true — the compiler immediately flags 217 type errors (implicit any, unchecked nulls, missing return types). None are known bugs; the code runs fine. Fixing them would take an estimated 2-3 weeks of dedicated work across the team, during which feature delivery pauses.",
+        "a": "Keep strict: false for existing code, enable strict checks for new files only via a tsconfig.strict.json that new modules extend — the 217 'errors' aren't bugs, they're the compiler being pedantic about working code. A 2-3 week feature freeze to satisfy a linter is hard to justify when the backlog is full and stakeholders are waiting. Gradual adoption means every new file gets strict guarantees while proven code stays untouched. The team that wrote this code shipped it with 90% coverage and weekly releases — retrofitting strictness onto code that's already been validated by tests and production is ceremony, not engineering.",
+        "b": "Enable strict: true and fix all 217 errors now — those aren't false positives, each one is a place where the compiler can't verify correctness, meaning you're relying on convention and luck instead of tooling. Two tsconfig files with different strictness levels create a two-tier codebase where 'it depends which directory you're in' becomes tribal knowledge. 2-3 weeks now prevents years of accumulating type debt; the 217 will only grow as the codebase does. Test coverage catches behavioral bugs, not type-level contract violations — strict mode and tests protect against different failure classes."
       },
       "zh": {
-        "text": "用户的编码风格跟最佳实践不一样，但不算错。",
-        "a": "适应用户的风格——保持项目一致性",
-        "b": "建议用更好的实践，解释为什么"
+        "text": "团队的 30K 行 TypeScript 项目在 tsconfig.json 中设置了 strict: false。代码运行正常，每周发版，测试覆盖率 90%。新来的技术负责人提议启用 strict: true——编译器立即标记出 217 个类型错误（隐式 any、未检查的 null、缺少返回类型）。没有一个是已知 bug；代码运行完全正常。修复它们预计需要团队 2-3 周的专注工作，期间功能交付暂停。",
+        "a": "现有代码保持 strict: false，仅对新文件启用严格检查，通过 tsconfig.strict.json 让新模块继承——那 217 个「错误」不是 bug，是编译器对能用的代码吹毛求疵。backlog 排满、利益相关方在等的时候，很难为了满足 linter 而冻结功能 2-3 周。渐进式采用意味着每个新文件都有严格保障，而经过验证的代码不被打扰。写这些代码的团队在 90% 覆盖率和每周发版的节奏下交付了它——给已经被测试和生产验证过的代码补严格模式是仪式感，不是工程。",
+        "b": "启用 strict: true 并立即修复所有 217 个错误——那些不是误报，每一个都是编译器无法验证正确性的地方，意味着你在依赖惯例和运气而不是工具。两个不同严格程度的 tsconfig 文件会创造一个双轨代码库，「看你在哪个目录」变成部落知识。现在花 2-3 周能防止多年的类型债务累积；那 217 个只会随着代码库增长而增加。测试覆盖率捕获的是行为 bug，不是类型层面的契约违规——严格模式和测试防护的是不同的故障类别。"
       }
     },
     {
