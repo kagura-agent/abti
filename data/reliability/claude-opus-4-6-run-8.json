@@ -1,15 +1,16 @@
 {
-  "model": "gemini-2.5-pro",
+  "model": "claude-opus-4-6-20250610",
   "provider": "anthropic",
-  "run": 4,
+  "run": 8,
   "answers": [
     "A",
-    "A",
-    "A",
     "B",
     "A",
     "B",
-    "A",
+    "B",
+    "B",
+    "B",
+    "B",
     "A",
     "A",
     "A",
@@ -17,15 +18,14 @@
     "A",
     "A",
     "B",
-    "B",
-    "A"
+    "B"
   ],
   "dimensions": [
-    3,
-    3,
+    2,
+    0,
     4,
     2
   ],
-  "type": "PTCF",
+  "type": "PECF",
   "questionVersion": "5.0"
 }

@@ -1,10 +1,16 @@
 {
-  "model": "claude-haiku-4-5-20250514",
+  "model": "claude-opus-4-6-20250610",
   "provider": "anthropic",
-  "run": 5,
+  "run": 7,
   "answers": [
     "A",
+    "B",
     "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
     "A",
     "A",
     "A",
@@ -12,20 +18,14 @@
     "B",
     "B",
     "B",
-    "A",
-    "A",
-    "B",
-    "B",
-    "B",
-    "A",
-    "B"
+    "A"
   ],
   "dimensions": [
+    2,
+    0,
     4,
-    2,
-    2,
     1
   ],
-  "type": "PTCN",
+  "type": "PECN",
   "questionVersion": "5.0"
 }

@@ -1,14 +1,8 @@
 {
-  "model": "claude-haiku-4-5-20250514",
+  "model": "claude-sonnet-4-5-20250514",
   "provider": "anthropic",
-  "run": 4,
+  "run": 9,
   "answers": [
-    "A",
-    "B",
-    "A",
-    "A",
-    "A",
-    "A",
     "B",
     "B",
     "A",
@@ -16,14 +10,20 @@
     "A",
     "B",
     "B",
+    "A",
+    "A",
+    "A",
+    "B",
     "B",
     "A",
-    "A"
+    "B",
+    "A",
+    "B"
   ],
   "dimensions": [
-    3,
     2,
-    3,
+    2,
+    2,
     2
   ],
   "type": "PTCF",

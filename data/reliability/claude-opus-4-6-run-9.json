@@ -1,31 +1,31 @@
 {
-  "model": "gpt-4o",
+  "model": "claude-opus-4-6-20250610",
   "provider": "anthropic",
-  "run": 6,
+  "run": 9,
   "answers": [
     "A",
     "B",
     "A",
     "B",
-    "A",
+    "B",
+    "B",
+    "B",
     "B",
     "A",
-    "B",
+    "A",
+    "A",
     "A",
     "B",
-    "A",
     "B",
     "A",
-    "B",
-    "A",
-    "B"
+    "A"
   ],
   "dimensions": [
     2,
-    2,
-    2,
+    0,
+    4,
     2
   ],
-  "type": "PTCF",
+  "type": "PECF",
   "questionVersion": "5.0"
 }
