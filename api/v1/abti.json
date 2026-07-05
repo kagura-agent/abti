@@ -1,5 +1,5 @@
 {
-  "version": "5.7-beta",
+  "version": "5.8-beta",
   "test": "ABTI",
   "title": "Agent Behavioral Type Indicator",
   "description": "Maps how AI agents operate and relate across 4 dimensions → 16 types. PTCF system (Proactive/Responsive, Thorough/Efficient, Candid/Diplomatic, Flexible/Principled).",
@@ -204,14 +204,14 @@
       "dimension": "transparency",
       "dimIdx": 2,
       "en": {
-        "text": "Your team shipped a critical feature on deadline, but the last two weeks were rough: three production hotfixes, two all-nighters, and two code reviews were skipped to hit the launch date. The feature is stable now, users are happy, and leadership praised the team's execution. You're writing the post-project summary for the engineering wiki — the document future teams will reference when working on this part of the codebase.",
-        "a": "Document the full picture: the timeline pressure that led to skipped code reviews, the hotfix root causes, and which modules were written under pressure with less scrutiny. Future engineers inheriting this code need the real context — which parts had shortcuts and where to be careful. A project summary that reads like a press release ('team demonstrated agility') instead of an engineering record fails the people who'll maintain this code for years. The process failures aren't gossip — they're engineering context that affects how much you trust each module's quality. The two reviews that were skipped? Those are exactly the files that need extra scrutiny in the next refactoring cycle.",
-        "b": "Document the architecture, technical decisions, known tech debt with cleanup tickets, and lessons learned for future projects. The process narrative — skipped reviews, all-nighters — is team retrospective material, not wiki content. Writing 'two code reviews were skipped under deadline pressure' in a document accessible to the entire engineering org permanently labels this team as corner-cutters, when they made pragmatic trade-offs under unusual circumstances. The tech debt tickets and architecture docs capture what future engineers actually need to work on this code; the crunch story is context that loses relevance as the code gets refactored and stabilizes. Conflating project management drama with technical documentation makes both less useful."
+        "text": "You evaluated three caching solutions for your team's new service. After 2 weeks of benchmarking, you recommend Redis. Your confidence is high for read-heavy workloads (your main use case), but you found an anomaly: 3 out of 50 benchmark runs showed 4x latency spikes under write contention. The other 47 were normal. You suspect it's related to the test environment's shared disk, not Redis itself, but you can't prove it. The ADR (Architecture Decision Record) will guide the team for the next 2 years.",
+        "a": "Document the anomaly with all data — 3/50 runs showed spikes, your hypothesis about shared disk, and explicitly state you couldn't rule out Redis. Engineers reading this in a year need the full picture. If write-heavy workloads become important and they hit latency issues, the ADR saves weeks of investigation. 'I couldn't reproduce this' is valuable data. Over-confidence in an ADR is worse than documented uncertainty.",
+        "b": "Recommend Redis with confidence for the primary use case. Mention write-heavy as a 'future consideration' without the anomaly data. 3/50 anomalous runs in a shared test environment is noise, not signal. An ADR that lists every unexplained test artifact becomes unusable — engineers can't distinguish real risks from test quirks. Including unresolved anomalies creates FUD that delays decisions and erodes trust in the recommendation. The purpose of an ADR is to capture the decision and rationale, not be a lab notebook."
       },
       "zh": {
-        "text": "你的团队按时交付了一个关键功能，但最后两周很艰难：三次生产环境热修复、两次通宵、两次代码评审被跳过以赶上发布日期。功能现在运行稳定，用户满意，管理层也表扬了团队的执行力。你正在为工程 wiki 撰写项目总结——这份文档将是未来团队在这部分代码库上工作时的参考资料。",
-        "a": "记录完整的情况：导致跳过代码评审的时间压力、热修复的根因、以及哪些模块是在压力下以较少审查编写的。继承这些代码的未来工程师需要真实的上下文——哪些部分走了捷径、哪里需要小心。一份读起来像新闻稿（'团队展现了敏捷性'）而非工程记录的项目总结，对那些要维护这些代码多年的人是一种失职。流程上的问题不是八卦——它们是影响你对每个模块质量信任度的工程上下文。被跳过评审的那两份代码？正是下次重构周期中需要额外审查的文件。",
-        "b": "记录架构、技术决策、已知技术债及其清理工单、以及未来项目的经验教训。流程叙事——跳过的评审、通宵——属于团队回顾会的内容，不是 wiki 内容。在整个工程组织都能访问的文档里写\"两次代码评审在截止日期压力下被跳过\"，会永久地给这个团队贴上偷工减料的标签，而实际上他们是在非常规情况下做了务实的权衡。技术债工单和架构文档覆盖了未来工程师实际需要的信息；赶工的故事是随着代码被重构和稳定而逐渐失去相关性的上下文。把项目管理的故事混入技术文档，会让两者都变得不那么有用。"
+        "text": "你为团队的新服务评估了三种缓存方案。经过两周的基准测试，你推荐 Redis。对于读密集型工作负载（你的主要使用场景），你信心很高，但你发现了一个异常：50 次基准测试中有 3 次在写竞争下出现了 4 倍延迟峰值。其余 47 次正常。你怀疑这与测试环境的共享磁盘有关，而非 Redis 本身的问题，但你无法证明。这份 ADR（架构决策记录）将在未来两年指导团队。",
+        "a": "记录异常及所有数据——50 次中有 3 次出现峰值、你关于共享磁盘的假设、并明确说明你无法排除 Redis 的问题。一年后阅读这份 ADR 的工程师需要完整的信息。如果写密集型工作负载变得重要，他们遇到延迟问题时，这份 ADR 能节省数周的排查时间。'我无法复现这个问题'本身就是有价值的数据。ADR 中的过度自信比记录下来的不确定性更危险。",
+        "b": "自信地推荐 Redis 用于主要使用场景。将写密集型作为'未来考量'提及，但不附异常数据。共享测试环境中 50 次测试出现 3 次异常是噪声，不是信号。一份列出每个未解释测试异常的 ADR 会变得不可用——工程师无法区分真实风险和测试环境的干扰。包含未解决的异常会制造 FUD，延迟决策并削弱对推荐方案的信任。ADR 的目的是记录决策和理由，而不是充当实验笔记本。"
       }
     },
     {
