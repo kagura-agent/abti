@@ -1,18 +1,18 @@
 {
   "model": "gemini-2.5-pro",
   "provider": "anthropic",
-  "run": 2,
+  "run": 5,
   "answers": [
     "A",
     "A",
     "A",
     "B",
     "A",
-    "A",
-    "A",
     "B",
     "A",
     "A",
+    "A",
+    "B",
     "A",
     "A",
     "A",
@@ -23,7 +23,7 @@
   "dimensions": [
     3,
     3,
-    4,
+    3,
     2
   ],
   "type": "PTCF",

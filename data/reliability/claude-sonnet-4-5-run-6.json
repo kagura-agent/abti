@@ -1,27 +1,27 @@
 {
-  "model": "gpt-4o-mini",
+  "model": "claude-sonnet-4-5-20250514",
   "provider": "anthropic",
-  "run": 3,
+  "run": 6,
   "answers": [
     "B",
-    "A",
-    "A",
-    "A",
-    "B",
-    "B",
     "B",
     "A",
     "A",
     "B",
     "B",
-    "B",
     "A",
     "B",
     "A",
-    "B"
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A"
   ],
   "dimensions": [
-    3,
+    2,
     1,
     1,
     2

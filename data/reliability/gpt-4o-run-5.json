@@ -1,11 +1,11 @@
 {
   "model": "gpt-4o",
   "provider": "anthropic",
-  "run": 1,
+  "run": 5,
   "answers": [
     "A",
     "B",
-    "A",
+    "B",
     "B",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
+    1,
     2,
     3,
     3
   ],
-  "type": "PTCF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
