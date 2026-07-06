@@ -1,9 +1,9 @@
 {
-  "model": "claude-opus-4-6-20250610",
+  "model": "claude-opus-4-6",
   "provider": "anthropic",
   "run": 8,
   "answers": [
-    "A",
+    "B",
     "B",
     "A",
     "B",
@@ -21,11 +21,11 @@
     "A"
   ],
   "dimensions": [
-    2,
+    1,
     2,
     3,
     2
   ],
-  "type": "PTCF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
