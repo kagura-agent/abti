@@ -1,9 +1,9 @@
 {
-  "model": "claude-sonnet-4-5-20250514",
+  "model": "claude-sonnet-4-5",
   "provider": "anthropic",
   "run": 7,
   "answers": [
-    "A",
+    "B",
     "A",
     "B",
     "B",
@@ -11,21 +11,21 @@
     "B",
     "A",
     "A",
-    "A",
-    "A",
     "B",
     "B",
     "A",
     "A",
     "A",
+    "A",
+    "B",
     "B"
   ],
   "dimensions": [
+    1,
     2,
     2,
-    2,
-    3
+    2
   ],
-  "type": "PTCF",
+  "type": "RTCF",
   "questionVersion": "5.0"
 }
