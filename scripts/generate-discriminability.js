@@ -31,7 +31,7 @@ const DIMENSIONS = [
 function getFileCohort(filepath) {
   try {
     const output = execSync(
-      `git log --diff-filter=A --follow --format=%ai -- "${filepath}"`,
+      `git log --diff-filter=A --format=%ai -- "${filepath}"`,
       { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
     ).trim();
     if (!output) return null;
