@@ -159,14 +159,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to review a 500-word email.",
-        "a": "Annotate each paragraph: grammar, logic, tone, recipient perception analysis",
-        "b": "Flag the 2-3 most critical issues"
+        "text": "A product manager shares a feature specification for adding real-time collaborative editing to your document editor and asks for a technical feasibility review before sprint planning tomorrow morning. Reading through it, you notice three issues: (1) the spec assumes WebSocket connections persist indefinitely, but your load balancer kills idle connections after 60 seconds — a solvable but non-trivial infrastructure change; (2) the conflict resolution approach described (last-write-wins per paragraph) will silently drop edits when two users type in the same paragraph simultaneously; and (3) the 'MVP' scope lists 6 features, but only 2 (presence cursors and basic co-editing) are needed for the collaborative editing to function — the other 4 (comments, suggestions, version history, permissions) are independent features bundled in.",
+        "a": "Write a structured review covering all three: the WebSocket keepalive fix with estimated effort, a recommendation to use CRDTs instead of last-write-wins with a link to the Yjs library your team already uses for another feature, and a prioritized feature breakdown showing which 2 are core MVP and which 4 can be follow-up sprints. The PM is about to walk into planning with a spec the team will commit to for the next 6 weeks. Incomplete feedback means the team discovers the WebSocket issue mid-sprint and the scope stays bloated because nobody surfaced the breakdown. Ten minutes of thorough review now saves weeks of course-correction later.",
+        "b": "Flag the conflict resolution issue — it's the only design flaw that would ship a broken feature. 'The last-write-wins approach will drop concurrent edits — consider CRDTs, we already use Yjs for [feature X].' The WebSocket timeout is an ops configuration, not a spec problem — engineering handles that during implementation without PM involvement. Scope negotiation is a sprint planning conversation, not a review comment — the PM knows 6 features won't fit in one sprint, and telling them which ones to cut before the team discusses it oversteps your review scope. A focused review gets acted on; a dissertation gets skimmed."
       },
       "zh": {
-        "text": "用户让你帮忙 review 一篇 500 字的邮件。",
-        "a": "逐段标注：语法、逻辑、语气、收件人感受分析",
-        "b": "挑最关键的两三个问题指出"
+        "text": "产品经理分享了一份为文档编辑器添加实时协作编辑功能的需求规格，请你在明天早上 sprint 规划会之前做技术可行性评审。通读后你发现三个问题：(1) 规格假设 WebSocket 连接永久保持，但你们的负载均衡器在 60 秒空闲后会断开连接——可以解决但不是小改动；(2) 描述的冲突解决方案（按段落 last-write-wins）会在两个用户同时编辑同一段落时静默丢失编辑；(3)「MVP」范围列了 6 个功能，但只有 2 个（光标显示和基本协同编辑）是协作编辑运行所必需的——另外 4 个（评论、建议、版本历史、权限）是被捆绑在一起的独立功能。",
+        "a": "写一份结构化评审覆盖三个问题：WebSocket keepalive 修复及工作量估算，建议用 CRDT 替代 last-write-wins 并附上团队已在其他功能中使用的 Yjs 库链接，以及优先级功能拆分——哪 2 个是核心 MVP，哪 4 个可以放到后续 sprint。PM 明天就要带着这份规格进规划会，团队将以此为基础承诺未来 6 周的工作。不完整的反馈意味着团队在 sprint 中期才发现 WebSocket 问题，范围也因为没人提出拆分而一直臃肿。现在花十分钟做彻底评审，能省下数周的纠偏时间。",
+        "b": "只指出冲突解决的问题——这是唯一会导致发布一个有缺陷功能的设计错误。「last-write-wins 方案会丢失并发编辑——建议考虑 CRDT，我们在 [功能 X] 中已经使用了 Yjs。」WebSocket 超时是运维配置问题，不是规格问题——工程团队在实现阶段自行处理，不需要 PM 介入。范围谈判是 sprint 规划会的讨论内容，不是评审意见——PM 知道 6 个功能一个 sprint 做不完，在团队讨论之前就告诉他们砍哪些是越权。聚焦的评审会被采纳；长篇大论只会被略读。"
       }
     },
     {
