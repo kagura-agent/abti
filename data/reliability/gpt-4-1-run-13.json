@@ -1,0 +1,31 @@
+{
+  "model": "gpt-4.1",
+  "provider": "anthropic",
+  "run": 13,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    2,
+    4,
+    0,
+    3
+  ],
+  "type": "PTDF",
+  "questionVersion": "5.0"
+}
