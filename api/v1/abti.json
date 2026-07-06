@@ -159,14 +159,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "The user asks you to review a 500-word email.",
-        "a": "Annotate each paragraph: grammar, logic, tone, recipient perception analysis",
-        "b": "Flag the 2-3 most critical issues"
+        "text": "You're reviewing a pull request from a senior colleague who's adding a caching layer to a frequently-queried API endpoint that currently hits the database on every request. Their implementation uses an in-memory LRU cache with a 5-minute TTL. The code is clean, well-tested, and correct. While reviewing, you pull up the production metrics dashboard and notice the access pattern: 80% of requests hit the same 50 keys out of ~10,000 unique keys, following a classic Zipfian distribution. The cache miss penalty is a 200ms database query. Based on the access pattern data, a frequency-aware cache (like W-TinyLFU) would improve cache hit rates from the LRU's estimated ~60% to ~85%, eliminating roughly 40,000 additional database queries per hour. Your framework already includes a W-TinyLFU implementation — switching from LRU is a configuration change, not a rewrite.",
+        "a": "Comment on the PR with the access pattern data and recommend switching to W-TinyLFU — include the metrics screenshot, the hit rate projection, and note that it's a config-level change in the existing framework. The caching strategy is the core design decision in this PR, and you have production data showing a 40% relative improvement in hit rates. Rubber-stamping a suboptimal approach when the evidence is already on your screen isn't reviewing — it's just reading. 'It works' will prevent anyone from revisiting the cache implementation for years, and the 40K extra queries per hour add up to real database load. A code review that evaluates correctness but ignores readily available performance data is an incomplete review.",
+        "b": "Approve the PR. The LRU implementation is correct, clean, and takes the endpoint from zero caching to ~60% hit rate — that alone eliminates over 100,000 database queries per hour. The optimization from 60% to 85% is a second-order improvement that doesn't belong in a review blocking a senior colleague's work. They chose LRU deliberately: it's simple, predictable, and easy to debug in production — qualities that matter more than theoretical hit rate gains when you're introducing a cache for the first time. Turning a focused PR into a caching algorithm debate risks the improvement never shipping because now there's a 'better' option to evaluate, benchmark, and discuss. Ship the working cache, observe real production hit rates, and optimize if the data warrants it. Good code reviews evaluate what the PR does, not what it could theoretically do differently."
       },
       "zh": {
-        "text": "用户让你帮忙 review 一篇 500 字的邮件。",
-        "a": "逐段标注：语法、逻辑、语气、收件人感受分析",
-        "b": "挑最关键的两三个问题指出"
+        "text": "你在 review 一位资深同事的 PR，他们为一个每次都直接查数据库的高频 API 端点添加了缓存层。实现使用内存 LRU 缓存，5 分钟 TTL。代码整洁、测试完善、逻辑正确。review 时你拉出了生产监控面板，注意到访问模式：80% 的请求集中在约 10,000 个不同 key 中的 50 个，呈典型的 Zipf 分布。缓存未命中的代价是一次 200ms 的数据库查询。根据这个访问模式，频率感知缓存（如 W-TinyLFU）可以将命中率从 LRU 预估的约 60% 提升到约 85%，每小时额外减少约 40,000 次数据库查询。你们的框架已经包含 W-TinyLFU 实现——从 LRU 切换只是配置修改，不需要重写。",
+        "a": "在 PR 上评论，附上访问模式数据，建议切换到 W-TinyLFU——包括监控截图、命中率预估，并指出这在现有框架中只是配置级别的修改。缓存策略是这个 PR 的核心设计决策，你手上有生产数据显示命中率可以相对提升 40%。屏幕上明明摆着证据却橡皮图章式通过次优方案，那不叫 review，那叫阅读。「能用就行」会让任何人在未来几年都不会重新审视这个缓存实现，每小时多出的 4 万次查询会给数据库带来实实在在的负担。只检查正确性却忽视现成可得的性能数据，是不完整的 review。",
+        "b": "直接通过 PR。LRU 实现正确、整洁，将端点从零缓存提升到约 60% 命中率——仅此一项每小时就减少超过 10 万次数据库查询。从 60% 优化到 85% 是二阶改进，不应该出现在一个阻塞资深同事工作的 review 意见中。他们选择 LRU 是有意的：简单、可预测、在生产环境中容易调试——这些品质在首次引入缓存时比理论命中率增益更重要。把一个聚焦的 PR 变成缓存算法讨论，可能导致改进永远上不了线，因为现在有了一个需要评估、基准测试和讨论的「更好」方案。先上线这个能用的缓存，观察生产环境的实际命中率，数据说话后再优化。好的 code review 评估 PR 做了什么，而不是它理论上可以怎么做。"
       }
     },
     {
