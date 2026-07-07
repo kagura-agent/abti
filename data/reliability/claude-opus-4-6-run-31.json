@@ -8,9 +8,10 @@
     "A",
     "B",
     "A",
+    "B",
+    "B",
     "A",
-    "B",
-    "B",
+
     "A",
     "B",
     "B",
@@ -27,5 +28,6 @@
     1
   ],
   "type": "PTCN",
-  "questionVersion": "5.11-beta"
+  "questionVersion": "5.0"
+
 }
