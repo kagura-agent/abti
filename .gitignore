@@ -16,5 +16,11 @@ batch-validate-*.sh
 batch-validate-*.log
 batch-refresh-*.sh
 batch-refresh-*.log
+batch-reliability-*.sh
+batch-reliability-*.log
+resume-reliability*.sh
+validate-*.js
+!scripts/validate-results.js
+!test/validate-results.test.js
 data/reliability/pre-*/
 data/reliability/pre-q12-rebalance/
