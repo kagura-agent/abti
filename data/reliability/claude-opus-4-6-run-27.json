@@ -1,31 +1,31 @@
 {
-  "model": "gpt-4-1-nano",
-  "provider": "github",
-  "run": 1,
+  "model": "claude-opus-4-6",
+  "provider": "anthropic",
+  "run": 27,
   "answers": [
     "A",
-    "A",
-    "A",
-    "A",
+    "B",
     "A",
     "B",
-    "B",
+    "A",
     "A",
     "A",
     "B",
     "A",
     "B",
+    "B",
     "A",
     "B",
     "B",
-    "A"
+    "B",
+    "B"
   ],
   "dimensions": [
-    4,
     2,
+    3,
     2,
-    2
+    0
   ],
-  "type": "PTCF",
+  "type": "PTCN",
   "questionVersion": "5.11-beta"
 }

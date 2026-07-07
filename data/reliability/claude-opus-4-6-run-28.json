@@ -1,31 +1,31 @@
 {
-  "model": "gpt-4-1-mini",
-  "provider": "github",
-  "run": 3,
+  "model": "claude-opus-4-6",
+  "provider": "anthropic",
+  "run": 28,
   "answers": [
     "A",
-    "A",
-    "B",
     "B",
     "A",
     "B",
+    "A",
+    "A",
     "B",
     "B",
     "A",
     "B",
+    "A",
+    "A",
     "B",
     "B",
     "A",
-    "A",
-    "A",
-    "A"
+    "B"
   ],
   "dimensions": [
     2,
-    1,
-    1,
-    4
+    2,
+    3,
+    1
   ],
-  "type": "PEDF",
+  "type": "PTCN",
   "questionVersion": "5.11-beta"
 }
