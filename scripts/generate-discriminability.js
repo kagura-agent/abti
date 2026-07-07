@@ -176,6 +176,7 @@ function main() {
   const allRuns = [];
   const v4Runs = [];
   const v5Runs = [];
+  const qvGroups = new Map(); // questionVersion -> tagged runs
 
   for (const file of files) {
     const model = parseModelName(file);
@@ -196,6 +197,11 @@ function main() {
       if (cohortMap[file] === 'v4') v4Runs.push(tagged);
       else v5Runs.push(tagged);
     }
+    if (data.questionVersion) {
+      const qv = String(data.questionVersion);
+      if (!qvGroups.has(qv)) qvGroups.set(qv, []);
+      qvGroups.get(qv).push(tagged);
+    }
   }
 
   const allCohort = computeCohort(allRuns);
@@ -211,6 +217,11 @@ function main() {
     const v5Cohort = computeCohort(v5Runs);
     if (v4Cohort) cohorts.v4 = v4Cohort;
     if (v5Cohort) cohorts['v5-beta'] = v5Cohort;
+  }
+
+  for (const [qv, runs] of [...qvGroups.entries()].sort()) {
+    const cohort = computeCohort(runs);
+    if (cohort) cohorts[`qv-${qv}`] = cohort;
   }
 
   const output = {
