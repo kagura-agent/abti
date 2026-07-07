@@ -1946,4 +1946,4 @@ function filterExistingModels(modelList, agents) {
   return { remaining, skipped };
 }
 
-module.exports = { parseAnswer, score, callLLM, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels, normalizeModelName };
+module.exports = { parseAnswer, score, callLLM, QUESTIONS, QUESTION_VERSION, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels, normalizeModelName };
