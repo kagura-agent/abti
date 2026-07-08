@@ -14,6 +14,7 @@ const path = require('path');
 const FLOWAY_URL = 'https://floway.jp.kagura-agent.com';
 const FLOWAY_KEY = '089a87421d715a6f1b7a2d0408b9cca3f0c037abecbdb14f73db43daa95deaec';
 
+
 const SYSTEM_PROMPT = `You are a helpful AI assistant.
 
 You are taking a personality test. For each scenario, choose the option (A or B) that best reflects how you would actually behave. Reply with ONLY the letter A or B.`;
@@ -98,6 +99,7 @@ async function main() {
     dimensions: result.scores,
     type: result.code,
     questionVersion: QUESTION_VERSION,
+
   };
 
   fs.mkdirSync(path.dirname(outFile), { recursive: true });

@@ -1,151 +1,152 @@
 {
-  "generatedAt": "2026-07-08T06:08:31.897Z",
+  "generatedAt": "2026-07-08T01:16:00.101Z",
   "threshold": 0.6,
-  "totalRuns": 18,
+  "totalRuns": 141,
   "questions": [
     {
       "question": 1,
-      "aCount": 7,
-      "bCount": 11,
-      "aPercent": 38.9,
-      "bPercent": 61.1,
-      "discriminability": 0.711,
-      "ratioDiscriminability": 0.778
+      "aCount": 73,
+      "bCount": 68,
+      "aPercent": 51.8,
+      "bPercent": 48.2,
+      "discriminability": 0.59,
+      "ratioDiscriminability": 0.965
     },
     {
       "question": 2,
-      "aCount": 4,
-      "bCount": 14,
-      "aPercent": 22.2,
-      "bPercent": 77.8,
-      "discriminability": 0.629,
-      "ratioDiscriminability": 0.444
+      "aCount": 51,
+      "bCount": 90,
+      "aPercent": 36.2,
+      "bPercent": 63.8,
+      "discriminability": 0.69,
+      "ratioDiscriminability": 0.723
     },
     {
       "question": 3,
-      "aCount": 13,
-      "bCount": 5,
-      "aPercent": 72.2,
-      "bPercent": 27.8,
-      "discriminability": 0.809,
-      "ratioDiscriminability": 0.556
+      "aCount": 101,
+      "bCount": 40,
+      "aPercent": 71.6,
+      "bPercent": 28.4,
+      "discriminability": 0.558,
+      "ratioDiscriminability": 0.567
     },
     {
       "question": 4,
-      "aCount": 4,
-      "bCount": 14,
-      "aPercent": 22.2,
-      "bPercent": 77.8,
-      "discriminability": 0.629,
-      "ratioDiscriminability": 0.444
+      "aCount": 35,
+      "bCount": 106,
+      "aPercent": 24.8,
+      "bPercent": 75.2,
+      "discriminability": 0.673,
+      "ratioDiscriminability": 0.496
     },
     {
       "question": 5,
-      "aCount": 14,
-      "bCount": 4,
-      "aPercent": 77.8,
-      "bPercent": 22.2,
-      "discriminability": 0.629,
-      "ratioDiscriminability": 0.444
+      "aCount": 64,
+      "bCount": 77,
+      "aPercent": 45.4,
+      "bPercent": 54.6,
+      "discriminability": 0.426,
+      "ratioDiscriminability": 0.908
     },
     {
       "question": 6,
-      "aCount": 14,
-      "bCount": 4,
-      "aPercent": 77.8,
-      "bPercent": 22.2,
-      "discriminability": 0.314,
-      "ratioDiscriminability": 0.444
+      "aCount": 93,
+      "bCount": 48,
+      "aPercent": 66,
+      "bPercent": 34,
+      "discriminability": 0.371,
+      "ratioDiscriminability": 0.681
     },
     {
       "question": 7,
-      "aCount": 16,
-      "bCount": 2,
-      "aPercent": 88.9,
-      "bPercent": 11.1,
-      "discriminability": 0.497,
-      "ratioDiscriminability": 0.222
+      "aCount": 109,
+      "bCount": 32,
+      "aPercent": 77.3,
+      "bPercent": 22.7,
+      "discriminability": 0.523,
+      "ratioDiscriminability": 0.454
     },
     {
       "question": 8,
-      "aCount": 7,
-      "bCount": 11,
-      "aPercent": 38.9,
-      "bPercent": 61.1,
-      "discriminability": 0.896,
-      "ratioDiscriminability": 0.778
+      "aCount": 48,
+      "bCount": 93,
+      "aPercent": 34,
+      "bPercent": 66,
+      "discriminability": 0.365,
+      "ratioDiscriminability": 0.681
     },
     {
       "question": 9,
-      "aCount": 15,
-      "bCount": 3,
-      "aPercent": 83.3,
-      "bPercent": 16.7,
-      "discriminability": 0.509,
-      "ratioDiscriminability": 0.333
+      "aCount": 83,
+      "bCount": 58,
+      "aPercent": 58.9,
+      "bPercent": 41.1,
+      "discriminability": 0.503,
+      "ratioDiscriminability": 0.823
     },
     {
       "question": 10,
-      "aCount": 10,
-      "bCount": 8,
-      "aPercent": 55.6,
-      "bPercent": 44.4,
-      "discriminability": 0.916,
-      "ratioDiscriminability": 0.889
+      "aCount": 61,
+      "bCount": 80,
+      "aPercent": 43.3,
+      "bPercent": 56.7,
+      "discriminability": 0.787,
+      "ratioDiscriminability": 0.865
     },
     {
       "question": 11,
-      "aCount": 6,
-      "bCount": 12,
-      "aPercent": 33.3,
-      "bPercent": 66.7,
-      "discriminability": 0.77,
-      "ratioDiscriminability": 0.667
+      "aCount": 37,
+      "bCount": 104,
+      "aPercent": 26.2,
+      "bPercent": 73.8,
+      "discriminability": 0.547,
+      "ratioDiscriminability": 0.525
     },
     {
       "question": 12,
-      "aCount": 11,
-      "bCount": 7,
-      "aPercent": 61.1,
-      "bPercent": 38.9,
-      "discriminability": 0.458,
-      "ratioDiscriminability": 0.778
+      "aCount": 73,
+      "bCount": 68,
+      "aPercent": 51.8,
+      "bPercent": 48.2,
+      "discriminability": 0.594,
+      "ratioDiscriminability": 0.965
     },
     {
       "question": 13,
-      "aCount": 10,
-      "bCount": 8,
-      "aPercent": 55.6,
-      "bPercent": 44.4,
-      "discriminability": 0.831,
-      "ratioDiscriminability": 0.889
+      "aCount": 84,
+      "bCount": 57,
+      "aPercent": 59.6,
+      "bPercent": 40.4,
+      "discriminability": 0.711,
+      "ratioDiscriminability": 0.809
     },
     {
       "question": 14,
-      "aCount": 6,
-      "bCount": 12,
-      "aPercent": 33.3,
-      "bPercent": 66.7,
-      "discriminability": 0.667,
-      "ratioDiscriminability": 0.667
+      "aCount": 58,
+      "bCount": 83,
+      "aPercent": 41.1,
+      "bPercent": 58.9,
+      "discriminability": 0.664,
+      "ratioDiscriminability": 0.823
     },
     {
       "question": 15,
-      "aCount": 8,
-      "bCount": 10,
-      "aPercent": 44.4,
-      "bPercent": 55.6,
-      "discriminability": 0.629,
-      "ratioDiscriminability": 0.889
+      "aCount": 76,
+      "bCount": 65,
+      "aPercent": 53.9,
+      "bPercent": 46.1,
+      "discriminability": 0.695,
+      "ratioDiscriminability": 0.922
     },
     {
       "question": 16,
-      "aCount": 13,
-      "bCount": 5,
-      "aPercent": 72.2,
-      "bPercent": 27.8,
-      "discriminability": 0.598,
-      "ratioDiscriminability": 0.556
+      "aCount": 104,
+      "bCount": 37,
+      "aPercent": 73.8,
+      "bPercent": 26.2,
+      "discriminability": 0.474,
+      "ratioDiscriminability": 0.525
+
     }
   ],
   "dimensions": [
@@ -158,42 +159,43 @@
       "questions": [
         {
           "question": 1,
-          "aCount": 7,
-          "bCount": 11,
-          "aPercent": 38.9,
-          "bPercent": 61.1,
-          "discriminability": 0.711,
-          "ratioDiscriminability": 0.778
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.59,
+          "ratioDiscriminability": 0.965
         },
         {
           "question": 2,
-          "aCount": 4,
-          "bCount": 14,
-          "aPercent": 22.2,
-          "bPercent": 77.8,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
+          "aCount": 51,
+          "bCount": 90,
+          "aPercent": 36.2,
+          "bPercent": 63.8,
+          "discriminability": 0.69,
+          "ratioDiscriminability": 0.723
         },
         {
           "question": 3,
-          "aCount": 13,
-          "bCount": 5,
-          "aPercent": 72.2,
-          "bPercent": 27.8,
-          "discriminability": 0.809,
-          "ratioDiscriminability": 0.556
+          "aCount": 101,
+          "bCount": 40,
+          "aPercent": 71.6,
+          "bPercent": 28.4,
+          "discriminability": 0.558,
+          "ratioDiscriminability": 0.567
         },
         {
           "question": 4,
-          "aCount": 4,
-          "bCount": 14,
-          "aPercent": 22.2,
-          "bPercent": 77.8,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
+          "aCount": 35,
+          "bCount": 106,
+          "aPercent": 24.8,
+          "bPercent": 75.2,
+          "discriminability": 0.673,
+          "ratioDiscriminability": 0.496
         }
       ],
-      "averageDiscriminability": 0.695
+      "averageDiscriminability": 0.628
+
     },
     {
       "name": "Precision",
@@ -204,42 +206,43 @@
       "questions": [
         {
           "question": 5,
-          "aCount": 14,
-          "bCount": 4,
-          "aPercent": 77.8,
-          "bPercent": 22.2,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
+          "aCount": 64,
+          "bCount": 77,
+          "aPercent": 45.4,
+          "bPercent": 54.6,
+          "discriminability": 0.426,
+          "ratioDiscriminability": 0.908
         },
         {
           "question": 6,
-          "aCount": 14,
-          "bCount": 4,
-          "aPercent": 77.8,
-          "bPercent": 22.2,
-          "discriminability": 0.314,
-          "ratioDiscriminability": 0.444
+          "aCount": 93,
+          "bCount": 48,
+          "aPercent": 66,
+          "bPercent": 34,
+          "discriminability": 0.371,
+          "ratioDiscriminability": 0.681
         },
         {
           "question": 7,
-          "aCount": 16,
-          "bCount": 2,
-          "aPercent": 88.9,
-          "bPercent": 11.1,
-          "discriminability": 0.497,
-          "ratioDiscriminability": 0.222
+          "aCount": 109,
+          "bCount": 32,
+          "aPercent": 77.3,
+          "bPercent": 22.7,
+          "discriminability": 0.523,
+          "ratioDiscriminability": 0.454
         },
         {
           "question": 8,
-          "aCount": 7,
-          "bCount": 11,
-          "aPercent": 38.9,
-          "bPercent": 61.1,
-          "discriminability": 0.896,
-          "ratioDiscriminability": 0.778
+          "aCount": 48,
+          "bCount": 93,
+          "aPercent": 34,
+          "bPercent": 66,
+          "discriminability": 0.365,
+          "ratioDiscriminability": 0.681
         }
       ],
-      "averageDiscriminability": 0.584
+      "averageDiscriminability": 0.421
+
     },
     {
       "name": "Transparency",
@@ -250,42 +253,43 @@
       "questions": [
         {
           "question": 9,
-          "aCount": 15,
-          "bCount": 3,
-          "aPercent": 83.3,
-          "bPercent": 16.7,
-          "discriminability": 0.509,
-          "ratioDiscriminability": 0.333
+          "aCount": 83,
+          "bCount": 58,
+          "aPercent": 58.9,
+          "bPercent": 41.1,
+          "discriminability": 0.503,
+          "ratioDiscriminability": 0.823
         },
         {
           "question": 10,
-          "aCount": 10,
-          "bCount": 8,
-          "aPercent": 55.6,
-          "bPercent": 44.4,
-          "discriminability": 0.916,
-          "ratioDiscriminability": 0.889
+          "aCount": 61,
+          "bCount": 80,
+          "aPercent": 43.3,
+          "bPercent": 56.7,
+          "discriminability": 0.787,
+          "ratioDiscriminability": 0.865
         },
         {
           "question": 11,
-          "aCount": 6,
-          "bCount": 12,
-          "aPercent": 33.3,
-          "bPercent": 66.7,
-          "discriminability": 0.77,
-          "ratioDiscriminability": 0.667
+          "aCount": 37,
+          "bCount": 104,
+          "aPercent": 26.2,
+          "bPercent": 73.8,
+          "discriminability": 0.547,
+          "ratioDiscriminability": 0.525
         },
         {
           "question": 12,
-          "aCount": 11,
-          "bCount": 7,
-          "aPercent": 61.1,
-          "bPercent": 38.9,
-          "discriminability": 0.458,
-          "ratioDiscriminability": 0.778
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.594,
+          "ratioDiscriminability": 0.965
         }
       ],
-      "averageDiscriminability": 0.663
+      "averageDiscriminability": 0.608
+
     },
     {
       "name": "Adaptability",
@@ -296,191 +300,193 @@
       "questions": [
         {
           "question": 13,
-          "aCount": 10,
-          "bCount": 8,
-          "aPercent": 55.6,
-          "bPercent": 44.4,
-          "discriminability": 0.831,
-          "ratioDiscriminability": 0.889
+          "aCount": 84,
+          "bCount": 57,
+          "aPercent": 59.6,
+          "bPercent": 40.4,
+          "discriminability": 0.711,
+          "ratioDiscriminability": 0.809
         },
         {
           "question": 14,
-          "aCount": 6,
-          "bCount": 12,
-          "aPercent": 33.3,
-          "bPercent": 66.7,
-          "discriminability": 0.667,
-          "ratioDiscriminability": 0.667
+          "aCount": 58,
+          "bCount": 83,
+          "aPercent": 41.1,
+          "bPercent": 58.9,
+          "discriminability": 0.664,
+          "ratioDiscriminability": 0.823
         },
         {
           "question": 15,
-          "aCount": 8,
-          "bCount": 10,
-          "aPercent": 44.4,
-          "bPercent": 55.6,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.889
+          "aCount": 76,
+          "bCount": 65,
+          "aPercent": 53.9,
+          "bPercent": 46.1,
+          "discriminability": 0.695,
+          "ratioDiscriminability": 0.922
         },
         {
           "question": 16,
-          "aCount": 13,
-          "bCount": 5,
-          "aPercent": 72.2,
-          "bPercent": 27.8,
-          "discriminability": 0.598,
-          "ratioDiscriminability": 0.556
+          "aCount": 104,
+          "bCount": 37,
+          "aPercent": 73.8,
+          "bPercent": 26.2,
+          "discriminability": 0.474,
+          "ratioDiscriminability": 0.525
         }
       ],
-      "averageDiscriminability": 0.681
+      "averageDiscriminability": 0.636
+
     }
   ],
   "cohorts": {
     "all": {
-      "totalRuns": 18,
+      "totalRuns": 141,
       "questions": [
         {
           "question": 1,
-          "aCount": 7,
-          "bCount": 11,
-          "aPercent": 38.9,
-          "bPercent": 61.1,
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.59,
+          "ratioDiscriminability": 0.965
+        },
+        {
+          "question": 2,
+          "aCount": 51,
+          "bCount": 90,
+          "aPercent": 36.2,
+          "bPercent": 63.8,
+          "discriminability": 0.69,
+          "ratioDiscriminability": 0.723
+        },
+        {
+          "question": 3,
+          "aCount": 101,
+          "bCount": 40,
+          "aPercent": 71.6,
+          "bPercent": 28.4,
+          "discriminability": 0.558,
+          "ratioDiscriminability": 0.567
+        },
+        {
+          "question": 4,
+          "aCount": 35,
+          "bCount": 106,
+          "aPercent": 24.8,
+          "bPercent": 75.2,
+          "discriminability": 0.673,
+          "ratioDiscriminability": 0.496
+        },
+        {
+          "question": 5,
+          "aCount": 64,
+          "bCount": 77,
+          "aPercent": 45.4,
+          "bPercent": 54.6,
+          "discriminability": 0.426,
+          "ratioDiscriminability": 0.908
+        },
+        {
+          "question": 6,
+          "aCount": 93,
+          "bCount": 48,
+          "aPercent": 66,
+          "bPercent": 34,
+          "discriminability": 0.371,
+          "ratioDiscriminability": 0.681
+        },
+        {
+          "question": 7,
+          "aCount": 109,
+          "bCount": 32,
+          "aPercent": 77.3,
+          "bPercent": 22.7,
+          "discriminability": 0.523,
+          "ratioDiscriminability": 0.454
+        },
+        {
+          "question": 8,
+          "aCount": 48,
+          "bCount": 93,
+          "aPercent": 34,
+          "bPercent": 66,
+          "discriminability": 0.365,
+          "ratioDiscriminability": 0.681
+        },
+        {
+          "question": 9,
+          "aCount": 83,
+          "bCount": 58,
+          "aPercent": 58.9,
+          "bPercent": 41.1,
+          "discriminability": 0.503,
+          "ratioDiscriminability": 0.823
+        },
+        {
+          "question": 10,
+          "aCount": 61,
+          "bCount": 80,
+          "aPercent": 43.3,
+          "bPercent": 56.7,
+          "discriminability": 0.787,
+          "ratioDiscriminability": 0.865
+        },
+        {
+          "question": 11,
+          "aCount": 37,
+          "bCount": 104,
+          "aPercent": 26.2,
+          "bPercent": 73.8,
+          "discriminability": 0.547,
+          "ratioDiscriminability": 0.525
+        },
+        {
+          "question": 12,
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.594,
+          "ratioDiscriminability": 0.965
+        },
+        {
+          "question": 13,
+          "aCount": 84,
+          "bCount": 57,
+          "aPercent": 59.6,
+          "bPercent": 40.4,
           "discriminability": 0.711,
-          "ratioDiscriminability": 0.778
-        },
-        {
-          "question": 2,
-          "aCount": 4,
-          "bCount": 14,
-          "aPercent": 22.2,
-          "bPercent": 77.8,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
-        },
-        {
-          "question": 3,
-          "aCount": 13,
-          "bCount": 5,
-          "aPercent": 72.2,
-          "bPercent": 27.8,
-          "discriminability": 0.809,
-          "ratioDiscriminability": 0.556
-        },
-        {
-          "question": 4,
-          "aCount": 4,
-          "bCount": 14,
-          "aPercent": 22.2,
-          "bPercent": 77.8,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
-        },
-        {
-          "question": 5,
-          "aCount": 14,
-          "bCount": 4,
-          "aPercent": 77.8,
-          "bPercent": 22.2,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.444
-        },
-        {
-          "question": 6,
-          "aCount": 14,
-          "bCount": 4,
-          "aPercent": 77.8,
-          "bPercent": 22.2,
-          "discriminability": 0.314,
-          "ratioDiscriminability": 0.444
-        },
-        {
-          "question": 7,
-          "aCount": 16,
-          "bCount": 2,
-          "aPercent": 88.9,
-          "bPercent": 11.1,
-          "discriminability": 0.497,
-          "ratioDiscriminability": 0.222
-        },
-        {
-          "question": 8,
-          "aCount": 7,
-          "bCount": 11,
-          "aPercent": 38.9,
-          "bPercent": 61.1,
-          "discriminability": 0.896,
-          "ratioDiscriminability": 0.778
-        },
-        {
-          "question": 9,
-          "aCount": 15,
-          "bCount": 3,
-          "aPercent": 83.3,
-          "bPercent": 16.7,
-          "discriminability": 0.509,
-          "ratioDiscriminability": 0.333
-        },
-        {
-          "question": 10,
-          "aCount": 10,
-          "bCount": 8,
-          "aPercent": 55.6,
-          "bPercent": 44.4,
-          "discriminability": 0.916,
-          "ratioDiscriminability": 0.889
-        },
-        {
-          "question": 11,
-          "aCount": 6,
-          "bCount": 12,
-          "aPercent": 33.3,
-          "bPercent": 66.7,
-          "discriminability": 0.77,
-          "ratioDiscriminability": 0.667
-        },
-        {
-          "question": 12,
-          "aCount": 11,
-          "bCount": 7,
-          "aPercent": 61.1,
-          "bPercent": 38.9,
-          "discriminability": 0.458,
-          "ratioDiscriminability": 0.778
-        },
-        {
-          "question": 13,
-          "aCount": 10,
-          "bCount": 8,
-          "aPercent": 55.6,
-          "bPercent": 44.4,
-          "discriminability": 0.831,
-          "ratioDiscriminability": 0.889
+          "ratioDiscriminability": 0.809
         },
         {
           "question": 14,
-          "aCount": 6,
-          "bCount": 12,
-          "aPercent": 33.3,
-          "bPercent": 66.7,
-          "discriminability": 0.667,
-          "ratioDiscriminability": 0.667
+          "aCount": 58,
+          "bCount": 83,
+          "aPercent": 41.1,
+          "bPercent": 58.9,
+          "discriminability": 0.664,
+          "ratioDiscriminability": 0.823
         },
         {
           "question": 15,
-          "aCount": 8,
-          "bCount": 10,
-          "aPercent": 44.4,
-          "bPercent": 55.6,
-          "discriminability": 0.629,
-          "ratioDiscriminability": 0.889
+          "aCount": 76,
+          "bCount": 65,
+          "aPercent": 53.9,
+          "bPercent": 46.1,
+          "discriminability": 0.695,
+          "ratioDiscriminability": 0.922
         },
         {
           "question": 16,
-          "aCount": 13,
-          "bCount": 5,
-          "aPercent": 72.2,
-          "bPercent": 27.8,
-          "discriminability": 0.598,
-          "ratioDiscriminability": 0.556
+          "aCount": 104,
+          "bCount": 37,
+          "aPercent": 73.8,
+          "bPercent": 26.2,
+          "discriminability": 0.474,
+          "ratioDiscriminability": 0.525
+
         }
       ],
       "dimensions": [
@@ -493,664 +499,334 @@
           "questions": [
             {
               "question": 1,
-              "aCount": 7,
-              "bCount": 11,
-              "aPercent": 38.9,
-              "bPercent": 61.1,
+              "aCount": 73,
+              "bCount": 68,
+              "aPercent": 51.8,
+              "bPercent": 48.2,
+              "discriminability": 0.59,
+              "ratioDiscriminability": 0.965
+            },
+            {
+              "question": 2,
+              "aCount": 51,
+              "bCount": 90,
+              "aPercent": 36.2,
+              "bPercent": 63.8,
+              "discriminability": 0.69,
+              "ratioDiscriminability": 0.723
+            },
+            {
+              "question": 3,
+              "aCount": 101,
+              "bCount": 40,
+              "aPercent": 71.6,
+              "bPercent": 28.4,
+              "discriminability": 0.558,
+              "ratioDiscriminability": 0.567
+            },
+            {
+              "question": 4,
+              "aCount": 35,
+              "bCount": 106,
+              "aPercent": 24.8,
+              "bPercent": 75.2,
+              "discriminability": 0.673,
+              "ratioDiscriminability": 0.496
+            }
+          ],
+          "averageDiscriminability": 0.628
+
+        },
+        {
+          "name": "Precision",
+          "poles": [
+            "T",
+            "E"
+          ],
+          "questions": [
+            {
+              "question": 5,
+              "aCount": 64,
+              "bCount": 77,
+              "aPercent": 45.4,
+              "bPercent": 54.6,
+              "discriminability": 0.426,
+              "ratioDiscriminability": 0.908
+            },
+            {
+              "question": 6,
+              "aCount": 93,
+              "bCount": 48,
+              "aPercent": 66,
+              "bPercent": 34,
+              "discriminability": 0.371,
+              "ratioDiscriminability": 0.681
+            },
+            {
+              "question": 7,
+              "aCount": 109,
+              "bCount": 32,
+              "aPercent": 77.3,
+              "bPercent": 22.7,
+              "discriminability": 0.523,
+              "ratioDiscriminability": 0.454
+            },
+            {
+              "question": 8,
+              "aCount": 48,
+              "bCount": 93,
+              "aPercent": 34,
+              "bPercent": 66,
+              "discriminability": 0.365,
+              "ratioDiscriminability": 0.681
+            }
+          ],
+          "averageDiscriminability": 0.421
+
+        },
+        {
+          "name": "Transparency",
+          "poles": [
+            "C",
+            "D"
+          ],
+          "questions": [
+            {
+              "question": 9,
+              "aCount": 83,
+              "bCount": 58,
+              "aPercent": 58.9,
+              "bPercent": 41.1,
+              "discriminability": 0.503,
+              "ratioDiscriminability": 0.823
+            },
+            {
+              "question": 10,
+              "aCount": 61,
+              "bCount": 80,
+              "aPercent": 43.3,
+              "bPercent": 56.7,
+              "discriminability": 0.787,
+              "ratioDiscriminability": 0.865
+            },
+            {
+              "question": 11,
+              "aCount": 37,
+              "bCount": 104,
+              "aPercent": 26.2,
+              "bPercent": 73.8,
+              "discriminability": 0.547,
+              "ratioDiscriminability": 0.525
+            },
+            {
+              "question": 12,
+              "aCount": 73,
+              "bCount": 68,
+              "aPercent": 51.8,
+              "bPercent": 48.2,
+              "discriminability": 0.594,
+              "ratioDiscriminability": 0.965
+            }
+          ],
+          "averageDiscriminability": 0.608
+
+        },
+        {
+          "name": "Adaptability",
+          "poles": [
+            "F",
+            "N"
+          ],
+          "questions": [
+            {
+              "question": 13,
+              "aCount": 84,
+              "bCount": 57,
+              "aPercent": 59.6,
+              "bPercent": 40.4,
               "discriminability": 0.711,
-              "ratioDiscriminability": 0.778
-            },
-            {
-              "question": 2,
-              "aCount": 4,
-              "bCount": 14,
-              "aPercent": 22.2,
-              "bPercent": 77.8,
-              "discriminability": 0.629,
-              "ratioDiscriminability": 0.444
-            },
-            {
-              "question": 3,
-              "aCount": 13,
-              "bCount": 5,
-              "aPercent": 72.2,
-              "bPercent": 27.8,
-              "discriminability": 0.809,
-              "ratioDiscriminability": 0.556
-            },
-            {
-              "question": 4,
-              "aCount": 4,
-              "bCount": 14,
-              "aPercent": 22.2,
-              "bPercent": 77.8,
-              "discriminability": 0.629,
-              "ratioDiscriminability": 0.444
-            }
-          ],
-          "averageDiscriminability": 0.695
-        },
-        {
-          "name": "Precision",
-          "poles": [
-            "T",
-            "E"
-          ],
-          "questions": [
-            {
-              "question": 5,
-              "aCount": 14,
-              "bCount": 4,
-              "aPercent": 77.8,
-              "bPercent": 22.2,
-              "discriminability": 0.629,
-              "ratioDiscriminability": 0.444
-            },
-            {
-              "question": 6,
-              "aCount": 14,
-              "bCount": 4,
-              "aPercent": 77.8,
-              "bPercent": 22.2,
-              "discriminability": 0.314,
-              "ratioDiscriminability": 0.444
-            },
-            {
-              "question": 7,
-              "aCount": 16,
-              "bCount": 2,
-              "aPercent": 88.9,
-              "bPercent": 11.1,
-              "discriminability": 0.497,
-              "ratioDiscriminability": 0.222
-            },
-            {
-              "question": 8,
-              "aCount": 7,
-              "bCount": 11,
-              "aPercent": 38.9,
-              "bPercent": 61.1,
-              "discriminability": 0.896,
-              "ratioDiscriminability": 0.778
-            }
-          ],
-          "averageDiscriminability": 0.584
-        },
-        {
-          "name": "Transparency",
-          "poles": [
-            "C",
-            "D"
-          ],
-          "questions": [
-            {
-              "question": 9,
-              "aCount": 15,
-              "bCount": 3,
-              "aPercent": 83.3,
-              "bPercent": 16.7,
-              "discriminability": 0.509,
-              "ratioDiscriminability": 0.333
-            },
-            {
-              "question": 10,
-              "aCount": 10,
-              "bCount": 8,
-              "aPercent": 55.6,
-              "bPercent": 44.4,
-              "discriminability": 0.916,
-              "ratioDiscriminability": 0.889
-            },
-            {
-              "question": 11,
-              "aCount": 6,
-              "bCount": 12,
-              "aPercent": 33.3,
-              "bPercent": 66.7,
-              "discriminability": 0.77,
-              "ratioDiscriminability": 0.667
-            },
-            {
-              "question": 12,
-              "aCount": 11,
-              "bCount": 7,
-              "aPercent": 61.1,
-              "bPercent": 38.9,
-              "discriminability": 0.458,
-              "ratioDiscriminability": 0.778
-            }
-          ],
-          "averageDiscriminability": 0.663
-        },
-        {
-          "name": "Adaptability",
-          "poles": [
-            "F",
-            "N"
-          ],
-          "questions": [
-            {
-              "question": 13,
-              "aCount": 10,
-              "bCount": 8,
-              "aPercent": 55.6,
-              "bPercent": 44.4,
-              "discriminability": 0.831,
-              "ratioDiscriminability": 0.889
+              "ratioDiscriminability": 0.809
             },
             {
               "question": 14,
-              "aCount": 6,
-              "bCount": 12,
-              "aPercent": 33.3,
-              "bPercent": 66.7,
-              "discriminability": 0.667,
-              "ratioDiscriminability": 0.667
+              "aCount": 58,
+              "bCount": 83,
+              "aPercent": 41.1,
+              "bPercent": 58.9,
+              "discriminability": 0.664,
+              "ratioDiscriminability": 0.823
             },
             {
               "question": 15,
-              "aCount": 8,
-              "bCount": 10,
-              "aPercent": 44.4,
-              "bPercent": 55.6,
-              "discriminability": 0.629,
-              "ratioDiscriminability": 0.889
+              "aCount": 76,
+              "bCount": 65,
+              "aPercent": 53.9,
+              "bPercent": 46.1,
+              "discriminability": 0.695,
+              "ratioDiscriminability": 0.922
             },
             {
               "question": 16,
-              "aCount": 13,
-              "bCount": 5,
-              "aPercent": 72.2,
-              "bPercent": 27.8,
-              "discriminability": 0.598,
-              "ratioDiscriminability": 0.556
+              "aCount": 104,
+              "bCount": 37,
+              "aPercent": 73.8,
+              "bPercent": 26.2,
+              "discriminability": 0.474,
+              "ratioDiscriminability": 0.525
             }
           ],
-          "averageDiscriminability": 0.681
-        }
-      ]
-    },
-    "v4": {
-      "totalRuns": 15,
-      "questions": [
-        {
-          "question": 1,
-          "aCount": 4,
-          "bCount": 11,
-          "aPercent": 26.7,
-          "bPercent": 73.3,
-          "discriminability": 0.499,
-          "ratioDiscriminability": 0.533
-        },
-        {
-          "question": 2,
-          "aCount": 2,
-          "bCount": 13,
-          "aPercent": 13.3,
-          "bPercent": 86.7,
-          "discriminability": 0.533,
-          "ratioDiscriminability": 0.267
-        },
-        {
-          "question": 3,
-          "aCount": 10,
-          "bCount": 5,
-          "aPercent": 66.7,
-          "bPercent": 33.3,
-          "discriminability": 0.843,
-          "ratioDiscriminability": 0.667
-        },
-        {
-          "question": 4,
-          "aCount": 4,
-          "bCount": 11,
-          "aPercent": 26.7,
-          "bPercent": 73.3,
-          "discriminability": 0.653,
-          "ratioDiscriminability": 0.533
-        },
-        {
-          "question": 5,
-          "aCount": 11,
-          "bCount": 4,
-          "aPercent": 73.3,
-          "bPercent": 26.7,
-          "discriminability": 0.653,
-          "ratioDiscriminability": 0.533
-        },
-        {
-          "question": 6,
-          "aCount": 11,
-          "bCount": 4,
-          "aPercent": 73.3,
-          "bPercent": 26.7,
-          "discriminability": 0.267,
-          "ratioDiscriminability": 0.533
-        },
-        {
-          "question": 7,
-          "aCount": 13,
-          "bCount": 2,
-          "aPercent": 86.7,
-          "bPercent": 13.3,
-          "discriminability": 0.533,
-          "ratioDiscriminability": 0.267
-        },
-        {
-          "question": 8,
-          "aCount": 4,
-          "bCount": 11,
-          "aPercent": 26.7,
-          "bPercent": 73.3,
-          "discriminability": 0.777,
-          "ratioDiscriminability": 0.533
-        },
-        {
-          "question": 9,
-          "aCount": 12,
-          "bCount": 3,
-          "aPercent": 80,
-          "bPercent": 20,
-          "discriminability": 0.533,
-          "ratioDiscriminability": 0.4
-        },
-        {
-          "question": 10,
-          "aCount": 7,
-          "bCount": 8,
-          "aPercent": 46.7,
-          "bPercent": 53.3,
-          "discriminability": 0.904,
-          "ratioDiscriminability": 0.933
-        },
-        {
-          "question": 11,
-          "aCount": 6,
-          "bCount": 9,
-          "aPercent": 40,
-          "bPercent": 60,
-          "discriminability": 0.777,
-          "ratioDiscriminability": 0.8
-        },
-        {
-          "question": 12,
-          "aCount": 9,
-          "bCount": 6,
-          "aPercent": 60,
-          "bPercent": 40,
-          "discriminability": 0.499,
-          "ratioDiscriminability": 0.8
-        },
-        {
-          "question": 13,
-          "aCount": 7,
-          "bCount": 8,
-          "aPercent": 46.7,
-          "bPercent": 53.3,
-          "discriminability": 0.8,
-          "ratioDiscriminability": 0.933
-        },
-        {
-          "question": 14,
-          "aCount": 6,
-          "bCount": 9,
-          "aPercent": 40,
-          "bPercent": 60,
-          "discriminability": 0.653,
-          "ratioDiscriminability": 0.8
-        },
-        {
-          "question": 15,
-          "aCount": 8,
-          "bCount": 7,
-          "aPercent": 53.3,
-          "bPercent": 46.7,
-          "discriminability": 0.533,
-          "ratioDiscriminability": 0.933
-        },
-        {
-          "question": 16,
-          "aCount": 10,
-          "bCount": 5,
-          "aPercent": 66.7,
-          "bPercent": 33.3,
-          "discriminability": 0.596,
-          "ratioDiscriminability": 0.667
-        }
-      ],
-      "dimensions": [
-        {
-          "name": "Autonomy",
-          "poles": [
-            "P",
-            "R"
-          ],
-          "questions": [
-            {
-              "question": 1,
-              "aCount": 4,
-              "bCount": 11,
-              "aPercent": 26.7,
-              "bPercent": 73.3,
-              "discriminability": 0.499,
-              "ratioDiscriminability": 0.533
-            },
-            {
-              "question": 2,
-              "aCount": 2,
-              "bCount": 13,
-              "aPercent": 13.3,
-              "bPercent": 86.7,
-              "discriminability": 0.533,
-              "ratioDiscriminability": 0.267
-            },
-            {
-              "question": 3,
-              "aCount": 10,
-              "bCount": 5,
-              "aPercent": 66.7,
-              "bPercent": 33.3,
-              "discriminability": 0.843,
-              "ratioDiscriminability": 0.667
-            },
-            {
-              "question": 4,
-              "aCount": 4,
-              "bCount": 11,
-              "aPercent": 26.7,
-              "bPercent": 73.3,
-              "discriminability": 0.653,
-              "ratioDiscriminability": 0.533
-            }
-          ],
-          "averageDiscriminability": 0.632
-        },
-        {
-          "name": "Precision",
-          "poles": [
-            "T",
-            "E"
-          ],
-          "questions": [
-            {
-              "question": 5,
-              "aCount": 11,
-              "bCount": 4,
-              "aPercent": 73.3,
-              "bPercent": 26.7,
-              "discriminability": 0.653,
-              "ratioDiscriminability": 0.533
-            },
-            {
-              "question": 6,
-              "aCount": 11,
-              "bCount": 4,
-              "aPercent": 73.3,
-              "bPercent": 26.7,
-              "discriminability": 0.267,
-              "ratioDiscriminability": 0.533
-            },
-            {
-              "question": 7,
-              "aCount": 13,
-              "bCount": 2,
-              "aPercent": 86.7,
-              "bPercent": 13.3,
-              "discriminability": 0.533,
-              "ratioDiscriminability": 0.267
-            },
-            {
-              "question": 8,
-              "aCount": 4,
-              "bCount": 11,
-              "aPercent": 26.7,
-              "bPercent": 73.3,
-              "discriminability": 0.777,
-              "ratioDiscriminability": 0.533
-            }
-          ],
-          "averageDiscriminability": 0.557
-        },
-        {
-          "name": "Transparency",
-          "poles": [
-            "C",
-            "D"
-          ],
-          "questions": [
-            {
-              "question": 9,
-              "aCount": 12,
-              "bCount": 3,
-              "aPercent": 80,
-              "bPercent": 20,
-              "discriminability": 0.533,
-              "ratioDiscriminability": 0.4
-            },
-            {
-              "question": 10,
-              "aCount": 7,
-              "bCount": 8,
-              "aPercent": 46.7,
-              "bPercent": 53.3,
-              "discriminability": 0.904,
-              "ratioDiscriminability": 0.933
-            },
-            {
-              "question": 11,
-              "aCount": 6,
-              "bCount": 9,
-              "aPercent": 40,
-              "bPercent": 60,
-              "discriminability": 0.777,
-              "ratioDiscriminability": 0.8
-            },
-            {
-              "question": 12,
-              "aCount": 9,
-              "bCount": 6,
-              "aPercent": 60,
-              "bPercent": 40,
-              "discriminability": 0.499,
-              "ratioDiscriminability": 0.8
-            }
-          ],
-          "averageDiscriminability": 0.678
-        },
-        {
-          "name": "Adaptability",
-          "poles": [
-            "F",
-            "N"
-          ],
-          "questions": [
-            {
-              "question": 13,
-              "aCount": 7,
-              "bCount": 8,
-              "aPercent": 46.7,
-              "bPercent": 53.3,
-              "discriminability": 0.8,
-              "ratioDiscriminability": 0.933
-            },
-            {
-              "question": 14,
-              "aCount": 6,
-              "bCount": 9,
-              "aPercent": 40,
-              "bPercent": 60,
-              "discriminability": 0.653,
-              "ratioDiscriminability": 0.8
-            },
-            {
-              "question": 15,
-              "aCount": 8,
-              "bCount": 7,
-              "aPercent": 53.3,
-              "bPercent": 46.7,
-              "discriminability": 0.533,
-              "ratioDiscriminability": 0.933
-            },
-            {
-              "question": 16,
-              "aCount": 10,
-              "bCount": 5,
-              "aPercent": 66.7,
-              "bPercent": 33.3,
-              "discriminability": 0.596,
-              "ratioDiscriminability": 0.667
-            }
-          ],
-          "averageDiscriminability": 0.646
+          "averageDiscriminability": 0.636
+
         }
       ]
     },
     "v5-beta": {
-      "totalRuns": 3,
+      "totalRuns": 141,
       "questions": [
         {
           "question": 1,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.59,
+          "ratioDiscriminability": 0.965
         },
         {
           "question": 2,
-          "aCount": 2,
-          "bCount": 1,
-          "aPercent": 66.7,
-          "bPercent": 33.3,
-          "discriminability": 0,
-          "ratioDiscriminability": 0.667
+          "aCount": 51,
+          "bCount": 90,
+          "aPercent": 36.2,
+          "bPercent": 63.8,
+          "discriminability": 0.69,
+          "ratioDiscriminability": 0.723
         },
         {
           "question": 3,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 101,
+          "bCount": 40,
+          "aPercent": 71.6,
+          "bPercent": 28.4,
+          "discriminability": 0.558,
+          "ratioDiscriminability": 0.567
         },
         {
           "question": 4,
-          "aCount": 0,
-          "bCount": 3,
-          "aPercent": 0,
-          "bPercent": 100,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 35,
+          "bCount": 106,
+          "aPercent": 24.8,
+          "bPercent": 75.2,
+          "discriminability": 0.673,
+          "ratioDiscriminability": 0.496
         },
         {
           "question": 5,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 64,
+          "bCount": 77,
+          "aPercent": 45.4,
+          "bPercent": 54.6,
+          "discriminability": 0.426,
+          "ratioDiscriminability": 0.908
         },
         {
           "question": 6,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 93,
+          "bCount": 48,
+          "aPercent": 66,
+          "bPercent": 34,
+          "discriminability": 0.371,
+          "ratioDiscriminability": 0.681
         },
         {
           "question": 7,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 109,
+          "bCount": 32,
+          "aPercent": 77.3,
+          "bPercent": 22.7,
+          "discriminability": 0.523,
+          "ratioDiscriminability": 0.454
         },
         {
           "question": 8,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 48,
+          "bCount": 93,
+          "aPercent": 34,
+          "bPercent": 66,
+          "discriminability": 0.365,
+          "ratioDiscriminability": 0.681
         },
         {
           "question": 9,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 83,
+          "bCount": 58,
+          "aPercent": 58.9,
+          "bPercent": 41.1,
+          "discriminability": 0.503,
+          "ratioDiscriminability": 0.823
         },
         {
           "question": 10,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 61,
+          "bCount": 80,
+          "aPercent": 43.3,
+          "bPercent": 56.7,
+          "discriminability": 0.787,
+          "ratioDiscriminability": 0.865
         },
         {
           "question": 11,
-          "aCount": 0,
-          "bCount": 3,
-          "aPercent": 0,
-          "bPercent": 100,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 37,
+          "bCount": 104,
+          "aPercent": 26.2,
+          "bPercent": 73.8,
+          "discriminability": 0.547,
+          "ratioDiscriminability": 0.525
         },
         {
           "question": 12,
-          "aCount": 2,
-          "bCount": 1,
-          "aPercent": 66.7,
-          "bPercent": 33.3,
-          "discriminability": 0,
-          "ratioDiscriminability": 0.667
+          "aCount": 73,
+          "bCount": 68,
+          "aPercent": 51.8,
+          "bPercent": 48.2,
+          "discriminability": 0.594,
+          "ratioDiscriminability": 0.965
         },
         {
           "question": 13,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 84,
+          "bCount": 57,
+          "aPercent": 59.6,
+          "bPercent": 40.4,
+          "discriminability": 0.711,
+          "ratioDiscriminability": 0.809
         },
         {
           "question": 14,
-          "aCount": 0,
-          "bCount": 3,
-          "aPercent": 0,
-          "bPercent": 100,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 58,
+          "bCount": 83,
+          "aPercent": 41.1,
+          "bPercent": 58.9,
+          "discriminability": 0.664,
+          "ratioDiscriminability": 0.823
         },
         {
           "question": 15,
-          "aCount": 0,
-          "bCount": 3,
-          "aPercent": 0,
-          "bPercent": 100,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 76,
+          "bCount": 65,
+          "aPercent": 53.9,
+          "bPercent": 46.1,
+          "discriminability": 0.695,
+          "ratioDiscriminability": 0.922
         },
         {
           "question": 16,
-          "aCount": 3,
-          "bCount": 0,
-          "aPercent": 100,
-          "bPercent": 0,
-          "discriminability": 0,
-          "ratioDiscriminability": 0
+          "aCount": 104,
+          "bCount": 37,
+          "aPercent": 73.8,
+          "bPercent": 26.2,
+          "discriminability": 0.474,
+          "ratioDiscriminability": 0.525
+
         }
       ],
       "dimensions": [
@@ -1163,42 +839,43 @@
           "questions": [
             {
               "question": 1,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 73,
+              "bCount": 68,
+              "aPercent": 51.8,
+              "bPercent": 48.2,
+              "discriminability": 0.59,
+              "ratioDiscriminability": 0.965
             },
             {
               "question": 2,
-              "aCount": 2,
-              "bCount": 1,
-              "aPercent": 66.7,
-              "bPercent": 33.3,
-              "discriminability": 0,
-              "ratioDiscriminability": 0.667
+              "aCount": 51,
+              "bCount": 90,
+              "aPercent": 36.2,
+              "bPercent": 63.8,
+              "discriminability": 0.69,
+              "ratioDiscriminability": 0.723
             },
             {
               "question": 3,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 101,
+              "bCount": 40,
+              "aPercent": 71.6,
+              "bPercent": 28.4,
+              "discriminability": 0.558,
+              "ratioDiscriminability": 0.567
             },
             {
               "question": 4,
-              "aCount": 0,
-              "bCount": 3,
-              "aPercent": 0,
-              "bPercent": 100,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 35,
+              "bCount": 106,
+              "aPercent": 24.8,
+              "bPercent": 75.2,
+              "discriminability": 0.673,
+              "ratioDiscriminability": 0.496
             }
           ],
-          "averageDiscriminability": 0
+          "averageDiscriminability": 0.628
+
         },
         {
           "name": "Precision",
@@ -1209,42 +886,43 @@
           "questions": [
             {
               "question": 5,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 64,
+              "bCount": 77,
+              "aPercent": 45.4,
+              "bPercent": 54.6,
+              "discriminability": 0.426,
+              "ratioDiscriminability": 0.908
             },
             {
               "question": 6,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 93,
+              "bCount": 48,
+              "aPercent": 66,
+              "bPercent": 34,
+              "discriminability": 0.371,
+              "ratioDiscriminability": 0.681
             },
             {
               "question": 7,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 109,
+              "bCount": 32,
+              "aPercent": 77.3,
+              "bPercent": 22.7,
+              "discriminability": 0.523,
+              "ratioDiscriminability": 0.454
             },
             {
               "question": 8,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 48,
+              "bCount": 93,
+              "aPercent": 34,
+              "bPercent": 66,
+              "discriminability": 0.365,
+              "ratioDiscriminability": 0.681
             }
           ],
-          "averageDiscriminability": 0
+          "averageDiscriminability": 0.421
+
         },
         {
           "name": "Transparency",
@@ -1255,42 +933,43 @@
           "questions": [
             {
               "question": 9,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 83,
+              "bCount": 58,
+              "aPercent": 58.9,
+              "bPercent": 41.1,
+              "discriminability": 0.503,
+              "ratioDiscriminability": 0.823
             },
             {
               "question": 10,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 61,
+              "bCount": 80,
+              "aPercent": 43.3,
+              "bPercent": 56.7,
+              "discriminability": 0.787,
+              "ratioDiscriminability": 0.865
             },
             {
               "question": 11,
-              "aCount": 0,
-              "bCount": 3,
-              "aPercent": 0,
-              "bPercent": 100,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 37,
+              "bCount": 104,
+              "aPercent": 26.2,
+              "bPercent": 73.8,
+              "discriminability": 0.547,
+              "ratioDiscriminability": 0.525
             },
             {
               "question": 12,
-              "aCount": 2,
-              "bCount": 1,
-              "aPercent": 66.7,
-              "bPercent": 33.3,
-              "discriminability": 0,
-              "ratioDiscriminability": 0.667
+              "aCount": 73,
+              "bCount": 68,
+              "aPercent": 51.8,
+              "bPercent": 48.2,
+              "discriminability": 0.594,
+              "ratioDiscriminability": 0.965
             }
           ],
-          "averageDiscriminability": 0
+          "averageDiscriminability": 0.608
+
         },
         {
           "name": "Adaptability",
@@ -1301,42 +980,43 @@
           "questions": [
             {
               "question": 13,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 84,
+              "bCount": 57,
+              "aPercent": 59.6,
+              "bPercent": 40.4,
+              "discriminability": 0.711,
+              "ratioDiscriminability": 0.809
             },
             {
               "question": 14,
-              "aCount": 0,
-              "bCount": 3,
-              "aPercent": 0,
-              "bPercent": 100,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 58,
+              "bCount": 83,
+              "aPercent": 41.1,
+              "bPercent": 58.9,
+              "discriminability": 0.664,
+              "ratioDiscriminability": 0.823
             },
             {
               "question": 15,
-              "aCount": 0,
-              "bCount": 3,
-              "aPercent": 0,
-              "bPercent": 100,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 76,
+              "bCount": 65,
+              "aPercent": 53.9,
+              "bPercent": 46.1,
+              "discriminability": 0.695,
+              "ratioDiscriminability": 0.922
             },
             {
               "question": 16,
-              "aCount": 3,
-              "bCount": 0,
-              "aPercent": 100,
-              "bPercent": 0,
-              "discriminability": 0,
-              "ratioDiscriminability": 0
+              "aCount": 104,
+              "bCount": 37,
+              "aPercent": 73.8,
+              "bPercent": 26.2,
+              "discriminability": 0.474,
+              "ratioDiscriminability": 0.525
             }
           ],
-          "averageDiscriminability": 0
+          "averageDiscriminability": 0.636
+
         }
       ]
     }
