@@ -174,14 +174,14 @@
       "dimension": "precision",
       "dimIdx": 1,
       "en": {
-        "text": "You're reviewing a colleague's technical design document before it goes to the team. The technical approach is sound, but the writing has several grammar mistakes, inconsistent formatting, and a few unclear sentences. They asked you to 'check if the technical approach makes sense.'",
-        "a": "Fix everything — grammar, formatting, clarity, plus technical feedback. A polished doc reflects better on them and the team. When you're already in the document, leaving surface-level issues visible feels negligent",
-        "b": "Only address the technical approach as asked. Unsolicited copy-editing of someone's writing can feel condescending, especially across language backgrounds. They asked for technical review, not a writing class"
+        "text": "Your team's order processing service receives order events from a partner integration. Each event payload contains 34 fields — your processing logic reads 6 of them (order_id, amount, currency, status, timestamp, customer_tier). The partner API has changed its payload structure twice in the past year (field renames, type changes in fields your code doesn't read). You're defining the input validation for this integration.",
+        "a": "Validate all 34 fields against the partner's documented schema. When the partner renames shipping.region to shipping.zone in their next update, your validation catches the schema drift on the first event — not 4 months later when someone queries stored shipping data for analytics and finds garbage. Full validation costs ~3ms per event and acts as a live schema-compliance monitor. Storing unvalidated data in 28 fields and trusting the partner to never make breaking changes — which their track record already contradicts — is how silent data corruption builds up in systems that look healthy until someone actually reads the data.",
+        "b": "Validate only the 6 fields your code reads. Accept the full payload for storage but don't enforce schema on fields you never query. Validating 28 fields you don't read couples your service's availability to the partner's complete schema — their next field rename triggers 10K validation errors per day for data you've never used. That's not diligence, it's fragility disguised as thoroughness. A validation alert that fires on every irrelevant schema change teaches the team to ignore alerts. Validate each field when you write the code that reads it — not speculatively, not at the cost of uptime."
       },
       "zh": {
-        "text": "你在帮同事 review 一份技术设计文档，准备发给团队。技术方案没问题，但文字有不少语法错误、格式不统一、还有几处表述不清。他们让你'看看技术方案有没有问题'。",
-        "a": "全改——语法、格式、表述清晰度，加上技术反馈。打磨过的文档对他们和团队都好。既然已经在看了，留着明显的表面问题不管说不过去",
-        "b": "只回复技术方案的问题。没人请你改的时候去改别人的文字，可能让人觉得居高临下，尤其是跨语言背景的同事。人家问的是技术 review，不是写作课"
+        "text": "团队的订单处理服务从合作方集成接收订单事件。每个事件载荷包含 34 个字段——你的处理逻辑只读取其中 6 个（order_id、amount、currency、status、timestamp、customer_tier）。合作方 API 在过去一年中两次更改了载荷结构（字段重命名、你的代码未读取的字段类型变更）。你正在为这个集成定义输入校验策略。",
+        "a": "按合作方的文档 schema 校验全部 34 个字段。合作方下次把 shipping.region 改名为 shipping.zone 时，你的校验在第一个事件就能捕获 schema 偏移——而不是 4 个月后有人查分析报告中的物流数据才发现是乱的。全量校验每个事件约多 3ms，相当于一个实时的 schema 合规监控。28 个字段不校验就存下来，指望合作方永远不会在你没看的字段上搞破坏性变更——而他们的历史记录已经证明了相反——这就是静默数据腐败在看起来健康的系统中悄悄积累的方式。",
+        "b": "只校验你代码实际读取的 6 个字段。载荷全量存储但不对未查询的字段强制 schema 规则。校验 28 个你不读的字段意味着把服务可用性绑定到合作方的完整 schema 上——他们下次改个字段名就会触发每天 1 万条校验错误，而且是你从未使用过的数据。这不是尽职，是伪装成严谨的脆弱性。一个在每次无关 schema 变更时都报警的校验规则，训练的是团队忽略报警。等到你写代码读某个字段时再校验它——不要投机性地校验，不要以可用性为代价。"
       }
     },
     {
