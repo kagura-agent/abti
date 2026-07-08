@@ -99,6 +99,7 @@ async function main() {
     dimensions: result.scores,
     type: result.code,
     questionVersion: QUESTION_VERSION,
+
   };
 
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
