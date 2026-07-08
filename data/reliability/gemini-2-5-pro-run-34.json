@@ -1,0 +1,31 @@
+{
+  "model": "gemini-2.5-pro",
+  "provider": "anthropic",
+  "run": 34,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "dimensions": [
+    3,
+    3,
+    1,
+    2
+  ],
+  "type": "PTDF",
+  "questionVersion": "5.13-beta"
+}
