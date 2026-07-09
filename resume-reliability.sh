@@ -1,26 +1,107 @@
 #!/bin/bash
 # Resume reliability test for a model from state file, then save result
-# Usage: bash resume-reliability.sh <state-file> <slug> <run-number>
-# For fresh runs: bash resume-reliability.sh --fresh <model-id> <slug> <run-number>
-# Check quota: bash resume-reliability.sh --check-quota <model-id>
+# Usage: bash resume-reliability.sh [--provider P] [--api-key K] [--base-url U] <state-file> <slug> <run-number>
+# For fresh runs: bash resume-reliability.sh [--provider P] --fresh <model-id> <slug> <run-number>
+# Check quota: bash resume-reliability.sh [--provider P] --check-quota <model-id>
+#
+# Providers: github (default), openrouter, floway
 
 set -e
 cd "$(dirname "$0")"
 
-export GITHUB_TOKEN=$(gh auth token)
 export https_proxy=http://127.0.0.1:1083
+
+# --- Provider configuration ---
+
+PROVIDER="github"
+API_KEY=""
+BASE_URL=""
+
+# Parse provider flags (must come before positional args / mode flags)
+while true; do
+  case "$1" in
+    --provider)  PROVIDER="$2"; shift 2 ;;
+    --api-key)   API_KEY="$2"; shift 2 ;;
+    --base-url)  BASE_URL="$2"; shift 2 ;;
+    *) break ;;
+  esac
+done
+
+# Validate provider
+case "$PROVIDER" in
+  github|openrouter|floway) ;;
+  *) echo "ERROR: Unknown provider '$PROVIDER'. Must be: github, openrouter, floway" >&2; exit 1 ;;
+esac
+
+# Resolve API key from flag or env var
+if [ -z "$API_KEY" ]; then
+  case "$PROVIDER" in
+    github)     API_KEY="${GITHUB_TOKEN:-$(gh auth token)}" ;;
+    openrouter) API_KEY="${OPENROUTER_API_KEY}" ;;
+    floway)     API_KEY="${FLOWAY_KEY}" ;;
+  esac
+fi
+if [ -z "$API_KEY" ]; then
+  echo "ERROR: No API key for provider '$PROVIDER'. Use --api-key or set the env var." >&2
+  exit 1
+fi
+
+# Resolve base URL
+if [ -z "$BASE_URL" ]; then
+  case "$PROVIDER" in
+    github)     BASE_URL="https://models.github.ai/inference" ;;
+    openrouter) BASE_URL="https://openrouter.ai/api/v1" ;;
+    floway)     BASE_URL="https://floway.jp.kagura-agent.com" ;;
+  esac
+fi
+
+# Auth header per provider
+case "$PROVIDER" in
+  github|openrouter) AUTH_HEADER="Authorization: Bearer $API_KEY" ;;
+  floway)            AUTH_HEADER="x-api-key: $API_KEY" ;;
+esac
+
+# Model ID mapping: maps GitHub Models IDs to provider-specific IDs
+resolve_model_id() {
+  local model="$1"
+  if [ "$PROVIDER" = "github" ]; then
+    echo "$model"
+    return
+  fi
+  case "$PROVIDER" in
+    openrouter)
+      case "$model" in
+        Phi-4)                                  echo "microsoft/phi-4" ;;
+        Llama-4-Scout-17B-16E-Instruct)         echo "meta-llama/llama-4-scout" ;;
+        Llama-4-Maverick-17B-128E-Instruct-FP8) echo "meta-llama/llama-4-maverick" ;;
+        mistral-small-2503)                     echo "mistralai/mistral-small-2603" ;;
+        Ministral-3B)                           echo "mistralai/ministral-3b-2512" ;;
+        *) echo "$model" ;;
+      esac
+      ;;
+    floway)
+      echo "$model"
+      ;;
+  esac
+}
+
+echo "Provider: $PROVIDER | Base URL: $BASE_URL"
+
+# --- Mode dispatch ---
 
 if [ "$1" = "--check-quota" ]; then
   MODEL="$2"
   if [ -z "$MODEL" ]; then
-    echo "Usage: bash resume-reliability.sh --check-quota <model-id>" >&2
+    echo "Usage: bash resume-reliability.sh [--provider P] --check-quota <model-id>" >&2
     exit 1
   fi
+
+  API_MODEL=$(resolve_model_id "$MODEL")
 
   PAYLOAD=$(python3 -c "
 import json
 payload = {
-    'model': '$MODEL',
+    'model': '$API_MODEL',
     'messages': [{'role': 'user', 'content': 'A'}],
     'max_tokens': 1
 }
@@ -32,9 +113,9 @@ print(json.dumps(payload))
 
   set +e
   HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 30 \
-    -X POST "https://models.github.ai/inference/chat/completions" \
+    -X POST "${BASE_URL}/chat/completions" \
     -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $GITHUB_TOKEN" \
+    -H "$AUTH_HEADER" \
     -d "$PAYLOAD" \
     -o "$RESP_FILE" 2>/dev/null)
   CURL_EXIT=$?
@@ -43,7 +124,7 @@ print(json.dumps(payload))
     exit 2
   fi
 
-  if [ "$HTTP_CODE" = "429" ]; then
+  if [ "$PROVIDER" = "github" ] && [ "$HTTP_CODE" = "429" ]; then
     python3 -c "
 import re, sys
 model = '''$MODEL'''
@@ -70,7 +151,7 @@ sys.exit(5)
   fi
 
   if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-    echo "OK: $MODEL has quota available"
+    echo "OK: $MODEL ($API_MODEL) reachable on $PROVIDER"
     exit 0
   fi
 
@@ -89,12 +170,11 @@ if [ "$1" = "--fresh" ]; then
   SLUG="$3"
   RUN="$4"
   STATE_FILE="${MODEL}-state.json"
-  # Create fresh state
   python3 -c "
 import json, datetime
 state = {
     'model': '$MODEL',
-    'provider': 'github',
+    'provider': '$PROVIDER',
     'answers': [],
     'parseFailures': 0,
     'startedAt': datetime.datetime.utcnow().isoformat() + 'Z',
@@ -125,7 +205,8 @@ if [ ! -f "$STATE_FILE" ]; then
 fi
 
 MODEL=$(python3 -c "import json; print(json.load(open('$STATE_FILE'))['model'])")
-echo "Model: $MODEL, Slug: $SLUG, Run: $RUN"
+API_MODEL=$(resolve_model_id "$MODEL")
+echo "Model: $MODEL (API: $API_MODEL), Slug: $SLUG, Run: $RUN"
 echo "State file: $STATE_FILE"
 echo "Output: $OUTFILE"
 
@@ -220,11 +301,11 @@ ${QUESTIONS[$i]}
 A: ${SHOW_A}
 B: ${SHOW_B}"
 
-    # Call GitHub Models API
+    # Call LLM API
     PAYLOAD=$(python3 -c "
 import json, sys
 payload = {
-    'model': '$MODEL',
+    'model': '$API_MODEL',
     'messages': [
         {'role': 'system', 'content': '''$SYSTEM_PROMPT'''},
         {'role': 'user', 'content': '''$USER_MSG'''}
@@ -242,9 +323,9 @@ print(json.dumps(payload))
     RETRY=0
     while true; do
       HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 120 \
-        -X POST "https://models.github.ai/inference/chat/completions" \
+        -X POST "${BASE_URL}/chat/completions" \
         -H "Content-Type: application/json" \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
+        -H "$AUTH_HEADER" \
         -d "$PAYLOAD" \
         -o "$RESP_FILE" 2>/dev/null)
 
@@ -419,7 +500,7 @@ answer_strs = ['A' if a else 'B' for a in answers]
 
 result = {
     'model': '$MODEL',
-    'provider': 'github',
+    'provider': '$PROVIDER',
     'run': $RUN,
     'answers': answer_strs,
     'type': code,
