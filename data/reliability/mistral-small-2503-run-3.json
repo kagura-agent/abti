@@ -1,0 +1,30 @@
+{
+    "model": "mistral-small-2503",
+    "provider": "github",
+    "run": 3,
+    "answers": [
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        3,
+        2,
+        3
+    ]
+}
