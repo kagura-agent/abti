@@ -103,17 +103,98 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
-      "consistency": 88,
-      "runs": 3,
-      "reliability": 0.875,
+      "consistency": 75,
+      "runs": 13,
+      "reliability": 0.7548,
       "reliabilityRuns": [
         {
-          "type": "PTDF",
+          "type": "RTCN",
           "scores": [
+            1,
             3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
             2,
             1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            2,
             2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
           ]
         },
         {
@@ -128,8 +209,17 @@
         {
           "type": "PTCF",
           "scores": [
-            3,
             2,
+            2,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
             2,
             3
           ]
@@ -287,25 +377,88 @@
       ],
       "model": "claude-opus-4.6",
       "provider": "anthropic",
-      "consistency": 90,
-      "runs": 3,
-      "reliability": 0.8958,
+      "consistency": 81,
+      "runs": 13,
+      "reliability": 0.8125,
       "reliabilityRuns": [
         {
-          "type": "PEDF",
+          "type": "PTCN",
           "scores": [
             2,
-            0,
-            1,
-            3
+            3,
+            4,
+            1
           ]
         },
         {
-          "type": "PECF",
+          "type": "PTCN",
           "scores": [
             2,
-            0,
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
             2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            0
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            3,
             2
           ]
         },
@@ -315,7 +468,34 @@
             2,
             2,
             2,
-            3
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
           ]
         }
       ]
@@ -423,26 +603,17 @@
       ],
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
-      "consistency": 69,
-      "runs": 3,
-      "reliability": 0.6875,
+      "consistency": 61,
+      "runs": 13,
+      "reliability": 0.6106,
       "reliabilityRuns": [
         {
-          "type": "PTCN",
+          "type": "RECN",
           "scores": [
-            2,
-            2,
-            2,
-            0
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
+            1,
+            1,
             3,
-            3,
-            3,
-            2
+            1
           ]
         },
         {
@@ -452,6 +623,105 @@
             2,
             2,
             3
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            3,
+            4
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            1
           ]
         }
       ]
@@ -1300,33 +1570,105 @@
           "type": "PTCF",
           "scores": [
             2,
+            4,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
             3,
             2,
-            3
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
           ]
         },
         {
           "type": "PTCF",
           "scores": [
             2,
+            4,
             3,
-            2,
-            3
+            2
           ]
         },
         {
           "type": "PTCF",
           "scores": [
-            2,
             3,
-            2,
-            3
+            4,
+            3,
+            2
           ]
         }
       ],
-      "runs": 3,
-      "reliability": 1,
-      "consistency": 100
+      "runs": 11,
+      "reliability": 0.9261,
+      "consistency": 93
     },
     {
       "name": "Gemma 2 2B",
@@ -1643,10 +1985,110 @@
           "runs": 3
         }
       ],
-      "reliability": 0.9375,
-      "reliabilityRuns": 0,
-      "consistency": 94,
-      "runs": 1
+      "reliability": 0.75,
+      "reliabilityRuns": [
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            4,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            0,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            4
+          ]
+        }
+      ],
+      "consistency": 75,
+      "runs": 11
     },
     {
       "name": "GPT-4o",
@@ -1745,14 +2187,59 @@
           "provider": "openai"
         }
       ],
-      "reliability": 0.9583,
+      "reliability": 0.8029,
       "reliabilityRuns": [
         {
-          "type": "PTDF",
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
           "scores": [
             2,
             3,
-            0,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
             3
           ]
         },
@@ -1760,23 +2247,68 @@
           "type": "PTDF",
           "scores": [
             2,
-            3,
+            2,
             0,
-            2
+            3
           ]
         },
         {
-          "type": "PTDF",
+          "type": "RTDF",
           "scores": [
-            2,
+            1,
             2,
             0,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
             2
           ]
         }
       ],
-      "consistency": 96,
-      "runs": 3
+      "consistency": 80,
+      "runs": 13
     },
     {
       "name": "GPT-4o mini",
@@ -1827,37 +2359,37 @@
       ],
       "model": "gpt-4o-mini",
       "provider": "openai",
-      "reliability": 0.875,
+      "reliability": 0.7708,
       "reliabilityRuns": [
         {
-          "type": "PEDF",
+          "type": "PECF",
           "scores": [
-            2,
+            3,
             1,
-            1,
-            2
+            3,
+            4
           ]
         },
         {
-          "type": "PTDN",
+          "type": "PECF",
           "scores": [
+            3,
+            1,
             2,
-            2,
-            0,
-            1
+            3
           ]
         },
         {
-          "type": "PEDN",
+          "type": "RTDF",
           "scores": [
-            2,
             1,
+            3,
             1,
-            1
+            3
           ]
         }
       ],
-      "consistency": 88,
+      "consistency": 77,
       "runs": 3
     },
     {
@@ -3177,9 +3709,37 @@
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
       "reliability": 0.8958,
-      "reliabilityRuns": 0,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            4
+          ]
+        }
+      ],
       "consistency": 90,
-      "runs": 1
+      "runs": 3
     },
     {
       "name": "GPT-4.1 nano",
@@ -3231,10 +3791,38 @@
       "model": "gpt-4.1-nano",
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 0.9375,
-      "reliabilityRuns": 0,
-      "consistency": 94,
-      "runs": 1
+      "reliability": 0.9583,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            2
+          ]
+        }
+      ],
+      "consistency": 96,
+      "runs": 3
     },
     {
       "name": "Phi 4",
