@@ -1,0 +1,30 @@
+{
+    "model": "Llama-4-Scout-17B-16E-Instruct",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "PEDF",
+    "dimensions": [
+        2,
+        1,
+        1,
+        2
+    ]
+}
