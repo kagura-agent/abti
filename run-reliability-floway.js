@@ -54,7 +54,9 @@ async function main() {
     let retries = 0;
     while (true) {
       try {
-        response = await callLLM('anthropic', FLOWAY_KEY, modelId, SYSTEM_PROMPT, userMsg, FLOWAY_URL, 2048);
+        const isClaude = modelId.toLowerCase().startsWith('claude');
+        const provider = isClaude ? 'anthropic' : 'openai';
+        response = await callLLM(provider, FLOWAY_KEY, modelId, SYSTEM_PROMPT, userMsg, FLOWAY_URL, 2048);
         break;
       } catch (e) {
         if (e.message && e.message.includes('429') && retries < 5) {
