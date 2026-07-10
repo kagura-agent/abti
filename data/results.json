@@ -2894,8 +2894,36 @@
       "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
       "provider": "github",
       "reliability": 0.8958,
-      "reliabilityRuns": 0,
-      "runs": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
       "consistency": 90
     },
     {
@@ -2948,8 +2976,36 @@
       "model": "Llama-4-Scout-17B-16E-Instruct",
       "provider": "github",
       "reliability": 0.9375,
-      "reliabilityRuns": 0,
-      "runs": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
       "consistency": 94
     },
     {
@@ -3434,11 +3490,39 @@
       ],
       "model": "Ministral-3B",
       "provider": "github",
-      "reliability": 0.8125,
-      "reliabilityRuns": 0,
+      "reliability": 0.8958,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            3,
+            3
+          ]
+        }
+      ],
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "consistency": 81,
-      "runs": 1
+      "consistency": 90,
+      "runs": 3
     },
     {
       "name": "Mistral Medium 3",
@@ -3546,9 +3630,37 @@
       "provider": "github",
       "reliability": 0.7708,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": 0,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            3,
+            0
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        }
+      ],
       "consistency": 77,
-      "runs": 1
+      "runs": 3
     },
     {
       "name": "Mistral 7B",
@@ -3875,7 +3987,17 @@
       "provider": "github",
       "desc": "Responsive, thorough, diplomatic, principled. Meticulous, measured, speaks softly and carries a big bibliography.",
       "reliability": 1,
-      "reliabilityRuns": 0,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            2,
+            1,
+            2
+          ]
+        }
+      ],
       "consistency": 100,
       "runs": 1
     },
@@ -5013,7 +5135,39 @@
       "model": "claude-sonnet-5",
       "provider": "anthropic",
       "questionVersion": "5.15-beta",
-      "lang": "en"
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            0,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            3,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.9167,
+      "consistency": 92
     }
   ]
 }
