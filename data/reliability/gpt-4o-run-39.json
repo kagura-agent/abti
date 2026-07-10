@@ -1,0 +1,30 @@
+{
+    "model": "gpt-4o",
+    "provider": "github",
+    "run": 39,
+    "answers": [
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A"
+    ],
+    "type": "RTCF",
+    "dimensions": [
+        1,
+        3,
+        2,
+        2
+    ]
+}

@@ -103,9 +103,9 @@
       ],
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
-      "consistency": 75,
-      "runs": 13,
-      "reliability": 0.7548,
+      "consistency": 73,
+      "runs": 22,
+      "reliability": 0.733,
       "reliabilityRuns": [
         {
           "type": "RTCN",
@@ -132,6 +132,78 @@
             2,
             2,
             3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
           ]
         },
         {
@@ -221,6 +293,15 @@
             1,
             1,
             2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            4,
             3
           ]
         }
@@ -377,9 +458,9 @@
       ],
       "model": "claude-opus-4.6",
       "provider": "anthropic",
-      "consistency": 81,
-      "runs": 13,
-      "reliability": 0.8125,
+      "consistency": 77,
+      "runs": 23,
+      "reliability": 0.7663,
       "reliabilityRuns": [
         {
           "type": "PTCN",
@@ -405,6 +486,87 @@
             1,
             3,
             1,
+            2
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            1,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            0,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
             2
           ]
         },
@@ -496,6 +658,15 @@
             1,
             2,
             1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            2
           ]
         }
       ]
@@ -603,9 +774,9 @@
       ],
       "model": "claude-sonnet-4.5",
       "provider": "anthropic",
-      "consistency": 61,
-      "runs": 13,
-      "reliability": 0.6106,
+      "consistency": 58,
+      "runs": 23,
+      "reliability": 0.5761,
       "reliabilityRuns": [
         {
           "type": "RECN",
@@ -632,6 +803,87 @@
             1,
             2,
             1
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            3,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            4,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            4,
+            0,
+            0,
+            2
           ]
         },
         {
@@ -722,6 +974,15 @@
             3,
             3,
             1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            3
           ]
         }
       ]
@@ -884,11 +1145,39 @@
       ],
       "model": "cohere-command-a",
       "provider": "github",
-      "reliability": 1,
+      "reliability": 0.875,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
-      "reliabilityRuns": 0,
-      "consistency": 100,
-      "runs": 1
+      "reliabilityRuns": [
+        {
+          "type": "RTDF",
+          "scores": [
+            0,
+            4,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "RTDN",
+          "scores": [
+            1,
+            3,
+            1,
+            1
+          ]
+        }
+      ],
+      "consistency": 88,
+      "runs": 3
     },
     {
       "name": "Cohere Command R",
@@ -1594,6 +1883,87 @@
           ]
         },
         {
+          "type": "PTDF",
+          "scores": [
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            2
+          ]
+        },
+        {
           "type": "PTCF",
           "scores": [
             3,
@@ -1666,9 +2036,9 @@
           ]
         }
       ],
-      "runs": 11,
-      "reliability": 0.9261,
-      "consistency": 93
+      "runs": 20,
+      "reliability": 0.9187,
+      "consistency": 92
     },
     {
       "name": "Gemma 2 2B",
@@ -1985,7 +2355,7 @@
           "runs": 3
         }
       ],
-      "reliability": 0.75,
+      "reliability": 0.7438,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -2012,6 +2382,78 @@
             4,
             2,
             3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            0,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            0,
+            1,
+            4
           ]
         },
         {
@@ -2085,10 +2527,19 @@
             2,
             4
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            3,
+            3
+          ]
         }
       ],
-      "consistency": 75,
-      "runs": 11
+      "consistency": 74,
+      "runs": 20
     },
     {
       "name": "GPT-4o",
@@ -2187,7 +2638,7 @@
           "provider": "openai"
         }
       ],
-      "reliability": 0.8029,
+      "reliability": 0.788,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -2213,6 +2664,87 @@
             1,
             3,
             1,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            0,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            0,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            0,
+            0,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            0,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            0,
             3
           ]
         },
@@ -2305,10 +2837,19 @@
             2,
             2
           ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            2,
+            2
+          ]
         }
       ],
-      "consistency": 80,
-      "runs": 13
+      "consistency": 79,
+      "runs": 23
     },
     {
       "name": "GPT-4o mini",
@@ -2838,11 +3379,39 @@
       ],
       "model": "Llama-3.3-70B-Instruct",
       "provider": "github",
-      "reliability": 0.875,
-      "reliabilityRuns": 0,
+      "reliability": 0.8958,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            3,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            4,
+            3
+          ]
+        }
+      ],
       "reliabilityNote": "3/3 PECN [2,1,3,1]",
-      "runs": 1,
-      "consistency": 88
+      "runs": 3,
+      "consistency": 90
     },
     {
       "name": "Llama 4 Maverick 17B",
@@ -3436,10 +4005,38 @@
         4
       ],
       "nick": "The Advisor",
-      "reliability": 0.7917,
-      "reliabilityRuns": 0,
-      "runs": 1,
-      "consistency": 79
+      "reliability": 0.6818,
+      "reliabilityRuns": [
+        {
+          "type": "PECN",
+          "scores": [
+            4,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 68
     },
     {
       "name": "Ministral 3B",
@@ -3573,11 +4170,39 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 0.9583,
+      "reliability": 0.75,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
-      "reliabilityRuns": 0,
-      "consistency": 96,
-      "runs": 1
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            0,
+            3
+          ]
+        }
+      ],
+      "consistency": 75,
+      "runs": 3
     },
     {
       "name": "Mistral Small 3.1",
