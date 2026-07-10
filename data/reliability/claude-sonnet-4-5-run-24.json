@@ -1,0 +1,31 @@
+{
+  "model": "claude-sonnet-4-5",
+  "provider": "anthropic",
+  "run": 24,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A"
+  ],
+  "dimensions": [
+    3,
+    4,
+    4,
+    1
+  ],
+  "type": "PTCN",
+  "questionVersion": "5.16-beta"
+}
