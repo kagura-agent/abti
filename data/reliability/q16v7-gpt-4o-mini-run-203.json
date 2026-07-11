@@ -1,0 +1,31 @@
+{
+  "model": "gpt-4o-mini",
+  "provider": "anthropic",
+  "run": 203,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    3,
+    2,
+    2,
+    4
+  ],
+  "type": "PTCF",
+  "questionVersion": "5.18-beta"
+}

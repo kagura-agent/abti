@@ -1,0 +1,30 @@
+{
+    "model": "gemini-3.5-flash",
+    "provider": "floway",
+    "run": 2,
+    "answers": [
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "RTCF",
+    "dimensions": [
+        1,
+        2,
+        2,
+        3
+    ]
+}
