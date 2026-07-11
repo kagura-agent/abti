@@ -1,0 +1,30 @@
+{
+    "model": "mistral-ai/mistral-medium-2505",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        3,
+        2,
+        2,
+        3
+    ]
+}

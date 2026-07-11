@@ -1,0 +1,30 @@
+{
+    "model": "cohere/cohere-command-a",
+    "provider": "github",
+    "run": 1,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "PTDN",
+    "dimensions": [
+        2,
+        3,
+        1,
+        1
+    ]
+}
