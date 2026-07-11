@@ -322,14 +322,15 @@ print(json.dumps(payload))
     MAX_RETRIES=10
     RETRY=0
     while true; do
+      set +e
       HTTP_CODE=$(curl -s -w "%{http_code}" --max-time 120 \
         -X POST "${BASE_URL}/chat/completions" \
         -H "Content-Type: application/json" \
         -H "$AUTH_HEADER" \
         -d "$PAYLOAD" \
         -o "$RESP_FILE" 2>/dev/null)
-
       CURL_EXIT=$?
+      set -e
 
       if [ "$CURL_EXIT" -ne 0 ]; then
         echo "  WARN: curl failed (exit $CURL_EXIT), retrying..."
