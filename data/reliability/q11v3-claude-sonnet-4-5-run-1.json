@@ -1,0 +1,30 @@
+{
+    "model": "claude-sonnet-4-5",
+    "provider": "floway",
+    "run": 1,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        2,
+        3,
+        3
+    ]
+}
