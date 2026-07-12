@@ -1,0 +1,30 @@
+{
+    "model": "gpt-5.5",
+    "provider": "floway",
+    "run": 2,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        3,
+        3,
+        4
+    ]
+}
