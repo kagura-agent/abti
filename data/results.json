@@ -5835,10 +5835,38 @@
       ],
       "model": "MiniMax-M2.7",
       "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": 0,
-      "reliability": 0.75,
-      "consistency": 75
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTCN",
+          "scores": [
+            4,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            3,
+            1,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            4,
+            0,
+            2,
+            0
+          ]
+        }
+      ],
+      "reliability": 0.8333,
+      "consistency": 83
     },
     {
       "name": "GPT-5.4",
@@ -5889,10 +5917,38 @@
       ],
       "model": "gpt-5.4",
       "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": 0,
-      "reliability": 0.9375,
-      "consistency": 94
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        }
+      ],
+      "reliability": 0.9167,
+      "consistency": 92
     },
     {
       "name": "GPT-5.4 Mini",
