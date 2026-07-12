@@ -302,6 +302,12 @@ A: ${SHOW_A}
 B: ${SHOW_B}"
 
     # Call LLM API
+    # Reasoning models (o1, o3, o4, gpt-5.x) don't support temperature
+    NO_TEMP=false
+    case "$API_MODEL" in
+      o1*|o3*|o4*|gpt-5*) NO_TEMP=true ;;
+    esac
+
     PAYLOAD=$(python3 -c "
 import json, sys
 payload = {
@@ -311,8 +317,9 @@ payload = {
         {'role': 'user', 'content': '''$USER_MSG'''}
     ],
     'max_tokens': 2048,
-    'temperature': 0
 }
+if '$NO_TEMP' != 'true':
+    payload['temperature'] = 0
 print(json.dumps(payload))
 ")
 
