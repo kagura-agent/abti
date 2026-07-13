@@ -1,0 +1,30 @@
+{
+    "model": "gemini-2.5-pro",
+    "provider": "floway",
+    "run": 3,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        3,
+        4,
+        3,
+        2
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "model": "claude-haiku-4-5",
+    "provider": "floway",
+    "run": 2,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "PTCN",
+    "dimensions": [
+        3,
+        3,
+        3,
+        1
+    ]
+}
