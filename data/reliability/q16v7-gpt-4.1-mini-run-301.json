@@ -1,0 +1,32 @@
+{
+    "model": "openai/gpt-4.1-mini",
+    "provider": "github",
+    "run": 301,
+    "answers": [
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A"
+    ],
+    "type": "PTDF",
+    "dimensions": [
+        3,
+        2,
+        1,
+        2
+    ]
+}

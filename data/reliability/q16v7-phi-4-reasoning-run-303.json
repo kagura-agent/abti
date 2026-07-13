@@ -1,0 +1,36 @@
+{
+    "model": "microsoft/phi-4-reasoning",
+    "provider": "github",
+    "run": 303,
+    "answers": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        3,
+        1,
+        2,
+        3
+    ]
+}

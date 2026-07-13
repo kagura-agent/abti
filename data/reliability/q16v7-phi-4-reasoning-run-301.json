@@ -1,0 +1,30 @@
+{
+    "model": "microsoft/phi-4-reasoning",
+    "provider": "github",
+    "run": 301,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "REDF",
+    "dimensions": [
+        1,
+        0,
+        1,
+        3
+    ]
+}
