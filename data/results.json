@@ -6920,6 +6920,90 @@
       "runs": 4,
       "reliability": 0.7656,
       "consistency": 77
+    },
+    {
+      "name": "GPT-5.3 Codex",
+      "slug": "gpt-5-3-codex",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-07-13T13:45:00.000000+00:00",
+      "scores": [
+        3,
+        4,
+        3,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.3-codex",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            2,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.8958,
+      "consistency": 90
     }
   ]
 }
