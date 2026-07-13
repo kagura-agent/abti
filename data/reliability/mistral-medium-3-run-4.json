@@ -1,0 +1,31 @@
+{
+  "model": "mistral-ai/mistral-medium-2505",
+  "provider": "github",
+  "run": 4,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    3,
+    3,
+    1,
+    2
+  ],
+  "type": "PTDF",
+  "questionVersion": "5.18-beta"
+}
