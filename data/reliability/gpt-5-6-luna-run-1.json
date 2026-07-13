@@ -1,6 +1,6 @@
 {
   "model": "gpt-5.6-luna",
-  "provider": "anthropic",
+  "provider": "openai",
   "run": 1,
   "answers": [
     "A",
@@ -8,6 +8,9 @@
     "A",
     "B",
     "A",
+    "B",
+    "B",
+    "B",
     "A",
     "A",
     "A",
@@ -15,17 +18,14 @@
     "A",
     "B",
     "A",
-    "A",
-    "B",
-    "A",
-    "B"
+    "A"
   ],
   "dimensions": [
     2,
+    1,
     4,
-    3,
-    2
+    3
   ],
-  "type": "PTCF",
+  "type": "PECF",
   "questionVersion": "5.18-beta"
 }

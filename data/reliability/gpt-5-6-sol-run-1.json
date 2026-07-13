@@ -1,10 +1,8 @@
 {
   "model": "gpt-5.6-sol",
-  "provider": "anthropic",
+  "provider": "openai",
   "run": 1,
   "answers": [
-    "B",
-    "B",
     "A",
     "B",
     "A",
@@ -13,19 +11,21 @@
     "A",
     "A",
     "A",
-    "B",
     "A",
     "A",
+    "A",
+    "A",
+    "A",
     "B",
     "B",
-    "B"
+    "A"
   ],
   "dimensions": [
-    1,
-    3,
-    3,
-    1
+    2,
+    4,
+    4,
+    2
   ],
-  "type": "RTCN",
+  "type": "PTCF",
   "questionVersion": "5.18-beta"
 }

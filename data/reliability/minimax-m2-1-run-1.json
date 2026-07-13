@@ -1,31 +1,31 @@
 {
-  "model": "gpt-5.6-luna",
+  "model": "MiniMax-M2.1",
   "provider": "openai",
-  "run": 2,
+  "run": 1,
   "answers": [
-    "A",
-    "B",
-    "A",
-    "B",
-    "A",
-    "B",
     "B",
     "B",
     "A",
     "A",
+    "B",
     "A",
     "A",
     "A",
+    "B",
     "A",
-    "A",
-    "A"
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B"
   ],
   "dimensions": [
     2,
+    3,
     1,
-    4,
-    4
+    0
   ],
-  "type": "PECF",
+  "type": "PTDN",
   "questionVersion": "5.18-beta"
 }

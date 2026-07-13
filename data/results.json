@@ -344,118 +344,6 @@
       ]
     },
     {
-      "name": "Claude Opus 4.8",
-      "slug": "claude-opus-4-8",
-      "url": "",
-      "type": "RECN",
-      "nick": "The Machine",
-      "testedAt": "2026-06-24T01:38:10.283Z",
-      "scores": [
-        0,
-        0,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "claude-opus-4.8",
-      "provider": "anthropic",
-      "history": [
-        {
-          "type": "RECN",
-          "testedAt": "2026-06-23T12:31:00.000Z",
-          "scores": [
-            1,
-            1,
-            4,
-            1
-          ],
-          "dimensions": [
-            {
-              "poles": [
-                "P",
-                "R"
-              ],
-              "score": 1,
-              "max": 4
-            },
-            {
-              "poles": [
-                "T",
-                "E"
-              ],
-              "score": 1,
-              "max": 4
-            },
-            {
-              "poles": [
-                "C",
-                "D"
-              ],
-              "score": 4,
-              "max": 4
-            },
-            {
-              "poles": [
-                "F",
-                "N"
-              ],
-              "score": 1,
-              "max": 4
-            }
-          ],
-          "model": "claude-opus-4.8",
-          "provider": "anthropic"
-        }
-      ],
-      "reliability": 1,
-      "consistency": 100,
-      "runs": 1,
-      "reliabilityRuns": [
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            2,
-            4,
-            4
-          ]
-        }
-      ]
-    },
-    {
       "name": "Claude Opus 4.6",
       "slug": "claude-opus-4-6",
       "url": "",
@@ -813,6 +701,118 @@
             2,
             4,
             3
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Claude Opus 4.8",
+      "slug": "claude-opus-4-8",
+      "url": "",
+      "type": "RECN",
+      "nick": "The Machine",
+      "testedAt": "2026-06-24T01:38:10.283Z",
+      "scores": [
+        0,
+        0,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "claude-opus-4.8",
+      "provider": "anthropic",
+      "history": [
+        {
+          "type": "RECN",
+          "testedAt": "2026-06-23T12:31:00.000Z",
+          "scores": [
+            1,
+            1,
+            4,
+            1
+          ],
+          "dimensions": [
+            {
+              "poles": [
+                "P",
+                "R"
+              ],
+              "score": 1,
+              "max": 4
+            },
+            {
+              "poles": [
+                "T",
+                "E"
+              ],
+              "score": 1,
+              "max": 4
+            },
+            {
+              "poles": [
+                "C",
+                "D"
+              ],
+              "score": 4,
+              "max": 4
+            },
+            {
+              "poles": [
+                "F",
+                "N"
+              ],
+              "score": 1,
+              "max": 4
+            }
+          ],
+          "model": "claude-opus-4.8",
+          "provider": "anthropic"
+        }
+      ],
+      "reliability": 1,
+      "consistency": 100,
+      "runs": 1,
+      "reliabilityRuns": [
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            4,
+            4
           ]
         }
       ]
@@ -1178,6 +1178,99 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Claude Sonnet 5",
+      "slug": "claude-sonnet-5",
+      "url": "",
+      "type": "RECF",
+      "nick": "The Blade",
+      "testedAt": "2026-07-09T14:48:59.461878Z",
+      "scores": [
+        1,
+        0,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "claude-sonnet-5",
+      "provider": "anthropic",
+      "questionVersion": "5.15-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            0,
+            0,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            0,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            4,
+            3
+          ]
+        }
+      ],
+      "runs": 4,
+      "reliability": 0.8594,
+      "consistency": 86
     },
     {
       "name": "Codestral (Mistral)",
@@ -2215,6 +2308,205 @@
       "consistency": 93
     },
     {
+      "name": "Gemini 3 Flash Preview",
+      "slug": "gemini-3-flash-preview",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:37:00.000Z",
+      "scores": [
+        2,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3-flash-preview",
+      "provider": "openai",
+      "runs": 1,
+      "reliabilityRuns": 0,
+      "reliability": 0.9375,
+      "consistency": 94
+    },
+    {
+      "name": "Gemini 3.1 Pro Preview",
+      "slug": "gemini-3-1-pro-preview",
+      "url": "",
+      "type": "RTCF",
+      "nick": "The Advisor",
+      "testedAt": "2026-06-24T08:32:00.000Z",
+      "scores": [
+        1,
+        2,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3.1-pro-preview",
+      "provider": "openai",
+      "runs": 1,
+      "reliabilityRuns": 0,
+      "reliability": 0.9167,
+      "consistency": 92
+    },
+    {
+      "name": "Gemini 3.5 Flash",
+      "slug": "gemini-3-5-flash",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:31:00.000Z",
+      "scores": [
+        2,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gemini-3.5-flash",
+      "provider": "openai",
+      "runs": 4,
+      "reliabilityRuns": [
+        {
+          "type": "PECN",
+          "scores": [
+            2,
+            1,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            4
+          ]
+        }
+      ],
+      "reliability": 0.7813,
+      "consistency": 78
+    },
+    {
       "name": "Gemma 2 2B",
       "slug": "gemma2-2b",
       "url": "",
@@ -2759,6 +3051,190 @@
       ],
       "consistency": 77,
       "runs": 25
+    },
+    {
+      "name": "GPT-4.1 mini",
+      "slug": "gpt-4-1-mini",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-05T10:23:35.303Z",
+      "scores": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-4.1-mini",
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
+      "reliability": 0.875,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
+        }
+      ],
+      "consistency": 88,
+      "runs": 4
+    },
+    {
+      "name": "GPT-4.1 nano",
+      "slug": "gpt-4-1-nano",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-05T10:25:08.075Z",
+      "scores": [
+        4,
+        1,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-4.1-nano",
+      "provider": "github",
+      "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
+      "reliability": 0.9219,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            4,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            2,
+            2
+          ]
+        }
+      ],
+      "consistency": 92,
+      "runs": 4
     },
     {
       "name": "GPT-4o",
@@ -3342,6 +3818,161 @@
       "reliabilityRuns": 0
     },
     {
+      "name": "GPT-5.4",
+      "slug": "gpt-5-4",
+      "url": "",
+      "type": "RTCF",
+      "nick": "The Advisor",
+      "testedAt": "2026-06-24T08:35:00.000Z",
+      "scores": [
+        1,
+        2,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.4",
+      "provider": "openai",
+      "runs": 4,
+      "reliabilityRuns": [
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            3,
+            2
+          ]
+        }
+      ],
+      "reliability": 0.8438,
+      "consistency": 84
+    },
+    {
+      "name": "GPT-5.4 Mini",
+      "slug": "gpt-5-4-mini",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-06-24T08:36:00.000Z",
+      "scores": [
+        3,
+        3,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.4-mini",
+      "provider": "openai",
+      "runs": 1,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            3,
+            3
+          ]
+        }
+      ],
+      "reliability": 1,
+      "consistency": 100
+    },
+    {
       "name": "GPT-5.5",
       "slug": "gpt-5-5",
       "url": "",
@@ -3449,6 +4080,258 @@
       "runs": 4,
       "reliability": 0.8438,
       "consistency": 84
+    },
+    {
+      "name": "GPT-5.6 Luna",
+      "slug": "gpt-5-6-luna",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-07-13T04:53:52.141850+00:00",
+      "scores": [
+        2,
+        1,
+        4,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            4,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.9167,
+      "consistency": 67
+    },
+    {
+      "name": "GPT-5.6 Sol",
+      "slug": "gpt-5-6-sol",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-07-13T04:53:52.141850+00:00",
+      "scores": [
+        2,
+        4,
+        4,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.6-sol",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            4,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.9792,
+      "consistency": 100
+    },
+    {
+      "name": "GPT-5.6 Terra",
+      "slug": "gpt-5-6-terra",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-07-13T04:53:52.141850+00:00",
+      "scores": [
+        3,
+        2,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "gpt-5.6-terra",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            3,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.8958,
+      "consistency": 100
     },
     {
       "name": "Granite 3.3 8B",
@@ -3559,6 +4442,115 @@
       "runs": 1
     },
     {
+      "name": "Llama 3.1 405B",
+      "slug": "llama-3-1-405b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-06-12T02:44:36.000Z",
+      "scores": [
+        3,
+        2,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "Meta-Llama-3.1-405B-Instruct",
+      "provider": "github",
+      "reliability": 0.9583,
+      "reliabilityRuns": 0,
+      "reliabilityNote": "PTCF, PTCN, PTCN",
+      "runs": 1,
+      "consistency": 96
+    },
+    {
+      "name": "Llama 3.1 8B",
+      "slug": "llama-3-1-8b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T13:30:00.000Z",
+      "scores": [
+        3,
+        2,
+        3,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "llama3.1:8b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 1,
+      "reliability": 1,
+      "reliabilityRuns": 0
+    },
+    {
       "name": "Llama 3.2 11B Vision",
       "slug": "llama-3-2-11b-vision",
       "url": "",
@@ -3612,6 +4604,60 @@
       "reliabilityRuns": 0,
       "consistency": 100,
       "runs": 1
+    },
+    {
+      "name": "Llama 3.2 3B",
+      "slug": "llama-3-2-3b",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-05-02T06:54:15.441Z",
+      "scores": [
+        4,
+        4,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "llama3.2:3b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 1,
+      "reliability": 1,
+      "reliabilityRuns": 0
     },
     {
       "name": "Llama 3.2 90B Vision",
@@ -3933,114 +4979,6 @@
       "consistency": 86
     },
     {
-      "name": "Llama 3.1 8B",
-      "slug": "llama-3-1-8b",
-      "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-02T13:30:00.000Z",
-      "scores": [
-        3,
-        2,
-        3,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "llama3.1:8b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
-    },
-    {
-      "name": "Llama 3.2 3B",
-      "slug": "llama-3-2-3b",
-      "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-05-02T06:54:15.441Z",
-      "scores": [
-        4,
-        4,
-        4,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "llama3.2:3b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
-    },
-    {
       "name": "Mathstral 7B",
       "slug": "mathstral-7b",
       "url": "",
@@ -4093,61 +5031,6 @@
       "runs": 1,
       "reliability": 1,
       "reliabilityRuns": 0
-    },
-    {
-      "name": "Llama 3.1 405B",
-      "slug": "llama-3-1-405b",
-      "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-06-12T02:44:36.000Z",
-      "scores": [
-        3,
-        2,
-        4,
-        1
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 1,
-          "max": 4
-        }
-      ],
-      "model": "Meta-Llama-3.1-405B-Instruct",
-      "provider": "github",
-      "reliability": 0.9583,
-      "reliabilityRuns": 0,
-      "reliabilityNote": "PTCF, PTCN, PTCN",
-      "runs": 1,
-      "consistency": 96
     },
     {
       "name": "Meta-Llama-3.1-8B-Instruct",
@@ -4223,17 +5106,110 @@
       "questionVersion": "5.0-beta"
     },
     {
-      "name": "Phi-4 Mini Instruct (GitHub)",
-      "slug": "phi-4-mini-instruct-github",
+      "name": "MiniMax M2.1",
+      "slug": "minimax-m2-1",
       "url": "",
-      "type": "PTCN",
-      "nick": "The Commander",
-      "testedAt": "2026-06-03T00:38:57.000Z",
+      "type": "PTDN",
+      "nick": "The Guardian",
+      "testedAt": "2026-07-13T04:53:52.141850+00:00",
+      "scores": [
+        2,
+        3,
+        1,
+        0
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 0,
+          "max": 4
+        }
+      ],
+      "model": "MiniMax-M2.1",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PTDN",
+          "scores": [
+            2,
+            3,
+            1,
+            0
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            4,
+            3,
+            1
+          ]
+        }
+      ],
+      "runs": 4,
+      "reliability": 0.6562,
+      "consistency": 25
+    },
+    {
+      "name": "MiniMax M2.5",
+      "slug": "minimax-m2-5",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-07-13T04:53:52.141850+00:00",
       "scores": [
         3,
         2,
-        4,
-        1
+        2,
+        3
       ],
       "dimensions": [
         {
@@ -4257,7 +5233,7 @@
             "C",
             "D"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         },
         {
@@ -4265,48 +5241,76 @@
             "F",
             "N"
           ],
-          "score": 1,
+          "score": 3,
           "max": 4
         }
       ],
-      "model": "phi-4-mini-instruct",
-      "provider": "github",
-      "answers": [
-        true,
-        false,
-        true,
-        true,
-        true,
-        false,
-        true,
-        false,
-        true,
-        true,
-        true,
-        true,
-        false,
-        false,
-        true,
-        false
+      "model": "MiniMax-M2.5",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            4,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            4,
+            3
+          ]
+        }
       ],
-      "reliability": 0.9167,
-      "reliabilityRuns": 0,
-      "runs": 1,
-      "consistency": 92
+      "runs": 4,
+      "reliability": 0.6875,
+      "consistency": 50
     },
     {
-      "model": "phi-4-reasoning",
-      "slug": "phi-4-reasoning",
-      "name": "Phi-4 Reasoning",
-      "provider": "github",
-      "type": "RTCF",
+      "name": "MiniMax M2.7",
+      "slug": "minimax-m2-7",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-06-24T08:32:30.000Z",
+      "scores": [
+        4,
+        0,
+        4,
+        2
+      ],
       "dimensions": [
         {
           "poles": [
             "P",
             "R"
           ],
-          "score": 0,
+          "score": 4,
           "max": 4
         },
         {
@@ -4314,7 +5318,7 @@
             "T",
             "E"
           ],
-          "score": 4,
+          "score": 0,
           "max": 4
         },
         {
@@ -4330,68 +5334,44 @@
             "F",
             "N"
           ],
-          "score": 4,
+          "score": 2,
           "max": 4
         }
       ],
-      "answers": [
-        false,
-        false,
-        false,
-        false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
-      ],
-      "testedAt": "2026-05-28T06:50:24.958Z",
-      "scores": [
-        0,
-        4,
-        4,
-        4
-      ],
-      "nick": "The Advisor",
-      "reliability": 0.6818,
+      "model": "MiniMax-M2.7",
+      "provider": "openai",
+      "runs": 3,
       "reliabilityRuns": [
         {
-          "type": "PECN",
+          "type": "PTCN",
           "scores": [
             4,
-            1,
             2,
+            3,
             1
           ]
         },
         {
-          "type": "RTDF",
+          "type": "PECN",
           "scores": [
+            3,
             1,
-            2,
-            1,
-            2
+            4,
+            1
           ]
         },
         {
-          "type": "PTCF",
+          "type": "PECN",
           "scores": [
+            4,
+            0,
             2,
-            2,
-            3,
-            3
+            0
           ]
         }
       ],
-      "runs": 3,
-      "consistency": 68
+      "reliability": 0.8333,
+      "consistency": 83
     },
     {
       "name": "Ministral 3B",
@@ -4475,6 +5455,60 @@
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "consistency": 90,
       "runs": 3
+    },
+    {
+      "name": "Mistral 7B",
+      "slug": "mistral-7b",
+      "url": "",
+      "type": "PTCF",
+      "nick": "The Architect",
+      "testedAt": "2026-05-02T09:40:41.761166+00:00",
+      "scores": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "model": "mistral:7b",
+      "provider": "ollama",
+      "consistency": 100,
+      "runs": 1,
+      "reliability": 1,
+      "reliabilityRuns": 0
     },
     {
       "name": "Mistral Medium 3",
@@ -4661,60 +5695,6 @@
       "runs": 4
     },
     {
-      "name": "Mistral 7B",
-      "slug": "mistral-7b",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-05-02T09:40:41.761166+00:00",
-      "scores": [
-        3,
-        4,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "mistral:7b",
-      "provider": "ollama",
-      "consistency": 100,
-      "runs": 1,
-      "reliability": 1,
-      "reliabilityRuns": 0
-    },
-    {
       "name": "Nemotron Mini 4B",
       "slug": "nemotron-mini-4b",
       "url": "",
@@ -4767,190 +5747,6 @@
       "runs": 1,
       "reliability": 1,
       "reliabilityRuns": 0
-    },
-    {
-      "name": "GPT-4.1 mini",
-      "slug": "gpt-4-1-mini",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-05T10:23:35.303Z",
-      "scores": [
-        2,
-        1,
-        2,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gpt-4.1-mini",
-      "provider": "github",
-      "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 0.875,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            0,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            2,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "RTDF",
-          "scores": [
-            1,
-            2,
-            1,
-            4
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        }
-      ],
-      "consistency": 88,
-      "runs": 4
-    },
-    {
-      "name": "GPT-4.1 nano",
-      "slug": "gpt-4-1-nano",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-05T10:25:08.075Z",
-      "scores": [
-        4,
-        1,
-        2,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gpt-4.1-nano",
-      "provider": "github",
-      "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 0.9219,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            3,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            3,
-            1,
-            3
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            4,
-            3,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            4,
-            3,
-            2,
-            2
-          ]
-        }
-      ],
-      "consistency": 92,
-      "runs": 4
     },
     {
       "name": "Phi 4",
@@ -5016,61 +5812,6 @@
       ],
       "consistency": 100,
       "runs": 1
-    },
-    {
-      "name": "Phi-4 Mini Reasoning",
-      "slug": "phi-4-mini-reasoning",
-      "url": "",
-      "type": "PTDF",
-      "nick": "The Strategist",
-      "testedAt": "2026-05-08T04:01:00.822Z",
-      "scores": [
-        2,
-        2,
-        1,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "Phi-4-mini-reasoning",
-      "provider": "github",
-      "reliability": 0.7708,
-      "reliabilityRuns": 0,
-      "badge": "https://abti.kagura-agent.com/badge/PTDF",
-      "runs": 1,
-      "consistency": 77
     },
     {
       "name": "Phi 4 Multimodal",
@@ -5210,6 +5951,232 @@
       ]
     },
     {
+      "name": "Phi-4 Mini Instruct (GitHub)",
+      "slug": "phi-4-mini-instruct-github",
+      "url": "",
+      "type": "PTCN",
+      "nick": "The Commander",
+      "testedAt": "2026-06-03T00:38:57.000Z",
+      "scores": [
+        3,
+        2,
+        4,
+        1
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 1,
+          "max": 4
+        }
+      ],
+      "model": "phi-4-mini-instruct",
+      "provider": "github",
+      "answers": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false
+      ],
+      "reliability": 0.9167,
+      "reliabilityRuns": 0,
+      "runs": 1,
+      "consistency": 92
+    },
+    {
+      "name": "Phi-4 Mini Reasoning",
+      "slug": "phi-4-mini-reasoning",
+      "url": "",
+      "type": "PTDF",
+      "nick": "The Strategist",
+      "testedAt": "2026-05-08T04:01:00.822Z",
+      "scores": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Phi-4-mini-reasoning",
+      "provider": "github",
+      "reliability": 0.7708,
+      "reliabilityRuns": 0,
+      "badge": "https://abti.kagura-agent.com/badge/PTDF",
+      "runs": 1,
+      "consistency": 77
+    },
+    {
+      "model": "phi-4-reasoning",
+      "slug": "phi-4-reasoning",
+      "name": "Phi-4 Reasoning",
+      "provider": "github",
+      "type": "RTCF",
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 4,
+          "max": 4
+        }
+      ],
+      "answers": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "testedAt": "2026-05-28T06:50:24.958Z",
+      "scores": [
+        0,
+        4,
+        4,
+        4
+      ],
+      "nick": "The Advisor",
+      "reliability": 0.6818,
+      "reliabilityRuns": [
+        {
+          "type": "PECN",
+          "scores": [
+            4,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            3,
+            3
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 68
+    },
+    {
       "name": "Qwen 2.5 3B",
       "slug": "qwen-2-5-3b",
       "url": "",
@@ -5315,60 +6282,6 @@
       "consistency": 100,
       "runs": 1,
       "reliability": 1,
-      "reliabilityRuns": 0
-    },
-    {
-      "name": "Qwen3 32B",
-      "slug": "qwen3-32b",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-05-11T08:45:09.851Z",
-      "scores": [
-        4,
-        1,
-        2,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "Qwen3-32B",
-      "provider": "github",
-      "consistency": 92,
-      "runs": 1,
-      "reliability": 0.9167,
       "reliabilityRuns": 0
     },
     {
@@ -5532,6 +6445,60 @@
       "reliabilityRuns": 0,
       "consistency": 100,
       "runs": 1
+    },
+    {
+      "name": "Qwen3 32B",
+      "slug": "qwen3-32b",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-05-11T08:45:09.851Z",
+      "scores": [
+        4,
+        1,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 4,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "Qwen3-32B",
+      "provider": "github",
+      "consistency": 92,
+      "runs": 1,
+      "reliability": 0.9167,
+      "reliabilityRuns": 0
     },
     {
       "name": "SmolLM2 1.7B",
@@ -5804,535 +6771,6 @@
       "reliabilityRuns": 0,
       "consistency": 100,
       "runs": 1
-    },
-    {
-      "name": "Gemini 3.5 Flash",
-      "slug": "gemini-3-5-flash",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-06-24T08:31:00.000Z",
-      "scores": [
-        2,
-        4,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gemini-3.5-flash",
-      "provider": "openai",
-      "runs": 4,
-      "reliabilityRuns": [
-        {
-          "type": "PECN",
-          "scores": [
-            2,
-            1,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "RTDF",
-          "scores": [
-            1,
-            3,
-            1,
-            4
-          ]
-        },
-        {
-          "type": "RTDF",
-          "scores": [
-            1,
-            2,
-            1,
-            4
-          ]
-        }
-      ],
-      "reliability": 0.7813,
-      "consistency": 78
-    },
-    {
-      "name": "Gemini 3.1 Pro Preview",
-      "slug": "gemini-3-1-pro-preview",
-      "url": "",
-      "type": "RTCF",
-      "nick": "The Advisor",
-      "testedAt": "2026-06-24T08:32:00.000Z",
-      "scores": [
-        1,
-        2,
-        4,
-        4
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 4,
-          "max": 4
-        }
-      ],
-      "model": "gemini-3.1-pro-preview",
-      "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": 0,
-      "reliability": 0.9167,
-      "consistency": 92
-    },
-    {
-      "name": "MiniMax M2.7",
-      "slug": "minimax-m2-7",
-      "url": "",
-      "type": "PECF",
-      "nick": "The Spark",
-      "testedAt": "2026-06-24T08:32:30.000Z",
-      "scores": [
-        4,
-        0,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "MiniMax-M2.7",
-      "provider": "openai",
-      "runs": 3,
-      "reliabilityRuns": [
-        {
-          "type": "PTCN",
-          "scores": [
-            4,
-            2,
-            3,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            3,
-            1,
-            4,
-            1
-          ]
-        },
-        {
-          "type": "PECN",
-          "scores": [
-            4,
-            0,
-            2,
-            0
-          ]
-        }
-      ],
-      "reliability": 0.8333,
-      "consistency": 83
-    },
-    {
-      "name": "GPT-5.4",
-      "slug": "gpt-5-4",
-      "url": "",
-      "type": "RTCF",
-      "nick": "The Advisor",
-      "testedAt": "2026-06-24T08:35:00.000Z",
-      "scores": [
-        1,
-        2,
-        4,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "gpt-5.4",
-      "provider": "openai",
-      "runs": 4,
-      "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            4,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            3,
-            1,
-            2
-          ]
-        },
-        {
-          "type": "PTCF",
-          "scores": [
-            2,
-            3,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            3,
-            3,
-            2
-          ]
-        }
-      ],
-      "reliability": 0.8438,
-      "consistency": 84
-    },
-    {
-      "name": "GPT-5.4 Mini",
-      "slug": "gpt-5-4-mini",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-06-24T08:36:00.000Z",
-      "scores": [
-        3,
-        3,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 3,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gpt-5.4-mini",
-      "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": [
-        {
-          "type": "PTCF",
-          "scores": [
-            3,
-            2,
-            3,
-            3
-          ]
-        }
-      ],
-      "reliability": 1,
-      "consistency": 100
-    },
-    {
-      "name": "Gemini 3 Flash Preview",
-      "slug": "gemini-3-flash-preview",
-      "url": "",
-      "type": "PTCF",
-      "nick": "The Architect",
-      "testedAt": "2026-06-24T08:37:00.000Z",
-      "scores": [
-        2,
-        4,
-        4,
-        2
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 4,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 2,
-          "max": 4
-        }
-      ],
-      "model": "gemini-3-flash-preview",
-      "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": 0,
-      "reliability": 0.9375,
-      "consistency": 94
-    },
-    {
-      "name": "Claude Sonnet 5",
-      "slug": "claude-sonnet-5",
-      "url": "",
-      "type": "RECF",
-      "nick": "The Blade",
-      "testedAt": "2026-07-09T14:48:59.461878Z",
-      "scores": [
-        1,
-        0,
-        2,
-        3
-      ],
-      "dimensions": [
-        {
-          "poles": [
-            "P",
-            "R"
-          ],
-          "score": 1,
-          "max": 4
-        },
-        {
-          "poles": [
-            "T",
-            "E"
-          ],
-          "score": 0,
-          "max": 4
-        },
-        {
-          "poles": [
-            "C",
-            "D"
-          ],
-          "score": 2,
-          "max": 4
-        },
-        {
-          "poles": [
-            "F",
-            "N"
-          ],
-          "score": 3,
-          "max": 4
-        }
-      ],
-      "model": "claude-sonnet-5",
-      "provider": "anthropic",
-      "questionVersion": "5.15-beta",
-      "lang": "en",
-      "reliabilityRuns": [
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            0,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "RECF",
-          "scores": [
-            0,
-            0,
-            4,
-            2
-          ]
-        },
-        {
-          "type": "RECF",
-          "scores": [
-            1,
-            0,
-            3,
-            3
-          ]
-        },
-        {
-          "type": "RTCF",
-          "scores": [
-            1,
-            2,
-            4,
-            3
-          ]
-        }
-      ],
-      "runs": 4,
-      "reliability": 0.8594,
-      "consistency": 86
     }
   ]
 }
