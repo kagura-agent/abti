@@ -1,0 +1,30 @@
+{
+    "model": "openai/gpt-4.1-nano",
+    "provider": "github",
+    "run": 303,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        4,
+        4,
+        2,
+        2
+    ]
+}
