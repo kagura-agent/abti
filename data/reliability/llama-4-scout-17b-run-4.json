@@ -1,0 +1,31 @@
+{
+  "model": "Llama-4-Scout-17B-16E-Instruct",
+  "provider": "github",
+  "run": 4,
+  "answers": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    2,
+    1,
+    2,
+    3
+  ],
+  "type": "PECF",
+  "questionVersion": "5.18-beta"
+}

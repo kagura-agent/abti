@@ -3799,7 +3799,7 @@
       ],
       "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
       "provider": "github",
-      "reliability": 0.8958,
+      "reliability": 0.875,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -3827,10 +3827,19 @@
             2,
             2
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
         }
       ],
-      "runs": 3,
-      "consistency": 90
+      "runs": 4,
+      "consistency": 88
     },
     {
       "name": "Llama 4 Scout 17B",
@@ -3881,7 +3890,7 @@
       ],
       "model": "Llama-4-Scout-17B-16E-Instruct",
       "provider": "github",
-      "reliability": 0.9375,
+      "reliability": 0.8594,
       "reliabilityRuns": [
         {
           "type": "PEDF",
@@ -3909,10 +3918,19 @@
             2,
             2
           ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            3
+          ]
         }
       ],
-      "runs": 3,
-      "consistency": 94
+      "runs": 4,
+      "consistency": 86
     },
     {
       "name": "Llama 3.1 8B",
@@ -4507,7 +4525,7 @@
       ],
       "model": "mistral-medium-2505",
       "provider": "github",
-      "reliability": 0.75,
+      "reliability": 0.6719,
       "badge": "https://abti.kagura-agent.com/badge/RECF",
       "reliabilityRuns": [
         {
@@ -4536,10 +4554,19 @@
             0,
             3
           ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            3,
+            3,
+            1,
+            2
+          ]
         }
       ],
-      "consistency": 75,
-      "runs": 3
+      "consistency": 67,
+      "runs": 4
     },
     {
       "name": "Mistral Small 3.1",
@@ -4590,7 +4617,7 @@
       ],
       "model": "mistral-small-2503",
       "provider": "github",
-      "reliability": 0.7708,
+      "reliability": 0.6875,
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "reliabilityRuns": [
         {
@@ -4619,10 +4646,19 @@
             2,
             3
           ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            4
+          ]
         }
       ],
-      "consistency": 77,
-      "runs": 3
+      "consistency": 69,
+      "runs": 4
     },
     {
       "name": "Mistral 7B",
@@ -4782,7 +4818,7 @@
       "model": "gpt-4.1-mini",
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 0.8958,
+      "reliability": 0.875,
       "reliabilityRuns": [
         {
           "type": "PTDF",
@@ -4810,10 +4846,19 @@
             1,
             4
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
         }
       ],
-      "consistency": 90,
-      "runs": 3
+      "consistency": 88,
+      "runs": 4
     },
     {
       "name": "GPT-4.1 nano",
@@ -4865,7 +4910,7 @@
       "model": "gpt-4.1-nano",
       "provider": "github",
       "desc": "Proactive, efficient, candid, principled. All gas, no brakes, no filter, no exceptions.",
-      "reliability": 0.9583,
+      "reliability": 0.9219,
       "reliabilityRuns": [
         {
           "type": "PTDF",
@@ -4893,10 +4938,19 @@
             1,
             2
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            3,
+            2,
+            2
+          ]
         }
       ],
-      "consistency": 96,
-      "runs": 3
+      "consistency": 92,
+      "runs": 4
     },
     {
       "name": "Phi 4",
