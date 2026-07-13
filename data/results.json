@@ -2410,10 +2410,38 @@
       ],
       "model": "gemini-3.1-pro-preview",
       "provider": "openai",
-      "runs": 1,
-      "reliabilityRuns": 0,
-      "reliability": 0.9167,
-      "consistency": 92
+      "runs": 3,
+      "reliabilityRuns": [
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            2
+          ]
+        }
+      ],
+      "reliability": 0.9792,
+      "consistency": 98
     },
     {
       "name": "Gemini 3.5 Flash",
@@ -3758,10 +3786,38 @@
       ],
       "model": "gpt-5-mini",
       "provider": "openai",
-      "consistency": 92,
-      "runs": 1,
-      "reliability": 0.9167,
-      "reliabilityRuns": 0
+      "consistency": 85,
+      "runs": 3,
+      "reliability": 0.8542,
+      "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            2,
+            2
+          ]
+        }
+      ]
     },
     {
       "name": "GPT-5.2",
@@ -4163,7 +4219,7 @@
       ],
       "runs": 3,
       "reliability": 0.9167,
-      "consistency": 67
+      "consistency": 92
     },
     {
       "name": "GPT-5.6 Sol",
@@ -4247,7 +4303,7 @@
       ],
       "runs": 3,
       "reliability": 0.9792,
-      "consistency": 100
+      "consistency": 98
     },
     {
       "name": "GPT-5.6 Terra",
@@ -4331,7 +4387,7 @@
       ],
       "runs": 3,
       "reliability": 0.8958,
-      "consistency": 100
+      "consistency": 90
     },
     {
       "name": "Granite 3.3 8B",
@@ -5195,8 +5251,8 @@
         }
       ],
       "runs": 4,
-      "reliability": 0.6562,
-      "consistency": 25
+      "reliability": 0.6563,
+      "consistency": 66
     },
     {
       "name": "MiniMax M2.5",
@@ -5289,7 +5345,7 @@
       ],
       "runs": 4,
       "reliability": 0.6875,
-      "consistency": 50
+      "consistency": 69
     },
     {
       "name": "MiniMax M2.7",
@@ -6771,6 +6827,99 @@
       "reliabilityRuns": 0,
       "consistency": 100,
       "runs": 1
+    },
+    {
+      "name": "MiniMax M2",
+      "slug": "minimax-m2",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-07-13T13:30:00.000000+00:00",
+      "scores": [
+        2,
+        1,
+        2,
+        3
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 3,
+          "max": 4
+        }
+      ],
+      "model": "MiniMax-M2",
+      "provider": "openai",
+      "questionVersion": "5.18-beta",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "runs": 4,
+      "reliability": 0.7656,
+      "consistency": 77
     }
   ]
 }
