@@ -1,0 +1,31 @@
+{
+  "model": "claude-opus-4-8",
+  "provider": "anthropic",
+  "run": 1,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    0,
+    1,
+    4,
+    4
+  ],
+  "type": "RECF",
+  "questionVersion": "5.18-beta"
+}
