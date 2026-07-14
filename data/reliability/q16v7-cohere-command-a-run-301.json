@@ -1,0 +1,30 @@
+{
+    "model": "cohere-command-a",
+    "provider": "github",
+    "run": 301,
+    "answers": [
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        2,
+        1,
+        2,
+        2
+    ]
+}
