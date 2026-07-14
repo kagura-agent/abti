@@ -1,0 +1,30 @@
+{
+    "model": "cohere-command-a",
+    "provider": "github",
+    "run": 303,
+    "answers": [
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "RTCF",
+    "dimensions": [
+        1,
+        3,
+        3,
+        2
+    ]
+}
