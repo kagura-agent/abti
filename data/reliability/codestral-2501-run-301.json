@@ -1,0 +1,30 @@
+{
+    "model": "Codestral-2501",
+    "provider": "github",
+    "run": 301,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A"
+    ],
+    "type": "PTDF",
+    "dimensions": [
+        2,
+        2,
+        1,
+        3
+    ]
+}
