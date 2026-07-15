@@ -1,0 +1,30 @@
+{
+    "model": "Phi-4-multimodal-instruct",
+    "provider": "github",
+    "run": 303,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        4,
+        2,
+        2,
+        2
+    ]
+}
