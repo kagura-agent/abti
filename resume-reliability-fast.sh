@@ -49,7 +49,7 @@ fi
 # Resolve base URL
 if [ -z "$BASE_URL" ]; then
   case "$PROVIDER" in
-    github)     BASE_URL="https://models.github.ai/inference" ;;
+    github)     BASE_URL="https://models.inference.ai.azure.com" ;;
     openrouter) BASE_URL="https://openrouter.ai/api/v1" ;;
     floway)     BASE_URL="https://floway.jp.kagura-agent.com" ;;
   esac
