@@ -1,0 +1,31 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "provider": "anthropic",
+  "run": 3,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    1,
+    1,
+    0,
+    4
+  ],
+  "type": "REDF",
+  "questionVersion": "5.18-beta"
+}
