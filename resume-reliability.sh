@@ -316,7 +316,7 @@ payload = {
         {'role': 'system', 'content': '''$SYSTEM_PROMPT'''},
         {'role': 'user', 'content': '''$USER_MSG'''}
     ],
-    'max_tokens': 2048,
+    'max_tokens': 16384,
 }
 if '$NO_TEMP' != 'true':
     payload['temperature'] = 0
