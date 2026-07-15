@@ -412,7 +412,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
 function isReasoningModel(modelName) {
   if (!modelName) return false;
   const lower = modelName.toLowerCase();
-  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r|gemini-3|gpt-5\.\d)\b/.test(lower) || lower.includes('reasoner') || lower.includes('reasoning');
+  return /\b(r1|o1|o3|o4|qwq|qwen3|deepseek-r|gemini-3|gpt-5)\b/.test(lower) || lower.includes('reasoner') || lower.includes('reasoning');
 }
 
 function parseAnswer(response) {
