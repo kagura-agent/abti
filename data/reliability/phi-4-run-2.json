@@ -1,0 +1,33 @@
+{
+    "model": "Phi-4",
+    "provider": "github",
+    "run": 2,
+    "answers": [
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "RTDF",
+    "dimensions": [
+        1,
+        4,
+        1,
+        2
+    ]
+}
