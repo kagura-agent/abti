@@ -1,0 +1,30 @@
+{
+    "model": "DeepSeek-V3-0324",
+    "provider": "github",
+    "run": 301,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B"
+    ],
+    "type": "PECF",
+    "dimensions": [
+        3,
+        1,
+        2,
+        2
+    ]
+}
