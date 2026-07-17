@@ -4,7 +4,7 @@
 # For fresh runs: bash resume-reliability.sh [--provider P] --fresh <model-id> <slug> <run-number>
 # Check quota: bash resume-reliability.sh [--provider P] --check-quota <model-id>
 #
-# Providers: github (default), openrouter, floway
+# Providers: github (default), openrouter, floway, deepseek, mistral, cohere
 
 set -e
 cd "$(dirname "$0")"
@@ -29,8 +29,8 @@ done
 
 # Validate provider
 case "$PROVIDER" in
-  github|openrouter|floway) ;;
-  *) echo "ERROR: Unknown provider '$PROVIDER'. Must be: github, openrouter, floway" >&2; exit 1 ;;
+  github|openrouter|floway|deepseek|mistral|cohere) ;;
+  *) echo "ERROR: Unknown provider '$PROVIDER'. Must be: github, openrouter, floway, deepseek, mistral, cohere" >&2; exit 1 ;;
 esac
 
 # Resolve API key from flag or env var
@@ -39,6 +39,9 @@ if [ -z "$API_KEY" ]; then
     github)     API_KEY="${GITHUB_TOKEN:-$(gh auth token)}" ;;
     openrouter) API_KEY="${OPENROUTER_API_KEY}" ;;
     floway)     API_KEY="${FLOWAY_KEY}" ;;
+    deepseek)   API_KEY="${DEEPSEEK_API_KEY}" ;;
+    mistral)    API_KEY="${MISTRAL_API_KEY}" ;;
+    cohere)     API_KEY="${CO_API_KEY}" ;;
   esac
 fi
 if [ -z "$API_KEY" ]; then
@@ -52,12 +55,15 @@ if [ -z "$BASE_URL" ]; then
     github)     BASE_URL="https://models.github.ai/inference" ;;
     openrouter) BASE_URL="https://openrouter.ai/api/v1" ;;
     floway)     BASE_URL="https://floway.jp.kagura-agent.com" ;;
+    deepseek)   BASE_URL="https://api.deepseek.com/v1" ;;
+    mistral)    BASE_URL="https://api.mistral.ai/v1" ;;
+    cohere)     BASE_URL="https://api.cohere.com/v2" ;;
   esac
 fi
 
 # Auth header per provider
 case "$PROVIDER" in
-  github|openrouter) AUTH_HEADER="Authorization: Bearer $API_KEY" ;;
+  github|openrouter|deepseek|mistral|cohere) AUTH_HEADER="Authorization: Bearer $API_KEY" ;;
   floway)            AUTH_HEADER="x-api-key: $API_KEY" ;;
 esac
 
@@ -76,6 +82,53 @@ resolve_model_id() {
         Llama-4-Maverick-17B-128E-Instruct-FP8) echo "meta-llama/llama-4-maverick" ;;
         mistral-small-2503)                     echo "mistralai/mistral-small-2603" ;;
         Ministral-3B)                           echo "mistralai/ministral-3b-2512" ;;
+        DeepSeek-V3-0324)                       echo "deepseek/deepseek-chat-v3-0324" ;;
+        DeepSeek-R1)                            echo "deepseek/deepseek-r1" ;;
+        DeepSeek-R1-0528)                       echo "deepseek/deepseek-r1-0528" ;;
+        Codestral-2501)                         echo "mistralai/codestral-2501" ;;
+        cohere-command-a)                       echo "cohere/command-a-03-2025" ;;
+        Cohere-command-r-08-2024)               echo "cohere/command-r-08-2024" ;;
+        Cohere-command-r-plus-08-2024)          echo "cohere/command-r-plus-08-2024" ;;
+        Llama-3.3-70B-Instruct)                 echo "meta-llama/llama-3.3-70b-instruct" ;;
+        Llama-3.2-90B-Vision-Instruct)          echo "meta-llama/llama-3.2-90b-vision-instruct" ;;
+        Llama-3.2-11B-Vision-Instruct)          echo "meta-llama/llama-3.2-11b-vision-instruct" ;;
+        Meta-Llama-3.1-405B-Instruct)           echo "meta-llama/llama-3.1-405b-instruct" ;;
+        Meta-Llama-3.1-8B-Instruct)             echo "meta-llama/llama-3.1-8b-instruct" ;;
+        Phi-4-mini-reasoning)                   echo "microsoft/phi-4-reasoning" ;;
+        Phi-4-multimodal-instruct)              echo "microsoft/phi-4-multimodal-instruct" ;;
+        phi-4-mini-instruct)                    echo "microsoft/phi-4-mini-instruct" ;;
+        phi-4-reasoning)                        echo "microsoft/phi-4-reasoning" ;;
+        Qwen3-32B)                              echo "qwen/qwen3-32b" ;;
+        gpt-4.1)                                echo "openai/gpt-4.1" ;;
+        gpt-4.1-mini)                           echo "openai/gpt-4.1-mini" ;;
+        gpt-4.1-nano)                           echo "openai/gpt-4.1-nano" ;;
+        gpt-4o)                                 echo "openai/gpt-4o" ;;
+        mistral-medium-2505)                    echo "mistralai/mistral-medium-latest" ;;
+        *) echo "$model" ;;
+      esac
+      ;;
+    deepseek)
+      case "$model" in
+        DeepSeek-V3-0324) echo "deepseek-chat" ;;
+        DeepSeek-R1)      echo "deepseek-reasoner" ;;
+        DeepSeek-R1-0528) echo "deepseek-reasoner" ;;
+        *) echo "$model" ;;
+      esac
+      ;;
+    mistral)
+      case "$model" in
+        Codestral-2501)     echo "codestral-2501" ;;
+        mistral-medium-2505) echo "mistral-medium-latest" ;;
+        mistral-small-2503) echo "mistral-small-latest" ;;
+        Ministral-3B)       echo "ministral-3b-latest" ;;
+        *) echo "$model" ;;
+      esac
+      ;;
+    cohere)
+      case "$model" in
+        cohere-command-a)                echo "command-a-03-2025" ;;
+        Cohere-command-r-08-2024)        echo "command-r-08-2024" ;;
+        Cohere-command-r-plus-08-2024)   echo "command-r-plus-08-2024" ;;
         *) echo "$model" ;;
       esac
       ;;
