@@ -1,0 +1,31 @@
+{
+  "model": "gpt-4-o-preview",
+  "provider": "anthropic",
+  "run": 303,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    1,
+    2,
+    1,
+    4
+  ],
+  "type": "RTDF",
+  "questionVersion": "5.18-beta"
+}
