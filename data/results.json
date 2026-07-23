@@ -7323,6 +7323,88 @@
       ],
       "runs": 3,
       "consistency": 88
+    },
+    {
+      "name": "MAI-Code-1-Flash",
+      "slug": "mai-code-1-flash-picker",
+      "url": "",
+      "type": "PECF",
+      "nick": "The Spark",
+      "testedAt": "2026-07-23T03:30:00.000Z",
+      "scores": [
+        3,
+        1,
+        2,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 3,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 2,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "mai-code-1-flash-picker",
+      "provider": "openai",
+      "reliability": 0.9167,
+      "reliabilityRuns": [
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            2,
+            4
+          ]
+        }
+      ],
+      "runs": 3,
+      "consistency": 92
     }
   ]
 }
