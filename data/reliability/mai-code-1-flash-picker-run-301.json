@@ -1,0 +1,31 @@
+{
+  "model": "mai-code-1-flash-picker",
+  "provider": "anthropic",
+  "run": 301,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B"
+  ],
+  "dimensions": [
+    3,
+    1,
+    2,
+    2
+  ],
+  "type": "PECF",
+  "questionVersion": "5.18-beta"
+}
