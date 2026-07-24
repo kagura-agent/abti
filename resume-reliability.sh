@@ -522,10 +522,15 @@ with open('$STATE_FILE', 'w') as f:
 "
     echo "  State saved (${QNUM}/16 done)"
 
-    # Wait between questions (skip after last)
+    # Wait between questions (skip after last; skip for floway which has no rate limit)
     if [ "$QNUM" -lt 16 ]; then
-      echo "  Waiting 65s for rate limit..."
-      sleep 65
+      if [ "$PROVIDER" = "floway" ]; then
+        echo "  Floway: no rate limit wait needed"
+        sleep 2
+      else
+        echo "  Waiting 65s for rate limit..."
+        sleep 65
+      fi
     fi
   done
 fi

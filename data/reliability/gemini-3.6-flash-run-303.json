@@ -1,0 +1,30 @@
+{
+    "model": "gemini-3.6-flash",
+    "provider": "floway",
+    "run": 303,
+    "answers": [
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        2,
+        2,
+        2,
+        4
+    ]
+}
