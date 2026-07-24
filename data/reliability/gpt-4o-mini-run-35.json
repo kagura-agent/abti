@@ -1,0 +1,32 @@
+{
+  "model": "gpt-4o-mini",
+  "provider": "floway-sg",
+  "run": 35,
+  "answers": [
+    "A",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    4,
+    0,
+    2,
+    4
+  ],
+  "type": "PECF",
+  "questionVersion": "5.18-beta",
+  "timestamp": "2026-07-24T10:40:37.391Z"
+}

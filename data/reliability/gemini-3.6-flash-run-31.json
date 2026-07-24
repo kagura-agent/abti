@@ -1,0 +1,32 @@
+{
+  "model": "gemini-3.6-flash",
+  "provider": "floway-sg",
+  "run": 31,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    1,
+    2,
+    0,
+    3
+  ],
+  "type": "RTDF",
+  "questionVersion": "5.18-beta",
+  "timestamp": "2026-07-24T10:52:00.480Z"
+}
