@@ -1,0 +1,32 @@
+{
+  "model": "claude-haiku-4-5",
+  "provider": "floway-sg",
+  "run": 45,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A"
+  ],
+  "dimensions": [
+    1,
+    2,
+    2,
+    3
+  ],
+  "type": "RTCF",
+  "questionVersion": "5.18-beta",
+  "timestamp": "2026-07-24T10:39:10.572Z"
+}

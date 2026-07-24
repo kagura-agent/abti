@@ -1,0 +1,32 @@
+{
+  "model": "gpt-4o",
+  "provider": "floway-sg",
+  "run": 44,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B"
+  ],
+  "dimensions": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "type": "REDN",
+  "questionVersion": "5.18-beta",
+  "timestamp": "2026-07-24T10:48:12.909Z"
+}

@@ -1,0 +1,32 @@
+{
+  "model": "gpt-4o",
+  "provider": "floway-sg",
+  "run": 43,
+  "answers": [
+    "A",
+    "B",
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B"
+  ],
+  "dimensions": [
+    1,
+    1,
+    2,
+    2
+  ],
+  "type": "RECF",
+  "questionVersion": "5.18-beta",
+  "timestamp": "2026-07-24T10:47:29.678Z"
+}
