@@ -1,0 +1,22 @@
+# VM1 deployment — requires secrets VM1_HOST and VM1_SSH_KEY
+# See issue #128 for secrets configuration
+name: Deploy to VM1
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM1_HOST }}
+          username: azureuser
+          key: ${{ secrets.VM1_SSH_KEY }}
+          script: |
+            cd /home/azureuser/abti
+            git pull origin master
+            sudo systemctl restart abti-api
