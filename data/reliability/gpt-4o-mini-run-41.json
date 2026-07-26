@@ -1,0 +1,30 @@
+{
+    "model": "gpt-4o-mini",
+    "provider": "floway",
+    "run": 41,
+    "answers": [
+        "B",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        3,
+        2,
+        2,
+        3
+    ]
+}
