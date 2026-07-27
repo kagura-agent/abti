@@ -1,0 +1,30 @@
+{
+    "model": "gpt-4o",
+    "provider": "floway",
+    "run": 905,
+    "answers": [
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B"
+    ],
+    "type": "REDN",
+    "dimensions": [
+        1,
+        1,
+        1,
+        1
+    ]
+}

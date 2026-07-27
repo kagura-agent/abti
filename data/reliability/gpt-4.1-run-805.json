@@ -1,0 +1,30 @@
+{
+    "model": "gpt-4.1",
+    "provider": "floway",
+    "run": 805,
+    "answers": [
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "REDF",
+    "dimensions": [
+        0,
+        1,
+        1,
+        3
+    ]
+}

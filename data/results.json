@@ -104,8 +104,8 @@
       "model": "claude-haiku-4.5",
       "provider": "anthropic",
       "consistency": 69,
-      "runs": 38,
-      "reliability": 0.6859,
+      "runs": 50,
+      "reliability": 0.6888,
       "reliabilityRuns": [
         {
           "type": "RTCN",
@@ -372,6 +372,33 @@
           "type": "PTCF",
           "scores": [
             3,
+            2,
+            4,
+            4
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
             3,
             4,
             2
@@ -446,6 +473,87 @@
             3,
             4,
             2,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            2,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            0,
+            1,
             3
           ]
         }
@@ -1290,9 +1398,9 @@
       ],
       "model": "claude-sonnet-4.6",
       "provider": "anthropic",
-      "consistency": 74,
-      "runs": 7,
-      "reliability": 0.7411,
+      "consistency": 72,
+      "runs": 15,
+      "reliability": 0.7208,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -1355,6 +1463,78 @@
             3,
             4,
             2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            4,
+            0
+          ]
+        },
+        {
+          "type": "RECN",
+          "scores": [
+            1,
+            1,
+            4,
+            1
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            4,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            3,
+            0
+          ]
+        },
+        {
+          "type": "RTCN",
+          "scores": [
+            1,
+            2,
+            3,
+            0
           ]
         }
       ]
@@ -2542,6 +2722,33 @@
           "type": "PTCF",
           "scores": [
             3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
             3,
             3,
             4
@@ -2564,11 +2771,47 @@
             3,
             4
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            4,
+            3,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            3,
+            4,
+            3,
+            1
+          ]
         }
       ],
-      "runs": 27,
-      "reliability": 0.9005,
-      "consistency": 90
+      "runs": 34,
+      "reliability": 0.9191,
+      "consistency": 92
     },
     {
       "name": "Gemini 3 Flash Preview",
@@ -3140,7 +3383,7 @@
           "runs": 3
         }
       ],
-      "reliability": 0.7581,
+      "reliability": 0.7679,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -3368,6 +3611,33 @@
           ]
         },
         {
+          "type": "RTDF",
+          "scores": [
+            1,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            3
+          ]
+        },
+        {
           "type": "PTCF",
           "scores": [
             2,
@@ -3420,10 +3690,19 @@
             2,
             3
           ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            2,
+            4
+          ]
         }
       ],
-      "consistency": 76,
-      "runs": 31
+      "consistency": 77,
+      "runs": 35
     },
     {
       "name": "GPT-4.1 mini",
@@ -3706,7 +3985,7 @@
           "provider": "openai"
         }
       ],
-      "reliability": 0.7595,
+      "reliability": 0.7694,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -3979,6 +4258,33 @@
           ]
         },
         {
+          "type": "RTDF",
+          "scores": [
+            0,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            3
+          ]
+        },
+        {
           "type": "RTCN",
           "scores": [
             1,
@@ -4004,10 +4310,91 @@
             2,
             3
           ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            0,
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "RTCF",
+          "scores": [
+            0,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PTCN",
+          "scores": [
+            2,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "REDN",
+          "scores": [
+            1,
+            1,
+            1,
+            1
+          ]
         }
       ],
-      "consistency": 76,
-      "runs": 33
+      "consistency": 77,
+      "runs": 45
     },
     {
       "name": "GPT-4o mini",
@@ -4058,7 +4445,7 @@
       ],
       "model": "gpt-4o-mini",
       "provider": "openai",
-      "reliability": 0.6941,
+      "reliability": 0.7125,
       "reliabilityRuns": [
         {
           "type": "PECF",
@@ -4160,6 +4547,42 @@
           ]
         },
         {
+          "type": "PECF",
+          "scores": [
+            4,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            4,
+            1,
+            0,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            3
+          ]
+        },
+        {
           "type": "PTDF",
           "scores": [
             3,
@@ -4230,10 +4653,73 @@
             1,
             3
           ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            3,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            2,
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            4,
+            2,
+            3,
+            4
+          ]
         }
       ],
-      "consistency": 69,
-      "runs": 19
+      "consistency": 71,
+      "runs": 30
     },
     {
       "name": "GPT-5 mini",
@@ -7947,8 +8433,8 @@
         }
       ],
       "runs": 3,
-      "reliability": 1,
-      "consistency": 88,
+      "reliability": 0.9583,
+      "consistency": 96,
       "type": "RTCF"
     }
   ]

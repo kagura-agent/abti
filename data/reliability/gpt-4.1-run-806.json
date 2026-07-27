@@ -1,0 +1,30 @@
+{
+    "model": "gpt-4.1",
+    "provider": "floway",
+    "run": 806,
+    "answers": [
+        "B",
+        "B",
+        "B",
+        "B",
+        "B",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A"
+    ],
+    "type": "RTCF",
+    "dimensions": [
+        0,
+        2,
+        2,
+        3
+    ]
+}
