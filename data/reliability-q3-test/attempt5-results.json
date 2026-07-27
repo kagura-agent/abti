@@ -1,0 +1,20 @@
+[
+  {"model": "claude-opus-4-6", "run": 1, "answer": "A"},
+  {"model": "claude-opus-4-6", "run": 2, "answer": "A"},
+  {"model": "claude-opus-4-6", "run": 3, "answer": "A"},
+  {"model": "claude-sonnet-4-6", "run": 1, "answer": "A"},
+  {"model": "claude-sonnet-4-6", "run": 2, "answer": "A"},
+  {"model": "claude-sonnet-4-6", "run": 3, "answer": "A"},
+  {"model": "claude-haiku-4-5", "run": 1, "answer": "A"},
+  {"model": "claude-haiku-4-5", "run": 2, "answer": "A"},
+  {"model": "claude-haiku-4-5", "run": 3, "answer": "A"},
+  {"model": "gpt-4o", "run": 1, "answer": "B"},
+  {"model": "gpt-4o", "run": 2, "answer": "B"},
+  {"model": "gpt-4o", "run": 3, "answer": "B"},
+  {"model": "gpt-4.1", "run": 1, "answer": "A"},
+  {"model": "gpt-4.1", "run": 2, "answer": "B"},
+  {"model": "gpt-4.1", "run": 3, "answer": "B"},
+  {"model": "gpt-4o-mini", "run": 1, "answer": "A"},
+  {"model": "gpt-4o-mini", "run": 2, "answer": "A"},
+  {"model": "gpt-4o-mini", "run": 3, "answer": "A"}
+]
