@@ -1,0 +1,31 @@
+{
+  "model": "MiniMax-M2",
+  "provider": "anthropic",
+  "run": 203,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    3,
+    1,
+    2,
+    1
+  ],
+  "type": "PECN",
+  "questionVersion": "5.22-beta"
+}
