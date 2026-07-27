@@ -834,7 +834,7 @@
       "name": "Claude Opus 4.7",
       "slug": "claude-opus-4-7",
       "url": "",
-      "type": "RECN",
+      "type": "RECF",
       "nick": "The Machine",
       "testedAt": "2026-05-24T05:47:40.808129+00:00",
       "scores": [
@@ -918,14 +918,18 @@
             4,
             3
           ]
-        }
-      ]
+        },
+        "claude-opus-4-7-run-201.json",
+        "claude-opus-4-7-run-202.json",
+        "claude-opus-4-7-run-203.json"
+      ],
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Opus 4.8",
       "slug": "claude-opus-4-8",
       "url": "",
-      "type": "RECN",
+      "type": "RECF",
       "nick": "The Machine",
       "testedAt": "2026-06-24T01:38:10.283Z",
       "scores": [
@@ -1048,8 +1052,12 @@
             4,
             3
           ]
-        }
-      ]
+        },
+        "claude-opus-4-8-run-201.json",
+        "claude-opus-4-8-run-202.json",
+        "claude-opus-4-8-run-203.json"
+      ],
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Sonnet 4.5",
@@ -5278,7 +5286,7 @@
       "name": "GPT-5.6 Luna",
       "slug": "gpt-5-6-luna",
       "url": "",
-      "type": "PECF",
+      "type": "RTDF",
       "nick": "The Spark",
       "testedAt": "2026-07-13T04:53:52.141850+00:00",
       "scores": [
@@ -5323,7 +5331,7 @@
       ],
       "model": "gpt-5.6-luna",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5352,7 +5360,10 @@
             4,
             3
           ]
-        }
+        },
+        "gpt-5-6-luna-run-201.json",
+        "gpt-5-6-luna-run-202.json",
+        "gpt-5-6-luna-run-203.json"
       ],
       "runs": 3,
       "reliability": 0.9167,
@@ -5362,7 +5373,7 @@
       "name": "GPT-5.6 Sol",
       "slug": "gpt-5-6-sol",
       "url": "",
-      "type": "PTCF",
+      "type": "RTDF",
       "nick": "The Architect",
       "testedAt": "2026-07-13T04:53:52.141850+00:00",
       "scores": [
@@ -5407,7 +5418,7 @@
       ],
       "model": "gpt-5.6-sol",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5436,7 +5447,10 @@
             4,
             2
           ]
-        }
+        },
+        "gpt-5-6-sol-run-201.json",
+        "gpt-5-6-sol-run-202.json",
+        "gpt-5-6-sol-run-203.json"
       ],
       "runs": 3,
       "reliability": 0.9792,
@@ -5446,7 +5460,7 @@
       "name": "GPT-5.6 Terra",
       "slug": "gpt-5-6-terra",
       "url": "",
-      "type": "PTCF",
+      "type": "PTDF",
       "nick": "The Architect",
       "testedAt": "2026-07-13T04:53:52.141850+00:00",
       "scores": [
@@ -5491,7 +5505,7 @@
       ],
       "model": "gpt-5.6-terra",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5520,7 +5534,10 @@
             3,
             3
           ]
-        }
+        },
+        "gpt-5-6-terra-run-201.json",
+        "gpt-5-6-terra-run-202.json",
+        "gpt-5-6-terra-run-203.json"
       ],
       "runs": 3,
       "reliability": 0.8958,
@@ -6395,7 +6412,7 @@
       "name": "MiniMax M2.5",
       "slug": "minimax-m2-5",
       "url": "",
-      "type": "PTCF",
+      "type": "PECF",
       "nick": "The Architect",
       "testedAt": "2026-07-13T04:53:52.141850+00:00",
       "scores": [
@@ -6440,7 +6457,7 @@
       ],
       "model": "MiniMax-M2.5",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6478,7 +6495,10 @@
             4,
             3
           ]
-        }
+        },
+        "minimax-m2-5-run-201.json",
+        "minimax-m2-5-run-202.json",
+        "minimax-m2-5-run-203.json"
       ],
       "runs": 4,
       "reliability": 0.6875,

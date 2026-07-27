@@ -1,0 +1,31 @@
+{
+  "model": "gpt-5.6-terra",
+  "provider": "anthropic",
+  "run": 202,
+  "answers": [
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "B"
+  ],
+  "dimensions": [
+    3,
+    1,
+    2,
+    1
+  ],
+  "type": "PECN",
+  "questionVersion": "5.22-beta"
+}
