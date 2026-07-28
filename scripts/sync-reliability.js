@@ -7,6 +7,27 @@ const path = require('node:path');
 const RESULTS_PATH = path.resolve(__dirname, '..', 'data', 'results.json');
 const RELIABILITY_DIR = path.resolve(__dirname, '..', 'data', 'reliability');
 
+/**
+ * Compare two version strings semantically.
+ * Handles formats like '5.22', '5.22-beta', '5.0-beta'.
+ * Stable versions rank higher than beta versions of the same number.
+ * Returns >0 if a > b, <0 if a < b, 0 if equal.
+ */
+function compareVersions(a, b) {
+  const parse = (v) => {
+    const match = v.match(/^(\d+)\.(\d+)(?:-(\w+))?$/);
+    if (!match) return { major: 0, minor: 0, pre: v };
+    return { major: parseInt(match[1]), minor: parseInt(match[2]), pre: match[3] || '' };
+  };
+  const pa = parse(a), pb = parse(b);
+  if (pa.major !== pb.major) return pa.major - pb.major;
+  if (pa.minor !== pb.minor) return pa.minor - pb.minor;
+  // No pre-release > any pre-release (stable wins)
+  if (!pa.pre && pb.pre) return 1;
+  if (pa.pre && !pb.pre) return -1;
+  return pa.pre.localeCompare(pb.pre);
+}
+
 function calculateReliability(allRunAnswers) {
   const numQuestions = allRunAnswers[0].length;
   const numRuns = allRunAnswers.length;
@@ -77,10 +98,17 @@ function main() {
     const allRunAnswers = [];
     let valid = true;
     let hasAnswers = true;
+    let latestQuestionVersion = undefined;
 
     for (const filename of runFiles) {
       const filePath = path.join(RELIABILITY_DIR, filename);
       const runData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+      if (runData.questionVersion) {
+        if (!latestQuestionVersion || compareVersions(runData.questionVersion, latestQuestionVersion) > 0) {
+          latestQuestionVersion = runData.questionVersion;
+        }
+      }
 
       if (!runData.type) {
         console.warn(`  ⚠ ${filename}: missing type — skipping agent ${agent.slug}`);
@@ -118,6 +146,7 @@ function main() {
     const oldReliability = agent.reliability;
     const oldConsistency = agent.consistency;
     const oldReliabilityRuns = agent.reliabilityRuns;
+    const oldQuestionVersion = agent.questionVersion;
 
     // Update fields
     agent.reliabilityRuns = runs;
@@ -130,6 +159,11 @@ function main() {
       agent.consistency = Math.round(reliability * 100);
     }
 
+    // Propagate questionVersion from latest run
+    if (latestQuestionVersion) {
+      agent.questionVersion = latestQuestionVersion;
+    }
+
     // Log changes
     const changedFields = [];
     if (JSON.stringify(oldReliabilityRuns) !== JSON.stringify(agent.reliabilityRuns)) {
@@ -139,6 +173,7 @@ function main() {
     if (oldRuns !== agent.runs) changedFields.push(`runs: ${oldRuns} → ${agent.runs}`);
     if (oldReliability !== agent.reliability) changedFields.push(`reliability: ${oldReliability} → ${agent.reliability}`);
     if (oldConsistency !== agent.consistency) changedFields.push(`consistency: ${oldConsistency} → ${agent.consistency}`);
+    if (oldQuestionVersion !== agent.questionVersion) changedFields.push(`questionVersion: ${oldQuestionVersion} → ${agent.questionVersion}`);
 
     if (changedFields.length > 0) {
       changes.push(`  ${agent.slug}: ${changedFields.join(', ')}`);

@@ -557,7 +557,8 @@
             3
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Opus 4.6",
@@ -855,7 +856,8 @@
             3
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Opus 4.7",
@@ -974,7 +976,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22"
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Opus 4.8",
@@ -1132,7 +1134,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22"
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Sonnet 4.5",
@@ -1430,7 +1432,8 @@
             4
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.20-beta"
     },
     {
       "name": "Claude Sonnet 4.6",
@@ -1620,7 +1623,8 @@
             0
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Sonnet 5",
@@ -1671,7 +1675,7 @@
       ],
       "model": "claude-sonnet-5",
       "provider": "anthropic",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -1823,7 +1827,8 @@
       ],
       "badge": "https://abti.kagura-agent.com/badge/PTCF",
       "consistency": 69,
-      "runs": 3
+      "runs": 3,
+      "questionVersion": "5.22"
     },
     {
       "name": "Cohere Command A",
@@ -2100,7 +2105,8 @@
             2
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.22"
     },
     {
       "name": "DeepSeek R1 0528",
@@ -2921,7 +2927,8 @@
       ],
       "runs": 34,
       "reliability": 0.9191,
-      "consistency": 92
+      "consistency": 92,
+      "questionVersion": "5.22"
     },
     {
       "name": "Gemini 3 Flash Preview",
@@ -3030,7 +3037,8 @@
         }
       ],
       "reliability": 0.8229,
-      "consistency": 82
+      "consistency": 82,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Gemini 3.1 Pro Preview",
@@ -3139,7 +3147,8 @@
         }
       ],
       "reliability": 0.8854,
-      "consistency": 89
+      "consistency": 89,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Gemini 3.5 Flash",
@@ -3257,7 +3266,8 @@
         }
       ],
       "reliability": 0.8036,
-      "consistency": 80
+      "consistency": 80,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Gemma 2 2B",
@@ -3893,7 +3903,8 @@
         }
       ],
       "consistency": 77,
-      "runs": 35
+      "runs": 35,
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-4.1 mini",
@@ -3985,7 +3996,8 @@
         }
       ],
       "consistency": 88,
-      "runs": 4
+      "runs": 4,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "GPT-4.1 nano",
@@ -4077,7 +4089,8 @@
         }
       ],
       "consistency": 92,
-      "runs": 4
+      "runs": 4,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "GPT-4o",
@@ -4585,7 +4598,8 @@
         }
       ],
       "consistency": 77,
-      "runs": 45
+      "runs": 45,
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-4o mini",
@@ -4937,7 +4951,8 @@
         }
       ],
       "consistency": 72,
-      "runs": 33
+      "runs": 33,
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-5 mini",
@@ -5046,7 +5061,8 @@
             1
           ]
         }
-      ]
+      ],
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "GPT-5.2",
@@ -5218,7 +5234,8 @@
         }
       ],
       "reliability": 0.8393,
-      "consistency": 84
+      "consistency": 84,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "GPT-5.4 Mini",
@@ -5327,7 +5344,8 @@
         }
       ],
       "reliability": 0.7917,
-      "consistency": 79
+      "consistency": 79,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "GPT-5.5",
@@ -5490,7 +5508,8 @@
       ],
       "runs": 10,
       "reliability": 0.7438,
-      "consistency": 74
+      "consistency": 74,
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-5.6 Luna",
@@ -5541,7 +5560,7 @@
       ],
       "model": "gpt-5.6-luna",
       "provider": "openai",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5652,7 +5671,7 @@
       ],
       "model": "gpt-5.6-sol",
       "provider": "openai",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5763,7 +5782,7 @@
       ],
       "model": "gpt-5.6-terra",
       "provider": "openai",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6377,7 +6396,8 @@
         }
       ],
       "runs": 4,
-      "consistency": 88
+      "consistency": 88,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "Llama 4 Scout 17B",
@@ -6468,7 +6488,8 @@
         }
       ],
       "runs": 4,
-      "consistency": 86
+      "consistency": 86,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "Mathstral 7B",
@@ -6646,7 +6667,7 @@
       ],
       "model": "MiniMax-M2.1",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6766,7 +6787,7 @@
       ],
       "model": "MiniMax-M2.5",
       "provider": "openai",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6944,7 +6965,8 @@
         }
       ],
       "reliability": 0.7188,
-      "consistency": 72
+      "consistency": 72,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Ministral 3B",
@@ -7173,7 +7195,8 @@
         }
       ],
       "consistency": 67,
-      "runs": 4
+      "runs": 4,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "Mistral Small 3.1",
@@ -7265,7 +7288,8 @@
         }
       ],
       "consistency": 69,
-      "runs": 4
+      "runs": 4,
+      "questionVersion": "5.18-beta"
     },
     {
       "name": "Nemotron Mini 4B",
@@ -7402,7 +7426,8 @@
         }
       ],
       "consistency": 77,
-      "runs": 3
+      "runs": 3,
+      "questionVersion": "5.15-beta"
     },
     {
       "name": "Phi 4 Multimodal",
@@ -7485,7 +7510,8 @@
         }
       ],
       "consistency": 77,
-      "runs": 3
+      "runs": 3,
+      "questionVersion": "5.22"
     },
     {
       "name": "Phi-4 Mini",
@@ -8440,7 +8466,7 @@
       ],
       "model": "MiniMax-M2",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -8560,7 +8586,7 @@
       ],
       "model": "gpt-5.3-codex",
       "provider": "openai",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -8756,7 +8782,8 @@
         }
       ],
       "runs": 9,
-      "consistency": 87
+      "consistency": 87,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "GPT-4o Preview",
@@ -8865,7 +8892,8 @@
         }
       ],
       "runs": 6,
-      "consistency": 81
+      "consistency": 81,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "MAI-Code-1-Flash",
@@ -8974,7 +9002,8 @@
         }
       ],
       "runs": 6,
-      "consistency": 92
+      "consistency": 92,
+      "questionVersion": "5.22-beta"
     },
     {
       "name": "Claude Opus 5",
@@ -9024,7 +9053,7 @@
       ],
       "model": "claude-opus-5",
       "provider": "anthropic",
-      "questionVersion": "5.22",
+      "questionVersion": "5.22-beta",
       "lang": "en",
       "reliabilityRuns": [
         {
