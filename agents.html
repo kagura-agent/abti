@@ -57,6 +57,10 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 .card-name a:hover { text-decoration: underline; }
 .pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; letter-spacing: .06em; margin-bottom: .3rem; }
 .badge-deprecated { display: inline-block; background: #fff3e0; color: #e65100; font-size: .65rem; font-weight: 600; padding: .1rem .45rem; border-radius: 999px; letter-spacing: .04em; vertical-align: middle; }
+.badge-freshness { display: inline-block; font-size: .65rem; font-weight: 600; padding: .1rem .45rem; border-radius: 999px; letter-spacing: .04em; vertical-align: middle; }
+.badge-freshness.current { background: #e8f5e9; color: #2e7d32; }
+.badge-freshness.outdated { background: #fff3e0; color: #e65100; }
+.badge-freshness.legacy { background: #f5f5f5; color: #9e9e9e; }
 .card-deprecated { opacity: 0.65; }
 .card-nick { color: var(--text2); font-size: .82rem; }
 .card-time { color: var(--text3); font-size: .72rem; margin-top: .3rem; }
@@ -223,6 +227,7 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
     <input type="text" id="search" placeholder="Search by name…">
     <select id="filter-type"><option value="">All Types</option></select>
     <select id="filter-provider"><option value="">All Providers</option></select>
+    <select id="filter-freshness"><option value="">All Versions</option><option value="current">Current only</option><option value="legacy">Legacy only</option></select>
     <select id="sort">
       <option value="newest">Newest first</option>
       <option value="oldest">Oldest first</option>
@@ -297,7 +302,11 @@ var i18n = {
     poleFlexible: 'Flexible', polePrincipled: 'Principled',
     reliable: 'reliable',
     runs: 'runs',
-    deprecated: 'Deprecated'
+    deprecated: 'Deprecated',
+    allVersions: 'All Versions',
+    currentOnly: 'Current only',
+    legacyOnly: 'Legacy only',
+    legacy: 'legacy'
   },
   zh: {
     pageTitle: '已测试的<span>智能体</span>',
@@ -334,7 +343,11 @@ var i18n = {
     poleFlexible: '灵活型', polePrincipled: '原则型',
     reliable: '可靠',
     runs: '次测试',
-    deprecated: '已弃用'
+    deprecated: '已弃用',
+    allVersions: '所有版本',
+    currentOnly: '仅当前版本',
+    legacyOnly: '仅旧版',
+    legacy: '旧版'
   }
 };
 function t(key) { return i18n[lang][key] || i18n.en[key] || key; }
@@ -366,6 +379,8 @@ function applyLang() {
   if (filterType && filterType.options.length > 0) filterType.options[0].textContent = t('allTypes');
   var filterProvider = document.getElementById('filter-provider');
   if (filterProvider && filterProvider.options.length > 0) filterProvider.options[0].textContent = t('allProviders');
+  var filterFreshness = document.getElementById('filter-freshness');
+  if (filterFreshness && filterFreshness.options.length >= 3) { filterFreshness.options[0].textContent = t('allVersions'); filterFreshness.options[1].textContent = t('currentOnly'); filterFreshness.options[2].textContent = t('legacyOnly'); }
   var distTitles = document.querySelectorAll('.dist-title');
   if (distTitles.length >= 2) { distTitles[0].textContent = t('dimBreakdown'); distTitles[1].textContent = t('typeFreq'); }
   var notableTitle = document.querySelector('.notable-title');
@@ -404,7 +419,9 @@ function applyLang() {
     const searchEl = document.getElementById('search');
     const filterEl = document.getElementById('filter-type');
     const providerFilterEl = document.getElementById('filter-provider');
+    const freshnessFilterEl = document.getElementById('filter-freshness');
     const sortEl = document.getElementById('sort');
+    const CURRENT_VERSION = '5.22';
 
     // Populate type filter
     const types = [...new Set(data.agents.map(a => a.type).filter(Boolean))].sort();
@@ -419,12 +436,15 @@ function applyLang() {
       const q = searchEl.value.toLowerCase();
       const typeFilter = filterEl.value;
       const providerFilter = providerFilterEl.value;
+      const freshnessFilter = freshnessFilterEl.value;
       const sortMode = sortEl.value;
 
       let list = allAgents.filter(a => {
         if (q && !a.name.toLowerCase().includes(q)) return false;
         if (typeFilter && a.type !== typeFilter) return false;
         if (providerFilter && a.provider !== providerFilter) return false;
+        if (freshnessFilter === 'current' && a.questionVersion !== CURRENT_VERSION) return false;
+        if (freshnessFilter === 'legacy' && a.questionVersion) return false;
         return true;
       });
 
@@ -447,6 +467,7 @@ function applyLang() {
           + '<div class="card-name">' + nameHtml + '</div>'
           + '<a class="pill" href="/type/' + esc(a.type) + '" style="text-decoration:none">' + esc(a.type) + '</a>'
           + (a.deprecated ? ' <span class="badge-deprecated" title="' + esc(a.deprecatedReason || '') + '">' + t('deprecated') + '</span>' : '')
+          + (a.questionVersion === CURRENT_VERSION ? ' <span class="badge-freshness current">v' + esc(a.questionVersion) + '</span>' : a.questionVersion ? ' <span class="badge-freshness outdated">v' + esc(a.questionVersion) + '</span>' : ' <span class="badge-freshness legacy">' + t('legacy') + '</span>')
           + (a.confidence != null && a.confidence < 0.5 ? ' <span title="Low parse confidence: ' + Math.round(a.confidence * 100) + '%" style="cursor:help">⚠️</span>' : '')
           + (a.nick ? ' <span class="card-nick">' + esc(a.nick) + '</span>' : '')
           + (a.model || a.provider ? '<div class="card-model">' + esc([a.model, a.provider].filter(Boolean).join(' · ')) + '</div>' : '')
@@ -470,6 +491,7 @@ function applyLang() {
     searchEl.addEventListener('input', renderCards);
     filterEl.addEventListener('change', renderCards);
     providerFilterEl.addEventListener('change', renderCards);
+    freshnessFilterEl.addEventListener('change', renderCards);
     sortEl.addEventListener('change', renderCards);
     window._renderCards = renderCards;
     renderCards();
