@@ -609,8 +609,8 @@
       "model": "claude-opus-4.6",
       "provider": "anthropic",
       "consistency": 77,
-      "runs": 24,
-      "reliability": 0.7656,
+      "runs": 27,
+      "reliability": 0.7685,
       "reliabilityRuns": [
         {
           "type": "PTCN",
@@ -827,6 +827,33 @@
             2,
             2
           ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            3
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            4,
+            2
+          ]
+        },
+        {
+          "type": "RECF",
+          "scores": [
+            1,
+            1,
+            3,
+            3
+          ]
         }
       ]
     },
@@ -879,9 +906,9 @@
       ],
       "model": "claude-opus-4.7",
       "provider": "anthropic",
-      "consistency": 95,
-      "runs": 4,
-      "reliability": 0.9531,
+      "consistency": 93,
+      "runs": 7,
+      "reliability": 0.9286,
       "reliabilityRuns": [
         {
           "type": "RECF",
@@ -1046,9 +1073,9 @@
           "provider": "anthropic"
         }
       ],
-      "reliability": 0.9583,
-      "consistency": 96,
-      "runs": 3,
+      "reliability": 0.9063,
+      "consistency": 91,
+      "runs": 6,
       "reliabilityRuns": [
         {
           "type": "RTCF",
@@ -1644,7 +1671,7 @@
       ],
       "model": "claude-sonnet-5",
       "provider": "anthropic",
-      "questionVersion": "5.15-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -2945,8 +2972,35 @@
       ],
       "model": "gemini-3-flash-preview",
       "provider": "openai",
-      "runs": 3,
+      "runs": 6,
       "reliabilityRuns": [
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            4,
+            0,
+            2
+          ]
+        },
         {
           "type": "PTCF",
           "scores": [
@@ -2975,8 +3029,8 @@
           ]
         }
       ],
-      "reliability": 0.8542,
-      "consistency": 85
+      "reliability": 0.8229,
+      "consistency": 82
     },
     {
       "name": "Gemini 3.1 Pro Preview",
@@ -3027,7 +3081,7 @@
       ],
       "model": "gemini-3.1-pro-preview",
       "provider": "openai",
-      "runs": 3,
+      "runs": 6,
       "reliabilityRuns": [
         {
           "type": "RTDF",
@@ -3055,10 +3109,37 @@
             1,
             2
           ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            1,
+            3
+          ]
         }
       ],
-      "reliability": 0.9792,
-      "consistency": 98
+      "reliability": 0.8854,
+      "consistency": 89
     },
     {
       "name": "Gemini 3.5 Flash",
@@ -3109,7 +3190,7 @@
       ],
       "model": "gemini-3.5-flash",
       "provider": "openai",
-      "runs": 4,
+      "runs": 7,
       "reliabilityRuns": [
         {
           "type": "PECN",
@@ -3146,10 +3227,37 @@
             1,
             4
           ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            1,
+            2,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            3
+          ]
         }
       ],
-      "reliability": 0.7813,
-      "consistency": 78
+      "reliability": 0.8036,
+      "consistency": 80
     },
     {
       "name": "Gemma 2 2B",
@@ -4528,7 +4636,7 @@
       ],
       "model": "gpt-4o-mini",
       "provider": "openai",
-      "reliability": 0.7125,
+      "reliability": 0.7159,
       "reliabilityRuns": [
         {
           "type": "PECF",
@@ -4661,6 +4769,33 @@
           "scores": [
             3,
             2,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            4,
+            0,
+            0,
+            4
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
             2,
             3
           ]
@@ -4801,8 +4936,8 @@
           ]
         }
       ],
-      "consistency": 71,
-      "runs": 30
+      "consistency": 72,
+      "runs": 33
     },
     {
       "name": "GPT-5 mini",
@@ -5134,7 +5269,7 @@
       ],
       "model": "gpt-5.4-mini",
       "provider": "openai",
-      "runs": 3,
+      "runs": 6,
       "reliabilityRuns": [
         {
           "type": "PTCF",
@@ -5162,10 +5297,37 @@
             3,
             2
           ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            2
+          ]
         }
       ],
-      "reliability": 0.875,
-      "consistency": 88
+      "reliability": 0.7917,
+      "consistency": 79
     },
     {
       "name": "GPT-5.5",
@@ -5437,9 +5599,9 @@
           ]
         }
       ],
-      "runs": 3,
-      "reliability": 0.9167,
-      "consistency": 92
+      "runs": 6,
+      "reliability": 0.7292,
+      "consistency": 73
     },
     {
       "name": "GPT-5.6 Sol",
@@ -5548,9 +5710,9 @@
           ]
         }
       ],
-      "runs": 3,
-      "reliability": 0.9792,
-      "consistency": 98
+      "runs": 6,
+      "reliability": 0.8229,
+      "consistency": 82
     },
     {
       "name": "GPT-5.6 Terra",
@@ -5659,9 +5821,9 @@
           ]
         }
       ],
-      "runs": 3,
-      "reliability": 0.8958,
-      "consistency": 90
+      "runs": 6,
+      "reliability": 0.8333,
+      "consistency": 83
     },
     {
       "name": "Granite 3.3 8B",
@@ -6522,11 +6684,38 @@
             3,
             1
           ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            2,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            4
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            0,
+            2
+          ]
         }
       ],
-      "runs": 4,
-      "reliability": 0.6563,
-      "consistency": 66
+      "runs": 7,
+      "reliability": 0.6786,
+      "consistency": 68
     },
     {
       "name": "MiniMax M2.5",
@@ -6644,9 +6833,9 @@
           ]
         }
       ],
-      "runs": 4,
-      "reliability": 0.6875,
-      "consistency": 69
+      "runs": 7,
+      "reliability": 0.7054,
+      "consistency": 71
     },
     {
       "name": "MiniMax M2.7",
@@ -8289,11 +8478,38 @@
             2,
             3
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PECN",
+          "scores": [
+            3,
+            1,
+            2,
+            1
+          ]
         }
       ],
-      "runs": 4,
-      "reliability": 0.7656,
-      "consistency": 77
+      "runs": 7,
+      "reliability": 0.7411,
+      "consistency": 74
     },
     {
       "name": "GPT-5.3 Codex",
@@ -8344,7 +8560,7 @@
       ],
       "model": "gpt-5.3-codex",
       "provider": "openai",
-      "questionVersion": "5.18-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -8373,11 +8589,38 @@
             2,
             2
           ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            3,
+            2,
+            3
+          ]
+        },
+        {
+          "type": "PTDF",
+          "scores": [
+            2,
+            4,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            4,
+            2,
+            2
+          ]
         }
       ],
-      "runs": 3,
-      "reliability": 0.8958,
-      "consistency": 90
+      "runs": 6,
+      "reliability": 0.875,
+      "consistency": 88
     },
     {
       "name": "Gemini 3.6 Flash",
@@ -8564,8 +8807,35 @@
       ],
       "model": "gpt-4-o-preview",
       "provider": "github",
-      "reliability": 0.875,
+      "reliability": 0.8125,
       "reliabilityRuns": [
+        {
+          "type": "RTCF",
+          "scores": [
+            1,
+            2,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            2,
+            2,
+            2,
+            4
+          ]
+        },
         {
           "type": "PTCF",
           "scores": [
@@ -8594,8 +8864,8 @@
           ]
         }
       ],
-      "runs": 3,
-      "consistency": 88
+      "runs": 6,
+      "consistency": 81
     },
     {
       "name": "MAI-Code-1-Flash",
@@ -8649,6 +8919,33 @@
       "reliability": 0.9167,
       "reliabilityRuns": [
         {
+          "type": "PEDF",
+          "scores": [
+            3,
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "type": "PECF",
+          "scores": [
+            3,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "type": "PTCF",
+          "scores": [
+            3,
+            2,
+            2,
+            4
+          ]
+        },
+        {
           "type": "PECF",
           "scores": [
             3,
@@ -8676,7 +8973,7 @@
           ]
         }
       ],
-      "runs": 3,
+      "runs": 6,
       "consistency": 92
     },
     {
