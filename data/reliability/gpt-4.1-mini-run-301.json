@@ -1,30 +1,31 @@
 {
-    "model": "openai/gpt-4.1-mini",
-    "provider": "github",
-    "run": 301,
-    "answers": [
-        "B",
-        "B",
-        "A",
-        "B",
-        "B",
-        "A",
-        "B",
-        "A",
-        "B",
-        "A",
-        "B",
-        "B",
-        "A",
-        "B",
-        "B",
-        "A"
-    ],
-    "type": "RTDF",
-    "dimensions": [
-        1,
-        2,
-        1,
-        2
-    ]
+  "model": "openai/gpt-4.1-mini",
+  "provider": "github",
+  "run": 301,
+  "answers": [
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "type": "RTDF",
+  "dimensions": [
+    1,
+    2,
+    1,
+    2
+  ],
+  "questionVersion": "5.22"
 }
