@@ -1,0 +1,33 @@
+{
+    "model": "Llama-3.3-70B-Instruct",
+    "provider": "github",
+    "run": 302,
+    "answers": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "B",
+        "A",
+        "B",
+        "A",
+        "A",
+        "B",
+        "B",
+        "B",
+        "B"
+    ],
+    "type": "PTCF",
+    "dimensions": [
+        3,
+        4,
+        3,
+        2
+    ]
+}
