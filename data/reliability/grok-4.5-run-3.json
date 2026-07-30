@@ -1,0 +1,31 @@
+{
+  "model": "grok-4.5",
+  "provider": "xai",
+  "run": 3,
+  "answers": [
+    "B",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "A",
+    "A",
+    "B",
+    "B",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B"
+  ],
+  "dimensions": [
+    0,
+    3,
+    1,
+    2
+  ],
+  "type": "RTDF",
+  "questionVersion": "5.22"
+}
