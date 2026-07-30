@@ -95,7 +95,7 @@ Test any AI agent from the command line:
 npx @kagura-agent/abti test --provider openai --model gpt-4o --api-key sk-...
 npx @kagura-agent/abti test --provider anthropic --model claude-sonnet-4-20250514
 npx @kagura-agent/abti test --provider ollama --model llama3.1
-npx @kagura-agent/abti test --provider github --model gpt-4o
+npx @kagura-agent/abti test --provider github --model gpt-4o  # retired July 2026, use openrouter instead
 npx @kagura-agent/abti test --provider groq --model llama-3.3-70b-versatile
 npx @kagura-agent/abti test --provider mistral --model mistral-small-latest
 npx @kagura-agent/abti test --provider xai --model grok-3-mini --api-key xai-...
