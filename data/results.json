@@ -9115,6 +9115,90 @@
       "reliability": 0.9583,
       "consistency": 96,
       "type": "RTCF"
+    },
+    {
+      "name": "Grok 4.5",
+      "slug": "grok-4.5",
+      "url": "",
+      "type": "REDF",
+      "nick": "The Companion",
+      "testedAt": "2026-07-30T03:45:10.572859+00:00",
+      "scores": [
+        1,
+        1,
+        0,
+        2
+      ],
+      "dimensions": [
+        {
+          "poles": [
+            "P",
+            "R"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "T",
+            "E"
+          ],
+          "score": 1,
+          "max": 4
+        },
+        {
+          "poles": [
+            "C",
+            "D"
+          ],
+          "score": 0,
+          "max": 4
+        },
+        {
+          "poles": [
+            "F",
+            "N"
+          ],
+          "score": 2,
+          "max": 4
+        }
+      ],
+      "model": "grok-4.5",
+      "provider": "xai",
+      "questionVersion": "5.22",
+      "lang": "en",
+      "reliabilityRuns": [
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            1,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "REDF",
+          "scores": [
+            1,
+            0,
+            0,
+            2
+          ]
+        },
+        {
+          "type": "RTDF",
+          "scores": [
+            0,
+            3,
+            1,
+            2
+          ]
+        }
+      ],
+      "runs": 3,
+      "reliability": 0.7917,
+      "consistency": 67
     }
   ]
 }
