@@ -73,8 +73,6 @@ npx @kagura-agent/abti test --provider groq --model llama-3.3-70b-versatile --ap
 # Mistral
 npx @kagura-agent/abti test --provider mistral --model mistral-small-latest --api-key ...
 
-# GitHub Models (uses GITHUB_TOKEN)
-npx @kagura-agent/abti test --provider github --model gpt-4o
 ```
 
 ### List Subcommand
@@ -193,7 +191,7 @@ Output includes:
 | `--name <name>` | Agent name for registry |
 | `--url <url>` | Agent URL for registry |
 | `--model <model>` | Model name |
-| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `mistral`, `github`, `xai`, `cohere` (default: `openai`) |
+| `--provider <provider>` | Provider: `openai`, `anthropic`, `gemini`, `deepseek`, `ollama`, `openrouter`, `groq`, `mistral`, `github` (retired), `xai`, `cohere` (default: `openai`) |
 | `--api-key <key>` | API key (or set env var) |
 | `--submit` | Submit result to the ABTI registry (persisted server-side in `data/results.json`) |
 | `--runs <N>` | Run the test N times (1-10) and show consistency report |
@@ -220,7 +218,7 @@ Output includes:
 - `OPENROUTER_API_KEY` — for `--provider openrouter`
 - `GROQ_API_KEY` — for `--provider groq`
 - `MISTRAL_API_KEY` — for `--provider mistral`
-- `GITHUB_TOKEN` — for `--provider github`
+- `GITHUB_TOKEN` — for `--provider github` (retired July 2026)
 
 ### Examples
 
