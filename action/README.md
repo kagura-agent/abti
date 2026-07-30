@@ -2,7 +2,7 @@
 
 Run an [ABTI personality test](https://abti.kagura-agent.com) on your AI agent directly in GitHub Actions.
 
-The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gemini, DeepSeek, GitHub Models, Groq, OpenRouter, Mistral, xAI, or Cohere), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
+The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gemini, DeepSeek, Groq, OpenRouter, Mistral, xAI, or Cohere), collects its choices, and reports the resulting ABTI type as a job summary, outputs, and optional PR comment.
 
 ## Inputs
 
@@ -10,7 +10,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
 |-------|----------|---------|-------------|
 | `agent-prompt` | No | — | Agent system prompt string |
 | `agent-prompt-file` | No | — | Path to file containing system prompt (e.g. `AGENTS.md`) |
-| `provider` | **Yes** | — | `openai`, `anthropic`, `gemini`, `deepseek`, `github`, `groq`, `openrouter`, `mistral`, `xai`, or `cohere` |
+| `provider` | **Yes** | — | `openai`, `anthropic`, `gemini`, `deepseek`, `github` (retired), `groq`, `openrouter`, `mistral`, `xai`, or `cohere` |
 | `model` | **Yes** | — | Model name (e.g. `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `api-key` | **Yes** | — | API key for the LLM provider |
 | `agent-name` | No | `<model> (<provider>)` | Display name for the agent in the registry |
@@ -52,8 +52,11 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
     api-key: ${{ secrets.GOOGLE_AI_API_KEY }}
 ```
 
-### Basic — test with GitHub Models
+### ~~GitHub Models~~ (retired July 2026)
 
+> GitHub Models has been retired. Use `--provider openrouter` for free-tier access, or another provider with your own API key.
+
+<!--
 ```yaml
 - uses: kagura-agent/abti@v1
   with:
@@ -61,6 +64,7 @@ The action sends each scenario question to an LLM (OpenAI, Anthropic, Google Gem
     model: gpt-4o
     api-key: ${{ secrets.GITHUB_TOKEN }}
 ```
+-->
 
 ### Basic — test with Groq
 
@@ -189,5 +193,5 @@ When drift is detected, the action:
 ## Requirements
 
 - Node.js 20+ (provided by GitHub Actions runners)
-- An API key for your chosen provider (OpenAI, Anthropic, Google AI, DeepSeek, GitHub, Groq, OpenRouter, Mistral, xAI, or Cohere) stored as a repository secret
+- An API key for your chosen provider (OpenAI, Anthropic, Google AI, DeepSeek, Groq, OpenRouter, Mistral, xAI, or Cohere) stored as a repository secret
 - For PR comments: `GITHUB_TOKEN` with `pull-requests: write` permission

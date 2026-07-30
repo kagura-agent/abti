@@ -399,14 +399,14 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'anthropic') return callAnthropic(apiKey, mdl, systemPrompt, userMessage, baseUrl, maxTokens);
   if (prov === 'gemini') return callGemini(apiKey, mdl, systemPrompt, userMessage, maxTokens);
   if (prov === 'deepseek') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, 'https://api.deepseek.com', undefined, maxTokens);
-  if (prov === 'github') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://models.github.ai/inference', undefined, maxTokens, '/chat/completions');
+  if (prov === 'github') throw new Error('GitHub Models retired on July 30, 2026. Use --provider openrouter for free-tier access, or --provider openai/anthropic/gemini with your own API key.');
   if (prov === 'groq') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai', undefined, maxTokens);
   if (prov === 'openrouter') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1', undefined, maxTokens);
   if (prov === 'mistral') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1', undefined, maxTokens);
   if (prov === 'xai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1', undefined, maxTokens);
   if (prov === 'cohere') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/v2', undefined, maxTokens);
   if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined, maxTokens);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", "cohere", or "ollama".`);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github" (retired), "groq", "openrouter", "mistral", "xai", "cohere", or "ollama".`);
 }
 
 function isReasoningModel(modelName) {
@@ -445,7 +445,7 @@ function parseAnswer(response) {
 function resolveApiKey(prov, explicit) {
   if (explicit) return explicit;
   if (prov === 'ollama') return 'ollama';
-  if (prov === 'github') return process.env.GITHUB_TOKEN || (() => { throw new Error('No API key provided. Use --api-key or set GITHUB_TOKEN'); })();
+  if (prov === 'github') throw new Error('GitHub Models retired on July 30, 2026. Use --provider openrouter for free-tier access, or --provider openai/anthropic/gemini with your own API key.');
   const envMap = { openai: 'OPENAI_API_KEY', anthropic: 'ANTHROPIC_API_KEY', gemini: 'GOOGLE_AI_API_KEY', deepseek: 'DEEPSEEK_API_KEY', groq: 'GROQ_API_KEY', openrouter: 'OPENROUTER_API_KEY', mistral: 'MISTRAL_API_KEY', xai: 'XAI_API_KEY', cohere: 'CO_API_KEY' };
   const envKey = envMap[prov];
   if (envKey && process.env[envKey]) return process.env[envKey];
@@ -839,7 +839,8 @@ async function runAll() {
     } else if (autoProvider === 'openrouter') {
       modelList = await fetchOpenRouterModels(apiKey);
     } else if (autoProvider === 'github') {
-      modelList = await fetchGitHubModels(apiKey);
+      console.error('  GitHub Models retired on July 30, 2026. Use --provider openrouter for free-tier access, or --provider openai/anthropic/gemini with your own API key.');
+      process.exit(1);
     } else if (autoProvider === 'gemini') {
       modelList = await fetchGeminiModels(apiKey);
     } else if (autoProvider === 'cohere') {
