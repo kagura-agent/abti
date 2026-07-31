@@ -857,7 +857,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Opus 4.7",
@@ -976,7 +976,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Opus 4.8",
@@ -1134,7 +1134,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Sonnet 4.5",
@@ -1675,7 +1675,7 @@
       ],
       "model": "claude-sonnet-5",
       "provider": "anthropic",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -3038,7 +3038,7 @@
       ],
       "reliability": 0.8229,
       "consistency": 82,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Gemini 3.1 Pro Preview",
@@ -3148,7 +3148,7 @@
       ],
       "reliability": 0.8854,
       "consistency": 89,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Gemini 3.5 Flash",
@@ -3267,7 +3267,7 @@
       ],
       "reliability": 0.8036,
       "consistency": 80,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Gemma 2 2B",
@@ -5071,7 +5071,7 @@
           ]
         }
       ],
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-5.2",
@@ -5244,7 +5244,7 @@
       ],
       "reliability": 0.8393,
       "consistency": 84,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-5.4 Mini",
@@ -5354,7 +5354,7 @@
       ],
       "reliability": 0.7917,
       "consistency": 79,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-5.5",
@@ -5569,7 +5569,7 @@
       ],
       "model": "gpt-5.6-luna",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5680,7 +5680,7 @@
       ],
       "model": "gpt-5.6-sol",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -5791,7 +5791,7 @@
       ],
       "model": "gpt-5.6-terra",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6703,7 +6703,7 @@
       ],
       "model": "MiniMax-M2.1",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -6823,7 +6823,7 @@
       ],
       "model": "MiniMax-M2.5",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -7002,7 +7002,7 @@
       ],
       "reliability": 0.7188,
       "consistency": 72,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Ministral 3B",
@@ -8529,7 +8529,7 @@
       ],
       "model": "MiniMax-M2",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -8649,7 +8649,7 @@
       ],
       "model": "gpt-5.3-codex",
       "provider": "openai",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
@@ -8846,7 +8846,7 @@
       ],
       "runs": 9,
       "consistency": 87,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-4o Preview",
@@ -8956,7 +8956,7 @@
       ],
       "runs": 6,
       "consistency": 81,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "MAI-Code-1-Flash",
@@ -9066,7 +9066,7 @@
       ],
       "runs": 6,
       "consistency": 92,
-      "questionVersion": "5.22-beta"
+      "questionVersion": "5.22"
     },
     {
       "name": "Claude Opus 5",
@@ -9116,7 +9116,7 @@
       ],
       "model": "claude-opus-5",
       "provider": "anthropic",
-      "questionVersion": "5.22-beta",
+      "questionVersion": "5.22",
       "lang": "en",
       "reliabilityRuns": [
         {
