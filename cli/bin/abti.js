@@ -183,7 +183,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider anthropic --model claude-sonnet-4-20250514
     npx abti test --provider gemini --model gemini-2.0-flash
     npx abti test --provider deepseek --model deepseek-chat
-    npx abti test --provider github --model gpt-4o
+    npx abti test --provider openrouter --model openai/gpt-4o
     npx abti test --provider groq --model llama-3.3-70b-versatile
     npx abti test --provider openrouter --model meta-llama/llama-3.3-70b-instruct
     npx abti test --provider mistral --model mistral-small-latest
@@ -192,7 +192,6 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider ollama --all
     npx abti test --provider openrouter --all --api-key sk-or-...
     npx abti test --provider openrouter --all --filter llama --max-models 5
-    npx abti test --provider github --all
     npx abti test --provider anthropic --all --api-key sk-ant-...
     npx abti test --provider groq --all --api-key gsk_...
     npx abti test --provider mistral --all --api-key ...
@@ -208,8 +207,8 @@ if (flag('--help') || flag('-h')) {
     --name <name>            Agent name for registry
     --url <url>              Agent URL for registry
     --model <model>          Model name
-    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|github|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
-    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / GITHUB_TOKEN / CO_API_KEY)
+    --provider <provider>    Provider: openai|anthropic|gemini|deepseek|groq|openrouter|mistral|xai|cohere|ollama (default: openai)
+    --api-key <key>          API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY / GOOGLE_AI_API_KEY / DEEPSEEK_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / CO_API_KEY)
     --all                    Test all available models (all providers supported)
     --max-models <N>         Limit number of models to test in --all mode
     --filter <pattern>       Filter models by substring match in --all mode
@@ -235,7 +234,7 @@ if (flag('--help') || flag('-h')) {
     npx abti test --provider openai --model gpt-4o --json --submit --name "my-agent"
     npx abti test --provider anthropic --model claude-sonnet-4-20250514 --badge
     npx abti --lang zh --json
-    npx abti test --provider github --model gpt-4o --api-key ghp_...
+    npx abti test --provider openrouter --model openai/gpt-4o --api-key sk-or-...
     npx abti test --provider groq --model llama-3.3-70b-versatile --api-key gsk_...
     npx abti test --provider openrouter --model meta-llama/llama-3.3-70b-instruct --api-key sk-or-...
 `);
@@ -406,7 +405,7 @@ function callLLM(prov, apiKey, mdl, systemPrompt, userMessage, baseUrl, maxToken
   if (prov === 'xai') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1', undefined, maxTokens);
   if (prov === 'cohere') return callOpenAI(apiKey, mdl, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/v2', undefined, maxTokens);
   if (prov === 'ollama') return callOpenAI(apiKey || 'ollama', mdl, systemPrompt, userMessage, 'http://localhost:11434', isReasoningModel(mdl) ? { think: false } : undefined, maxTokens);
-  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "github" (retired), "groq", "openrouter", "mistral", "xai", "cohere", or "ollama".`);
+  throw new Error(`Unknown provider: ${prov}. Must be "openai", "anthropic", "gemini", "deepseek", "groq", "openrouter", "mistral", "xai", "cohere", or "ollama".`);
 }
 
 function isReasoningModel(modelName) {
@@ -704,33 +703,6 @@ function fetchAnthropicModels(apiKey) {
       });
     }
     fetchPage(null);
-  });
-}
-
-function fetchGitHubModels(apiKey) {
-  return new Promise((resolve, reject) => {
-    const agent = createProxyAgent('https://models.github.ai/catalog/models', noProxyFlag);
-    https.get('https://models.github.ai/catalog/models', {
-      agent,
-      headers: { 'Authorization': `Bearer ${apiKey}` },
-    }, res => {
-      let data = '';
-      res.on('data', c => data += c);
-      res.on('end', () => {
-        if (res.statusCode !== 200) return reject(new Error(`GitHub Models API returned ${res.statusCode}: ${data}`));
-        try {
-          const json = JSON.parse(data);
-          const models = (Array.isArray(json) ? json : json.data || json.models || [])
-            .filter(m => m.supported_output_modalities && m.supported_output_modalities.includes('text'))
-            .filter(m => includeCustomFlag || m.rate_limit_tier !== 'custom')
-            .map(m => m.id)
-            .sort((a, b) => a.localeCompare(b));
-          resolve(models);
-        } catch (e) { reject(new Error(`Failed to parse GitHub Models response: ${e.message}`)); }
-      });
-    }).on('error', err => {
-      reject(new Error(`Cannot connect to GitHub Models API: ${err.message}`));
-    });
   });
 }
 
@@ -1951,4 +1923,4 @@ function filterExistingModels(modelList, agents) {
   return { remaining, skipped };
 }
 
-module.exports = { parseAnswer, score, callLLM, QUESTIONS, QUESTION_VERSION, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels, normalizeModelName };
+module.exports = { parseAnswer, score, callLLM, QUESTIONS, QUESTION_VERSION, loadState, saveState, defaultStateFile, formatListTable, formatCompare, formatTypeInfo, formatAgentInfo, formatHistoryTable, isTypeCode, runStats, RateLimitBailError, fetchOllamaModels, fetchOpenRouterModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName, filterExistingModels, normalizeModelName };
