@@ -3956,57 +3956,39 @@
       "model": "gpt-4.1-mini",
       "provider": "github",
       "desc": "Proactive, efficient, candid, flexible. Fast-moving generalist who says what they think and adapts on the fly.",
-      "reliability": 0.8125,
+      "reliability": 0.7083,
       "reliabilityRuns": [
-        {
-          "type": "PTDF",
-          "scores": [
-            2,
-            2,
-            0,
-            2
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            2,
-            1,
-            3
-          ]
-        },
         {
           "type": "RTDF",
           "scores": [
             1,
             2,
             1,
-            4
+            2
+          ]
+        },
+        {
+          "type": "PEDF",
+          "scores": [
+            3,
+            1,
+            1,
+            3
           ]
         },
         {
           "type": "PTCF",
           "scores": [
-            2,
-            2,
-            2,
-            3
-          ]
-        },
-        {
-          "type": "PTDF",
-          "scores": [
-            3,
-            2,
-            1,
-            3
+            4,
+            4,
+            4,
+            4
           ]
         }
       ],
-      "consistency": 81,
-      "runs": 5,
-      "questionVersion": "5.18-beta"
+      "consistency": 71,
+      "runs": 3,
+      "questionVersion": "5.22"
     },
     {
       "name": "GPT-4.1 nano",
