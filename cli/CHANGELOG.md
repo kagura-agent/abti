@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Cleanup
+- **GitHub Models retirement** — removed dead `fetchGitHubModels()` code and `models.github.ai` references; `--provider github` now shows a helpful retirement notice directing users to OpenRouter or other providers (fixes #860)
+
 ## 0.2.0 (2026-05-09)
 
 ### New Features

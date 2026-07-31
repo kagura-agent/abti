@@ -251,14 +251,14 @@ function callLLM(provider, apiKey, model, systemPrompt, userMessage, baseUrl) {
   if (provider === 'openai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'anthropic') return callAnthropic(apiKey, model, systemPrompt, userMessage, baseUrl);
   if (provider === 'gemini') return callGemini(apiKey, model, systemPrompt, userMessage);
-  if (provider === 'github') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://models.github.ai/inference', '/chat/completions');
+  if (provider === 'github') throw new Error('GitHub Models retired on July 30, 2026. Use --provider openrouter for free-tier access, or --provider openai/anthropic/gemini with your own API key.');
   if (provider === 'groq') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.groq.com/openai');
   if (provider === 'openrouter') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://openrouter.ai/api/v1');
   if (provider === 'mistral') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.mistral.ai/v1');
   if (provider === 'xai') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.x.ai/v1');
   if (provider === 'deepseek') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.deepseek.com');
   if (provider === 'cohere') return callOpenAI(apiKey, model, systemPrompt, userMessage, baseUrl || 'https://api.cohere.com/compatibility');
-  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "deepseek", "github", "groq", "openrouter", "mistral", "xai", or "cohere".`);
+  throw new Error(`Unknown provider: ${provider}. Must be "openai", "anthropic", "gemini", "deepseek", "groq", "openrouter", "mistral", "xai", or "cohere".`);
 }
 
 // ─── Answer parsing ──────────────────────────────────────────────────────────

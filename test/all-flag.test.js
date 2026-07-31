@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert');
-const { fetchOllamaModels, fetchOpenRouterModels, fetchGitHubModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName } = require('../cli/bin/abti.js');
+const { fetchOllamaModels, fetchOpenRouterModels, fetchAnthropicModels, fetchOpenAICompatModels, fetchGeminiModels, fetchCohereModels, displayName } = require('../cli/bin/abti.js');
 
 describe('--all flag', () => {
   describe('displayName', () => {
@@ -44,31 +44,6 @@ describe('--all flag', () => {
         assert.ok(err.message.includes('OpenRouter API') || err.message.includes('Cannot connect'),
           `Expected OpenRouter error, got: ${err.message}`);
       }
-    });
-  });
-
-  describe('fetchGitHubModels', () => {
-    it('should be a function', () => {
-      assert.strictEqual(typeof fetchGitHubModels, 'function');
-    });
-
-    it('should reject with invalid API key', async () => {
-      try {
-        await fetchGitHubModels('invalid-key');
-      } catch (err) {
-        assert.ok(err.message.includes('GitHub Models API') || err.message.includes('Cannot connect'),
-          `Expected GitHub Models error, got: ${err.message}`);
-      }
-    });
-
-    it('should preserve full model IDs including namespace prefix', () => {
-      const fs = require('fs');
-      const path = require('path');
-      const src = fs.readFileSync(path.join(__dirname, '..', 'cli', 'bin', 'abti.js'), 'utf8');
-      assert.ok(
-        src.includes('.map(m => m.id)'),
-        'fetchGitHubModels should preserve full model IDs with provider prefix'
-      );
     });
   });
 
