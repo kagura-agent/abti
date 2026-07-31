@@ -565,7 +565,6 @@ nav a:hover, .nav a:hover, nav a.active, .nav a.active { color: var(--accent); }
         <option value="openrouter">OpenRouter</option>
         <option value="groq">Groq</option>
         <option value="mistral">Mistral</option>
-        <option value="github">GitHub Models</option>
         <option value="xai">xAI (Grok)</option>
         <option value="cohere">Cohere</option>
         <option value="custom">Custom Endpoint</option>
@@ -906,12 +905,6 @@ const providers = {
   mistral: {
     url: 'https://api.mistral.ai/v1/chat/completions',
     models: ['mistral-small-latest', 'mistral-medium-latest', 'mistral-large-latest', 'codestral-latest', 'custom'],
-    auth: 'bearer',
-    format: 'openai',
-  },
-  github: {
-    url: 'https://models.github.ai/inference/chat/completions',
-    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'gpt-4.1-mini', 'Phi-4', 'Phi-4-mini', 'Llama-3.3-70B-Instruct', 'Mistral-Small-3.1-24B-Instruct-2503', 'custom'],
     auth: 'bearer',
     format: 'openai',
   },
