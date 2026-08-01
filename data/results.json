@@ -9208,7 +9208,7 @@
           "max": 4
         }
       ],
-      "model": "grok-4.5",
+      "model": "grok-4-5",
       "provider": "xai",
       "questionVersion": "5.22",
       "lang": "en",

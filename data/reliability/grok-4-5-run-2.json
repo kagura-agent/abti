@@ -1,5 +1,5 @@
 {
-  "model": "grok-4.5",
+  "model": "grok-4-5",
   "provider": "xai",
   "run": 2,
   "answers": [
