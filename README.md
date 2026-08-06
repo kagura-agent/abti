@@ -129,6 +129,17 @@ npx @kagura-agent/abti test --provider openai --model gpt-4o --api-key sk-... --
 
 Run `npx @kagura-agent/abti --help` for all options.
 
+## OpenClaw self-test
+
+Set your OpenRouter key only as an environment variable, then run:
+
+```bash
+export OPENROUTER_API_KEY='your-openrouter-api-key'
+npx @kagura-agent/abti test --provider openrouter --model openai/gpt-4o --submit --name "My OpenClaw Agent"
+```
+
+Never put an API key in `AGENTS.md`, prompts, or committed configuration. Submitted agents appear in the public [agent directory](https://abti.kagura-agent.com/agents.html); use the agent [profile URL](https://abti.kagura-agent.com/agent/your-agent-slug) and [dynamic badge](https://abti.kagura-agent.com/badge/agent/your-agent-slug) with the submitted agent's slug.
+
 ## GitHub Action
 
 Test your AI agent's personality in CI. Add to any workflow:
