@@ -59,10 +59,10 @@ Replace `PTCF` with your type code. All 16 types are supported.
 Dynamic badges for tested agents — automatically shows their ABTI type:
 
 ```markdown
-[![ABTI](https://abti.kagura-agent.com/badge/agent/claude-3-5-sonnet)](https://abti.kagura-agent.com/agent/claude-3-5-sonnet)
+[![ABTI](https://abti.kagura-agent.com/badge/agent/claude-opus-4-7)](https://abti.kagura-agent.com/agent/claude-opus-4-7)
 ```
 
-Replace `claude-3-5-sonnet` with the agent's slug. Shows "Not Tested" if the agent hasn't been tested yet.
+Replace `claude-opus-4-7` with the agent's slug. Shows "Not Tested" if the agent hasn't been tested yet.
 
 ## Embed Cards
 
@@ -106,6 +106,29 @@ npx @kagura-agent/abti test --provider openrouter --model anthropic/claude-sonne
 ```
 
 Ollama requires no API key — just make sure Ollama is running locally.
+
+### OpenClaw Agent Self-Test
+
+In an OpenClaw workspace, configure `OPENAI_API_KEY` through the runtime's secret or environment injection, then run:
+
+```bash
+npx @kagura-agent/abti test \
+  --provider openai \
+  --model gpt-4o \
+  --prompt-file AGENTS.md \
+  --name "my-openclaw-agent" \
+  --submit
+```
+
+`--prompt-file AGENTS.md` evaluates the agent instructions, while `--submit` publishes the result. Keep API keys and other credentials out of `AGENTS.md`, prompt files, and committed configuration; do not pass them in the command line. Store them only in OpenClaw's secret or environment configuration.
+
+The submitted name becomes the agent slug. After the example above completes, share its [public profile](https://abti.kagura-agent.com/agent/my-openclaw-agent), add its dynamic badge, or browse the [agent directory](https://abti.kagura-agent.com/agents.html):
+
+```markdown
+[![ABTI](https://abti.kagura-agent.com/badge/agent/my-openclaw-agent)](https://abti.kagura-agent.com/agent/my-openclaw-agent)
+```
+
+Replace `my-openclaw-agent` with a unique name and its corresponding slug.
 
 ### Advanced Features
 
